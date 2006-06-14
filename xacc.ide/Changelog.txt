@@ -1,0 +1,587 @@
+0.1.3.15   - May 27, 2006 
+
+- created a runtime abstraction layer to assist in porting
+  xacc itself only depend on this runtime, the runtime can be adjusted for deps/CLR
+- updated to NSIS 2.17
+- added 'quick' new textfile menu
+
+0.1.3.14   - May 14, 2006 
+
+- added PowerShell syntax highlighting
+- moved non-essential languages to xacc.lexers.managed.dll
+- removed CPU & memory performance counters
+- added 'scm' as extension for Scheme
+- fixed comment handling in CSS files
+
+0.1.3.13   - May 12, 2006 
+
+- Fixed copy to HTML giving wrong offsets, after font modifications in 0.1.3.11
+- Fixed Selection bar not showing correctly, after font modifications in 0.1.3.11
+
+0.1.3.12   - May 7, 2006 
+
+- more speed improvements
+- fixed critical bug: increase indent when selection is beyond top of viewport
+- fixed critical bug: decrease indent not truncating caretindex
+
+Note:
+  Both of above bug fixes partially solve the known Undo/Redo issue.
+
+0.1.3.11   - May 5, 2006 
+
+- improved JavaScript lexer
+- fixed font size and font selection not working in settings
+  Check "Consolas" font at 10.33pt if you use CRT, stick to integers on LCD. 
+- fixed show stopper performance bug that has crept in since before 0.1.2.12!!!
+  Generous performance improvements will be noticed with scrolling :)
+
+0.1.3.10   - April 22, 2006 
+
+- fixed a bug in C# lexer for verbatim string escapes (@"")
+- fixed a bug in IronPython lexer for single quoted strings
+- improved embedded support
+- prevent further PerformanceCounter related exceptions (thanks Ed Poore)
+- fixed comment handling in CSS
+- added CSS highlighting for STYLE tag in XML
+- improved Language Designer alot
+
+0.1.3.9   - April 17, 2006 
+
+- added language designer for easy (but basic) syntax building
+- added dynamic plugins folder/loader system
+
+0.1.3.8   - April 16, 2006 
+
+- better embedded support
+- improved CS Lex integration
+- moved Patch/Diff lexer to CS Lex
+- added support for Scala and Mercury (both cs_lex)
+
+0.1.3.7   - April 13, 2006 
+
+- moved PlainText and Changelog to new lexers; integrate into main lib
+- clean ups
+- fixed cs_lex invoke issues
+- removed CSTools for now, cs_lex provides better integration and code
+- wrote new lexer for lexing CSLex in CSLex (good example)
+- added basic highlight support for Scheme type languages (notably CommonLarceny)
+- experimental embedded editor support
+
+0.1.3.6   - April 11, 2006 
+
+- improved JavaScript string handling, added syntax highlighting for RegEx literals
+- fixed java lexer to support 'numbered' escape in strings
+- updated to NSIS 2.16
+- added 2 new lexer backends for CSLex and CSTools 'lg'
+- added above to tools
+
+0.1.3.5   - April 2, 2006 
+
+- fixed boo lexer to support # style comments
+- more cleanups to Xml lexer
+- fixed error submission webservice, due to internal network changes (sorry)
+
+0.1.3.4   - March 30, 2006 
+
+- fixed Xml lexer to support multiline strings and better preprocessor handling
+
+0.1.3.3   - March 24, 2006 
+
+- fixed parser bug on some empty files
+
+0.1.3.2   - March 9, 2006 
+
+- added missing 'old-style' clipboard keyboard shortcuts (thanks Julian Hanson)
+- better handling of 'Home' key in editor (thanks Julian Hanson)
+- fixed GotoFirstLine() not scrolling (thanks Douglas Troy)
+- made "New file" buttons less VB-ish, new look will come later (thanks Douglas Troy)
+- improved #region handling (thanks Douglas Troy)
+- added CSS and Perl (dodgy) syntax highlighting
+
+0.1.3.1   - March 8, 2006 
+
+- improved XML highlighting
+- fixed bug when creating new files (thanks Julian Hanson)
+- implemented 'forgotten' Next/Previous window functions (thanks Julian Hanson)
+- improved LSharp compiler 
+  (note: .NET interop has been disabled for now till I can find a better solution)
+
+0.1.3     - March 5, 2006 
+
+- Milestone release, includes full source
+- added basic LSharp compiler
+- fixed annoying error markers (esp in LSharp)
+
+0.1.3-rc1 - March 2, 2006 
+
+- fixed config compiler bug for some non-english-locale versions (thanks Cengizhan)
+
+0.1.3-rc0 - March 1, 2006 
+
+- fixed small bug in tracing
+- added more verbose tracing for config compiler
+- added dock window persistance
+- fixed bug in NSIS multiline strings
+- added notification incase of lexer fault as per above issue
+- removed unnecesary code from msvcr stub
+- fixed msvcr71.dll dependancy sneaking in again
+- handle clipboard exception when using VNC (weirdness)
+
+0.1.2.23  - February 26, 2006 
+
+- added open file persistance for projects
+- fix for some crashes that has been occuring on app start (performance counters) (thanks Benoit & Buck)
+
+0.1.2.22  - February 23, 2006 
+
+- fixed CopyToRtf copying HTML to text format instead of RTF in editor
+- fixed StripTrailingSpaces
+- internal changes
+
+0.1.2.21  - February 22, 2006 
+
+- fixed toolbar (finally!)
+- optimized grid file format
+- improved startup time (and possible config compiler bug)
+
+0.1.2.20  - February 21, 2006 
+
+- fixed caret issues with readonly mode
+- fixed uninstaller bug (stale menus)
+- many bug fixes
+- undo/redo support for grid
+- support for clipboard operations on a selection of cells
+
+0.1.2.19  - February 19, 2006 
+
+- fixed startup project not being selected when project created, causing it not to run/debug
+
+0.1.2.18  - February 18, 2006 
+
+- fixed save as bug in grid
+- included hellogrid.gls sample file
+- added support for custom TokenClass colors in lexer
+- support for multiple grids (cell values only active within current grid now)
+
+0.1.2.17  - February 17, 2006 
+
+- more improvements on grid
+- grids is now a file with gls extention, this is just a LSharp file, which 
+  can be loaded and saved, multiple grids not supported yet
+- yet more internal changes
+
+0.1.2.16  - February 16, 2006 
+
+- fixed a number of reported bugs
+- more improvements on grid
+- yet more internal changes
+- as from previous version you can submit bugs too
+
+0.1.2.15  - February 15, 2006 
+
+- fixed wizard bugs
+- major improvements to grid
+- many internal changes
+
+0.1.2.14  - February 13, 2006 
+
+- merge with new DockPanel Suite (v1.0)! VS2005 style dragging!
+- added invoking methods with parameters, shows dialog (LSharp+keybinding)
+- added highly experimental grid (more details later)
+
+0.1.2.13  - February 12, 2006 
+
+- fixed caret not blinking
+- working on internal changes for new features
+
+0.1.2.12  - February 10, 2006 
+
+- fixed silly 'xacc.config.dll' bug
+
+0.1.2.11  - February 10, 2006   
+
+- added toolbar 'settings' example, see command.ls
+- added ChangeLog.txt
+- added Readme.txt
+- added right click context menus to docking tabs (thanks Douglas Troy)
+- added 'advanced' formatting functions (eg (un)comment, increase indent, to upper)
+- fixed newly reported (via bugtracker) bugs (thanks to all who submit!)
+-	added Changelog syntax support (mostly tailored for this changlog format)
+- improved performance a bit
+- improve error reporting a bit (webservices limits strings to 1024 characters...)
+- added language sensitive tool actions, eg Html Tidy, can be used to make snippet compiler too
+- exports 'config.xsd' schema for config.xml
+
+0.1.2.10  - February 09, 2006
+
+- added multiple project support (lacks some features, but working) 
+
+0.1.2.9   - February 08, 2006
+
+- fixed many small outstanding bugs 
+- better Undo/Redo support 
+- added syntax highlight for patch files
+
+0.1.2.8   - February 07, 2006
+
+- added token color customization 
+- added toplevel menu accelerators 
+- disabled menus now draw outline
+
+0.1.2.7   - February 06, 2006
+
+- yet again improvements to keybindings 
+- merged with LSharp 0.1.2.1 
+- started Delphi project support
+
+0.1.2.6   - February 05, 2006
+
+- more improvements and bug fixes to keybinding system
+
+0.1.2.4   - February 03, 2006
+
+- much improved keybinding support 
+- almost all functions moved to the new system (see profile.ls) 
+- Many naming changes of the properties in ServiceHost to fit in better with 'menu' names (sorry)
+
+0.1.2.3   - February 02, 2006
+
+- keystroke management now completed, and all functions moved to new system 
+
+0.1.2.2   - February 01, 2006
+
+- new custom keystroke support 
+- removed msvcr71.dll dependency 
+
+0.1.2.1   - January 29, 2006
+
+- fixed broken build
+
+0.1.2     - January 29, 2006
+
+Noteworthy since 0.1.1:
+- Docking interface 
+- Highlight support for 24 general languages, now with VB.NET, Delphi/FreePascal, F#, LSharp 
+- Scripting/command window with LSharp 
+- AutoComplete (incomplete ) 
+- Brace matching for some languages 
+- Pretty new graphics
+
+0.1.1.14  - January 28, 2006
+
+- FreePascal/Delphi support 
+- VB.NET support 
+- small bug fixes 
+- ability to run/eval selected text (LSharp) 
+ 
+0.1.1.13  - January 26, 2006
+
+- F# support
+- Default XML args file
+- Fixed langauge selection bug, some files opened as XML... 
+
+0.1.1.12  - January 24, 2006
+
+Bugfix release:
+- font fixes (now rounds to nearest integer width, this will allow porting PocketPC 
+  easier, also allows for using natural pixel offset)
+- disabled menu item color replaced with better color
+- fixed issue when closing command window with close function
+
+0.1.1.11  - January 11, 2006
+
+- Basic settings service
+
+0.1.1.10  - January 10, 2006
+
+- New submenus feature 
+- Docking roughly implemented (lotsa scope for refactoring/clean up) 
+- Nice clean start interface
+
+0.1.1.9   - January 09, 2006
+
+- Fixed up alot issues with slow downs 
+- Fixed project data serialization bug 
+- added some sample LSharp code (mostly just demonstration)
+
+0.1.1.8   - January 08, 2006
+
+- More improvements to AutoComplete 
+- Cleaner installer/splash gfx 
+- Statusbar showing memory usage (for now)
+
+0.1.1.7   - January 05, 2006
+
+- Major advancements in AutoComplete 
+- New installer gfx 
+- LSharp environment completed (more info later)
+
+0.1.1.6   - January 04, 2006
+
+- Quick update for critical bug
+
+0.1.1.5   - January 04, 2006
+
+- Improvements in AutoComplete 
+- Works basically in LSharp 
+- C# need lotsa work
+
+0.1.1.4   - January 03, 2006
+
+- better LSharp support (now loads env.ls before running a script) 
+- LSharp parse tree 
+- C# brace matching 
+- Command 'console' (press Ctrl Enter to run)
+
+0.1.1.3   - January 02, 2006
+
+- LSharp integration (few updates here and there to it) 
+- Brace matching in LSharp (project mode only) 
+- Some LSharp samples added
+
+0.1.1.2   - December 30, 2005
+
+- LSharp support 
+- Early SQL support 
+- pretty new splash screen
+
+0.1.1     - December 13, 2005
+
+Final release:
+- Added Boo project support 
+- Small fixes 
+
+0.1.1-rc1 - December 11, 2005
+
+- Just alot of small fixes, improvements, and cleanups 
+
+0.1.1-rc0 - December 10, 2005
+
+- Scrolling has been fixed 
+- New icons in 'resultlist' 
+- Stable as far as I know
+
+0.1.0.12  - December 10, 2005
+
+- Many fixes 
+- Improvements and fixes to some lexers/parsers 
+- New prettier icons! (Thanks to VC Express, now i just need more!) 
+- Removed PDB, XML doc and msvcr71.dll (should be on most systems, bar a few 
+  brand new XP+.NET2 installs)
+
+0.1.0.11  - December 08, 2005
+
+- Contains much better exception support.
+- Added xacc.pdb to assist in bug hunts.
+- .NET 2 issues fixed (msvcr71.dll included for .NET 2 only installs)
+
+0.1.0.10  - December 07, 2005
+
+- New error reporter implemented. It will basically ask if you want to send 
+  the stack trace and any info you wish to add to my webservice (on local pc)... 
+  More features to come for that. Get an exception to try it out :) (with my luck 
+  no-one will get one now!). 
+- Also fixed is folding persistance, and better background parsing. 
+
+0.1.0.9   - December 07, 2005
+
+- This release includes fix for undo (finally). 
+- And has a new error dialog, not fully implemented yet.
+
+0.1.0.8   - December 06, 2005
+
+- Most folding, lexing and undo/redo bugs has now been eliminated.
+- New clipboard copy/cut in multiple formats, text, Html and Rtf. Making pasting code 
+  into Word or Html editor a breeze. 
+
+0.1.0.7   - December 05, 2005
+
+- Fixed the lexing bug and a few other things. 
+- Also folding works in none project mode. 
+
+0.1.0.6   - December 04, 2005
+
+- For those waiting to see code folding in action 
+
+0.1.0.5   - November 30, 2005
+
+- Fixes and new condtional syntax highlighting and starts of a foldbar (doesnt fold yet). 
+
+0.1.0.4   - November 28, 2005
+
+- New Makefile highlighting
+- Fixed double edit toolbar issue
+- And lotsa small internal changes for coming features
+
+0.1.0.3   - November 27, 2005
+
+- Fixed timer speed issues. Now uses an inaccurate low latency timer. Lexer speed 
+  improvements of 300% in .NET 1.1 and 11000% in .NET 2. 
+- Added new tools option in config file. 
+
+0.1.0.2   - November 25, 2005
+
+Just a few critical bug fixes:
+- IMCM bug returned once more! Been crushed properly this time. 
+- Fixed bug in bzip2 allowing 0 length input 
+- Fixed XML disappearing tags in comment issue 
+- Fixed lexing of 0 length line 
+- Fixed assembly attributes for C# parser 
+- Many other small fixes
+
+Known issues:
+- In rare cases the undo stack undo's incorrectly, but redoing it a few steps and undoing again, 
+  leaves it back to original state.... . At least I know this is not caused by IMCM bug.
+
+0.1       - November 22, 2005
+
+- After 2 1/2 years of on and off development, I present the 1st milestone release for xacc.ide. 
+
+0.1-rc6   - November 20, 2005
+
+- Mostly bugfixes, and 2 new tools added in the installer, flex and xyacc. flex is just a binary 
+  of an unmodified flex distribution compressed with UPX. xyacc is a heavily modified version of 
+	byacc, to emit C# code and headers for flex. I renamed it to prevent confusion, as it will 
+	likely only work on xacc (as it is intended to)! xyacc is also UPX compressed. These 2 new tools 
+	adds ~100kb to the installer . Unfortunately the dependency sorter is not working yet, so they
+	cant be used just yet.
+ 
+-	Also some enhancements to the installer, and removed 'non working' highlighters.
+
+0.1-rc5   - November 16, 2005
+
+-	Mainly embarrasing bugs fixes and toolbar implemented (about 15 lines total, excluding 
+	attributes, fits beautifully with the menu system). 
+
+0.1-rc4   - November 13, 2005
+
+- Prelimenary support for .nsi files 
+- 500 xml doc warnings eliminated (300 remaining), now people can figure out at least what all these functions do! 
+- Toolbar is broken (on purpose) 
+- Some menu items are gone (but not forgotten) 
+- Added .NET 1.1 check and download to installer
+
+0.1-rc3   - November 11, 2005
+
+New:
+- Busy on a new stateful attributed menu system. Basically placing an attribute on a method will 
+  create a menu item for that method, with some extra options. The menus are not complete so dont 
+  complain about them yet. 
+
+Improved:
+- GetArgs now accepts 'default' arguments, parsing improved.
+
+Fixed:
+- Ctrl + 'key' issue.
+
+Known issues:
+- Opening a project when an exisiting one is open, causes a long stall.
+
+0.1-rc2   - November 07, 2005
+
+Fixed: 
+- Tab issue, works perfectly now 
+
+Improved:
+- Project support/handling
+
+New:
+- Dynamically generated TreeView 'icons' based on action 
+
+0.1-rc1   - November 05, 2005
+
+NEW:
+- Debugger support (mainly C#) (TIP: use VS.NET F-keys) 
+- Many memory and speed improvements, code clean up, shrunk xacc.dll by 100kb  
+- Heavily improved project/build system (multiple projects still lacks), brand new minimal 
+- xml project files 
+- C# preprocessor (cspp) 
+- Brand new XML build system (see config.xml). This file get compiled into a .NET assembly 
+  to provide info to various parts of the project, as well as invocation of the actions, and 
+  provides XML serialization support, as well as project property configuration dialogs and 
+  error parsing, etc, etc,... you get the picture 
+
+- Startup options (mainly for use through TotalCommander as a 'Lister', meaning no panels, 
+  and pressing ESC, closes the IDE again)
+  
+	I have tried to make this build as bug free as possible. Most of the actions in config.xml 
+	are still incomplete though. Please let me know if you encounter any serious bugs (and 
+	Not implemented dialogs are NOT bugs!). 
+ 
+Known bugs:
+- tab handling/painting can get dodgy sometimes [update] issue isolated, bug fix in progress [update]
+ 
+Bugs fixed:
+- Debugger files with spaces issue 
+- Lexer error in a few files
+
+Betterments:
+- Builds are now threaded
+
+Info:
+- cspp NEEDS cl (the MS Visual C++ compiler), duh!
+
+0.0.99-preview7   - October 18, 2005
+
+New languages, mostly untested and/or dodgy:
+- C++ 
+- Caml * 
+- SML * 
+- Ruby 
+- Perl (very dodgy!) 
+- Flex 
+- Java 
+- Javascript 
+- Lua * 
+- Prolog *
+	
+	Items marked with * are completely untested.
+
+0.0.99-preview6   - October 17, 2005
+
+- This build fixes Xml problems, and language dll's are built monolithic. This has decreased 
+	the size of the zip by 70kb, now only 410kb! (362kb using RAR!!!) More languages in the flavour 
+	of perl, java, caml, javascript, lua, ruby, sml and (f)lex coming soon too!
+
+0.0.99-preview5   - October 16, 2005
+
+- Not much extra, except for IronPython highlighting. 
+
+0.0.99-preview4   - October 15, 2005
+
+Usual bug fixes and improvements, and the following new highlighting schemes:
+- Plain text 
+- XML (some issues) 
+- IL 
+- Nemerle 
+- C 
+- Boo
+
+	Also new is the uitlization of the plugin loader system for plugin dll's.
+
+0.0.99-preview3   - October 14, 2005
+
+This preview is mostly bug fixes and cleaning up, but new features include:
+- Better project support, integration with codemodel 
+- Support for group projects 
+- Start on an XML highlighter 
+- Memory optimizations 
+- Added support lib (extras) that includes Bzip2 compression and Blowfish encryption
+
+0.0.99-preview2   - October 09, 2005
+
+- A surprise for all interested, xacc-ide has now an integrated debugger, support is 
+	still very basic (and i need a treeview listview control, something similar to VS locals, 
+	autos view). The integrated debugger is a process wrapper aound cordbg.exe. 
+ 
+NOTE:
+	For this preview, it expects you to have cordbg.exe in its default location where it is 
+	installed with VS.NET 2003. Sorry, I will add paths for SDK once I know what they are . Also 
+	debugging will only work on a project, so open up the little demo project in the zip file.
+
+0.0.99-preview    - October 07, 2005
+
+	No project support or anything else for that matter. All that is being demo'd is the new 
+	lexing/parsing engine. Open one of the supplied test files to see. No other languages 
+	will be displayed correctly, not even plain text until everything has been moved over to 
+	the new system. I'm also busy removing redundant code, and refactoring a bit.

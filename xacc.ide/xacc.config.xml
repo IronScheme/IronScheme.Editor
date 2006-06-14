@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl" href="xacc.config.xsl" ?>
+<config xmlns="xacc:config">
+  <!--
+  SUBSTITUTIONS
+  
+  ${NETFX}    - NetRuntimeRoot
+  ${NETSDK}   - NetRuntimeSDK
+  ${NSIS}     - NSISPath
+  ${PFILES}   - Program Files
+  ${XACC}     - xacc startup path
+  ${VC}       - VC Install root
+  -->
+  
+  <!--
+  ACTIONS
+  -->
+
+  <action 
+    id            ="csc" 
+    program       ="${NETFX}\csc.exe" 
+    multipleinput ="true"
+    defaultargs   ="-nologo -fullpaths"
+    inputext      ="cs"
+    image         ="File.Type.C#.png"
+    name          ="Microsoft C#">
+    
+    <description>Microsoft (R) C# compiler</description>
+
+    <outparser><![CDATA[
+(?<filename>^([A-Z]:)?[^\(]+)\((?<line>\d+),(?<column>\d+)\):
+\s((?<warning>warning)|(?<error>error))\s[^:]+:(?<message>.+$)|
+(?<error>(fatal\s)?error)[^:]+:(?<message>.+$)
+]]> </outparser>
+   
+    <options 
+			    prefix				=	"-"
+			    argprefix			=	":" >
+    			
+	    <category 
+			    name					=	"Output"
+			    description		=	"Controls the output of the compiler">
+    		
+		    <option
+			    name					=	"Output file" 
+			    description		=	"Output file name (default: base name of file with main class or first file)" 
+			    type					=	"output"	
+			    form					=	"out" 
+			    argquote			=	'"' />
+    			
+		    <option 
+			    name					=	"Target type" 
+			    description		=	"Defines the target type of the output assembly" 
+			    form					=	"target" >
+			    <allowedvalues>exe|winexe|library|module</allowedvalues>
+		    </option>
+    		
+		    <option 
+			    name					=	"Defines" 
+			    description		=	"Define conditional compilation symbol(s)" 
+			    form					=	"define" />
+
+		    <option 
+			    name					=	"Documentation file" 
+			    description		=	"XML Documentation file to generate" 
+			    form					=	"doc"
+			    argquote			=	'"' />
+    		
+	    </category>
+    	
+	    <category 
+			    name					=	"Input"
+			    description		=	"Controls the input to the compiler">
+    		
+		    <option 
+			    name					=	"Reference" 
+			    description		=	"Reference metadata from the specified assembly files" 
+			    type					=	"input"	
+			    form					=	"reference" 
+			    argquote			=	'"' >
+			    <extensions>dll</extensions>
+		    </option>
+    			
+		    <option 
+			    name					=	"Module" 
+			    description		=	"Link the specified modules into this assembly" 
+			    type					=	"input"	
+			    form					=	"addmodule" 
+			    argquote			=	'"' />
+    		
+	    </category>
+
+	    <category 
+			    name					=	"Resources"	
+			    description		=	"Defines additional resources to be included">
+    	
+		    <option 
+			    name					=	"Win32 Resource" 
+			    description		=	"Specifies Win32 resource file (.res)" 
+			    type					=	"input"	
+			    form					=	"win32res" 
+			    argquote			=	'"' >
+			    <extensions>res</extensions>
+		    </option>
+    		
+		    <option 
+			    name					=	"Win32 Icon" 
+			    description		=	"Use this icon for the output"
+			    type					=	"input"	
+			    form					=	"win32icon" 
+			    argquote			=	'"' />
+
+		    <option 
+			    name					=	"Resource" 
+			    description		=	"Embeds the specified resource" 
+			    type					=	"input"	
+			    form					=	"resource" 
+			    argquote			=	'"'  >
+			    <extensions>bmp|jpg|png|gif</extensions>
+		    </option>
+    		
+		    <option 
+			    name					=	"Link Resource" 
+			    description		=	"Links the specified resource to this assembly" 
+			    type					=	"input"	
+			    form					=	"linkresource" 
+			    argquote			=	'"' />
+    	
+	    </category>
+    	
+	    <category
+			    name					=	"Code generation"
+			    description		=	"Controls the compiler">
+    	
+		    <option 
+			    name					=	"Enable debugging" 
+			    description		=	"Emit debugging information" 
+			    form					=	"debug" 
+			    argtype				=	"bool" />
+    		
+		    <option 
+			    name					=	"Optimize" 
+			    description		=	"Enable optimizations" 
+			    form					=	"optimize" 
+			    argtype				=	"bool" />
+
+		    <option 
+			    name					=	"Incremental" 
+			    description		=	"Enable incremental compilation" 
+			    form					=	"incremental" 
+			    argtype				=	"bool" />
+    			
+	    </category>
+    	
+	    <category
+			    name					=	"Errors and warnings"
+			    description		=	"Controls the compiler's volume">
+    	
+		    <option 
+			    name					=	"Warn as error" 
+			    description		=	"Treat warnings as errors" 
+			    form					=	"warnaserror" 
+			    argtype				=	"bool" />
+    		
+		    <option 
+			    name					=	"Warn level" 
+			    description		=	"Set warning level (0-4)" 
+			    form					=	"warn" 
+			    argtype				=	"int">
+			    <allowedvalues>0|1|2|3|4</allowedvalues>
+		    </option>
+
+		    <option 
+			    name					=	"Disable warnings" 
+			    description		=	"Disable specific warning messages" 
+			    form					=	"nowarn" 
+			    argtype				=	"int"
+			    argseperator	= ";" />
+    			
+	    </category>
+    	
+	    <category
+			    name					=	"Language"
+			    description		=	"Controls the compiler's language">
+    		
+		    <option 
+			    name					=	"Checked" 
+			    description		=	"Generate overflow checks" 
+			    form					=	"checked" 
+			    argtype				=	"bool" />
+
+		    <option 
+			    name					=	"Unsafe" 
+			    description		=	"Allow 'unsafe' code" 
+			    form					=	"unsafe" 
+			    argtype				=	"bool" />
+    			
+	    </category>	
+    	
+	    <category
+			    name					=	"Advanced"
+			    description		=	"Controls the compiler's advanced properties">
+    		
+		    <option 
+			    name					=	"Base address" 
+			    description		=	"Base address for the library to be built" 
+			    form					=	"baseaddress" 
+			    argtype				=	"int" />
+
+		    <option 
+			    name					=	"Entrypoint" 
+			    description		=	"Specifies the type that contains the entry point (ignore all other possible entry points)" 
+			    form					=	"main" />
+
+		    <option 
+			    name					=	"File alignment" 
+			    description		=	"Specify the alignment used for output file sections" 
+			    form					=	"filealign" 
+			    argtype				=	"int" />
+
+		    <option 
+			    name					=	"No mscorlib" 
+			    description		=	"Do not reference standard library (mscorlib.dll)" 
+			    form					=	"nostdlib" 
+			    argtype				=	"bool" />
+
+		    <option 
+			    name					=	"Library Paths" 
+			    description		=	"Specify additional directories to search in for references" 
+			    form					=	"lib" 
+			    argquote			= '"'
+			    argseperator	= ";" />
+
+	    </category>	
+    	
+    </options>
+  </action>
+  
+  <action    
+    id            ="custom" 
+    program       ="" 
+    name          ="Custom Action" >
+    
+    <description>Custom action</description>
+    <options>
+      <category name	=	"Custom">
+      	<option
+			    name					=	"Executable" 
+			    description		=	"The full path of the executable" 
+			    form					=	"custom">
+			  </option>
+      </category>
+    </options>
+  </action>
+  
+  <action    
+    id            ="cspp" 
+    program       ="${XACC}\Tools\cspp.exe" 
+    inputext      ="csp"
+    outputext     ="cs"
+    name          ="C# preprocessor" >
+    
+    <outparser><![CDATA[
+(?<filename>[^\(]*)\((?<line>\d+)\)\s:\s((?<warning>warning)|(?<error>(fatal\s)?error))\sC\d+:(?<message>.+$)
+]]> </outparser>
+
+    <description>C# preprocessor</description>
+  </action>
+	
+	<action    
+    id            ="ncc" 
+    program       ="${PFILES}\Nemerle\ncc.exe" 
+    inputext      ="n"
+    multipleinput ="true"
+		image         ="File.Type.Nemerle.png"
+    name          ="Nemerle" >
+    
+    <outparser><![CDATA[
+""(?<filename>[^""]+)"",\sline\s(?<line>\d+):\s((?<warning>warning,\s)|(?<error>))(?<message>.+)$
+]]> </outparser>
+    
+    <description>Nemerle Compiler</description>
+  </action>
+  
+  <action    
+    id            ="booc" 
+    program       ="d:\boo-0.7.5.2013\bin\booc.exe" 
+    inputext      ="boo"
+    image         ="boo.png"
+    name          ="Boo" >
+    
+    <outparser><![CDATA[
+^(?<filename>.+?)\((?<line>\d+),(?<column>\d+)\):\sBC((?<error>E)|(?<warning>W))\d{4,4}:\s(?<message>.+)$    
+    ]]></outparser> 
+    
+    <options 
+			    prefix				=	"-"
+			    argprefix			=	":" >
+	    <category 
+			    name					=	"Input"
+			    description		=	"Controls the input of the compiler">
+		    <option
+			    name					=	"Whitespace agnostic" 
+			    form					=	"wsa"
+			    argtype			  =	"bool" />
+		    <option
+			    name					=	"Reference" 
+			    form					=	"r"
+			    type          = "input"
+			    argquote			=	'"' />
+	    </category>			    
+	    <category 
+			    name					=	"Output"
+			    description		=	"Controls the output of the compiler">
+		    <option
+			    name					=	"Output file" 
+			    description		=	"Output file name" 
+			    type					=	"output"	
+			    form					=	"o" 
+			    argquote			=	'"' />
+			  <option 
+			    name					=	"Target type" 
+			    description		=	"Defines the target type of the output assembly" 
+			    form					=	"t" >
+			    <allowedvalues>exe|winexe|library|module</allowedvalues>
+		    </option>
+	    </category>
+	    <category
+	        name          = "Advanced">
+ 		    <option 
+			    name					=	"Enable debugging" 
+			    description		=	"Emit debugging information" 
+			    form					=	"debug" 
+			    argtype				=	"bool" />
+ 		    <option 
+			    name					=	"Ducky" 
+			    form					=	"ducky" 
+			    argtype				=	"bool" />
+	    </category>
+	  </options>
+    
+  </action>
+  
+  <action    
+    id            ="dcc32" 
+    program       ="${PFILES}\Borland\Delphi7\bin\dcc32.exe" 
+    inputext      ="dpr"
+    defaultargs   ="-B"
+    image         ="dcc32.png"
+    name          ="Delphi" >
+    
+    <errparser><![CDATA[
+(?<filename>[^\(]+)\((?<line>\d+)\)\s((?<warning>Warning)|(?<error>Error)):\s(?<message>.+)$
+    ]]></errparser> 
+
+    <outparser><![CDATA[
+(?<filename>[^\(]+)\((?<line>\d+)\)\s((?<warning>Warning)|(?<error>Error)):\s(?<message>.+)$
+    ]]></outparser> 
+    
+    <envvars>
+      <envvar name="PATH">${PFILES}\Borland\Delphi7\bin;</envvar>
+    </envvars>
+   
+    <options 
+			    prefix				=	"-"
+			    argprefix			=	"" >
+	    <category 
+			    name					=	"Input"
+			    description		=	"Controls the input of the compiler">
+		    <option
+			    name					=	"Use package" 
+			    form					=	"r"
+			    type          = "input"
+			    argquote			=	'"' />
+	    </category>			    
+	    <category 
+			    name					=	"Output"
+			    description		=	"Controls the output of the compiler">
+			  <option 
+			    name					=	"Target type" 
+			    description		=	"Defines the target type" 
+			    form					=	"C" >
+			    <allowedvalues>C|G</allowedvalues>
+		    </option>
+	    </category>
+	    <category
+	        name          = "Advanced">
+ 		    <option 
+			    name					=	"Enable debugging" 
+			    description		=	"Emit debugging information" 
+			    form					=	"V" 
+			    argtype				=	"bool" />
+	    </category>
+	  </options>
+  </action>
+  
+  <action    
+    id            ="flex" 
+    program       ="${XACC}\Tools\flex.exe" 
+    inputext      ="l;ll;lex"
+    outputext     ="c"
+    name          ="Flex" 
+    image         ="gcc.png" >
+    
+    <errparser><![CDATA[
+""(?<filename>[^""]+)"",\sline\s(?<line>\d+):\s((?<warning>warning,\s)|(?<error>))(?<message>.+)$
+    ]]></errparser> 
+    
+  </action>
+
+  <action    
+    id            ="xyacc" 
+    program       ="${XACC}\Tools\xyacc.exe" 
+    inputext      ="y;yy"
+    outputext     ="cs"
+    defaultargs   ="-d"
+    name          ="xyacc" >
+
+    <errparser><![CDATA[
+xyacc\.exe:\s((?<warning>w)|(?<error>e))\s\-\sline\s(?<line>\d+)\sof\s""(?<filename>[^""]+)"",\s(?<message>.+)$
+    ]]></errparser>    
+    <options
+      		prefix				=	"-"
+			    argprefix			=	" " >
+      <category name	  =	"Output">
+      	<option
+			    name					=	"Output" 
+			    type					=	"output"
+			    form					=	"o">
+			  </option> 
+      </category>
+    </options>
+  </action>
+
+  <action    
+    id            ="msvc" 
+    program       ="${VC}\bin\cl.exe" 
+    inputext      ="c;cpp;cc"
+    outputext     ="obj"
+    multipleinput ="false"
+    defaultargs   ="-nologo"
+    name          ="Microsoft Visual C++ compiler" 
+    image         ="ms.png">
+    
+    <outparser><![CDATA[
+((?<filename>[^\(]*)\((?<line>\d+)\)\s:\s((?<warning>warning)|(?<error>(fatal\s)?error))\sC\d+:(?<message>.+$))|
+(LINK\s(?<filename>):\s((?<warning>warning)|(?<error>(fatal\s)?error))\sLNK\d+:\s(?<message>.+$))
+]]> </outparser>
+
+    <description>Microsoft (R) Visual C++ compiler</description>
+    
+    <envvars>
+      <envvar name="PATH">${VC}\bin;${VC}\..\Common7\IDE;</envvar>
+      <envvar name="INCLUDE">${VC}\include;</envvar>
+      <envvar name="LIB">${VC}\lib;</envvar>
+    </envvars>
+    
+    <options 
+			    prefix				=	"/"
+			    argprefix			=	"" >
+			    
+	    <category 
+			    name					=	"Input"
+			    description		=	"Controls the input of the compiler">
+		    <option
+			    name					=	"Additional include directories" 
+			    form					=	"I"
+			    argquote			=	'"' />
+		    <option
+			    name					=	"Assembly search path" 
+			    form					=	"AI"
+			    argquote			=	'"' />
+		    <option
+			    name					=	"Force #using" 
+			    form					=	"FU"
+			    type          = "input"
+			    argquote			=	'"' >
+			    <extensions>dll</extensions>
+			  </option>
+	    </category>		
+	    	    
+	    <category 
+			    name					=	"Output"
+			    description		=	"Controls the output of the compiler">
+		    <option
+			    name					=	"Output file" 
+			    description		=	"Output file name" 
+			    type					=	"output"	
+			    form					=	"Fe" 
+			    argquote			=	'"' />
+	    </category>
+	    
+	    <category
+	        name          = "Advanced">
+	      <option
+	        name          = "Use managed extensions"
+	        form          = "clr"
+	        argtype       = "bool" />
+	      <option
+	        name          = "Compile as C++"
+	        form          = "TP"
+	        argtype       = "bool" />
+	      <option
+	        name          = "Compile as DLL"
+	        form          = "LD"
+	        argtype       = "bool" />
+	    </category>
+	  </options>
+  </action>
+  
+  <action    
+    id            ="mslink" 
+    program       ="${VC}\bin\link.exe" 
+    inputext      ="obj;lib"
+    defaultargs   ="-nologo"
+    name          ="Microsoft Visual C++ linker" 
+    image         ="ms.png">
+    
+    <outparser><![CDATA[
+(?<filename>[^\(]*)\((?<line>\d+)\)\s:\s((?<warning>warning)|(?<error>(fatal\s)?error))\sC\d+:(?<message>.+$)
+]]> </outparser>
+
+    <description>Microsoft (R) Visual C++ linker</description>
+    
+    <envvars>
+      <envvar name="PATH">${VC}\bin;${VC}\..\Common7\IDE;</envvar>
+      <envvar name="INCLUDE">${VC}\include;</envvar>
+      <envvar name="LIB">${VC}\lib;</envvar>
+    </envvars>
+  </action>
+  
+  <action    
+    id            ="ilmerge" 
+    program       ="${PFILES}\Microsoft\ILMerge\ILMerge.exe" 
+    inputext      ="dll;exe"
+    image         ="ms.png"
+    name          ="ILMerge Utility" >
+    <description>Microsoft (R) ILMerge Utility</description>
+  </action>
+  
+  <action    
+    id            ="fxc" 
+    program       ="${PFILES}\Microsoft DirectX SDK (December 2005)\Utilities\Bin\x86\fxc.exe" 
+    inputext      ="fx;hlsl"
+    image         ="dx.png"
+    name          ="MS HLSL compiler" >
+    <description>Microsoft (R) MS HLSL compiler</description>
+  </action>
+
+  <action    
+    id            ="makensis" 
+    program       ="${NSIS}\makensis.exe" 
+    inputext      ="nsi"
+    name          ="NSIS Installer Compiler" >
+    
+    <description>NSIS Installer Compiler</description>
+  </action>
+  
+  <action    
+        id            ="tidy" 
+        program       ="${XACC}\Tools\tidy.exe" 
+        defaultargs   ="-m"
+        name          ="Html Tidy" >
+	</action>
+  
+  <action    
+    id            ="xsd" 
+    program       ="${NETSDK}\bin\xsd.exe" 
+    inputext      ="xsd"
+    outputext     ="cs"
+    defaultargs   ="/nologo"
+    name          ="XML Schema Compiler" >
+    
+    <errparser><![CDATA[
+(?<error>Error:)\s(?<message>.+$)
+]]> </errparser>
+    
+    <description>Microsoft (R) Xml Schemas/DataTypes support utility</description>
+    <options
+    			prefix				=	"/"
+			    argprefix			=	":" >
+      <category name	  =	"Code generation">
+      	<option
+			    name					=	"Namespace" 
+			    description		=	"The namespace of the generated C# file" 
+			    form					=	"namespace">
+			  </option> 
+			  <option
+			    name					=	"Generation Type" 
+			    description		=	"Choose what xsd generates" 
+			    required      = "true"
+			    form					=	"custom">
+			    <allowedvalues>classes|dataset</allowedvalues>
+			  </option> 
+      </category>
+    </options>
+  </action>
+  
+  <action    
+    id            ="ilasm" 
+    program       ="${NETFX}\ilasm.exe" 
+    inputext      ="il"
+    multipleinput ="true"
+    defaultargs   ="-nologo -quiet"
+    name          ="Microsoft IL Assembler" >
+        
+    <description>Microsoft (R) IL Assembler</description>
+    
+    <outparser><![CDATA[
+(?<error>Error:\s)(?<message>.+$) |
+(?<message>^[^,]+),\s(?<error>error)
+    ]]></outparser>
+    
+    <errparser><![CDATA[
+^(?<filename>[^\(]*)\((?<line>\d+)\)\s:\s
+((?<error>error)|(?<warning>warning))\s(:|--)\s(?<message>.+$)
+    ]]></errparser>
+    
+    <options
+    			prefix				=	"-"
+			    argprefix			=	":" >
+      <category name	  =	"Output">
+      	<option
+			    name					=	"Output" 
+			    description		=	"Output filename" 
+			    type					=	"output"
+			    argquote			=	'"'
+			    form					=	"output">
+			  </option> 
+			  <option
+			    name					=	"Output Type" 
+			    required      = "true"
+			    form					=	"custom">
+			    <allowedvalues>EXE|DLL</allowedvalues>
+			  </option>
+      </category>
+      
+      <category
+			    name					=	"Code generation"
+			    description		=	"Controls the compiler">
+		    <option 
+			    name					=	"Enable debugging" 
+			    description		=	"Emit debugging information" 
+			    form					=	"debug" 
+			    argtype				=	"bool" />
+	    </category>
+    </options>
+  </action>
+  
+  
+  <!--
+  PROJECTS
+  -->
+  
+  <project  id          = "csharp" 
+            name        = "C# project"
+            image       = "Project.Type.C#.png"
+            description = "Basic C# project">
+            
+    <action ref="csc"/>
+    <action ref="xsd"/>
+    <action ref="cspp"/>
+    <action ref="custom"/>
+  </project>
+  
+  <project  id          = "c" 
+            name        = "C project"
+            image       = "Project.Type.C.png"
+            description = "Basic C project">
+            
+    <action ref="msvc"/>
+    <action ref="mslink"/>
+		<action ref="custom"/>
+  </project>
+  
+  <project  id          = "il" 
+            name        = "IL project"
+            image       = "Project.Type.IL.png"
+            description = "Basic IL project">
+            
+    <action ref="ilasm"/>
+		<action ref="custom"/>
+  </project>
+  
+  <project  id          = "nemerle" 
+            name        = "Nemerle project"
+            image       = "nemerle-icon.png"
+            description = "Basic Nemerle project">
+            
+    <action ref="ncc"/>
+		<action ref="custom"/>
+  </project>
+  
+  <project  id          = "boo" 
+            name        = "Boo project"
+            description = "Basic Boo project">
+            
+    <action ref="booc"/>
+		<action ref="custom"/>
+  </project>
+  
+  <project  id          = "nsis" 
+            name        = "NSIS project"
+            description = "Basic NSIS project">
+
+    <action ref="makensis"/>
+  </project>
+  
+  <project  id          = "hlsl" 
+            name        = "HLSL project"
+            image       ="dx.png"
+            description = "Basic HLSL project">
+    <action ref="fxc"/>         
+  </project>
+  
+  <project  id          = "xacclang" 
+            name        = "xacc.language project"
+            description = "xacc.language project">
+
+    <action ref="xyacc"/>
+    <action ref="flex"/>
+    <action ref="msvc"/>
+    <action ref="csc"/>
+  </project>
+
+  <project  id          = "complex" 
+            name        = "Complex project"
+            description = "Complex project">
+
+    <!-- just add everything -->
+    <action ref="xyacc"/>
+    <action ref="flex"/>
+    <action ref="makensis"/>
+    <action ref="csc"/>
+    <action ref="xsd"/>
+    <action ref="cspp"/>
+    <action ref="ncc"/>
+    <action ref="ilasm"/>
+    <action ref="msvc"/>
+    <action ref="mslink"/>
+    <action ref="ilmerge"/>
+    <action ref="custom"/>
+    <action ref="booc"/>
+  </project>
+  
+  <project  id          = "delphi" 
+            image       = "dcc32.png"
+            name        = "Delphi project">
+    <action ref="dcc32"/>
+  </project>
+	
+  <project  id          = "LSharp" 
+            name        = "LSharp project">
+  </project>
+	
+
+  <!--
+  PLUGINS  <plugin>xacc.parsers.dll</plugin>
+  -->
+
+
+  <plugin>xacc.lexers.managed.dll</plugin>
+	
+	<!-- Add your plugin, make sure file is in xacc.ide install dir	-->
+	
+	<tool name="NDoc" command="D:\incoming\ndoc-nightly\ndoc\src\Gui\bin\Debug\NDocGui.exe"/>
+	<tool name="NUnit" command="${PFILES}\NUnit 2.2.2\bin\nunit-gui.exe"/>
+	<tool name="Language Designer" command="${XACC}\xacc.languagedesigner.exe"/>
+	
+	<language name="Xml">
+    <action ref="tidy"/>
+	</language>
+	
+</config>
+ 
