@@ -1,0 +1,77 @@
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual C# Express 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xacc", "xacc\xacc.csproj", "{A532434D-67C8-4C19-B8EC-A4AF728382F6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{206ACA7A-847B-4118-A02F-1AC72CF70F28} = {206ACA7A-847B-4118-A02F-1AC72CF70F28}
+		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F} = {8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xacc.ide", "xacc.ide\xacc.ide.csproj", "{D986C841-3A7A-44A4-BDEF-F9271A00AA84}"
+	ProjectSection(ProjectDependencies) = postProject
+		{206ACA7A-847B-4118-A02F-1AC72CF70F28} = {206ACA7A-847B-4118-A02F-1AC72CF70F28}
+		{7B52808C-0A81-4562-9F1F-90DF84E10758} = {7B52808C-0A81-4562-9F1F-90DF84E10758}
+		{419E259F-E9C0-4E01-BA19-709FE84DEAD5} = {419E259F-E9C0-4E01-BA19-709FE84DEAD5}
+		{D3C782BA-178E-4235-A3BA-8C11DEBB6BEE} = {D3C782BA-178E-4235-A3BA-8C11DEBB6BEE}
+		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F} = {8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsUI", "WeifenLuo.WinFormsUI\WinFormsUI.csproj", "{D3C782BA-178E-4235-A3BA-8C11DEBB6BEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LSharp", "LSharp\LSharp.csproj", "{419E259F-E9C0-4E01-BA19-709FE84DEAD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LSharp.Compiler", "LSharp.Compiler\LSharp.Compiler.csproj", "{206ACA7A-847B-4118-A02F-1AC72CF70F28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xacc.lexers.managed", "xacc.lexers.managed\xacc.lexers.managed.csproj", "{CA7874FF-BB3B-4F16-B65C-369B8AC22F84}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F} = {8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs_lex", "cs_lex\cs_lex.csproj", "{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xacc.languagedesigner", "xacc.languagedesigner\xacc.languagedesigner.csproj", "{7B52808C-0A81-4562-9F1F-90DF84E10758}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xacc.runtime", "xacc.runtime\xacc.runtime.csproj", "{7622C8C0-2378-40E3-A21F-68FEFDDEE655}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A532434D-67C8-4C19-B8EC-A4AF728382F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A532434D-67C8-4C19-B8EC-A4AF728382F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A532434D-67C8-4C19-B8EC-A4AF728382F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A532434D-67C8-4C19-B8EC-A4AF728382F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D986C841-3A7A-44A4-BDEF-F9271A00AA84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D986C841-3A7A-44A4-BDEF-F9271A00AA84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D986C841-3A7A-44A4-BDEF-F9271A00AA84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D986C841-3A7A-44A4-BDEF-F9271A00AA84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3C782BA-178E-4235-A3BA-8C11DEBB6BEE}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{D3C782BA-178E-4235-A3BA-8C11DEBB6BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3C782BA-178E-4235-A3BA-8C11DEBB6BEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{419E259F-E9C0-4E01-BA19-709FE84DEAD5}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{419E259F-E9C0-4E01-BA19-709FE84DEAD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{419E259F-E9C0-4E01-BA19-709FE84DEAD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{206ACA7A-847B-4118-A02F-1AC72CF70F28}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{206ACA7A-847B-4118-A02F-1AC72CF70F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{206ACA7A-847B-4118-A02F-1AC72CF70F28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA7874FF-BB3B-4F16-B65C-369B8AC22F84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA7874FF-BB3B-4F16-B65C-369B8AC22F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA7874FF-BB3B-4F16-B65C-369B8AC22F84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA7874FF-BB3B-4F16-B65C-369B8AC22F84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B52808C-0A81-4562-9F1F-90DF84E10758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B52808C-0A81-4562-9F1F-90DF84E10758}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B52808C-0A81-4562-9F1F-90DF84E10758}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B52808C-0A81-4562-9F1F-90DF84E10758}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7622C8C0-2378-40E3-A21F-68FEFDDEE655}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7622C8C0-2378-40E3-A21F-68FEFDDEE655}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7622C8C0-2378-40E3-A21F-68FEFDDEE655}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7622C8C0-2378-40E3-A21F-68FEFDDEE655}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
