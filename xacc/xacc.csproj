@@ -1,0 +1,547 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A532434D-67C8-4C19-B8EC-A4AF728382F6}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>xacc</AssemblyName>
+    <AssemblyOriginatorKeyFile>xacc.key</AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Xacc</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>Xacc.Reflection.MetaReader</StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <SccAuxPath>
+    </SccAuxPath>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE;TEST;VS;AUTOCOMPLETE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>0162</NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;VS;AUTOCOMPLETE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Build.Engine" />
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.Build.Tasks" />
+    <Reference Include="Microsoft.Build.Utilities" />
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Design">
+      <Name>System.Design</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Drawing.Design">
+      <Name>System.Drawing.Design</Name>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Name>System.Web.Services</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\LSharp\LSharp.csproj">
+      <Name>LSharp</Name>
+      <Project>{419E259F-E9C0-4E01-BA19-709FE84DEAD5}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\xacc.runtime\xacc.runtime.csproj">
+      <Name>xacc.runtime</Name>
+      <Project>{7622C8C0-2378-40E3-A21F-68FEFDDEE655}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Algorithms\String.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Build\Action.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Build\Option.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Build\ActionResult.cs" />
+    <Compile Include="Build\Project.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CodeModel\ICodeModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CodeModel\Location.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\DoubleLinkedList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\GrowingHashtable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\HashTree.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ITree.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\ObjectTree.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Set.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\StringTree.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\TrackingStack.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\UndoRedoStack.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\ColorInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IStatusBarService.cs" />
+    <Compile Include="ComponentModel\Cordbg.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\Disposable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\ICodeModelManagerService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IConsoleService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IDebugService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IDiscoveryService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IEditService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IErrorService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IFileManagerService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IFontManagerService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IHelpService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IImageListProviderService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IKeyboardService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\ILanguageService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IMenuService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IPluginManagerService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IProjectManagerService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IScriptingService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\ISettingsService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IToken.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IToolBarService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IToolsService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IViewService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\IWindowService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\NameAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\ServiceBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\ServiceHost.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Configuration\Config.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Configuration\ConfigCompiler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Configuration\KickStart.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Configuration\Projects.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Configuration\Schema.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls.Design\Editors.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\AdvancedTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\AssemblyBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AutoCompleteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\DialogInvokeActionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ErrorView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ExceptionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\FindDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\GenericTypeEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Grid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\OutlineView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PictureComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PictureListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ProcessActionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ProgressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ProjectBuildOrderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\TreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TypeEditorTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\UIEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ToolStripMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\WinConsole.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Wizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Diagnostics\ErrorReport.cs">
+      <SubType>code</SubType>
+    </Compile>
+    <Compile Include="Diagnostics\Trace.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Drawing\Factory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Drawing\Utils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Languages\Changelog.lex.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Languages\CSharp.lex.cs" />
+    <Compile Include="Languages\CSLex.lex.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Languages\CSLexLangauge.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Languages\Language.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Languages\LSharp.lex.cs" />
+    <Compile Include="Languages\PlainText.lex.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Resources\Fake.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Timers\FastTimer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Timers\HiPerfTimer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\GetArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Configuration\Config.xsd" />
+    <EmbeddedResource Include="Controls\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AdvancedTextBox.resx">
+      <DependentUpon>AdvancedTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AssemblyBrowser.resx">
+      <DependentUpon>AssemblyBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AutoCompleteForm.resx">
+      <DependentUpon>AutoCompleteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\DialogInvokeActionForm.resx">
+      <DependentUpon>DialogInvokeActionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ExceptionForm.resx">
+      <DependentUpon>ExceptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\FindDialog.resx">
+      <DependentUpon>FindDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\GenericTypeEditor.resx">
+      <DependentUpon>GenericTypeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Grid.resx">
+      <DependentUpon>Grid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PictureComboBox.resx">
+      <DependentUpon>PictureComboBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ProgressDialog.resx">
+      <DependentUpon>ProgressDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ProjectBuildOrderForm.resx">
+      <DependentUpon>ProjectBuildOrderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TreeView.resx">
+      <DependentUpon>TreeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TypeEditorTextBox.resx">
+      <DependentUpon>TypeEditorTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\UIEditorForm.resx">
+      <DependentUpon>UIEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WinConsole.resx">
+      <DependentUpon>WinConsole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Wizard.resx">
+      <DependentUpon>Wizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\alert.png" />
+    <EmbeddedResource Include="Resources\atb.ico" />
+    <EmbeddedResource Include="Resources\boo.png" />
+    <EmbeddedResource Include="Resources\bullet.png" />
+    <EmbeddedResource Include="Resources\Code.Local.png" />
+    <EmbeddedResource Include="Resources\Code.Member.png" />
+    <EmbeddedResource Include="Resources\Code.Type.png" />
+    <EmbeddedResource Include="Resources\CodeDelegate.png" />
+    <EmbeddedResource Include="Resources\CodeEnum.png" />
+    <EmbeddedResource Include="Resources\CodeEvent.png" />
+    <EmbeddedResource Include="Resources\CodeField.png" />
+    <EmbeddedResource Include="Resources\CodeInterface.png" />
+    <EmbeddedResource Include="Resources\CodeMethod.png" />
+    <EmbeddedResource Include="Resources\CodeModule.png" />
+    <EmbeddedResource Include="Resources\CodeNamespace.png" />
+    <EmbeddedResource Include="Resources\CodeProperty.png" />
+    <EmbeddedResource Include="Resources\CodeRefType.png" />
+    <EmbeddedResource Include="Resources\CodeValueType.bmp" />
+    <EmbeddedResource Include="Resources\CodeValueType.png" />
+    <EmbeddedResource Include="Resources\Command.png" />
+    <EmbeddedResource Include="Resources\console.png" />
+    <EmbeddedResource Include="Resources\dcc32.png" />
+    <EmbeddedResource Include="Resources\Debug.Continue.png" />
+    <EmbeddedResource Include="Resources\Debug.Exit.png" />
+    <EmbeddedResource Include="Resources\Debug.Start.png" />
+    <EmbeddedResource Include="Resources\Debug.Step.png" />
+    <EmbeddedResource Include="Resources\Debug.StepInto.png" />
+    <EmbeddedResource Include="Resources\Debug.StepOut.png" />
+    <EmbeddedResource Include="Resources\Debug.ToggleBP.png" />
+    <EmbeddedResource Include="Resources\dotgnu.png" />
+    <EmbeddedResource Include="Resources\dx.png" />
+    <EmbeddedResource Include="Resources\Edit.Copy.png" />
+    <EmbeddedResource Include="Resources\Edit.Cut.png" />
+    <EmbeddedResource Include="Resources\Edit.Delete.png" />
+    <EmbeddedResource Include="Resources\Edit.Find.png" />
+    <EmbeddedResource Include="Resources\Edit.Indent.png" />
+    <EmbeddedResource Include="Resources\Edit.Paste.png" />
+    <EmbeddedResource Include="Resources\Edit.Redo.png" />
+    <EmbeddedResource Include="Resources\Edit.ToLower.png" />
+    <EmbeddedResource Include="Resources\Edit.ToUpper.png" />
+    <EmbeddedResource Include="Resources\Edit.Undo.png" />
+    <EmbeddedResource Include="Resources\Edit.Unindent.png" />
+    <EmbeddedResource Include="Resources\empty.png" />
+    <EmbeddedResource Include="Resources\File.Close.png" />
+    <EmbeddedResource Include="Resources\File.Exit.png" />
+    <EmbeddedResource Include="Resources\File.New.png" />
+    <EmbeddedResource Include="Resources\File.Open.png" />
+    <EmbeddedResource Include="Resources\File.Save.png" />
+    <EmbeddedResource Include="Resources\File.SaveAs.png" />
+    <EmbeddedResource Include="Resources\File.Type.C#.png" />
+    <EmbeddedResource Include="Resources\File.Type.C.png" />
+    <EmbeddedResource Include="Resources\File.Type.H.png" />
+    <EmbeddedResource Include="Resources\File.Type.IL.png" />
+    <EmbeddedResource Include="Resources\File.Type.NA.png" />
+    <EmbeddedResource Include="Resources\File.Type.Nemerle.png" />
+    <EmbeddedResource Include="Resources\File.Type.None.png" />
+    <EmbeddedResource Include="Resources\File.Type.Reference.png" />
+    <EmbeddedResource Include="Resources\File.Type.Resource.png" />
+    <EmbeddedResource Include="Resources\File.Type.Xacc.png" />
+    <EmbeddedResource Include="Resources\File.Type.Xml.png" />
+    <EmbeddedResource Include="Resources\Folder.Closed.png" />
+    <EmbeddedResource Include="Resources\Folder.Open.png" />
+    <EmbeddedResource Include="Resources\gcc.png" />
+    <EmbeddedResource Include="Resources\Grid.png" />
+    <EmbeddedResource Include="Resources\Help.About.png" />
+    <EmbeddedResource Include="Resources\Help.Info.png" />
+    <EmbeddedResource Include="Resources\Help.SubmitBug.png" />
+    <EmbeddedResource Include="Resources\ms.png" />
+    <EmbeddedResource Include="Resources\na.png" />
+    <EmbeddedResource Include="Resources\nemerle-icon.png" />
+    <EmbeddedResource Include="Resources\profile.ls" />
+    <EmbeddedResource Include="Resources\Project.Add.png" />
+    <EmbeddedResource Include="Resources\Project.Build.png" />
+    <EmbeddedResource Include="Resources\Project.New.png" />
+    <EmbeddedResource Include="Resources\Project.Open.png" />
+    <EmbeddedResource Include="Resources\Project.Properties.png" />
+    <EmbeddedResource Include="Resources\Project.Run.png" />
+    <EmbeddedResource Include="Resources\Project.Type.C#.png" />
+    <EmbeddedResource Include="Resources\Project.Type.C.png" />
+    <EmbeddedResource Include="Resources\Project.Type.IL.png" />
+    <EmbeddedResource Include="Resources\Project.Type.png" />
+    <EmbeddedResource Include="Resources\resfile.png" />
+    <EmbeddedResource Include="Resources\resultstrip.png" />
+    <EmbeddedResource Include="Resources\Script.EditProfile.png" />
+    <EmbeddedResource Include="Resources\Script.Run.png" />
+    <EmbeddedResource Include="Resources\splash.jpg" />
+    <EmbeddedResource Include="Resources\Tools.Options.png" />
+    <EmbeddedResource Include="Resources\Window.Next.png" />
+    <EmbeddedResource Include="Resources\Window.Previous.png" />
+    <EmbeddedResource Include="Resources\xacc.config.xml" />
+    <None Include="Configuration\Config.xsx">
+      <DependentUpon>Config.xsd</DependentUpon>
+    </None>
+    <None Include="Languages\Changelog.lex" />
+    <None Include="Languages\CSharp.lex" />
+    <None Include="Languages\CSLex.lex" />
+    <None Include="Languages\LSharp.lex" />
+    <None Include="Languages\PlainText.lex" />
+    <None Include="xacc.key" />
+    <Content Include="Resources\header.bmp" />
+    <Content Include="Resources\installer.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>"C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Bin\xsd" /nologo /n:Xacc.Configuration /c /o:$(ProjectDir)Configuration\ $(ProjectDir)Configuration\Config.xsd
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\PlainText.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Changelog.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\CSLex.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\CSharp.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\LSharp.lex</PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

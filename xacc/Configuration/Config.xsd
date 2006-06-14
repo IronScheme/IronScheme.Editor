@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema targetNamespace="xacc:config" elementFormDefault="qualified" xmlns="xacc:config"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="config">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="action" type="action" />
+          <xs:element name="project" type="project" />
+          <xs:element name="plugin" type="xs:string" />
+          <xs:element name="tool" type="tool" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element name="language" type="language" maxOccurs="unbounded" minOccurs="0" />
+        </xs:sequence>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="action">
+    <xs:all>
+      <xs:element name="options" type="options" maxOccurs="1" minOccurs="0" />
+      <xs:element name="script" type="script" minOccurs="0" maxOccurs="1" />
+      <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="errparser" type="regex" maxOccurs="1" minOccurs="0" />
+      <xs:element name="outparser" type="regex" maxOccurs="1" minOccurs="0" />
+      <xs:element name="envvars" type="envvars" minOccurs="0" maxOccurs="1" />
+    </xs:all>
+    <xs:attribute name="id" type="xs:Name" use="required" />
+    <xs:attribute name="multipleinput" type="xs:boolean" use="optional" />
+    <xs:attribute name="name" type="xs:string" use="optional" />
+    <xs:attribute name="image" type="xs:string" use="optional" />
+    <xs:attribute name="inputext" type="xs:string" use="optional" />
+    <xs:attribute name="defaultargs" type="xs:string" use="optional" />
+    <xs:attribute name="program" type="xs:string" use="required" />
+    <xs:attribute name="outputext" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="options">
+    <xs:sequence minOccurs="1" maxOccurs="unbounded">
+      <xs:element name="category">
+        <xs:complexType>
+          <xs:sequence minOccurs="1" maxOccurs="unbounded">
+            <xs:element name="option" type="option" minOccurs="0" maxOccurs="unbounded">
+              <!-- 
+How options gets constructed:
+(prefix)(form)(argprefix)(argquote)value(argseperator)anothervalue(argquote)
+
+Notes:
+- bool toggles
+- if no seperator is supplied, the option will be appended multiple times if
+	necessary
+- output defines the final output, the default output extension can be supplied
+- input defines all possible inputs, extension(s) can be added if it needs to 
+	be used by the project
+--></xs:element>
+          </xs:sequence>
+          <xs:attribute name="name" type="xs:string" use="required" />
+          <xs:attribute name="description" type="xs:string" use="optional" default="not supplied" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <!-- attributes for root element -->
+    <xs:attribute name="prefix" type="xs:string" use="required" />
+    <xs:attribute name="argprefix" type="xs:string" default="" />
+  </xs:complexType>
+  <xs:complexType name="script">
+    <xs:simpleContent>
+      <xs:extension base="xs:string"></xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="option">
+    <xs:all minOccurs="0" maxOccurs="1">
+      <!-- define a list of all possible values that can be used ,this will in essence create an enumeration -->
+      <xs:element name="extensions" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="allowedvalues" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:all>
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="description" type="xs:string" use="optional" default="not supplied" />
+    <xs:attribute name="required" type="xs:boolean" use="optional" default="false" />
+    <!-- override for default prefix as specified in options -->
+    <xs:attribute name="prefix" type="xs:string" />
+    <xs:attribute name="form" type="xs:string" use="required" />
+    <!-- the type of the option -->
+    <xs:attribute name="type" default="normal">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="normal" />
+          <!-- defines output option, note there can only be one -->
+          <xs:enumeration value="output" />
+          <!-- defines output option, there can only be one multiple -->
+          <xs:enumeration value="input" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <!-- the type of the argument -->
+    <xs:attribute name="argtype" default="string">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="string" />
+          <xs:enumeration value="int" />
+          <xs:enumeration value="bool" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <!-- override for default argprefix as specified in options -->
+    <xs:attribute name="argprefix" type="xs:string" default="" />
+    <xs:attribute name="argquote" type="xs:string" default="" />
+    <xs:attribute name="argseperator" type="xs:string" default="" />
+  </xs:complexType>
+  <xs:complexType name="regex">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="options" type="regexoptions" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="regexoptions">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ignorecase" />
+      <xs:enumeration value="explicit" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="project">
+    <xs:sequence>
+      <xs:element name="action" type="projectaction" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:Name" />
+    <xs:attribute name="name" type="xs:string" />
+    <xs:attribute name="image" type="xs:string" use="optional" />
+    <xs:attribute name="description" type="xs:string" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="projectaction">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="ref" type="xs:Name" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="envvar">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="name" type="xs:string" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="envvars">
+    <xs:sequence>
+      <xs:element name="envvar" type="envvar" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tool">
+    <xs:sequence>
+      <xs:element name="arg" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" />
+    <xs:attribute name="command" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="language">
+    <xs:sequence>
+      <xs:element name="action" type="projectaction" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:Name" />
+  </xs:complexType>
+</xs:schema>
