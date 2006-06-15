@@ -18,50 +18,50 @@
 #endregion
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Xacc.Collections
 {
-  public sealed class FastDoubleLinkedList : DoubleLinkedList
+  public sealed class FastDoubleLinkedList<T> : DoubleLinkedList<T> where T:class
   {
     
   }
 	/// <summary>
 	/// DoubleLinkedList.
 	/// </summary>
-	public class DoubleLinkedList : IList, ICloneable
+	public class DoubleLinkedList<T> : IList<T>, ICloneable where T : class
 	{
 		/// <summary>
 		/// Interface for position within the list
 		/// </summary>
-		public interface IPosition
+    public interface IPosition
 		{
 			/// <summary>
 			/// Retrieves the data
 			/// </summary>
-			object Data {get;}
+      T Data { get;}
 
 			/// <summary>
 			/// The previous IPosition, or null, if it is the first position/sentinel
 			/// </summary>
-			IPosition Previous {get;}
+      IPosition Previous { get;}
 			
 			/// <summary>
 			/// The next IPosition, or null, if it is the last position/sentinel
 			/// </summary>
-			IPosition Next {get;}
+      IPosition Next { get;}
 		}
 
-		class Position : IPosition
+    class Position : IPosition
 		{
-			internal object		data;
-			internal Position prev;
-			internal Position next;
+      internal T data;
+      internal Position prev;
+      internal Position next;
 
-			public object			Data			{get {return data;}}
-			public IPosition	Previous	{get {return prev;}}
-			public IPosition	Next			{get {return next;}}
+      public T Data { get { return data; } }
+      public IPosition Previous { get { return prev; } }
+      public IPosition Next { get { return next; } }
 
 #if PROBE
 
@@ -94,13 +94,15 @@ namespace Xacc.Collections
 			ReversePosition,
 		}
 
-		class Enumerator : IEnumerator, ICloneable
+    class Enumerator : IEnumerator<T>, ICloneable 
 		{
-			readonly DoubleLinkedList dll;
+      readonly DoubleLinkedList<T> dll;
 			readonly int version;
-			IPosition current;
-			
-			public Enumerator(DoubleLinkedList dll)
+      IPosition current;
+
+
+
+      public Enumerator(DoubleLinkedList<T> dll)
 			{
 				this.dll = dll;
 				this.version = dll.version;
@@ -112,7 +114,16 @@ namespace Xacc.Collections
 				current = dll.startsentinel;
 			}
 
-			public object Current
+      object System.Collections.IEnumerator.Current
+      {
+        get { return Current; }
+      }
+      void IDisposable.Dispose()
+      {
+      }
+
+
+			public T Current
 			{
 				get	
 				{	
@@ -147,25 +158,33 @@ namespace Xacc.Collections
 			}
 		}
 
-		class ReverseEnumerator : IEnumerator, ICloneable
+    class ReverseEnumerator : IEnumerator<T>, ICloneable
 		{
-			readonly DoubleLinkedList dll;
+      readonly DoubleLinkedList<T> dll;
 			readonly int version;
-			IPosition current;
-			
-			public ReverseEnumerator(DoubleLinkedList dll)
+      IPosition current;
+
+      public ReverseEnumerator(DoubleLinkedList<T> dll)
 			{
 				this.dll = dll;
 				this.version = dll.version;
 				Reset();
 			}
 
+      object System.Collections.IEnumerator.Current
+      {
+        get { return Current; }
+      }
+      void IDisposable.Dispose()
+      {
+      }
+
 			public void Reset()
 			{
 				current = dll.endsentinel;
 			}
 
-			public object Current
+      public T Current
 			{
 				get	
 				{	
@@ -200,25 +219,33 @@ namespace Xacc.Collections
 			}
 		}
 
-		class PostionEnumerator : IEnumerator, ICloneable
+    class PostionEnumerator : IEnumerator<IPosition>, ICloneable
 		{
-			readonly DoubleLinkedList dll;
+      readonly DoubleLinkedList<T> dll;
 			readonly int version;
-			IPosition current;
-			
-			public PostionEnumerator(DoubleLinkedList dll)
+      IPosition current;
+
+      public PostionEnumerator(DoubleLinkedList<T> dll)
 			{
 				this.dll = dll;
 				this.version = dll.version;
 				Reset();
 			}
 
+      object System.Collections.IEnumerator.Current
+      {
+        get { return Current; }
+      }
+      void IDisposable.Dispose()
+      {
+      }
+
 			public void Reset()
 			{
 				current = dll.startsentinel;
 			}
 
-			public object Current
+      public IPosition Current
 			{
 				get	
 				{	
@@ -253,25 +280,33 @@ namespace Xacc.Collections
 			}
 		}
 
-		class ReversePostionEnumerator : IEnumerator, ICloneable
+    class ReversePostionEnumerator : IEnumerator<IPosition>, ICloneable
 		{
-			readonly DoubleLinkedList dll;
+      readonly DoubleLinkedList<T> dll;
 			readonly int version;
-			IPosition current;
-			
-			public ReversePostionEnumerator(DoubleLinkedList dll)
+      IPosition current;
+
+      public ReversePostionEnumerator(DoubleLinkedList<T> dll)
 			{
 				this.dll = dll;
 				this.version = dll.version;
 				Reset();
 			}
 
+      object System.Collections.IEnumerator.Current
+      {
+        get { return Current; }
+      }
+      void IDisposable.Dispose()
+      {
+      }
+
 			public void Reset()
 			{
 				current = dll.endsentinel;
 			}
 
-			public object Current
+      public IPosition Current
 			{
 				get	
 				{	
@@ -308,7 +343,7 @@ namespace Xacc.Collections
 
 		#endregion
 
-		sealed class EndSentinel : Position
+    sealed class EndSentinel : Position
 		{
 #if PROBE
 			public override bool Probe(Position caller)
@@ -320,7 +355,7 @@ namespace Xacc.Collections
 #endif
 		}
 
-		sealed class StartSentinel : Position
+    sealed class StartSentinel : Position
 		{
 #if PROBE
 			public override bool Probe(Position caller)
@@ -358,9 +393,9 @@ namespace Xacc.Collections
     /// </summary>
     /// <param name="list">the list to wrap</param>
     /// <returns>the synchronized list</returns>
-		public static DoubleLinkedList Syncronized(DoubleLinkedList list)
+		public static DoubleLinkedList<T> Syncronized(DoubleLinkedList<T> list)
 		{
-			return new SyncDoubleLinkList(list);
+			return new SyncDoubleLinkList<T>(list);
 		}
 
 		readonly Position startsentinel = new StartSentinel();
@@ -374,7 +409,7 @@ namespace Xacc.Collections
 
 		EnumerationFlags flags = 0;
 
-		readonly Hashtable reversemapping = new Hashtable();
+    readonly Dictionary<T, IPosition> reversemapping = new Dictionary<T, IPosition>();
 
 		/// <summary>
 		/// The position of the first element, or null, if list is empty
@@ -409,9 +444,9 @@ namespace Xacc.Collections
 		/// Creates a list from an ICollection
 		/// </summary>
 		/// <param name="icol">The collections elements to copy from</param>
-		public DoubleLinkedList(ICollection icol) : this()
+		public DoubleLinkedList(ICollection<T> icol) : this()
 		{
-			foreach (object o in icol)
+			foreach (T o in icol)
 			{
 				Add(o);
 			}
@@ -422,43 +457,42 @@ namespace Xacc.Collections
 		/// </summary>
 		/// <param name="obj">the object to lookup</param>
 		/// <returns>the postion containing the object, or null, if not found</returns>
-		public virtual IPosition PositionOf(object obj)
+		public virtual IPosition PositionOf(T obj)
 		{
-			if (obj.GetType().IsValueType)
-			{
-				flags = EnumerationFlags.ForwardPosition;
-				foreach (IPosition o in this)
-				{
-					if (o.Data == obj)
-					{
-						return o;
-					}
-				}
-				return null;
-			}
-			else
-			{
-				return reversemapping[obj] as IPosition;
-			}
+      //if (obj.GetType().IsValueType)
+      //{
+      //  flags = EnumerationFlags.ForwardPosition;
+      //  foreach (IPosition o in this)
+      //  {
+      //    if (o.Data == obj)
+      //    {
+      //      return o;
+      //    }
+      //  }
+      //  return null;
+      //}
+      //else
+      //{
+				return reversemapping[obj];
+			//}
 		}
 
-		int IList.Add(object obj)
-		{
-			Add(obj);
-			return count - 1;
-		}
+    void ICollection<T>.Add(T obj)
+    {
+      Add(obj);
+    }
 
 		/// <summary>
 		/// Adds an object to the end of the list
 		/// </summary>
 		/// <param name="obj">the object to add</param>
 		/// <returns>the position of the added object</returns>
-		public virtual IPosition Add(object obj)
+    public virtual IPosition Add(T obj)
 		{
 			version++;
 			count++;
 
-			Position p = new Position();
+      Position p = new Position();
 			p.prev = endsentinel.prev;
 			p.next = endsentinel;
 			p.prev.next = p;
@@ -476,10 +510,10 @@ namespace Xacc.Collections
         Debug.Fail("Invalid condition");
       }
 
-			if (!t.IsValueType)
-			{
+      //if (!t.IsValueType)
+      //{
 				reversemapping.Add(obj, p);
-			}
+			//}
 
 			return p;
 		}
@@ -503,23 +537,23 @@ namespace Xacc.Collections
 		/// </summary>
 		/// <param name="obj">the object to search for</param>
 		/// <returns>true if found, else false</returns>
-		public virtual bool Contains(object obj)
+		public virtual bool Contains(T obj)
 		{
-			if (obj.GetType().IsValueType)
-			{
-				foreach (object o in this)
-				{
-					if (obj == o)
-					{
-						return true;
-					}
-				}
-				return false;
-			}
-			else
-			{
+      //if (obj.GetType().IsValueType)
+      //{
+      //  foreach (object o in this)
+      //  {
+      //    if (obj == o)
+      //    {
+      //      return true;
+      //    }
+      //  }
+      //  return false;
+      //}
+      //else
+      //{
 				return reversemapping.ContainsKey(obj);
-			}
+			//}
 		}
 
 		/// <summary>
@@ -527,10 +561,10 @@ namespace Xacc.Collections
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
-		public virtual int IndexOf(object obj)
+		public virtual int IndexOf(T obj)
 		{
 			int counter = 0;
-			foreach (object o in this)
+			foreach (T o in this)
 			{
 				if (o == obj)
 				{
@@ -546,7 +580,7 @@ namespace Xacc.Collections
     /// </summary>
     /// <param name="before">the before pos</param>
     /// <param name="value">the value</param>
-    public virtual void InsertAfter(IPosition before, object value)
+    public virtual void InsertAfter(IPosition before, T value)
     {
       Position newp = new Position();
       newp.data = value;
@@ -570,10 +604,10 @@ namespace Xacc.Collections
         Debug.Fail("Invalid condition");
       }
 
-      if (!t.IsValueType)
-      {
+      //if (!t.IsValueType)
+      //{
         reversemapping.Add(value, newp);
-      }
+      //}
     }
 
     /// <summary>
@@ -581,7 +615,7 @@ namespace Xacc.Collections
     /// </summary>
     /// <param name="after">the after pos</param>
     /// <param name="value">the value</param>
-		public virtual void InsertBefore(IPosition after, object value)
+    public virtual void InsertBefore(IPosition after, T value)
 		{
 			InsertAfter(after.Previous, value);
 		}
@@ -592,7 +626,7 @@ namespace Xacc.Collections
 		/// </summary>
 		/// <param name="index">the index to insert the object</param>
 		/// <param name="obj">the object to insert</param>
-		public virtual void Insert(int index, object obj)
+		public virtual void Insert(int index, T obj)
 		{
 			if (index*2 > count)
 			{
@@ -603,14 +637,14 @@ namespace Xacc.Collections
 			{
 				flags = EnumerationFlags.ForwardPosition;
 			}
-			foreach (Position pos in this)
+      foreach (Position pos in this as System.Collections.ICollection)
 			{
 				if (index-- == 0)
 				{
 					version++;
 					count++;
 
-					Position p = new Position();
+          Position p = new Position();
 					p.prev = pos;
 					p.next = pos.next;
 					p.prev.next = p;
@@ -628,10 +662,10 @@ namespace Xacc.Collections
             Debug.Fail("Invalid condition");
           }
 
-          if (!t.IsValueType)
-          {
+          //if (!t.IsValueType)
+          //{
             reversemapping.Add(obj, p);
-          }
+          //}
 					return;
 				}
 			}
@@ -652,7 +686,7 @@ namespace Xacc.Collections
 			{
 				flags = EnumerationFlags.ForwardPosition;
 			}
-			foreach (IPosition pos in this)
+      foreach (IPosition pos in this as System.Collections.ICollection)
 			{
 				if (index-- == 0)
 				{
@@ -663,7 +697,7 @@ namespace Xacc.Collections
 		}
 
 		//if you wanna really use this, i suggest an arraylist.
-		object IList.this[int index]
+		T IList<T>.this[int index]
 		{
 			get {throw new NotSupportedException();}
 			set {throw new NotSupportedException();}
@@ -674,23 +708,24 @@ namespace Xacc.Collections
 		/// </summary>
 		/// <param name="position">the object or position to remove</param>
 		/// <remarks>You can either pass the position or the object to remove</remarks>
-		public virtual void Remove(object position)
+    public virtual bool Remove(T position)
 		{
-			if (position is IPosition)
-			{
-				Remove(position as IPosition);
-			}
-			else
-			{
-				if (position.GetType().IsValueType)
-				{
-					Remove(PositionOf(position));
-				}
-				else
-				{
-					Remove(reversemapping[position] as IPosition);
-				}
-			}
+      //if (position is IPosition<T>)
+      //{
+      //  Remove(position as IPosition);
+      //}
+      //else
+      //{
+      //  if (position.GetType().IsValueType)
+      //  {
+      //    Remove(PositionOf(position));
+      //  }
+      //  else
+      //  {
+					Remove(reversemapping[position]);
+      //  }
+      //}
+      return true;
 		}
 
 		/// <summary>
@@ -709,7 +744,7 @@ namespace Xacc.Collections
 			get {return false;}
 		}
 
-		object Remove(IPosition pos)
+    object Remove(IPosition pos)
 		{
 			if (pos == null)
 			{
@@ -718,7 +753,7 @@ namespace Xacc.Collections
 			version++;
 			count--;
 
-			Position p = pos as Position;
+      Position p = pos as Position;
 
 			p.prev.next = p.next;
 			p.next.prev = p.prev;
@@ -736,14 +771,14 @@ namespace Xacc.Collections
 		/// </summary>
 		/// <param name="dest">the destination array</param>
 		/// <param name="index">the index to start copying at</param>
-		public virtual void CopyTo(Array dest, int index)
+		public virtual void CopyTo(T[] dest, int index)
 		{
 			if (dest.GetLength(0) < index + Count)
 			{
 				throw new ArgumentOutOfRangeException("index", index, "Not enough space in destination array");
 			}
 			int counter = 0;
-			foreach (object obj in this)
+			foreach (T obj in this)
 			{
 				dest.SetValue(obj, counter++ + index);
 			}
@@ -773,29 +808,48 @@ namespace Xacc.Collections
 			get {return count;}
 		}
 
+    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+    {
+      System.Collections.IEnumerator rator = null;
+      switch (flags)
+      {
+        case EnumerationFlags.Forward:
+          rator = new Enumerator(this);
+          break;
+        case EnumerationFlags.Reverse:
+          rator = new ReverseEnumerator(this);
+          break;
+        case EnumerationFlags.ForwardPosition:
+          rator = new PostionEnumerator(this);
+          break;
+        case EnumerationFlags.ReversePosition:
+          rator = new ReversePostionEnumerator(this);
+          break;
+        default:
+          rator = new Enumerator(this);
+          break;
+      }
+      flags = 0;
+      return rator;
+    }
+
 		/// <summary>
 		/// Returns an enumerator for the list
 		/// </summary>
 		/// <returns>the enumerator</returns>
-		public virtual IEnumerator GetEnumerator()
+		public virtual IEnumerator<T> GetEnumerator()
 		{
-			IEnumerator rator = null;
+			IEnumerator<T> rator = null;
 			switch (flags)
 			{
 				case EnumerationFlags.Forward:
-					rator = new Enumerator(this);
+          rator = new Enumerator(this);
 					break;
 				case EnumerationFlags.Reverse:
-					rator = new ReverseEnumerator(this);
-					break;
-				case EnumerationFlags.ForwardPosition:
-					rator = new PostionEnumerator(this);
-					break;
-				case EnumerationFlags.ReversePosition:
-					rator = new ReversePostionEnumerator(this);
+          rator = new ReverseEnumerator(this);
 					break;
 				default:
-					rator = new Enumerator(this);
+          rator = new Enumerator(this);
 					break;
 			}
 			flags = 0;
@@ -808,15 +862,15 @@ namespace Xacc.Collections
 		/// <returns></returns>
 		public virtual object Clone()
 		{
-			return new DoubleLinkedList(this); 
+      return new DoubleLinkedList<T>(this); 
 		}
 
 
-		sealed class SyncDoubleLinkList : DoubleLinkedList
+    sealed class SyncDoubleLinkList<T> : DoubleLinkedList<T> where T : class
 		{
-			readonly DoubleLinkedList list;
+      readonly DoubleLinkedList<T> list;
 
-			public SyncDoubleLinkList(DoubleLinkedList list)
+      public SyncDoubleLinkList(DoubleLinkedList<T> list)
 			{
 				if (list.IsSynchronized)
 				{
@@ -825,7 +879,7 @@ namespace Xacc.Collections
 				this.list = list;
 			}
 
-			public override IPosition Add(object obj)
+      public override IPosition Add(T obj)
 			{
 				lock(SyncRoot){	return list.Add (obj);}
 			}
@@ -840,12 +894,12 @@ namespace Xacc.Collections
 				lock(SyncRoot){	return list.Clone ();	}
 			}
 
-			public override bool Contains(object obj)
+			public override bool Contains(T obj)
 			{
 				lock(SyncRoot){	return list.Contains (obj);	}
 			}
 
-			public override void CopyTo(Array dest, int index)
+			public override void CopyTo(T[] dest, int index)
 			{
 				lock(SyncRoot){	list.CopyTo (dest, index);}
 			}
@@ -855,32 +909,32 @@ namespace Xacc.Collections
 				get	{lock(SyncRoot){return list.Count;}}
 			}
 
-			public override IPosition First
+      public override IPosition First
 			{
 				get {lock(SyncRoot){	return list.First;}}
 			}
 
-			public override IEnumerator GetEnumerator()
+      public override IEnumerator<T> GetEnumerator()
 			{
 				lock(SyncRoot){return list.GetEnumerator ();}
 			}
 
-			public override int IndexOf(object obj)
+			public override int IndexOf(T obj)
 			{
 				lock(SyncRoot){return list.IndexOf (obj);}
 			}
 
-			public override void Insert(int index, object obj)
+			public override void Insert(int index, T obj)
 			{
 				lock(SyncRoot){list.Insert (index, obj);}
 			}
 
-			public override void InsertAfter(IPosition before, object value)
+      public override void InsertAfter(IPosition before, T value)
 			{
 				lock(SyncRoot){list.InsertAfter (before, value);}
 			}
 
-			public override void InsertBefore(IPosition after, object value)
+      public override void InsertBefore(IPosition after, T value)
 			{
 				lock(SyncRoot){list.InsertBefore (after, value);}
 			}
@@ -900,19 +954,19 @@ namespace Xacc.Collections
 				get	{	return true;}
 			}
 
-			public override IPosition Last
+      public override IPosition Last
 			{
 				get	{	lock(SyncRoot){return list.Last;}	}
 			}
 
-			public override IPosition PositionOf(object obj)
+      public override IPosition PositionOf(T obj)
 			{
 				lock(SyncRoot){return list.PositionOf (obj);}
 			}
 
-			public override void Remove(object position)
+			public override bool Remove(T position)
 			{
-				lock(SyncRoot){list.Remove (position);}
+				lock(SyncRoot){return list.Remove (position);}
 			}
 
 			public override void RemoveAt(int index)

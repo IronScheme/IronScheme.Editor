@@ -449,17 +449,17 @@ namespace Xacc.Languages
 
     internal abstract class TokenEnumeratorBase : IEnumerator
     {
-      readonly DoubleLinkedList lines;
-      DoubleLinkedList.IPosition currentline;
+      readonly DoubleLinkedList<TokenLine> lines;
+      DoubleLinkedList<TokenLine>.IPosition currentline;
       int tokenpos;
-      AdvancedTextBox.TextBuffer.TokenLine tl;
+      TokenLine tl;
       IToken current;
       int line = 1;
       internal readonly string filename;
       protected readonly Language lang;
       protected bool updatelocations = true;
-      
-      public TokenEnumeratorBase(DoubleLinkedList lines, string filename, Language lang)
+
+      public TokenEnumeratorBase(DoubleLinkedList<TokenLine> lines, string filename, Language lang)
       {
         this.lang = lang;
         this.lines = lines;
@@ -474,7 +474,7 @@ namespace Xacc.Languages
         tokenpos = -1;
         if (currentline != null)
         {
-          tl = currentline.Data as AdvancedTextBox.TextBuffer.TokenLine;
+          tl = currentline.Data;
         }
       }
 
@@ -512,7 +512,7 @@ namespace Xacc.Languages
           line++;
           tokenpos = -1;
           currentline = currentline.Next;
-          tl = currentline.Data as AdvancedTextBox.TextBuffer.TokenLine;
+          tl = currentline.Data;
           if (tl == null)
           {
             return false;
@@ -556,7 +556,7 @@ namespace Xacc.Languages
 
     sealed class ParseTokenEnumerator : TokenEnumeratorBase
     {
-      public ParseTokenEnumerator(DoubleLinkedList lines, string filename, Language lang)
+      public ParseTokenEnumerator(DoubleLinkedList<TokenLine> lines, string filename, Language lang)
         : base (lines, filename, lang) 
       {
         updatelocations = true;
@@ -570,7 +570,7 @@ namespace Xacc.Languages
 
     sealed class PreprocessorTokenEnumerator : TokenEnumeratorBase
     {
-      public PreprocessorTokenEnumerator(DoubleLinkedList lines, string filename, Language lang)
+      public PreprocessorTokenEnumerator(DoubleLinkedList<TokenLine> lines, string filename, Language lang)
         : base (lines, filename, lang) { }
 
       protected override bool IsValid(IToken token)
@@ -611,7 +611,7 @@ namespace Xacc.Languages
 
     ArrayList pairings = null;
 
-    internal void Preprocess(DoubleLinkedList lines, string filename, IParserCallback cb, ArrayList pairings, params string[] defined)
+    internal void Preprocess(DoubleLinkedList<TokenLine> lines, string filename, IParserCallback cb, ArrayList pairings, params string[] defined)
     {
       this.pairings = new ArrayList();
 
@@ -1420,7 +1420,7 @@ namespace Xacc.Languages
     /// <param name="mlines"></param>
     /// <param name="filename"></param>
     /// <returns></returns>
-    internal virtual int Parse(DoubleLinkedList mlines, string filename)
+    internal virtual int Parse(DoubleLinkedList<TokenLine> mlines, string filename)
     {
       return Parse(mlines, filename, null);
     }
@@ -1432,7 +1432,7 @@ namespace Xacc.Languages
     /// <param name="filename"></param>
     /// <param name="cb"></param>
     /// <returns></returns>
-    internal int Parse(DoubleLinkedList mlines, string filename, IParserCallback cb)
+    internal int Parse(DoubleLinkedList<TokenLine> mlines, string filename, IParserCallback cb)
     {
       this.cb = cb;
       return Parse(new ParseTokenEnumerator(mlines, filename, this));
@@ -1452,7 +1452,7 @@ namespace Xacc.Languages
 
     //readonly object LEXLOCK = new object();
 
-    internal IToken[] Lex(string line, ref TokenLine state, DoubleLinkedList mlines)
+    internal IToken[] Lex(string line, ref TokenLine state, DoubleLinkedList<TokenLine> mlines)
     {
       if (line == null)
       {
@@ -1462,7 +1462,7 @@ namespace Xacc.Languages
       {
         IToken[] tokens = null;
 
-        TokenLine currentline = null, prevline = state as TokenLine;
+        TokenLine currentline = null, prevline = state;
 
         Stack ls = null;
         if (prevline == null) //first line
@@ -1470,7 +1470,7 @@ namespace Xacc.Languages
           ls = null;
           if (mlines.First != null)
           {
-            currentline = mlines.First.Data as TokenLine;
+            currentline = mlines.First.Data;
           }
         }
         else
@@ -1478,7 +1478,7 @@ namespace Xacc.Languages
           //see if we have a line already
           if (prevline != mlines.Last.Data)
           {
-            DoubleLinkedList.IPosition pos = mlines.PositionOf(prevline);
+            DoubleLinkedList<TokenLine>.IPosition pos = mlines.PositionOf(prevline);
 
             if (pos == null)
             {
@@ -1489,7 +1489,7 @@ namespace Xacc.Languages
 
             if (pos != null)
             {
-              currentline = pos.Data as TokenLine;
+              currentline = pos.Data;
             }
           }
 

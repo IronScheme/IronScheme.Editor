@@ -3878,7 +3878,7 @@ namespace Xacc.Controls
           }
           else
           {
-            DoubleLinkedList.IPosition iprev = mlines.PositionOf(before);
+            DoubleLinkedList<TokenLine>.IPosition iprev = mlines.PositionOf(before);
             if (iprev == null)
             {
               mlines.Add(newline);
@@ -4776,13 +4776,13 @@ namespace Xacc.Controls
 
         parsetimer.Enabled = false;
 
-        DoubleLinkedList.IPosition pos = mlines.PositionOf(state.userstate);
-        DoubleLinkedList.IPosition prev = pos.Previous;
+        DoubleLinkedList<TokenLine>.IPosition pos = mlines.PositionOf(state.userstate);
+        DoubleLinkedList<TokenLine>.IPosition prev = pos.Previous;
         TokenLine before = null;
         Stack tl = state.userstate.state;
         if (prev != null)
         {
-          before = prev.Data as TokenLine;
+          before = prev.Data;
         }
 
         bool hadpp = false;
@@ -6590,7 +6590,7 @@ namespace Xacc.Controls
       bool select = false;
 			//Region lastselection = null;
 
-			readonly DoubleLinkedList mlines = new FastDoubleLinkedList();
+      readonly DoubleLinkedList<TokenLine> mlines = new FastDoubleLinkedList<TokenLine>();
 
       [Conditional("PROBE")]
       void MiniProbe()

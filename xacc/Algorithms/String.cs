@@ -18,7 +18,7 @@
 #endregion
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -57,7 +57,7 @@ namespace Xacc.Algorithms
 //      return null;
 //    }
 
-    readonly static Hashtable tokenizecache = new Hashtable();
+    readonly static Dictionary<string, Regex> tokenizecache = new Dictionary<string,Regex>();
 
     public static string[] Tokenize(string name, params string[] delimiters)
     {
@@ -79,7 +79,7 @@ namespace Xacc.Algorithms
          tokenizecache.Add(del, re = new Regex(del, RegexOptions.Compiled));
       }
 
-      ArrayList tokens = new ArrayList();
+      List<string> tokens = new List<string>();
       int lastend = 0;
 
       foreach (Match m in re.Matches(name))
@@ -97,7 +97,7 @@ namespace Xacc.Algorithms
         tokens.Add(name.Substring(lastend));
       }
 
-      return tokens.ToArray(typeof(string)) as string[];
+      return tokens.ToArray();
     }
   }
 	/// <summary>
@@ -119,7 +119,7 @@ namespace Xacc.Algorithms
 	public sealed class BoyerMoore
 	{
     static string     temppat = string.Empty, revpat = string.Empty;
-    static Hashtable  tempjmp, revjmp;
+    static Dictionary<char, int> tempjmp, revjmp;
 
 		BoyerMoore(){}
 
@@ -151,10 +151,10 @@ namespace Xacc.Algorithms
       return IndexOf(pattern, text, start, tempjmp);
     }
 
-    static Hashtable PreIndexOf(string pattern)
+    static Dictionary<char, int> PreIndexOf(string pattern)
 		{
 			int m = pattern.Length - 1;
-			Hashtable pa = new Hashtable(m*3);
+      Dictionary<char, int> pa = new Dictionary<char, int>(m * 3);
 
 			for (int i = 0; i <= m; i++)
 			{
@@ -164,7 +164,7 @@ namespace Xacc.Algorithms
 			return pa;
 		}
 
-    static int IndexOf(string pattern, string text, int start, Hashtable jmptbl)
+    static int IndexOf(string pattern, string text, int start, Dictionary<char, int> jmptbl)
 		{
 			/*const*/int	n		= text.Length,
 			/*const*/			m		= pattern.Length,
@@ -196,9 +196,9 @@ namespace Xacc.Algorithms
 					}
 					index++;
 				}
-				if (jmptbl.Contains(t))
+				if (jmptbl.ContainsKey(t))
 				{
-					index += (int) jmptbl[t];
+					index += jmptbl[t];
 				}
 				else
 				{
@@ -237,10 +237,10 @@ namespace Xacc.Algorithms
     }
 
 
-		static Hashtable PreLastIndexOf(string pattern)
+    static Dictionary<char, int> PreLastIndexOf(string pattern)
 		{
 			int m = pattern.Length - 1;
-			Hashtable pa = new Hashtable(m*3);
+      Dictionary<char, int> pa = new Dictionary<char, int>(m * 3);
 
 			for (int i = m; i >= 0; i--)
 			{
@@ -251,7 +251,7 @@ namespace Xacc.Algorithms
 		}
 
 
-		static int LastIndexOf(string pattern, string text, int start, Hashtable jmptbl)
+    static int LastIndexOf(string pattern, string text, int start, Dictionary<char, int> jmptbl)
 		{
 			/*const*/int	n		= text.Length < start ? text.Length : start,
 			/*const*/			m		= pattern.Length;
@@ -278,9 +278,9 @@ namespace Xacc.Algorithms
 					}
 					index--;
 				}
-				if (jmptbl.Contains(t))
+        if (jmptbl.ContainsKey(t))
 				{
-					index -= (int) jmptbl[t];
+					index -= jmptbl[t];
 				}
 				else
 				{

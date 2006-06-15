@@ -206,11 +206,11 @@ SectionIn 1 2 RO
 	File "xacc.ide.exe.config"
 SectionEnd
 
-Section "Tools" SEC02
-SectionIn 1
-  SetOutPath "$INSTDIR\Tools"	
-  File "..\..\..\Tools\cs_lex.exe"
-SectionEnd
+;Section "Tools" SEC02
+;SectionIn 1
+;  SetOutPath "$INSTDIR\Tools"	
+;  File "..\..\..\Tools\cs_lex.exe"
+;SectionEnd
 
 ;Section "Source" SEC03
 ;SectionIn 1

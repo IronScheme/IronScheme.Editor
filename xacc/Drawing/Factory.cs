@@ -20,6 +20,7 @@
 using System;
 using System.Drawing;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Xacc.Drawing
 {
@@ -77,7 +78,7 @@ namespace Xacc.Drawing
       }
     }
 
-    static Hashtable typecache = new Hashtable();
+    static Dictionary<Type, Hashtable> typecache = new Dictionary<Type, Hashtable>();
 
 #if DEBUG
     static int hit = 0;
@@ -87,6 +88,11 @@ namespace Xacc.Drawing
 
     Factory(){}
 
+    public static T Get<T>(params object[] args) where T: class
+    {
+      return Get(typeof(T), args) as T;
+    }
+
     /// <summary>
     /// Returns an object of type and constructor args and caches the reference
     /// </summary>
@@ -95,11 +101,15 @@ namespace Xacc.Drawing
     /// <returns>a newly created or cached reference</returns>
     public static object Get(Type type, params object[] args)
     {
-      Hashtable bin = typecache[type] as Hashtable;
-      if (bin == null)
+      Hashtable bin = null;
+      if (!typecache.ContainsKey(type))
       {
         bin = new Hashtable();
         typecache[type] = bin;
+      }
+      else
+      {
+        bin = typecache[type];
       }
 
       object c = null;
@@ -162,7 +172,7 @@ namespace Xacc.Drawing
     /// <returns>the brush</returns>
     public static SolidBrush SolidBrush(Color c)
     {
-      return Get(typeof(SolidBrush), c) as SolidBrush;
+      return Get<SolidBrush>(c);
     }
 
     /// <summary>
@@ -177,7 +187,7 @@ namespace Xacc.Drawing
       {
         return proto;
       }
-      return Get(typeof(Font), proto, style) as Font;
+      return Get<Font>(proto, style);
     }
 
     /// <summary>
@@ -188,7 +198,7 @@ namespace Xacc.Drawing
     /// <returns>the new pen</returns>
     public static Pen Pen(Color color, float width)
     {
-      return Get(typeof(Pen), color, width) as Pen;
+      return Get<Pen>(color, width);
     }
   }
 }

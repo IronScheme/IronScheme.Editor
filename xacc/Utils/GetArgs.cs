@@ -18,7 +18,7 @@
 #endregion
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.ComponentModel;
@@ -328,7 +328,7 @@ confuse a user.")]
 	[ArgOptions]
 	public abstract class GetArgs
 	{
-		static readonly Hashtable aliasmap = new Hashtable();
+    static readonly Dictionary<Type, string> aliasmap = new Dictionary<Type, string>();
 
 		static GetArgs()
 		{
@@ -348,9 +348,9 @@ confuse a user.")]
 
 		static string GetShortTypeName(Type t)
 		{
-			if (aliasmap.Contains(t))
+			if (aliasmap.ContainsKey(t))
 			{
-				return aliasmap[t] as string;
+				return aliasmap[t];
 			}
 			return t.Name;
 		}
@@ -414,7 +414,7 @@ confuse a user.")]
 
 			public string Name
 			{
-				get {return options.Name == null ? fi.Name : options.Name;}
+				get {return options.Name ?? fi.Name;}
 			}
 
 			public Type Type
@@ -453,7 +453,7 @@ confuse a user.")]
 			return string.Format("({0}|{1})", shortname, name);
 		}
 
-		void PrintHelp(Hashtable map)
+    void PrintHelp(Dictionary<string, ArgInfo> map)
 		{
 			TextWriter writer = null;
 
@@ -486,13 +486,13 @@ confuse a user.")]
 			writer.WriteLine("Usage: {0}", assname.Name);
 			writer.WriteLine("{0}? or {0}help       prints usage", prefix);
 
-			ArrayList keys = new ArrayList(map.Keys);
+      List<string> keys = new List<string>(map.Keys);
       bool acceptsdefault = false;
 
-			foreach (DictionaryEntry de in map)
+			foreach (KeyValuePair<string,ArgInfo> de in map)
 			{
-				ArgInfo arginfo = de.Value as ArgInfo;
-				string name = de.Key as string;
+				ArgInfo arginfo = de.Value;
+				string name = de.Key;
 				string shortname = arginfo.Options.Shortname;
 
 				if (shortname == name)
@@ -608,7 +608,7 @@ confuse a user.")]
 					RegexOptions.Compiled | RegexOptions.ExplicitCapture);
 			}
 
-			Hashtable argz = new Hashtable();
+			Dictionary<string, ArgInfo> argz = new Dictionary<string, ArgInfo>();
 
 			string[] args = Environment.GetCommandLineArgs();
 			string allargs = string.Join(" ", args, 1, args.Length - 1).Trim();
@@ -738,7 +738,7 @@ confuse a user.")]
             argname = MAGIC;
           }
 
-          ArgInfo arginfo = argz[argname] as ArgInfo;
+          ArgInfo arginfo = argz[argname];
 
           if (arginfo == null)
           {
@@ -796,15 +796,15 @@ confuse a user.")]
               {
                 if (t.IsArray)
                 {
-                  ArrayList vals = new ArrayList();
+                  List<object> vals = new List<object>();
                   if (arginfo.Value != null)
                   {
-                    vals.AddRange(arginfo.Value as ICollection);
+                    vals.AddRange(arginfo.Value as ICollection<object>);
                   }
                   TypeConverter tc = TypeDescriptor.GetConverter(t.GetElementType());
                   vals.Add(tc.ConvertFromString(v));
 
-                  val = vals.ToArray(t.GetElementType());
+                  val = vals.ToArray();
                 }
                 else
                 {
