@@ -102,8 +102,11 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Boo.lex.cs" />
     <Compile Include="Css.lex.cs" />
+    <Compile Include="HLSL.lex.cs" />
     <Compile Include="IL.lex.cs" />
+    <Compile Include="JavaScript.lex.cs" />
     <Compile Include="Mercury.lex.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -153,7 +156,10 @@ $(SolutionDir)Tools\cs_lex $(ProjectDir)Mercury.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)PowerShell.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Css.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)IL.lex
-$(SolutionDir)Tools\cs_lex $(ProjectDir)Xml.lex</PreBuildEvent>
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Xml.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)HLSL.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)JavaScript.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Boo.lex</PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>

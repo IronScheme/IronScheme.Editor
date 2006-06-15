@@ -500,11 +500,11 @@ namespace Xacc.ComponentModel
 
 		public Project[] Open(string prjfile)
 		{
-      BuildProject bp = new BuildProject();
+      //BuildProject bp = new BuildProject();
 
-      bp.Load(prjfile);
+      //bp.Load(prjfile);
 
-      bp.Save(prjfile + ".proj");
+      //bp.Save(prjfile + ".proj");
 
       prjfile = Path.GetFullPath(prjfile);
 

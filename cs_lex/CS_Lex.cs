@@ -176,6 +176,7 @@ namespace  CS_Lex
       Imported Packages
       **************************************************************/
   using System.Collections;
+  using System.IO;
 
 
   /******************************
@@ -235,7 +236,11 @@ namespace  CS_Lex
           Console.WriteLine("Usage: JLex.Main <filename>");
           return 1;
         }
-        
+
+        if (File.GetLastWriteTime(arg[0]) < File.GetLastWriteTime(arg[0] + ".cs"))
+        {
+          return 0;
+        }
         
         lg = new CLexGen(arg[0]);
         lg.generate();

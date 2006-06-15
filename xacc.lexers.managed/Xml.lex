@@ -6,12 +6,17 @@ namespace Xacc.Languages
   sealed class XmlLanguage : CSLex.Language
   {
 	  public override string Name {get {return "XML"; } }
-	  public override string[] Extensions {get { return new string[]{"xml"}; } }
+	  public override string[] Extensions {get { return new string[]{"xml","html","xsl"}; } }
 	  LexerBase lexer = new XmlLexer();
 	  protected override LexerBase Lexer
 	  {
 		  get {return lexer;}
 	  }
+	  
+	  public override bool MatchLine(string startline)
+    {
+      return startline.StartsWith("<");
+    }
   }
 }
 //NOTE: comments are not allowed except in code blocks

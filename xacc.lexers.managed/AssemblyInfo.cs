@@ -46,6 +46,9 @@ sealed class Common_PluginLoader : AssemblyPluginProvider
     new Xacc.Languages.CssLang();
     new Xacc.Languages.ILLanguage();
     new Xacc.Languages.XmlLanguage();
+    new Xacc.Languages.HLSLLang();
+    new Xacc.Languages.JavaScriptLanguage();
+    new Xacc.Languages.BooLanguage();
 
   }
 }
