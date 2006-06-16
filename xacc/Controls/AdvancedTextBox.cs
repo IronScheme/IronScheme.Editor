@@ -7384,9 +7384,26 @@ namespace Xacc.Controls
 
           recording = false;
 
+          Stream input = null;
+
+          if (reader is StreamReader)
+          {
+            input = ((StreamReader)reader).BaseStream;
+
+            ServiceHost.StatusBar.Progress = 0;
+          }
+
+          int pos = 0;
+          int nllen = Environment.NewLine.Length;
+
           while((line = reader.ReadLine()) != null)
           {
             Add(line);
+            pos += line.Length + nllen;
+            if (input != null)
+            {
+              ServiceHost.StatusBar.Progress = pos/(float)input.Length;
+            }
             c++;
           }
 

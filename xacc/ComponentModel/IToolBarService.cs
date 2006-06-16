@@ -60,18 +60,6 @@ namespace Xacc.ComponentModel
       set { toolbar.TopToolStripPanelVisible = value; }
     }
 
-    protected override void Initialize()
-    {
-      base.Initialize();
-      ToolStripManager.LoadSettings(ServiceHost.Window.MainForm);
-    }
-
-    protected override void Dispose(bool disposing)
-    {
-      ToolStripManager.SaveSettings(ServiceHost.Window.MainForm);
-      base.Dispose(disposing);
-    }
-
     internal void ValidateToolBarButtons()
     {
       foreach (ToolStrip ts in toplevel)

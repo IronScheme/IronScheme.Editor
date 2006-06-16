@@ -23,6 +23,7 @@ namespace Xacc.Languages
 %%
 
 %class XmlLexer
+%unicode
 
 ws		                    =[ \t]+
 comment_start             ="<!--"

@@ -18,7 +18,7 @@ namespace Xacc.Languages
 %%
 
 %class PowerShellLexer
-
+%unicode
 %ignorecase
 
 WS		                    =[ \t]+

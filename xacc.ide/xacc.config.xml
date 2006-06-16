@@ -37,7 +37,7 @@
 			    prefix				=	"-"
 			    argprefix			=	":" >
     			
-	    <category 
+	    <category
 			    name					=	"Output"
 			    description		=	"Controls the output of the compiler">
     		

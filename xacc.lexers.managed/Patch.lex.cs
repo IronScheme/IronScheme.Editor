@@ -18,8 +18,8 @@ namespace Xacc.Languages
 sealed class PatchLexer : LexerBase {
 
 	public PatchLexer () {
-	YY_BOL = 128;
-	YY_EOF = 129;
+	YY_BOL = 65536;
+	YY_EOF = 65537;
 
 	}
 
@@ -32,8 +32,8 @@ sealed class PatchLexer : LexerBase {
 4,4,4,4,4,4,4,4,0,4,4,0,4,4,4,4,
 4,4,4	};
 	static readonly int[] yy_cmap = unpackFromString(
-1,130,
-"3:9,1,9,3:21,1,3:10,4,3,5,3:18,2,3:35,6,3,8,3:2,7,3:22,0:2")[0];
+1,65538,
+"3:9,1,9,3:21,1,3:10,4,3,5,3:18,2,3:35,6,3,8,3:2,7,3:65430,0:2")[0];
 
 	static readonly int[] yy_rmap = {
 0,1,2,3,4,5,1,1,6,7,8,9,10,11,12,13,6,9,14,15};

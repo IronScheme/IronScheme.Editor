@@ -129,7 +129,6 @@
     <None Include="App.config" />
     <None Include="command.ls" />
     <None Include="profile.ls" />
-    <BaseApplicationManifest Include="Properties\app.manifest" />
     <None Include="xacc.ide.nsi" />
     <None Include="xacc.key" />
     <Compile Include="AssemblyInfo.cs">
@@ -154,6 +153,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
@@ -164,6 +166,7 @@ xcopy /y $(ProjectDir)ReadMe.txt $(TargetDir)
 xcopy /y $(ProjectDir)xacc.config.xsl $(TargetDir)
 xcopy /y $(ProjectDir)xacc.ide.nsi $(TargetDir)
 xcopy /y $(ProjectDir)*.ls $(TargetDir)
-xcopy /y $(SolutionDir)LSharp.Compiler\$(OutDir)lsc.exe $(TargetDir)</PostBuildEvent>
+xcopy /y $(SolutionDir)LSharp.Compiler\$(OutDir)lsc.exe $(TargetDir)
+rem "C:\Program Files\NSIS\makensis" /V2 $(TargetDir)xacc.ide.nsi</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -237,9 +237,14 @@ namespace  CS_Lex
           return 1;
         }
 
-        if (File.GetLastWriteTime(arg[0]) < File.GetLastWriteTime(arg[0] + ".cs"))
+        string outfile = arg[0] + ".cs";
+
+        if (File.Exists(outfile) && new FileInfo(outfile).Length > 0)
         {
-          return 0;
+          if (File.GetLastWriteTime(arg[0]) < File.GetLastWriteTime(outfile))
+          {
+            return 0;
+          }
         }
         
         lg = new CLexGen(arg[0]);

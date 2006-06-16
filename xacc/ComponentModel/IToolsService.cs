@@ -76,11 +76,6 @@ namespace Xacc.ComponentModel
         mi.Enabled = File.Exists(((ProcessStartInfo)tools[name]).FileName);
         tl.DropDownItems.Add(mi);
       }
-
-      tl.DropDownItems.Add(new ToolStripMenuItem("-"));
-
-      tl.DropDownOpening +=new EventHandler(tl_Popup);
-
       LoadView();
     }
 

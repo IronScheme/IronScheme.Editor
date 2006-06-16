@@ -219,17 +219,24 @@ namespace Xacc.ComponentModel
 		///		// use service
 		/// }
 		/// </code></example>
-		public IService GetService(Type servicetype)
+    public IService GetService(Type servicetype)
 		{
 			return services[servicetype] as IService;
 		}
+
+
+
+    public static T Get<T>() where T:class, IService
+    {
+      return services[typeof(T)] as T;
+    }
 
     /// <summary>
     /// Gets the IKeyboardService
     /// </summary>
     public static IKeyboardService Keyboard
     {
-      get { return services[typeof(IKeyboardService)] as IKeyboardService;}
+      get { return Get<IKeyboardService>();}
     }
 
     /// <summary>
@@ -237,7 +244,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     internal static IEditService Edit
     {
-      get { return services[typeof(IEditService)] as IEditService;}
+      get { return Get<IEditService>(); }
     }
 
     /// <summary>
@@ -245,7 +252,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     internal static IHelpService Help
     {
-      get { return services[typeof(IHelpService)] as IHelpService;}
+      get { return Get<IHelpService>();}
     }
 
     /// <summary>
@@ -253,15 +260,23 @@ namespace Xacc.ComponentModel
     /// </summary>
 		public static IToolBarService ToolBar
 		{
-			get { return services[typeof(IToolBarService)] as IToolBarService;}
+			get { return Get<IToolBarService>();}
 		}
+
+    /// <summary>
+    /// Gets the IStatusBarService
+    /// </summary>
+    public static IStatusBarService StatusBar
+    {
+      get { return Get<IStatusBarService>(); }
+    }
 
     /// <summary>
     /// Gets the IFileManagerService
     /// </summary>
     public static IFileManagerService File
 		{
-			get { return services[typeof(IFileManagerService)] as IFileManagerService;}
+			get { return Get<IFileManagerService>();}
 		}
 
     /// <summary>
@@ -269,7 +284,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     public static IMenuService Menu	
 		{
-			get { return services[typeof(IMenuService)] as IMenuService;}
+			get { return Get<IMenuService>();}
 		}
 
     /// <summary>
@@ -277,7 +292,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     public static ISettingsService Settings	
     {
-      get { return services[typeof(ISettingsService)] as ISettingsService;}
+      get { return Get<ISettingsService>();}
     }
 
     /// <summary>
@@ -285,7 +300,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     public static IViewService View
     {
-      get { return services[typeof(IViewService)] as IViewService;}
+      get { return Get<IViewService>();}
     }
 
     /// <summary>
@@ -293,7 +308,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     public static IErrorService Error	
 		{
-			get { return services[typeof(IErrorService)] as IErrorService;}
+			get { return Get<IErrorService>();}
 		}
 
     /// <summary>
@@ -301,7 +316,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     public static IScriptingService Scripting
     {
-      get { return services[typeof(IScriptingService)] as IScriptingService;}
+      get { return Get<IScriptingService>();}
     }
 
     /// <summary>
@@ -309,7 +324,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     public static IProjectManagerService Project	
 		{
-			get { return services[typeof(IProjectManagerService)] as IProjectManagerService;}
+			get { return Get<IProjectManagerService>();}
 		}
 
     /// <summary>
@@ -317,7 +332,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     public static ILanguageService Language	
 		{
-			get { return services[typeof(ILanguageService)] as ILanguageService;}
+			get { return Get<ILanguageService>();}
 		}
 
     /// <summary>
@@ -325,7 +340,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     public static IConsoleService Console	
 		{
-			get { return services[typeof(IConsoleService)] as IConsoleService;}
+			get { return Get<IConsoleService>();}
 		}
 
     /// <summary>
@@ -333,7 +348,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     public static IWindowService Window	
 		{
-			get { return services[typeof(IWindowService)] as IWindowService;}
+			get { return Get<IWindowService>();}
 		}
 
     /// <summary>
@@ -341,7 +356,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     public static IToolsService Tools
     {
-      get { return services[typeof(IToolsService)] as IToolsService;}
+      get { return Get<IToolsService>();}
     }
 
     /// <summary>
@@ -349,7 +364,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     public static IDiscoveryService Discovery
 		{
-			get { return services[typeof(IDiscoveryService)] as IDiscoveryService;}
+			get { return Get<IDiscoveryService>();}
 		}
 
     /// <summary>
@@ -357,7 +372,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     public static IImageListProviderService ImageListProvider	
 		{
-			get { return services[typeof(IImageListProviderService)] as IImageListProviderService;}
+			get { return Get<IImageListProviderService>();}
 		}
 
     /// <summary>
@@ -365,7 +380,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     public static ICodeModelManagerService CodeModel	
 		{
-			get { return services[typeof(ICodeModelManagerService)] as ICodeModelManagerService;}
+			get { return Get<ICodeModelManagerService>();}
 		}
 
     /// <summary>
@@ -373,7 +388,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     public static IFontManagerService Font	
 		{
-			get { return services[typeof(IFontManagerService)] as IFontManagerService;}
+			get { return Get<IFontManagerService>();}
 		}
 
     /// <summary>
@@ -381,7 +396,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     public static IDebugService Debug
 		{
-			get { return services[typeof(IDebugService)] as IDebugService;}
+			get { return Get<IDebugService>();}
 		}
 
     /// <summary>
@@ -389,7 +404,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     public static IPluginManagerService Plugin	
 		{
-			get { return services[typeof(IPluginManagerService)] as IPluginManagerService;}
+			get { return Get<IPluginManagerService>();}
 		}
 
 		void IDisposable.Dispose()

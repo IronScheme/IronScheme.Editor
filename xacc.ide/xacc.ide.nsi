@@ -59,7 +59,7 @@ ShowUnInstDetails show
 ; MUI end ------
 
 !define BASE_URL http://download.microsoft.com/download
-!define URL_DOTNET "${BASE_URL}/5/6/7/567758a3-759e-473e-bf8f-52154438565a/dotnetfx.exe"
+!define URL_DOTNET "http://download.microsoft.com/download/5/6/7/567758a3-759e-473e-bf8f-52154438565a/dotnetfx.exe"
 
 LangString DESC_SHORTDOTNET ${LANG_ENGLISH} ".Net Framework 2.0"
 LangString DESC_LONGDOTNET ${LANG_ENGLISH} "Microsoft .Net Framework 2.0"
@@ -164,13 +164,13 @@ MessageBox MB_ICONEXCLAMATION|MB_YESNO|MB_DEFBUTTON2 "$(DESC_DOTNET_DECISION)" /
 
 DownloadNET:
 
-nsisdl::download /TIMEOUT=30000 "${URL_DOTNET}" "$INSTDIR\dotnetfx.exe"
+nsisdl::download /TIMEOUT=30000 "${URL_DOTNET}" "$TEMP\dotnetfx.exe"
 Pop $0
 StrCmp "$0" "success" InstallNET AbortInstall
 
 InstallNET:
 Banner::show /NOUNLOAD "$(DESC_INSTALLING) $(DESC_SHORTDOTNET)..."
-nsExec::ExecToStack '"$INSTDIR\dotnetfx.exe" /q /c:"install.exe /noaspupgrade /q"'
+nsExec::ExecToStack '"$TEMP\dotnetfx.exe" /q /c:"install.exe /noaspupgrade /q"'
 Banner::destroy
 
 Install:
@@ -237,6 +237,12 @@ SectionEnd
 ;	SetOutPath "$INSTDIR"
 ;  File "xacc.pdb"
 ;	File "xacc.ide.pdb"
+;SectionEnd
+
+;Section "Optimize" SEC07
+;SectionIn 1
+;	SetOutPath "$INSTDIR"
+;ExecShell "print" "$INSTDIR\readme.txt"
 ;SectionEnd
 
 Section -AdditionalIcons

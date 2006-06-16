@@ -13,6 +13,7 @@ Configuration summary
 </h3>
 
 <xsl:for-each select="xacc:action">
+  
 
 <table width="100%" style="border-style: 1px" cellspacing="0" cellpadding="2" >
 <tr><td colspan="3" style="background-image: none; color: white;  background-color: black"><font size="4" ><strong>Action: <xsl:value-of select="@name"/></strong></font></td></tr>

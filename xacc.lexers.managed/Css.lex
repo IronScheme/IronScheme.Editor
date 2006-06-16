@@ -20,6 +20,7 @@ namespace Xacc.Languages
 %class CssLexer
 
 %ignorecase
+%unicode
 
 nmstart		      =([_a-z])
 nmchar		      =([_a-zA-Z0-9-])
@@ -52,23 +53,19 @@ comment_end     ="*"+"/"
 <INCLASS>{comment_start}      { ENTER(ML_COMMENT); return COMMENT; }
 <INCLASS>":"                  { ENTER(INDEF); return OPERATOR;}
 <INCLASS>"}"                  { EXIT(); return OPERATOR; }  
-<INCLASS>{nl}                 { return NEWLINE;}
 <INCLASS>{ident}              { return NUMBER;}
-<INCLASS>.                    { return PLAIN;}
-
 
 <INDEF>{comment_start}        { ENTER(ML_COMMENT); return COMMENT; }
 <INDEF>";"                    { EXIT(); return OPERATOR; }
 <INDEF>"}"                    { EXIT(); EXIT(); return OPERATOR;}  
-<INDEF>{nl}                   { return NEWLINE;}
 <INDEF>[^ \n\t;\}]+           { return KEYWORD;}
-
-<YYINITIAL>{nl}               { return NEWLINE;}
 
 <YYINITIAL>"A:"{ident}        { return STRING;}
 <YYINITIAL>"#"{ident}         { return STRING;}
 <YYINITIAL>"."{ident}         { return STRING;}
 <YYINITIAL>{ident}            { return STRING;}
-<YYINITIAL>.                  { return PLAIN;}
+
+{nl}               { return NEWLINE;}
+.                  { return PLAIN;}
 
  

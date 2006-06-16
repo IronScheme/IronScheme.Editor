@@ -57,6 +57,8 @@ namespace Xacc.Algorithms
 //      return null;
 //    }
 
+    
+
     readonly static Dictionary<string, Regex> tokenizecache = new Dictionary<string,Regex>();
 
     public static string[] Tokenize(string name, params string[] delimiters)

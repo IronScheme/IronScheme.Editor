@@ -29,11 +29,13 @@ namespace Xacc.ComponentModel
 	public interface IStatusBarService : IService
 	{
     StatusStrip StatusBar {get;}
+    float Progress { get; set;}
 	}
 
 	sealed class StatusBarService : ServiceBase, IStatusBarService
 	{
     readonly StatusStrip status = new StatusStrip();
+    readonly ToolStripProgressBar progress = new ToolStripProgressBar();
 
     public StatusStrip StatusBar 
     {
@@ -43,7 +45,27 @@ namespace Xacc.ComponentModel
     public StatusBarService()
 		{
       status.Dock = DockStyle.Bottom;
+      status.LayoutStyle = ToolStripLayoutStyle.StackWithOverflow;
       ServiceHost.Window.MainForm.Controls.Add(status);
+      progress.Alignment = ToolStripItemAlignment.Right;
+      progress.AutoSize = false;
+      progress.Style = ProgressBarStyle.Continuous;
+      progress.Width = 200;
+      progress.Maximum = 5000;
+      progress.Minimum = 0;
+      status.Items.Add(progress);
+    }
+
+    public float Progress
+    {
+      get
+      {
+        return progress.Value / (float)progress.Maximum;
+      }
+      set
+      {
+        progress.Value = (int)(value * progress.Maximum);
+      }
     }
   }
 }

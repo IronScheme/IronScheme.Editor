@@ -18,6 +18,7 @@ namespace Xacc.Languages
 %%
 
 %class ILLexer
+%full
 
 single_line_comment    ="//".*
 

@@ -30,7 +30,7 @@ namespace Xacc.Collections
 	/// <summary>
 	/// DoubleLinkedList.
 	/// </summary>
-	public class DoubleLinkedList<T> : IList<T>, ICloneable where T : class
+	public class DoubleLinkedList<T> : ICollection<T>, ICloneable where T : class
 	{
 		/// <summary>
 		/// Interface for position within the list
@@ -395,7 +395,7 @@ namespace Xacc.Collections
     /// <returns>the synchronized list</returns>
 		public static DoubleLinkedList<T> Syncronized(DoubleLinkedList<T> list)
 		{
-			return new SyncDoubleLinkList<T>(list);
+			return new SyncDoubleLinkList(list);
 		}
 
 		readonly Position startsentinel = new StartSentinel();
@@ -459,22 +459,7 @@ namespace Xacc.Collections
 		/// <returns>the postion containing the object, or null, if not found</returns>
 		public virtual IPosition PositionOf(T obj)
 		{
-      //if (obj.GetType().IsValueType)
-      //{
-      //  flags = EnumerationFlags.ForwardPosition;
-      //  foreach (IPosition o in this)
-      //  {
-      //    if (o.Data == obj)
-      //    {
-      //      return o;
-      //    }
-      //  }
-      //  return null;
-      //}
-      //else
-      //{
-				return reversemapping[obj];
-			//}
+			return reversemapping[obj];
 		}
 
     void ICollection<T>.Add(T obj)
@@ -510,10 +495,7 @@ namespace Xacc.Collections
         Debug.Fail("Invalid condition");
       }
 
-      //if (!t.IsValueType)
-      //{
-				reversemapping.Add(obj, p);
-			//}
+			reversemapping.Add(obj, p);
 
 			return p;
 		}
@@ -539,21 +521,7 @@ namespace Xacc.Collections
 		/// <returns>true if found, else false</returns>
 		public virtual bool Contains(T obj)
 		{
-      //if (obj.GetType().IsValueType)
-      //{
-      //  foreach (object o in this)
-      //  {
-      //    if (obj == o)
-      //    {
-      //      return true;
-      //    }
-      //  }
-      //  return false;
-      //}
-      //else
-      //{
-				return reversemapping.ContainsKey(obj);
-			//}
+			return reversemapping.ContainsKey(obj);
 		}
 
 		/// <summary>
@@ -603,11 +571,7 @@ namespace Xacc.Collections
       {
         Debug.Fail("Invalid condition");
       }
-
-      //if (!t.IsValueType)
-      //{
-        reversemapping.Add(value, newp);
-      //}
+      reversemapping.Add(value, newp);
     }
 
     /// <summary>
@@ -661,11 +625,8 @@ namespace Xacc.Collections
           {
             Debug.Fail("Invalid condition");
           }
+          reversemapping.Add(obj, p);
 
-          //if (!t.IsValueType)
-          //{
-            reversemapping.Add(obj, p);
-          //}
 					return;
 				}
 			}
@@ -696,13 +657,6 @@ namespace Xacc.Collections
 			}
 		}
 
-		//if you wanna really use this, i suggest an arraylist.
-		T IList<T>.this[int index]
-		{
-			get {throw new NotSupportedException();}
-			set {throw new NotSupportedException();}
-		}
-
 		/// <summary>
 		/// Removes an object or position from the list
 		/// </summary>
@@ -710,22 +664,7 @@ namespace Xacc.Collections
 		/// <remarks>You can either pass the position or the object to remove</remarks>
     public virtual bool Remove(T position)
 		{
-      //if (position is IPosition<T>)
-      //{
-      //  Remove(position as IPosition);
-      //}
-      //else
-      //{
-      //  if (position.GetType().IsValueType)
-      //  {
-      //    Remove(PositionOf(position));
-      //  }
-      //  else
-      //  {
-					Remove(reversemapping[position]);
-      //  }
-      //}
-      return true;
+			return Remove(reversemapping[position]) != null;
 		}
 
 		/// <summary>
@@ -758,10 +697,7 @@ namespace Xacc.Collections
 			p.prev.next = p.next;
 			p.next.prev = p.prev;
 
-			if (!p.data.GetType().IsValueType)
-			{
-				reversemapping.Remove(p.data);
-			}
+  		reversemapping.Remove(p.data);
 
 			return p.data;
 		}
@@ -866,7 +802,7 @@ namespace Xacc.Collections
 		}
 
 
-    sealed class SyncDoubleLinkList<T> : DoubleLinkedList<T> where T : class
+    sealed class SyncDoubleLinkList : DoubleLinkedList<T>
 		{
       readonly DoubleLinkedList<T> list;
 

@@ -17,6 +17,7 @@ namespace Xacc.Languages
 %%
 
 %class PatchLexer
+%unicode
 
 WS          =[ \t]+
 ADD         ="+"[^\n]*
