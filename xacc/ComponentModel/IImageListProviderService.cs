@@ -286,6 +286,10 @@ namespace Xacc.ComponentModel
     {
       get
       {
+        if (name == null)
+        {
+          return 0;
+        }
         if (!namemap.ContainsKey(name))
         {
           //hopefully the user has an image

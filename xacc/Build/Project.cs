@@ -91,6 +91,72 @@ namespace Xacc.Build
   /// </summary>
 	public delegate void ProjectEventHandler(object prj, ProjectEventArgs e);
 
+  class MsBuildProject : Project
+  {
+    [Name("Compile")]
+    class Compile : CustomAction
+    {
+      public Compile()
+      {
+        AddOptionAction(new Reference(this));
+        AddOptionAction(new Resource(this));
+      }
+
+      public override bool Invoke(params string[] files)
+      {
+        return true;
+      }
+    }
+
+    [Name("Reference")]
+    class Reference : OptionAction
+    {
+      public Reference(Compile ca)
+        : base(ca, null)
+      {
+      }
+    }
+
+    [Name("Embedded Resource")]
+    class Resource : OptionAction
+    {
+      public Resource(Compile ca)
+        : base(ca, null)
+      {
+      }
+    }
+
+    readonly BuildProject prj;
+    public MsBuildProject(BuildProject prj)
+    {
+      this.prj = prj;
+      AddActionType(typeof(Compile));
+      ProjectName = prj.GetEvaluatedProperty("ProjectName");
+      Environment.CurrentDirectory = RootDirectory = prj.GetEvaluatedProperty("ProjectDir");
+
+      Compile c = new Compile();
+
+      foreach (BuildItem bi in prj.GetEvaluatedItemsByName("Compile"))
+      {
+        AddFile(bi.Include, c);
+      }
+      foreach (BuildItem bi in prj.GetEvaluatedItemsByName("EmbeddedResource"))
+      {
+        AddFile(bi.Include);
+      }
+
+      foreach (BuildItem bi in prj.GetEvaluatedItemsByName("Reference"))
+      {
+        AddFile(bi.Include);
+      }
+
+      foreach (BuildItem bi in prj.GetEvaluatedItemsByName("None"))
+      {
+        AddFile(bi.Include, Action.None);
+      }
+    }
+  }
+
   /// <summary>
   /// Base class for all Projects
   /// </summary>
@@ -498,6 +564,10 @@ namespace Xacc.Build
 
     internal Action SuggestAction(Type t)
     {
+      if (t == null)
+      {
+        return Action.None;
+      }
       Debug.Assert(actions != null);
       foreach (Action a in actions)
       {
@@ -814,6 +884,11 @@ namespace Xacc.Build
 
     internal void Save(Project[] all)
     {
+      if (Location == null)
+      {
+        return;
+      }
+
       foreach (Project p in all)
       {
         p.fsw.EnableRaisingEvents = false;

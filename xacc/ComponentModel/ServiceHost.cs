@@ -18,7 +18,7 @@
 #endregion
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -57,8 +57,8 @@ namespace Xacc.ComponentModel
 	/// </summary>
 	public sealed class ServiceHost : IServiceProvider, IDisposable, ISite
 	{
-		readonly static Hashtable services = new Hashtable();
-    readonly static Hashtable propmap = new Hashtable();
+    readonly static Dictionary<Type, IService> services = new Dictionary<Type, IService>();
+    readonly static Dictionary<Type, string> propmap = new Dictionary<Type, string>();
     static ApplicationState state = 0;
 
 
@@ -121,7 +121,7 @@ namespace Xacc.ComponentModel
 
     static internal string GetPropertyName(Type svctype)
     {
-      return propmap[svctype] as string;
+      return propmap[svctype];
     }
 
     static internal readonly ServiceHost INSTANCE = new ServiceHost();
@@ -184,7 +184,7 @@ namespace Xacc.ComponentModel
 		{
 			get
 			{
-				return new ArrayList(services.Keys).ToArray(typeof(Type)) as Type[];
+				return new List<Type>(services.Keys).ToArray();
 			}
 		}
 

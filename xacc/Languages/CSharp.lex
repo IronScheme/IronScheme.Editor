@@ -125,6 +125,7 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <PREPROCESSOR>"define"          { ENTER(PPTAIL); return PREPROC; }
 <PREPROCESSOR>"if"              { ENTER(PPTAIL); return PREPROC; }
 <PREPROCESSOR>"else"            { ENTER(PPTAIL); return PREPROC; }
+<PREPROCESSOR>"elif"            { ENTER(PPTAIL); return PREPROC; }
 <PREPROCESSOR>"endif"           { ENTER(PPTAIL); return PREPROC; }
 <PREPROCESSOR>"line"            { ENTER(PPTAIL); return PREPROC; }
 <PREPROCESSOR>"error"           { ENTER(PPTAIL); return PREPROC; }

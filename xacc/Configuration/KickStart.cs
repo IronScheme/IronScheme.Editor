@@ -105,8 +105,6 @@ namespace Xacc.Configuration
       AppDomain.CurrentDomain.AssemblyResolve +=new ResolveEventHandler(CurrentDomain_AssemblyResolve);
       AppDomain.CurrentDomain.SetupInformation.LoaderOptimization = LoaderOptimization.MultiDomainHost;
 
-
-
       about = new AboutForm();
       about.StartPosition = f.StartPosition = FormStartPosition.CenterScreen;
       about.Show();
@@ -196,6 +194,10 @@ namespace Xacc.Configuration
 
       (ServiceHost.ToolBar as ToolBarService).ValidateToolBarButtons();
 
+      //ToolStripManager.LoadSettings(f);
+
+
+
       if (args.open != null)
       {
         foreach (string of in args.open)
@@ -235,6 +237,8 @@ namespace Xacc.Configuration
 
 		static void f_Closing(object sender, CancelEventArgs e)
 		{
+      
+
       IToolsService its = ServiceHost.Tools;
       if (its != null)
       {
@@ -261,6 +265,7 @@ namespace Xacc.Configuration
 
 		static void AppExit(object sender, EventArgs e)
 		{
+      //ToolStripManager.SaveSettings(ServiceHost.Window.MainForm);
 			((IDisposable) ServiceHost.INSTANCE).Dispose();
       if (tracelog != null)
       {

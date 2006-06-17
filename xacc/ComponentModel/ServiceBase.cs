@@ -350,10 +350,6 @@ namespace Xacc.ComponentModel
 
         ToolBarService tbs = ServiceHost.ToolBar as ToolBarService;
 
-#warning TODO: FIX THIS CRAP
-        toplevel.DropDownItems.Clear();
-        this.submenus.Clear();
-
         foreach (MenuItemAttribute mia in submenus)
         {
           ToolStripMenuItem pmi = null;

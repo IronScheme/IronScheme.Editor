@@ -50,8 +50,6 @@ namespace Xacc.ComponentModel
 
       ServiceHost.Window.MainForm.Controls.Add(toolbar);
       toolbar.ContentPanel.Controls.Add(ServiceHost.Window.Document as Control);
-      //toolbar.TopToolStripPanel.Controls.Add(ServiceHost.Menu.MainMenu);
-      ServiceHost.Window.MainForm.Controls.Add(ServiceHost.Menu.MainMenu);
     }
 
     public bool ToolBarVisible
@@ -77,34 +75,18 @@ namespace Xacc.ComponentModel
 
     public bool Add(ToolStripMenuItem parent, MenuItemAttribute mia)
     {
-      if (mia == null)
+      if (!map.ContainsKey(parent))
       {
-        if (!map.ContainsKey(parent))
-        {
-          ToolStrip ts = new ToolStrip();
-          ts.ImageList = ServiceHost.ImageListProvider.ImageList;
-
-          ts.TabIndex = (map[parent] = toplevel.Count) + 1;
-          toplevel.Add(ts);
-          ts.Visible = false;
-
-          toolbar.TopToolStripPanel.Controls.Add(ts);
-        }
+        ToolStrip ts = new ToolStrip();
+        ts.ImageList = ServiceHost.ImageListProvider.ImageList;
+        ts.TabIndex = (map[parent] = toplevel.Count) + 1;
+        toplevel.Add(ts);
+        ts.Visible = false;
+        toolbar.TopToolStripPanel.Controls.Add(ts);
       }
-      else
+
+      if (mia != null)
       {
-        if (!map.ContainsKey(parent))
-        {
-          ToolStrip ts = new ToolStrip();
-          ts.ImageList = ServiceHost.ImageListProvider.ImageList;
-
-          ts.TabIndex = (map[parent] = toplevel.Count) + 1;
-          toplevel.Add(ts);
-          ts.Visible = false;
-
-          toolbar.TopToolStripPanel.Controls.Add(ts);
-        }
-
         ToolStrip sm = toplevel[map[parent]];
         ToolStripButton tbb = new ToolStripButton();
         tbb.Click += new EventHandler(ButtonDefaultHandler);
@@ -113,6 +95,7 @@ namespace Xacc.ComponentModel
         tbb.ToolTipText = mia.Text;
         sm.Items.Add(tbb);
         sm.Visible = true;
+
       }
       return true;
     }

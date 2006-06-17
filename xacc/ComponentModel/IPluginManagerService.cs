@@ -106,8 +106,8 @@ namespace Xacc.ComponentModel
         new ImageListProvider();
         if (SettingsService.idemode)
         {
-          new MenuService();
           new ToolBarService();
+          new MenuService();
           new StatusBarService();
         }
         

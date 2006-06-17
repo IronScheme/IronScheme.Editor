@@ -446,7 +446,7 @@ namespace Xacc.ComponentModel
 			ofd.CheckFileExists = true;
 			ofd.CheckPathExists = true;
 			ofd.AddExtension = true;
-			ofd.Filter = "Xacc Project files|*.xacc";
+			ofd.Filter = "Xacc Project files|*.xacc;*.sln;*.proj;*.csproj";
 			ofd.Multiselect = false;
 			ofd.RestoreDirectory = true;
 			if (DialogResult.OK == ofd.ShowDialog(ServiceHost.Window.MainForm))
@@ -500,9 +500,6 @@ namespace Xacc.ComponentModel
 
 		public Project[] Open(string prjfile)
 		{
-      //BuildProject bp = new BuildProject();
-
-      //bp.Load(prjfile);
 
       //bp.Save(prjfile + ".proj");
 
@@ -513,90 +510,103 @@ namespace Xacc.ComponentModel
         return null;
       }
 
-      XmlSerializer ser = new XmlSerializer(Configuration.Projects.SerializerType, new Type[] {typeof(RegexOptions)});
+      string ext = Path.GetExtension(prjfile);
 
-      using (Stream s = File.OpenRead(prjfile))
+      if (ext == ".sln" || ext == ".csproj")
       {
-        Configuration.Projects pp = ser.Deserialize(s) as Configuration.Projects;
+        BuildProject bp = new BuildProject();
 
-        if (pp != null)
+        bp.Load(prjfile);
+
+        return new Project[] { new MsBuildProject(bp) };
+      }
+      else
+      {
+        XmlSerializer ser = new XmlSerializer(Configuration.Projects.SerializerType, new Type[] { typeof(RegexOptions) });
+
+        using (Stream s = File.OpenRead(prjfile))
         {
-          foreach (Project prj in pp.projects)
+          Configuration.Projects pp = ser.Deserialize(s) as Configuration.Projects;
+
+          if (pp != null)
           {
-            if (projects.Count == 0)
+            foreach (Project prj in pp.projects)
             {
-              prj.Location = prjfile;
-            }
-            else
-            {
-              prj.Location = OpenProjects[0].Location;
-            }
-
-            prj.RootDirectory = Path.GetDirectoryName(prj.Location);
-
-            Environment.CurrentDirectory = Path.GetDirectoryName(prjfile);
-
-            current = prj;
-
-            if (prj.Startup)
-            {
-              if (startupproject == null)
+              if (projects.Count == 0)
               {
-                startupproject = prj;
+                prj.Location = prjfile;
               }
               else
               {
-                prj.Startup = false;
+                prj.Location = OpenProjects[0].Location;
               }
-            }
 
-            prj.ProjectCreated();
+              prj.RootDirectory = Path.GetDirectoryName(prj.Location);
 
-            Add(prj);
+              Environment.CurrentDirectory = Path.GetDirectoryName(prjfile);
 
-            foreach (Action a in prj.Actions)
-            {
-              CustomAction ca = a as CustomAction;
+              current = prj;
 
-              if (ca != null)
+              if (prj.Startup)
               {
-                if (ca.Input != null)
+                if (startupproject == null)
                 {
-                  foreach (string filename in ca.Input)
-                  {
-                    prj.AddFile(filename, ca);
-                  }
+                  startupproject = prj;
                 }
-                foreach (Type st in ca.ActionTypes)
+                else
                 {
-                  OptionAction oa = ca.GetAction(st) as OptionAction;
-                  string[] vals = oa.GetOption();
-                  if (vals != null)
+                  prj.Startup = false;
+                }
+              }
+
+              prj.ProjectCreated();
+
+              Add(prj);
+
+              foreach (Action a in prj.Actions)
+              {
+                CustomAction ca = a as CustomAction;
+
+                if (ca != null)
+                {
+                  if (ca.Input != null)
                   {
-                    foreach (string v in vals)
+                    foreach (string filename in ca.Input)
                     {
-                      prj.AddFile(v, oa);
+                      prj.AddFile(filename, ca);
+                    }
+                  }
+                  foreach (Type st in ca.ActionTypes)
+                  {
+                    OptionAction oa = ca.GetAction(st) as OptionAction;
+                    string[] vals = oa.GetOption();
+                    if (vals != null)
+                    {
+                      foreach (string v in vals)
+                      {
+                        prj.AddFile(v, oa);
+                      }
                     }
                   }
                 }
               }
+
+              prj.OnOpened();
+
+              if (Opened != null)
+              {
+                Opened(prj, EventArgs.Empty);
+              }
             }
 
-            prj.OnOpened();
+            ProjectTab.Show();
 
-            if (Opened != null)
-            {
-              Opened(prj, EventArgs.Empty);
-            }
+            return OpenProjects;
           }
-
-          ProjectTab.Show();
-
-          return OpenProjects;
-        }
-        else
-        {
-          return null;
+          else
+          {
+            return null;
+          }
         }
       }
 		}

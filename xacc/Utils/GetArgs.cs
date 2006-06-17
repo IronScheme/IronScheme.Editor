@@ -18,6 +18,7 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -796,15 +797,15 @@ confuse a user.")]
               {
                 if (t.IsArray)
                 {
-                  List<object> vals = new List<object>();
+                  ArrayList vals = new ArrayList();
                   if (arginfo.Value != null)
                   {
-                    vals.AddRange(arginfo.Value as ICollection<object>);
+                    vals.AddRange(arginfo.Value as ICollection);
                   }
                   TypeConverter tc = TypeDescriptor.GetConverter(t.GetElementType());
                   vals.Add(tc.ConvertFromString(v));
 
-                  val = vals.ToArray();
+                  val = vals.ToArray(typeof(string)) as string[];
                 }
                 else
                 {

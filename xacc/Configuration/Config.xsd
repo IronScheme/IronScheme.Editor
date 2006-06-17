@@ -3,15 +3,13 @@
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="config">
     <xs:complexType>
-      <xs:sequence>
-        <xs:sequence minOccurs="0" maxOccurs="unbounded">
-          <xs:element name="action" type="action" />
-          <xs:element name="project" type="project" />
-          <xs:element name="plugin" type="xs:string" />
+        <xs:sequence minOccurs="1" maxOccurs="1">
+          <xs:element name="action" type="action" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element name="project" type="project" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element name="plugin" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
           <xs:element name="tool" type="tool" minOccurs="0" maxOccurs="unbounded" />
           <xs:element name="language" type="language" maxOccurs="unbounded" minOccurs="0" />
         </xs:sequence>
-      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:complexType name="action">
@@ -57,7 +55,7 @@ Notes:
       </xs:element>
     </xs:sequence>
     <!-- attributes for root element -->
-    <xs:attribute name="prefix" type="xs:string" use="required" />
+    <xs:attribute name="prefix" type="xs:string" use="optional" />
     <xs:attribute name="argprefix" type="xs:string" default="" />
   </xs:complexType>
   <xs:complexType name="script">
@@ -119,7 +117,7 @@ Notes:
   </xs:simpleType>
   <xs:complexType name="project">
     <xs:sequence>
-      <xs:element name="action" type="projectaction" minOccurs="1" maxOccurs="unbounded" />
+      <xs:element name="action" type="projectaction" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
     <xs:attribute name="id" type="xs:Name" />
     <xs:attribute name="name" type="xs:string" />

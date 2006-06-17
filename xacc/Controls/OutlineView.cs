@@ -114,9 +114,16 @@ namespace Xacc.Controls
 
           ToolStripMenuItem pm = ms["Project"];
 
-          foreach (ToolStripMenuItem mi in pm.DropDownItems)
+          foreach (ToolStripItem mi in pm.DropDownItems)
           {
-            cm.Items.Add(mi);
+            if (mi is ToolStripSeparator)
+            {
+              cm.Items.Add(new ToolStripSeparator());
+            }
+            else
+            {
+              cm.Items.Add(((ToolStripMenuItem)mi).Clone());
+            }
           }
         }
         else if (tag is string)
@@ -129,7 +136,7 @@ namespace Xacc.Controls
           pmi.Tag = rf;
           cm.Items.Add(pmi);
 
-          cm.Items.Add(new ToolStripMenuItem("-"));
+          cm.Items.Add(new ToolStripSeparator());
 
           pmi = new ToolStripMenuItem("Action");
 
@@ -212,7 +219,7 @@ namespace Xacc.Controls
 		void ChangeAction(object sender, EventArgs e)
 		{
 			string file = SelectedNode.Tag as string;
-      Type t = (sender as ContextMenuStrip).Tag as Type;
+      Type t = (sender as ToolStripMenuItem).Tag as Type;
 
       Project proj = ServiceHost.Project.Current;
 

@@ -281,6 +281,8 @@ namespace Xacc.ComponentModel
       main = new MenuStrip();
       main.Dock = DockStyle.Top;
 
+      ServiceHost.Window.MainForm.Controls.Add(main);
+
 			AddTopLevel("&File");
 			AddTopLevel("&Edit");
 			AddTopLevel("&View");

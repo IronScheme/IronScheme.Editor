@@ -172,7 +172,7 @@ namespace Xacc.Controls
 
     void InitializeComponent()
     {
-      BackColor = System.Drawing.SystemColors.Info;
+      BackColor = System.Drawing.SystemColors.Window;
       BorderStyle = System.Windows.Forms.BorderStyle.None;
       ReadOnly = true;
       WordWrap = true;

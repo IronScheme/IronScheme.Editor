@@ -979,9 +979,9 @@ namespace Xacc.ComponentModel
             else
               if ((mia.State & (ApplicationState.File)) != 0)
               {
-                ToolStripMenuItem cmi = new ToolStripMenuItem();
-
-                contextmenu.Items.Add(pmi.Clone());
+                ToolStripMenuItem cmi = pmi.Clone();
+                cmi.Enabled = true;
+                contextmenu.Items.Add(cmi);
               }
           }
         }
