@@ -221,7 +221,7 @@ namespace Xacc.ComponentModel
 		/// </code></example>
     public IService GetService(Type servicetype)
 		{
-			return services[servicetype] as IService;
+			return services[servicetype];
 		}
 
 

@@ -202,6 +202,14 @@ namespace Xacc.ComponentModel
       set {index = value;}
     }
 
+    Type conv;
+
+    public Type Converter
+    {
+      get { return conv; }
+      set { conv = value; }
+    }
+
     /// <summary>
     /// Gets or sets whether to create a toolbar button
     /// </summary>

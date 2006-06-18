@@ -332,6 +332,16 @@ namespace Xacc.ComponentModel
               submenus.Add(mia);
             }
           }
+          else if (pi.PropertyType == typeof(string) && pi.CanRead && pi.CanWrite)
+          {
+            if (Attribute.IsDefined(pi, typeof(MenuItemAttribute)))
+            {
+              MenuItemAttribute mia = pi.GetCustomAttributes(typeof(MenuItemAttribute), false)[0] as MenuItemAttribute;
+              mia.invoke = pi;
+              mia.ctr = this;
+              submenus.Add(mia);
+            }
+          }
         }
 
         foreach (ToolStripMenuItem mi in toplevel.DropDownItems)

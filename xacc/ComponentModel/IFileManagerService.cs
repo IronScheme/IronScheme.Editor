@@ -254,6 +254,7 @@ namespace Xacc.ComponentModel
 	sealed class FileManager : ServiceBase, IFileManagerService
 	{
 		readonly internal Hashtable buffers = new Hashtable();
+    readonly Hashtable controlmap = new Hashtable();
 		ArrayList recentfiles = new ArrayList();
 
     // this is unreliable
@@ -329,8 +330,6 @@ namespace Xacc.ComponentModel
       mi.DropDownItems.AddRange(menus.ToArray(typeof(ToolStripMenuItem)) as ToolStripMenuItem[]);
 		}
 
-    readonly Hashtable controlmap = new Hashtable();
-
     public void Register(Type control, params string[] exts)
     {
       foreach (string ext in exts)
@@ -355,6 +354,14 @@ namespace Xacc.ComponentModel
 		public event	FileManagerEventHandler	Saved;
 		public event	FileManagerEventHandler	Closing;
 		public event	FileManagerEventHandler	Closed;
+
+    string RecentFile
+    {
+      set
+      {
+
+      }
+    }
 
 		public string[] RecentFiles
 		{

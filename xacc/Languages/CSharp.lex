@@ -128,6 +128,7 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <PREPROCESSOR>"elif"            { ENTER(PPTAIL); return PREPROC; }
 <PREPROCESSOR>"endif"           { ENTER(PPTAIL); return PREPROC; }
 <PREPROCESSOR>"line"            { ENTER(PPTAIL); return PREPROC; }
+<PREPROCESSOR>"pragma"          { ENTER(PPTAIL); return PREPROC; }
 <PREPROCESSOR>"error"           { ENTER(PPTAIL); return PREPROC; }
 <PREPROCESSOR>"warning"         { ENTER(PPTAIL); return PREPROC; }
 <PREPROCESSOR>"region"          { ENTER(PPTAIL); return PREPROC; }
