@@ -363,10 +363,14 @@
     <Compile Include="Languages\Language.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Languages\lr_parser.cs" />
     <Compile Include="Languages\LSharp.lex.cs" />
     <Compile Include="Languages\PlainText.lex.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Languages\Scanner.cs" />
+    <Compile Include="Languages\Symbol.cs" />
+    <Compile Include="Languages\virtual_parse_stack.cs" />
     <Compile Include="Resources\Fake.cs">
       <SubType>Code</SubType>
     </Compile>
