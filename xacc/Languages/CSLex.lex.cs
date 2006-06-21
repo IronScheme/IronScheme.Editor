@@ -2,9 +2,10 @@ using Xacc.Languages.CSLex;
 #pragma warning disable 162
 using Xacc.ComponentModel;
 using System.Drawing;
+using LexerBase = Xacc.Languages.CSLex.Language<Xacc.Languages.CSLex.Yytoken>.LexerBase;
 namespace Xacc.Languages
 {
-  sealed class CSLexLang : CSLex.Language
+  sealed class CSLexLang : CSLex.Language<Yytoken>
   {
 	  public override string Name {get {return "CS Lex"; } }
 	  public override string[] Extensions {get { return new string[]{"lex"}; } }

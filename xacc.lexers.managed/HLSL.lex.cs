@@ -1,9 +1,10 @@
 using Xacc.Languages.CSLex;
 using Xacc.ComponentModel;
 using System.Drawing;
+using LexerBase = Xacc.Languages.CSLex.Language<Xacc.Languages.CSLex.Yytoken>.LexerBase;
 namespace Xacc.Languages
 {
-  sealed class HLSLLang : CSLex.Language
+  sealed class HLSLLang : CSLex.Language<CSLex.Yytoken>
   {
 	  public override string Name {get {return "HLSL"; } }
 	  public override string[] Extensions {get { return new string[]{"fx"}; } }

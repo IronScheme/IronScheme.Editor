@@ -80,10 +80,14 @@ namespace Xacc.ComponentModel
     /// </summary>
 		int		    Length		{get;}
 
+    string Text { get;set;}
+
     /// <summary>
     /// Gets the token Location
     /// </summary>
     Location  Location  {get;set;}
+
+
 	}
 
   /// <summary>

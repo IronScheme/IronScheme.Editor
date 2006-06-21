@@ -2,9 +2,11 @@
 using Xacc.ComponentModel;
 using System.Drawing;
 
+using LexerBase = Xacc.Languages.CSLex.Language<Xacc.Languages.CSLex.Yytoken>.LexerBase;
+
 namespace Xacc.Languages
 {
-  sealed class ScalaLang : CSLex.Language
+  sealed class ScalaLang : CSLex.Language<CSLex.Yytoken>
   {
 	  public override string Name {get {return "Scala"; } }
 	  public override string[] Extensions {get { return new string[]{"scala"}; } }

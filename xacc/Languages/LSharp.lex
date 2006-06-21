@@ -1,26 +1,26 @@
 #pragma warning disable 162
 using Xacc.ComponentModel;
 using System.Drawing;
+using LSharp;
+using LexerBase = Xacc.Languages.CSLex.Language<LSharp.ValueType>.LexerBase;
+using Yytoken = LSharp.ValueType;
 
-namespace Xacc.Languages
-{
-  sealed class LSharpLanguage : CSLex.Language
-  {
-	  public override string Name {get {return "L#"; } }
-	  public override string[] Extensions {get { return new string[]{"ls"}; } }
-	  LexerBase lexer = new LSharpLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
-  }
-}
 //NOTE: comments are not allowed except in code blocks
 %%
 
 %class LSharpLexer
 
 %unicode
+
+%{
+static ValueType Token(TokenClass c, Tokens type)
+{
+  ValueType t = new ValueType();
+  t.type = (int)type;
+  t.tclass = c;
+  return t;
+}
+%}
 
 line_comment           =";"[^\n]*
 

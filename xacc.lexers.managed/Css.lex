@@ -1,9 +1,11 @@
 using Xacc.ComponentModel;
 using System.Drawing;
 
+using LexerBase = Xacc.Languages.CSLex.Language<Xacc.Languages.CSLex.Yytoken>.LexerBase;
+
 namespace Xacc.Languages
 {
-  sealed class CssLang : CSLex.Language
+  sealed class CssLang : CSLex.Language<CSLex.Yytoken>
   {
 	  public override string Name {get {return "CSS"; } }
 	  public override string[] Extensions {get { return new string[]{"css"}; } }

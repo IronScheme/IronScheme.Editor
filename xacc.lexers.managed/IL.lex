@@ -1,9 +1,11 @@
 using Xacc.ComponentModel;
 using System.Drawing;
 
+using LexerBase = Xacc.Languages.CSLex.Language<Xacc.Languages.CSLex.Yytoken>.LexerBase;
+
 namespace Xacc.Languages
 {
-  sealed class ILLanguage : CSLex.Language
+  sealed class ILLanguage : CSLex.Language<CSLex.Yytoken>
   {
 	  public override string Name {get {return "MSIL"; } }
 	  public override string[] Extensions {get { return new string[]{"il"}; } }

@@ -1,9 +1,10 @@
 using Xacc.Languages.CSLex;
 using Xacc.ComponentModel;
 using System.Drawing;
+using LexerBase = Xacc.Languages.CSLex.Language<Xacc.Languages.CSLex.Yytoken>.LexerBase;
 namespace Xacc.Languages
 {
-  sealed class MercuryLang : CSLex.Language
+  sealed class MercuryLang : CSLex.Language<CSLex.Yytoken>
   {
 	  public override string Name {get {return "Mercury"; } }
 	  public override string[] Extensions {get { return new string[]{"m"}; } }

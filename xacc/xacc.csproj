@@ -365,6 +365,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Languages\LSharp.lex.cs" />
+    <Compile Include="Languages\LSharp.y.cs" />
     <Compile Include="Languages\ParserStack.cs" />
     <Compile Include="Languages\PlainText.lex.cs">
       <SubType>Code</SubType>
@@ -533,6 +534,7 @@
     <None Include="Languages\CSharp.lex" />
     <None Include="Languages\CSLex.lex" />
     <None Include="Languages\LSharp.lex" />
+    <None Include="Languages\LSharp.y" />
     <None Include="Languages\PlainText.lex" />
     <None Include="xacc.key" />
     <Content Include="Resources\header.bmp" />
@@ -545,7 +547,8 @@ $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\PlainText.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Changelog.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\CSLex.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\CSharp.lex
-$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\LSharp.lex</PreBuildEvent>
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\LSharp.lex
+$(SolutionDir)Tools\gppg $(ProjectDir)Languages\LSharp.y &gt; $(ProjectDir)Languages\LSharp.y.cs</PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>

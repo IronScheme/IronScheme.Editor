@@ -1,8 +1,10 @@
 using Xacc.ComponentModel;
 
+using LexerBase = Xacc.Languages.CSLex.Language<Xacc.Languages.CSLex.Yytoken>.LexerBase;
+
 namespace Xacc.Languages
 {
-  sealed class PatchLanguage : CSLex.Language
+  sealed class PatchLanguage : CSLex.Language<CSLex.Yytoken>
   {
 	  public override string Name {get {return "Patch"; } }
 	  public override string[] Extensions {get { return new string[]{"patch", "diff"}; } }

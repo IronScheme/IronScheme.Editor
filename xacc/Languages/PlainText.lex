@@ -1,9 +1,10 @@
 #pragma warning disable 162
 using Xacc.ComponentModel;
+using LexerBase = Xacc.Languages.CSLex.Language<Xacc.Languages.CSLex.Yytoken>.LexerBase;
 
 namespace Xacc.Languages
 {
-  sealed class PlainText : CSLex.Language
+  sealed class PlainText : CSLex.Language<Yytoken>
   {
 	  public override string Name {get {return "Plain Text"; } }
 	  public override string[] Extensions {get { return new string[]{"*"}; } }

@@ -14,35 +14,43 @@ namespace gpcc
 		public static bool LINES = true;
 		public static bool REPORT = false;
 
-		private static void Main(string[] args)
+		private static int Main(string[] args)
 		{
-			try
-			{
-				string filename = ProcessOptions(args);
+      try
+      {
+        string filename = ProcessOptions(args);
 
-				if (filename == null)
-					return;
+        if (filename == null)
+          return 1;
 
-				Parser parser = new Parser();
-				Grammar grammar = parser.Parse(filename);
+        Parser parser = new Parser();
+        Grammar grammar = parser.Parse(filename);
 
-				LALRGenerator generator = new LALRGenerator(grammar);
-				List<State> states = generator.BuildStates();
-				generator.ComputeLookAhead();
-				generator.BuildParseTable();
+        LALRGenerator generator = new LALRGenerator(grammar);
+        List<State> states = generator.BuildStates();
+        generator.ComputeLookAhead();
+        generator.BuildParseTable();
 
-				if (REPORT)
-					generator.Report();
-				else
-				{
-					CodeGenerator code = new CodeGenerator();
-					code.Generate(states, grammar);
-				}
-			}
-			catch (Scanner.ParseException e)
-			{
-				Console.Error.WriteLine("Parse error (line {0}, column {1}): {2}", e.line, e.column, e.Message);
-			}
+        if (REPORT)
+          generator.Report();
+        else
+        {
+          CodeGenerator code = new CodeGenerator();
+          code.Generate(states, grammar);
+        }
+        return 0;
+      }
+      catch (Scanner.ParseException e)
+      {
+        Console.Error.WriteLine("Parse error (line {0}, column {1}): {2}", e.line, e.column, e.Message);
+      }
+      finally
+      {
+        Console.Out.Flush();
+      }
+      return 1;
+
+      
             /*
 			catch (System.Exception e)
 			{

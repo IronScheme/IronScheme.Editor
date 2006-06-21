@@ -10,10 +10,10 @@ using System.Text;
 
 namespace gppg
 {
-  public interface IScanner<ValueType>
+  public abstract class IScanner<ValueType>
   {
-    ValueType yylval { get;set;}
-    int yylex();
-    void yyerror(string format, params object[] args);
+    public ValueType yylval;
+    public abstract ValueType yylex();
+    public abstract void yyerror(string format, params object[] args);
   }
 }

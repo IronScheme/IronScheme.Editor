@@ -1,9 +1,11 @@
 using Xacc.ComponentModel;
 using System.Drawing;
 
+using LexerBase = Xacc.Languages.CSLex.Language<Xacc.Languages.CSLex.Yytoken>.LexerBase;
+
 namespace Xacc.Languages
 {
-  sealed class PowerShellLang : CSLex.Language
+  sealed class PowerShellLang : CSLex.Language<CSLex.Yytoken>
   {
 	  public override string Name {get {return "PowerShell"; } }
 	  public override string[] Extensions {get { return new string[]{"ps1"}; } }

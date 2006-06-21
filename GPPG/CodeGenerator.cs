@@ -58,16 +58,23 @@ namespace gpcc
             Console.WriteLine("using System;");
             Console.WriteLine("using System.Collections.Generic;");
             Console.WriteLine("using System.Text;");
+            Console.WriteLine("using Xacc.Build;");
+            Console.WriteLine("using Xacc.CodeModel;");
+            Console.WriteLine("using Xacc.ComponentModel;");
+            Console.WriteLine("using Xacc.Languages.CSLex;");
             Console.WriteLine("using gppg;");
             foreach (string use in grammar.use)
-                Console.WriteLine("using {0};", use);
+            {
+              Console.WriteLine("using {0};", use);
+            }
             Console.WriteLine();
         }
 
         private void GenerateTokens(Dictionary<string, Terminal> terminals)
         {
             Console.Write("{0} enum {1} {{", grammar.Visibility, grammar.TokenName);
-            bool first = true;
+            Console.Write("IGNORE = -1");
+            bool first = false;
             foreach (Terminal terminal in terminals.Values)
                 if (terminal.symbolic)
                 {
@@ -85,7 +92,7 @@ namespace gpcc
 		{
 			if (grammar.unionType != null)
 			{
-				Console.WriteLine("{0} struct {1}", grammar.Visibility, grammar.ValueTypeName);
+				Console.WriteLine("{0} struct {1} : Xacc.ComponentModel.IToken", grammar.Visibility, grammar.ValueTypeName);
 				InsertCode(grammar.unionType);
                 return grammar.ValueTypeName;
 			}

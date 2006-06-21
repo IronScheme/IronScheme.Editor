@@ -10,7 +10,7 @@ using System.Text;
 
 namespace gppg
 {
-  public abstract class ShiftReduceParser<ValueType> where ValueType : struct
+  public abstract class ShiftReduceParser<ValueType> : Xacc.Languages.CSLex.Language<ValueType> where ValueType : struct, Xacc.ComponentModel.IToken
   {
     public bool Trace = false;
     public IScanner<ValueType> scanner;
@@ -62,7 +62,8 @@ namespace gppg
             if (Trace)
               Console.Error.Write("Reading a token: ");
 
-            next = scanner.yylex();
+            ValueType t = scanner.yylex();
+            next = t.Type;
           }
 
           if (Trace)
@@ -248,7 +249,8 @@ namespace gppg
             if (Trace)
               Console.Error.Write("Reading a token: ");
 
-            next = scanner.yylex();
+            ValueType t = scanner.yylex();
+            next = t.Type;
           }
 
           if (Trace)
@@ -286,9 +288,6 @@ namespace gppg
       states[statenr] = state;
       state.num = statenr;
     }
-
-
-
 
     private void DisplayStack()
     {
