@@ -435,7 +435,7 @@ sealed class CSLexLexer : LexerBase {
 {-1,-1,-1,-1,-1,-1,403,403,205,403,403,403,403,403,403,403,403,403,403,403,403,403,-1,403,403,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,403,-1,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,-1,-1,-1,-1,-1,-1},
 {-1,-1,-1,-1,-1,-1,403,403,403,403,403,403,403,352,403,403,403,403,403,403,403,403,-1,403,403,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,403,-1,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,-1,-1,-1,-1,-1,-1}};
 
-	public override Yytoken yylex ()
+	public override IToken lex ()
  {
 		int yy_lookahead;
 		int yy_anchor = YY_NO_ANCHOR;
@@ -511,7 +511,7 @@ sealed class CSLexLexer : LexerBase {
 						break;
 					case 29: 
                                             {
-                                        return Color.DeepPink;
+                                        return (Yytoken)Color.DeepPink;
                                       }
 						break;
 					case 26: 
@@ -619,7 +619,7 @@ sealed class CSLexLexer : LexerBase {
                                           {return OPERATOR;}
 						break;
 					case 10: 
-                                       {return TokenClass.Comment;}
+                                       {return (Yytoken)TokenClass.Comment;}
 						break;
 					case 11: 
                          {ENTER(MLCOMMENT); return COMMENT;}

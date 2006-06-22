@@ -61,7 +61,7 @@ LINE_COMMENT           		=("//"[^/\n]*)|"//"
 
 %%
 
-<CODEBLOCK,YYINITIAL>{LINE_COMMENT}		{return TokenClass.Comment;}
+<CODEBLOCK,YYINITIAL>{LINE_COMMENT}		{return (Yytoken)TokenClass.Comment;}
 <CODEBLOCK,YYINITIAL>{COMMENT_START}	{ENTER(MLCOMMENT); return COMMENT;}
 
 <MLCOMMENT>[^ \t\n\*]+		            {return COMMENT;}
@@ -84,7 +84,7 @@ LINE_COMMENT           		=("//"[^/\n]*)|"//"
 <RESECT,RULES,CODEBLOCK,YYINITIAL>{STRING}    {return STRING;}
 
 <RESECT,RULES>{MACROREF}  						{
-                                        return Color.DeepPink;
+                                        return (Yytoken)Color.DeepPink;
                                       }
 
 <RULES>{STATEREF}         						{return TYPE;}

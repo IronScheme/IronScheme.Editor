@@ -2,20 +2,7 @@ using Xacc.Languages.CSLex;
 #pragma warning disable 162
 using Xacc.ComponentModel;
 using System.Drawing;
-using LexerBase = Xacc.Languages.CSLex.Language<Xacc.Languages.CSLex.Yytoken>.LexerBase;
-namespace Xacc.Languages
-{
-  sealed class CSharpLanguage : CSLex.Language<Yytoken>
-  {
-	  public override string Name {get {return "C#"; } }
-	  public override string[] Extensions {get { return new string[]{"cs"}; } }
-	  LexerBase lexer = new CSharpLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
-  }
-}
+using LexerBase = Xacc.Languages.CSLex.Language<CSharp.ValueType>.LexerBase;
 //NOTE: comments are not allowed except in code blocks
 
 
@@ -493,7 +480,7 @@ int docintag = 0;
 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,544,544,544,-1,-1,-1,-1,-1,-1,544,-1,-1,-1,-1,-1,-1,544,544,-1,544,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,544,-1,544,544,-1,544,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,546,546,546,-1,-1,-1,-1,-1,-1,546,-1,-1,-1,-1,-1,-1,546,546,-1,546,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,546,-1,546,546,-1,546,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}};
 
-	public override Yytoken yylex ()
+	public override IToken lex ()
  {
 		int yy_lookahead;
 		int yy_anchor = YY_NO_ANCHOR;

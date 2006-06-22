@@ -3,7 +3,6 @@ using Xacc.ComponentModel;
 using System.Drawing;
 using LSharp;
 using LexerBase = Xacc.Languages.CSLex.Language<LSharp.ValueType>.LexerBase;
-using Yytoken = LSharp.ValueType;
 
 //NOTE: comments are not allowed except in code blocks
 %%
@@ -16,8 +15,8 @@ using Yytoken = LSharp.ValueType;
 static ValueType Token(TokenClass c, Tokens type)
 {
   ValueType t = new ValueType();
-  t.type = (int)type;
-  t.tclass = c;
+  t.__type = (int)type;
+  t.__class = c;
   return t;
 }
 %}
@@ -89,7 +88,7 @@ function              =({func1}|{func2}|{func3}|{func4})
 
 {white_space}+        { ; }
                       
-{comment_start}       { ENTER(ML_COMMENT); return COMMENT; }                      
+<YYINITIAL>{comment_start}       { ENTER(ML_COMMENT); return COMMENT; }                      
 {line_comment}        { return COMMENT; }
 
 "&body"               { return OTHER; }
@@ -97,11 +96,10 @@ function              =({func1}|{func2}|{func3}|{func4})
 
 <MACRO>",@"                  { return OPERATOR; }
 <MACRO>","                   { return OPERATOR; }
-<MACRO>"("                   { ENTER(KWSTATE); return OPERATOR; }                     
-<MACRO>")"                   { EXIT(); return OPERATOR; }  
+<MACRO>"("                   { ENTER(KWSTATE); return Token(TokenClass.Operator, Tokens.LBRACE); }                     
+<MACRO>")"                   { EXIT(); return Token(TokenClass.Operator, Tokens.RBRACE); }  
 
-<ML_COMMENT>{white_space}+    { ; }
-<ML_COMMENT>{new_line}        { return NEWLINE; }
+
 <ML_COMMENT>[^\n\|]+         { return COMMENT; }
 <ML_COMMENT>{comment_end}     { EXIT(); return COMMENT; }
 <ML_COMMENT>"|"               { return COMMENT; }
@@ -115,17 +113,17 @@ function              =({func1}|{func2}|{func3}|{func4})
 <KWSTATE>"&body"               { return OTHER; }
 <KWSTATE>"&rest"               { return OTHER; }
 
-<KWSTATE>{atoms}               { return KEYWORD; } 
-<KWSTATE>{keyword}             { EXIT(); return KEYWORD; } 
-<KWSTATE>{function}            { EXIT(); return TYPE; }
-<KWSTATE>{identifier}          { EXIT(); return IDENTIFIER; }
-<KWSTATE>{character_literal}   { EXIT(); return CHARACTER; }
-<KWSTATE>{integer_literal}     { EXIT(); return NUMBER; }
-<KWSTATE>{real_literal}        { EXIT(); return NUMBER; }
-<KWSTATE>{string_literal}      { EXIT(); return STRING; }
+<KWSTATE>{atoms}               { return Token(TokenClass.Keyword, Tokens.LITERAL); } 
+<KWSTATE>{keyword}             { EXIT(); return Token(TokenClass.Keyword, Tokens.KEYWORD); } 
+<KWSTATE>{function}            { EXIT(); return Token(TokenClass.Type, Tokens.FUNCTION); }
+<KWSTATE>{identifier}          { EXIT(); return Token(TokenClass.Identifier, Tokens.IDENTIFIER); }
+<KWSTATE>{character_literal}   { EXIT(); return Token(TokenClass.Character, Tokens.LITERAL); }
+<KWSTATE>{integer_literal}     { EXIT(); return Token(TokenClass.Number, Tokens.LITERAL); }
+<KWSTATE>{real_literal}        { EXIT(); return Token(TokenClass.Number, Tokens.LITERAL); }
+<KWSTATE>{string_literal}      { EXIT(); return Token(TokenClass.String, Tokens.LITERAL); }
 
-<KWSTATE>"("                   { ENTER(KWSTATE); return OPERATOR; }                     
-<KWSTATE>")"                   { return OPERATOR;  }                     
+<KWSTATE>"("                   { ENTER(KWSTATE); return Token(TokenClass.Operator, Tokens.LBRACE); }                     
+<KWSTATE>")"                   { return Token(TokenClass.Operator, Tokens.RBRACE); }                      
 <KWSTATE>"`"                   { ENTER(MACRO); return OPERATOR;  }
 <KWSTATE>"?"                   { return OPERATOR;  }
 <KWSTATE>"'"                   { return OPERATOR;  }
@@ -136,17 +134,17 @@ function              =({func1}|{func2}|{func3}|{func4})
 <KWSTATE>{new_line}            { return NEWLINE;}
 <KWSTATE>.                     { return PLAIN; }
 
-{keyword}             { EXIT(); return KEYWORD; } 
-{function}            { EXIT(); return TYPE; }
-{atoms}               { return KEYWORD; } 
+{keyword}             { EXIT(); return Token(TokenClass.Keyword, Tokens.KEYWORD); } 
+{function}            { EXIT(); return Token(TokenClass.Type, Tokens.FUNCTION); }
+{atoms}               { return Token(TokenClass.Keyword, Tokens.LITERAL); } 
 
-{character_literal}   { return CHARACTER; }                      
-{integer_literal}     { return NUMBER; }
-{real_literal}        { return NUMBER; }
-{string_literal}      { return STRING; }
+{character_literal}   { return Token(TokenClass.Character, Tokens.LITERAL); }                      
+{integer_literal}     { return Token(TokenClass.Number, Tokens.LITERAL); }
+{real_literal}        { return Token(TokenClass.Number, Tokens.LITERAL); }
+{string_literal}      { return Token(TokenClass.String, Tokens.LITERAL); }
 
-"("                   { ENTER(KWSTATE); return OPERATOR; }                     
-")"                   { return OPERATOR;}                     
+"("                   { ENTER(KWSTATE); return Token(TokenClass.Operator, Tokens.LBRACE); }                     
+")"                   { return Token(TokenClass.Operator, Tokens.RBRACE); } 
 "."                   { return OPERATOR; }
 "?"                   { return OTHER; }
 "`"                   { ENTER(MACRO); return OPERATOR; }
@@ -154,7 +152,7 @@ function              =({func1}|{func2}|{func3}|{func4})
 ",@"                  { return OPERATOR; }
 ","                   { return OPERATOR;}
 
-{identifier}          { return IDENTIFIER; }
+{identifier}          { return Token(TokenClass.Identifier, Tokens.IDENTIFIER);; }
 
 {new_line}            { return NEWLINE;}
 .                     { return PLAIN; }

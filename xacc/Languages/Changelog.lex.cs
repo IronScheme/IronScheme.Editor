@@ -60,7 +60,7 @@ sealed class ChangelogLexer : LexerBase {
 {1,18,19,22,9,10,15,15,4,15},
 {-1,9,16,19,9,9,9,12,-1,9}};
 
-	public override Yytoken yylex ()
+	public override IToken lex ()
  {
 		int yy_lookahead;
 		int yy_anchor = YY_NO_ANCHOR;

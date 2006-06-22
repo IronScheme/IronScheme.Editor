@@ -72,7 +72,7 @@ sealed class CssLexer : LexerBase {
 {1,2,19,20,19,19,19,19,19,19,19,19,19,19,6,27,19},
 {-1,-1,-1,14,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}};
 
-	public override Yytoken yylex ()
+	public override IToken lex ()
  {
 		int yy_lookahead;
 		int yy_anchor = YY_NO_ANCHOR;

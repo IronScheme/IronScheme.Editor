@@ -45,7 +45,7 @@ sealed class PlainTextLexer : LexerBase {
 {-1,2,-1,-1,-1},
 {-1,-1,3,-1,-1}};
 
-	public override Yytoken yylex ()
+	public override IToken lex ()
  {
 		int yy_lookahead;
 		int yy_anchor = YY_NO_ANCHOR;

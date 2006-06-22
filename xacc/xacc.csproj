@@ -354,6 +354,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Languages\CSharp.lex.cs" />
+    <Compile Include="Languages\CSharp.y.cs" />
     <Compile Include="Languages\CSLex.lex.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -532,6 +533,7 @@
     </None>
     <None Include="Languages\Changelog.lex" />
     <None Include="Languages\CSharp.lex" />
+    <None Include="Languages\CSharp.y" />
     <None Include="Languages\CSLex.lex" />
     <None Include="Languages\LSharp.lex" />
     <None Include="Languages\LSharp.y" />
@@ -548,7 +550,8 @@ $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Changelog.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\CSLex.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\CSharp.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\LSharp.lex
-$(SolutionDir)Tools\gppg $(ProjectDir)Languages\LSharp.y &gt; $(ProjectDir)Languages\LSharp.y.cs</PreBuildEvent>
+$(SolutionDir)Tools\gppg $(ProjectDir)Languages\LSharp.y &gt; $(ProjectDir)Languages\LSharp.y.cs
+$(SolutionDir)Tools\gppg $(ProjectDir)Languages\CSharp.y &gt; $(ProjectDir)Languages\CSharp.y.cs</PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>

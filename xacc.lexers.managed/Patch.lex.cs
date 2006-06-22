@@ -57,7 +57,7 @@ sealed class PatchLexer : LexerBase {
 {-1,-1,17,17,17,17,17,17,16,-1},
 {-1,-1,17,17,17,17,17,13,17,-1}};
 
-	public override Yytoken yylex ()
+	public override IToken lex ()
  {
 		int yy_lookahead;
 		int yy_anchor = YY_NO_ANCHOR;

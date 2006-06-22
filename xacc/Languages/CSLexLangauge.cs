@@ -117,9 +117,15 @@ namespace Xacc.Languages.CSLex
       return (IToken[])tokens.ToArray(typeof(IToken));
     }
 
-    protected sealed override int yyparse()
+    public virtual bool Parse()
     {
-      return 0;
+      return true;
+    }
+
+    protected override int yyparse(IEnumerator lines)
+    {
+      Lexer.lines = lines;
+      return Parse() ? 0 : 1;
     }
 
     public abstract class LexerBase : gppg.IScanner<T>
@@ -142,7 +148,7 @@ namespace Xacc.Languages.CSLex
         stack.Push(newstate);
         BEGIN(newstate);
       }
-
+      
       public void EXIT()
       {
         int c = stack.Count;
@@ -159,8 +165,8 @@ namespace Xacc.Languages.CSLex
 
       public IToken yywrap()
       {
-        T t = yylex();
-        if (t.Equals(Yytoken.EOF))
+        IToken t = lex();
+        if (t == null || t.Equals(Yytoken.EOF))
         {
           return null;
         }
@@ -172,6 +178,23 @@ namespace Xacc.Languages.CSLex
         t.Location = new Location(0, yychar, 0, yychar + yylength());
 
         return t;
+      }
+
+      internal IEnumerator lines;
+
+      public override int yylex()
+      {
+        while (lines.MoveNext())
+        {
+          T t = (T)lines.Current;
+          if ((int)t.Class >= -1)
+          {
+            yylval = t;
+            System.Diagnostics.Debug.Assert(t.Type > 2);
+            return t.Type;
+          }
+        }
+        return 2;
       }
 
       protected static readonly Yytoken PREPROC = new Yytoken(TokenClass.Preprocessor);
@@ -200,7 +223,7 @@ namespace Xacc.Languages.CSLex
         get { return yy_lexical_state; }
       }
 
-      //public abstract Yytoken yylex();
+      public abstract IToken lex();
 
       public void Start(string input)
       {
@@ -430,7 +453,7 @@ namespace Xacc.Languages.CSLex
 
       public override void yyerror(string format, params object[] args)
       {
-        throw new Exception("The method or operation is not implemented.");
+        Console.WriteLine(format, args);
       }
     }
 

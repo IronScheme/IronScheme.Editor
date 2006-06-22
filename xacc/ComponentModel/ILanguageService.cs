@@ -146,7 +146,7 @@ namespace Xacc.ComponentModel
       new Languages.PlainText();
       new Languages.Changelog();
       new Languages.CSLexLang();
-      new Languages.CSharpLanguage();
+      new CSharp.Parser();
       new LSharp.Parser();
       //new Languages.PatchLanguage();
       //new Languages.ScalaLang();

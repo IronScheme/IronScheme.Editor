@@ -109,13 +109,10 @@ namespace CS_Lex
                                   };
     public char[] m_implements_name = "LexerBase".ToCharArray();
     public char[] m_function_name = {
-                                      'y', 'y', 'l', 
-                                      'e', 'x' 
+                                      'l','e', 'x' 
                                     };
     public char[] m_type_name = {
-                                  'Y', 'y', 't', 
-                                  'o', 'k', 'e',
-                                  'n'
+                                  'I', 'T', 'o', 'k', 'e','n'
                                 };
 
     /* Lexical Generator. */

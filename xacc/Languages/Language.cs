@@ -239,7 +239,7 @@ namespace Xacc.Languages
     /// Internal use
     /// </summary>
     /// <returns></returns>
-    protected abstract int yyparse();
+    protected abstract int yyparse(IEnumerator lines);
 
     /// <summary>
     /// Resets the error state when parsing
@@ -1396,7 +1396,7 @@ namespace Xacc.Languages
       scopestack.Push( new Location(0));
       Preparse( filename );
       this.lines = lines;
-      int res = yyparse();
+      int res = yyparse(lines);
       lasttoken = LastToken;
       this.lines = null;
       Postparse();

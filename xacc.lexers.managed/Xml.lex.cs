@@ -123,7 +123,7 @@ sealed class XmlLexer : LexerBase {
 {-1,-1,-1,20,-1,-1,-1,-1,-1,20,20,20,20,-1,-1,-1,-1,20,20,-1,-1,-1,-1,20,20,87,20,20,20,-1,20,-1},
 {-1,-1,-1,20,-1,-1,-1,-1,-1,20,20,20,20,-1,-1,-1,-1,20,20,-1,-1,-1,-1,20,88,20,20,20,20,-1,20,-1}};
 
-	public override Yytoken yylex ()
+	public override IToken lex ()
  {
 		int yy_lookahead;
 		int yy_anchor = YY_NO_ANCHOR;

@@ -91,6 +91,11 @@ namespace gpcc
               {
                 int num = commands[i] - '0';
                 i++;
+                if (char.IsDigit(commands[i]))
+                {
+                  num = num * 10 + commands[i] - '0';
+                  i++;
+                }
                 Console.Write("value_stack.array[value_stack.top-{0}].Location", pos - num + 1);
               }
               else
@@ -145,6 +150,11 @@ namespace gpcc
             {
               int num = commands[i] - '0';
               i++;
+              if (char.IsDigit(commands[i]))
+              {
+                num = num * 10 + commands[i] - '0';
+                i++;
+              }
               if (kind == null)
                 kind = production.rhs[num - 1].kind;
 

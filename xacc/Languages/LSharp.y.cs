@@ -23,22 +23,22 @@ public struct ValueType : Xacc.ComponentModel.IToken
   public CodeElement      elem;
 
 #line default
-internal int type;
-internal TokenClass tclass;
-Location loc;
+internal int __type;
+internal TokenClass __class;
+Location __loc;
 internal string text;
 
-public Location Location {get {return loc;} set {loc = value;} }
-public int Type {get {return type;}}
-public TokenClass Class {get {return tclass;}}
+public Location Location {get {return __loc;} set {__loc = value;} }
+public int Type {get {return __type;}}
+public TokenClass Class {get {return __class;}}
 public string Text {get {return text;} set {text = value;}}
 public int Length {get {return Text.Length;}}
 
 public static implicit operator ValueType(Xacc.Languages.CSLex.Yytoken y)
 {
   ValueType t = new ValueType();
-  t.type = -1;
-  t.tclass = y.Class;
+  t.__type = -1;
+  t.__class = y.Class;
   return t;
 }
 

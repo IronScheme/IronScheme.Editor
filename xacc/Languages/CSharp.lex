@@ -1,21 +1,8 @@
 #pragma warning disable 162
 using Xacc.ComponentModel;
 using System.Drawing;
-using LexerBase = Xacc.Languages.CSLex.Language<Xacc.Languages.CSLex.Yytoken>.LexerBase;
+using LexerBase = Xacc.Languages.CSLex.Language<CSharp.ValueType>.LexerBase;
 
-namespace Xacc.Languages
-{
-  sealed class CSharpLanguage : CSLex.Language<Yytoken>
-  {
-	  public override string Name {get {return "C#"; } }
-	  public override string[] Extensions {get { return new string[]{"cs"}; } }
-	  LexerBase lexer = new CSharpLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
-  }
-}
 //NOTE: comments are not allowed except in code blocks
 %%
 
