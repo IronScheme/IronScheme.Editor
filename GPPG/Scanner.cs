@@ -348,7 +348,15 @@ namespace gpcc
             builder.Append(next);
             Advance();
             if (--nest == 0)
+            {
+              //if (GPCG.LINES)
+              //{
+              //  builder.Length--;
+              //  builder.AppendFormat("#line default\n", linenr, filename);
+              //  builder.Append("\t\t\t}");
+              //}
               return builder.ToString();
+            }
             break;
           case '/':
             builder.Append(next);

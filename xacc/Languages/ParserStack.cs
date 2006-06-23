@@ -7,9 +7,13 @@ namespace gppg
 {
   public class ParserStack<T>
   {
-    public T[] array = new T[1];
+    public T[] array;
     public int top = 0;
 
+    public ParserStack(int capacity)
+    {
+      array = new T[capacity];
+    }
 
     public void Push(T value)
     {

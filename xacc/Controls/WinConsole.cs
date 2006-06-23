@@ -99,7 +99,7 @@ namespace Xacc.Controls
 			Font = new Font(ComponentModel.ServiceHost.Font.InstalledFonts[0], 8);
 #endif
       Console.SetOut(new MessageWriter("OUT", new MessageWriter.MessageWriterHandler(Messg), this));
-			//Console.SetError(new MessageWriter("ERROR", new MessageWriter.MessageWriterHandler(Messg), this));
+			Console.SetError(new MessageWriter("ERROR", new MessageWriter.MessageWriterHandler(Messg), this));
 #if TRACE
 			Console.Out.WriteLine("Hijacking Console.Out");
 			Console.Error.WriteLine("Hijacking Console.Error");

@@ -453,7 +453,8 @@ namespace Xacc.Languages.CSLex
 
       public override void yyerror(string format, params object[] args)
       {
-        Console.WriteLine(format, args);
+        yylval.Location.Error = true;
+        ServiceHost.Error.OutputErrors(this, new Xacc.Build.ActionResult(string.Format(format, args), yylval.Location));
       }
     }
 

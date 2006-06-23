@@ -240,7 +240,7 @@ class Literal : CodeElement
         break;
       case 11: // listcontent -> list 
 #line 152 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ yyval.elem = value_stack.array[value_stack.top-1].elem; }
+			{ /*$$ = $1;*/ }
         break;
       case 12: // listcontent -> error 
 #line 153 "D:\dev\XACC\xacc\Languages\LSharp.y"

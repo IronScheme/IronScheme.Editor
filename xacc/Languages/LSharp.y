@@ -149,7 +149,7 @@ listcontent
                                     }
     | IDENTIFIER                    { $$ = new Identifier($1); $$.Location = @1;}
     | LITERAL                       { $$ = new Literal($1); $$.Location = @1; }
-    | list                          { $$ = $1; }
+    | list                          { /*$$ = $1;*/ }
     | error                         { $$ = null; }
     ;    
     

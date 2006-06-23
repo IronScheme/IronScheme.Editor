@@ -23,8 +23,8 @@ namespace gppg
     private bool recovering;
     private int tokensSinceLastError;
 
-    private ParserStack<State> state_stack = new ParserStack<State>();
-    protected ParserStack<ValueType> value_stack = new ParserStack<ValueType>();
+    private ParserStack<State> state_stack = new ParserStack<State>(500);
+    protected ParserStack<ValueType> value_stack = new ParserStack<ValueType>(500);
 
     protected string[] nonTerminals;
     protected State[] states;
@@ -41,6 +41,7 @@ namespace gppg
       {
         scanner = Lexer;
       }
+      Xacc.ComponentModel.ServiceHost.Error.ClearErrors(Lexer);
       Initialize();	// allow derived classes to instantiate rules, states and nonTerminals
 
       next = -1;
@@ -122,7 +123,13 @@ namespace gppg
 
       Rule rule = rules[rule_nr];
 
-      //if (rule.rhs.Length == 1)        yyval = value_stack.Top(); // default action: $$ = $1;
+      // FIX: leppie, was wrong, used implementation from byacc, adjusted stacks to have a capacity
+      yyval = value_stack.array[value_stack.top - rule.rhs.Length];
+      if (rule.rhs.Length != 1)
+      {
+        yyval.Location = value_stack.array[value_stack.top - rule.rhs.Length].Location
+          + value_stack.array[value_stack.top - 1].Location;
+      }
 
       DoAction(rule_nr);
 
