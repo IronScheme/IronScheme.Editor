@@ -486,12 +486,12 @@ namespace gpcc
 internal int __type;
 internal TokenClass __class;
 Location __loc;
-internal string text;
-
+object value;
 public Location Location {get {return __loc;} set {__loc = value;} }
 public int Type {get {return __type;}}
 public TokenClass Class {get {return __class;}}
-public string Text {get {return text;} set {text = value;}}
+public string text {get {return (string)value;} set {this.value = value;}}
+public string Text {get {return (string)value;} set {this.value = value;}}
 public int Length {get {return Text.Length;}}
 
 public static implicit operator ValueType(Xacc.Languages.CSLex.Yytoken y)

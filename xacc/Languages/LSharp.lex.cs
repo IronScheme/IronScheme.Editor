@@ -3,7 +3,7 @@ using Xacc.Languages.CSLex;
 using Xacc.ComponentModel;
 using System.Drawing;
 using LSharp;
-using LexerBase = Xacc.Languages.CSLex.Language<LSharp.ValueType>.LexerBase;
+using LexerBase = LSharp.LexerBase<LSharp.ValueType>;
 //NOTE: comments are not allowed except in code blocks
 
 
@@ -13,6 +13,13 @@ static ValueType Token(TokenClass c, Tokens type)
 {
   ValueType t = new ValueType();
   t.__type = (int)type;
+  t.__class = c;
+  return t;
+}
+static ValueType Token(TokenClass c, int type)
+{
+  ValueType t = new ValueType();
+  t.__type = type;
   t.__class = c;
   return t;
 }
@@ -545,7 +552,7 @@ static ValueType Token(TokenClass c, Tokens type)
       { ; }
 						break;
 					case 45: 
-          { EXIT(); return Token(TokenClass.Operator, Tokens.RBRACE); }
+          { EXIT(); return Token(TokenClass.Operator, RBRACE); }
 						break;
 					case 43: 
           { return OPERATOR; }
@@ -643,7 +650,7 @@ static ValueType Token(TokenClass c, Tokens type)
 
 						break;
 					case 44: 
-          { ENTER(KWSTATE); return Token(TokenClass.Operator, Tokens.LBRACE); }
+          { ENTER(KWSTATE); return Token(TokenClass.Operator, LBRACE); }
 						break;
 					case 18: 
     { return OPERATOR; }

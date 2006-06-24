@@ -31,7 +31,7 @@ namespace gppg
     protected Rule[] rules;
 
     protected int errToken;
-    protected int eofToken;
+    //protected int eofToken;
     
     protected abstract void Initialize();
     

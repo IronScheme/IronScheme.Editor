@@ -2,7 +2,7 @@
 using Xacc.ComponentModel;
 using System.Drawing;
 using LSharp;
-using LexerBase = Xacc.Languages.CSLex.Language<LSharp.ValueType>.LexerBase;
+using LexerBase = LSharp.LexerBase<LSharp.ValueType>;
 
 //NOTE: comments are not allowed except in code blocks
 %%
@@ -19,6 +19,14 @@ static ValueType Token(TokenClass c, Tokens type)
   t.__class = c;
   return t;
 }
+static ValueType Token(TokenClass c, int type)
+{
+  ValueType t = new ValueType();
+  t.__type = type;
+  t.__class = c;
+  return t;
+}
+
 %}
 
 line_comment           =";"[^\n]*
@@ -96,8 +104,8 @@ function              =({func1}|{func2}|{func3}|{func4})
 
 <MACRO>",@"                  { return OPERATOR; }
 <MACRO>","                   { return OPERATOR; }
-<MACRO>"("                   { ENTER(KWSTATE); return Token(TokenClass.Operator, Tokens.LBRACE); }                     
-<MACRO>")"                   { EXIT(); return Token(TokenClass.Operator, Tokens.RBRACE); }  
+<MACRO>"("                   { ENTER(KWSTATE); return Token(TokenClass.Operator, LBRACE); }                     
+<MACRO>")"                   { EXIT(); return Token(TokenClass.Operator, RBRACE); }  
 
 
 <ML_COMMENT>[^\n\|]+         { return COMMENT; }

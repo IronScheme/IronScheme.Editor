@@ -23,6 +23,8 @@ namespace gpcc
         if (filename == null)
           return 1;
 
+        Console.Error.WriteLine("gppg {0}", System.IO.Path.GetFileName(filename));
+
         Parser parser = new Parser();
         Grammar grammar = parser.Parse(filename);
 

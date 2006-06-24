@@ -105,8 +105,9 @@ class Literal : CodeElement
 
 %union
 {
-  public CodeElementList  list;
-  public CodeElement      elem;
+
+  public CodeElementList  list {get {return (CodeElementList)value; } set {this.value = value;}}
+  public CodeElement      elem {get {return (CodeElement)value; } set {this.value = value;}}
 }
 
 %token LBRACE RBRACE
@@ -128,9 +129,7 @@ list
                                       AddAutoComplete(@1, typeof(Function), typeof(Keyword));
                                       MakePair(@1,@3); 
                                       $$ = new List($2);
-                                      $$.Location = @1 + @3; 
                                     }
-     | LBRACE error                 { AddAutoComplete(@1, typeof(Function), typeof(Keyword)); }
      ;
     
 listcontents 
@@ -139,17 +138,17 @@ listcontents
     ;    
 
 listcontent
-    : FUNCTION                      { $$ = new Function($1); $$.Location = @1;}
+    : FUNCTION                      { $$ = new Function($1);}
     | KEYWORD                       {
                                       if ($1 == "new")
                                       {
                                         AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));
                                       } 
-                                      $$ = new Keyword($1); $$.Location = @1;
+                                      $$ = new Keyword($1);
                                     }
-    | IDENTIFIER                    { $$ = new Identifier($1); $$.Location = @1;}
-    | LITERAL                       { $$ = new Literal($1); $$.Location = @1; }
-    | list                          { /*$$ = $1;*/ }
+    | IDENTIFIER                    { $$ = new Identifier($1);}
+    | LITERAL                       { $$ = new Literal($1);}
+    | list                          
     | error                         { $$ = null; }
     ;    
     

@@ -364,6 +364,11 @@ namespace Xacc.Languages.CSLex
           2029/*PS*/ == yy_buffer[yy_buffer_end - 1]);
       }
 
+      protected char YYCHAR
+      {
+        get { return yy_buffer[yy_buffer_start]; }
+      }
+
       protected string yytext()
       {
         return (new string(yy_buffer,

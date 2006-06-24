@@ -16,22 +16,34 @@ namespace LSharp
 {
 public enum Tokens {IGNORE = -1,error=1,EOF=2,LBRACE=3,RBRACE=4,KEYWORD=5,FUNCTION=6,IDENTIFIER=7,LITERAL=8};
 
+public abstract class LexerBase<T> : Xacc.Languages.CSLex.Language<T>.LexerBase where T : struct, Xacc.ComponentModel.IToken
+{
+public const int error=1;
+public const int EOF=2;
+public const int LBRACE=3;
+public const int RBRACE=4;
+public const int KEYWORD=5;
+public const int FUNCTION=6;
+public const int IDENTIFIER=7;
+public const int LITERAL=8;
+}
 public struct ValueType : Xacc.ComponentModel.IToken
 #line 107 "D:\dev\XACC\xacc\Languages\LSharp.y"
 			{
-  public CodeElementList  list;
-  public CodeElement      elem;
+
+  public CodeElementList  list {get {return (CodeElementList)value; } set {this.value = value;}}
+  public CodeElement      elem {get {return (CodeElement)value; } set {this.value = value;}}
 
 #line default
 internal int __type;
 internal TokenClass __class;
 Location __loc;
-internal string text;
-
+object value;
 public Location Location {get {return __loc;} set {__loc = value;} }
 public int Type {get {return __type;}}
 public TokenClass Class {get {return __class;}}
-public string Text {get {return text;} set {text = value;}}
+public string text {get {return (string)value;} set {this.value = value;}}
+public string Text {get {return (string)value;} set {this.value = value;}}
 public int Length {get {return Text.Length;}}
 
 public static implicit operator ValueType(Xacc.Languages.CSLex.Yytoken y)
@@ -44,6 +56,7 @@ public static implicit operator ValueType(Xacc.Languages.CSLex.Yytoken y)
 
 public static readonly ValueType EOF = new ValueType();
 }
+#line default
 public partial class Parser: ShiftReduceParser<ValueType>
 {
 #line 4 "D:\dev\XACC\xacc\Languages\LSharp.y"
@@ -147,41 +160,39 @@ class Literal : CodeElement
   }
 }
 
+#line default
   protected override void Initialize()
   {
     this.errToken = (int)Tokens.error;
-    this.eofToken = (int)Tokens.EOF;
 
-    states=new State[15];
-    AddState(0,new State(-5,new int[]{-4,1,-1,3}));
+    states=new State[14];
+    AddState(0,new State(-4,new int[]{-4,1,-1,3}));
     AddState(1,new State(new int[]{2,2}));
     AddState(2,new State(-1));
     AddState(3,new State(new int[]{6,5,5,6,7,7,8,8,3,10,1,13,2,-2},new int[]{-3,4,-2,9}));
-    AddState(4,new State(-6));
-    AddState(5,new State(-7));
-    AddState(6,new State(-8));
-    AddState(7,new State(-9));
-    AddState(8,new State(-10));
-    AddState(9,new State(-11));
-    AddState(10,new State(new int[]{1,14,4,-5,6,-5,5,-5,7,-5,8,-5,3,-5},new int[]{-1,11}));
+    AddState(4,new State(-5));
+    AddState(5,new State(-6));
+    AddState(6,new State(-7));
+    AddState(7,new State(-8));
+    AddState(8,new State(-9));
+    AddState(9,new State(-10));
+    AddState(10,new State(-4,new int[]{-1,11}));
     AddState(11,new State(new int[]{4,12,6,5,5,6,7,7,8,8,3,10,1,13},new int[]{-3,4,-2,9}));
     AddState(12,new State(-3));
-    AddState(13,new State(-12));
-    AddState(14,new State(-4));
+    AddState(13,new State(-11));
 
-    rules=new Rule[13];
+    rules=new Rule[12];
     rules[1]=new Rule(-5, new int[]{-4,2});
     rules[2]=new Rule(-4, new int[]{-1});
     rules[3]=new Rule(-2, new int[]{3,-1,4});
-    rules[4]=new Rule(-2, new int[]{3,1});
-    rules[5]=new Rule(-1, new int[]{});
-    rules[6]=new Rule(-1, new int[]{-1,-3});
-    rules[7]=new Rule(-3, new int[]{6});
-    rules[8]=new Rule(-3, new int[]{5});
-    rules[9]=new Rule(-3, new int[]{7});
-    rules[10]=new Rule(-3, new int[]{8});
-    rules[11]=new Rule(-3, new int[]{-2});
-    rules[12]=new Rule(-3, new int[]{1});
+    rules[4]=new Rule(-1, new int[]{});
+    rules[5]=new Rule(-1, new int[]{-1,-3});
+    rules[6]=new Rule(-3, new int[]{6});
+    rules[7]=new Rule(-3, new int[]{5});
+    rules[8]=new Rule(-3, new int[]{7});
+    rules[9]=new Rule(-3, new int[]{8});
+    rules[10]=new Rule(-3, new int[]{-2});
+    rules[11]=new Rule(-3, new int[]{1});
 
     nonTerminals = new string[] {"", "listcontents", "list", "listcontent", 
       "file", "$accept", };
@@ -192,59 +203,59 @@ class Literal : CodeElement
     switch (action)
     {
       case 2: // file -> listcontents 
-#line 123 "D:\dev\XACC\xacc\Languages\LSharp.y"
+#line 124 "D:\dev\XACC\xacc\Languages\LSharp.y"
 			{ CodeModel.Add( new File(CurrentFilename, value_stack.array[value_stack.top-1].list)); }
+#line hidden
         break;
       case 3: // list -> LBRACE listcontents RBRACE 
-#line 127 "D:\dev\XACC\xacc\Languages\LSharp.y"
+#line 128 "D:\dev\XACC\xacc\Languages\LSharp.y"
 			{ 
                                       AddAutoComplete(@value_stack.array[value_stack.top-3].Location, typeof(Function), typeof(Keyword));
                                       MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); 
                                       yyval.elem = new List(value_stack.array[value_stack.top-2].list);
-                                      yyval.elem.Location = @value_stack.array[value_stack.top-3].Location + @value_stack.array[value_stack.top-1].Location; 
                                     }
+#line hidden
         break;
-      case 4: // list -> LBRACE error 
-#line 133 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ AddAutoComplete(@value_stack.array[value_stack.top-2].Location, typeof(Function), typeof(Keyword)); }
-        break;
-      case 5: // listcontents -> 
-#line 137 "D:\dev\XACC\xacc\Languages\LSharp.y"
+      case 4: // listcontents -> 
+#line 136 "D:\dev\XACC\xacc\Languages\LSharp.y"
 			{ yyval.list = new CodeElementList(); }
+#line hidden
         break;
-      case 6: // listcontents -> listcontents listcontent 
-#line 138 "D:\dev\XACC\xacc\Languages\LSharp.y"
+      case 5: // listcontents -> listcontents listcontent 
+#line 137 "D:\dev\XACC\xacc\Languages\LSharp.y"
 			{ yyval.list.Add(value_stack.array[value_stack.top-1].elem); }
+#line hidden
         break;
-      case 7: // listcontent -> FUNCTION 
+      case 6: // listcontent -> FUNCTION 
+#line 141 "D:\dev\XACC\xacc\Languages\LSharp.y"
+			{ yyval.elem = new Function(value_stack.array[value_stack.top-1].text);}
+#line hidden
+        break;
+      case 7: // listcontent -> KEYWORD 
 #line 142 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ yyval.elem = new Function(value_stack.array[value_stack.top-1].text); yyval.elem.Location = @value_stack.array[value_stack.top-1].Location;}
-        break;
-      case 8: // listcontent -> KEYWORD 
-#line 143 "D:\dev\XACC\xacc\Languages\LSharp.y"
 			{
                                       if (value_stack.array[value_stack.top-1].text == "new")
                                       {
                                         AddAutoComplete(@value_stack.array[value_stack.top-1].Location, typeof(CodeType), typeof(CodeNamespace));
                                       } 
-                                      yyval.elem = new Keyword(value_stack.array[value_stack.top-1].text); yyval.elem.Location = @value_stack.array[value_stack.top-1].Location;
+                                      yyval.elem = new Keyword(value_stack.array[value_stack.top-1].text);
                                     }
+#line hidden
         break;
-      case 9: // listcontent -> IDENTIFIER 
+      case 8: // listcontent -> IDENTIFIER 
+#line 149 "D:\dev\XACC\xacc\Languages\LSharp.y"
+			{ yyval.elem = new Identifier(value_stack.array[value_stack.top-1].text);}
+#line hidden
+        break;
+      case 9: // listcontent -> LITERAL 
 #line 150 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ yyval.elem = new Identifier(value_stack.array[value_stack.top-1].text); yyval.elem.Location = @value_stack.array[value_stack.top-1].Location;}
+			{ yyval.elem = new Literal(value_stack.array[value_stack.top-1].text);}
+#line hidden
         break;
-      case 10: // listcontent -> LITERAL 
-#line 151 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ yyval.elem = new Literal(value_stack.array[value_stack.top-1].text); yyval.elem.Location = @value_stack.array[value_stack.top-1].Location; }
-        break;
-      case 11: // listcontent -> list 
+      case 11: // listcontent -> error 
 #line 152 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ /*$$ = $1;*/ }
-        break;
-      case 12: // listcontent -> error 
-#line 153 "D:\dev\XACC\xacc\Languages\LSharp.y"
 			{ yyval.elem = null; }
+#line hidden
         break;
     }
   }
@@ -257,7 +268,7 @@ class Literal : CodeElement
       return CharToString((char)terminal);
   }
 
-#line 159 "D:\dev\XACC\xacc\Languages\LSharp.y"
+#line 158 "D:\dev\XACC\xacc\Languages\LSharp.y"
 
 
 void CreateFunctions(ICodeNamespace env, params string[] names)
@@ -354,5 +365,6 @@ protected internal override string[] UnCommentLines(string[] lines)
 
 
     
+#line default
 }
 }

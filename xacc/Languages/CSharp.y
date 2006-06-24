@@ -110,9 +110,9 @@ class TypeRef : CodeTypeRef
 /* The ones that seem to be context sensitive */
 
 /* Preprocessor Targets */
-%token PPSTART PPDEFINE PPIF PPELSE PPENDIF PPREGION PPENDREGION PPID
+%token PPSTART PPDEFINE PPIF PPELSE PPENDIF PPREGION PPENDREGION PPID PPELIF
 /* Accessor types */
-%token GET SET 
+%token GET SET
 /* Event accessor declarations */
 %token ADD REMOVE
 

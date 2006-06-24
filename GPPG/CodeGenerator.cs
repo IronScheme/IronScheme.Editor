@@ -86,6 +86,15 @@ namespace gpcc
 
       Console.WriteLine("};");
       Console.WriteLine();
+
+      Console.WriteLine("public abstract class LexerBase<T> : Xacc.Languages.CSLex.Language<T>.LexerBase where T : struct, Xacc.ComponentModel.IToken");
+      Console.WriteLine("{");
+      foreach (Terminal terminal in grammar.terminals.Values)
+        if (terminal.symbolic)
+        {
+          Console.WriteLine("public const int {0}={1};", terminal.ToString(), terminal.num);
+        }
+      Console.WriteLine("}");
     }
 
     private string GenerateValueType()
@@ -123,7 +132,7 @@ namespace gpcc
       Console.WriteLine("  {");
 
       Console.WriteLine("    this.errToken = (int){0}.error;", grammar.TokenName);
-      Console.WriteLine("    this.eofToken = (int){0}.EOF;", grammar.TokenName);
+      //Console.WriteLine("    this.eofToken = (int){0}.EOF;", grammar.TokenName);
 
       Console.WriteLine();
 
@@ -247,6 +256,7 @@ namespace gpcc
         {
           Console.WriteLine("      case {0}: // {1}", production.num, production.ToString());
           production.semanticAction.GenerateCode(this);
+          Console.WriteLine("#line hidden");
           Console.WriteLine("        break;");
         }
       }
@@ -282,6 +292,7 @@ namespace gpcc
             break;
           Console.WriteLine("{0}", line);
         }
+        Console.WriteLine("#line default");
       }
     }
   }

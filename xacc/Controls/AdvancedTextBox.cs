@@ -5656,12 +5656,6 @@ namespace Xacc.Controls
         }
         //if (owner.ProjectHint != null)
         {
-#warning NOTE: PARSER DISABLED FOR .NET 2 C# FILES
-          if (lang == ServiceHost.Language["cs"] && ServiceHost.Discovery.RuntimeVersion == NetRuntime.Net20)
-          {
-            return;
-          }
-
           string filename = owner.ProjectHint != null ? owner.ProjectHint.GetRelativeFilename(FileName) : FileName;
 
           lang.braces = braces;
