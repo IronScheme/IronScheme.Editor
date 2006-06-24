@@ -164,6 +164,7 @@ class Literal : CodeElement
   protected override void Initialize()
   {
     this.errToken = (int)Tokens.error;
+    this.eofToken = (int)Tokens.EOF;
 
     states=new State[14];
     AddState(0,new State(-4,new int[]{-4,1,-1,3}));

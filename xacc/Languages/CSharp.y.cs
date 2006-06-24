@@ -245,6 +245,7 @@ class TypeRef : CodeTypeRef
   protected override void Initialize()
   {
     this.errToken = (int)Tokens.error;
+    this.eofToken = (int)Tokens.EOF;
 
     states=new State[886];
     AddState(0,new State(new int[]{208,874,91,-300,175,-300,136,-300,158,-300,171,-300,176,-300,181,-300,183,-300,184,-300,185,-300,186,-300,190,-300,194,-300,206,-300,209,-300,211,-300,146,-300,196,-300,170,-300,155,-300,151,-300,128,-300},new int[]{-1,1,-183,3,-185,871,-188,884,-189,873,-190,883}));

@@ -194,7 +194,7 @@ namespace Xacc.Languages.CSLex
             return t.Type;
           }
         }
-        return 2;
+        return eofToken;
       }
 
       protected static readonly Yytoken PREPROC = new Yytoken(TokenClass.Preprocessor);
@@ -251,6 +251,8 @@ namespace Xacc.Languages.CSLex
       protected char[] yy_buffer = new char[YY_BUFFER_SIZE];
       protected bool yy_at_bol;
       protected int yy_lexical_state;
+
+      public int eofToken;
 
       protected LexerBase()
       {

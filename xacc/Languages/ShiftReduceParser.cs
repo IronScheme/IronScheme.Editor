@@ -31,8 +31,8 @@ namespace gppg
     protected Rule[] rules;
 
     protected int errToken;
-    //protected int eofToken;
-    
+    protected int eofToken;
+
     protected abstract void Initialize();
     
     public override bool Parse()
@@ -44,7 +44,9 @@ namespace gppg
       Xacc.ComponentModel.ServiceHost.Error.ClearErrors(Lexer);
       Initialize();	// allow derived classes to instantiate rules, states and nonTerminals
 
-      next = -1;
+      Lexer.eofToken = this.eofToken;
+
+      next = 0;
       current_state = states[0];
 
       state_stack.Push(current_state);
@@ -59,7 +61,7 @@ namespace gppg
 
         if (current_state.parser_table != null)
         {
-          if (next < 0)
+          if (next == 0)
           {
             if (Trace)
               Console.Error.Write("Reading a token: ");
@@ -104,15 +106,15 @@ namespace gppg
 
       if (recovering)
       {
-        if (next != 0)
+        if (next != errToken)
           tokensSinceLastError++;
 
         if (tokensSinceLastError > 5)
           recovering = false;
       }
 
-      if (next != 0)
-        next = -1;
+      if (next != errToken)
+        next = 0;
     }
 
 
@@ -177,7 +179,7 @@ namespace gppg
       StringBuilder errorMsg = new StringBuilder();
       errorMsg.AppendFormat("syntax error, unexpected {0}", TerminalToString(next));
 
-      if (current_state.parser_table.Count < 7)
+      if (current_state.parser_table.Count < 17)
       {
         bool first = true;
         foreach (int terminal in current_state.parser_table.Keys)
@@ -199,7 +201,7 @@ namespace gppg
     public void ShiftErrorToken()
     {
       int old_next = next;
-      next = 0;
+      next = errToken;
 
       Shift(current_state.parser_table[next]);
 
@@ -215,8 +217,8 @@ namespace gppg
       while (true)    // pop states until one found that accepts error token
       {
         if (current_state.parser_table != null &&
-          current_state.parser_table.ContainsKey(0) &&
-          current_state.parser_table[0] > 0) // shift
+          current_state.parser_table.ContainsKey(errToken) &&
+          current_state.parser_table[errToken] > 0) // shift
           return true;
 
         if (Trace)
@@ -250,7 +252,7 @@ namespace gppg
         // Discard tokens until find one that works ...
         while (true)
         {
-          if (next < 0)
+          if (next == 0)
           {
             if (Trace)
               Console.Error.Write("Reading a token: ");
@@ -261,7 +263,7 @@ namespace gppg
           if (Trace)
             Console.Error.WriteLine("Next token is {0}", TerminalToString(next));
 
-          if (next == 0)
+          if (next == errToken)
             return false;
 
           if (current_state.parser_table.ContainsKey(next))
@@ -273,7 +275,7 @@ namespace gppg
           {
             if (Trace)
               Console.Error.WriteLine("Error: Discarding {0}", TerminalToString(next));
-            next = -1;
+            next = 0;
           }
         }
       }

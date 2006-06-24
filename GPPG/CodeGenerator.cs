@@ -132,7 +132,7 @@ namespace gpcc
       Console.WriteLine("  {");
 
       Console.WriteLine("    this.errToken = (int){0}.error;", grammar.TokenName);
-      //Console.WriteLine("    this.eofToken = (int){0}.EOF;", grammar.TokenName);
+      Console.WriteLine("    this.eofToken = (int){0}.EOF;", grammar.TokenName);
 
       Console.WriteLine();
 

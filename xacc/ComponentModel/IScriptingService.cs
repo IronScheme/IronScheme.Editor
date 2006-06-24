@@ -103,16 +103,16 @@ namespace Xacc.ComponentModel
 
       if (SettingsService.idemode)
       {
-        atb = ServiceHost.File.Open("command.ls", DockState.DockBottom) 
-          as AdvancedTextBox;
+        //atb = ServiceHost.File.Open("command.ls", DockState.DockBottom) 
+        //  as AdvancedTextBox;
 
-        atb.AutoSave = true;
+        //atb.AutoSave = true;
 
-        tbp = atb.Parent as IDockContent;
-        tbp.HideOnClose = true;
-        tbp.Hide();
+        //tbp = atb.Parent as IDockContent;
+        //tbp.HideOnClose = true;
+        //tbp.Hide();
 
-        atb.ProjectHint = proj;
+        //atb.ProjectHint = proj;
       }
     }
 
