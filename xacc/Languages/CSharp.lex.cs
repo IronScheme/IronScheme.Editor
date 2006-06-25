@@ -150,7 +150,7 @@ static ValueType Token(TokenClass c, int type)
 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,516,516,516,516,516,516,45,516,516,516,516,516,516,516,-1,516,516,373,516,516,516,516,516,516,516,516,516,516,-1,516,516,516,516,516,516,-1,516,516,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,197,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,197,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,156,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
-{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,11,-1,-1,11,-1,11,-1,-1,-1,11,11,-1,-1,-1,-1,-1,-1,-1,11,11,-1,-1,-1,-1,220,11,222,-1,-1,11,-1,537,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,11,-1,-1,11,-1,11,-1,-1,-1,11,11,-1,-1,-1,-1,-1,-1,-1,11,11,-1,-1,-1,-1,220,11,222,-1,-1,11,-1,537,11,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,516,516,516,516,516,516,516,516,67,516,516,516,516,516,-1,516,516,516,516,516,516,516,516,516,516,516,516,516,-1,516,516,516,516,516,516,-1,516,516,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,268,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,201,201,201,-1,-1,-1,-1,-1,-1,201,-1,-1,-1,-1,-1,-1,201,201,-1,201,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,201,-1,201,201,-1,201,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
@@ -540,346 +540,346 @@ static ValueType Token(TokenClass c, int type)
 					yy_to_mark();
 					switch (yy_last_accept_state) {
 					case 52: 
-               { return Token(TokenClass.Operator,MINUSEQ); }
+               { return Operator(MINUSEQ); }
 						break;
 					case 78: 
-                 {return Token(TokenClass.Keyword,NULL_LITERAL);}
+                 {return Keyword(NULL_LITERAL);}
 						break;
 					case 29: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 5: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 124: 
-                    {return Token(TokenClass.Keyword,FINALLY);}
+                    {return Keyword(FINALLY);}
 						break;
 					case 167: 
                    { ; /* ignore */ }
 						break;
 					case 117: 
-                   {return Token(TokenClass.Keyword,RETURN);}
+                   {return Keyword(RETURN);}
 						break;
 					case 49: 
-                                                                                                                                                                                                                                                { return Token(TokenClass.String,MLSTRING_LITERAL); }
+                                                                                                                                                                                                                                                 { return String(MLSTRING_LITERAL); }
 						break;
 					case 172: 
-                          { return Token(TokenClass.DocComment);}
+                          { return DocComment();}
 						break;
 					case 34: 
-               { ENTER(ML_COMMENT); return Token(TokenClass.Comment); }
+               { ENTER(ML_COMMENT); return Comment(); }
 						break;
 					case 59: 
-               { return Token(TokenClass.Operator,ANDEQ); }
+               { return Operator(ANDEQ); }
 						break;
 					case 86: 
-                 {return Token(TokenClass.Keyword,THIS);}
+                 {return Keyword(THIS);}
 						break;
 					case 57: 
-               { return Token(TokenClass.Operator,MODEQ); }
+               { return Operator(MODEQ); }
 						break;
 					case 80: 
-                 {return Token(TokenClass.Keyword,LOCK);}
+                 {return Keyword(LOCK);}
 						break;
 					case 2: 
                  { ; /* ignore */ }
 						break;
 					case 100: 
-                  {return Token(TokenClass.Keyword,CLASS);}
+                  {return Keyword(CLASS);}
 						break;
 					case 20: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 31: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 165: 
-                       { ENTER(PPTAIL); return Token(TokenClass.Preprocessor); }
+                       { ENTER(PPTAIL); return Preprocessor(); }
 						break;
 					case 16: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 114: 
-                   {return Token(TokenClass.Keyword,STATIC);}
+                   {return Keyword(STATIC);}
 						break;
 					case 123: 
-                    {return Token(TokenClass.Keyword,DECIMAL);}
+                    {return Keyword(DECIMAL);}
 						break;
 					case 44: 
-               {return Token(TokenClass.Keyword,IS);}
+               {return Keyword(IS);}
 						break;
 					case 71: 
-                {return Token(TokenClass.Keyword,REF);}
+                {return Keyword(REF);}
 						break;
 					case 173: 
-              { return Token(TokenClass.Preprocessor, PPID); }
+              { return Preprocessor( PPID); }
 						break;
 					case 153: 
-               { EXIT(); return Token(TokenClass.String,MLSTRING_LITERAL); }
+               { EXIT(); return String(MLSTRING_LITERAL); }
 						break;
 					case 75: 
-                                                                                                                                                                                                                                            { return Token(TokenClass.Character,CHARACTER_LITERAL); }
+                                                                                                                                                                                                                                            { return Character(CHARACTER_LITERAL); }
 						break;
 					case 47: 
-               { ENTER(VERB_STRING); return Token(TokenClass.String,MLSTRING_LITERAL); }
+               { ENTER(VERB_STRING); return String(MLSTRING_LITERAL); }
 						break;
 					case 104: 
-                  {return Token(TokenClass.Keyword,ULONG);}
+                  {return Keyword(ULONG);}
 						break;
 					case 108: 
-                   {return Token(TokenClass.Keyword,EXTERN);}
+                   {return Keyword(EXTERN);}
 						break;
 					case 73: 
-                {return Token(TokenClass.Keyword,OUT);}
+                {return Keyword(OUT);}
 						break;
 					case 68: 
-                {return Token(TokenClass.Keyword,INT);}
+                {return Keyword(INT);}
 						break;
 					case 54: 
-               { return Token(TokenClass.Operator,PLUSPLUS); }
+               { return Operator(PLUSPLUS); }
 						break;
 					case 101: 
-                  {return Token(TokenClass.Keyword,CATCH);}
+                  {return Keyword(CATCH);}
 						break;
 					case 11: 
-                                                                                                                                                                                                                                              { return Token(TokenClass.Error,STRING_LITERAL); }
+                                                                                                                                                                                                                                               { return Error(STRING_LITERAL); }
 						break;
 					case 23: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 138: 
-                     {return Token(TokenClass.Keyword,CONTINUE);}
+                     {return Keyword(CONTINUE);}
 						break;
 					case 92: 
-                  {return Token(TokenClass.Keyword,FIXED);}
+                  {return Keyword(FIXED);}
 						break;
 					case 21: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 74: 
-                {return Token(TokenClass.Keyword,TRY);}
+                {return Keyword(TRY);}
 						break;
 					case 83: 
-                 {return Token(TokenClass.Keyword,BOOL);}
+                 {return Keyword(BOOL);}
 						break;
 					case 156: 
-                  { ENTER(PPTAIL); return Token(TokenClass.Preprocessor,PPIF); }
+                  { ENTER(PPTAIL); return Preprocessor(PPIF); }
 						break;
 					case 64: 
-                { ENTER(DOC_COMMENT); return Token(TokenClass.DocComment); }
+                { ENTER(DOC_COMMENT); return DocComment(); }
 						break;
 					case 130: 
-                     {return Token(TokenClass.Keyword,DELEGATE);}
+                     {return Keyword(DELEGATE);}
 						break;
 					case 77: 
-                 {return Token(TokenClass.Keyword,ELSE);}
+                 {return Keyword(ELSE);}
 						break;
 					case 163: 
-                      { ENTER(PPTAIL); return Token(TokenClass.Preprocessor); }
+                      { ENTER(PPTAIL); return Preprocessor(); }
 						break;
 					case 139: 
-                     {return Token(TokenClass.Keyword,VOLATILE);}
+                     {return Keyword(VOLATILE);}
 						break;
 					case 168: 
-                     { if (docintag == 1) {docintag = 0; return Token(TokenClass.DocComment);} else return Token(TokenClass.Comment); }
+                     { if (docintag == 1) {docintag = 0; return DocComment();} else return Comment(); }
 						break;
 					case 135: 
-                     {return Token(TokenClass.Keyword,ABSTRACT);}
+                     {return Keyword(ABSTRACT);}
 						break;
 					case 19: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 13: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 89: 
-                 {return Token(TokenClass.Keyword,UINT);}
+                 {return Keyword(UINT);}
 						break;
 					case 4: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 129: 
-                    {return Token(TokenClass.Keyword,VIRTUAL);}
+                    {return Keyword(VIRTUAL);}
 						break;
 					case 62: 
-               { return Token(TokenClass.Operator,OROR); }
+               { return Operator(OROR); }
 						break;
 					case 106: 
-                  {return Token(TokenClass.Keyword,IDENTIFIER);}
+                  {return Keyword(IDENTIFIER);}
 						break;
 					case 144: 
-                      {return Token(TokenClass.Keyword,UNCHECKED);}
+                      {return Keyword(UNCHECKED);}
 						break;
 					case 28: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 116: 
-                   {return Token(TokenClass.Keyword,PUBLIC);}
+                   {return Keyword(PUBLIC);}
 						break;
 					case 162: 
-                      { ENTER(PPTAIL); return Token(TokenClass.Preprocessor,PPDEFINE); }
+                      { ENTER(PPTAIL); return Preprocessor(PPDEFINE); }
 						break;
 					case 41: 
-               {return Token(TokenClass.Keyword,DO);}
+               {return Keyword(DO);}
 						break;
 					case 72: 
-                { return Token(TokenClass.Keyword,GET); }
+                { return Keyword(GET); }
 						break;
 					case 155: 
-                { EXIT(); return Token(TokenClass.NewLine); }
+                { EXIT(); return NewLine(); }
 						break;
 					case 164: 
-                      { ENTER(PPTAIL); return Token(TokenClass.Preprocessor,PPREGION); }
+                      { ENTER(PPTAIL); return Preprocessor(PPREGION); }
 						break;
 					case 126: 
-                    {return Token(TokenClass.Keyword,PRIVATE);}
+                    {return Keyword(PRIVATE);}
 						break;
 					case 42: 
-               {return Token(TokenClass.Keyword,IF);}
+               {return Keyword(IF);}
 						break;
 					case 84: 
-                 {return Token(TokenClass.Keyword,BYTE);}
+                 {return Keyword(BYTE);}
 						break;
 					case 88: 
-                 {return Token(TokenClass.Keyword,CHAR);}
+                 {return Keyword(CHAR);}
 						break;
 					case 119: 
-                   {return Token(TokenClass.Keyword,TYPEOF);}
+                   {return Keyword(TYPEOF);}
 						break;
 					case 30: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 91: 
-                  {return Token(TokenClass.Keyword,EVENT);}
+                  {return Keyword(EVENT);}
 						break;
 					case 15: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 36: 
-               { return Token(TokenClass.Operator,STAREQ); }
+               { return Operator(STAREQ); }
 						break;
 					case 14: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 107: 
-                   {return Token(TokenClass.Keyword,DOUBLE);}
+                   {return Keyword(DOUBLE);}
 						break;
 					case 109: 
-                   {return Token(TokenClass.Keyword,SEALED);}
+                   {return Keyword(SEALED);}
 						break;
 					case 82: 
-                 {return Token(TokenClass.Keyword,BASE);}
+                 {return Keyword(BASE);}
 						break;
 					case 169: 
-               { EXIT(); return Token(TokenClass.NewLine); }
+               { EXIT(); return NewLine(); }
 						break;
 					case 8: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 171: 
-                       { docintag = 1; return Token(TokenClass.DocComment);}
+                       { docintag = 1; return DocComment();}
 						break;
 					case 55: 
-               { return Token(TokenClass.Operator,PLUSEQ); }
+               { return Operator(PLUSEQ); }
 						break;
 					case 56: 
-               { return Token(TokenClass.Operator,EQEQ); }
+               { return Operator(EQEQ); }
 						break;
 					case 43: 
-               {return Token(TokenClass.Keyword,IN);}
+               {return Keyword(IN);}
 						break;
 					case 6: 
-             { return Token(TokenClass.NewLine);}
+             { return NewLine();}
 						break;
 					case 111: 
-                   {return Token(TokenClass.Keyword,SWITCH);}
+                   {return Keyword(SWITCH);}
 						break;
 					case 99: 
-                  {return Token(TokenClass.Keyword,THROW);}
+                  {return Keyword(THROW);}
 						break;
 					case 26: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 53: 
-                                       { return Token(TokenClass.Operator,RANK_SPECIFIER); }
+                                       { return Operator(RANK_SPECIFIER); }
 						break;
 					case 69: 
-                {return Token(TokenClass.Keyword,NEW);}
+                {return Keyword(NEW);}
 						break;
 					case 160: 
-                     { ENTER(PPTAIL); return Token(TokenClass.Preprocessor,PPENDIF); }
+                     { ENTER(PPTAIL); return Preprocessor(PPENDIF); }
 						break;
 					case 10: case 179: case 188: case 193: case 197: case 201: case 205: case 209: 
-					                                                                                             { return Token(TokenClass.Number,INTEGER_LITERAL); }
+					                                                                                             { return Number(INTEGER_LITERAL); }
 						break;
 					case 79: 
-                 {return Token(TokenClass.Keyword,LONG);}
+                 {return Keyword(LONG);}
 						break;
 					case 40: 
-               { return Token(TokenClass.Operator,LEQ); }
+               { return Operator(LEQ); }
 						break;
 					case 121: 
-                   {return Token(TokenClass.Keyword,USHORT);}
+                   {return Keyword(USHORT);}
 						break;
 					case 97: 
-                  {return Token(TokenClass.Keyword,WHILE);}
+                  {return Keyword(WHILE);}
 						break;
 					case 17: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 67: 
-                {return Token(TokenClass.Keyword,FOR);}
+                {return Keyword(FOR);}
 						break;
 					case 48: case 181: case 189: 
-                                                                                                                        { return Token(TokenClass.Number,REAL_LITERAL); }
+                                                                                                                        { return Number(REAL_LITERAL); }
 						break;
 					case 18: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 94: 
-                  {return Token(TokenClass.Keyword,FALSE);}
+                  {return Keyword(FALSE);}
 						break;
 					case 39: 
-               { return Token(TokenClass.Operator,LTLT); }
+               { return Operator(LTLT); }
 						break;
 					case 98: 
-                  {return Token(TokenClass.Keyword,BREAK);}
+                  {return Keyword(BREAK);}
 						break;
 					case 35: 
-               { return Token(TokenClass.Operator,DIVEQ); }
+               { return Operator(DIVEQ); }
 						break;
 					case 140: 
-                                               { return Token(TokenClass.Operator,'['); }
+                                               { return Operator('['); }
 						break;
 					case 113: 
-                   {return Token(TokenClass.Keyword,STRUCT);}
+                   {return Keyword(STRUCT);}
 						break;
 					case 37: 
-               { return Token(TokenClass.Operator,GTGT); }
+               { return Operator(GTGT); }
 						break;
 					case 154: case 184: case 190: case 194: case 198: case 202: case 206: case 339: 
-					               { return Token(TokenClass.Error); }
+					               { return Error(); }
 						break;
 					case 157: 
-                    { ENTER(PPTAIL); return Token(TokenClass.Preprocessor,PPELIF); }
+                    { ENTER(PPTAIL); return Preprocessor(PPELIF); }
 						break;
 					case 90: 
-                 {return Token(TokenClass.Keyword,VOID);}
+                 {return Keyword(VOID);}
 						break;
 					case 143: 
-                      {return Token(TokenClass.Keyword,PROTECTED);}
+                      {return Keyword(PROTECTED);}
 						break;
 					case 103: 
-                  {return Token(TokenClass.Keyword);}
+                  {return Keyword();}
 						break;
 					case 150: 
-                   { EXIT(); return Token(TokenClass.Comment); }
+                   { EXIT(); return Comment(); }
 						break;
 					case 151: 
-                            { return Token(TokenClass.String,MLSTRING_LITERAL); }
+                            { return String(MLSTRING_LITERAL); }
 						break;
 					case 148: case 183: 
-                          { return Token(TokenClass.Comment); }
+                          { return Comment(); }
 						break;
 					case 9: case 178: case 187: case 192: case 196: case 200: case 204: case 208: 
 					case 211: case 213: case 215: case 217: case 219: case 221: case 223: case 225: 
@@ -915,184 +915,184 @@ static ValueType Token(TokenClass c, int type)
 					case 519: case 520: case 521: case 522: case 523: case 524: case 525: case 527: 
 					case 528: case 529: case 530: case 531: case 532: case 533: case 534: case 535: 
 					case 536: case 538: case 539: 
-                                              { return Token(TokenClass.Identifier,IDENTIFIER); }
+                                              { return Identifier(IDENTIFIER); }
 						break;
 					case 112: 
-                   {return Token(TokenClass.Keyword,KW_STRING);}
+                   {return Keyword(KW_STRING);}
 						break;
 					case 58: 
-               { return Token(TokenClass.Operator,XOREQ); }
+               { return Operator(XOREQ); }
 						break;
 					case 133: 
-                     {return Token(TokenClass.Keyword,IMPLICIT);}
+                     {return Keyword(IMPLICIT);}
 						break;
 					case 137: 
-                     {return Token(TokenClass.Keyword,OVERRIDE);}
+                     {return Keyword(OVERRIDE);}
 						break;
 					case 45: 
-               {return Token(TokenClass.Keyword,AS);}
+               {return Keyword(AS);}
 						break;
 					case 115: 
-                   {return Token(TokenClass.Keyword,PARAMS);}
+                   {return Keyword(PARAMS);}
 						break;
 					case 1: case 176: 
 
 						break;
 					case 61: 
-               { return Token(TokenClass.Operator,OREQ); }
+               { return Operator(OREQ); }
 						break;
 					case 22: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 131: 
-                     {return Token(TokenClass.Keyword,EXPLICIT);}
+                     {return Keyword(EXPLICIT);}
 						break;
 					case 81: 
-                 {return Token(TokenClass.Keyword,GOTO);}
+                 {return Keyword(GOTO);}
 						break;
 					case 102: 
-                  {return Token(TokenClass.Keyword,CONST);}
+                  {return Keyword(CONST);}
 						break;
 					case 149: 
-              { return Token(TokenClass.NewLine); }
+              { return NewLine(); }
 						break;
 					case 132: 
-                     {return Token(TokenClass.Keyword,INTERNAL);}
+                     {return Keyword(INTERNAL);}
 						break;
 					case 3: case 177: case 186: 
-            { return Token(TokenClass.Error, error); }
+            { return Error(); }
 						break;
 					case 122: 
-                    {return Token(TokenClass.Keyword,DEFAULT);}
+                    {return Keyword(DEFAULT);}
 						break;
 					case 142: 
-                      {return Token(TokenClass.Keyword,NAMESPACE);}
+                      {return Keyword(NAMESPACE);}
 						break;
 					case 76: 
-                 {return Token(TokenClass.Keyword,ENUM);}
+                 {return Keyword(ENUM);}
 						break;
 					case 158: 
-                    { ENTER(PPTAIL); return Token(TokenClass.Preprocessor,PPELSE); }
+                    { ENTER(PPTAIL); return Preprocessor(PPELSE); }
 						break;
 					case 38: 
-               { return Token(TokenClass.Operator,GEQ); }
+               { return Operator(GEQ); }
 						break;
 					case 95: 
-                  {return Token(TokenClass.Keyword,SBYTE);}
+                  {return Keyword(SBYTE);}
 						break;
 					case 134: 
-                     {return Token(TokenClass.Keyword,READONLY);}
+                     {return Keyword(READONLY);}
 						break;
 					case 174: 
-          { EXIT(); EXIT(); return Token(TokenClass.NewLine); }
+          { EXIT(); EXIT(); return NewLine(); }
 						break;
 					case 33: case 180: 
-                              { return Token(TokenClass.Comment); }
+                              { return Comment(); }
 						break;
 					case 70: 
-                { return Token(TokenClass.Keyword,SET); }
+                { return Keyword(SET); }
 						break;
 					case 24: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 161: 
-                     { ENTER(PPTAIL); return Token(TokenClass.Preprocessor); }
+                     { ENTER(PPTAIL); return Preprocessor(); }
 						break;
 					case 125: 
-                    {return Token(TokenClass.Keyword,FOREACH);}
+                    {return Keyword(FOREACH);}
 						break;
 					case 170: 
-                { return Token(TokenClass.DocComment);}
+                { return DocComment();}
 						break;
 					case 110: 
-                   {return Token(TokenClass.Keyword,SIZEOF);}
+                   {return Keyword(SIZEOF);}
 						break;
 					case 96: 
-                  {return Token(TokenClass.Keyword,SHORT);}
+                  {return Keyword(SHORT);}
 						break;
 					case 60: 
-               { return Token(TokenClass.Operator,ANDAND); }
+               { return Operator(ANDAND); }
 						break;
 					case 7: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 27: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 127: 
-                    {return Token(TokenClass.Keyword);}
+                    {return Keyword();}
 						break;
 					case 46: 
-                                                { return Token(TokenClass.Identifier); }
+                                                { return Identifier(IDENTIFIER); }
 						break;
 					case 87: 
-                 {return Token(TokenClass.Keyword,CASE);}
+                 {return Keyword(CASE);}
 						break;
 					case 85: 
-                 {return Token(TokenClass.Keyword,TRUE);}
+                 {return Keyword(TRUE);}
 						break;
 					case 141: 
-                      {return Token(TokenClass.Keyword,INTERFACE);}
+                      {return Keyword(INTERFACE);}
 						break;
 					case 65: 
-                { return Token(TokenClass.Operator,GTGTEQ); }
+                { return Operator(GTGTEQ); }
 						break;
 					case 32: 
-                             { ENTER(PREPROCESSOR); return Token(TokenClass.Preprocessor); }
+                             { ENTER(PREPROCESSOR); return Preprocessor(); }
 						break;
 					case 51: 
-               { return Token(TokenClass.Operator,MINUSMINUS); }
+               { return Operator(MINUSMINUS); }
 						break;
 					case 147: 
-                     { return Token(TokenClass.Comment); }
+                     { return Comment(); }
 						break;
 					case 105: 
-                  {return Token(TokenClass.Keyword,USING);}
+                  {return Keyword(USING);}
 						break;
 					case 93: 
-                  {return Token(TokenClass.Keyword,FLOAT);}
+                  {return Keyword(FLOAT);}
 						break;
 					case 159: 
-                    { ENTER(PPTAIL); return Token(TokenClass.Preprocessor); }
+                    { ENTER(PPTAIL); return Preprocessor(); }
 						break;
 					case 63: 
-               { return Token(TokenClass.Operator,NOTEQ); }
+               { return Operator(NOTEQ); }
 						break;
 					case 25: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 152: 
-               { return Token(TokenClass.NewLine); }
+               { return NewLine(); }
 						break;
 					case 120: 
-                   {return Token(TokenClass.Keyword,UNSAFE);}
+                   {return Keyword(UNSAFE);}
 						break;
 					case 12: 
-              { return Token(TokenClass.Operator,YYCHAR); }
+              { return Operator(YYCHAR); }
 						break;
 					case 166: 
-                         { ENTER(PPTAIL); return Token(TokenClass.Preprocessor,PPENDREGION); }
+                         { ENTER(PPTAIL); return Preprocessor(PPENDREGION); }
 						break;
 					case 128: 
-                    {return Token(TokenClass.Keyword,CHECKED);}
+                    {return Keyword(CHECKED);}
 						break;
 					case 136: 
-                     {return Token(TokenClass.Keyword,OPERATOR);}
+                     {return Keyword(OPERATOR);}
 						break;
 					case 50: 
-               { return Token(TokenClass.Operator,ARROW); }
+               { return Operator(ARROW); }
 						break;
 					case 66: 
-                { return Token(TokenClass.Operator,LTLTEQ); }
+                { return Operator(LTLTEQ); }
 						break;
 					case 118: 
-                   {return Token(TokenClass.Keyword,OBJECT);}
+                   {return Keyword(OBJECT);}
 						break;
 					case 146: case 182: 
                   { ; }
 						break;
 					case 145: 
-                       {return Token(TokenClass.Keyword,STACKALLOC);}
+                       {return Keyword(STACKALLOC);}
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);break;

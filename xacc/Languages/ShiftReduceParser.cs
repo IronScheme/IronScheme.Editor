@@ -117,6 +117,8 @@ namespace gppg
         next = 0;
     }
 
+    int rhslen;
+
 
     protected void Reduce(int rule_nr)
     {
@@ -124,6 +126,8 @@ namespace gppg
         DisplayRule(rule_nr);
 
       Rule rule = rules[rule_nr];
+
+      rhslen = rule.rhs.Length;
 
       // FIX: leppie, was wrong, used implementation from byacc, adjusted stacks to have a capacity
       yyval = value_stack.array[value_stack.top - rule.rhs.Length];
@@ -133,7 +137,15 @@ namespace gppg
           + value_stack.array[value_stack.top - 1].Location;
       }
 
-      DoAction(rule_nr);
+      try
+      {
+
+        DoAction(rule_nr);
+      }
+      catch (Exception ex)
+      {
+        System.Diagnostics.Trace.WriteLine(ex, "Action exception");
+      }
 
       for (int i = 0 ; i < rule.rhs.Length ; i++)
       {
@@ -152,6 +164,19 @@ namespace gppg
       state_stack.Push(current_state);
       value_stack.Push(yyval);
     }
+
+#if DEBUG
+    public object SS { get { return yyval.Value; } }
+    public object S(int i) { return i > rhslen ? null : value_stack.array[value_stack.top - rhslen - 1 + i].Value; }
+    public object S1 { get { return S(1); } }
+    public object S2 { get { return S(2); } }
+    public object S3 { get { return S(3); } }
+    public object S4 { get { return S(4); } }
+    public object S5 { get { return S(5); } }
+    public object S6 { get { return S(6); } }
+    public object S7 { get { return S(7); } }
+    public object S8 { get { return S(8); } }
+#endif
 
 
     protected abstract void DoAction(int action_nr);

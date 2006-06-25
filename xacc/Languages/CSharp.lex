@@ -69,7 +69,7 @@ character              ={single_char}|{simple_esc_seq}|{hex_esc_seq}|{uni_esc_se
 character_literal      ='({character})'
 
 single_string_char     =[^\\\"\n]
-string_esc_seq         =\\[\"\\abfnrtv]
+string_esc_seq         =\\[\"\\0abfnrtv]
 reg_string_char        ={single_string_char}|{string_esc_seq}|{hex_esc_seq}|{uni_esc_seq}
 regular_string         =\"({reg_string_char})*\"
 error_string           =\"({reg_string_char})*
@@ -99,205 +99,205 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 
 %%
 
-<YYINITIAL>{preprocessor}    { ENTER(PREPROCESSOR); return Token(TokenClass.Preprocessor); }
+<YYINITIAL>{preprocessor}    { ENTER(PREPROCESSOR); return Preprocessor(); }
 <YYINITIAL>{white_space}+    { ; /* ignore */ }
 
                     
-<YYINITIAL>{comment_start}   { ENTER(ML_COMMENT); return Token(TokenClass.Comment); }
+<YYINITIAL>{comment_start}   { ENTER(ML_COMMENT); return Comment(); }
 
 
 <ML_COMMENT>{white_space}+    { ; }
-<ML_COMMENT>{new_line}        { return Token(TokenClass.NewLine); }
-<ML_COMMENT>[^*\n\t]+         { return Token(TokenClass.Comment); }
-<ML_COMMENT>"*"+[^*/\n\t]*    { return Token(TokenClass.Comment); }
-<ML_COMMENT>{comment_end}     { EXIT(); return Token(TokenClass.Comment); }
+<ML_COMMENT>{new_line}        { return NewLine(); }
+<ML_COMMENT>[^*\n\t]+         { return Comment(); }
+<ML_COMMENT>"*"+[^*/\n\t]*    { return Comment(); }
+<ML_COMMENT>{comment_end}     { EXIT(); return Comment(); }
 
-<YYINITIAL>{doc_comment}     { ENTER(DOC_COMMENT); return Token(TokenClass.DocComment); }
-<YYINITIAL>{line_comment}    { return Token(TokenClass.Comment); }
+<YYINITIAL>{doc_comment}     { ENTER(DOC_COMMENT); return DocComment(); }
+<YYINITIAL>{line_comment}    { return Comment(); }
 
-<DOC_COMMENT>{new_line}        { EXIT(); return Token(TokenClass.NewLine); }
-<DOC_COMMENT>"<"[^>\n]*        { docintag = 1; return Token(TokenClass.DocComment);}
-<DOC_COMMENT>"<"[^>\n]*">"     { return Token(TokenClass.DocComment);}
+<DOC_COMMENT>{new_line}        { EXIT(); return NewLine(); }
+<DOC_COMMENT>"<"[^>\n]*        { docintag = 1; return DocComment();}
+<DOC_COMMENT>"<"[^>\n]*">"     { return DocComment();}
 <DOC_COMMENT>{white_space}+    { ; /* ignore */ }
-<DOC_COMMENT>">"               { return Token(TokenClass.DocComment);}
-<DOC_COMMENT>[^<>\n]+          { if (docintag == 1) {docintag = 0; return Token(TokenClass.DocComment);} else return Token(TokenClass.Comment); }
+<DOC_COMMENT>">"               { return DocComment();}
+<DOC_COMMENT>[^<>\n]+          { if (docintag == 1) {docintag = 0; return DocComment();} else return Comment(); }
 
 
-<PPTAIL>[^\n]+            { return Token(TokenClass.Preprocessor, PPID); }
-<PPTAIL>{new_line}        { EXIT(); EXIT(); return Token(TokenClass.NewLine); }
+<PPTAIL>[^\n]+            { return Preprocessor( PPID); }
+<PPTAIL>{new_line}        { EXIT(); EXIT(); return NewLine(); }
 
 
-<PREPROCESSOR>"define"          { ENTER(PPTAIL); return Token(TokenClass.Preprocessor,PPDEFINE); }
-<PREPROCESSOR>"if"              { ENTER(PPTAIL); return Token(TokenClass.Preprocessor,PPIF); }
-<PREPROCESSOR>"else"            { ENTER(PPTAIL); return Token(TokenClass.Preprocessor,PPELSE); }
-<PREPROCESSOR>"elif"            { ENTER(PPTAIL); return Token(TokenClass.Preprocessor,PPELIF); }
-<PREPROCESSOR>"endif"           { ENTER(PPTAIL); return Token(TokenClass.Preprocessor,PPENDIF); }
-<PREPROCESSOR>"line"            { ENTER(PPTAIL); return Token(TokenClass.Preprocessor); }
-<PREPROCESSOR>"pragma"          { ENTER(PPTAIL); return Token(TokenClass.Preprocessor); }
-<PREPROCESSOR>"error"           { ENTER(PPTAIL); return Token(TokenClass.Preprocessor); }
-<PREPROCESSOR>"warning"         { ENTER(PPTAIL); return Token(TokenClass.Preprocessor); }
-<PREPROCESSOR>"region"          { ENTER(PPTAIL); return Token(TokenClass.Preprocessor,PPREGION); }
-<PREPROCESSOR>"endregion"       { ENTER(PPTAIL); return Token(TokenClass.Preprocessor,PPENDREGION); }
-<PREPROCESSOR>{new_line}        { EXIT(); return Token(TokenClass.NewLine); }
-<PREPROCESSOR>.                 { return Token(TokenClass.Error); }
+<PREPROCESSOR>"define"          { ENTER(PPTAIL); return Preprocessor(PPDEFINE); }
+<PREPROCESSOR>"if"              { ENTER(PPTAIL); return Preprocessor(PPIF); }
+<PREPROCESSOR>"else"            { ENTER(PPTAIL); return Preprocessor(PPELSE); }
+<PREPROCESSOR>"elif"            { ENTER(PPTAIL); return Preprocessor(PPELIF); }
+<PREPROCESSOR>"endif"           { ENTER(PPTAIL); return Preprocessor(PPENDIF); }
+<PREPROCESSOR>"line"            { ENTER(PPTAIL); return Preprocessor(); }
+<PREPROCESSOR>"pragma"          { ENTER(PPTAIL); return Preprocessor(); }
+<PREPROCESSOR>"error"           { ENTER(PPTAIL); return Preprocessor(); }
+<PREPROCESSOR>"warning"         { ENTER(PPTAIL); return Preprocessor(); }
+<PREPROCESSOR>"region"          { ENTER(PPTAIL); return Preprocessor(PPREGION); }
+<PREPROCESSOR>"endregion"       { ENTER(PPTAIL); return Preprocessor(PPENDREGION); }
+<PREPROCESSOR>{new_line}        { EXIT(); return NewLine(); }
+<PREPROCESSOR>.                 { return Error(); }
 
-<YYINITIAL>{at_identifier}   { return Token(TokenClass.Identifier); }
+<YYINITIAL>{at_identifier}   { return Identifier(IDENTIFIER); }
 
-<YYINITIAL>"abstract"        {return Token(TokenClass.Keyword,ABSTRACT);}
-<YYINITIAL>"as"              {return Token(TokenClass.Keyword,AS);}
-<YYINITIAL>"base"            {return Token(TokenClass.Keyword,BASE);}
-<YYINITIAL>"bool"            {return Token(TokenClass.Keyword,BOOL);}
-<YYINITIAL>"break"           {return Token(TokenClass.Keyword,BREAK);}
-<YYINITIAL>"byte"            {return Token(TokenClass.Keyword,BYTE);}
-<YYINITIAL>"case"            {return Token(TokenClass.Keyword,CASE);}
-<YYINITIAL>"catch"           {return Token(TokenClass.Keyword,CATCH);}
-<YYINITIAL>"char"            {return Token(TokenClass.Keyword,CHAR);}
-<YYINITIAL>"checked"         {return Token(TokenClass.Keyword,CHECKED);}
-<YYINITIAL>"class"           {return Token(TokenClass.Keyword,CLASS);}
-<YYINITIAL>"const"           {return Token(TokenClass.Keyword,CONST);}
-<YYINITIAL>"continue"        {return Token(TokenClass.Keyword,CONTINUE);}
-<YYINITIAL>"decimal"         {return Token(TokenClass.Keyword,DECIMAL);}
-<YYINITIAL>"default"         {return Token(TokenClass.Keyword,DEFAULT);}
-<YYINITIAL>"delegate"        {return Token(TokenClass.Keyword,DELEGATE);}
-<YYINITIAL>"do"              {return Token(TokenClass.Keyword,DO);}
-<YYINITIAL>"double"          {return Token(TokenClass.Keyword,DOUBLE);}
-<YYINITIAL>"else"            {return Token(TokenClass.Keyword,ELSE);}
-<YYINITIAL>"enum"            {return Token(TokenClass.Keyword,ENUM);}
-<YYINITIAL>"event"           {return Token(TokenClass.Keyword,EVENT);}
-<YYINITIAL>"explicit"        {return Token(TokenClass.Keyword,EXPLICIT);}
-<YYINITIAL>"extern"          {return Token(TokenClass.Keyword,EXTERN);}
-<YYINITIAL>"false"           {return Token(TokenClass.Keyword,FALSE);}
-<YYINITIAL>"finally"         {return Token(TokenClass.Keyword,FINALLY);}
-<YYINITIAL>"fixed"           {return Token(TokenClass.Keyword,FIXED);}
-<YYINITIAL>"float"           {return Token(TokenClass.Keyword,FLOAT);}
-<YYINITIAL>"for"             {return Token(TokenClass.Keyword,FOR);}
-<YYINITIAL>"foreach"         {return Token(TokenClass.Keyword,FOREACH);}
-<YYINITIAL>"goto"            {return Token(TokenClass.Keyword,GOTO);}
-<YYINITIAL>"if"              {return Token(TokenClass.Keyword,IF);}
-<YYINITIAL>"implicit"        {return Token(TokenClass.Keyword,IMPLICIT);}
-<YYINITIAL>"in"              {return Token(TokenClass.Keyword,IN);}
-<YYINITIAL>"int"             {return Token(TokenClass.Keyword,INT);}
-<YYINITIAL>"interface"       {return Token(TokenClass.Keyword,INTERFACE);}
-<YYINITIAL>"internal"        {return Token(TokenClass.Keyword,INTERNAL);}
-<YYINITIAL>"is"              {return Token(TokenClass.Keyword,IS);}
-<YYINITIAL>"lock"            {return Token(TokenClass.Keyword,LOCK);}
-<YYINITIAL>"long"            {return Token(TokenClass.Keyword,LONG);}
-<YYINITIAL>"namespace"       {return Token(TokenClass.Keyword,NAMESPACE);}
-<YYINITIAL>"new"             {return Token(TokenClass.Keyword,NEW);}
-<YYINITIAL>"null"            {return Token(TokenClass.Keyword,NULL_LITERAL);}
-<YYINITIAL>"object"          {return Token(TokenClass.Keyword,OBJECT);}
-<YYINITIAL>"operator"        {return Token(TokenClass.Keyword,OPERATOR);}
-<YYINITIAL>"out"             {return Token(TokenClass.Keyword,OUT);}
-<YYINITIAL>"override"        {return Token(TokenClass.Keyword,OVERRIDE);}
-<YYINITIAL>"params"          {return Token(TokenClass.Keyword,PARAMS);}
-<YYINITIAL>"private"         {return Token(TokenClass.Keyword,PRIVATE);}
-<YYINITIAL>"protected"       {return Token(TokenClass.Keyword,PROTECTED);}
-<YYINITIAL>"public"          {return Token(TokenClass.Keyword,PUBLIC);}
-<YYINITIAL>"readonly"        {return Token(TokenClass.Keyword,READONLY);}
-<YYINITIAL>"ref"             {return Token(TokenClass.Keyword,REF);}
-<YYINITIAL>"return"          {return Token(TokenClass.Keyword,RETURN);}
-<YYINITIAL>"sbyte"           {return Token(TokenClass.Keyword,SBYTE);}
-<YYINITIAL>"sealed"          {return Token(TokenClass.Keyword,SEALED);}
-<YYINITIAL>"short"           {return Token(TokenClass.Keyword,SHORT);}
-<YYINITIAL>"sizeof"          {return Token(TokenClass.Keyword,SIZEOF);}
-<YYINITIAL>"stackalloc"      {return Token(TokenClass.Keyword,STACKALLOC);}
-<YYINITIAL>"static"          {return Token(TokenClass.Keyword,STATIC);}
-<YYINITIAL>"string"          {return Token(TokenClass.Keyword,KW_STRING);}
-<YYINITIAL>"struct"          {return Token(TokenClass.Keyword,STRUCT);}
-<YYINITIAL>"switch"          {return Token(TokenClass.Keyword,SWITCH);}
-<YYINITIAL>"this"            {return Token(TokenClass.Keyword,THIS);}
-<YYINITIAL>"throw"           {return Token(TokenClass.Keyword,THROW);}
-<YYINITIAL>"true"            {return Token(TokenClass.Keyword,TRUE);}
-<YYINITIAL>"try"             {return Token(TokenClass.Keyword,TRY);}
-<YYINITIAL>"typeof"          {return Token(TokenClass.Keyword,TYPEOF);}
-<YYINITIAL>"uint"            {return Token(TokenClass.Keyword,UINT);}
-<YYINITIAL>"ulong"           {return Token(TokenClass.Keyword,ULONG);}
-<YYINITIAL>"unchecked"       {return Token(TokenClass.Keyword,UNCHECKED);}
-<YYINITIAL>"unsafe"          {return Token(TokenClass.Keyword,UNSAFE);}
-<YYINITIAL>"ushort"          {return Token(TokenClass.Keyword,USHORT);}
-<YYINITIAL>"using"           {return Token(TokenClass.Keyword,USING);}
-<YYINITIAL>"virtual"         {return Token(TokenClass.Keyword,VIRTUAL);}
-<YYINITIAL>"void"            {return Token(TokenClass.Keyword,VOID);}
-<YYINITIAL>"volatile"        {return Token(TokenClass.Keyword,VOLATILE);}
-<YYINITIAL>"while"           {return Token(TokenClass.Keyword,WHILE);}
-<YYINITIAL>"value"           {return Token(TokenClass.Keyword,IDENTIFIER);}   
+<YYINITIAL>"abstract"        {return Keyword(ABSTRACT);}
+<YYINITIAL>"as"              {return Keyword(AS);}
+<YYINITIAL>"base"            {return Keyword(BASE);}
+<YYINITIAL>"bool"            {return Keyword(BOOL);}
+<YYINITIAL>"break"           {return Keyword(BREAK);}
+<YYINITIAL>"byte"            {return Keyword(BYTE);}
+<YYINITIAL>"case"            {return Keyword(CASE);}
+<YYINITIAL>"catch"           {return Keyword(CATCH);}
+<YYINITIAL>"char"            {return Keyword(CHAR);}
+<YYINITIAL>"checked"         {return Keyword(CHECKED);}
+<YYINITIAL>"class"           {return Keyword(CLASS);}
+<YYINITIAL>"const"           {return Keyword(CONST);}
+<YYINITIAL>"continue"        {return Keyword(CONTINUE);}
+<YYINITIAL>"decimal"         {return Keyword(DECIMAL);}
+<YYINITIAL>"default"         {return Keyword(DEFAULT);}
+<YYINITIAL>"delegate"        {return Keyword(DELEGATE);}
+<YYINITIAL>"do"              {return Keyword(DO);}
+<YYINITIAL>"double"          {return Keyword(DOUBLE);}
+<YYINITIAL>"else"            {return Keyword(ELSE);}
+<YYINITIAL>"enum"            {return Keyword(ENUM);}
+<YYINITIAL>"event"           {return Keyword(EVENT);}
+<YYINITIAL>"explicit"        {return Keyword(EXPLICIT);}
+<YYINITIAL>"extern"          {return Keyword(EXTERN);}
+<YYINITIAL>"false"           {return Keyword(FALSE);}
+<YYINITIAL>"finally"         {return Keyword(FINALLY);}
+<YYINITIAL>"fixed"           {return Keyword(FIXED);}
+<YYINITIAL>"float"           {return Keyword(FLOAT);}
+<YYINITIAL>"for"             {return Keyword(FOR);}
+<YYINITIAL>"foreach"         {return Keyword(FOREACH);}
+<YYINITIAL>"goto"            {return Keyword(GOTO);}
+<YYINITIAL>"if"              {return Keyword(IF);}
+<YYINITIAL>"implicit"        {return Keyword(IMPLICIT);}
+<YYINITIAL>"in"              {return Keyword(IN);}
+<YYINITIAL>"int"             {return Keyword(INT);}
+<YYINITIAL>"interface"       {return Keyword(INTERFACE);}
+<YYINITIAL>"internal"        {return Keyword(INTERNAL);}
+<YYINITIAL>"is"              {return Keyword(IS);}
+<YYINITIAL>"lock"            {return Keyword(LOCK);}
+<YYINITIAL>"long"            {return Keyword(LONG);}
+<YYINITIAL>"namespace"       {return Keyword(NAMESPACE);}
+<YYINITIAL>"new"             {return Keyword(NEW);}
+<YYINITIAL>"null"            {return Keyword(NULL_LITERAL);}
+<YYINITIAL>"object"          {return Keyword(OBJECT);}
+<YYINITIAL>"operator"        {return Keyword(OPERATOR);}
+<YYINITIAL>"out"             {return Keyword(OUT);}
+<YYINITIAL>"override"        {return Keyword(OVERRIDE);}
+<YYINITIAL>"params"          {return Keyword(PARAMS);}
+<YYINITIAL>"private"         {return Keyword(PRIVATE);}
+<YYINITIAL>"protected"       {return Keyword(PROTECTED);}
+<YYINITIAL>"public"          {return Keyword(PUBLIC);}
+<YYINITIAL>"readonly"        {return Keyword(READONLY);}
+<YYINITIAL>"ref"             {return Keyword(REF);}
+<YYINITIAL>"return"          {return Keyword(RETURN);}
+<YYINITIAL>"sbyte"           {return Keyword(SBYTE);}
+<YYINITIAL>"sealed"          {return Keyword(SEALED);}
+<YYINITIAL>"short"           {return Keyword(SHORT);}
+<YYINITIAL>"sizeof"          {return Keyword(SIZEOF);}
+<YYINITIAL>"stackalloc"      {return Keyword(STACKALLOC);}
+<YYINITIAL>"static"          {return Keyword(STATIC);}
+<YYINITIAL>"string"          {return Keyword(KW_STRING);}
+<YYINITIAL>"struct"          {return Keyword(STRUCT);}
+<YYINITIAL>"switch"          {return Keyword(SWITCH);}
+<YYINITIAL>"this"            {return Keyword(THIS);}
+<YYINITIAL>"throw"           {return Keyword(THROW);}
+<YYINITIAL>"true"            {return Keyword(TRUE);}
+<YYINITIAL>"try"             {return Keyword(TRY);}
+<YYINITIAL>"typeof"          {return Keyword(TYPEOF);}
+<YYINITIAL>"uint"            {return Keyword(UINT);}
+<YYINITIAL>"ulong"           {return Keyword(ULONG);}
+<YYINITIAL>"unchecked"       {return Keyword(UNCHECKED);}
+<YYINITIAL>"unsafe"          {return Keyword(UNSAFE);}
+<YYINITIAL>"ushort"          {return Keyword(USHORT);}
+<YYINITIAL>"using"           {return Keyword(USING);}
+<YYINITIAL>"virtual"         {return Keyword(VIRTUAL);}
+<YYINITIAL>"void"            {return Keyword(VOID);}
+<YYINITIAL>"volatile"        {return Keyword(VOLATILE);}
+<YYINITIAL>"while"           {return Keyword(WHILE);}
+<YYINITIAL>"value"           {return Keyword(IDENTIFIER);}   
 
-<YYINITIAL>"partial"         {return Token(TokenClass.Keyword);}
-<YYINITIAL>"yield"           {return Token(TokenClass.Keyword);}
-
-                      
-<YYINITIAL>{verbatim_string_start}                 { ENTER(VERB_STRING); return Token(TokenClass.String,MLSTRING_LITERAL); }
-
-<VERB_STRING>{new_line}                 { return Token(TokenClass.NewLine); }
-<VERB_STRING>{verbatim_string_cont}     { return Token(TokenClass.String,MLSTRING_LITERAL); }
-<VERB_STRING>{verbatim_string_end}      { EXIT(); return Token(TokenClass.String,MLSTRING_LITERAL); }
-                      
-<YYINITIAL>{integer_literal}     { return Token(TokenClass.Number,INTEGER_LITERAL); }
-<YYINITIAL>{real_literal}        { return Token(TokenClass.Number,REAL_LITERAL); }
-<YYINITIAL>{character_literal}   { return Token(TokenClass.Character,CHARACTER_LITERAL); }
-<YYINITIAL>{string_literal}      { return Token(TokenClass.String,MLSTRING_LITERAL); }
-
-<YYINITIAL>{rank_specifier}      { return Token(TokenClass.Operator,RANK_SPECIFIER); }
+<YYINITIAL>"partial"         {return Keyword();}
+<YYINITIAL>"yield"           {return Keyword();}
 
                       
-<YYINITIAL>"+="    { return Token(TokenClass.Operator,PLUSEQ); }
-<YYINITIAL>"-="    { return Token(TokenClass.Operator,MINUSEQ); }
-<YYINITIAL>"*="    { return Token(TokenClass.Operator,STAREQ); }
-<YYINITIAL>"/="    { return Token(TokenClass.Operator,DIVEQ); }
-<YYINITIAL>"%="    { return Token(TokenClass.Operator,MODEQ); }
-<YYINITIAL>"^="    { return Token(TokenClass.Operator,XOREQ); }
-<YYINITIAL>"&="    { return Token(TokenClass.Operator,ANDEQ); }
-<YYINITIAL>"|="    { return Token(TokenClass.Operator,OREQ); }
-<YYINITIAL>"<<"    { return Token(TokenClass.Operator,LTLT); }
-<YYINITIAL>">>"   	{ return Token(TokenClass.Operator,GTGT); }
-<YYINITIAL>">>="   { return Token(TokenClass.Operator,GTGTEQ); }
-<YYINITIAL>"<<="   { return Token(TokenClass.Operator,LTLTEQ); }
-<YYINITIAL>"=="    { return Token(TokenClass.Operator,EQEQ); }
-<YYINITIAL>"!="    { return Token(TokenClass.Operator,NOTEQ); }
-<YYINITIAL>"<="    { return Token(TokenClass.Operator,LEQ); }
-<YYINITIAL>">="    { return Token(TokenClass.Operator,GEQ); }
-<YYINITIAL>"&&"    { return Token(TokenClass.Operator,ANDAND); }
-<YYINITIAL>"||"    { return Token(TokenClass.Operator,OROR); }
-<YYINITIAL>"++"    { return Token(TokenClass.Operator,PLUSPLUS); }
-<YYINITIAL>"--"    { return Token(TokenClass.Operator,MINUSMINUS); }
+<YYINITIAL>{verbatim_string_start}                 { ENTER(VERB_STRING); return String(MLSTRING_LITERAL); }
 
-<YYINITIAL>"->"    { return Token(TokenClass.Operator,ARROW); }
-<YYINITIAL>"."     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>"("     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>")"     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>"["     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>"]"     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>"{"     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>"}"     { return Token(TokenClass.Operator,YYCHAR); }
+<VERB_STRING>{new_line}                 { return NewLine(); }
+<VERB_STRING>{verbatim_string_cont}     { return String(MLSTRING_LITERAL); }
+<VERB_STRING>{verbatim_string_end}      { EXIT(); return String(MLSTRING_LITERAL); }
+                      
+<YYINITIAL>{integer_literal}     { return Number(INTEGER_LITERAL); }
+<YYINITIAL>{real_literal}        { return Number(REAL_LITERAL); }
+<YYINITIAL>{character_literal}   { return Character(CHARACTER_LITERAL); }
+<YYINITIAL>{string_literal}      { return String(MLSTRING_LITERAL); }
 
-<YYINITIAL>"+"     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>"-"     { return Token(TokenClass.Operator,YYCHAR); }
+<YYINITIAL>{rank_specifier}      { return Operator(RANK_SPECIFIER); }
 
-<YYINITIAL>"="     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>";"     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>"!"     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>"?"     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>"*"     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>"%"     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>"^"     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>"&"     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>"/"     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>"|"     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>"<"     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>">"     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>"~"     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>":"     { return Token(TokenClass.Operator,YYCHAR); }
-<YYINITIAL>","     { return Token(TokenClass.Operator,YYCHAR); }
+                      
+<YYINITIAL>"+="    { return Operator(PLUSEQ); }
+<YYINITIAL>"-="    { return Operator(MINUSEQ); }
+<YYINITIAL>"*="    { return Operator(STAREQ); }
+<YYINITIAL>"/="    { return Operator(DIVEQ); }
+<YYINITIAL>"%="    { return Operator(MODEQ); }
+<YYINITIAL>"^="    { return Operator(XOREQ); }
+<YYINITIAL>"&="    { return Operator(ANDEQ); }
+<YYINITIAL>"|="    { return Operator(OREQ); }
+<YYINITIAL>"<<"    { return Operator(LTLT); }
+<YYINITIAL>">>"    { return Operator(GTGT); }
+<YYINITIAL>">>="   { return Operator(GTGTEQ); }
+<YYINITIAL>"<<="   { return Operator(LTLTEQ); }
+<YYINITIAL>"=="    { return Operator(EQEQ); }
+<YYINITIAL>"!="    { return Operator(NOTEQ); }
+<YYINITIAL>"<="    { return Operator(LEQ); }
+<YYINITIAL>">="    { return Operator(GEQ); }
+<YYINITIAL>"&&"    { return Operator(ANDAND); }
+<YYINITIAL>"||"    { return Operator(OROR); }
+<YYINITIAL>"++"    { return Operator(PLUSPLUS); }
+<YYINITIAL>"--"    { return Operator(MINUSMINUS); }
+
+<YYINITIAL>"->"    { return Operator(ARROW); }
+<YYINITIAL>"."     { return Operator(YYCHAR); }
+<YYINITIAL>"("     { return Operator(YYCHAR); }
+<YYINITIAL>")"     { return Operator(YYCHAR); }
+<YYINITIAL>"["     { return Operator(YYCHAR); }
+<YYINITIAL>"]"     { return Operator(YYCHAR); }
+<YYINITIAL>"{"     { return Operator(YYCHAR); }
+<YYINITIAL>"}"     { return Operator(YYCHAR); }
+
+<YYINITIAL>"+"     { return Operator(YYCHAR); }
+<YYINITIAL>"-"     { return Operator(YYCHAR); }
+
+<YYINITIAL>"="     { return Operator(YYCHAR); }
+<YYINITIAL>";"     { return Operator(YYCHAR); }
+<YYINITIAL>"!"     { return Operator(YYCHAR); }
+<YYINITIAL>"?"     { return Operator(YYCHAR); }
+<YYINITIAL>"*"     { return Operator(YYCHAR); }
+<YYINITIAL>"%"     { return Operator(YYCHAR); }
+<YYINITIAL>"^"     { return Operator(YYCHAR); }
+<YYINITIAL>"&"     { return Operator(YYCHAR); }
+<YYINITIAL>"/"     { return Operator(YYCHAR); }
+<YYINITIAL>"|"     { return Operator(YYCHAR); }
+<YYINITIAL>"<"     { return Operator(YYCHAR); }
+<YYINITIAL>">"     { return Operator(YYCHAR); }
+<YYINITIAL>"~"     { return Operator(YYCHAR); }
+<YYINITIAL>":"     { return Operator(YYCHAR); }
+<YYINITIAL>","     { return Operator(YYCHAR); }
 
 
-<YYINITIAL>"get"   { return Token(TokenClass.Keyword,GET); }
-<YYINITIAL>"set"   { return Token(TokenClass.Keyword,SET); }
+<YYINITIAL>"get"   { return Keyword(GET); }
+<YYINITIAL>"set"   { return Keyword(SET); }
 
-<YYINITIAL>{error_string}           { return Token(TokenClass.Error,STRING_LITERAL); }
+<YYINITIAL>{error_string}           { return Error(STRING_LITERAL); }
 
-<YYINITIAL>{identifier}             { return Token(TokenClass.Identifier,IDENTIFIER); }
+<YYINITIAL>{identifier}             { return Identifier(IDENTIFIER); }
 
 
-<YYINITIAL>{new_line}               { return Token(TokenClass.NewLine);}
-<YYINITIAL>{attr}                   { return Token(TokenClass.Operator,'['); }
-<YYINITIAL>.                        { return Token(TokenClass.Error, error); }
+<YYINITIAL>{new_line}               { return NewLine();}
+<YYINITIAL>{attr}                   { return Operator('['); }
+<YYINITIAL>.                        { return Error(); }

@@ -33,6 +33,11 @@ public struct ValueType : Xacc.ComponentModel.IToken
 
   public CodeElementList  list {get {return (CodeElementList)value; } set {this.value = value;}}
   public CodeElement      elem {get {return (CodeElement)value; } set {this.value = value;}}
+  
+#if DEBUG
+  public object Value { get { return value; } }
+#endif
+
 
 #line default
 internal int __type;
@@ -40,8 +45,8 @@ internal TokenClass __class;
 Location __loc;
 object value;
 public Location Location {get {return __loc;} set {__loc = value;} }
-public int Type {get {return __type;}}
-public TokenClass Class {get {return __class;}}
+public int Type {get {return __type;} set {__type = value;}}
+public TokenClass Class {get {return __class;} set {__class = value;}}
 public string text {get {return (string)value;} set {this.value = value;}}
 public string Text {get {return (string)value;} set {this.value = value;}}
 public int Length {get {return Text.Length;}}
@@ -204,12 +209,12 @@ class Literal : CodeElement
     switch (action)
     {
       case 2: // file -> listcontents 
-#line 124 "D:\dev\XACC\xacc\Languages\LSharp.y"
+#line 129 "D:\dev\XACC\xacc\Languages\LSharp.y"
 			{ CodeModel.Add( new File(CurrentFilename, value_stack.array[value_stack.top-1].list)); }
 #line hidden
         break;
       case 3: // list -> LBRACE listcontents RBRACE 
-#line 128 "D:\dev\XACC\xacc\Languages\LSharp.y"
+#line 133 "D:\dev\XACC\xacc\Languages\LSharp.y"
 			{ 
                                       AddAutoComplete(@value_stack.array[value_stack.top-3].Location, typeof(Function), typeof(Keyword));
                                       MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); 
@@ -218,22 +223,22 @@ class Literal : CodeElement
 #line hidden
         break;
       case 4: // listcontents -> 
-#line 136 "D:\dev\XACC\xacc\Languages\LSharp.y"
+#line 141 "D:\dev\XACC\xacc\Languages\LSharp.y"
 			{ yyval.list = new CodeElementList(); }
 #line hidden
         break;
       case 5: // listcontents -> listcontents listcontent 
-#line 137 "D:\dev\XACC\xacc\Languages\LSharp.y"
+#line 142 "D:\dev\XACC\xacc\Languages\LSharp.y"
 			{ yyval.list.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 6: // listcontent -> FUNCTION 
-#line 141 "D:\dev\XACC\xacc\Languages\LSharp.y"
+#line 146 "D:\dev\XACC\xacc\Languages\LSharp.y"
 			{ yyval.elem = new Function(value_stack.array[value_stack.top-1].text);}
 #line hidden
         break;
       case 7: // listcontent -> KEYWORD 
-#line 142 "D:\dev\XACC\xacc\Languages\LSharp.y"
+#line 147 "D:\dev\XACC\xacc\Languages\LSharp.y"
 			{
                                       if (value_stack.array[value_stack.top-1].text == "new")
                                       {
@@ -244,17 +249,17 @@ class Literal : CodeElement
 #line hidden
         break;
       case 8: // listcontent -> IDENTIFIER 
-#line 149 "D:\dev\XACC\xacc\Languages\LSharp.y"
+#line 154 "D:\dev\XACC\xacc\Languages\LSharp.y"
 			{ yyval.elem = new Identifier(value_stack.array[value_stack.top-1].text);}
 #line hidden
         break;
       case 9: // listcontent -> LITERAL 
-#line 150 "D:\dev\XACC\xacc\Languages\LSharp.y"
+#line 155 "D:\dev\XACC\xacc\Languages\LSharp.y"
 			{ yyval.elem = new Literal(value_stack.array[value_stack.top-1].text);}
 #line hidden
         break;
       case 11: // listcontent -> error 
-#line 152 "D:\dev\XACC\xacc\Languages\LSharp.y"
+#line 157 "D:\dev\XACC\xacc\Languages\LSharp.y"
 			{ yyval.elem = null; }
 #line hidden
         break;
@@ -269,7 +274,7 @@ class Literal : CodeElement
       return CharToString((char)terminal);
   }
 
-#line 158 "D:\dev\XACC\xacc\Languages\LSharp.y"
+#line 163 "D:\dev\XACC\xacc\Languages\LSharp.y"
 
 
 void CreateFunctions(ICodeNamespace env, params string[] names)

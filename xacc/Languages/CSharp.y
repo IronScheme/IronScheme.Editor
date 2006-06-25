@@ -72,13 +72,18 @@ class TypeRef : CodeTypeRef
 
 %union
 {
-  public ArrayList        list;
-  public CodeNamespace    ns;
-  public CodeElementList  elemlist;
-  public CodeElement      elem;
-  public CodeTypeRef      typeref;
-  public Object           primval;
-  public ParameterAttributes   paramattr;
+  public ArrayList            list        {get {return (ArrayList)value; } set {this.value = value;}}
+  public CodeNamespace        ns          {get {return (CodeNamespace)value; } set {this.value = value;}}
+  public CodeElementList      elemlist    {get {return (CodeElementList)value; } set {this.value = value;}}
+  public CodeElement          elem        {get {return (CodeElement)value; } set {this.value = value;}}
+  public CodeTypeRef          typeref     {get {return (CodeTypeRef)value; } set {this.value = value;}}
+  public Object               primval     {get {return (Object)value; } set {this.value = value;}}
+  public ParameterAttributes  paramattr   {get {return (ParameterAttributes)value; } set {this.value = value;}}
+  
+#if DEBUG
+  public object Value { get { return value; } }
+#endif
+
 }
 
 /* Special tokens to help disambiguate rank_specifiers */
@@ -127,7 +132,7 @@ class TypeRef : CodeTypeRef
 %type <elemlist> class_member_declarations_opt class_body class_member_declarations struct_body interface_member_declarations_opt
 %type <elemlist> formal_parameter_list_opt formal_parameter_list struct_member_declarations_opt struct_member_declarations
 %type <elemlist> interface_member_declarations enum_body enum_member_declarations_opt enum_member_declarations
-%type <elem> constant_declaration field_declaration
+%type <elem> constant_declaration field_declaration interface_indexer_declaration
 %type <elem> namespace_declaration namespace_member_declaration struct_member_declaration interface_member_declaration
 %type <elem> enum_member_declaration constructor_declarator 
 %type <text> qualified_identifier qualifier namespace_name constant_declarator variable_declarator
@@ -868,7 +873,7 @@ constant_declaration
                                                                   cf.Location = @4;
                                                                   cel.Add( cf ); 
                                                                 }
-                                                                $$ = new CodeComplexMember(cel);;
+                                                                $$ = new CodeComplexMember(cel);
                                                               }
   ;
 field_declaration
@@ -956,9 +961,21 @@ accessor_body
   | ';'
   ;
 event_declaration
-  : attributes_opt modifiers_opt EVENT type variable_declarators ';' 
+  : attributes_opt modifiers_opt EVENT type variable_declarators ';' { 
+                                                                CodeElementList cel = new CodeElementList();
+                                                                foreach (string s in $5)
+                                                                {
+                                                                  CodeField cf = new CodeField(s,$4);
+                                                                  cf.Location = @4;
+                                                                  cel.Add( cf ); 
+                                                                }
+                                                                $$ = new CodeComplexMember(cel);
+                                                              }
   | attributes_opt modifiers_opt EVENT type qualified_identifier 
-    '{' event_accessor_declarations '}'                         { MakePair(@5,@7);}
+    '{' event_accessor_declarations '}'                         { MakePair(@6,@8);
+                                                                  CodeField cf = new CodeField($5,$4);
+                                                                  cf.Location = @4;
+                                                                $$ = cf;  }
   ;
 event_accessor_declarations
   : add_accessor_declaration remove_accessor_declaration
@@ -974,7 +991,7 @@ remove_accessor_declaration
   ;
 indexer_declaration
   : attributes_opt modifiers_opt indexer_declarator 
-    '{' accessor_declarations '}'                                 { MakePair(@4,@6);}
+    '{' accessor_declarations '}'                                 { $$ = new CodeProperty("Item", null); MakePair(@4,@6);}
   ;
 indexer_declarator
   : type THIS '[' formal_parameter_list ']'                         { MakePair(@3,@5);}
@@ -1137,7 +1154,9 @@ interface_property_declaration
 interface_indexer_declaration
   : attributes_opt new_opt type THIS 
     '[' formal_parameter_list ']' 
-    '{' interface_accessors '}'                                  { MakePair(@5,@7);  MakePair(@8,@10);}
+    '{' interface_accessors '}'                                  { MakePair(@5,@7);  MakePair(@8,@10);
+                                                                   $$ = new CodeProperty("Item", $3); $$.Location = @4; 
+                                                                 }
   ;
 
 interface_accessors

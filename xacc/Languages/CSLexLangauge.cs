@@ -11,7 +11,7 @@ namespace Xacc.Languages.CSLex
   [CLSCompliant(false)]
   public struct Yytoken : IToken
   {
-    readonly TokenClass tokenclass;
+    TokenClass tokenclass;
     Location location;
     string yytext;
 
@@ -49,6 +49,7 @@ namespace Xacc.Languages.CSLex
     public TokenClass Class
     {
       get { return tokenclass; }
+      set { tokenclass = value; }
     }
 
     public Location Location
@@ -60,7 +61,12 @@ namespace Xacc.Languages.CSLex
     public int Type
     {
       get { return -1;}
+      set { ; }
     }
+
+#if DEBUG
+    public object Value { get { return Text; } }
+#endif
   }
 
 
@@ -69,7 +75,7 @@ namespace Xacc.Languages.CSLex
 	/// Summary description for Class1.
 	/// </summary>
 	[CLSCompliant(false)]
-	public abstract class Language<T> : Languages.Language where T: struct , IToken
+	public abstract class Language<Token> : Languages.Language where Token: struct , IToken
 	{
     protected abstract LexerBase Lexer {get;}
     //protected abstract Parser Parser {get;}
@@ -128,7 +134,7 @@ namespace Xacc.Languages.CSLex
       return Parse() ? 0 : 1;
     }
 
-    public abstract class LexerBase : gppg.IScanner<T>
+    public abstract class LexerBase : gppg.IScanner<Token>
     {
       Stack stack = new Stack();
 
@@ -186,7 +192,7 @@ namespace Xacc.Languages.CSLex
       {
         while (lines.MoveNext())
         {
-          T t = (T)lines.Current;
+          Token t = (Token)lines.Current;
           if ((int)t.Class >= -1)
           {
             yylval = t;
@@ -197,22 +203,184 @@ namespace Xacc.Languages.CSLex
         return eofToken;
       }
 
+
+      protected static Token Preprocessor()
+      {
+        return Preprocessor(-1);
+      }
+
+      protected static Token Preprocessor(int type)
+      {
+        Token t = new Token();
+        t.Type = type;
+        t.Class = TokenClass.Preprocessor;
+        return t;
+      }
+
+
       protected static readonly Yytoken PREPROC = new Yytoken(TokenClass.Preprocessor);
+
+      protected static Token Warning(int type)
+      {
+        Token t = new Token();
+        t.Type = type;
+        t.Class = TokenClass.Warning;
+        return t;
+      }
+
       protected static readonly Yytoken WARNING = new Yytoken(TokenClass.Warning);
+
+      protected static Token Ignore()
+      {
+        Token t = new Token();
+        t.Type = -1;
+        t.Class = TokenClass.Ignore;
+        return t;
+      }
+
       protected static readonly Yytoken IGNORE = new Yytoken(TokenClass.Ignore);
+
+      protected static Token DocComment()
+      {
+        Token t = new Token();
+        t.Type = -1;
+        t.Class = TokenClass.DocComment;
+        return t;
+      }
+
       protected static readonly Yytoken DOCCOMMENT = new Yytoken(TokenClass.DocComment);
+
+      protected static Token Error() { return Error(-1); }
+
+      protected static Token Error(int type)
+      {
+        Token t = new Token();
+        t.Type = -1;
+        t.Class = TokenClass.Error;
+        return t;
+      }
+
       protected static readonly Yytoken ERROR = new Yytoken(TokenClass.Error);
+
+      protected static Token NewLine()
+      {
+        Token t = new Token();
+        t.Type = -1;
+        t.Class = TokenClass.NewLine;
+        return t;
+      }
+
       protected static readonly Yytoken NEWLINE = new Yytoken(TokenClass.NewLine);
+
+      protected static Token Comment()
+      {
+        Token t = new Token();
+        t.Type = -1;
+        t.Class = TokenClass.Comment;
+        return t;
+      }
+
       protected static readonly Yytoken COMMENT = new Yytoken(TokenClass.Comment);
+
+      protected static Token Plain(int type)
+      {
+        Token t = new Token();
+        t.Type = type;
+        t.Class = TokenClass.Any;
+        return t;
+      }
+
       protected static readonly Yytoken PLAIN = new Yytoken(TokenClass.Any);
+
+      protected static Token Identifier(int type)
+      {
+        Token t = new Token();
+        t.Type = type;
+        t.Class = TokenClass.Identifier;
+        return t;
+      }
+
       protected static readonly Yytoken IDENTIFIER = new Yytoken(TokenClass.Identifier);
+
+      protected static Token Type(int type)
+      {
+        Token t = new Token();
+        t.Type = type;
+        t.Class = TokenClass.Type;
+        return t;
+      }
+
       protected static readonly Yytoken TYPE = new Yytoken(TokenClass.Type);
+
+      protected static Token Keyword() { return Keyword(-1); }
+
+      protected static Token Keyword(int type)
+      {
+        Token t = new Token();
+        t.Type = type;
+        t.Class = TokenClass.Keyword;
+        return t;
+      }
+
       protected static readonly Yytoken KEYWORD = new Yytoken(TokenClass.Keyword);
+
+      protected static Token Pair(int type)
+      {
+        Token t = new Token();
+        t.Type = type;
+        t.Class = TokenClass.Pair;
+        return t;
+      }
       protected static readonly Yytoken PAIR = new Yytoken(TokenClass.Pair);
+
+      protected static Token Operator(int type)
+      {
+        Token t = new Token();
+        t.Type = type;
+        t.Class = TokenClass.Operator;
+        return t;
+      }
+
       protected static readonly Yytoken OPERATOR = new Yytoken(TokenClass.Operator);
+
+      protected static Token Number(int type)
+      {
+        Token t = new Token();
+        t.Type = type;
+        t.Class = TokenClass.Number;
+        return t;
+      }
+
       protected static readonly Yytoken NUMBER = new Yytoken(TokenClass.Number);
+
+      protected static Token String(int type)
+      {
+        Token t = new Token();
+        t.Type = type;
+        t.Class = TokenClass.String;
+        return t;
+      }
+
       protected static readonly Yytoken STRING = new Yytoken(TokenClass.String);
+
+      protected static Token Character(int type)
+      {
+        Token t = new Token();
+        t.Type = type;
+        t.Class = TokenClass.Character;
+        return t;
+      }
+
       protected static readonly Yytoken CHARACTER = new Yytoken(TokenClass.Character);
+
+      protected static Token Other(int type)
+      {
+        Token t = new Token();
+        t.Type = type;
+        t.Class = TokenClass.Other;
+        return t;
+      }
+
       protected static readonly Yytoken OTHER = new Yytoken(TokenClass.Other);
 
       protected int yychar;
@@ -461,7 +629,7 @@ namespace Xacc.Languages.CSLex
       public override void yyerror(string format, params object[] args)
       {
         yylval.Location.Error = true;
-        ServiceHost.Error.OutputErrors(this, new Xacc.Build.ActionResult(string.Format(format, args), yylval.Location));
+        ServiceHost.Error.OutputErrors(this, new Xacc.Build.ActionResult(format, yylval.Location));
       }
     }
 

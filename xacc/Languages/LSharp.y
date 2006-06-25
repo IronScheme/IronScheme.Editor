@@ -108,6 +108,11 @@ class Literal : CodeElement
 
   public CodeElementList  list {get {return (CodeElementList)value; } set {this.value = value;}}
   public CodeElement      elem {get {return (CodeElement)value; } set {this.value = value;}}
+  
+#if DEBUG
+  public object Value { get { return value; } }
+#endif
+
 }
 
 %token LBRACE RBRACE

@@ -488,8 +488,8 @@ internal TokenClass __class;
 Location __loc;
 object value;
 public Location Location {get {return __loc;} set {__loc = value;} }
-public int Type {get {return __type;}}
-public TokenClass Class {get {return __class;}}
+public int Type {get {return __type;} set {__type = value;}}
+public TokenClass Class {get {return __class;} set {__class = value;}}
 public string text {get {return (string)value;} set {this.value = value;}}
 public string Text {get {return (string)value;} set {this.value = value;}}
 public int Length {get {return Text.Length;}}

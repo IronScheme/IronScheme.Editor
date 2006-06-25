@@ -68,12 +68,12 @@ namespace Xacc.ComponentModel
     /// <summary>
     /// Gets the token type
     /// </summary>
-		int		    Type			{get;}
+    int Type { get;set;}
 
     /// <summary>
     /// Gets the token class
     /// </summary>
-    TokenClass		    Class			{get;}
+    TokenClass Class { get;set;}
 
     /// <summary>
     /// Gets the token length
@@ -86,6 +86,10 @@ namespace Xacc.ComponentModel
     /// Gets the token Location
     /// </summary>
     Location  Location  {get;set;}
+
+#if DEBUG
+    object Value { get;}
+#endif
 
 
 	}
