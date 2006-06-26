@@ -144,12 +144,12 @@ public const int ARROW=246;
 public struct ValueType : Xacc.ComponentModel.IToken
 #line 74 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{
-  public ArrayList            list        {get {return (ArrayList)value; } set {this.value = value;}}
-  public CodeNamespace        ns          {get {return (CodeNamespace)value; } set {this.value = value;}}
-  public CodeElementList      elemlist    {get {return (CodeElementList)value; } set {this.value = value;}}
-  public CodeElement          elem        {get {return (CodeElement)value; } set {this.value = value;}}
-  public CodeTypeRef          typeref     {get {return (CodeTypeRef)value; } set {this.value = value;}}
-  public Object               primval     {get {return (Object)value; } set {this.value = value;}}
+  public ArrayList            list        {get {return value as ArrayList; } set {this.value = value;}}
+  public CodeNamespace        ns          {get {return value as CodeNamespace; } set {this.value = value;}}
+  public CodeElementList      elemlist    {get {return value as CodeElementList; } set {this.value = value;}}
+  public CodeElement          elem        {get {return value as CodeElement; } set {this.value = value;}}
+  public CodeTypeRef          typeref     {get {return value as CodeTypeRef; } set {this.value = value;}}
+  public Object               primval     {get {return value; } set {this.value = value;}}
   public ParameterAttributes  paramattr   {get {return (ParameterAttributes)value; } set {this.value = value;}}
   
 #if DEBUG
@@ -2345,7 +2345,7 @@ class TypeRef : CodeTypeRef
         break;
       case 408: // indexer_declaration -> attributes_opt modifiers_opt indexer_declarator '{' accessor_declarations '}' 
 #line 994 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.elem = new CodeProperty("Item", null); MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
+			{ /*$$ = new CodeProperty("Item", null);*/ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 409: // indexer_declarator -> type THIS '[' formal_parameter_list ']' 

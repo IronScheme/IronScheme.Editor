@@ -72,12 +72,12 @@ class TypeRef : CodeTypeRef
 
 %union
 {
-  public ArrayList            list        {get {return (ArrayList)value; } set {this.value = value;}}
-  public CodeNamespace        ns          {get {return (CodeNamespace)value; } set {this.value = value;}}
-  public CodeElementList      elemlist    {get {return (CodeElementList)value; } set {this.value = value;}}
-  public CodeElement          elem        {get {return (CodeElement)value; } set {this.value = value;}}
-  public CodeTypeRef          typeref     {get {return (CodeTypeRef)value; } set {this.value = value;}}
-  public Object               primval     {get {return (Object)value; } set {this.value = value;}}
+  public ArrayList            list        {get {return value as ArrayList; } set {this.value = value;}}
+  public CodeNamespace        ns          {get {return value as CodeNamespace; } set {this.value = value;}}
+  public CodeElementList      elemlist    {get {return value as CodeElementList; } set {this.value = value;}}
+  public CodeElement          elem        {get {return value as CodeElement; } set {this.value = value;}}
+  public CodeTypeRef          typeref     {get {return value as CodeTypeRef; } set {this.value = value;}}
+  public Object               primval     {get {return value; } set {this.value = value;}}
   public ParameterAttributes  paramattr   {get {return (ParameterAttributes)value; } set {this.value = value;}}
   
 #if DEBUG
@@ -991,7 +991,7 @@ remove_accessor_declaration
   ;
 indexer_declaration
   : attributes_opt modifiers_opt indexer_declarator 
-    '{' accessor_declarations '}'                                 { $$ = new CodeProperty("Item", null); MakePair(@4,@6);}
+    '{' accessor_declarations '}'                                 { /*$$ = new CodeProperty("Item", null);*/ MakePair(@4,@6);}
   ;
 indexer_declarator
   : type THIS '[' formal_parameter_list ']'                         { MakePair(@3,@5);}

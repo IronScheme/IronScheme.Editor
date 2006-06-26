@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Diagnostics;
 
 
 namespace gppg
@@ -23,7 +24,7 @@ namespace gppg
     private bool recovering;
     private int tokensSinceLastError;
 
-    private ParserStack<State> state_stack = new ParserStack<State>(500);
+    private ParserStack<State> state_stack = new ParserStack<State>(8);
     protected ParserStack<ValueType> value_stack = new ParserStack<ValueType>(500);
 
     protected string[] nonTerminals;
@@ -130,22 +131,21 @@ namespace gppg
       rhslen = rule.rhs.Length;
 
       // FIX: leppie, was wrong, used implementation from byacc, adjusted stacks to have a capacity
-      yyval = value_stack.array[value_stack.top - rule.rhs.Length];
-      if (rule.rhs.Length != 1)
+      if (rule.rhs.Length > 0)
+      {
+        yyval = value_stack.array[value_stack.top - rule.rhs.Length];
+      }
+      else
+      {
+        yyval = new ValueType();
+      }
+      if (rule.rhs.Length > 1)
       {
         yyval.Location = value_stack.array[value_stack.top - rule.rhs.Length].Location
           + value_stack.array[value_stack.top - 1].Location;
       }
 
-      try
-      {
-
-        DoAction(rule_nr);
-      }
-      catch (Exception ex)
-      {
-        System.Diagnostics.Trace.WriteLine(ex, "Action exception");
-      }
+      DoAction(rule_nr);
 
       for (int i = 0 ; i < rule.rhs.Length ; i++)
       {
@@ -176,6 +176,7 @@ namespace gppg
     public object S6 { get { return S(6); } }
     public object S7 { get { return S(7); } }
     public object S8 { get { return S(8); } }
+    public object S9 { get { return S(9); } }
 #endif
 
 
@@ -204,7 +205,7 @@ namespace gppg
       StringBuilder errorMsg = new StringBuilder();
       errorMsg.AppendFormat("syntax error, unexpected {0}", TerminalToString(next));
 
-      if (current_state.parser_table.Count < 17)
+      if (current_state.parser_table.Count < 7)
       {
         bool first = true;
         foreach (int terminal in current_state.parser_table.Keys)

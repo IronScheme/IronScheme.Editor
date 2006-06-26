@@ -22,7 +22,7 @@
 ; profile start
 (= settings (settings servicehost))
 
-(set_editorfontsize settings 10)
+(set_editorfontsize settings 9)
 ;(set_editorfontname settings "Bitstream Vera Sans Mono")
 (set_editorfontname settings "Consolas") ; set size to 10.33
 ; (set_editorfontname settings "Lucida Console")
