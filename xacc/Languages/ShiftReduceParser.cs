@@ -120,7 +120,6 @@ namespace gppg
 
     int rhslen;
 
-
     protected void Reduce(int rule_nr)
     {
       if (Trace)
@@ -330,8 +329,41 @@ namespace gppg
       Console.Error.WriteLine();
     }
 
+//#if DEBUG
+//    public string[] StateStack
+//    {
+//      get
+//      {
+//        string[] sss = new string[state_stack.top];
 
-    private void DisplayRule(int rule_nr)
+//        for (int i = 0; i < sss.Length; i++)
+//        {
+//          Rule rule = rules[-state_stack.array[i].defaultAction];
+
+//          if (rule != null)
+//          {
+//            sss[i] = string.Empty;
+//            if (rule.rhs.Length == 0)
+//              sss[i] = "/* empty */ ";
+//            else
+//              foreach (int symbol in rule.rhs)
+//                sss[i] += string.Format("{0} ", SymbolToString(symbol));
+
+//            sss[i] += string.Format("-> {0}", SymbolToString(rule.lhs));
+//          }
+//          else
+//          {
+//            sss[i] = "cannot determine";
+//          }
+//        }
+
+//        return sss;
+//      }
+//    }
+//#endif
+
+
+      private void DisplayRule(int rule_nr)
     {
       Console.Error.Write("Reducing stack by rule {0}, ", rule_nr);
       DisplayProduction(rules[rule_nr]);

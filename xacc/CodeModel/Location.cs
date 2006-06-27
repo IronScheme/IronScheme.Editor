@@ -34,6 +34,8 @@ namespace Xacc.CodeModel
    * 
    */
 
+  delegate void LocationCallback(IToken token);
+
   /// <summary>
   /// Defines a location in a specific file
   /// </summary>
@@ -47,6 +49,7 @@ namespace Xacc.CodeModel
 #if NULL
     int flags = 0;
 #endif
+    internal LocationCallback callback;
 
     // Layout (x2) |------- 18 bit line ------|---- 12 bit col ----|-2 bit flags-|
     // lines about 600k max

@@ -5698,6 +5698,20 @@ namespace Xacc.Controls
 
       void Language.IParserCallback.Invoke(CodeModel.Location loc)
       {
+        if (loc.callback != null)
+        {
+          TokenLine tl = GetUserState(loc.LineNumber - 1);
+
+          for (int i = 0; i < tl.Tokens.Length; i++)
+          {
+            if (tl.Tokens[i].Location == loc)
+            {
+              loc.callback(tl.Tokens[i]);
+              break;
+            }
+          }
+          loc.callback = null;
+        }
         SetDrawCache(loc.LineNumber - 1, null);
       }
 

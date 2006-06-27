@@ -116,6 +116,26 @@ namespace gpcc
               Output(i++);
             break;
 
+          //case '#':       // #n placeholder
+          //  i++;
+          //  if (char.IsDigit(commands[i]))
+          //  {
+          //    int num = commands[i] - '0';
+          //    i++;
+          //    if (char.IsDigit(commands[i]))
+          //    {
+          //      num = num * 10 + commands[i] - '0';
+          //      i++;
+          //    }
+          //    Console.Write("value_stack.array[value_stack.top-{0}]", pos - num + 1);
+          //  }
+          //  else
+          //  {
+          //    i--;
+          //    goto default;
+          //  }
+          //  break;
+
           case '$':       // $$ or $n placeholder
             i++;
             string kind = null;

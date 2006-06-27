@@ -52,6 +52,18 @@ namespace Xacc.ComponentModel
       toolbar.ContentPanel.Controls.Add(ServiceHost.Window.Document as Control);
     }
 
+    protected override void Initialize()
+    {
+      base.Initialize();
+      ToolStripManager.LoadSettings(ServiceHost.Window.MainForm);
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+      ToolStripManager.SaveSettings(ServiceHost.Window.MainForm);
+      base.Dispose(disposing);
+    }
+
     public bool ToolBarVisible
     {
       get {return toolbar.TopToolStripPanelVisible;}
@@ -78,6 +90,7 @@ namespace Xacc.ComponentModel
       if (!map.ContainsKey(parent))
       {
         ToolStrip ts = new ToolStrip();
+        ts.Name = parent.Text;
         ts.ImageList = ServiceHost.ImageListProvider.ImageList;
         ts.TabIndex = (map[parent] = toplevel.Count) + 1;
         toplevel.Add(ts);

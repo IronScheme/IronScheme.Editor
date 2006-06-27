@@ -204,6 +204,33 @@ namespace Xacc.Languages
 
     #region Other goodies
 
+    Hashtable parsedtypes = new Hashtable();
+
+    protected bool IsType(object type)
+    {
+      if (type is string)
+      {
+        return parsedtypes.ContainsKey(type);
+      }
+      return false;
+    }
+
+    protected void OverrideToken(Location loc, TokenClass newclass)
+    {
+      loc.callback = delegate(IToken tok) 
+      {
+        if (tok.Class == TokenClass.Identifier)
+        {
+          tok.Class = newclass;
+          parsedtypes[tok.Text] = loc;
+        }
+      };
+      if (cb != null)
+      {
+        cb.Invoke(loc);
+      }
+    }
+
     /// <summary>
     /// 
     /// </summary>
