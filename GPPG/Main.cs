@@ -25,6 +25,8 @@ namespace gpcc
 
         Console.Error.WriteLine("gppg {0}", System.IO.Path.GetFileName(filename));
 
+        Console.WriteLine("#pragma warning disable 3001,3002,3003,3004,3005,3006,3007,3008,3009");
+
         Parser parser = new Parser();
         Grammar grammar = parser.Parse(filename);
 

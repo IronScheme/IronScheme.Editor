@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Xacc.Controls
 {
-  public partial class ToolStripMenuItem : System.Windows.Forms.ToolStripMenuItem
+  public class ToolStripMenuItem : System.Windows.Forms.ToolStripMenuItem
   {
 
     public ToolStripMenuItem(string text, Image img, EventHandler e)

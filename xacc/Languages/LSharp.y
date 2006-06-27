@@ -106,8 +106,8 @@ class Literal : CodeElement
 %union
 {
 
-  public CodeElementList  list {get {return (CodeElementList)value; } set {this.value = value;}}
-  public CodeElement      elem {get {return (CodeElement)value; } set {this.value = value;}}
+  public CodeElementList  list {get {return value as CodeElementList; } set {this.value = value;}}
+  public CodeElement      elem {get {return value as CodeElement; } set {this.value = value;}}
   
 #if DEBUG
   public object Value { get { return value; } }
@@ -116,7 +116,7 @@ class Literal : CodeElement
 }
 
 %token LBRACE RBRACE
-%token <text> KEYWORD FUNCTION IDENTIFIER LITERAL
+%token <text> KEYWORD FUNCTION IDENTIFIER LITERAL DEFMACRO
 
 %type <list> listcontents
 %type <elem> list listcontent
@@ -130,7 +130,8 @@ file
     ;
     
 list
-    : LBRACE listcontents RBRACE    { 
+    : LBRACE DEFMACRO IDENTIFIER list listcontents RBRACE { OverrideToken(@3, TokenClass.Type); }
+    | LBRACE listcontents RBRACE    { 
                                       AddAutoComplete(@1, typeof(Function), typeof(Keyword));
                                       MakePair(@1,@3); 
                                       $$ = new List($2);
@@ -151,7 +152,7 @@ listcontent
                                       } 
                                       $$ = new Keyword($1);
                                     }
-    | IDENTIFIER                    { $$ = new Identifier($1);}
+    | IDENTIFIER                    { $$ = new Identifier($1); if (IsType($1)) OverrideToken(@1, TokenClass.Type); }
     | LITERAL                       { $$ = new Literal($1);}
     | list                          
     | error                         { $$ = null; }

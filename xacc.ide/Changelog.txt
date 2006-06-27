@@ -1,3 +1,14 @@
+0.2.0 SVN rev: 25 - June 27, 2006 
+
+- First alpha release of 0.2 series!
+- Now based on .NET 2.0, and hence required. 
+- Completely C# based now.
+- Only about 13 languages currently supported but C# does have a parser too, and very
+  nice highlighting. More to come soon!
+- Shrunken installer down to 500kb! :)
+- Very fast now, comparable to VS2003. (Hint: for very fast performance "ngen install xacc.ide.exe")
+- There are quite a few bugs, please dont report them, this is only a preview release.
+
 0.1.3.15   - May 27, 2006 
 
 - created a runtime abstraction layer to assist in porting

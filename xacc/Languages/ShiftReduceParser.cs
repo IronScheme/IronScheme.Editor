@@ -11,6 +11,7 @@ using System.Diagnostics;
 
 namespace gppg
 {
+  [CLSCompliant(false)]
   public abstract class ShiftReduceParser<ValueType> : Xacc.Languages.CSLex.Language<ValueType> where ValueType : struct, Xacc.ComponentModel.IToken
   {
     public bool Trace = false;

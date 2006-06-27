@@ -148,12 +148,7 @@ namespace Xacc.Configuration
 
       Version ver = typeof(IdeSupport).Assembly.GetName().Version;
 
-      string verstr = ver.ToString();
-
-      if (ver.Revision >= 9900)
-      {
-        verstr = string.Format("{0}.{1}.{2}-rc{3}", ver.Major, ver.Minor, ver.Build + 1, ver.Revision - 9900);
-      }
+      string verstr = ver.ToString(3) + " SVN rev: " + ver.Revision ;
 
       f.Text = "xacc.ide " + verstr + (args.debug ? " - DEBUG MODE" : string.Empty) 
         + " - .NET " + Environment.Version.ToString(2);
@@ -194,7 +189,7 @@ namespace Xacc.Configuration
 
       (ServiceHost.ToolBar as ToolBarService).ValidateToolBarButtons();
 
-      //ToolStripManager.LoadSettings(f);
+      ToolStripManager.LoadSettings(f);
 
 
 

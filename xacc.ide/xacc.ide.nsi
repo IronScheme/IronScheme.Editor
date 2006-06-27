@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "xacc.ide"
-!define PRODUCT_VERSION "0.2.0.0"
+!define PRODUCT_VERSION "0.2.0.25"
 !define PRODUCT_PUBLISHER "leppie"
 !define PRODUCT_WEB_SITE "http://blogs.wdevs.com/leppie/"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\xacc.ide.exe"
@@ -183,13 +183,13 @@ SectionIn 1 2 RO
   SetOverwrite ifnewer
   CreateDirectory "$SMPROGRAMS\xacc.ide"
   CreateShortCut "$SMPROGRAMS\xacc.ide\xacc.ide.lnk" "$INSTDIR\xacc.ide.exe"
-	CreateShortCut "$SMPROGRAMS\xacc.ide\xacc.languagedesigner.lnk" "$INSTDIR\xacc.languagedesigner.exe"
+	;CreateShortCut "$SMPROGRAMS\xacc.ide\xacc.languagedesigner.lnk" "$INSTDIR\xacc.languagedesigner.exe"
 	CreateShortCut "$SMPROGRAMS\xacc.ide\xacc.ide (Debug mode).lnk" "$INSTDIR\xacc.ide.exe" "-debug"
   CreateShortCut "$DESKTOP\xacc.ide.lnk" "$INSTDIR\xacc.ide.exe"
 	CreateShortCut "$SMPROGRAMS\xacc.ide\xacc.license.lnk" "$INSTDIR\license.txt"
 	CreateShortCut "$SMPROGRAMS\xacc.ide\xacc.config.lnk" "$INSTDIR\xacc.ide.exe" "-listermode xacc.config.xml"
 	File "xacc.ide.exe"
-	File "xacc.languagedesigner.exe"
+	;File "xacc.languagedesigner.exe"
   File "xacc.dll"
 	File "..\..\..\license.txt"
   File "WeifenLuo.WinFormsUI.Docking.dll"

@@ -5,6 +5,7 @@
 
 namespace gppg
 {
+  [System.CLSCompliant(false)]
   public class ParserStack<T>
   {
     public T[] array;

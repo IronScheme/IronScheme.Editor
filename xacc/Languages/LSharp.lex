@@ -82,7 +82,7 @@ func1     =(apply|append|assoc|caaar|caadr|caar|cadar|caddr|cadr|car|cdar|cdaar|
 func2     =(cons|environment|eq|eql|eval|evalstring|exit|first|import|inspect|is|length|list)
 func3     =(load|macroexpand|map|nconc|new|not|nth|pr|prl|read|readstring|reference|reset|reverse|rest|throw|typeof|using)
 func4     =("+"|"="|"*"|"/"|"-"|">"|">="|"<"|"<="|"&"|"^"|"|"|"!="|"==")
-builtin   =(defun|defmacro|listp)
+builtin   =(listp)
 
 keyword               =({forms1}|{forms2}|{builtin})
 function              =({func1}|{func2}|{func3}|{func4})
@@ -122,6 +122,7 @@ function              =({func1}|{func2}|{func3}|{func4})
 <KWSTATE>"&rest"               { return OTHER; }
 
 <KWSTATE>{atoms}               { return Token(TokenClass.Keyword, Tokens.LITERAL); } 
+<KWSTATE>defmacro|defun        { EXIT(); return Token(TokenClass.Keyword, Tokens.DEFMACRO); } 
 <KWSTATE>{keyword}             { EXIT(); return Token(TokenClass.Keyword, Tokens.KEYWORD); } 
 <KWSTATE>{function}            { EXIT(); return Token(TokenClass.Type, Tokens.FUNCTION); }
 <KWSTATE>{identifier}          { EXIT(); return Token(TokenClass.Identifier, Tokens.IDENTIFIER); }
@@ -142,6 +143,7 @@ function              =({func1}|{func2}|{func3}|{func4})
 <KWSTATE>{new_line}            { return NEWLINE;}
 <KWSTATE>.                     { return PLAIN; }
 
+defmacro|defun        { EXIT(); return Token(TokenClass.Keyword, Tokens.DEFMACRO); } 
 {keyword}             { EXIT(); return Token(TokenClass.Keyword, Tokens.KEYWORD); } 
 {function}            { EXIT(); return Token(TokenClass.Type, Tokens.FUNCTION); }
 {atoms}               { return Token(TokenClass.Keyword, Tokens.LITERAL); } 

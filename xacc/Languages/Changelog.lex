@@ -27,7 +27,7 @@ namespace Xacc.Languages
 %state EXPDATE
 
 INT                   =[0-9]+
-VER                   ={INT}("."{INT})+("-"[^ \n\t]+)?
+VER                   =({INT}("."{INT})+("-"[^ \n\t]+)?)|({INT}("."{INT})+(" SVN rev: "{INT}))
 TAIL                  =("-"|\t|"  ")[^\n]+
 HEADING               =[^\n]+":"
 
