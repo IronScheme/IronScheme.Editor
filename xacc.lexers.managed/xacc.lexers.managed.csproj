@@ -101,8 +101,10 @@
     </Compile>
     <Compile Include="Boo.lex.cs" />
     <Compile Include="Css.lex.cs" />
+    <Compile Include="FSharp.lex.cs" />
     <Compile Include="HLSL.lex.cs" />
     <Compile Include="IL.lex.cs" />
+    <Compile Include="IronPython.lex.cs" />
     <Compile Include="JavaScript.lex.cs" />
     <Compile Include="Mercury.lex.cs">
       <SubType>Code</SubType>
@@ -113,6 +115,7 @@
     <Compile Include="PowerShell.lex.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Ruby.lex.cs" />
     <Compile Include="Scala.lex.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -155,7 +158,10 @@ $(SolutionDir)Tools\cs_lex $(ProjectDir)IL.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Xml.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)HLSL.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)JavaScript.lex
-$(SolutionDir)Tools\cs_lex $(ProjectDir)Boo.lex</PreBuildEvent>
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Boo.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Ruby.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)FSharp.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)IronPython.lex</PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>

@@ -77,7 +77,10 @@ namespace gppg
           if (current_state.parser_table.ContainsKey(next))
             action = current_state.parser_table[next];
           else if (next == eofToken)
+          {
+            ReportError();
             return false;
+          }
         }
 
         if (action > 0)         // shift

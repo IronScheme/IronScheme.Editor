@@ -145,11 +145,12 @@ list
     | LBRACE exprlist RBRACE        { MakePair(@1,@3); }
     | QUOTE expr
     | BACKQUOTE expr
+    | error
     ;
     
 macros
-    : DEFUN IDENTIFIER args expr
-    | DEFMACRO IDENTIFIER args expr
+    : DEFUN IDENTIFIER args expr      { OverrideToken(@2, TokenClass.Type); }
+    | DEFMACRO IDENTIFIER args expr   { OverrideToken(@2, TokenClass.Type); }
     ;
     
 functions
@@ -243,7 +244,7 @@ specialform
     | TRY expr expr expropt
     | WHEN expr exprlist
     | WHILE expr exprlist
-    | WITH setvaluexpr exprlist
+    | WITH setvaluexpr expr
     ; 
     
 setvaluexpr
@@ -285,7 +286,6 @@ listcontent
     | STRING                        { $$ = new Literal($1);}
     | INTEGER                       { $$ = new Literal($1);}
     | LITERAL                       { $$ = new Literal($1);}
-    | error                         { $$ = null;  }
     ;    
     
     

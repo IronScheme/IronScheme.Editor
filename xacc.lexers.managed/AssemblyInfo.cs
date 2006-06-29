@@ -49,6 +49,9 @@ sealed class Common_PluginLoader : AssemblyPluginProvider
     new Xacc.Languages.HLSLLang();
     new Xacc.Languages.JavaScriptLanguage();
     new Xacc.Languages.BooLanguage();
+    new Xacc.Languages.RubyLang();
+    new Xacc.Languages.FSharpLang();
+    new Xacc.Languages.IronPythonLang();
 
   }
 }
