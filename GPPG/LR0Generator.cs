@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 
 namespace gpcc
@@ -158,35 +159,38 @@ namespace gpcc
     }
 
 
-    public void Report()
+    public void Report(string filename)
     {
-      Console.WriteLine("Grammar");
-
-      NonTerminal lhs = null;
-      foreach (Production production in grammar.productions)
+      using (TextWriter w = File.CreateText(filename + ".report"))
       {
-        if (production.lhs != lhs)
+        w.WriteLine("Grammar");
+
+        NonTerminal lhs = null;
+        foreach (Production production in grammar.productions)
         {
-          lhs = production.lhs;
-          Console.WriteLine();
-          Console.Write("{0,5} {1}: ", production.num, lhs);
+          if (production.lhs != lhs)
+          {
+            lhs = production.lhs;
+            w.WriteLine();
+            w.Write("{0,5} {1}: ", production.num, lhs);
+          }
+          else
+            w.Write("{0,5} {1}| ", production.num, new string(' ', lhs.ToString().Length));
+
+          for (int i = 0; i < production.rhs.Count - 1; i++)
+            w.Write("{0} ", production.rhs[i].ToString());
+
+          if (production.rhs.Count > 0)
+            w.WriteLine("{0}", production.rhs[production.rhs.Count - 1]);
+          else
+            w.WriteLine("/* empty */");
         }
-        else
-          Console.Write("{0,5} {1}| ", production.num, new string(' ', lhs.ToString().Length));
 
-        for (int i = 0 ; i < production.rhs.Count - 1 ; i++)
-          Console.Write("{0} ", production.rhs[i].ToString());
+        w.WriteLine();
 
-        if (production.rhs.Count > 0)
-          Console.WriteLine("{0}", production.rhs[production.rhs.Count - 1]);
-        else
-          Console.WriteLine("/* empty */");
+        foreach (State state in states)
+          w.WriteLine(state.ToString());
       }
-
-      Console.WriteLine();
-
-      foreach (State state in states)
-        Console.WriteLine(state.ToString());
     }
   }
 }

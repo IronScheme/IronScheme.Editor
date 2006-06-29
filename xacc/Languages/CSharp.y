@@ -522,7 +522,7 @@ local_variable_declaration
   ;
 variable_declarators
   : variable_declarator                                        { $$ = new ArrayList(); $$.Add($1); }
-  | variable_declarators ',' variable_declarator             { $$.Add($3); }
+  | variable_declarators ',' variable_declarator             { $$ = $1;  $$.Add($3); }
   ;
 variable_declarator
   : IDENTIFIER
@@ -541,7 +541,7 @@ local_constant_declaration
   ;
 constant_declarators
   : constant_declarator                                        { $$ = new ArrayList(); $$.Add($1); }
-  | constant_declarators ',' constant_declarator             { $$.Add($3); }
+  | constant_declarators ',' constant_declarator             { $$ = $1; $$.Add($3); }
   ;
 constant_declarator
   : IDENTIFIER '=' constant_expression                         { $$ = $1 ;}
@@ -731,7 +731,7 @@ attributes_opt
   | attributes
   ;
 namespace_member_declarations_opt
-  : /* Nothing */                                                   { $$ = new CodeElementList(); }
+  : /* Nothing */                                                   
   | namespace_member_declarations
   ;
 namespace_declaration
@@ -784,7 +784,7 @@ using_namespace_directive
   ;
 namespace_member_declarations
   : namespace_member_declaration                                    { $$ = new CodeElementList($1);}
-  | namespace_member_declarations namespace_member_declaration      { $$.Add($2); }
+  | namespace_member_declarations namespace_member_declaration      { $$ = $1; $$.Add($2); }
   ;
 namespace_member_declaration
   : namespace_declaration
@@ -858,7 +858,7 @@ class_member_declarations_opt
   ;
 class_member_declarations                                      
   : class_member_declaration                                  { $$ = new CodeElementList($1); }
-  | class_member_declarations class_member_declaration        { $$.Add($2); }
+  | class_member_declarations class_member_declaration        { $$ = $1; $$.Add($2); }
   ;
 class_member_declaration
   : constant_declaration                                      
@@ -911,7 +911,7 @@ method_header
                                                                 $$.Location = @4;   MakePair(@5,@7);}
   ;
 formal_parameter_list_opt
-  : /* Nothing */                                             { $$ = new CodeElementList(); }
+  : /* Nothing */                                             
   | formal_parameter_list
   ;
 return_type
@@ -924,7 +924,7 @@ method_body
   ;
 formal_parameter_list
   : formal_parameter                                          { $$ = new CodeElementList($1); }
-  | formal_parameter_list ',' formal_parameter              { $$.Add($3); }
+  | formal_parameter_list ',' formal_parameter              { $$ = $1; $$.Add($3); }
   ;
 formal_parameter
   : fixed_parameter
@@ -1084,12 +1084,12 @@ struct_body
   : '{' struct_member_declarations_opt '}'                    { $$ = $2; { MakePair(@1,@3);}}
   ;
 struct_member_declarations_opt
-  : /* Nothing */                                             { $$ = new CodeElementList(); }
+  : /* Nothing */                                             
   | struct_member_declarations
   ;
 struct_member_declarations
   : struct_member_declaration                                 { $$ = new CodeElementList($1); }
-  | struct_member_declarations struct_member_declaration      { $$.Add($2); }
+  | struct_member_declarations struct_member_declaration      { $$ = $1; $$.Add($2); }
   ;
 struct_member_declaration
   : constant_declaration
@@ -1135,12 +1135,12 @@ interface_body
   : '{' interface_member_declarations_opt '}'                   { $$ = $2; MakePair(@1,@3);}
   ;
 interface_member_declarations_opt
-  : /* Nothing */                                               { $$ = new CodeElementList(); }
+  : /* Nothing */                                               
   | interface_member_declarations
   ;
 interface_member_declarations 
   : interface_member_declaration                                { $$ = new CodeElementList($1); }
-  | interface_member_declarations interface_member_declaration  { $$.Add($2); }
+  | interface_member_declarations interface_member_declaration  { $$ = $1; $$.Add($2); }
   ;
 interface_member_declaration
   : interface_method_declaration
@@ -1206,17 +1206,17 @@ enum_base
   : ':' integral_type
   ;
 enum_body
-  : '{' enum_member_declarations_opt '}'              { $$ = $2; { MakePair(@1,@3);}} 
-  | '{' enum_member_declarations ',' '}'            { $$ = $2; { MakePair(@1,@4);} }
+  : '{' enum_member_declarations_opt '}'              { $$ = $2; MakePair(@1,@3);} 
+  | '{' enum_member_declarations ',' '}'            { $$ = $2; MakePair(@1,@4); }
   ;
 enum_member_declarations_opt
-  : /* Nothing */                                     { $$ = new CodeElementList(); }
+  : /* Nothing */                                     
   | enum_member_declarations
   ;
 enum_member_declarations
   : enum_member_declaration                           { $$ = new CodeElementList($1); }
   | enum_member_declarations ',' 
-    enum_member_declaration                           { $$.Add($3); }
+    enum_member_declaration                           { $$ = $1; $$.Add($3); }
   ;
 enum_member_declaration
   : attributes_opt IDENTIFIER                         { $$ = new CodeField($2, new TypeRef(typeof(int))); $$.Location = @2;}

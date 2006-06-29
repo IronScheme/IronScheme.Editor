@@ -2317,7 +2317,8 @@ namespace Xacc.CodeModel
     {
       Name = name;
       this.returntype = returntype;
-      this.parameters = new ArrayList(parameters).ToArray(typeof(ICodeParameter)) 
+      
+      this.parameters = parameters == null ? new ICodeParameter[0] : new ArrayList(parameters).ToArray(typeof(ICodeParameter)) 
         as ICodeParameter[];
     }
 

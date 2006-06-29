@@ -2041,7 +2041,7 @@ class TypeRef : CodeTypeRef
         break;
       case 206: // variable_declarators -> variable_declarators ',' variable_declarator 
 #line 525 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.list.Add(value_stack.array[value_stack.top-1].text); }
+			{ yyval.list = value_stack.array[value_stack.top-3].list;  yyval.list.Add(value_stack.array[value_stack.top-1].text); }
 #line hidden
         break;
       case 208: // variable_declarator -> IDENTIFIER '=' variable_initializer 
@@ -2061,7 +2061,7 @@ class TypeRef : CodeTypeRef
         break;
       case 215: // constant_declarators -> constant_declarators ',' constant_declarator 
 #line 544 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.list.Add(value_stack.array[value_stack.top-1].text); }
+			{ yyval.list = value_stack.array[value_stack.top-3].list; yyval.list.Add(value_stack.array[value_stack.top-1].text); }
 #line hidden
         break;
       case 216: // constant_declarator -> IDENTIFIER '=' constant_expression 
@@ -2145,11 +2145,6 @@ class TypeRef : CodeTypeRef
 			{ CodeModel.AddRange(value_stack.array[value_stack.top-1].elemlist); }
 #line hidden
         break;
-      case 304: // namespace_member_declarations_opt -> 
-#line 734 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.elemlist = new CodeElementList(); }
-#line hidden
-        break;
       case 306: // namespace_declaration -> attributes_opt NAMESPACE qualified_identifier namespace_body comma_opt 
 #line 739 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{CodeNamespace ns = new CodeNamespace(value_stack.array[value_stack.top-3].text); 
@@ -2205,7 +2200,7 @@ class TypeRef : CodeTypeRef
         break;
       case 322: // namespace_member_declarations -> namespace_member_declarations namespace_member_declaration 
 #line 787 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
+			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 348: // class_declaration -> attributes_opt modifiers_opt CLASS IDENTIFIER class_base_opt class_body comma_opt 
@@ -2257,7 +2252,7 @@ class TypeRef : CodeTypeRef
         break;
       case 360: // class_member_declarations -> class_member_declarations class_member_declaration 
 #line 861 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
+			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 371: // constant_declaration -> attributes_opt modifiers_opt CONST type constant_declarators ';' 
@@ -2305,11 +2300,6 @@ class TypeRef : CodeTypeRef
                                                                 yyval.elem.Location = @value_stack.array[value_stack.top-4].Location;   MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 376: // formal_parameter_list_opt -> 
-#line 914 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.elemlist = new CodeElementList(); }
-#line hidden
-        break;
       case 378: // return_type -> type 
 #line 918 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-1].Location, TokenClass.Type); }
@@ -2327,7 +2317,7 @@ class TypeRef : CodeTypeRef
         break;
       case 383: // formal_parameter_list -> formal_parameter_list ',' formal_parameter 
 #line 927 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
+			{ yyval.elemlist = value_stack.array[value_stack.top-3].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 386: // fixed_parameter -> attributes_opt parameter_modifier_opt type IDENTIFIER 
@@ -2458,11 +2448,6 @@ class TypeRef : CodeTypeRef
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; { MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}}
 #line hidden
         break;
-      case 457: // struct_member_declarations_opt -> 
-#line 1087 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.elemlist = new CodeElementList(); }
-#line hidden
-        break;
       case 459: // struct_member_declarations -> struct_member_declaration 
 #line 1091 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = new CodeElementList(value_stack.array[value_stack.top-1].elem); }
@@ -2470,7 +2455,7 @@ class TypeRef : CodeTypeRef
         break;
       case 460: // struct_member_declarations -> struct_member_declarations struct_member_declaration 
 #line 1092 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
+			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 470: // array_initializer -> '{' variable_initializer_list_opt '}' 
@@ -2495,11 +2480,6 @@ class TypeRef : CodeTypeRef
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 481: // interface_member_declarations_opt -> 
-#line 1138 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.elemlist = new CodeElementList(); }
-#line hidden
-        break;
       case 483: // interface_member_declarations -> interface_member_declaration 
 #line 1142 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = new CodeElementList(value_stack.array[value_stack.top-1].elem); }
@@ -2507,7 +2487,7 @@ class TypeRef : CodeTypeRef
         break;
       case 484: // interface_member_declarations -> interface_member_declarations interface_member_declaration 
 #line 1143 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
+			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 489: // interface_method_declaration -> attributes_opt new_opt type IDENTIFIER '(' formal_parameter_list_opt ')' interface_empty_body 
@@ -2550,17 +2530,12 @@ class TypeRef : CodeTypeRef
         break;
       case 506: // enum_body -> '{' enum_member_declarations_opt '}' 
 #line 1209 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; { MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}}
+			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 507: // enum_body -> '{' enum_member_declarations ',' '}' 
 #line 1210 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.elemlist = value_stack.array[value_stack.top-3].elemlist; { MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location);} }
-#line hidden
-        break;
-      case 508: // enum_member_declarations_opt -> 
-#line 1213 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.elemlist = new CodeElementList(); }
+			{ yyval.elemlist = value_stack.array[value_stack.top-3].elemlist; MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location); }
 #line hidden
         break;
       case 510: // enum_member_declarations -> enum_member_declaration 
@@ -2570,7 +2545,7 @@ class TypeRef : CodeTypeRef
         break;
       case 511: // enum_member_declarations -> enum_member_declarations ',' enum_member_declaration 
 #line 1219 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
+			{ yyval.elemlist = value_stack.array[value_stack.top-3].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 512: // enum_member_declaration -> attributes_opt IDENTIFIER 

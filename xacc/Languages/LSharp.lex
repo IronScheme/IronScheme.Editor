@@ -76,12 +76,15 @@ ident_char             =({dec_digit}|{letter_char}|"-"|"_"|"!"|"+")
 identifier             =({letter_char}({ident_char})*)("[]")?|("*"({ident_char})+"*")
 
 atoms     =(null|true|false)
+
 forms1    =(and|backquote|call|compile|cond|do|each|fn|for|foreach)
 forms2    =(if|let|macro|or|quote|the|to|trace|try|when|while|with|"++"|"--")
+
 func1     =(apply|append|assoc|caaar|caadr|caar|cadar|caddr|cadr|car|cdar|cdaar|cddar|cdddr|cddr|cdr)
 func2     =(cons|environment|eq|eql|eval|evalstring|exit|first|import|inspect|is|length|list)
 func3     =(load|macroexpand|map|nconc|new|not|nth|pr|prl|read|readstring|reference|reset|reverse|rest|throw|typeof|using)
 func4     =("+"|"="|"*"|"/"|"-"|">"|">="|"<"|"<="|"&"|"^"|"|"|"!="|"==")
+
 builtin   =(listp)
 
 keyword               =({forms1}|{forms2}|{builtin})
@@ -89,81 +92,136 @@ function              =({func1}|{func2}|{func3}|{func4})
 
 
 %state KWSTATE
-%state MACRO
 %state ML_COMMENT
 
 %%
 
 {white_space}+        { ; }
+{new_line}            { return NEWLINE;}
                       
-<YYINITIAL>{comment_start}       { ENTER(ML_COMMENT); return COMMENT; }                      
+<YYINITIAL,KWSTATE>{comment_start}       { ENTER(ML_COMMENT); return COMMENT; }                      
 {line_comment}        { return COMMENT; }
 
 "&body"               { return OTHER; }
 "&rest"               { return OTHER; }
 
-<MACRO>",@"                  { return OPERATOR; }
-<MACRO>","                   { return OPERATOR; }
-<MACRO>"("                   { ENTER(KWSTATE); return Token(TokenClass.Operator, LBRACE); }                     
-<MACRO>")"                   { EXIT(); return Token(TokenClass.Operator, RBRACE); }  
-
-
 <ML_COMMENT>[^\n\|]+         { return COMMENT; }
 <ML_COMMENT>{comment_end}     { EXIT(); return COMMENT; }
 <ML_COMMENT>"|"               { return COMMENT; }
-
-
  
-<KWSTATE>{white_space}+        { ; }
-                      
-<KWSTATE>{line_comment}        { return COMMENT; }
+<KWSTATE>{atoms}               { return Keyword(LITERAL); } 
 
-<KWSTATE>"&body"               { return OTHER; }
-<KWSTATE>"&rest"               { return OTHER; }
+<KWSTATE>and               { return Keyword(AND); } 
+<KWSTATE>`               { return Keyword(BACKQUOTE); } 
+<KWSTATE>call               { return Keyword(CALL); } 
+<KWSTATE>cond               { return Keyword(COND); } 
+<KWSTATE>do               { return Keyword(DO); } 
+<KWSTATE>each               { return Keyword(EACH); } 
+<KWSTATE>fn               { return Keyword(FN); } 
+<KWSTATE>for               { return Keyword(FOR); } 
+<KWSTATE>foreach               { return Keyword(EACH); } 
+<KWSTATE>if               { return Keyword(IF); } 
+<KWSTATE>let               { return Keyword(LET); } 
+<KWSTATE>macro               { return Keyword(MACRO); } 
+<KWSTATE>or               { return Keyword(OR); } 
+<KWSTATE>'               { return Keyword(QUOTE); } 
+<KWSTATE>the               { return Keyword(THE); } 
+<KWSTATE>to               { return Keyword(TO); } 
+<KWSTATE>trace               { return Keyword(TRACE); } 
+<KWSTATE>try               { return Keyword(TRY); } 
+<KWSTATE>when               { return Keyword(WHEN); } 
+<KWSTATE>while               { return Keyword(WHILE); } 
+<KWSTATE>with               { return Keyword(WITH); } 
+<KWSTATE>"--"               { return Keyword(DEC); } 
+<KWSTATE>"++"               { return Keyword(INC); } 
 
-<KWSTATE>{atoms}               { return Token(TokenClass.Keyword, Tokens.LITERAL); } 
-<KWSTATE>defmacro|defun        { EXIT(); return Token(TokenClass.Keyword, Tokens.DEFMACRO); } 
-<KWSTATE>{keyword}             { EXIT(); return Token(TokenClass.Keyword, Tokens.KEYWORD); } 
-<KWSTATE>{function}            { EXIT(); return Token(TokenClass.Type, Tokens.FUNCTION); }
-<KWSTATE>{identifier}          { EXIT(); return Token(TokenClass.Identifier, Tokens.IDENTIFIER); }
-<KWSTATE>{character_literal}   { EXIT(); return Token(TokenClass.Character, Tokens.LITERAL); }
-<KWSTATE>{integer_literal}     { EXIT(); return Token(TokenClass.Number, Tokens.LITERAL); }
-<KWSTATE>{real_literal}        { EXIT(); return Token(TokenClass.Number, Tokens.LITERAL); }
-<KWSTATE>{string_literal}      { EXIT(); return Token(TokenClass.String, Tokens.LITERAL); }
+<KWSTATE>apply               { return Type(APPLY); } 
+<KWSTATE>append               { return Type(APPEND); } 
+<KWSTATE>assoc               { return Type(ASSOC); } 
+<KWSTATE>caaar               { return Type(CAAAR); } 
+<KWSTATE>caadr               { return Type(CAADR); } 
+<KWSTATE>caar               { return Type(CAAR); } 
+<KWSTATE>cadar               { return Type(CADAR); } 
+<KWSTATE>caddr               { return Type(CADDR); } 
+<KWSTATE>cadr               { return Type(CADR); } 
+<KWSTATE>car               { return Type(CAR); } 
+<KWSTATE>cdar               { return Type(CDAR); } 
+<KWSTATE>cdaar             { return Type(CDAAR); } 
+<KWSTATE>cddar               { return Type(CDDAR); } 
+<KWSTATE>cdddr               { return Type(CDDDR); } 
+<KWSTATE>cddr               { return Type(CDDR); } 
+<KWSTATE>cdr               { return Type(CDR); } 
+<KWSTATE>cons               { return Type(CONS); } 
+<KWSTATE>environment               { return Type(ENV); } 
+<KWSTATE>eq               { return Type(EQ); } 
+<KWSTATE>eql               { return Type(EQL); } 
+<KWSTATE>eval               { return Type(EVAL); } 
+<KWSTATE>evalstring               { return Type(EVALSTRING); } 
+<KWSTATE>exit               { return Type(EXITFN); } 
+<KWSTATE>first               { return Type(FIRST); } 
+<KWSTATE>inspect               { return Type(INSPECT); } 
+<KWSTATE>is               { return Type(IS); } 
+<KWSTATE>length              { return Type(LENGTH); } 
+<KWSTATE>list               { return Type(LIST); } 
+<KWSTATE>load               { return Type(LOAD); } 
+<KWSTATE>macroexpand               { return Type(MACROEXPAND); } 
+<KWSTATE>map               { return Type(MAP); } 
+<KWSTATE>nconc               { return Type(NCONC); } 
+<KWSTATE>new               { return Type(NEW); } 
+<KWSTATE>not               { return Type(NOT); } 
+<KWSTATE>nth               { return Type(NTH); } 
+<KWSTATE>pr               { return Type(PR); } 
+<KWSTATE>prl               { return Type(PRL); } 
+<KWSTATE>read               { return Type(READ); } 
+<KWSTATE>readstring               { return Type(READSTRING); } 
+<KWSTATE>reference               { return Type(REFERENCE); } 
+<KWSTATE>reverse               { return Type(REVERSE); } 
+<KWSTATE>rest               { return Type(REST); } 
+<KWSTATE>throw               { return Type(THROW); } 
+<KWSTATE>typeof               { return Type(TYPEOF); } 
+<KWSTATE>using               { return Type(USING); } 
+<KWSTATE>"+"               { return Type(ADD); } 
+<KWSTATE>"="               { return Type(SETF); } 
+<KWSTATE>"*"               { return Type(MUL); } 
+<KWSTATE>"/"               { return Type(DIV); } 
+<KWSTATE>"-"               { return Type(SUB); } 
+<KWSTATE>">"               { return Type(GT); } 
+<KWSTATE>">="               { return Type(GTE); } 
+<KWSTATE>"<="              { return Type(LTE); } 
+<KWSTATE>"<"               { return Type(LT); } 
+<KWSTATE>"&"               { return Type(LOGAND); } 
+<KWSTATE>"^"               { return Type(LOGXOR); } 
+<KWSTATE>"|"               { return Type(LOGOR); } 
+<KWSTATE>"!="               { return Type(NEQ); } 
+<KWSTATE>"=="               { return Type(EQ); } 
 
-<KWSTATE>"("                   { ENTER(KWSTATE); return Token(TokenClass.Operator, Tokens.LBRACE); }                     
-<KWSTATE>")"                   { return Token(TokenClass.Operator, Tokens.RBRACE); }                      
-<KWSTATE>"`"                   { ENTER(MACRO); return OPERATOR;  }
-<KWSTATE>"?"                   { return OPERATOR;  }
-<KWSTATE>"'"                   { return OPERATOR;  }
-<KWSTATE>"."                   { return OPERATOR; }
-<KWSTATE>",@"                  { return OPERATOR;  }
-<KWSTATE>","                   { return OPERATOR; }
+<KWSTATE>defmacro               { return Keyword(DEFMACRO); } 
+<KWSTATE>defun               { return Keyword(DEFUN); } 
+<KWSTATE>listp               { return Keyword(-1); } 
 
-<KWSTATE>{new_line}            { return NEWLINE;}
-<KWSTATE>.                     { return PLAIN; }
 
-defmacro|defun        { EXIT(); return Token(TokenClass.Keyword, Tokens.DEFMACRO); } 
-{keyword}             { EXIT(); return Token(TokenClass.Keyword, Tokens.KEYWORD); } 
-{function}            { EXIT(); return Token(TokenClass.Type, Tokens.FUNCTION); }
-{atoms}               { return Token(TokenClass.Keyword, Tokens.LITERAL); } 
+<KWSTATE>{identifier}          { EXIT(); return Identifier(IDENTIFIER); }
+<KWSTATE>{character_literal}   { EXIT(); return Character(LITERAL); }
+<KWSTATE>{integer_literal}     { EXIT(); return Number(INTEGER); }
+<KWSTATE>{real_literal}        { EXIT(); return Number(LITERAL); }
+<KWSTATE>{string_literal}      { EXIT(); return String(STRING); }
 
-{character_literal}   { return Token(TokenClass.Character, Tokens.LITERAL); }                      
-{integer_literal}     { return Token(TokenClass.Number, Tokens.LITERAL); }
-{real_literal}        { return Token(TokenClass.Number, Tokens.LITERAL); }
-{string_literal}      { return Token(TokenClass.String, Tokens.LITERAL); }
+{character_literal}   { return Character(LITERAL); }                      
+{integer_literal}     { return Number(INTEGER); }
+{real_literal}        { return Number(LITERAL); }
+{string_literal}      { return String(STRING); }
 
-"("                   { ENTER(KWSTATE); return Token(TokenClass.Operator, Tokens.LBRACE); }                     
-")"                   { return Token(TokenClass.Operator, Tokens.RBRACE); } 
+"("                   { ENTER(KWSTATE); return Operator(LBRACE); }                     
+")"                   { return Operator(RBRACE); } 
 "."                   { return OPERATOR; }
 "?"                   { return OTHER; }
-"`"                   { ENTER(MACRO); return OPERATOR; }
+"`"                   { return OPERATOR; }
 "'"                   { return OPERATOR; }
 ",@"                  { return OPERATOR; }
 ","                   { return OPERATOR;}
 
-{identifier}          { return Token(TokenClass.Identifier, Tokens.IDENTIFIER);; }
+{identifier}          { return Identifier(IDENTIFIER); }
 
-{new_line}            { return NEWLINE;}
+
 .                     { return PLAIN; }
 

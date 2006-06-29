@@ -12,7 +12,7 @@ namespace gpcc
   class GPCG
   {
     public static bool LINES = true;
-    public static bool REPORT = false;
+    public static bool REPORT = true;
 
     private static int Main(string[] args)
     {
@@ -36,12 +36,10 @@ namespace gpcc
         generator.BuildParseTable();
 
         if (REPORT)
-          generator.Report();
-        else
-        {
-          CodeGenerator code = new CodeGenerator();
-          code.Generate(states, grammar);
-        }
+          generator.Report(filename);
+
+        CodeGenerator code = new CodeGenerator();
+        code.Generate(states, grammar);
         return 0;
       }
       catch (Scanner.ParseException e)

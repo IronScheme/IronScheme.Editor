@@ -76,6 +76,8 @@ namespace gppg
 
           if (current_state.parser_table.ContainsKey(next))
             action = current_state.parser_table[next];
+          else if (next == eofToken)
+            return false;
         }
 
         if (action > 0)         // shift
@@ -131,7 +133,7 @@ namespace gppg
       rhslen = rule.rhs.Length;
 
       // FIX: leppie, was wrong, used implementation from byacc, adjusted stacks to have a capacity
-      if (rule.rhs.Length > 0)
+      if (rule.rhs.Length == 1)
       {
         yyval = value_stack.array[value_stack.top - rule.rhs.Length];
       }
@@ -159,10 +161,11 @@ namespace gppg
       current_state = state_stack.Top();
 
       if (current_state.Goto.ContainsKey(rule.lhs))
+      {
         current_state = states[current_state.Goto[rule.lhs]];
-
-      state_stack.Push(current_state);
-      value_stack.Push(yyval);
+      }
+        state_stack.Push(current_state);
+        value_stack.Push(yyval);
     }
 
 #if DEBUG

@@ -371,6 +371,7 @@
     <Compile Include="Languages\Rule.cs" />
     <Compile Include="Languages\ShiftReduceParser.cs" />
     <Compile Include="Languages\State.cs" />
+    <Compile Include="Languages\Yacc.lex.cs" />
     <Compile Include="Resources\Fake.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -537,6 +538,7 @@
     <None Include="Languages\LSharp.lex" />
     <None Include="Languages\LSharp.y" />
     <None Include="Languages\PlainText.lex" />
+    <None Include="Languages\Yacc.lex" />
     <None Include="xacc.key" />
     <Content Include="Resources\header.bmp" />
     <Content Include="Resources\installer.bmp" />
@@ -549,6 +551,7 @@ $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Changelog.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\CSLex.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\CSharp.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\LSharp.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Yacc.lex
 $(SolutionDir)Tools\gppg $(ProjectDir)Languages\LSharp.y &gt; $(ProjectDir)Languages\LSharp.y.cs
 $(SolutionDir)Tools\gppg $(ProjectDir)Languages\CSharp.y &gt; $(ProjectDir)Languages\CSharp.y.cs</PreBuildEvent>
     <PostBuildEvent>

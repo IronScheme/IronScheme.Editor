@@ -148,6 +148,7 @@ namespace Xacc.ComponentModel
       new Languages.CSLexLang();
       new CSharp.Parser();
       new LSharp.Parser();
+      new Languages.YaccLang();
       //new Languages.PatchLanguage();
       //new Languages.ScalaLang();
       //new Languages.MercuryLang();

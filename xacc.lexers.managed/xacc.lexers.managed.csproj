@@ -143,7 +143,6 @@
     <None Include="VBNET.lex" />
     <None Include="xacc.key" />
     <None Include="Xml.lex" />
-    <None Include="Yacc.lex" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
