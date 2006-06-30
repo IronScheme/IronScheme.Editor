@@ -77,42 +77,27 @@ identifier             =({letter_char}({ident_char})*)("[]")?|("*"({ident_char})
 
 atoms     =(null|true|false)
 
-forms1    =(and|backquote|call|compile|cond|do|each|fn|for|foreach)
-forms2    =(if|let|macro|or|quote|the|to|trace|try|when|while|with|"++"|"--")
-
-func1     =(apply|append|assoc|caaar|caadr|caar|cadar|caddr|cadr|car|cdar|cdaar|cddar|cdddr|cddr|cdr)
-func2     =(cons|environment|eq|eql|eval|evalstring|exit|first|import|inspect|is|length|list)
-func3     =(load|macroexpand|map|nconc|new|not|nth|pr|prl|read|readstring|reference|reset|reverse|rest|throw|typeof|using)
-func4     =("+"|"="|"*"|"/"|"-"|">"|">="|"<"|"<="|"&"|"^"|"|"|"!="|"==")
-
-builtin   =(listp)
-
-keyword               =({forms1}|{forms2}|{builtin})
-function              =({func1}|{func2}|{func3}|{func4})
-
-
 %state KWSTATE
 %state ML_COMMENT
 
 %%
 
 {white_space}+        { ; }
-{new_line}            { return NEWLINE;}
+{new_line}            { return NewLine();}
                       
-<YYINITIAL,KWSTATE>{comment_start}       { ENTER(ML_COMMENT); return COMMENT; }                      
-{line_comment}        { return COMMENT; }
+<YYINITIAL,KWSTATE>{comment_start}       { ENTER(ML_COMMENT); return Comment(); }                      
+{line_comment}        { return Comment(); }
 
-"&body"               { return OTHER; }
-"&rest"               { return OTHER; }
+"&body"               { return Other(); }
+"&rest"               { return Other(); }
 
-<ML_COMMENT>[^\n\|]+         { return COMMENT; }
-<ML_COMMENT>{comment_end}     { EXIT(); return COMMENT; }
-<ML_COMMENT>"|"               { return COMMENT; }
+<ML_COMMENT>[^\n\|]+         { return Comment(); }
+<ML_COMMENT>{comment_end}     { EXIT(); return Comment(); }
+<ML_COMMENT>"|"               { return Comment(); }
  
-<KWSTATE>{atoms}               { return Keyword(LITERAL); } 
+{atoms}               { return Keyword(LITERAL); } 
 
 <KWSTATE>and               { return Keyword(AND); } 
-<KWSTATE>`               { return Keyword(BACKQUOTE); } 
 <KWSTATE>call               { return Keyword(CALL); } 
 <KWSTATE>cond               { return Keyword(COND); } 
 <KWSTATE>do               { return Keyword(DO); } 
@@ -124,7 +109,6 @@ function              =({func1}|{func2}|{func3}|{func4})
 <KWSTATE>let               { return Keyword(LET); } 
 <KWSTATE>macro               { return Keyword(MACRO); } 
 <KWSTATE>or               { return Keyword(OR); } 
-<KWSTATE>'               { return Keyword(QUOTE); } 
 <KWSTATE>the               { return Keyword(THE); } 
 <KWSTATE>to               { return Keyword(TO); } 
 <KWSTATE>trace               { return Keyword(TRACE); } 
@@ -197,7 +181,7 @@ function              =({func1}|{func2}|{func3}|{func4})
 
 <KWSTATE>defmacro               { return Keyword(DEFMACRO); } 
 <KWSTATE>defun               { return Keyword(DEFUN); } 
-<KWSTATE>listp               { return Keyword(-1); } 
+<KWSTATE>listp               { return Keyword(); } 
 
 
 <KWSTATE>{identifier}          { EXIT(); return Identifier(IDENTIFIER); }
@@ -213,15 +197,15 @@ function              =({func1}|{func2}|{func3}|{func4})
 
 "("                   { ENTER(KWSTATE); return Operator(LBRACE); }                     
 ")"                   { return Operator(RBRACE); } 
-"."                   { return OPERATOR; }
-"?"                   { return OTHER; }
-"`"                   { return OPERATOR; }
-"'"                   { return OPERATOR; }
-",@"                  { return OPERATOR; }
-","                   { return OPERATOR;}
+"."                   { return Operator(); }
+"?"                   { return Other(); }
+"`"                   { return Operator(BACKQUOTE); }
+"'"                   { return Operator(QUOTE); }
+",@"                  { return Operator(); }
+","                   { return Operator();}
 
 {identifier}          { return Identifier(IDENTIFIER); }
 
 
-.                     { return PLAIN; }
+.                     { return Error(); }
 

@@ -30,6 +30,8 @@ keyword5 =(catch|fail|include|load|require|throw)
 
 keyword =({keyword1}|{keyword2}|{keyword3}|{keyword4}|{keyword5})
 
+function =(lambda|proc|eval)
+
 operator =[-~!%^\*\(\)\+=\[\]\|\\:;,\./\?&<>\{\}]
 
 comment_start           =^"=begin"
@@ -56,7 +58,7 @@ part_real              =({dec_digit})*\.({dec_digit})+({exponent_part})?({real_s
 real_literal           ={whole_real1}|{whole_real2}|{part_real}
 
 single_char            =[^'\\\n]
-simple_esc_seq         =\\['\\0abfnrtv]
+simple_esc_seq         =(\\(['\\0abfnrtv]|[0-9]+))
 uni_esc_seq1           =\\u{hex_digit}{hex_digit}{hex_digit}{hex_digit}
 uni_esc_seq2           =\\U{hex_digit}{hex_digit}{hex_digit}{hex_digit}{hex_digit}{hex_digit}{hex_digit}{hex_digit}
 uni_esc_seq            ={uni_esc_seq1}|{uni_esc_seq2}
@@ -74,14 +76,24 @@ quote_esc_seq          =\"\"
 verb_string_char       ={single_verbatim_char}|{quote_esc_seq}
 string_literal         ={regular_string}
 
+
+
 verbatim_string_start  =\@\"
 verbatim_string_cont   =({verb_string_char})+ 
 verbatim_string_end    =\"
 
+single_re_char         =[^\\/ \t\n]
+single_re_char2        =[^\\/ \*\t\n]
+re_esc_seq             =(\\[\\\?/\.$^\(\)\{\}\*\+\-\|sbrntWwDdS\[\],]|{re_esc_seq2}|{hex_esc_seq})
+re_esc_seq2            =(\\({dec_digit})+)
+re_string_char         =({single_re_char}|{re_esc_seq})
+re_string_char2        =({single_re_char2}|{re_esc_seq})
+re_string              ="/"{re_string_char2}({re_string_char})*"/"[gim]*|"//"
+
 
 letter_char            =[A-Za-z]
-ident_char             ={dec_digit}|{letter_char}|"_"|"@"
-identifier             =({letter_char}|"_")({ident_char})*
+ident_char             ={dec_digit}|{letter_char}|"_"|"@"|"$"
+identifier             =({letter_char}|"_"|"$"|"@")({ident_char})*
 at_identifier          =\@{identifier}
 ws_identifier          ={identifier}(({white_space})+{identifier})*
 
@@ -100,8 +112,12 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <ML_COMMENT>"="[^=\n]+            { return Comment(); }
 <ML_COMMENT>[^\n=]+               { return Comment(); }
 
+`[^`\n]*`             { return Preprocessor(); }
+
 {line_comment}        { return Comment(); }
                     
+{re_string}           { return Other(); }                    
+{function}            { return Type(); }                     
 {keyword}             { return Keyword(); } 
                       
 {integer_literal}     { return Number(); }

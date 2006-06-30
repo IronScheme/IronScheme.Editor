@@ -145,7 +145,6 @@ list
     | LBRACE exprlist RBRACE        { MakePair(@1,@3); }
     | QUOTE expr
     | BACKQUOTE expr
-    | error
     ;
     
 macros

@@ -1,140 +1,138 @@
+using Xacc.ComponentModel;
+using System.Drawing;
+using LexerBase = Xacc.Languages.CSLex.Language<Xacc.Languages.CSLex.Yytoken>.LexerBase;
+
+namespace Xacc.Languages
+{
+  sealed class CppLang : CSLex.Language<Yytoken>
+  {
+	  public override string Name {get {return "Cpp"; } }
+	  public override string[] Extensions {get { return new string[]{"c","cc","cpp","h","hh","hpp"}; } }
+	  LexerBase lexer = new CppLexer();
+	  protected override LexerBase Lexer
+	  {
+		  get {return lexer;}
+	  }
+  }
+}
+//NOTE: comments are not allowed except in code blocks
+%%
+
+%class CppLexer
+
+%full
+
 %{
-/*
- * Copyright (C) 2003  Lorenzo Bettini <bettini@gnu.org>
- * Copyright (C) 2005  Llewellyn Pritchard (leppie) <llewellyn@pritchard.org> 
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- *
- */
-
-#include "gram_Cpp.h"
-
-static int inproc = 0;
-
+int inproc;
 %}
 
-%option 8bit
-%option noyywrap
-%option nostdinit
-%option never-interactive
-%option outfile="gram_Cpp.c"
+
+line_comment           =("//"[^/\n].*)|"//"
+
+comment_start          ="/*"
+comment_end            ="*"+"/"
+
+white_space            =[ \t]
+new_line               =\n
+
+preprocessor           =^({white_space})*#({white_space})*
+
+attr                   =\[({white_space})*(assembly|return)({white_space})*:
+
+dec_digit              =[0-9]
+hex_digit              =[0-9A-Fa-f]
+int_suffix             =[UuLl]|[Uu][Ll]|[Ll][Uu]
+dec_literal            =({dec_digit})+({int_suffix})?
+hex_literal            =0[xX]({hex_digit})+({int_suffix})?
+integer_literal        ={dec_literal}|{hex_literal}
+
+real_suffix            =[FfDdMm]
+sign                   =[-\+]
+exponent_part          =[eE]({sign})?({dec_digit})+
+whole_real1            =({dec_digit})+{exponent_part}({real_suffix})?
+whole_real2            =({dec_digit})+{real_suffix}
+part_real              =({dec_digit})*\.({dec_digit})+({exponent_part})?({real_suffix})?
+real_literal           ={whole_real1}|{whole_real2}|{part_real}
+
+single_char            =[^'\\\n]
+simple_esc_seq         =\\['\\0abfnrtv]
+uni_esc_seq1           =\\u{hex_digit}{hex_digit}{hex_digit}{hex_digit}
+uni_esc_seq2           =\\U{hex_digit}{hex_digit}{hex_digit}{hex_digit}{hex_digit}{hex_digit}{hex_digit}{hex_digit}
+uni_esc_seq            ={uni_esc_seq1}|{uni_esc_seq2}
+hex_esc_seq            =\\x({hex_digit})?({hex_digit})?({hex_digit})?{hex_digit}
+character              ={single_char}|{simple_esc_seq}|{hex_esc_seq}|{uni_esc_seq}
+character_literal      ='({character})'
+
+single_string_char     =[^\\\"\n]
+string_esc_seq         =\\[\"\\0abfnrtv]
+reg_string_char        ={single_string_char}|{string_esc_seq}|{hex_esc_seq}|{uni_esc_seq}
+regular_string         =\"({reg_string_char})*\"
+error_string           =\"({reg_string_char})*
+single_verbatim_char   =[^\"\n]
+quote_esc_seq          =\"\"
+verb_string_char       ={single_verbatim_char}|{quote_esc_seq}
+string_literal         ={regular_string}
+
+verbatim_string_start  =\@\"
+verbatim_string_cont   =({verb_string_char})+ 
+verbatim_string_end    =\"
 
 
-line_comment           "//".*
+letter_char            =[A-Za-z]
+ident_char             ={dec_digit}|{letter_char}|"_"
+identifier             =({letter_char}|"_")({ident_char})*
+at_identifier          =\@{identifier}
+ws_identifier          ={identifier}(({white_space})+{identifier})*
 
-comment_start          "/*"
-comment_end            "*"+"/"
-
-white_space            [ \t]
-new_line               \n
-
-preprocessor           ^{white_space}*#{white_space}*
-
-dec_digit              [0-9]
-hex_digit              [0-9A-Fa-f]
-int_suffix             [UuLl]|[Uu][Ll]|[Ll][Uu]
-dec_literal            {dec_digit}+{int_suffix}?
-hex_literal            0[xX]{hex_digit}+{int_suffix}?
-integer_literal        {dec_literal}|{hex_literal}
-
-real_suffix            [FfDdMm]
-sign                   [+\-]
-exponent_part          [eE]{sign}?{dec_digit}+
-whole_real1            {dec_digit}+{exponent_part}{real_suffix}?
-whole_real2            {dec_digit}+{real_suffix}
-part_real              {dec_digit}*\.{dec_digit}+{exponent_part}?{real_suffix}?
-real_literal           {whole_real1}|{whole_real2}|{part_real}
-
-single_char            [^\\\']
-simple_esc_seq         \\[\'\"\\0abfnrtv]
-uni_esc_seq1           \\u{hex_digit}{4}
-uni_esc_seq2           \\U{hex_digit}{8}
-uni_esc_seq            {uni_esc_seq1}|{uni_esc_seq2}
-hex_esc_seq            \\x{hex_digit}{1,4}
-character              {single_char}|{simple_esc_seq}|{hex_esc_seq}|{uni_esc_seq}
-character_literal      \'{character}\'
-
-single_string_char     [^\\\"]
-reg_string_char        {single_string_char}|{simple_esc_seq}|{hex_esc_seq}|{uni_esc_seq}
-regular_string         \"{reg_string_char}*\"
-quote_esc_seq          \"\"
-string_literal         {regular_string}
-
-letter_char            [A-Za-z]
-ident_char             {dec_digit}|{letter_char}|"_"|"@"
-identifier             ({letter_char}|"_"){ident_char}*
-at_identifier          \@{identifier}
-ws_identifier          {identifier}({white_space}+{identifier})*
-
-rank_specifier         "["{white_space}*(","{white_space}*)*"]"
+rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 
 
-keyword1 (asm|auto|break|case|catch|class|const|const_cast|continue|default)
-keyword2 (delete|do|dynamic_cast|else|enum|explicit|export|extern|false|for)
-keyword3 (friend|goto|if|inline|mutable|namespace|new|operator|private)
-keyword4 (protected|public|register|reinterpret_cast|return|sizeof|static)
-keyword5 (static_cast|struct|switch|template|throw|this|true|try|typedef)
-keyword6 (typeid|typename|union|using|virtual|volatile|while|void|__cdecl|inline|__inline)
-mc_kw    (__property|__value|__gc|__nogc|__abstract|__sealed|__box)
-basetype (bool|char|double|float|int|long|short|signed|unsigned|wchar_t)
+keyword1 =(asm|auto|break|case|catch|class|const|const_cast|continue|default)
+keyword2 =(delete|do|dynamic_cast|else|enum|explicit|export|extern|false|for)
+keyword3 =(friend|goto|if|inline|mutable|namespace|new|operator|private)
+keyword4 =(protected|public|register|reinterpret_cast|return|sizeof|static)
+keyword5 =(static_cast|struct|switch|template|throw|this|true|try|typedef)
+keyword6 =(typeid|typename|union|using|virtual|volatile|while|void|__cdecl|inline|__inline)
+mc_kw    =(__property|__value|__gc|__nogc|__abstract|__sealed|__box)
+basetype =(bool|char|double|float|int|long|short|signed|unsigned|wchar_t)
 
-keyword               ({keyword1}|{keyword2}|{keyword3}|{keyword4}|{keyword5}|{keyword6}|{mc_kw}|{basetype})
+keyword               =({keyword1}|{keyword2}|{keyword3}|{keyword4}|{keyword5}|{keyword6}|{mc_kw}|{basetype})
 
-operator              [\~\!\%\^\*\(\)\-\+\=\[\]\|\\\:\;\,\.\/\?\&\<\>]
+operator =[-~!%^\*\(\)\+=\[\]\|\\:;,\./\?&<>\{\}]
 
-%x ML_COMMENT
-%x PREPROCESSOR
+%state ML_COMMENT
+%state PREPROCESSOR
 
 %%
 
-{preprocessor}        { ENTER(PREPROCESSOR); RETURN4(PREPROC); }
+<YYINITIAL>{preprocessor}        { ENTER(PREPROCESSOR); return Preprocessor(); }
 
-<PREPROCESSOR>
-{
-  \\                  { inproc = 1; RETURN4(DOCCOMMENT); }
-  \n                  { if (!inproc) EXIT(); RETURN4(NEWLINE); }
-  [^\n\\]+            { inproc = 0; RETURN4(PREPROC); }
-}
+<PREPROCESSOR>\\                  { inproc = 1; return DocComment(); }
+<PREPROCESSOR>\n                  { if (inproc == 0) EXIT(); return NewLine(); }
+<PREPROCESSOR>[^\n\\]+            { inproc = 0; return Preprocessor(); }
 
-{white_space}+        { ; }
+({white_space})+        { ; }
                       
-{comment_start}       { ENTER(ML_COMMENT); RETURN4(COMMENT); }
+<YYINITIAL>{comment_start}       { ENTER(ML_COMMENT); return Comment(); }
 
-<ML_COMMENT>
-{
-\t                { ; }
-{new_line}        { RETURN4(NEWLINE); }
-[^*\n\t]+         { RETURN4(COMMENT); }
-"*"+[^*/\n\t]*    { RETURN4(COMMENT); }
-{comment_end}     { EXIT(); RETURN4(COMMENT); }
-}
+<ML_COMMENT>[^*\n\t]+         { return Comment(); }
+<ML_COMMENT>"*"+[^*/\n\t]*    { return Comment(); }
+<ML_COMMENT>{comment_end}     { EXIT(); return Comment(); }
 
-{line_comment}        { RETURN4(COMMENT); }
+{line_comment}        { return Comment(); }
                       
-{keyword}             { RETURN4(KW); } 
+{keyword}             { return Keyword(); } 
                       
-{integer_literal}     { RETURN4(NUMBER); }
-{real_literal}        { RETURN4(NUMBER); }
-{character_literal}   { RETURN4(CHARACTER); }
-{string_literal}      { RETURN4(STRING); }
+{integer_literal}     { return Number(); }
+{real_literal}        { return Number(); }
+{character_literal}   { return Character(); }
+{string_literal}      { return String(); }
 
-{operator}            { RETURN4(OP); }                     
+{operator}            { return Operator(); }                     
 
-{identifier}          { RETURN4(PLAIN); }
-{at_identifier}       { RETURN4(PLAIN); }
+{identifier}          { return Identifier(); }
+{at_identifier}       { return Identifier(); }
 
-{new_line}            { RETURN4(NEWLINE);}
-.                     { RETURN4(PLAIN); }
-%%
+{new_line}            { return NewLine();}
+.                     { return Plain(); }
+

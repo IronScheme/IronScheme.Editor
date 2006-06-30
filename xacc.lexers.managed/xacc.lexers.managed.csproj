@@ -100,6 +100,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Boo.lex.cs" />
+    <Compile Include="Cpp.lex.cs" />
     <Compile Include="Css.lex.cs" />
     <Compile Include="FSharp.lex.cs" />
     <Compile Include="HLSL.lex.cs" />
@@ -109,6 +110,8 @@
     <Compile Include="Mercury.lex.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Nemerle.lex.cs" />
+    <Compile Include="NSIS.lex.cs" />
     <Compile Include="Patch.lex.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -119,6 +122,7 @@
     <Compile Include="Scala.lex.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="VBNET.lex.cs" />
     <Compile Include="Xml.lex.cs" />
     <None Include="Boo.lex" />
     <None Include="Caml.lex" />
@@ -161,7 +165,11 @@ $(SolutionDir)Tools\cs_lex $(ProjectDir)JavaScript.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Boo.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Ruby.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)FSharp.lex
-$(SolutionDir)Tools\cs_lex $(ProjectDir)IronPython.lex</PreBuildEvent>
+$(SolutionDir)Tools\cs_lex $(ProjectDir)IronPython.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Cpp.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Nemerle.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)VBNET.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)NSIS.lex</PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>

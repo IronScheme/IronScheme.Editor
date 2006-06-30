@@ -52,6 +52,10 @@ sealed class Common_PluginLoader : AssemblyPluginProvider
     new Xacc.Languages.RubyLang();
     new Xacc.Languages.FSharpLang();
     new Xacc.Languages.IronPythonLang();
+    new Xacc.Languages.CppLang();
+    new Xacc.Languages.NemerleLang();
+    new Xacc.Languages.VBNETLang();
+    new Xacc.Languages.NSISLang();
 
   }
 }

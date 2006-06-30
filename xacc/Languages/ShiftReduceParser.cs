@@ -240,7 +240,7 @@ namespace gppg
       if (Trace)
         Console.Error.WriteLine("Entering state {0} ", current_state.num);
 
-      next = old_next;
+      //next = old_next;
     }
 
 
