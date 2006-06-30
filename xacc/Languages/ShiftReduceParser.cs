@@ -152,7 +152,7 @@ namespace gppg
 
       DoAction(rule_nr);
 
-      for (int i = 0 ; i < rule.rhs.Length ; i++)
+      for (int i = 0; i < rule.rhs.Length; i++)
       {
         state_stack.Pop();
         value_stack.Pop();
@@ -167,8 +167,8 @@ namespace gppg
       {
         current_state = states[current_state.Goto[rule.lhs]];
       }
-        state_stack.Push(current_state);
-        value_stack.Push(yyval);
+      state_stack.Push(current_state);
+      value_stack.Push(yyval);
     }
 
 #if DEBUG
@@ -240,7 +240,7 @@ namespace gppg
       if (Trace)
         Console.Error.WriteLine("Entering state {0} ", current_state.num);
 
-      //next = old_next;
+      next = old_next;
     }
 
 
@@ -312,7 +312,10 @@ namespace gppg
         }
       }
       else
+      {
+        next = 0;
         return true;
+      }
     }
 
 
@@ -336,41 +339,7 @@ namespace gppg
       Console.Error.WriteLine();
     }
 
-//#if DEBUG
-//    public string[] StateStack
-//    {
-//      get
-//      {
-//        string[] sss = new string[state_stack.top];
-
-//        for (int i = 0; i < sss.Length; i++)
-//        {
-//          Rule rule = rules[-state_stack.array[i].defaultAction];
-
-//          if (rule != null)
-//          {
-//            sss[i] = string.Empty;
-//            if (rule.rhs.Length == 0)
-//              sss[i] = "/* empty */ ";
-//            else
-//              foreach (int symbol in rule.rhs)
-//                sss[i] += string.Format("{0} ", SymbolToString(symbol));
-
-//            sss[i] += string.Format("-> {0}", SymbolToString(rule.lhs));
-//          }
-//          else
-//          {
-//            sss[i] = "cannot determine";
-//          }
-//        }
-
-//        return sss;
-//      }
-//    }
-//#endif
-
-
-      private void DisplayRule(int rule_nr)
+    private void DisplayRule(int rule_nr)
     {
       Console.Error.Write("Reducing stack by rule {0}, ", rule_nr);
       DisplayProduction(rules[rule_nr]);

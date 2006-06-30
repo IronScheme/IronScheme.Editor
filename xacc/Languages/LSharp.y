@@ -278,6 +278,7 @@ expropt
 expr
     : listcontent
     | list
+    | error
     ; 
 
 listcontent

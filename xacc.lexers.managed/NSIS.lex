@@ -27,7 +27,7 @@ line_comment           =(";"|"#").*
 white_space            =[ \t]
 new_line               =\n
 
-preprocessor           =^({white_space})*#({white_space})*
+preprocessor           =^({white_space})*"!"({white_space})*("define"|"insertmacro"|"include")
 
 attr                   =\[({white_space})*(assembly|return)({white_space})*:
 
@@ -80,9 +80,9 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 
 keyword               =(SectionSetText|SectionGetText|InstType|Page|PageExEnd|UninstPage|PageEx|PageCallbacks|LicenseText|LicenseData|LicenseForceSelection|Var|Name|XPStyle|OutFile|InstallDir|InstallDirRegKey|ShowInstDetails|ShowUnInstDetails|SetCompressor|LangString|Function|FunctionEnd|Push|Section|SectionEnd|SectionIn|ReadRegStr|Exch|Pop|IfFileExists|StrCpy|EnumRegKey|IntOp|StrCmp|StrCpy|Goto|Abort|Call|MessageBox|AddSize|SetOutPath|SetOverwrite|File|CreateDirectory|CreateShortCut|WriteUninstaller|WriteRegStr|HideWindow|Delete|RMDir|DeleteRegKey|SetAutoClose)
 
-operator =[-~!%^\*\(\)\+=\[\]\|\\:;,\./\?&<>\{\}]
+operator =[-~%^\*\(\)\+=\[\]\|\\:;,\./\?&<>\{\}]
 
-other                 =("$"({ident_char}+|"{"{ident_char}+"}"|"("{ident_char}+")"))
+other                 =("$"(({ident_char})+|"{"({ident_char})+"}"|"("({ident_char})+")"))
 
 other2                =(HKLM|RO|true|false|lzma|bzip2|MB_ICONINFORMATION|MB_OK|MB_ICONQUESTION|MB_ICONEXCLAMATION|MB_YESNO|MB_DEFBUTTON2|ifnewer|HKEY_LOCAL_MACHINE|on|off|show|hide|IDYES|IDNO)
 

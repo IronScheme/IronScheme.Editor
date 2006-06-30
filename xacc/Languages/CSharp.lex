@@ -100,14 +100,11 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 %%
 
 <YYINITIAL>{preprocessor}    { ENTER(PREPROCESSOR); return Preprocessor(); }
-<YYINITIAL>{white_space}+    { ; /* ignore */ }
 
+{white_space}+    { ; /* ignore */ }
                     
 <YYINITIAL>{comment_start}   { ENTER(ML_COMMENT); return Comment(); }
 
-
-<ML_COMMENT>{white_space}+    { ; }
-<ML_COMMENT>{new_line}        { return NewLine(); }
 <ML_COMMENT>[^*\n\t]+         { return Comment(); }
 <ML_COMMENT>"*"+[^*/\n\t]*    { return Comment(); }
 <ML_COMMENT>{comment_end}     { EXIT(); return Comment(); }
@@ -118,14 +115,11 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <DOC_COMMENT>{new_line}        { EXIT(); return NewLine(); }
 <DOC_COMMENT>"<"[^>\n]*        { docintag = 1; return DocComment();}
 <DOC_COMMENT>"<"[^>\n]*">"     { return DocComment();}
-<DOC_COMMENT>{white_space}+    { ; /* ignore */ }
 <DOC_COMMENT>">"               { return DocComment();}
 <DOC_COMMENT>[^<>\n]+          { if (docintag == 1) {docintag = 0; return DocComment();} else return Comment(); }
 
-
 <PPTAIL>[^\n]+            { return Preprocessor( PPID); }
 <PPTAIL>{new_line}        { EXIT(); EXIT(); return NewLine(); }
-
 
 <PREPROCESSOR>"define"          { ENTER(PPTAIL); return Preprocessor(PPDEFINE); }
 <PREPROCESSOR>"if"              { ENTER(PPTAIL); return Preprocessor(PPIF); }
@@ -225,10 +219,8 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <YYINITIAL>"partial"         {return Keyword();}
 <YYINITIAL>"yield"           {return Keyword();}
 
-                      
 <YYINITIAL>{verbatim_string_start}                 { ENTER(VERB_STRING); return String(MLSTRING_LITERAL); }
 
-<VERB_STRING>{new_line}                 { return NewLine(); }
 <VERB_STRING>{verbatim_string_cont}     { return String(MLSTRING_LITERAL); }
 <VERB_STRING>{verbatim_string_end}      { EXIT(); return String(MLSTRING_LITERAL); }
                       
@@ -239,7 +231,6 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 
 <YYINITIAL>{rank_specifier}      { return Operator(RANK_SPECIFIER); }
 
-                      
 <YYINITIAL>"+="    { return Operator(PLUSEQ); }
 <YYINITIAL>"-="    { return Operator(MINUSEQ); }
 <YYINITIAL>"*="    { return Operator(STAREQ); }
@@ -289,15 +280,12 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <YYINITIAL>":"     { return Operator(YYCHAR); }
 <YYINITIAL>","     { return Operator(YYCHAR); }
 
-
 <YYINITIAL>"get"   { return Keyword(GET); }
 <YYINITIAL>"set"   { return Keyword(SET); }
 
 <YYINITIAL>{error_string}           { return Error(STRING_LITERAL); }
-
 <YYINITIAL>{identifier}             { return Identifier(IDENTIFIER); }
 
-
-<YYINITIAL>{new_line}               { return NewLine();}
+{new_line}               { return NewLine();}
 <YYINITIAL>{attr}                   { return Operator('['); }
-<YYINITIAL>.                        { return Error(); }
+.                        { return Error(); }
