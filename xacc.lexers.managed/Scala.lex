@@ -24,37 +24,37 @@ namespace Xacc.Languages
 %full
 
 WS		                    =[ \t]+
-KEYWORD                   ="=>"|"<-"|"_"|"unit"|"Unit"|"package"|"synchronized"|"import"|"return"|"true"|"false"|"def"|"val"|"var"|"class"|"object"|"trait"|"case"|"override"|"new"|"protected"|"extends"|"if"|"null"|"throw"|"for"|"with"|"try"|"catch"|"this"|"type"|"else"|"match"|"append"|"private"|"while"|"yield"|"super"|"sealed"|"requires"|"implicit"|"finally"|"final"|"do"|"abstract"
+Keyword()                   ="=>"|"<-"|"_"|"unit"|"Unit"|"package"|"synchronized"|"import"|"return"|"true"|"false"|"def"|"val"|"var"|"class"|"object"|"trait"|"case"|"override"|"new"|"protected"|"extends"|"if"|"null"|"throw"|"for"|"with"|"try"|"catch"|"this"|"type"|"else"|"match"|"append"|"private"|"while"|"yield"|"super"|"sealed"|"requires"|"implicit"|"finally"|"final"|"do"|"abstract"
 PREPROC                   =[^.]
-NUMBER                    =[0-9]+
-STRING                    =\"([^\"\n])*\"
-CHARACTER                 ='([^'])+'
-TYPE                      =String|Int|Any|Boolean|List|Array|Character|Type|Pair|int|char|AnyRef
-OPERATOR                  =[-:\(\),\.!=&\|\[\];><\{\}\+\*/@#%]
+Number()                    =[0-9]+
+String()                    =\"([^\"\n])*\"
+Character()                 ='([^'])+'
+Type()                      =String|Int|Any|Boolean|List|Array|Character|Type|Pair|int|char|AnyRef
+Operator()                  =[-:\(\),\.!=&\|\[\];><\{\}\+\*/@#%]
 LINE_COMMENT              =//[^\n]*
 COMMENT_START             ="/*"
 COMMENT_END               ="*/"
-IDENTIFIER                =[a-zA-Z][_$a-zA-Z0-9]*
+Identifier()                =[a-zA-Z][_$a-zA-Z0-9]*
 
 %state ML_COMMENT
 
 %%
 
-<YYINITIAL>{KEYWORD}                  {return KEYWORD;}
-<YYINITIAL>{PREPROC}                  {return PREPROC;}
-<YYINITIAL>{STRING}                   {return STRING;}
-<YYINITIAL>{CHARACTER}                {return CHARACTER;}
-<YYINITIAL>{NUMBER}                   {return NUMBER;}
-<YYINITIAL>{OPERATOR}                 {return OPERATOR;}
-<YYINITIAL>{TYPE}                     {return TYPE;}
-<YYINITIAL>{IDENTIFIER}               {return IDENTIFIER;}
-<YYINITIAL>{LINE_COMMENT}             {return COMMENT;}
-<YYINITIAL>{COMMENT_START}            {ENTER(ML_COMMENT); return COMMENT;}
+<YYINITIAL>{Keyword()}                  {return Keyword();}
+<YYINITIAL>{PREPROC}                  {return Preprocessor();}
+<YYINITIAL>{String()}                   {return String();}
+<YYINITIAL>{Character()}                {return Character();}
+<YYINITIAL>{Number()}                   {return Number();}
+<YYINITIAL>{Operator()}                 {return Operator();}
+<YYINITIAL>{Type()}                     {return Type();}
+<YYINITIAL>{Identifier()}               {return Identifier();}
+<YYINITIAL>{LINE_COMMENT}             {return Comment();}
+<YYINITIAL>{COMMENT_START}            {ENTER(ML_COMMENT); return Comment();}
 
-<ML_COMMENT>{COMMENT_END}             {EXIT(); return COMMENT;}
-<ML_COMMENT>[^ \t\n\*]+               {return COMMENT;}
-<ML_COMMENT>"*"                       {return COMMENT;}
+<ML_COMMENT>{COMMENT_END}             {EXIT(); return Comment();}
+<ML_COMMENT>[^ \t\n\*]+               {return Comment();}
+<ML_COMMENT>"*"                       {return Comment();}
 
 {WS}			                            {;}
-\n                                    {return NEWLINE;}
+\n                                    {return NewLine();}
 .                                     {return ERROR; }

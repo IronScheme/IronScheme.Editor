@@ -23,36 +23,36 @@ namespace Xacc.Languages
 %full
 
 WS		                    =[ \t]+
-KEYWORD                   =module|use_module|import_module|include_module|end_module|initialise|mutable|initialize|finalize|finalise|interface|implementation|pred|mode|func|type|inst|solver|is|semidet|det|nondet|multi|erroneous|failure|cc_nondet|cc_multi|typeclass|instance|where|pragma|promise|external|some|all|not|if|then|else|true|fail|try|throw|catch
+Keyword()                   =module|use_module|import_module|include_module|end_module|initialise|mutable|initialize|finalize|finalise|interface|implementation|pred|mode|func|type|inst|solver|is|semidet|det|nondet|multi|erroneous|failure|cc_nondet|cc_multi|typeclass|instance|where|pragma|promise|external|some|all|not|if|then|else|true|fail|try|throw|catch
 PREPROC                   =inline|no_inline|type_spec|source_file|fact_table|obsolete|memo|loop_check|minimal_model|terminates|does_not_terminate|check_termination
-NUMBER                    =[0-9]+
-TYPE                      =string|char|int|bool|list|map|io
-STRING                    =\"([^\"\n])*\"|'([^'])*'
-OPERATOR                  ="<=>"|"<="|"=>"|":-"|"::"|"//"|"->"|"-->"|"--->"|"\+"|[-,\.\[\]\(\)\|=_\*\+;!<>\{\}]
+Number()                    =[0-9]+
+Type()                      =string|char|int|bool|list|map|io
+String()                    =\"([^\"\n])*\"|'([^'])*'
+Operator()                  ="<=>"|"<="|"=>"|":-"|"::"|"//"|"->"|"-->"|"--->"|"\+"|[-,\.\[\]\(\)\|=_\*\+;!<>\{\}]
 LINE_COMMENT              ="%"[^\n]*
 COMMENT_START             ="/*"
 COMMENT_END               ="*/"
-IDENTIFIER                =[a-zA-Z][_$a-zA-Z0-9]*
+Identifier()                =[a-zA-Z][_$a-zA-Z0-9]*
 
 %state ML_COMMENT
 
 %%
 
-<YYINITIAL>{KEYWORD}                  {return KEYWORD;}
-<YYINITIAL>{PREPROC}                  {return PREPROC;}
-<YYINITIAL>{TYPE}                     {return TYPE;}
-<YYINITIAL>{STRING}                   {return STRING;}
-<YYINITIAL>{NUMBER}                   {return NUMBER;}
-<YYINITIAL>{OPERATOR}                 {return OPERATOR;}
-<YYINITIAL>{IDENTIFIER}               {return IDENTIFIER;}
-<YYINITIAL>{LINE_COMMENT}             {return COMMENT;}
-<YYINITIAL>{COMMENT_START}            {ENTER(ML_COMMENT); return COMMENT;}
+<YYINITIAL>{Keyword()}                  {return Keyword();}
+<YYINITIAL>{PREPROC}                  {return Preprocessor();}
+<YYINITIAL>{Type()}                     {return Type();}
+<YYINITIAL>{String()}                   {return String();}
+<YYINITIAL>{Number()}                   {return Number();}
+<YYINITIAL>{Operator()}                 {return Operator();}
+<YYINITIAL>{Identifier()}               {return Identifier();}
+<YYINITIAL>{LINE_COMMENT}             {return Comment();}
+<YYINITIAL>{COMMENT_START}            {ENTER(ML_COMMENT); return Comment();}
 
-<ML_COMMENT>{COMMENT_END}             {EXIT(); return COMMENT;}
-<ML_COMMENT>[^ \t\n\*]+               {return COMMENT;}
-<ML_COMMENT>"*"                       {return COMMENT;}
+<ML_COMMENT>{COMMENT_END}             {EXIT(); return Comment();}
+<ML_COMMENT>[^ \t\n\*]+               {return Comment();}
+<ML_COMMENT>"*"                       {return Comment();}
 
 {WS}			                            {;}
-\n                                    {return NEWLINE;}
-.                                     {return ERROR; }
+\n                                    {return NewLine();}
+.                                     {return Error(); }
 

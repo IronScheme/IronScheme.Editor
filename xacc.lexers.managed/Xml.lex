@@ -63,61 +63,61 @@ nl		    =\n
 
 %%
 
-<YYINITIAL>{comment_start}           {ENTER(comment); return COMMENT;}
+<YYINITIAL>{comment_start}           {ENTER(comment); return Comment();}
 
-<comment>{comment_end}             {EXIT(); return COMMENT;}
-<comment>[^-\n]+                   {return DOCCOMMENT;}
-<comment>.                         {return DOCCOMMENT; }
+<comment>{comment_end}             {EXIT(); return Comment();}
+<comment>[^-\n]+                   {return DocComment();}
+<comment>.                         {return DocComment(); }
 
-<YYINITIAL>{pp_tag_start}            {ENTER(pp); return KEYWORD; }
+<YYINITIAL>{pp_tag_start}            {ENTER(pp); return Keyword(); }
 
-<pp>{pp_tag_end}              {EXIT(); return KEYWORD;}
-<pp>[^\n%]+                   {return PLAIN; }
-<pp>.                         {return PLAIN; }
+<pp>{pp_tag_end}              {EXIT(); return Keyword();}
+<pp>[^\n%]+                   {return Plain(); }
+<pp>.                         {return Plain(); }
 
-<YYINITIAL>{cdatastart}              {ENTER(cdata); return OTHER; }
+<YYINITIAL>{cdatastart}              {ENTER(cdata); return Other(); }
 
-<cdata>{cdataend}                {EXIT(); return OTHER;}
-<cdata>[^\n\]]+                  {return PLAIN; }
-<cdata>.                         {return PLAIN; }
+<cdata>{cdataend}                {EXIT(); return Other();}
+<cdata>[^\n\]]+                  {return Plain(); }
+<cdata>.                         {return Plain(); }
 
-<scriptstart>"="                       {return OPERATOR;}
-<scriptstart>{tag_end}                 {EXIT(); return KEYWORD;}
-<scriptstart>{identifier}              {return NUMBER;}
-<scriptstart>{string}                  {return STRING;}
-<scriptstart>{tag_mid_end}             {EXIT(); ENTER(script); return KEYWORD;}
+<scriptstart>"="                       {return Operator();}
+<scriptstart>{tag_end}                 {EXIT(); return Keyword();}
+<scriptstart>{identifier}              {return Number();}
+<scriptstart>{string}                  {return String();}
+<scriptstart>{tag_mid_end}             {EXIT(); ENTER(script); return Keyword();}
 
-<script>"</"({ws})*"script"({ws})*">" {EXIT(); return KEYWORD;}
-<script>{tag_start}|[^ <\t\n]+    {return PLAIN;}
+<script>"</"({ws})*"script"({ws})*">" {EXIT(); return Keyword();}
+<script>{tag_start}|[^ <\t\n]+    {return Plain();}
 
-<YYINITIAL>{tag_mid_start}           {ENTER(endtag); return KEYWORD;}
-<YYINITIAL>{tag_start}               {ENTER(starttag); return KEYWORD;}
+<YYINITIAL>{tag_mid_start}           {ENTER(endtag); return Keyword();}
+<YYINITIAL>{tag_start}               {ENTER(starttag); return Keyword();}
 
-<starttag>"script"                  {EXIT(); ENTER(scriptstart); return KEYWORD;}
-<starttag>{identifier}              {EXIT(); ENTER(intag); return KEYWORD;}
-<starttag>.                         {return ERROR; }
+<starttag>"script"                  {EXIT(); ENTER(scriptstart); return Keyword();}
+<starttag>{identifier}              {EXIT(); ENTER(intag); return Keyword();}
+<starttag>.                         {return Error(); }
 
-<endtag>{tag_mid_end}             {EXIT(); return KEYWORD;}
-<endtag>{identifier}              {return KEYWORD;}
-<endtag>.                         {return ERROR; }
+<endtag>{tag_mid_end}             {EXIT(); return Keyword();}
+<endtag>{identifier}              {return Keyword();}
+<endtag>.                         {return Error(); }
 
-<attr>{mlstring_start}          {ENTER(mlstr); return STRING;}
-<attr>{string}                  {EXIT(); return STRING;}
-<attr>[^ \t\n\"]+               {EXIT(); return STRING; }
+<attr>{mlstring_start}          {ENTER(mlstr); return String();}
+<attr>{string}                  {EXIT(); return String();}
+<attr>[^ \t\n\"]+               {EXIT(); return String(); }
 
-<intag>"="                       {ENTER(attr); return OPERATOR;}
-<intag>{tag_mid_end}             {EXIT(); return KEYWORD;}
-<intag>{tag_end}                 {EXIT(); return KEYWORD;}
-<intag>{identifier}              {return NUMBER;}
+<intag>"="                       {ENTER(attr); return Operator();}
+<intag>{tag_mid_end}             {EXIT(); return Keyword();}
+<intag>{tag_end}                 {EXIT(); return Keyword();}
+<intag>{identifier}              {return Number();}
 
-<mlstr>{mlstring_end}            {EXIT(); EXIT(); return STRING;}
-<mlstr>[^\"\n]+                  {return STRING;}
+<mlstr>{mlstring_end}            {EXIT(); EXIT(); return String();}
+<mlstr>[^\"\n]+                  {return String();}
 
-<YYINITIAL>&[a-zA-Z]+\;              {return OTHER; }
-<YYINITIAL>{identifier}              {return PLAIN;}
+<YYINITIAL>&[a-zA-Z]+\;              {return Other(); }
+<YYINITIAL>{identifier}              {return Plain();}
 
 {ws}			                {;}
-\n                        {return NEWLINE;}
+\n                        {return NewLine();}
 
-<YYINITIAL>.                         {return PLAIN; }
+<YYINITIAL>.                         {return Plain(); }
 

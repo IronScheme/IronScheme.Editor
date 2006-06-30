@@ -44,30 +44,30 @@ comment_end     ="*"+"/"
 
 ({s})+  	                    {;}
 
-<YYINITIAL>{comment_start}    { ENTER(ML_COMMENT); return COMMENT; }
+<YYINITIAL>{comment_start}    { ENTER(ML_COMMENT); return Comment(); }
 
-<ML_COMMENT>[^ \t\n\*]+		    { return COMMENT;}
-<ML_COMMENT>{comment_end}	    { EXIT(); return COMMENT;}
-<ML_COMMENT>\*		            { return COMMENT;}
+<ML_COMMENT>[^ \t\n\*]+		    { return Comment();}
+<ML_COMMENT>{comment_end}	    { EXIT(); return Comment();}
+<ML_COMMENT>\*		            { return Comment();}
 
-<YYINITIAL>"{"                { ENTER(INCLASS); return OPERATOR;}
+<YYINITIAL>"{"                { ENTER(INCLASS); return Operator();}
 
-<INCLASS>{comment_start}      { ENTER(ML_COMMENT); return COMMENT; }
-<INCLASS>":"                  { ENTER(INDEF); return OPERATOR;}
-<INCLASS>"}"                  { EXIT(); return OPERATOR; }  
-<INCLASS>{ident}              { return NUMBER;}
+<INCLASS>{comment_start}      { ENTER(ML_COMMENT); return Comment(); }
+<INCLASS>":"                  { ENTER(INDEF); return Operator();}
+<INCLASS>"}"                  { EXIT(); return Operator(); }  
+<INCLASS>{ident}              { return Number();}
 
-<INDEF>{comment_start}        { ENTER(ML_COMMENT); return COMMENT; }
-<INDEF>";"                    { EXIT(); return OPERATOR; }
-<INDEF>"}"                    { EXIT(); EXIT(); return OPERATOR;}  
-<INDEF>[^ \n\t;\}]+           { return KEYWORD;}
+<INDEF>{comment_start}        { ENTER(ML_COMMENT); return Comment(); }
+<INDEF>";"                    { EXIT(); return Operator(); }
+<INDEF>"}"                    { EXIT(); EXIT(); return Operator();}  
+<INDEF>[^ \n\t;\}]+           { return Keyword();}
 
-<YYINITIAL>"A:"{ident}        { return STRING;}
-<YYINITIAL>"#"{ident}         { return STRING;}
-<YYINITIAL>"."{ident}         { return STRING;}
-<YYINITIAL>{ident}            { return STRING;}
+<YYINITIAL>"A:"{ident}        { return String();}
+<YYINITIAL>"#"{ident}         { return String();}
+<YYINITIAL>"."{ident}         { return String();}
+<YYINITIAL>{ident}            { return String();}
 
-{nl}               { return NEWLINE;}
-.                  { return PLAIN;}
+{nl}               { return NewLine();}
+.                  { return Plain();}
 
  

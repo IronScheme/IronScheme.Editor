@@ -33,14 +33,14 @@ INITEND                   ="%init}"
 DIRECTIVE                 ="%"("class"|"state"|"unicode"|full|public|ignorecase)
 WS		                    =[ \t]+
 OPT_WS                    =[ \t]*
-STRING                    =(\"[^\"\n]*\")
-IDENTIFIER                =([a-zA-Z_][a-zA-Z_0-9]*)
-MACROREF                  ="{"{IDENTIFIER}"}"
-STATEREF                  ="<"{OPT_WS}{IDENTIFIER}((({OPT_WS},{OPT_WS})|({WS})){IDENTIFIER})*{OPT_WS}">"
+String()                    =(\"[^\"\n]*\")
+Identifier()                =([a-zA-Z_][a-zA-Z_0-9]*)
+MACROREF                  ="{"{Identifier()}"}"
+STATEREF                  ="<"{OPT_WS}{Identifier()}((({OPT_WS},{OPT_WS})|({WS})){Identifier()})*{OPT_WS}">"
 ASSIGN                    ="="
 ESCCHAR										=(\\[\\\"\[\]\)\(\|\*\+\-\?\.'a-zA-Z])
 CHAR                      =[^\\\n]|([0-9]-[0-9])|([a-z]-[a-z])|([A-Z]-[A-Z])
-OPERATOR									="[^"|[\)\(\[\]\|\+\*\-\.\?]
+Operator()									="[^"|[\)\(\[\]\|\+\*\-\.\?]
 CSTYPES                   ="int"|"uint"|"string"|"char"|"bool"|"object"|"short"|"ushort"
 CSTYPES2									="byte"|"sbyte"|"long"|"ulong"|"decimal"|"float"|"double"
 CSEXPRKW                  ="break"|"return"|"continue"|"while"|"else"|"if"|"for"|"goto"|"do"|"foreach"|"lock"
@@ -62,69 +62,69 @@ LINE_COMMENT           		=("//"[^/\n]*)|"//"
 %%
 
 <CODEBLOCK,YYINITIAL>{LINE_COMMENT}		{return (Yytoken)TokenClass.Comment;}
-<CODEBLOCK,YYINITIAL>{COMMENT_START}	{ENTER(MLCOMMENT); return COMMENT;}
+<CODEBLOCK,YYINITIAL>{COMMENT_START}	{ENTER(MLCOMMENT); return Comment();}
 
-<MLCOMMENT>[^ \t\n\*]+		            {return COMMENT;}
-<MLCOMMENT>{COMMENT_END}	            {EXIT(); return COMMENT;}
-<MLCOMMENT>\*		            					{return COMMENT;}
+<MLCOMMENT>[^ \t\n\*]+		            {return Comment();}
+<MLCOMMENT>{COMMENT_END}	            {EXIT(); return Comment();}
+<MLCOMMENT>\*		            					{return Comment();}
 
-<YYINITIAL>{DIRECTSTART}              {BEGIN(DIRECTIVES); return KEYWORD; }
+<YYINITIAL>{DIRECTSTART}              {BEGIN(DIRECTIVES); return Keyword(); }
 
-<DIRECTIVES>{DIRECTIVE}               {return KEYWORD;}
-<DIRECTIVES>{ASSIGN}                  {ENTER(RESECT); return OPERATOR;}
-<DIRECTIVES>{IDENTIFIER}              {return IDENTIFIER; }
-<DIRECTIVES>,                  				{return OPERATOR;}
-<DIRECTIVES>{DIRECTSTART}             {BEGIN(RULES); return KEYWORD; }
-<DIRECTIVES>{INITSTART}               {ENTER(CODEBLOCK); return KEYWORD; }
-<DIRECTIVES>{CODESTART}               {ENTER(YYINITIAL); return KEYWORD; }
+<DIRECTIVES>{DIRECTIVE}               {return Keyword();}
+<DIRECTIVES>{ASSIGN}                  {ENTER(RESECT); return Operator();}
+<DIRECTIVES>{Identifier()}              {return Identifier(); }
+<DIRECTIVES>,                  				{return Operator();}
+<DIRECTIVES>{DIRECTSTART}             {BEGIN(RULES); return Keyword(); }
+<DIRECTIVES>{INITSTART}               {ENTER(CODEBLOCK); return Keyword(); }
+<DIRECTIVES>{CODESTART}               {ENTER(YYINITIAL); return Keyword(); }
 
-<RESECT>\n                            {EXIT(); return NEWLINE;}
-<RESECT, RULES>{OPERATOR}             {return OPERATOR;}
+<RESECT>\n                            {EXIT(); return NewLine();}
+<RESECT, RULES>{Operator()}             {return Operator();}
 
-<RESECT,RULES,CODEBLOCK,YYINITIAL>{STRING}    {return STRING;}
+<RESECT,RULES,CODEBLOCK,YYINITIAL>{String()}    {return String();}
 
 <RESECT,RULES>{MACROREF}  						{
                                         return (Yytoken)Color.DeepPink;
                                       }
 
-<RULES>{STATEREF}         						{return TYPE;}
-<RULES>"{"                						{ ENTER(CODEBLOCK); return OPERATOR; }
-<RULES>"}"                						{ EXIT(); return OPERATOR; }
+<RULES>{STATEREF}         						{return Type();}
+<RULES>"{"                						{ ENTER(CODEBLOCK); return Operator(); }
+<RULES>"}"                						{ EXIT(); return Operator(); }
 
-<RESECT RULES>{ESCCHAR}   						{return CHARACTER;}
-<RESECT,RULES>{CHAR}   								{return STRING;}
+<RESECT RULES>{ESCCHAR}   						{return Character();}
+<RESECT,RULES>{CHAR}   								{return String();}
 
-<CODEBLOCK>{INITEND}      						{EXIT(); return KEYWORD;}
-<CODEBLOCK>{CSEXPR}       						{return KEYWORD;}
-<YYINITIAL>{CODEEND}      						{EXIT(); return KEYWORD;}
+<CODEBLOCK>{INITEND}      						{EXIT(); return Keyword();}
+<CODEBLOCK>{CSEXPR}       						{return Keyword();}
+<YYINITIAL>{CODEEND}      						{EXIT(); return Keyword();}
 
-<CODEBLOCK>TYPE       						  	{return TYPE;}
-<CODEBLOCK>STRING       							{return STRING;}
-<CODEBLOCK>"COMMENT"       						{return COMMENT;}
-<CODEBLOCK>"KEYWORD"       						{return KEYWORD;}
-<CODEBLOCK>"CHARACTER"       					{return CHARACTER;}
-<CODEBLOCK>"DOCCOMMENT"       				{return DOCCOMMENT;}
-<CODEBLOCK>"NUMBER"       						{return NUMBER;}
-<CODEBLOCK>"STRING"       						{return STRING;}
-<CODEBLOCK>"OPERATOR"       					{return OPERATOR;}
-<CODEBLOCK>"OTHER"       						  {return OTHER;}
-<CODEBLOCK>"ERROR"       						  {return ERROR;}
-<CODEBLOCK>"PREPROC"     						  {return PREPROC;}
+<CODEBLOCK>Type       						  	{return Type();}
+<CODEBLOCK>String       							{return String();}
+<CODEBLOCK>"Comment"       						{return Comment();}
+<CODEBLOCK>"Keyword"       						{return Keyword();}
+<CODEBLOCK>"Character"       					{return Character();}
+<CODEBLOCK>"DocComment"       				{return DocComment();}
+<CODEBLOCK>"Number"       						{return Number();}
+<CODEBLOCK>"String"       						{return String();}
+<CODEBLOCK>"Operator"       					{return Operator();}
+<CODEBLOCK>"Other"       						  {return Other();}
+<CODEBLOCK>"Error"       						  {return Error();}
+<CODEBLOCK>"Preprocessor"						  {return Preprocessor();}
 
-<CODEBLOCK>"BEGIN"       					    {return OPERATOR;}
-<CODEBLOCK>"ENTER"       						  {return OPERATOR;}
-<CODEBLOCK>"EXIT"       						  {return OPERATOR;}
+<CODEBLOCK>"BEGIN"       					    {return Operator();}
+<CODEBLOCK>"ENTER"       						  {return Operator();}
+<CODEBLOCK>"EXIT"       						  {return Operator();}
 
-<YYINITIAL>{CSALL}  									{ return KEYWORD; }
-<YYINITIAL>{CSPP}  									  { return PREPROC; }
+<YYINITIAL>{CSALL}  									{ return Keyword(); }
+<YYINITIAL>{CSPP}  									  { return Preprocessor(); }
 
-<CODEBLOCK,YYINITIAL>{CSNUMBER}  			{ return NUMBER; }
-<CODEBLOCK,YYINITIAL>{CSOPERATOR}  		{ return OPERATOR; }
-<CODEBLOCK,YYINITIAL>"{"           		{ ENTER(State); return OPERATOR; }
-<CODEBLOCK,YYINITIAL>"}"           		{ EXIT(); return OPERATOR; }
+<CODEBLOCK,YYINITIAL>{CSNUMBER}  			{ return Number(); }
+<CODEBLOCK,YYINITIAL>{CSOPERATOR}  		{ return Operator(); }
+<CODEBLOCK,YYINITIAL>"{"           		{ ENTER(State); return Operator(); }
+<CODEBLOCK,YYINITIAL>"}"           		{ EXIT(); return Operator(); }
 
-<CODEBLOCK,YYINITIAL>{CSIDENTIFIER}  	{ return IDENTIFIER; }
+<CODEBLOCK,YYINITIAL>{CSIDENTIFIER}  	{ return Identifier(); }
 
 {WS}			                            {;}
-\n                                    {return NEWLINE;}
-.                                     {return ERROR; }
+\n                                    {return NewLine();}
+.                                     {return Error(); }

@@ -27,8 +27,8 @@ identifier                =[^ \t\n\.,\(\)!\?]+
 
 %%
 
-{identifier}              {return PLAIN; }
+{identifier}              {return Plain(); }
 {ws}			                {;}
-\n                        {return NEWLINE;}
+\n                        {return NewLine();}
 
-.                         {return PLAIN; }
+.                         {return Plain(); }

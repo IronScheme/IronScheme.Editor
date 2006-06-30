@@ -198,10 +198,10 @@ sealed class PowerShellLexer : LexerBase {
       {;}
 						break;
 					case 4: case 16: case 21: case 26: case 30: 
- {return ERROR; }
+ {return Error(); }
 						break;
 					case 10: 
-                                                                                                                                                                                                                                                                                                {return TYPE;}
+                                                                                                                                                                                                                                                                                                {return Type();}
 						break;
 					case 1: 
 
@@ -215,29 +215,29 @@ sealed class PowerShellLexer : LexerBase {
 					case 82: case 83: case 84: case 85: case 86: case 88: case 89: case 90: 
 					case 91: case 92: case 93: case 94: case 95: case 96: case 97: case 98: 
 					case 99: case 100: case 101: case 102: case 103: case 104: case 105: 
-                                           {return IDENTIFIER;}
+                                           {return Identifier();}
 						break;
 					case 9: case 75: case 87: 
-                                                                                                                                                                                             {return KEYWORD;}
+                                                                                                                                                                                             {return Keyword();}
 						break;
 					case 7: 
-                    {return COMMENT;}
+                    {return Comment();}
 						break;
 					case 5: 
-  {return NEWLINE;}
+  {return NewLine();}
 						break;
 					case 12: 
-                          {return OTHER;}
+                          {return Other();}
 						break;
 					case 3: case 15: case 20: case 25: case 29: case 32: case 34: case 36: 
 					case 38: case 40: case 42: case 44: 
-                                                                                                                                                                                                                                        {return OPERATOR;}
+                                                                                                                                                                                                                                        {return Operator();}
 						break;
 					case 11: 
-                                   {return STRING;}
+                                   {return String();}
 						break;
 					case 6: case 17: case 22: 
-                 {return NUMBER;}
+                 {return Number();}
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);break;

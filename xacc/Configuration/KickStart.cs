@@ -148,11 +148,9 @@ namespace Xacc.Configuration
 
       Version ver = typeof(IdeSupport).Assembly.GetName().Version;
 
-      string verstr = ver.ToString(3) + " SVN rev: " + ver.Revision ;
+      string verstr = ver.ToString(4);
 
-      f.Text = "xacc.ide " + verstr + (args.debug ? " - DEBUG MODE" : string.Empty) 
-        + " - .NET " + Environment.Version.ToString(2);
-
+      f.Text = "xacc.ide " + verstr + (args.debug ? " - DEBUG MODE" : string.Empty) ;
       f.Size = new Size(900, 650);
 
       ToolStripMenuItem view = ms["View"];
@@ -190,8 +188,6 @@ namespace Xacc.Configuration
       (ServiceHost.ToolBar as ToolBarService).ValidateToolBarButtons();
 
       ToolStripManager.LoadSettings(f);
-
-
 
       if (args.open != null)
       {
@@ -260,7 +256,7 @@ namespace Xacc.Configuration
 
 		static void AppExit(object sender, EventArgs e)
 		{
-      //ToolStripManager.SaveSettings(ServiceHost.Window.MainForm);
+      ToolStripManager.SaveSettings(ServiceHost.Window.MainForm);
 			((IDisposable) ServiceHost.INSTANCE).Dispose();
       if (tracelog != null)
       {

@@ -90,10 +90,10 @@ sealed class PlainTextLexer : LexerBase {
 					yy_to_mark();
 					switch (yy_last_accept_state) {
 					case 5: 
- {return PLAIN; }
+ {return Plain(); }
 						break;
 					case 4: 
-  {return NEWLINE;}
+  {return NewLine();}
 						break;
 					case 1: 
 
@@ -102,7 +102,7 @@ sealed class PlainTextLexer : LexerBase {
       {;}
 						break;
 					case 2: 
-                   {return PLAIN; }
+                   {return Plain(); }
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);break;

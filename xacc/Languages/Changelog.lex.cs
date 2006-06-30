@@ -117,28 +117,28 @@ sealed class ChangelogLexer : LexerBase {
 					yy_to_mark();
 					switch (yy_last_accept_state) {
 					case 8: 
-                            { BEGIN(YYINITIAL); return TYPE; }
+                            { BEGIN(YYINITIAL); return Type(); }
 						break;
 					case 4: 
-  { return NEWLINE;}
+  { return NewLine();}
 						break;
 					case 1: 
 
 						break;
 					case 2: case 10: case 15: case 19: 
- { return ERROR; }
+ { return Error(); }
 						break;
 					case 7: case 13: case 22: 
-                                                                            { BEGIN(EXPDATE); return KEYWORD;}
+                                                                            { BEGIN(EXPDATE); return Keyword();}
 						break;
 					case 5: 
-                   { return PLAIN; }
+                   { return Plain(); }
 						break;
 					case 3: case 11: case 16: case 20: case 25: 
       { ; }
 						break;
 					case 6: case 12: case 17: 
-         { return PREPROC; }
+         { return Preprocessor(); }
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);break;

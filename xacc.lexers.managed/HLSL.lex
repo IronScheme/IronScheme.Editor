@@ -93,29 +93,29 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 
 %%
 
-<YYINITIAL>{preprocessor}[^\n].+ { return PREPROC; }
+<YYINITIAL>{preprocessor}[^\n].+ { return Preprocessor(); }
 ({white_space})+      { ; }
 
-{comment}             { return COMMENT; }                      
-<YYINITIAL>{comment_start}       { ENTER(ML_COMMENT); return COMMENT; }
+{comment}             { return Comment(); }                      
+<YYINITIAL>{comment_start}       { ENTER(ML_COMMENT); return Comment(); }
 
 
-<ML_COMMENT>[^*\n]+               { return COMMENT; }
-<ML_COMMENT>"*"                   { return COMMENT; }
-<ML_COMMENT>{comment_end}         { EXIT(); return COMMENT; }
+<ML_COMMENT>[^*\n]+               { return Comment(); }
+<ML_COMMENT>"*"                   { return Comment(); }
+<ML_COMMENT>{comment_end}         { EXIT(); return Comment(); }
                     
-{keyword}             { return KEYWORD; } 
-{type}                { return TYPE; }
-{function}            { return OTHER;}
+{keyword}             { return Keyword(); } 
+{type}                { return Type(); }
+{function}            { return Other();}
                       
-{integer_literal}     { return NUMBER; }
-{real_literal}        { return NUMBER; }
+{integer_literal}     { return Number(); }
+{real_literal}        { return Number(); }
 
-{operator}            { return OPERATOR; }                     
-{identifier}          { return IDENTIFIER; }
+{operator}            { return Operator(); }                     
+{identifier}          { return Identifier(); }
 
-{new_line}            { return NEWLINE;}
-.                     { return PLAIN; }
+{new_line}            { return NewLine();}
+.                     { return Plain(); }
 
 
 

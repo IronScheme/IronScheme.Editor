@@ -352,25 +352,25 @@ sealed class MercuryLexer : LexerBase {
 					yy_to_mark();
 					switch (yy_last_accept_state) {
 					case 8: 
-                    {return COMMENT;}
+                    {return Comment();}
 						break;
 					case 4: case 20: case 26: case 31: case 35: case 38: 
- {return ERROR; }
+ {return Error(); }
 						break;
 					case 10: case 22: case 27: case 32: 
-                                                                                                                                                                                                                                                                                                                                                   {return KEYWORD;}
+                                                                                                                                                                                                                                                                                                                                                   {return Keyword();}
 						break;
 					case 13: 
-                                                                                                                                                   {return PREPROC;}
+                                                                                                                                                   {return Preprocessor();}
 						break;
 					case 1: 
 
 						break;
 					case 16: 
-                {EXIT(); return COMMENT;}
+                {EXIT(); return Comment();}
 						break;
 					case 15: 
-               {return COMMENT;}
+               {return Comment();}
 						break;
 					case 2: case 18: case 24: case 29: case 34: case 37: case 39: case 40: 
 					case 41: case 42: case 43: case 44: case 45: case 46: case 47: case 48: 
@@ -401,31 +401,31 @@ sealed class MercuryLexer : LexerBase {
 					case 241: case 242: case 243: case 244: case 245: case 246: case 247: case 248: 
 					case 249: case 250: case 251: case 252: case 253: case 254: case 255: case 256: 
 					case 257: case 258: case 259: case 260: case 261: case 262: case 263: 
-                                 {return IDENTIFIER;}
+                                 {return Identifier();}
 						break;
 					case 9: case 21: 
-                                           {return TYPE;}
+                                           {return Type();}
 						break;
 					case 7: 
-                 {return NUMBER;}
+                 {return Number();}
 						break;
 					case 5: 
       {;}
 						break;
 					case 12: 
-               {ENTER(ML_COMMENT); return COMMENT;}
+               {ENTER(ML_COMMENT); return Comment();}
 						break;
 					case 3: case 19: case 25: case 30: 
-                                                                                               {return OPERATOR;}
+                                                                                               {return Operator();}
 						break;
 					case 11: 
-                                   {return STRING;}
+                                   {return String();}
 						break;
 					case 14: 
-                       {return COMMENT;}
+                       {return Comment();}
 						break;
 					case 6: 
-  {return NEWLINE;}
+  {return NewLine();}
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);break;

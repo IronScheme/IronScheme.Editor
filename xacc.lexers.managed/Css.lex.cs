@@ -117,58 +117,58 @@ sealed class CssLexer : LexerBase {
 					yy_to_mark();
 					switch (yy_last_accept_state) {
 					case 15: case 26: case 30: 
-                   { return KEYWORD;}
+                   { return Keyword();}
 						break;
 					case 6: case 25: 
-             { return NEWLINE;}
+             { return NewLine();}
 						break;
 					case 10: 
-                                         { return STRING;}
+                                         { return String();}
 						break;
 					case 13: 
-                                   { return NUMBER;}
+                                   { return Number();}
 						break;
 					case 18: 
-           { ENTER(ML_COMMENT); return COMMENT; }
+           { ENTER(ML_COMMENT); return Comment(); }
 						break;
 					case 11: 
-            { ENTER(INDEF); return OPERATOR;}
+            { ENTER(INDEF); return Operator();}
 						break;
 					case 7: 
-               { ENTER(ML_COMMENT); return COMMENT; }
+               { ENTER(ML_COMMENT); return Comment(); }
 						break;
 					case 21: 
-                   { EXIT(); return COMMENT;}
+                   { EXIT(); return Comment();}
 						break;
 					case 14: 
-             { ENTER(ML_COMMENT); return COMMENT; }
+             { ENTER(ML_COMMENT); return Comment(); }
 						break;
 					case 5: case 24: 
-                                     { return STRING;}
+                                     { return String();}
 						break;
 					case 17: 
-          { EXIT(); return OPERATOR; }
+          { EXIT(); return Operator(); }
 						break;
 					case 19: case 27: 
-                       { return COMMENT;}
+                       { return Comment();}
 						break;
 					case 3: case 23: case 29: case 32: case 34: 
- { return PLAIN;}
+ { return Plain();}
 						break;
 					case 20: 
-              { return COMMENT;}
+              { return Comment();}
 						break;
 					case 8: 
-                                        { return STRING;}
+                                        { return String();}
 						break;
 					case 9: 
-                                        { return STRING;}
+                                        { return String();}
 						break;
 					case 16: 
-          { EXIT(); EXIT(); return OPERATOR;}
+          { EXIT(); EXIT(); return Operator();}
 						break;
 					case 12: 
-            { EXIT(); return OPERATOR; }
+            { EXIT(); return Operator(); }
 						break;
 					case 1: 
 
@@ -177,7 +177,7 @@ sealed class CssLexer : LexerBase {
         {;}
 						break;
 					case 4: 
-              { ENTER(INCLASS); return OPERATOR;}
+              { ENTER(INCLASS); return Operator();}
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);break;

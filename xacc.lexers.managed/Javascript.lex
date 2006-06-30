@@ -93,29 +93,29 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 
 ({white_space})+      { ; }
                       
-<YYINITIAL>{comment_start}       { ENTER(ML_COMMENT); return COMMENT; }
+<YYINITIAL>{comment_start}       { ENTER(ML_COMMENT); return Comment(); }
 
-<ML_COMMENT>[^\*\n]*               { return COMMENT; }
-<ML_COMMENT>"*"+[^\*/\n]*          { return COMMENT; }
-<ML_COMMENT>{comment_end}         { EXIT(); return COMMENT; }
+<ML_COMMENT>[^\*\n]*               { return Comment(); }
+<ML_COMMENT>"*"+[^\*/\n]*          { return Comment(); }
+<ML_COMMENT>{comment_end}         { EXIT(); return Comment(); }
 
-{line_comment}        { return COMMENT; }
+{line_comment}        { return Comment(); }
 
-{types}               { return TYPE; } 
-{keyword}             { return KEYWORD; } 
-{reserved}            { return ERROR; } 
+{types}               { return Type(); } 
+{keyword}             { return Keyword(); } 
+{reserved}            { return Error(); } 
                       
-{integer_literal}     { return NUMBER; }
-{real_literal}        { return NUMBER; }
-{character_literal}   { return STRING; }
-{string_literal}      { return STRING; }
-{re_string}           { return OTHER; }
+{integer_literal}     { return Number(); }
+{real_literal}        { return Number(); }
+{character_literal}   { return String(); }
+{string_literal}      { return String(); }
+{re_string}           { return Other(); }
 
-{operator}            { return OPERATOR; }                     
+{operator}            { return Operator(); }                     
 
-{identifier}          { return PLAIN; }
+{identifier}          { return Plain(); }
 
-{new_line}            { return NEWLINE;}
-.                     { return PLAIN; }
+{new_line}            { return NewLine();}
+.                     { return Plain(); }
 
 

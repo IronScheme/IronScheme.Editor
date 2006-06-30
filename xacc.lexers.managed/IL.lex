@@ -117,41 +117,41 @@ inst =({i1}|{i2}|{i3}|{i4}|{i5}|{i6}|{i7}|{i8}|{i9}|{i10}|{i11}|{i12}|{i13}|{i14
 {white_space}+    { ; /* ignore */ }
 
                      
-"/*"              { ENTER(IN_COMMENT); return COMMENT; }
+"/*"              { ENTER(IN_COMMENT); return Comment(); }
 
 
-<IN_COMMENT>[^*\n]*           { return COMMENT; }
-<IN_COMMENT>"*"+[^*/\n]*      { return COMMENT; }
-<IN_COMMENT>"*"+"/"           { EXIT(); return COMMENT; }
+<IN_COMMENT>[^*\n]*           { return Comment(); }
+<IN_COMMENT>"*"+[^*/\n]*      { return Comment(); }
+<IN_COMMENT>"*"+"/"           { EXIT(); return Comment(); }
 
-{single_line_comment} { return COMMENT; }
+{single_line_comment} { return Comment(); }
 
-"IL_"{hex_digit}{hex_digit}{hex_digit}{hex_digit}":"?  { return DOCCOMMENT; }
+"IL_"{hex_digit}{hex_digit}{hex_digit}{hex_digit}":"?  { return DocComment(); }
 
-{type}                  {return TYPE;}                    
-{keyword}               {return KEYWORD;}
-{inst}                  {return OTHER;}
+{type}                  {return Type();}                    
+{keyword}               {return Keyword();}
+{inst}                  {return Other();}
                       
-{integer_literal}     {  return NUMBER; }
-{real_literal}        {  return NUMBER; }
-{character_literal}   {  return CHARACTER; }
-{string_literal}      {  return STRING; }
+{integer_literal}     {  return Number(); }
+{real_literal}        {  return Number(); }
+{character_literal}   {  return Character(); }
+{string_literal}      {  return String(); }
 
                       
-","   {  return OPERATOR; }
-"["   {  return OPERATOR; }
-"]"   {  return OPERATOR; }
-"&"   {  return OPERATOR; }
+","   {  return Operator(); }
+"["   {  return Operator(); }
+"]"   {  return Operator(); }
+"&"   {  return Operator(); }
 
-{rank_specifier}     {  return OPERATOR; }
+{rank_specifier}     {  return Operator(); }
 
 
 
-{identifier}             {  return PLAIN; }
-{at_identifier}          {  return PLAIN; }
+{identifier}             {  return Identifier(); }
+{at_identifier}          {  return Identifier(); }
 
-\n                       {  return NEWLINE;}
-.                        {  return PLAIN; }
+\n                       {  return NewLine();}
+.                        {  return Plain(); }
 
 
  

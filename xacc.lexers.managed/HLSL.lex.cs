@@ -515,25 +515,25 @@ sealed class HLSLLexer : LexerBase {
 					yy_to_mark();
 					switch (yy_last_accept_state) {
 					case 15: case 30: 
-                   { return COMMENT; }
+                   { return Comment(); }
 						break;
 					case 6: case 24: case 34: case 41: case 47: case 53: case 58: case 62: 
-					                                                                                  { return NUMBER; }
+					                                                                                  { return Number(); }
 						break;
 					case 10: case 25: case 35: case 42: case 48: case 54: 
-                                                                                                                                                                                                                                                                                                                                                                                                                                   { return KEYWORD; }
+                                                                                                                                                                                                                                                                                                                                                                                                                                   { return Keyword(); }
 						break;
 					case 13: case 28: case 38: case 44: case 50: case 55: case 59: 
-                                                                                                                                                                                                                                                                                                          { return TYPE; }
+                                                                                                                                                                                                                                                                                                          { return Type(); }
 						break;
 					case 11: case 26: case 36: 
-                                                                                                             { return NUMBER; }
+                                                                                                             { return Number(); }
 						break;
 					case 7: 
-  { return NEWLINE;}
+  { return NewLine();}
 						break;
 					case 14: case 29: 
-                                { return PREPROC; }
+                                { return Preprocessor(); }
 						break;
 					case 5: case 23: case 33: case 40: case 46: case 52: case 57: case 61: 
 					case 64: case 66: case 68: case 69: case 70: case 71: case 72: case 73: 
@@ -581,25 +581,25 @@ sealed class HLSLLexer : LexerBase {
 					case 404: case 405: case 406: case 407: case 408: case 409: case 410: case 411: 
 					case 412: case 413: case 414: case 415: case 416: case 417: case 418: case 419: 
 					case 420: case 421: case 422: case 423: case 424: 
-                                         { return IDENTIFIER; }
+                                         { return Identifier(); }
 						break;
 					case 17: 
-                { EXIT(); return COMMENT; }
+                { EXIT(); return Comment(); }
 						break;
 					case 3: case 21: 
- { return PLAIN; }
+ { return Plain(); }
 						break;
 					case 8: 
-          { return COMMENT; }
+          { return Comment(); }
 						break;
 					case 9: 
-               { ENTER(ML_COMMENT); return COMMENT; }
+               { ENTER(ML_COMMENT); return Comment(); }
 						break;
 					case 16: 
-               { return COMMENT; }
+               { return Comment(); }
 						break;
 					case 12: case 27: case 37: case 43: case 49: case 303: case 353: 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 { return OTHER;}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 { return Other();}
 						break;
 					case 1: case 19: 
 
@@ -608,7 +608,7 @@ sealed class HLSLLexer : LexerBase {
         { ; }
 						break;
 					case 4: case 22: case 32: 
-                                                                                           { return OPERATOR; }
+                                                                                           { return Operator(); }
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);break;

@@ -96,168 +96,168 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 
 ({white_space})+    { ; /* ignore */ }
 
-<YYINITIAL>"/*"              { ENTER(IN_COMMENT); return COMMENT; }
+<YYINITIAL>"/*"              { ENTER(IN_COMMENT); return Comment(); }
 
-<IN_COMMENT>[^*\n]*           { return COMMENT; }
-<IN_COMMENT>"*"+[^*/\n]*      { return COMMENT; }
-<IN_COMMENT>"*"+"/"           { EXIT(); return COMMENT; }
+<IN_COMMENT>[^*\n]*           { return Comment(); }
+<IN_COMMENT>"*"+[^*/\n]*      { return Comment(); }
+<IN_COMMENT>"*"+"/"           { EXIT(); return Comment(); }
 
-<YYINITIAL>{doc_comment}     { ENTER(DOC_COMMENT); return DOCCOMMENT; }
-<YYINITIAL>{single_line_comment} { return COMMENT; }
-<YYINITIAL>{preprocessor}    { ENTER(PREPROCESSOR); return PREPROC; }
+<YYINITIAL>{doc_comment}     { ENTER(DOC_COMMENT); return DocComment(); }
+<YYINITIAL>{single_line_comment} { return Comment(); }
+<YYINITIAL>{preprocessor}    { ENTER(PREPROCESSOR); return Preprocessor(); }
 
-<YYINITIAL>{regex_string_start}    { ENTER(REGEX_STRING); return OTHER; }
+<YYINITIAL>{regex_string_start}    { ENTER(REGEX_STRING); return Other(); }
 
-<DOC_COMMENT>\n                { EXIT(); return NEWLINE; }
-<DOC_COMMENT>"<"[^>\n]*        { docintag = 1; return DOCCOMMENT;}
-<DOC_COMMENT>"<"[^>\n]*">"     { return DOCCOMMENT;}
+<DOC_COMMENT>\n                { EXIT(); return NewLine(); }
+<DOC_COMMENT>"<"[^>\n]*        { docintag = 1; return DocComment();}
+<DOC_COMMENT>"<"[^>\n]*">"     { return DocComment();}
 <DOC_COMMENT>{white_space}+    { ; /* ignore */ }
-<DOC_COMMENT>">"               { return DOCCOMMENT;}
-<DOC_COMMENT>[^<>\n]+          { if (docintag == 1) {docintag = 0; return DOCCOMMENT;} else return COMMENT; }
+<DOC_COMMENT>">"               { return DocComment();}
+<DOC_COMMENT>[^<>\n]+          { if (docintag == 1) {docintag = 0; return DocComment();} else return Comment(); }
 
-<PPTAIL>[^\n]+            { return PREPROC; }
-<PPTAIL>\n                { EXIT(); EXIT(); return NEWLINE; }
+<PPTAIL>[^\n]+            { return Preprocessor(); }
+<PPTAIL>\n                { EXIT(); EXIT(); return NewLine(); }
 
-<PREPROCESSOR>"define"          { ENTER(PPTAIL); return PREPROC; }
-<PREPROCESSOR>"if"              { ENTER(PPTAIL); return PREPROC; }
-<PREPROCESSOR>"else"            { ENTER(PPTAIL); return PREPROC; }
-<PREPROCESSOR>"endif"           { ENTER(PPTAIL); return PREPROC; }
-<PREPROCESSOR>"line"            { ENTER(PPTAIL); return PREPROC; }
-<PREPROCESSOR>"error"           { ENTER(PPTAIL); return PREPROC; }
-<PREPROCESSOR>"warning"         { ENTER(PPTAIL); return PREPROC; }
-<PREPROCESSOR>"region"          { ENTER(PPTAIL); return PREPROC; }
-<PREPROCESSOR>"endregion"       { ENTER(PPTAIL); return PREPROC; }
-<PREPROCESSOR>\n                { EXIT(); return NEWLINE; }
-<PREPROCESSOR>.                 { return ERROR; }
+<PREPROCESSOR>"define"          { ENTER(PPTAIL); return Preprocessor(); }
+<PREPROCESSOR>"if"              { ENTER(PPTAIL); return Preprocessor(); }
+<PREPROCESSOR>"else"            { ENTER(PPTAIL); return Preprocessor(); }
+<PREPROCESSOR>"endif"           { ENTER(PPTAIL); return Preprocessor(); }
+<PREPROCESSOR>"line"            { ENTER(PPTAIL); return Preprocessor(); }
+<PREPROCESSOR>"error"           { ENTER(PPTAIL); return Preprocessor(); }
+<PREPROCESSOR>"warning"         { ENTER(PPTAIL); return Preprocessor(); }
+<PREPROCESSOR>"region"          { ENTER(PPTAIL); return Preprocessor(); }
+<PREPROCESSOR>"endregion"       { ENTER(PPTAIL); return Preprocessor(); }
+<PREPROCESSOR>\n                { EXIT(); return NewLine(); }
+<PREPROCESSOR>.                 { return Error(); }
 
-<REGEX_STRING>{regex_string_end}    { EXIT(); return OTHER; }
-<REGEX_STRING>{regex_string_cont}   { return OTHER;}
+<REGEX_STRING>{regex_string_end}    { EXIT(); return Other(); }
+<REGEX_STRING>{regex_string_cont}   { return Other();}
 
-"do"		{return KEYWORD; }
-"while"		{return KEYWORD; }
-"in"		{return KEYWORD; }
-"for"		{return KEYWORD; }
-"import"		{return KEYWORD; }
-"def"		{return KEYWORD; }
-"and"		{return KEYWORD; }
-"as"		{return KEYWORD; }
-"is"		{return KEYWORD; }
-"elif"		{return KEYWORD; }
-"print"		{return KEYWORD; }
-"assert"		{return KEYWORD; }
-"constructor"		{return KEYWORD; }
-"callable"		{return KEYWORD; }
-"get"		{return KEYWORD; }
-"set"		{return KEYWORD; }
-"cast"		{return KEYWORD; }
-"ensure"		{return KEYWORD; }
-"failure"		{return KEYWORD; }
-"final"		{return KEYWORD; }
-"typeof"		{return KEYWORD; }
-"from"		{return KEYWORD; }
-"given"		{return KEYWORD; }
-"isa"		{return KEYWORD; }
-"not"		{return KEYWORD; }
-"or"		{return KEYWORD; }
-"otherwise"		{return KEYWORD; }
-"pass"		{return KEYWORD; }
-"raise"		{return KEYWORD; }
-"retry"		{return KEYWORD; }
-"self"		{return KEYWORD; }
-"super"		{return KEYWORD; }
-"success"		{return KEYWORD; }
-"transient"		{return KEYWORD; }
-"return"		{return KEYWORD; }
-"break"		{return KEYWORD; }
-"goto"		{return KEYWORD; }
-"continue"		{return KEYWORD; }
-"if"		{return KEYWORD; }
-"else"		{return KEYWORD; }
-"unless"		{return KEYWORD; }
-"when"		{return KEYWORD; }
-"yield"		{return KEYWORD; }
-"using"		{return KEYWORD; }
-"try"		{return KEYWORD; }
-"except"		{return KEYWORD; }
-"namespace"		{return KEYWORD; }
-"class"		{return KEYWORD; }
-"struct"		{return KEYWORD; }
-"enum"		{return KEYWORD; }
-"interface"		{return KEYWORD; }
-"event"		{return KEYWORD; }
-"int"		{return KEYWORD; }
-"long"		{return KEYWORD; }
-"short"		{return KEYWORD; }
-"byte"		{return KEYWORD; }
-"bool"		{return KEYWORD; }
-"char"		{return KEYWORD; }
-"decimal" 		{return KEYWORD; }
-"uint"		{return KEYWORD; }
-"ulong"		{return KEYWORD; }
-"ushort"		{return KEYWORD; }
-"sbyte"		{return KEYWORD; }
-"string"		{return KEYWORD; }
-"object"		{return KEYWORD; }
-"float"		{return KEYWORD; }
-"double"		{return KEYWORD; }
-"void"		{return KEYWORD; }
-"true"		{return KEYWORD; }
-"false"		{return KEYWORD; }
-"null"		{return KEYWORD; }
-"public"		{return KEYWORD; }
-"internal"		{return KEYWORD; }
-"private"		{return KEYWORD; }
-"protected"		{return KEYWORD; }
-"abstract"		{return KEYWORD; }
-"virtual"		{return KEYWORD; }
-"override"		{return KEYWORD; }
-"static"		{return KEYWORD; }
+"do"		{return Keyword(); }
+"while"		{return Keyword(); }
+"in"		{return Keyword(); }
+"for"		{return Keyword(); }
+"import"		{return Keyword(); }
+"def"		{return Keyword(); }
+"and"		{return Keyword(); }
+"as"		{return Keyword(); }
+"is"		{return Keyword(); }
+"elif"		{return Keyword(); }
+"print"		{return Keyword(); }
+"assert"		{return Keyword(); }
+"constructor"		{return Keyword(); }
+"callable"		{return Keyword(); }
+"get"		{return Keyword(); }
+"set"		{return Keyword(); }
+"cast"		{return Keyword(); }
+"ensure"		{return Keyword(); }
+"failure"		{return Keyword(); }
+"final"		{return Keyword(); }
+"typeof"		{return Keyword(); }
+"from"		{return Keyword(); }
+"given"		{return Keyword(); }
+"isa"		{return Keyword(); }
+"not"		{return Keyword(); }
+"or"		{return Keyword(); }
+"otherwise"		{return Keyword(); }
+"pass"		{return Keyword(); }
+"raise"		{return Keyword(); }
+"retry"		{return Keyword(); }
+"self"		{return Keyword(); }
+"super"		{return Keyword(); }
+"success"		{return Keyword(); }
+"transient"		{return Keyword(); }
+"return"		{return Keyword(); }
+"break"		{return Keyword(); }
+"goto"		{return Keyword(); }
+"continue"		{return Keyword(); }
+"if"		{return Keyword(); }
+"else"		{return Keyword(); }
+"unless"		{return Keyword(); }
+"when"		{return Keyword(); }
+"yield"		{return Keyword(); }
+"using"		{return Keyword(); }
+"try"		{return Keyword(); }
+"except"		{return Keyword(); }
+"namespace"		{return Keyword(); }
+"class"		{return Keyword(); }
+"struct"		{return Keyword(); }
+"enum"		{return Keyword(); }
+"interface"		{return Keyword(); }
+"event"		{return Keyword(); }
+"int"		{return Keyword(); }
+"long"		{return Keyword(); }
+"short"		{return Keyword(); }
+"byte"		{return Keyword(); }
+"bool"		{return Keyword(); }
+"char"		{return Keyword(); }
+"decimal" 		{return Keyword(); }
+"uint"		{return Keyword(); }
+"ulong"		{return Keyword(); }
+"ushort"		{return Keyword(); }
+"sbyte"		{return Keyword(); }
+"string"		{return Keyword(); }
+"object"		{return Keyword(); }
+"float"		{return Keyword(); }
+"double"		{return Keyword(); }
+"void"		{return Keyword(); }
+"true"		{return Keyword(); }
+"false"		{return Keyword(); }
+"null"		{return Keyword(); }
+"public"		{return Keyword(); }
+"internal"		{return Keyword(); }
+"private"		{return Keyword(); }
+"protected"		{return Keyword(); }
+"abstract"		{return Keyword(); }
+"virtual"		{return Keyword(); }
+"override"		{return Keyword(); }
+"static"		{return Keyword(); }
        
 
-<YYINITIAL>{verbatim_string_start}                 { ENTER(VERB_STRING); return STRING; }
+<YYINITIAL>{verbatim_string_start}                 { ENTER(VERB_STRING); return String(); }
 
 
-<VERB_STRING>{verbatim_string_cont}     { return STRING; }
-<VERB_STRING>{verbatim_string_end}      { EXIT(); return STRING; }
+<VERB_STRING>{verbatim_string_cont}     { return String(); }
+<VERB_STRING>{verbatim_string_end}      { EXIT(); return String(); }
                       
-{integer_literal}     { return NUMBER; }
-{real_literal}        { return NUMBER; }
-{character_literal}   { return CHARACTER; }
-{string_literal}      { return STRING; }
+{integer_literal}     { return Number(); }
+{real_literal}        { return Number(); }
+{character_literal}   { return Character(); }
+{string_literal}      { return String(); }
 
-","   { return OPERATOR; }
-"["   { return OPERATOR; }
-"]"   { return OPERATOR; }
+","   { return Operator(); }
+"["   { return Operator(); }
+"]"   { return Operator(); }
 
-{rank_specifier}     { return OPERATOR; }
+{rank_specifier}     { return Operator(); }
 
-"+="    { return OPERATOR; }
-"-="    { return OPERATOR; }
-"*="    { return OPERATOR; }
-"/="    { return OPERATOR; }
-"%="    { return OPERATOR; }
-"^="    { return OPERATOR; }
-"&="    { return OPERATOR; }
-"|="    { return OPERATOR; }
-"<<"    { return OPERATOR; }
-">>"    { return OPERATOR; }
-">>="   { return OPERATOR; }
-"<<="   { return OPERATOR; }
-"=="    { return OPERATOR; }
-"!="    { return OPERATOR; }
-"<="    { return OPERATOR; }
-">="    { return OPERATOR; }
-"&&"    { return OPERATOR; }
-"||"    { return OPERATOR; }
-"++"    { return OPERATOR; }
-"--"    { return OPERATOR; }
-"->"    { return OPERATOR; }
+"+="    { return Operator(); }
+"-="    { return Operator(); }
+"*="    { return Operator(); }
+"/="    { return Operator(); }
+"%="    { return Operator(); }
+"^="    { return Operator(); }
+"&="    { return Operator(); }
+"|="    { return Operator(); }
+"<<"    { return Operator(); }
+">>"    { return Operator(); }
+">>="   { return Operator(); }
+"<<="   { return Operator(); }
+"=="    { return Operator(); }
+"!="    { return Operator(); }
+"<="    { return Operator(); }
+">="    { return Operator(); }
+"&&"    { return Operator(); }
+"||"    { return Operator(); }
+"++"    { return Operator(); }
+"--"    { return Operator(); }
+"->"    { return Operator(); }
 
 
-{identifier}             { return PLAIN; }
-{at_identifier}          { return PLAIN; }
+{identifier}             { return Identifier(); }
+{at_identifier}          { return Identifier(); }
 
-\n                       { return NEWLINE; }
-[^#]                     { return PLAIN; }
+\n                       { return NewLine(); }
+[^#]                     { return Plain(); }
 
  

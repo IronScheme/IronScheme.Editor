@@ -33,12 +33,12 @@ RANGE       ={ATAT}[^@\n]+{ATAT}
 %%
 
 {WS}                     { ; }
-{RANGE}                  { return TYPE; }
-{ADD}|{ADDFILE}          { return KEYWORD; }
-{REM}|{REMFILE}          { return COMMENT; }
-{CMD}                    { return OTHER; }
-\n                       { return NEWLINE; }
-[^ \t\n]+                { return DOCCOMMENT; }
+{RANGE}                  { return Type(); }
+{ADD}|{ADDFILE}          { return Keyword(); }
+{REM}|{REMFILE}          { return Comment(); }
+{CMD}                    { return Other(); }
+\n                       { return NewLine(); }
+[^ \t\n]+                { return DocComment(); }
 
 
 

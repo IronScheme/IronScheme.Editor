@@ -1,3 +1,9 @@
+0.2.0.30 - June 30, 2006 
+
+- Ported a whole bunch of extra languages from old version (only 3-4 lacks now)
+- Expanded LSharp parser
+- Installer now installs/uninstalls native images (ngen'd)
+
 0.2.0 SVN rev: 25 - June 27, 2006 
 
 - First alpha release of 0.2 series!

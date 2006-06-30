@@ -102,10 +102,10 @@ sealed class PatchLexer : LexerBase {
 					yy_to_mark();
 					switch (yy_last_accept_state) {
 					case 8: 
-            { return OTHER; }
+            { return Other(); }
 						break;
 					case 4: 
-                     { return KEYWORD; }
+                     { return Keyword(); }
 						break;
 					case 1: 
 
@@ -114,17 +114,17 @@ sealed class PatchLexer : LexerBase {
       { ; }
 						break;
 					case 7: case 11: 
-               { return TYPE; }
+               { return Type(); }
 						break;
 					case 5: 
-                     { return COMMENT; }
+                     { return Comment(); }
 						break;
 					case 3: case 10: case 13: case 14: case 15: case 16: case 17: case 18: 
 case 19: 
-         { return DOCCOMMENT; }
+         { return DocComment(); }
 						break;
 					case 6: 
-  { return NEWLINE; }
+  { return NewLine(); }
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);break;

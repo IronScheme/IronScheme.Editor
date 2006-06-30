@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "xacc.ide"
-!define PRODUCT_VERSION "0.2.0.25"
+!define PRODUCT_VERSION "0.2.0.30"
 !define PRODUCT_PUBLISHER "leppie"
 !define PRODUCT_WEB_SITE "http://blogs.wdevs.com/leppie/"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\xacc.ide.exe"
@@ -37,7 +37,7 @@ ShowUnInstDetails show
 ; License page
 !define MUI_LICENSEPAGE_BUTTON
 !insertmacro MUI_PAGE_LICENSE "..\..\..\license.txt"
-!insertmacro MUI_PAGE_COMPONENTS
+;!insertmacro MUI_PAGE_COMPONENTS
 ; Directory page
 !insertmacro MUI_PAGE_DIRECTORY
 ; Instfiles page
@@ -83,6 +83,8 @@ LangString ERROR_DOTNET_FATAL ${LANG_ENGLISH} "A fatal error occurred during the
   of the $(DESC_SHORTDOTNET)."
 LangString FAILED_DOTNET_INSTALL ${LANG_ENGLISH} "The installation of $(PRODUCT_NAME) will$\n\
   continue. However, it may not function properly$\nuntil $(DESC_SHORTDOTNET)$\nis installed."
+
+Var NETPATH
 
 ; IsDotNETInstalled
 ;
@@ -132,7 +134,7 @@ Function IsDotNETInstalled
      Goto done
 
    foundDotNET:
-     StrCpy $0 1
+     StrCpy $0 "$4\v2.0.$3"
 
    done:
      Pop $4
@@ -155,8 +157,8 @@ Abort
 
 Start:
 Call IsDotNETInstalled
-Pop $0
-StrCmp $0 0 PromptDownload Install
+Pop $NETPATH
+StrCmp $NETPATH 0 PromptDownload Install
 
 PromptDownload:
 
@@ -164,7 +166,7 @@ MessageBox MB_ICONEXCLAMATION|MB_YESNO|MB_DEFBUTTON2 "$(DESC_DOTNET_DECISION)" /
 
 DownloadNET:
 
-nsisdl::download /TIMEOUT=30000 "${URL_DOTNET}" "$TEMP\dotnetfx.exe"
+nsisdl::download /TIMEOUT=60000 "${URL_DOTNET}" "$TEMP\dotnetfx.exe"
 Pop $0
 StrCmp "$0" "success" InstallNET AbortInstall
 
@@ -181,6 +183,8 @@ Section "xacc.ide ${PRODUCT_VERSION}" SEC01
 SectionIn 1 2 RO
   SetOutPath "$INSTDIR"
   SetOverwrite ifnewer
+  DetailPrint "Removing previous native images (if any)..."
+  nsExec::ExecToStack '"$NETPATH\ngen.exe" uninstall "$INSTDIR\xacc.lexers.managed.dll"'
   CreateDirectory "$SMPROGRAMS\xacc.ide"
   CreateShortCut "$SMPROGRAMS\xacc.ide\xacc.ide.lnk" "$INSTDIR\xacc.ide.exe"
 	;CreateShortCut "$SMPROGRAMS\xacc.ide\xacc.languagedesigner.lnk" "$INSTDIR\xacc.languagedesigner.exe"
@@ -250,6 +254,8 @@ Section -AdditionalIcons
 SectionEnd
 
 Section -Post
+  DetailPrint "Generating native images..."
+  nsExec::ExecToStack '"$NETPATH\ngen.exe" install xacc.lexers.managed.dll'
   WriteUninstaller "$INSTDIR\xacc.uninstall.exe"
   WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\xacc.ide.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
@@ -260,6 +266,56 @@ Section -Post
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
 SectionEnd
 
+Function un.IsDotNETInstalled
+   Push $0
+   Push $1
+   Push $2
+   Push $3
+   Push $4
+
+   ReadRegStr $4 HKEY_LOCAL_MACHINE \
+     "Software\Microsoft\.NETFramework" "InstallRoot"
+   # remove trailing back slash
+   Push $4
+   Exch $EXEDIR
+   Exch $EXEDIR
+   Pop $4
+   # if the root directory doesn't exist .NET is not installed
+   IfFileExists $4 0 noDotNET
+
+   StrCpy $0 0
+
+   EnumStart:
+
+     EnumRegKey $2 HKEY_LOCAL_MACHINE \
+       "Software\Microsoft\.NETFramework\Policy"  $0
+     IntOp $0 $0 + 1
+     StrCmp $2 "" noDotNET
+
+     StrCpy $1 0
+
+     EnumPolicy:
+
+       EnumRegValue $3 HKEY_LOCAL_MACHINE \
+         "Software\Microsoft\.NETFramework\Policy\$2" $1
+       IntOp $1 $1 + 1
+        StrCmp $3 "" EnumStart
+         IfFileExists "$4\v2.0.$3" foundDotNET EnumPolicy
+
+   noDotNET:
+     StrCpy $0 0
+     Goto done
+
+   foundDotNET:
+     StrCpy $0 "$4\v2.0.$3"
+
+   done:
+     Pop $4
+     Pop $3
+     Pop $2
+     Pop $1
+     Exch $0
+FunctionEnd
 
 Function un.onUninstSuccess
   HideWindow
@@ -272,6 +328,10 @@ Function un.onInit
 FunctionEnd
 
 Section Uninstall
+  Call un.IsDotNETInstalled
+  Pop $NETPATH
+  DetailPrint "Removing native images..."
+  nsExec::ExecToStack '"$NETPATH\ngen.exe" uninstall "$INSTDIR\xacc.lexers.managed.dll"'
   Delete "$DESKTOP\xacc.ide.lnk"
   Delete "$SMPROGRAMS\xacc.ide\xacc.uninstall.lnk"
   Delete "$SMPROGRAMS\xacc.ide\xacc.ide.lnk"

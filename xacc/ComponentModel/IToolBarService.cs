@@ -52,18 +52,6 @@ namespace Xacc.ComponentModel
       toolbar.ContentPanel.Controls.Add(ServiceHost.Window.Document as Control);
     }
 
-    protected override void Initialize()
-    {
-      base.Initialize();
-      ToolStripManager.LoadSettings(ServiceHost.Window.MainForm);
-    }
-
-    protected override void Dispose(bool disposing)
-    {
-      ToolStripManager.SaveSettings(ServiceHost.Window.MainForm);
-      base.Dispose(disposing);
-    }
-
     public bool ToolBarVisible
     {
       get {return toolbar.TopToolStripPanelVisible;}

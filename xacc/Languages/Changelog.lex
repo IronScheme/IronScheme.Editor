@@ -33,15 +33,15 @@ HEADING               =[^\n]+":"
 
 %%
 
-<EXPDATE>{TAIL}       { BEGIN(YYINITIAL); return TYPE; }
+<EXPDATE>{TAIL}       { BEGIN(YYINITIAL); return Type(); }
 
-{VER}                 { BEGIN(EXPDATE); return KEYWORD;}
-{HEADING}             { return PREPROC; }
-{TAIL}                { return PLAIN; } 
+{VER}                 { BEGIN(EXPDATE); return Keyword();}
+{HEADING}             { return Preprocessor(); }
+{TAIL}                { return Plain(); } 
 
 [ \t]+                { ; }
-\n                    { return NEWLINE;}
-.                     { return ERROR; }
+\n                    { return NewLine();}
+.                     { return Error(); }
 
 
 

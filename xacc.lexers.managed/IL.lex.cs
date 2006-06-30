@@ -1124,72 +1124,72 @@ sealed class ILLexer : LexerBase {
 					case 15: case 32: case 43: case 51: case 58: case 303: case 354: case 380: 
 					case 393: case 400: case 533: case 545: case 548: case 676: case 787: case 791: 
 case 942: 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      {return KEYWORD;}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      {return Keyword();}
 						break;
 					case 23: case 36: 
-                        { return COMMENT; }
+                        { return Comment(); }
 						break;
 					case 22: case 35: case 45: case 52: case 59: case 64: case 305: case 356: 
 					case 534: case 677: case 780: case 939: case 995: case 998: case 999: 
-                   { return COMMENT; }
+                   { return Comment(); }
 						break;
 					case 6: 
-   {  return OPERATOR; }
+   {  return Operator(); }
 						break;
 					case 10: 
-  {  return NEWLINE;}
+  {  return NewLine();}
 						break;
 					case 24: 
-                   { EXIT(); return COMMENT; }
+                   { EXIT(); return Comment(); }
 						break;
 					case 13: case 30: case 41: 
-                                                                                                             {  return NUMBER; }
+                                                                                                             {  return Number(); }
 						break;
 					case 18: 
-                                                                                                                                                                                                                                 {  return CHARACTER; }
+                                                                                                                                                                                                                                 {  return Character(); }
 						break;
 					case 11: 
-      { return COMMENT; }
+      { return Comment(); }
 						break;
 					case 7: 
-   {  return OPERATOR; }
+   {  return Operator(); }
 						break;
 					case 21: case 34: 
-                                                     { return DOCCOMMENT; }
+                                                     { return DocComment(); }
 						break;
 					case 14: case 31: case 42: case 50: case 57: case 63: case 68: case 72: 
 					case 76: case 302: case 309: case 353: case 358: case 379: case 392: case 399: 
 					case 531: case 778: case 790: 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   {return OTHER;}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   {return Other();}
 						break;
 					case 5: case 29: case 40: case 49: case 56: case 62: case 67: case 71: 
 					case 75: case 79: case 82: case 85: case 88: case 91: case 94: case 97: 
 					case 304: case 355: case 779: 
-                                                                                                           {  return NUMBER; }
+                                                                                                           {  return Number(); }
 						break;
 					case 17: 
-                            {  return OPERATOR; }
+                            {  return Operator(); }
 						break;
 					case 19: case 33: case 44: 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          {return TYPE;}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          {return Type();}
 						break;
 					case 3: case 27: case 38: case 47: case 54: 
- {  return PLAIN; }
+ {  return Plain(); }
 						break;
 					case 20: 
-                                             {  return PLAIN; }
+                                             {  return Identifier(); }
 						break;
 					case 8: 
-   {  return OPERATOR; }
+   {  return Operator(); }
 						break;
 					case 9: 
-   {  return OPERATOR; }
+   {  return Operator(); }
 						break;
 					case 16: 
-                                                                                                                                                                                                                                     {  return STRING; }
+                                                                                                                                                                                                                                     {  return String(); }
 						break;
 					case 12: 
-    { ENTER(IN_COMMENT); return COMMENT; }
+    { ENTER(IN_COMMENT); return Comment(); }
 						break;
 					case 1: 
 
@@ -1281,7 +1281,7 @@ case 942:
 					case 977: case 978: case 979: case 980: case 981: case 982: case 983: case 984: 
 					case 985: case 986: case 987: case 988: case 989: case 990: case 991: case 992: 
 					case 993: case 994: case 996: case 997: 
-                                           {  return PLAIN; }
+                                           {  return Identifier(); }
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);break;

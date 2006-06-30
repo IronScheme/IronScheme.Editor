@@ -408,28 +408,28 @@ sealed class JavaScriptLexer : LexerBase {
 					yy_to_mark();
 					switch (yy_last_accept_state) {
 					case 15: 
-                                                                                                                                                                                                                                  { return STRING; }
+                                                                                                                                                                                                                                  { return String(); }
 						break;
 					case 6: case 25: case 35: case 42: case 46: case 50: case 54: case 58: 
-					                                                                                  { return NUMBER; }
+					                                                                                  { return Number(); }
 						break;
 					case 10: case 26: case 36: case 181: 
-                                                                                                                                                                                { return KEYWORD; }
+                                                                                                                                                                                { return Keyword(); }
 						break;
 					case 13: 
-                                                                                                                                                                                                                                                                                     { return OTHER; }
+                                                                                                                                                                                                                                                                                     { return Other(); }
 						break;
 					case 18: case 30: 
-                         { return COMMENT; }
+                         { return Comment(); }
 						break;
 					case 11: case 27: case 37: 
-                                                                                                             { return NUMBER; }
+                                                                                                             { return Number(); }
 						break;
 					case 7: 
-  { return NEWLINE;}
+  { return NewLine();}
 						break;
 					case 14: case 28: case 267: 
-                                                                                                                                                                                                                               { return ERROR; }
+                                                                                                                                                                                                                               { return Error(); }
 						break;
 					case 5: case 24: case 34: case 41: case 45: case 49: case 53: case 57: 
 					case 61: case 64: case 67: case 70: case 73: case 76: case 79: case 82: 
@@ -457,7 +457,7 @@ sealed class JavaScriptLexer : LexerBase {
 					case 297: case 298: case 299: case 300: case 301: case 302: case 303: case 306: 
 					case 309: case 310: case 311: case 312: case 313: case 314: case 315: case 316: 
 case 317: 
-                                             { return PLAIN; }
+                                             { return Plain(); }
 						break;
 					case 17: case 29: case 38: case 43: case 47: case 51: case 55: case 59: 
 					case 62: case 65: case 68: case 71: case 74: case 77: case 80: case 83: 
@@ -466,25 +466,25 @@ case 317:
 					case 121: case 122: case 124: case 126: case 128: case 129: case 131: case 133: 
 					case 135: case 183: case 186: case 233: case 236: case 269: case 272: case 292: 
 					case 295: case 305: case 308: case 319: 
-                    { return COMMENT; }
+                    { return Comment(); }
 						break;
 					case 19: 
-                   { EXIT(); return COMMENT; }
+                   { EXIT(); return Comment(); }
 						break;
 					case 3: case 22: case 32: 
-                                                                                           { return OPERATOR; }
+                                                                                           { return Operator(); }
 						break;
 					case 8: 
-      { return COMMENT; }
+      { return Comment(); }
 						break;
 					case 9: 
-               { ENTER(ML_COMMENT); return COMMENT; }
+               { ENTER(ML_COMMENT); return Comment(); }
 						break;
 					case 16: 
-                                                   { return TYPE; }
+                                                   { return Type(); }
 						break;
 					case 12: 
-                                                                                                                                                                                                                                     { return STRING; }
+                                                                                                                                                                                                                                     { return String(); }
 						break;
 					case 1: 
 
@@ -493,7 +493,7 @@ case 317:
         { ; }
 						break;
 					case 4: case 23: case 33: case 40: 
- { return PLAIN; }
+ { return Plain(); }
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);break;

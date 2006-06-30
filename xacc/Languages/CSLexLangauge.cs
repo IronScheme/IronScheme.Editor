@@ -217,9 +217,6 @@ namespace Xacc.Languages.CSLex
         return t;
       }
 
-      [Obsolete]
-      protected static readonly Yytoken PREPROC = new Yytoken(TokenClass.Preprocessor);
-
       protected static Token Warning(int type)
       {
         Token t = new Token();
@@ -228,9 +225,7 @@ namespace Xacc.Languages.CSLex
         return t;
       }
 
-      [Obsolete]
-      protected static readonly Yytoken WARNING = new Yytoken(TokenClass.Warning);
-
+ 
       protected static Token Ignore()
       {
         Token t = new Token();
@@ -239,8 +234,6 @@ namespace Xacc.Languages.CSLex
         return t;
       }
 
-      [Obsolete]
-      protected static readonly Yytoken IGNORE = new Yytoken(TokenClass.Ignore);
 
       protected static Token DocComment()
       {
@@ -250,9 +243,7 @@ namespace Xacc.Languages.CSLex
         return t;
       }
 
-      [Obsolete]
-      protected static readonly Yytoken DOCCOMMENT = new Yytoken(TokenClass.DocComment);
-
+ 
       protected static Token Error() { return Error(-1); }
 
       protected static Token Error(int type)
@@ -263,9 +254,7 @@ namespace Xacc.Languages.CSLex
         return t;
       }
 
-      [Obsolete]
-      protected static readonly Yytoken ERROR = new Yytoken(TokenClass.Error);
-
+  
       protected static Token NewLine()
       {
         Token t = new Token();
@@ -274,9 +263,6 @@ namespace Xacc.Languages.CSLex
         return t;
       }
 
-      [Obsolete]
-      protected static readonly Yytoken NEWLINE = new Yytoken(TokenClass.NewLine);
-
       protected static Token Comment()
       {
         Token t = new Token();
@@ -284,9 +270,6 @@ namespace Xacc.Languages.CSLex
         t.Class = TokenClass.Comment;
         return t;
       }
-
-      [Obsolete]
-      protected static readonly Yytoken COMMENT = new Yytoken(TokenClass.Comment);
 
       protected static Token Plain() { return Plain(-1); }
 
@@ -298,9 +281,6 @@ namespace Xacc.Languages.CSLex
         return t;
       }
 
-      [Obsolete]
-      protected static readonly Yytoken PLAIN = new Yytoken(TokenClass.Any);
-
       protected static Token Identifier() { return Identifier(-1); }
 
       protected static Token Identifier(int type)
@@ -310,9 +290,6 @@ namespace Xacc.Languages.CSLex
         t.Class = TokenClass.Identifier;
         return t;
       }
-
-      [Obsolete]
-      protected static readonly Yytoken IDENTIFIER = new Yytoken(TokenClass.Identifier);
 
       protected static Token Type() { return Type(-1); }
 
@@ -324,10 +301,6 @@ namespace Xacc.Languages.CSLex
         return t;
       }
 
-      [Obsolete]
-      protected static readonly Yytoken TYPE = new Yytoken(TokenClass.Type);
-
-
       protected static Token Keyword() { return Keyword(-1); }
 
       protected static Token Keyword(int type)
@@ -337,9 +310,6 @@ namespace Xacc.Languages.CSLex
         t.Class = TokenClass.Keyword;
         return t;
       }
-
-      [Obsolete]
-      protected static readonly Yytoken KEYWORD = new Yytoken(TokenClass.Keyword);
 
       protected static Token Pair() { return Pair(-1); }
 
@@ -351,9 +321,6 @@ namespace Xacc.Languages.CSLex
         return t;
       }
 
-      [Obsolete]
-      protected static readonly Yytoken PAIR = new Yytoken(TokenClass.Pair);
-
       protected static Token Operator() { return Operator(-1); }
 
       protected static Token Operator(int type)
@@ -363,9 +330,6 @@ namespace Xacc.Languages.CSLex
         t.Class = TokenClass.Operator;
         return t;
       }
-
-      [Obsolete]
-      protected static readonly Yytoken OPERATOR = new Yytoken(TokenClass.Operator);
 
       protected static Token Number() { return Number(-1); }
 
@@ -377,9 +341,6 @@ namespace Xacc.Languages.CSLex
         return t;
       }
 
-      [Obsolete]
-      protected static readonly Yytoken NUMBER = new Yytoken(TokenClass.Number);
-
       protected static Token String() { return String(-1); }
 
       protected static Token String(int type)
@@ -389,9 +350,6 @@ namespace Xacc.Languages.CSLex
         t.Class = TokenClass.String;
         return t;
       }
-
-      [Obsolete]
-      protected static readonly Yytoken STRING = new Yytoken(TokenClass.String);
 
       protected static Token Character() { return Character(-1); }
 
@@ -403,9 +361,6 @@ namespace Xacc.Languages.CSLex
         return t;
       }
 
-      [Obsolete]
-      protected static readonly Yytoken CHARACTER = new Yytoken(TokenClass.Character);
-
       protected static Token Other() { return Other(-1); }
 
       protected static Token Other(int type)
@@ -415,9 +370,6 @@ namespace Xacc.Languages.CSLex
         t.Class = TokenClass.Other;
         return t;
       }
-
-      [Obsolete]
-      protected static readonly Yytoken OTHER = new Yytoken(TokenClass.Other);
 
       protected int yychar;
       protected int yyline;

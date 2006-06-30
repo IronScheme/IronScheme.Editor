@@ -805,55 +805,55 @@ int docintag = 0;
 					yy_to_mark();
 					switch (yy_last_accept_state) {
 					case 111: case 224: 
-          {return KEYWORD; }
+          {return Keyword(); }
 						break;
 					case 12: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 67: case 180: 
-      {return KEYWORD; }
+      {return Keyword(); }
 						break;
 					case 35: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 125: 
-                   { EXIT(); return STRING; }
+                   { EXIT(); return String(); }
 						break;
 					case 63: case 176: 
-      {return KEYWORD; }
+      {return Keyword(); }
 						break;
 					case 135: 
-                     { ENTER(PPTAIL); return PREPROC; }
+                     { ENTER(PPTAIL); return Preprocessor(); }
 						break;
 					case 114: case 227: 
-          {return KEYWORD; }
+          {return Keyword(); }
 						break;
 					case 82: case 195: 
-       {return KEYWORD; }
+       {return Keyword(); }
 						break;
 					case 128: 
-              { return PREPROC; }
+              { return Preprocessor(); }
 						break;
 					case 42: 
-                                         { return PLAIN; }
+                                         { return Identifier(); }
 						break;
 					case 50: case 165: 
-     {return KEYWORD; }
+     {return Keyword(); }
 						break;
 					case 131: 
-                { EXIT(); return NEWLINE; }
+                { EXIT(); return NewLine(); }
 						break;
 					case 91: case 204: 
-        {return KEYWORD; }
+        {return Keyword(); }
 						break;
 					case 107: case 220: 
-         {return KEYWORD; }
+         {return Keyword(); }
 						break;
 					case 109: case 222: 
-         {return KEYWORD; }
+         {return Keyword(); }
 						break;
 					case 78: case 191: 
-       {return KEYWORD; }
+       {return Keyword(); }
 						break;
 					case 124: case 236: case 249: case 259: case 268: case 275: case 282: case 289: 
 					case 294: case 299: case 304: case 309: case 314: case 319: case 324: case 329: 
@@ -886,378 +886,378 @@ int docintag = 0;
 					case 853: case 854: case 855: case 856: case 857: case 858: case 862: case 865: 
 					case 866: case 867: case 868: case 869: case 870: case 871: case 875: case 876: 
 case 877: 
-                            { return STRING; }
+                            { return String(); }
 						break;
 					case 108: case 221: 
-         {return KEYWORD; }
+         {return Keyword(); }
 						break;
 					case 57: case 170: 
-      {return KEYWORD; }
+      {return Keyword(); }
 						break;
 					case 136: 
-                     { ENTER(PPTAIL); return PREPROC; }
+                     { ENTER(PPTAIL); return Preprocessor(); }
 						break;
 					case 64: case 177: 
-      {return KEYWORD; }
+      {return Keyword(); }
 						break;
 					case 81: case 194: 
-       {return KEYWORD; }
+       {return Keyword(); }
 						break;
 					case 37: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 20: case 153: 
-    {return KEYWORD; }
+    {return Keyword(); }
 						break;
 					case 62: case 175: 
-      {return KEYWORD; }
+      {return Keyword(); }
 						break;
 					case 17: 
-                { ENTER(REGEX_STRING); return OTHER; }
+                { ENTER(REGEX_STRING); return Other(); }
 						break;
 					case 26: case 159: 
-                                                                                                                                                                                                                                     { return STRING; }
+                                                                                                                                                                                                                                     { return String(); }
 						break;
 					case 44: 
-     { return OPERATOR; }
+     { return Operator(); }
 						break;
 					case 39: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 24: case 157: 
-    {return KEYWORD; }
+    {return Keyword(); }
 						break;
 					case 104: case 217: 
-        {return KEYWORD; }
+        {return Keyword(); }
 						break;
 					case 103: case 216: 
-        {return KEYWORD; }
+        {return Keyword(); }
 						break;
 					case 126: 
-                 { EXIT(); return OTHER; }
+                 { EXIT(); return Other(); }
 						break;
 					case 89: case 202: 
-       {return KEYWORD; }
+       {return Keyword(); }
 						break;
 					case 139: 
-                       { ENTER(PPTAIL); return PREPROC; }
+                       { ENTER(PPTAIL); return Preprocessor(); }
 						break;
 					case 138: 
-                      { ENTER(PPTAIL); return PREPROC; }
+                      { ENTER(PPTAIL); return Preprocessor(); }
 						break;
 					case 10: case 152: case 245: 
-                                             { return COMMENT; }
+                                             { return Comment(); }
 						break;
 					case 94: case 207: 
-        {return KEYWORD; }
+        {return Keyword(); }
 						break;
 					case 115: case 228: 
-           {return KEYWORD; }
+           {return Keyword(); }
 						break;
 					case 143: 
-               { EXIT(); return NEWLINE; }
+               { EXIT(); return NewLine(); }
 						break;
 					case 116: case 229: 
-           {return KEYWORD; }
+           {return Keyword(); }
 						break;
 					case 85: case 198: 
-       {return KEYWORD; }
+       {return Keyword(); }
 						break;
 					case 33: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 66: case 179: 
-      {return KEYWORD; }
+      {return Keyword(); }
 						break;
 					case 54: case 169: 
-     {return KEYWORD; }
+     {return Keyword(); }
 						break;
 					case 45: 
-     { return OPERATOR; }
+     { return Operator(); }
 						break;
 					case 130: case 238: case 251: case 261: case 270: case 277: case 284: case 290: 
 					case 295: case 300: case 305: case 310: case 315: case 320: case 325: case 330: 
 					case 335: case 340: case 345: case 349: case 353: case 357: case 361: case 365: 
 					case 368: case 371: case 374: case 377: case 380: case 383: case 386: case 494: 
 					case 501: case 505: case 509: case 512: case 515: case 518: case 521: case 713: 
-					               { return ERROR; }
+					               { return Error(); }
 						break;
 					case 52: case 167: 
-     {return KEYWORD; }
+     {return Keyword(); }
 						break;
 					case 93: case 206: 
-        {return KEYWORD; }
+        {return Keyword(); }
 						break;
 					case 30: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 3: case 149: case 242: case 255: case 265: case 272: case 279: case 286: 
 					case 292: case 297: case 302: case 307: case 312: case 317: case 322: case 327: 
 					case 332: case 337: case 342: 
-    { return PLAIN; }
+    { return Plain(); }
 						break;
 					case 2: case 148: case 241: case 254: case 264: 
         { ; /* ignore */ }
 						break;
 					case 72: case 185: 
-      {return KEYWORD; }
+      {return Keyword(); }
 						break;
 					case 4: 
-  { return NEWLINE; }
+  { return NewLine(); }
 						break;
 					case 141: case 239: case 252: case 262: case 490: case 497: case 708: case 814: 
 					case 844: case 860: case 873: case 879: case 882: 
-                     { if (docintag == 1) {docintag = 0; return DOCCOMMENT;} else return COMMENT; }
+                     { if (docintag == 1) {docintag = 0; return DocComment();} else return Comment(); }
 						break;
 					case 13: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 76: case 189: 
-       {return KEYWORD; }
+       {return Keyword(); }
 						break;
 					case 69: case 182: 
-      {return KEYWORD; }
+      {return Keyword(); }
 						break;
 					case 120: case 233: 
-             {return KEYWORD; }
+             {return Keyword(); }
 						break;
 					case 74: case 187: 
-       {return KEYWORD; }
+       {return Keyword(); }
 						break;
 					case 86: case 199: 
-       {return KEYWORD; }
+       {return Keyword(); }
 						break;
 					case 95: case 208: 
-        {return KEYWORD; }
+        {return Keyword(); }
 						break;
 					case 19: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 49: case 164: 
-     {return KEYWORD; }
+     {return Keyword(); }
 						break;
 					case 7: 
-   { return OPERATOR; }
+   { return Operator(); }
 						break;
 					case 9: 
-   { return OPERATOR; }
+   { return Operator(); }
 						break;
 					case 83: case 196: 
-       {return KEYWORD; }
+       {return Keyword(); }
 						break;
 					case 105: case 218: 
-         {return KEYWORD; }
+         {return Keyword(); }
 						break;
 					case 15: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 53: case 168: 
-     {return KEYWORD; }
+     {return Keyword(); }
 						break;
 					case 92: case 205: 
-        {return KEYWORD; }
+        {return Keyword(); }
 						break;
 					case 99: case 212: 
-        {return KEYWORD; }
+        {return Keyword(); }
 						break;
 					case 122: case 235: case 248: 
-                        { return COMMENT; }
+                        { return Comment(); }
 						break;
 					case 51: case 166: 
-     {return KEYWORD; }
+     {return Keyword(); }
 						break;
 					case 14: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 90: case 203: 
-       {return KEYWORD; }
+       {return Keyword(); }
 						break;
 					case 25: case 158: 
-    {return KEYWORD; }
+    {return Keyword(); }
 						break;
 					case 59: case 172: 
-      {return KEYWORD; }
+      {return Keyword(); }
 						break;
 					case 80: case 193: 
-       {return KEYWORD; }
+       {return Keyword(); }
 						break;
 					case 38: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 11: 
-               { ENTER(IN_COMMENT); return COMMENT; }
+               { ENTER(IN_COMMENT); return Comment(); }
 						break;
 					case 73: case 186: 
-      {return KEYWORD; }
+      {return Keyword(); }
 						break;
 					case 55: 
-                 { ENTER(VERB_STRING); return STRING; }
+                 { ENTER(VERB_STRING); return String(); }
 						break;
 					case 29: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 68: case 181: 
-      {return KEYWORD; }
+      {return Keyword(); }
 						break;
 					case 144: 
-                       { docintag = 1; return DOCCOMMENT;}
+                       { docintag = 1; return DocComment();}
 						break;
 					case 123: 
-                   { EXIT(); return COMMENT; }
+                   { EXIT(); return Comment(); }
 						break;
 					case 22: case 155: 
-    {return KEYWORD; }
+    {return Keyword(); }
 						break;
 					case 48: case 163: 
-     {return KEYWORD; }
+     {return Keyword(); }
 						break;
 					case 137: 
-                      { ENTER(PPTAIL); return PREPROC; }
+                      { ENTER(PPTAIL); return Preprocessor(); }
 						break;
 					case 47: case 162: 
-     {return KEYWORD; }
+     {return Keyword(); }
 						break;
 					case 102: case 215: 
-        {return KEYWORD; }
+        {return Keyword(); }
 						break;
 					case 117: case 230: 
-           {return KEYWORD; }
+           {return Keyword(); }
 						break;
 					case 18: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 71: case 184: 
-      {return KEYWORD; }
+      {return Keyword(); }
 						break;
 					case 134: 
-                    { ENTER(PPTAIL); return PREPROC; }
+                    { ENTER(PPTAIL); return Preprocessor(); }
 						break;
 					case 70: case 183: 
-      {return KEYWORD; }
+      {return Keyword(); }
 						break;
 					case 60: case 173: 
-      {return KEYWORD; }
+      {return Keyword(); }
 						break;
 					case 87: case 200: 
-       {return KEYWORD; }
+       {return Keyword(); }
 						break;
 					case 46: case 161: case 706: 
-     {return KEYWORD; }
+     {return Keyword(); }
 						break;
 					case 21: case 154: 
-    {return KEYWORD; }
+    {return Keyword(); }
 						break;
 					case 34: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 106: case 219: 
-         {return KEYWORD; }
+         {return Keyword(); }
 						break;
 					case 61: case 174: 
-      {return KEYWORD; }
+      {return Keyword(); }
 						break;
 					case 100: case 213: 
-        {return KEYWORD; }
+        {return Keyword(); }
 						break;
 					case 75: case 188: 
-       {return KEYWORD; }
+       {return Keyword(); }
 						break;
 					case 27: case 160: case 246: 
-                                                                                                             { return NUMBER; }
+                                                                                                             { return Number(); }
 						break;
 					case 132: 
-                  { ENTER(PPTAIL); return PREPROC; }
+                  { ENTER(PPTAIL); return Preprocessor(); }
 						break;
 					case 121: case 234: case 247: case 258: case 492: case 499: case 710: case 815: 
 					case 845: case 861: case 874: case 880: case 883: 
-                   { return COMMENT; }
+                   { return Comment(); }
 						break;
 					case 56: 
-                                                                                                                                                                                                                                 { return CHARACTER; }
+                                                                                                                                                                                                                                 { return Character(); }
 						break;
 					case 1: case 147: 
 
 						break;
 					case 112: case 225: 
-          {return KEYWORD; }
+          {return Keyword(); }
 						break;
 					case 98: case 211: 
-        {return KEYWORD; }
+        {return Keyword(); }
 						break;
 					case 32: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 129: 
-          { EXIT(); EXIT(); return NEWLINE; }
+          { EXIT(); EXIT(); return NewLine(); }
 						break;
 					case 28: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 40: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 133: 
-                    { ENTER(PPTAIL); return PREPROC; }
+                    { ENTER(PPTAIL); return Preprocessor(); }
 						break;
 					case 140: 
-                         { ENTER(PPTAIL); return PREPROC; }
+                         { ENTER(PPTAIL); return Preprocessor(); }
 						break;
 					case 6: case 151: case 244: case 257: case 267: case 274: case 281: case 288: 
-					                                                                                  { return NUMBER; }
+					                                                                                  { return Number(); }
 						break;
 					case 16: 
-                   { ENTER(PREPROCESSOR); return PREPROC; }
+                   { ENTER(PREPROCESSOR); return Preprocessor(); }
 						break;
 					case 84: case 197: 
-       {return KEYWORD; }
+       {return Keyword(); }
 						break;
 					case 88: case 201: 
-       {return KEYWORD; }
+       {return Keyword(); }
 						break;
 					case 142: 
-                { return DOCCOMMENT;}
+                { return DocComment();}
 						break;
 					case 43: 
-                { ENTER(DOC_COMMENT); return DOCCOMMENT; }
+                { ENTER(DOC_COMMENT); return DocComment(); }
 						break;
 					case 113: case 226: 
-          {return KEYWORD; }
+          {return Keyword(); }
 						break;
 					case 145: 
-                          { return DOCCOMMENT;}
+                          { return DocComment();}
 						break;
 					case 23: case 156: 
-    {return KEYWORD; }
+    {return Keyword(); }
 						break;
 					case 97: case 210: 
-        {return KEYWORD; }
+        {return Keyword(); }
 						break;
 					case 110: case 223: 
-          {return KEYWORD; }
+          {return Keyword(); }
 						break;
 					case 101: case 214: 
-        {return KEYWORD; }
+        {return Keyword(); }
 						break;
 					case 65: case 178: 
-      {return KEYWORD; }
+      {return Keyword(); }
 						break;
 					case 119: case 232: 
-           {return KEYWORD; }
+           {return Keyword(); }
 						break;
 					case 77: case 190: 
-       {return KEYWORD; }
+       {return Keyword(); }
 						break;
 					case 41: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 79: case 192: 
-       {return KEYWORD; }
+       {return Keyword(); }
 						break;
 					case 58: case 171: 
-      {return KEYWORD; }
+      {return Keyword(); }
 						break;
 					case 8: 
-   { return OPERATOR; }
+   { return Operator(); }
 						break;
 					case 5: case 150: case 243: case 256: case 266: case 273: case 280: case 287: 
 					case 293: case 298: case 303: case 308: case 313: case 318: case 323: case 328: 
@@ -1293,23 +1293,23 @@ case 877:
 					case 744: case 745: case 746: case 749: case 750: case 751: case 752: case 753: 
 					case 756: case 757: case 759: case 760: case 762: case 763: case 765: case 767: 
 case 769: 
-                                       { return PLAIN; }
+                                       { return Identifier(); }
 						break;
 					case 31: 
-                            { return OPERATOR; }
+                            { return Operator(); }
 						break;
 					case 118: case 231: 
-           {return KEYWORD; }
+           {return Keyword(); }
 						break;
 					case 36: 
-    { return OPERATOR; }
+    { return Operator(); }
 						break;
 					case 127: case 237: case 250: case 260: case 269: case 276: case 283: case 489: 
 					case 707: case 813: case 843: case 859: case 872: case 878: case 881: 
-                                    { return OTHER;}
+                                    { return Other();}
 						break;
 					case 96: case 209: 
-        {return KEYWORD; }
+        {return Keyword(); }
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);break;

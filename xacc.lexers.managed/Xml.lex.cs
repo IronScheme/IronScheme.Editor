@@ -168,130 +168,130 @@ sealed class XmlLexer : LexerBase {
 					yy_to_mark();
 					switch (yy_last_accept_state) {
 					case 36: 
-     {return PLAIN; }
+     {return Plain(); }
 						break;
 					case 12: 
-                {return DOCCOMMENT;}
+                {return DocComment();}
 						break;
 					case 2: case 44: case 53: 
-                        {ENTER(starttag); return KEYWORD;}
+                        {ENTER(starttag); return Keyword();}
 						break;
 					case 14: 
-              {EXIT(); return COMMENT;}
+              {EXIT(); return Comment();}
 						break;
 					case 31: 
-                                             {return NUMBER;}
+                                             {return Number();}
 						break;
 					case 33: 
-                      {EXIT(); return KEYWORD;}
+                      {EXIT(); return Keyword();}
 						break;
 					case 29: 
-                                         {EXIT(); return KEYWORD;}
+                                         {EXIT(); return Keyword();}
 						break;
 					case 26: 
-        {return PLAIN; }
+        {return Plain(); }
 						break;
 					case 20: case 47: case 86: case 87: case 88: case 89: 
-                                          {EXIT(); ENTER(intag); return KEYWORD;}
+                                          {EXIT(); ENTER(intag); return Keyword();}
 						break;
 					case 6: 
       {;}
 						break;
 					case 4: 
-                                           {return PLAIN;}
+                                           {return Plain();}
 						break;
 					case 8: 
-               {ENTER(endtag); return KEYWORD;}
+               {ENTER(endtag); return Keyword();}
 						break;
 					case 7: 
-               {ENTER(pp); return KEYWORD; }
+               {ENTER(pp); return Keyword(); }
 						break;
 					case 41: case 51: 
-                                      {EXIT(); return STRING;}
+                                      {EXIT(); return String();}
 						break;
 					case 42: 
-                    {ENTER(mlstr); return STRING;}
+                    {ENTER(mlstr); return String();}
 						break;
 					case 15: 
-          {EXIT(); return KEYWORD;}
+          {EXIT(); return Keyword();}
 						break;
 					case 19: case 46: 
-           {return ERROR; }
+           {return Error(); }
 						break;
 					case 22: case 48: 
-         {return ERROR; }
+         {return Error(); }
 						break;
 					case 21: 
-                  {EXIT(); ENTER(scriptstart); return KEYWORD;}
+                  {EXIT(); ENTER(scriptstart); return Keyword();}
 						break;
 					case 5: 
-  {return NEWLINE;}
+  {return NewLine();}
 						break;
 					case 32: 
-                {return OPERATOR;}
+                {return Operator();}
 						break;
 					case 37: 
-        {EXIT(); return KEYWORD;}
+        {EXIT(); return Keyword();}
 						break;
 					case 16: 
-                                       {return NUMBER;}
+                                       {return Number();}
 						break;
 					case 38: 
-               {return STRING;}
+               {return String();}
 						break;
 					case 1: 
 
 						break;
 					case 18: 
-                {EXIT(); return KEYWORD;}
+                {EXIT(); return Keyword();}
 						break;
 					case 25: 
-               {return PLAIN; }
+               {return Plain(); }
 						break;
 					case 10: 
-                 {ENTER(comment); return COMMENT;}
+                 {ENTER(comment); return Comment();}
 						break;
 					case 11: 
-                      {ENTER(cdata); return OTHER; }
+                      {ENTER(cdata); return Other(); }
 						break;
 					case 9: 
-                       {return OTHER; }
+                       {return Other(); }
 						break;
 					case 27: 
-            {EXIT(); return OTHER;}
+            {EXIT(); return Other();}
 						break;
 					case 40: case 50: 
-                 {EXIT(); return STRING; }
+                 {EXIT(); return String(); }
 						break;
 					case 13: 
-          {return DOCCOMMENT; }
+          {return DocComment(); }
 						break;
 					case 3: case 45: 
-            {return PLAIN; }
+            {return Plain(); }
 						break;
 					case 24: 
-                                        {return KEYWORD;}
+                                        {return Keyword();}
 						break;
 					case 17: 
-          {ENTER(attr); return OPERATOR;}
+          {ENTER(attr); return Operator();}
 						break;
 					case 30: 
-                {EXIT(); ENTER(script); return KEYWORD;}
+                {EXIT(); ENTER(script); return Keyword();}
 						break;
 					case 35: 
-           {return PLAIN; }
+           {return Plain(); }
 						break;
 					case 28: case 49: case 54: 
-                                {return PLAIN;}
+                                {return Plain();}
 						break;
 					case 23: 
-           {EXIT(); return KEYWORD;}
+           {EXIT(); return Keyword();}
 						break;
 					case 39: 
-           {EXIT(); EXIT(); return STRING;}
+           {EXIT(); EXIT(); return String();}
 						break;
 					case 34: 
-                                             {return STRING;}
+                                             {return String();}
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);break;

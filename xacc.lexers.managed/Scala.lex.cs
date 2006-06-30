@@ -261,35 +261,35 @@ sealed class ScalaLexer : LexerBase {
 					yy_to_mark();
 					switch (yy_last_accept_state) {
 					case 8: 
-                 {return NUMBER;}
+                 {return Number();}
 						break;
 					case 4: 
-                                              {return OPERATOR;}
+                                              {return Operator();}
 						break;
 					case 10: 
-               {ENTER(ML_COMMENT); return COMMENT;}
+               {ENTER(ML_COMMENT); return Comment();}
 						break;
 					case 13: 
-                       {return COMMENT;}
+                       {return Comment();}
 						break;
 					case 1: 
 
 						break;
 					case 16: 
-                {EXIT(); return COMMENT;}
+                {EXIT(); return Comment();}
 						break;
 					case 15: 
-               {return COMMENT;}
+               {return Comment();}
 						break;
 					case 2: case 18: case 22: case 26: case 28: case 30: case 32: case 34: 
 					case 36: case 38: case 40: case 42: case 44: case 46: case 48: case 50: 
 					case 52: case 61: case 64: case 66: case 68: case 70: case 72: case 101: 
 					case 102: case 104: case 106: case 130: case 132: case 134: case 136: case 151: 
 					case 153: case 168: 
-               {return PREPROC;}
+               {return Preprocessor();}
 						break;
 					case 9: 
-                   {return COMMENT;}
+                   {return Comment();}
 						break;
 					case 7: 
       {;}
@@ -309,22 +309,22 @@ sealed class ScalaLexer : LexerBase {
 					case 148: case 149: case 150: case 152: case 154: case 155: case 156: case 157: 
 					case 158: case 159: case 160: case 161: case 162: case 163: case 164: case 165: 
 					case 166: case 167: case 169: case 170: case 171: case 172: 
-                                 {return IDENTIFIER;}
+                                 {return Identifier();}
 						break;
 					case 12: 
-                    {return CHARACTER;}
+                    {return Character();}
 						break;
 					case 3: case 19: case 23: 
-                                                                                                                                                                                                                                                                                                                                                                                 {return KEYWORD;}
+                                                                                                                                                                                                                                                                                                                                                                                 {return Keyword();}
 						break;
 					case 11: case 60: 
-                                                                                {return TYPE;}
+                                                                                {return Type();}
 						break;
 					case 14: 
-  {return NEWLINE;}
+  {return NewLine();}
 						break;
 					case 6: 
-                         {return STRING;}
+                         {return String();}
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);break;
