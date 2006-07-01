@@ -145,10 +145,7 @@ list
     | LBRACE IDENTIFIER exprlist RBRACE { MakePair(@1,@4); OverrideToken(@2, IsType($2) ? TokenClass.Type : TokenClass.Identifier); }
     | LBRACE literal exprlist RBRACE    { MakePair(@1,@4); }
     | LBRACE list exprlist RBRACE   { MakePair(@1,@4); }
-    | QUOTE expr                    {;}
-    | BACKQUOTE expr                {;}
-    | SPLICE expr                   {;}
-    | UNQUOTE expr                  {;}
+    | LBRACE specexpr exprlist RBRACE   { MakePair(@1,@4); }
     ;
     
 macros
@@ -182,8 +179,7 @@ functions
     | EQL exprlist
     | EVAL expr
     | EVALSTRING expr
-    | EXITFN 
-    | EXITFN INTEGER
+    | EXITFN expropt
     | FIRST expr
     | GT expr expr exprlist
     | GTE expr expr exprlist
@@ -201,7 +197,7 @@ functions
     | MAP expr expr
     | MEMBER expr expr
     | MUL exprlist
-    | NCONC  lists
+    | NCONC exprlist
     | NEW IDENTIFIER exprlist
     | NOT expr
     | NEQ exprlist
@@ -232,17 +228,17 @@ specialform
     | COND condexprlist expropt
     | DEC expr
     | DO exprlist
-    | EACH IDENTIFIER expr expr
-    | FN args expr
+    | EACH IDENTIFIER expr exprlist
+    | FN args exprlist
     | FOR expr expr expr exprlist
     | IF expr expr expropt
     | INC expr
     | LET IDENTIFIER expr exprlist
-    | MACRO args expr
+    | MACRO args exprlist
     | OR exprlist
     | SETF setvaluexpr
     | THE IDENTIFIER expr
-    | TO IDENTIFIER INTEGER expr
+    | TO IDENTIFIER expr exprlist
     | TRACE IDENTIFIER exprlist
     | TRY expr expr expropt
     | WHEN expr exprlist
@@ -253,6 +249,7 @@ specialform
 setvaluexpr
     :                               {;}
     | setvaluexpr IDENTIFIER expr   {;}
+    | setvaluexpr UNQUOTE expr expr {;}
     ;
     
 args
@@ -282,11 +279,19 @@ exprlist
 expropt
     :                               {;}
     | expr                          {;}
-    ;    
+    ;
+    
+specexpr
+    : QUOTE expr                    {;}
+    | BACKQUOTE expr                {;}
+    | SPLICE expr                   {;}
+    | UNQUOTE expr                  {;}    
+    ;
     
 expr
     : listcontent                   {;}
     | list                          {;}
+    | specexpr                      {;}
     | error                         {;}
     ; 
 

@@ -540,6 +540,7 @@
     <None Include="Languages\PlainText.lex" />
     <None Include="Languages\Yacc.lex" />
     <None Include="xacc.key" />
+    <EmbeddedResource Include="Resources\Edit.SelectAll.png" />
     <Content Include="Resources\header.bmp" />
     <Content Include="Resources\installer.bmp" />
   </ItemGroup>

@@ -818,7 +818,7 @@ namespace Xacc.ComponentModel
 			}
 		}
 
-    [MenuItem("Save file as...", Index = 11, State = ApplicationState.File)]
+    [MenuItem("Save file as...", Index = 11, State = ApplicationState.File, Image = "File.SaveAs.png")]
 		void SaveFileAs()
 		{
 			if (current != null)

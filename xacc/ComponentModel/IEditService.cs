@@ -317,7 +317,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Select all", Index = 30, State = ApplicationState.Edit)]
+    [MenuItem("Select all", Index = 30, State = ApplicationState.Edit, Image = "Edit.SelectAll.png")]
     void SelectAll()
     {
       IEdit atb = fm.CurrentControl as IEdit;
