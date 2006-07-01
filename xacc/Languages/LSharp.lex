@@ -11,24 +11,6 @@ using LexerBase = LSharp.LexerBase<LSharp.ValueType>;
 
 %unicode
 
-%{
-static ValueType Token(TokenClass c, Tokens type)
-{
-  ValueType t = new ValueType();
-  t.__type = (int)type;
-  t.__class = c;
-  return t;
-}
-static ValueType Token(TokenClass c, int type)
-{
-  ValueType t = new ValueType();
-  t.__type = type;
-  t.__class = c;
-  return t;
-}
-
-%}
-
 line_comment           =";"[^\n]*
 
 comment_start          ="#|"
@@ -73,7 +55,8 @@ string_literal         ={regular_string}
 
 letter_char            =[A-Za-z]
 ident_char             =({dec_digit}|{letter_char}|"-"|"_"|"!"|"+")
-identifier             =({letter_char}({ident_char})*)("[]")?|("*"({ident_char})+"*")
+identifier2            =(({letter_char}({ident_char})*)("[]")?|("*"({ident_char})+"*"))
+identifier             ={identifier2}("."{identifier2})*
 
 atoms     =(null|true|false)
 
@@ -89,99 +72,99 @@ atoms     =(null|true|false)
 {line_comment}        { return Comment(); }
 
 "&body"               { return Other(); }
-"&rest"               { return Other(); }
+"&rest"               { return Other(ARGREST); }
 
 <ML_COMMENT>[^\n\|]+         { return Comment(); }
 <ML_COMMENT>{comment_end}     { EXIT(); return Comment(); }
 <ML_COMMENT>"|"               { return Comment(); }
  
-{atoms}               { return Keyword(LITERAL); } 
+{atoms}               { EXIT(); return Keyword(LITERAL); } 
 
-<KWSTATE>and               { return Keyword(AND); } 
-<KWSTATE>call               { return Keyword(CALL); } 
-<KWSTATE>cond               { return Keyword(COND); } 
-<KWSTATE>do               { return Keyword(DO); } 
-<KWSTATE>each               { return Keyword(EACH); } 
-<KWSTATE>fn               { return Keyword(FN); } 
-<KWSTATE>for               { return Keyword(FOR); } 
-<KWSTATE>foreach               { return Keyword(EACH); } 
-<KWSTATE>if               { return Keyword(IF); } 
-<KWSTATE>let               { return Keyword(LET); } 
-<KWSTATE>macro               { return Keyword(MACRO); } 
-<KWSTATE>or               { return Keyword(OR); } 
-<KWSTATE>the               { return Keyword(THE); } 
-<KWSTATE>to               { return Keyword(TO); } 
-<KWSTATE>trace               { return Keyword(TRACE); } 
-<KWSTATE>try               { return Keyword(TRY); } 
-<KWSTATE>when               { return Keyword(WHEN); } 
-<KWSTATE>while               { return Keyword(WHILE); } 
-<KWSTATE>with               { return Keyword(WITH); } 
-<KWSTATE>"--"               { return Keyword(DEC); } 
-<KWSTATE>"++"               { return Keyword(INC); } 
+<KWSTATE>and               { EXIT(); return Keyword(AND); } 
+<KWSTATE>call               { EXIT(); return Keyword(CALL); } 
+<KWSTATE>cond               { EXIT(); return Keyword(COND); } 
+<KWSTATE>do               {EXIT();  return Keyword(DO); } 
+<KWSTATE>each               { EXIT(); return Keyword(EACH); } 
+<KWSTATE>fn               { EXIT(); return Keyword(FN); } 
+<KWSTATE>for               { EXIT(); return Keyword(FOR); } 
+<KWSTATE>foreach               { EXIT(); return Keyword(EACH); } 
+<KWSTATE>if               { EXIT(); return Keyword(IF); } 
+<KWSTATE>let               { EXIT(); return Keyword(LET); } 
+<KWSTATE>macro               { EXIT(); return Keyword(MACRO); } 
+<KWSTATE>or               { EXIT(); return Keyword(OR); } 
+<KWSTATE>the               { EXIT(); return Keyword(THE); } 
+<KWSTATE>to               { EXIT(); return Keyword(TO); } 
+<KWSTATE>trace               { EXIT(); return Keyword(TRACE); } 
+<KWSTATE>try               { EXIT(); return Keyword(TRY); } 
+<KWSTATE>when               { EXIT(); return Keyword(WHEN); } 
+<KWSTATE>while               { EXIT(); return Keyword(WHILE); } 
+<KWSTATE>with               { EXIT(); return Keyword(WITH); } 
+<KWSTATE>"--"               { EXIT(); return Keyword(DEC); } 
+<KWSTATE>"++"               { EXIT(); return Keyword(INC); } 
 
-<KWSTATE>apply               { return Type(APPLY); } 
-<KWSTATE>append               { return Type(APPEND); } 
-<KWSTATE>assoc               { return Type(ASSOC); } 
-<KWSTATE>caaar               { return Type(CAAAR); } 
-<KWSTATE>caadr               { return Type(CAADR); } 
-<KWSTATE>caar               { return Type(CAAR); } 
-<KWSTATE>cadar               { return Type(CADAR); } 
-<KWSTATE>caddr               { return Type(CADDR); } 
-<KWSTATE>cadr               { return Type(CADR); } 
-<KWSTATE>car               { return Type(CAR); } 
-<KWSTATE>cdar               { return Type(CDAR); } 
-<KWSTATE>cdaar             { return Type(CDAAR); } 
-<KWSTATE>cddar               { return Type(CDDAR); } 
-<KWSTATE>cdddr               { return Type(CDDDR); } 
-<KWSTATE>cddr               { return Type(CDDR); } 
-<KWSTATE>cdr               { return Type(CDR); } 
-<KWSTATE>cons               { return Type(CONS); } 
-<KWSTATE>environment               { return Type(ENV); } 
-<KWSTATE>eq               { return Type(EQ); } 
-<KWSTATE>eql               { return Type(EQL); } 
-<KWSTATE>eval               { return Type(EVAL); } 
-<KWSTATE>evalstring               { return Type(EVALSTRING); } 
-<KWSTATE>exit               { return Type(EXITFN); } 
-<KWSTATE>first               { return Type(FIRST); } 
-<KWSTATE>inspect               { return Type(INSPECT); } 
-<KWSTATE>is               { return Type(IS); } 
-<KWSTATE>length              { return Type(LENGTH); } 
-<KWSTATE>list               { return Type(LIST); } 
-<KWSTATE>load               { return Type(LOAD); } 
-<KWSTATE>macroexpand               { return Type(MACROEXPAND); } 
-<KWSTATE>map               { return Type(MAP); } 
-<KWSTATE>nconc               { return Type(NCONC); } 
-<KWSTATE>new               { return Type(NEW); } 
-<KWSTATE>not               { return Type(NOT); } 
-<KWSTATE>nth               { return Type(NTH); } 
-<KWSTATE>pr               { return Type(PR); } 
-<KWSTATE>prl               { return Type(PRL); } 
-<KWSTATE>read               { return Type(READ); } 
-<KWSTATE>readstring               { return Type(READSTRING); } 
-<KWSTATE>reference               { return Type(REFERENCE); } 
-<KWSTATE>reverse               { return Type(REVERSE); } 
-<KWSTATE>rest               { return Type(REST); } 
-<KWSTATE>throw               { return Type(THROW); } 
-<KWSTATE>typeof               { return Type(TYPEOF); } 
-<KWSTATE>using               { return Type(USING); } 
-<KWSTATE>"+"               { return Type(ADD); } 
-<KWSTATE>"="               { return Type(SETF); } 
-<KWSTATE>"*"               { return Type(MUL); } 
-<KWSTATE>"/"               { return Type(DIV); } 
-<KWSTATE>"-"               { return Type(SUB); } 
-<KWSTATE>">"               { return Type(GT); } 
-<KWSTATE>">="               { return Type(GTE); } 
-<KWSTATE>"<="              { return Type(LTE); } 
-<KWSTATE>"<"               { return Type(LT); } 
-<KWSTATE>"&"               { return Type(LOGAND); } 
-<KWSTATE>"^"               { return Type(LOGXOR); } 
-<KWSTATE>"|"               { return Type(LOGOR); } 
-<KWSTATE>"!="               { return Type(NEQ); } 
-<KWSTATE>"=="               { return Type(EQ); } 
+<KWSTATE>apply               { EXIT(); return Type(APPLY); } 
+<KWSTATE>append               {EXIT();  return Type(APPEND); } 
+<KWSTATE>assoc               { EXIT(); return Type(ASSOC); } 
+<KWSTATE>caaar               { EXIT(); return Type(CAAAR); } 
+<KWSTATE>caadr               { EXIT(); return Type(CAADR); } 
+<KWSTATE>caar               { EXIT(); return Type(CAAR); } 
+<KWSTATE>cadar               { EXIT(); return Type(CADAR); } 
+<KWSTATE>caddr               { EXIT(); return Type(CADDR); } 
+<KWSTATE>cadr               { EXIT(); return Type(CADR); } 
+<KWSTATE>car               { EXIT(); return Type(CAR); } 
+<KWSTATE>cdar               { EXIT(); return Type(CDAR); } 
+<KWSTATE>cdaar             { EXIT(); return Type(CDAAR); } 
+<KWSTATE>cddar               { EXIT(); return Type(CDDAR); } 
+<KWSTATE>cdddr               { EXIT(); return Type(CDDDR); } 
+<KWSTATE>cddr               { EXIT(); return Type(CDDR); } 
+<KWSTATE>cdr               { EXIT(); return Type(CDR); } 
+<KWSTATE>cons               { EXIT(); return Type(CONS); } 
+<KWSTATE>environment               { EXIT(); return Type(ENV); } 
+<KWSTATE>eq               { EXIT(); return Type(EQ); } 
+<KWSTATE>eql               { EXIT(); return Type(EQL); } 
+<KWSTATE>eval               { EXIT(); return Type(EVAL); } 
+<KWSTATE>evalstring               { EXIT(); return Type(EVALSTRING); } 
+<KWSTATE>exit               { EXIT(); return Type(EXITFN); } 
+<KWSTATE>first               { EXIT(); return Type(FIRST); } 
+<KWSTATE>inspect               { EXIT(); return Type(INSPECT); } 
+<KWSTATE>is               { EXIT(); return Type(IS); } 
+<KWSTATE>length              { EXIT(); return Type(LENGTH); } 
+<KWSTATE>list               { EXIT(); return Type(LIST); } 
+<KWSTATE>load               { EXIT(); return Type(LOAD); } 
+<KWSTATE>macroexpand               { EXIT(); return Type(MACROEXPAND); } 
+<KWSTATE>map               { EXIT(); return Type(MAP); } 
+<KWSTATE>nconc               { EXIT(); return Type(NCONC); } 
+<KWSTATE>new               { EXIT(); return Type(NEW); } 
+<KWSTATE>not               { EXIT(); return Type(NOT); } 
+<KWSTATE>nth               { EXIT(); return Type(NTH); } 
+<KWSTATE>pr               { EXIT(); return Type(PR); } 
+<KWSTATE>prl               { EXIT(); return Type(PRL); } 
+<KWSTATE>read               { EXIT(); return Type(READ); } 
+<KWSTATE>readstring               { EXIT(); return Type(READSTRING); } 
+<KWSTATE>reference               { EXIT(); return Type(REFERENCE); } 
+<KWSTATE>reverse               { EXIT(); return Type(REVERSE); } 
+<KWSTATE>rest               { EXIT(); return Type(REST); } 
+<KWSTATE>throw               { EXIT(); return Type(THROW); } 
+<KWSTATE>typeof               { EXIT(); return Type(TYPEOF); } 
+<KWSTATE>using               { EXIT(); return Type(USING); } 
+<KWSTATE>"+"               { EXIT(); return Type(ADD); } 
+<KWSTATE>"="               { EXIT(); return Type(SETF); } 
+<KWSTATE>"*"               { EXIT(); return Type(MUL); } 
+<KWSTATE>"/"               { EXIT(); return Type(DIV); } 
+<KWSTATE>"-"               { EXIT(); return Type(SUB); } 
+<KWSTATE>">"               { EXIT(); return Type(GT); } 
+<KWSTATE>">="               { EXIT(); return Type(GTE); } 
+<KWSTATE>"<="              { EXIT(); return Type(LTE); } 
+<KWSTATE>"<"               { EXIT(); return Type(LT); } 
+<KWSTATE>"&"               { EXIT(); return Type(LOGAND); } 
+<KWSTATE>"^"               { EXIT(); return Type(LOGXOR); } 
+<KWSTATE>"|"               { EXIT(); return Type(LOGOR); } 
+<KWSTATE>"!="               { EXIT(); return Type(NEQ); } 
+<KWSTATE>"=="               { EXIT(); return Type(EQ); } 
 
-<KWSTATE>defmacro               { return Keyword(DEFMACRO); } 
-<KWSTATE>defun               { return Keyword(DEFUN); } 
-<KWSTATE>listp               { return Keyword(); } 
+<KWSTATE>defmacro               { EXIT(); return Keyword(DEFMACRO); } 
+<KWSTATE>defun               { EXIT(); return Keyword(DEFUN); } 
+<KWSTATE>listp               { EXIT(); return Keyword(); } 
 
 
 <KWSTATE>{identifier}          { EXIT(); return Identifier(IDENTIFIER); }
@@ -197,15 +180,15 @@ atoms     =(null|true|false)
 
 "("                   { ENTER(KWSTATE); return Operator(LBRACE); }                     
 ")"                   { return Operator(RBRACE); } 
-"."                   { return Operator(); }
 "?"                   { return Other(); }
 "`"                   { return Operator(BACKQUOTE); }
 "'"                   { return Operator(QUOTE); }
-",@"                  { return Operator(); }
-","                   { return Operator();}
+",@"                  { return Operator(SPLICE); }
+","                   { return Operator(UNQUOTE);}
 
 {identifier}          { return Identifier(IDENTIFIER); }
 
+[-\+|!=><*/^&]+       { return Identifier(IDENTIFIER); }
 
 .                     { return Error(); }
 

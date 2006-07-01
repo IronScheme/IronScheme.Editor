@@ -121,24 +121,44 @@ namespace Xacc.ComponentModel
 
     internal static readonly Hashtable typemapping = new Hashtable();
 
+    static void AddTokenType(TokenClass c, Color col, Color back, Color border, FontStyle s)
+    {
+      typemapping[c] = new ColorInfo(col, back, border, s);
+    }
+
+    static void AddTokenType(TokenClass c, Color col, Color back, FontStyle s)
+    {
+      typemapping[c] = new ColorInfo(col, back, s);
+    }
+
+    static void AddTokenType(TokenClass c, Color col, Color back)
+    {
+      AddTokenType(c, col, back, 0);
+    }
+
+    static void AddTokenType(TokenClass c, Color col)
+    {
+      AddTokenType(c, col, Color.Transparent);
+    }
+
     static LanguageService()
     {
-      typemapping.Add(TokenClass.Error,				  Color.Red);
-      typemapping.Add(TokenClass.Warning, 			Color.Black); //not used
-      typemapping.Add(TokenClass.Ignore, 			  Color.Black); //not used
-      typemapping.Add(TokenClass.Any,					  Color.Black);
-      typemapping.Add(TokenClass.Identifier,	  Color.Black);
-      typemapping.Add(TokenClass.Type,				  Color.Teal);
-      typemapping.Add(TokenClass.Keyword,			  Color.Blue);
-      typemapping.Add(TokenClass.Preprocessor,	Color.DarkBlue);
-      typemapping.Add(TokenClass.String,				Color.Maroon);
-      typemapping.Add(TokenClass.Character,		  Color.DarkOrange);
-      typemapping.Add(TokenClass.Number,				Color.Red);
-      typemapping.Add(TokenClass.Pair,			    Color.DarkBlue);
-      typemapping.Add(TokenClass.Comment,			  Color.DarkGreen);
-      typemapping.Add(TokenClass.DocComment,		Color.DimGray);
-      typemapping.Add(TokenClass.Operator,			Color.DarkBlue);
-      typemapping.Add(TokenClass.Other,			    Color.DeepPink);
+      AddTokenType(TokenClass.Error, Color.Red);
+      AddTokenType(TokenClass.Warning, Color.Black); //not used
+      AddTokenType(TokenClass.Ignore, Color.Black); //not used
+      AddTokenType(TokenClass.Any, Color.Black);
+      AddTokenType(TokenClass.Identifier, Color.Black);
+      AddTokenType(TokenClass.Type, Color.Teal);
+      AddTokenType(TokenClass.Keyword, Color.Blue);
+      AddTokenType(TokenClass.Preprocessor, Color.DarkBlue);
+      AddTokenType(TokenClass.String, Color.Maroon);
+      AddTokenType(TokenClass.Character, Color.DarkOrange);
+      AddTokenType(TokenClass.Number, Color.Red);
+      AddTokenType(TokenClass.Pair, Color.DarkBlue, Color.LightGray);
+      AddTokenType(TokenClass.Comment, Color.DarkGreen);
+      AddTokenType(TokenClass.DocComment, Color.DimGray);
+      AddTokenType(TokenClass.Operator, Color.DarkBlue);
+      AddTokenType(TokenClass.Other, Color.DeepPink);
     }
 
     public LanguageService()
@@ -146,12 +166,9 @@ namespace Xacc.ComponentModel
       new Languages.PlainText();
       new Languages.Changelog();
       new Languages.CSLexLang();
-      new CSharp.Parser();
-      new LSharp.Parser();
       new Languages.YaccLang();
-      //new Languages.PatchLanguage();
-      //new Languages.ScalaLang();
-      //new Languages.MercuryLang();
+      new LSharp.Parser();
+      new CSharp.Parser();
     }
 
     public Language GetLanguage(string name)
@@ -166,7 +183,22 @@ namespace Xacc.ComponentModel
 
     public void SetTokenClassColor(TokenClass t, Color c)
     {
-      typemapping[t] = c;
+      AddTokenType(t, c);
+    }
+
+    public void SetTokenClassColor(TokenClass t, Color c, Color back)
+    {
+      AddTokenType(t, c, back);
+    }
+
+    public void SetTokenClassColor(TokenClass t, Color c, Color back, FontStyle style)
+    {
+      AddTokenType(t, c, back, style);
+    }
+
+    public void SetTokenClassColor(TokenClass t, Color c, Color back, Color border, FontStyle style)
+    {
+      AddTokenType(t, c, back, border, style);
     }
 
 		public Language this[string extension]

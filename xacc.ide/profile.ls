@@ -35,6 +35,15 @@
 (defmacro tokencolor (tc col)
 	`(settokenclasscolor language (,tc tokenclass) (,col color)))
 
+(defmacro tokencolor2 (tc col col2)
+	`(settokenclasscolor language (,tc tokenclass) (,col color) (,col2 color)))
+	
+(defmacro tokencolor3 (tc col col2 col3 style)
+	`(settokenclasscolor language (,tc tokenclass) (,col color) (,col2 color) (,col3 color) (,style fontstyle)))
+	
+(defmacro tokencolor4 (tc col style)
+	`(settokenclasscolor language (,tc tokenclass) (,col color) (empty color) (,style fontstyle)))	
+
 (tokencolor   Error         Red)
 (tokencolor   Warning       Black)
 (tokencolor   Ignore        Black)
@@ -46,7 +55,7 @@
 (tokencolor   String        Maroon)
 (tokencolor   Character     DarkOrange)
 (tokencolor   Number        Red)
-(tokencolor   Pair          DarkBlue)
+(tokencolor2  Pair          DarkBlue        LightGray)
 (tokencolor   Comment       DarkGreen)
 (tokencolor   DocComment    DimGray)
 (tokencolor   Operator      DarkBlue)

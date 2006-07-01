@@ -172,7 +172,7 @@ namespace Xacc.ComponentModel
     /// <summary>
     /// Custom flag
     /// </summary>
-    Custom = 0x0f000000,
+    Custom = 0x01000000,
   }
 
 
@@ -203,6 +203,11 @@ namespace Xacc.ComponentModel
     /// Gets the backgound color
     /// </summary>
     Color BackColor {get;}
+
+    /// <summary>
+    /// Gets the border color
+    /// </summary>
+    Color BorderColor { get;}
 
     /// <summary>
     /// Gets the font style

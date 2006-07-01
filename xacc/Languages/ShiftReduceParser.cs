@@ -26,7 +26,7 @@ namespace gppg
     private int tokensSinceLastError;
 
     private ParserStack<State> state_stack = new ParserStack<State>(8);
-    protected ParserStack<ValueType> value_stack = new ParserStack<ValueType>(500);
+    protected ParserStack<ValueType> value_stack = new ParserStack<ValueType>(8);
 
     protected string[] nonTerminals;
     protected State[] states;
@@ -135,7 +135,6 @@ namespace gppg
 
       rhslen = rule.rhs.Length;
 
-      // FIX: leppie, was wrong, used implementation from byacc, adjusted stacks to have a capacity
       if (rule.rhs.Length == 1)
       {
         yyval = value_stack.array[value_stack.top - rule.rhs.Length];
@@ -183,6 +182,51 @@ namespace gppg
     public object S7 { get { return S(7); } }
     public object S8 { get { return S(8); } }
     public object S9 { get { return S(9); } }
+
+    public object LL { get { return yyval.Location; } }
+    public object L(int i) { return i > rhslen ? null : value_stack.array[value_stack.top - rhslen - 1 + i].Location; }
+    public object L1 { get { return L(1); } }
+    public object L2 { get { return L(2); } }
+    public object L3 { get { return L(3); } }
+    public object L4 { get { return L(4); } }
+    public object L5 { get { return L(5); } }
+    public object L6 { get { return L(6); } }
+    public object L7 { get { return L(7); } }
+    public object L8 { get { return L(8); } }
+    public object L9 { get { return L(9); } }
+
+    public object[] ValueStack
+    {
+      get 
+      {
+        int l = value_stack.top - 1;
+        object[] values = new object[l];
+
+        for (int i = 0; i < l; i++)
+        {
+          values[i] = value_stack.array[i].Value;
+        }
+        
+        return values;
+      }
+    }
+
+    public int[] StateStack
+    {
+      get
+      {
+        int l = state_stack.top - 1;
+        int[] values = new int[l];
+
+        for (int i = 0; i < l; i++)
+        {
+          values[i] = state_stack.array[i].num;
+        }
+        
+        return values;
+      }
+    }
+
 #endif
 
 

@@ -183,6 +183,11 @@ namespace Xacc.Languages.CSLex
         }
         t.Location = new Location(0, yychar, 0, yychar + yylength());
 
+        if (t.Class == TokenClass.Error)
+        {
+          t.Location.Error = true;
+        }
+
         return t;
       }
 
@@ -249,7 +254,7 @@ namespace Xacc.Languages.CSLex
       protected static Token Error(int type)
       {
         Token t = new Token();
-        t.Type = -1;
+        t.Type = type;
         t.Class = TokenClass.Error;
         return t;
       }
@@ -368,6 +373,42 @@ namespace Xacc.Languages.CSLex
         Token t = new Token();
         t.Type = type;
         t.Class = TokenClass.Other;
+        return t;
+      }
+
+      protected static Token Custom(KnownColor forecolor, int type) 
+      { 
+        return Custom(forecolor, 0, 0, 0, type); 
+      }
+
+      protected static Token Custom(KnownColor forecolor, KnownColor backcolor)
+      { 
+        return Custom(forecolor, backcolor, 0, 0, -1); 
+      }
+
+      protected static Token Custom(KnownColor forecolor) 
+      { 
+        return Custom(forecolor, 0, 0, 0, -1); 
+      }
+
+      protected static Token Custom(KnownColor forecolor, KnownColor backcolor, KnownColor bordercolor)
+      { 
+        return Custom(forecolor, backcolor, bordercolor, 0, -1); 
+      }
+
+      protected static Token Custom(KnownColor forecolor, KnownColor backcolor, KnownColor bordercolor, FontStyle style) 
+      { 
+        return Custom(forecolor, backcolor, bordercolor, style, -1); 
+      }
+
+      protected static Token Custom(KnownColor forecolor, KnownColor backcolor, KnownColor bordercolor, FontStyle style, int type)
+      {
+        Token t = new Token();
+        t.Type = type;
+#pragma warning disable 675
+        t.Class = (TokenClass)((int)TokenClass.Custom | ((int)forecolor << 16 & 0xff0000) | 
+          ((int)backcolor << 8 & 0xff00) | ((int)style << 24 & 0xff000000) | ((int)bordercolor & 0xff));
+#pragma warning restore 675
         return t;
       }
 

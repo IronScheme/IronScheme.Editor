@@ -219,12 +219,20 @@ namespace Xacc.Languages
     {
       loc.callback = delegate(IToken tok) 
       {
-        if (tok.Class == TokenClass.Identifier)
+        tok.Class = newclass;
+        if (newclass == TokenClass.Type)
         {
-          tok.Class = newclass;
           parsedtypes[tok.Text] = loc;
         }
+        else
+        {
+          if (parsedtypes.ContainsKey(tok.Text))
+          {
+            parsedtypes.Remove(tok.Text);
+          }
+        }
       };
+
       if (cb != null)
       {
         cb.Invoke(loc);
@@ -547,6 +555,11 @@ namespace Xacc.Languages
           goto START;
         }
         IToken t = tl.Tokens[tokenpos];
+        
+        if (!IsValid(t))
+        {
+          goto START;
+        }
 
         if (updatelocations)
         {
@@ -561,19 +574,15 @@ namespace Xacc.Languages
               lang.cb.Invoke(loc);
             }
           }
- 
+
           //reset error/warning state
           loc.Error = loc.Warning = false;
- 
+
           loc.filename = filename;
           loc.LineNumber = line;
           //loc.Paired = false;
         }
-        
-        if (!IsValid(t))
-        {
-          goto START;
-        }
+
         current = t;
         return true;
       }
@@ -1363,27 +1372,24 @@ namespace Xacc.Languages
       {
         if (!typemapping.ContainsKey(t))
         {
-          int v = tokentype & 0xffffff;
-          int r = v >> 16 & 0xff;
-          int g = v >> 8 & 0xff;
-          int b = v & 0xff;
+          int v = tokentype & ~(int)TokenClass.Custom;
+          ColorInfo ci = new ColorInfo(
+          Color.FromKnownColor((KnownColor)(v >> 16 & 0xff)),
+          Color.FromKnownColor((KnownColor)(v >> 8 & 0xff)),
+          Color.FromKnownColor((KnownColor)( v & 0xff)),
+          (FontStyle) (v >> 24 & 0xff ) + 1);
 
-          typemapping.Add(t, Color.FromArgb(r,g,b));
+          typemapping.Add(t, ci);
         }
       }
 
       if (typemapping.ContainsKey(t))
       {
-        ColorInfo ci = new ColorInfo();
-        ci.ForeColor = (Color)typemapping[t];
-        return ci;
+        return (ColorInfo)typemapping[t];
       }
       else
       {
-
-        ColorInfo ci = new ColorInfo();
-        ci.ForeColor = (Color)typemapping[TokenClass.Any];
-        return ci;
+        return (ColorInfo)typemapping[TokenClass.Any];
       }
     }
 
@@ -1415,6 +1421,7 @@ namespace Xacc.Languages
       codemodel = new CodeFile(filename);
       ServiceHost.Error.ClearErrors(this);
       //scopetree.Clear();
+      parsedtypes.Clear();
       scopestack.Clear();
       imports.Clear();
       imports.Add(string.Empty);

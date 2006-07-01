@@ -3,7 +3,7 @@
 
 %{
 
-public override string[] Extensions {get {return new string[]{"ls"}; }}
+public override string[] Extensions {get {return new string[]{"ls","lsp"}; }}
 public override string Name {get {return "LSharp"; }}
 LexerBase lexer = new LSharpLexer();
 protected override LexerBase Lexer {get {return lexer; }}
@@ -115,15 +115,15 @@ class Literal : CodeElement
 
 }
 
-%token LBRACE RBRACE
+%token LBRACE RBRACE INVALID SPLICE UNQUOTE ARGREST
 %token <text> IDENTIFIER LITERAL DEFMACRO DEFUN ADD APPEND APPLY ASSOC CAAR CAAAR CAADR CADAR CADDR CADR CAR
 %token <text> CDAAR CDAR CDDAR CDDDR CDDR CDR CONS COPYLIST DIV ENV EQ EQL EVAL EVALSTRING STRING INTEGER
 %token <text> EXITFN FIRST GT GTE LT LTE INSPECT IS LENGTH LIST LOAD LOGAND LOGOR LOGXOR MACROEXPAND MAP MEMBER
 %token <text> MUL NCONC NEW NOT NEQ NTH PR PRL READ READSTRING REFERENCE REVERSE REST SUB THROW TYPEOF USING
 %token <text> AND BACKQUOTE CALL COND DEC DO EACH FN FOR IF INC LET MACRO OR QUOTE SETF THE TO TRACE TRY WHEN WHILE WITH
 
-%type <list> lists listcontents
-%type <elem> list listcontent expr
+%type <list> lists exprlist
+%type <elem> list listcontent expr literal
 
 %start file
 
@@ -135,25 +135,29 @@ file
 
 lists 
     :                               { $$ = new CodeElementList(); }
-    | lists expr                    { $1.Add($2); $$ = $1; }
+    | lists expr                    { $$ = $1; $$.Add($2); }
     ;
     
 list
     : LBRACE specialform RBRACE     { MakePair(@1,@3); }
     | LBRACE macros RBRACE          { MakePair(@1,@3); }
     | LBRACE functions RBRACE       { MakePair(@1,@3); }
-    | LBRACE exprlist RBRACE        { MakePair(@1,@3); }
-    | QUOTE expr
-    | BACKQUOTE expr
+    | LBRACE IDENTIFIER exprlist RBRACE { MakePair(@1,@4); OverrideToken(@2, IsType($2) ? TokenClass.Type : TokenClass.Identifier); }
+    | LBRACE literal exprlist RBRACE    { MakePair(@1,@4); }
+    | LBRACE list exprlist RBRACE   { MakePair(@1,@4); }
+    | QUOTE expr                    {;}
+    | BACKQUOTE expr                {;}
+    | SPLICE expr                   {;}
+    | UNQUOTE expr                  {;}
     ;
     
 macros
-    : DEFUN IDENTIFIER args expr      { OverrideToken(@2, TokenClass.Type); }
-    | DEFMACRO IDENTIFIER args expr   { OverrideToken(@2, TokenClass.Type); }
+    : DEFUN IDENTIFIER args exprlist    { OverrideToken(@2, TokenClass.Type); }
+    | DEFMACRO IDENTIFIER args exprlist { OverrideToken(@2, TokenClass.Type); }
     ;
     
 functions
-    : ADD expr
+    : ADD exprlist
     | APPEND exprlist
     | APPLY expr exprlist
     | ASSOC expr expr
@@ -193,7 +197,7 @@ functions
     | LOGAND exprlist
     | LOGOR exprlist
     | LOGXOR exprlist
-    | MACROEXPAND expr
+    | MACROEXPAND expr exprlist
     | MAP expr expr
     | MEMBER expr expr
     | MUL exprlist
@@ -204,20 +208,20 @@ functions
     | NTH INTEGER expr
     | PR exprlist
     | PRL exprlist
-    | READ expr 
+    | READ expr expropt
     | READSTRING expr
     | REFERENCE stringlist
     | REVERSE expr
     | REST expr
     | SUB exprlist
     | THROW expr
-    | TYPEOF IDENTIFIER expr
-    | USING STRING
+    | TYPEOF IDENTIFIER
+    | USING stringlist
     ;
     
 stringlist
-    :
-    | stringlist STRING
+    :                               {;}
+    | stringlist STRING             {;}
     ;    
         
     
@@ -247,46 +251,55 @@ specialform
     ; 
     
 setvaluexpr
-    :
-    | setvaluexpr IDENTIFIER expr
+    :                               {;}
+    | setvaluexpr IDENTIFIER expr   {;}
     ;
     
 args
-    : LBRACE arglist RBRACE
-    ;    
+    : LBRACE arglist argtail RBRACE { MakePair(@1,@4); }
+    ; 
+    
+argtail
+    :
+    | ARGREST IDENTIFIER            {;}
+    ;
     
 arglist
-    :
-    | arglist IDENTIFIER
+    :                               {;}
+    | arglist IDENTIFIER            {;}
     ;       
 
 condexprlist
-    : 
-    | condexprlist expr expr
+    :                               {;}
+    | condexprlist expr expr        {;}
     ;
     
 exprlist
-    :
-    | exprlist expr
+    :                               { $$ = new CodeElementList(); }
+    | exprlist expr                 { $$= $1; $$.Add($2);}
     ;       
     
 expropt
-    :
-    | expr
+    :                               {;}
+    | expr                          {;}
     ;    
     
 expr
-    : listcontent
-    | list
-    | error
+    : listcontent                   {;}
+    | list                          {;}
+    | error                         {;}
     ; 
 
 listcontent
-    : IDENTIFIER                    { $$ = new Identifier($1); if (IsType($1)) OverrideToken(@1, TokenClass.Type); }
-    | STRING                        { $$ = new Literal($1);}
+    : IDENTIFIER                    { $$ = new Identifier($1); }
+    | literal                       {;}
+    ; 
+    
+literal
+    : STRING                        { $$ = new Literal($1);}
     | INTEGER                       { $$ = new Literal($1);}
     | LITERAL                       { $$ = new Literal($1);}
-    ;    
+    ;      
     
     
     

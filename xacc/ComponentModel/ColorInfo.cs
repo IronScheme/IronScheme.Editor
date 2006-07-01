@@ -32,6 +32,21 @@ namespace Xacc.ComponentModel
   /// </summary>
 	public struct ColorInfo
 	{
+    public ColorInfo(Color forecolor, Color backcolor, Color bordercolor, FontStyle style)
+    {
+      this.BorderColor = bordercolor.Name == "0" ? Color.Empty : bordercolor;
+      this.ForeColor = forecolor;
+      this.BackColor = backcolor.Name == "0" ? Color.Empty : backcolor;
+      this.Style = style;
+    }
+
+    public ColorInfo(Color forecolor, Color backcolor, FontStyle style)
+    {
+      this.BorderColor = Color.Empty;
+      this.ForeColor = forecolor;
+      this.BackColor = backcolor;
+      this.Style = style;
+    }
     /// <summary>
     /// The style to use
     /// </summary>
@@ -46,16 +61,19 @@ namespace Xacc.ComponentModel
     /// The background color to use
     /// </summary>
 		public Color				BackColor;
+
+
+    public Color BorderColor;
 	
     /// <summary>
     /// Represents an empty ColorInfo
     /// </summary>
-		public static readonly ColorInfo Empty = new ColorInfo();
+		public static readonly ColorInfo Empty = new ColorInfo(Color.Empty, Color.Empty, 0);
 
     /// <summary>
     /// Represents an invalid ColorInfo
     /// </summary>
-		public static readonly ColorInfo Invalid = new ColorInfo();
+    public static readonly ColorInfo Invalid = new ColorInfo(Color.Empty, Color.Empty, 0);
 
 		static ColorInfo()
 		{

@@ -130,10 +130,12 @@ Function IsDotNETInstalled
          IfFileExists "$4\v2.0.$3" foundDotNET EnumPolicy
 
    noDotNET:
+     DetailPrint ".NET 2.0 not detected."
      StrCpy $0 0
      Goto done
 
    foundDotNET:
+     DetailPrint ".NET 2.0 detected @ $4\v2.0.$3."
      StrCpy $0 "$4\v2.0.$3"
 
    done:

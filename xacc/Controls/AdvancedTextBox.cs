@@ -3656,7 +3656,7 @@ namespace Xacc.Controls
         static readonly Hashtable infomap = new Hashtable();
         static readonly ArrayList infotab = new ArrayList();
 
-        byte fc,bc,st;
+        byte fc,bc,st,bd;
 
         public Color				forecolor
         {
@@ -3706,6 +3706,30 @@ namespace Xacc.Controls
           }
         }
 
+        public Color bordercolor
+        {
+          get
+          {
+            return (Color)infotab[bd];
+          }
+          set
+          {
+            int i = 0;
+            if (!infomap.ContainsKey(value))
+            {
+              i = infomap.Count;
+              infomap.Add(value, i);
+              infotab.Add(value);
+            }
+            else
+            {
+              i = (int)infomap[value];
+            }
+
+            bd = (byte)i;
+          }
+        }
+
         public FontStyle		style
         {
           get 
@@ -3743,6 +3767,11 @@ namespace Xacc.Controls
         public Color BackColor
         {
           get {return backcolor; }
+        }
+
+        public Color BorderColor
+        {
+          get { return bordercolor; }
         }
 
         public FontStyle Style
@@ -5114,6 +5143,11 @@ namespace Xacc.Controls
                   Brush bg = Factory.SolidBrush(di.backcolor);
                   g.FillRectangle(bg, di.start, fh, di.end - di.start, font.Height - 1);
                 }
+                if (di.bordercolor != Color.Empty)
+                {
+                  Pen bp = Factory.Pen(di.bordercolor, 1);
+                  g.DrawRectangle(bp, di.start, fh, di.end - di.start, font.Height - 1);
+                }
 
                 g.DrawString(di.text, f, b, di.start, fh, buffer.sf);
               }
@@ -5162,17 +5196,13 @@ namespace Xacc.Controls
             {
               continue;
             }
-            ColorInfo ci = Language.GetColorInfo(tok.Class);
+            
             CodeModel.Location loc = tok.Location;
+            ColorInfo ci = Language.GetColorInfo(loc.Paired ? TokenClass.Pair : tok.Class);
 
             if (loc.Disabled)
             {
               ci.ForeColor = Color.FromArgb(127, ci.ForeColor);
-            }
-
-            if (loc.Paired)
-            {
-               ci.Style |= FontStyle.Bold;
             }
 
           NEWRANGE:	
@@ -5181,9 +5211,10 @@ namespace Xacc.Controls
               di = new DrawInfo();
               di.style = ci.Style;
               laststart = loc.Column;
-
+              
               di.forecolor = ci.ForeColor;
               di.backcolor = ci.BackColor;
+              di.bordercolor = ci.BorderColor;
 
               float start, end = MeasureString(linetext, laststart, laststart + tok.Length, out start);
 
@@ -5204,7 +5235,7 @@ namespace Xacc.Controls
             {
               int c = loc.Column;
 
-              if (di.forecolor == ci.ForeColor && di.backcolor == ci.BackColor && 
+              if (di.forecolor == ci.ForeColor && di.backcolor == ci.BackColor && di.bordercolor == ci.BorderColor &&
                 di.style == ci.Style && (c > 0 && linetext[c - 1] != '\t'))
               {
                 //the same
@@ -7594,6 +7625,9 @@ namespace Xacc.Controls
       }
 
       #endregion
+
+
+
 
 
     }; // class TextBuffer
