@@ -2,6 +2,7 @@
 // Copyright (c) Wayne Kelly, QUT 2005
 // (see accompanying GPPGcopyright.rtf)
 
+//#define TRACEPARSER
 
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,6 @@ namespace gppg
   [CLSCompliant(false)]
   public abstract class ShiftReduceParser<ValueType> : Xacc.Languages.CSLex.Language<ValueType> where ValueType : struct, Xacc.ComponentModel.IToken
   {
-    public bool Trace = false;
     public IScanner<ValueType> scanner;
 
     protected ValueType yyval;
@@ -36,6 +36,18 @@ namespace gppg
     protected int eofToken;
 
     protected abstract void Initialize();
+
+    [Conditional("TRACEPARSER")]
+    void WriteLine(string format, params object[] args)
+    {
+      System.Diagnostics.Trace.WriteLine(string.Format(format, args));
+    }
+
+    [Conditional("TRACEPARSER")]
+    void Write(string format, params object[] args)
+    {
+      System.Diagnostics.Trace.Write(string.Format(format, args));
+    }
     
     public override bool Parse()
     {
@@ -56,23 +68,18 @@ namespace gppg
 
       while (true)
       {
-        if (Trace)
-          Console.Error.WriteLine("Entering state {0} ", current_state.num);
-
+        WriteLine("Entering state {0} ", current_state.num);
         int action = current_state.defaultAction;
 
         if (current_state.parser_table != null)
         {
           if (next == 0)
           {
-            if (Trace)
-              Console.Error.Write("Reading a token: ");
-
+            Write("Reading a token: ");
             next = scanner.yylex();
           }
 
-          if (Trace)
-            Console.Error.WriteLine("Next token is {0}", TerminalToString(next));
+          WriteLine("Next token is {0}", TerminalToString(next));
 
           if (current_state.parser_table.ContainsKey(next))
             action = current_state.parser_table[next];
@@ -103,9 +110,7 @@ namespace gppg
 
     protected void Shift(int state_nr)
     {
-      if (Trace)
-        Console.Error.Write("Shifting token {0}, ", TerminalToString(next));
-
+      Write("Shifting token {0}, ", TerminalToString(next));
       current_state = states[state_nr];
 
       value_stack.Push(scanner.yylval);
@@ -128,8 +133,7 @@ namespace gppg
 
     protected void Reduce(int rule_nr)
     {
-      if (Trace)
-        DisplayRule(rule_nr);
+      DisplayRule(rule_nr);
 
       Rule rule = rules[rule_nr];
 
@@ -157,8 +161,7 @@ namespace gppg
         value_stack.Pop();
       }
 
-      if (Trace)
-        DisplayStack();
+      DisplayStack();
 
       current_state = state_stack.Top();
 
@@ -281,8 +284,7 @@ namespace gppg
 
       Shift(current_state.parser_table[next]);
 
-      if (Trace)
-        Console.Error.WriteLine("Entering state {0} ", current_state.num);
+      WriteLine("Entering state {0} ", current_state.num);
 
       next = old_next;
     }
@@ -297,19 +299,16 @@ namespace gppg
           current_state.parser_table[errToken] > 0) // shift
           return true;
 
-        if (Trace)
-          Console.Error.WriteLine("Error: popping state {0}", state_stack.Top().num);
+        WriteLine("Error: popping state {0}", state_stack.Top().num);
 
         state_stack.Pop();
         value_stack.Pop();
 
-        if (Trace)
-          DisplayStack();
+        DisplayStack();
 
         if (state_stack.IsEmpty())
         {
-          if (Trace)
-            Console.Error.Write("Aborting: didn't find a state that accepts error token");
+          Write("Aborting: didn't find a state that accepts error token");
           return false;
         }
         else
@@ -330,14 +329,11 @@ namespace gppg
         {
           if (next == 0)
           {
-            if (Trace)
-              Console.Error.Write("Reading a token: ");
-
+            Write("Reading a token: ");
             next = scanner.yylex();
           }
 
-          if (Trace)
-            Console.Error.WriteLine("Next token is {0}", TerminalToString(next));
+          WriteLine("Next token is {0}", TerminalToString(next));
 
           if (next == errToken)
             return false;
@@ -349,8 +345,7 @@ namespace gppg
             return true;
           else
           {
-            if (Trace)
-              Console.Error.WriteLine("Error: Discarding {0}", TerminalToString(next));
+            WriteLine("Error: Discarding {0}", TerminalToString(next));
             next = 0;
           }
         }
@@ -375,21 +370,23 @@ namespace gppg
       state.num = statenr;
     }
 
+    [Conditional("TRACEPARSER")]
     private void DisplayStack()
     {
-      Console.Error.Write("State now");
+      Write("State now");
       for (int i = 0 ; i < state_stack.top ; i++)
-        Console.Error.Write(" {0}", state_stack.array[i].num);
-      Console.Error.WriteLine();
+        Write(" {0}", state_stack.array[i].num);
+      WriteLine("");
     }
 
+    [Conditional("TRACEPARSER")]
     private void DisplayRule(int rule_nr)
     {
-      Console.Error.Write("Reducing stack by rule {0}, ", rule_nr);
+      Write("Reducing stack by rule {0}, ", rule_nr);
       DisplayProduction(rules[rule_nr]);
     }
 
-
+    [Conditional("TRACEPARSER")]
     private void DisplayProduction(Rule rule)
     {
       if (rule.rhs.Length == 0)

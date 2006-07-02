@@ -1377,7 +1377,7 @@ namespace Xacc.Languages
           Color.FromKnownColor((KnownColor)(v >> 16 & 0xff)),
           Color.FromKnownColor((KnownColor)(v >> 8 & 0xff)),
           Color.FromKnownColor((KnownColor)( v & 0xff)),
-          (FontStyle) (v >> 24 & 0xff ) + 1);
+          (FontStyle) (v >> 25 & 0xff ));
 
           typemapping.Add(t, ci);
         }

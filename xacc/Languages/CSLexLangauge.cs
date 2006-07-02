@@ -186,6 +186,7 @@ namespace Xacc.Languages.CSLex
         if (t.Class == TokenClass.Error)
         {
           t.Location.Error = true;
+          yyerror(string.Format("Unexpected '{0}'", YYCHAR));
         }
 
         return t;
@@ -407,7 +408,7 @@ namespace Xacc.Languages.CSLex
         t.Type = type;
 #pragma warning disable 675
         t.Class = (TokenClass)((int)TokenClass.Custom | ((int)forecolor << 16 & 0xff0000) | 
-          ((int)backcolor << 8 & 0xff00) | ((int)style << 24 & 0xff000000) | ((int)bordercolor & 0xff));
+          ((int)backcolor << 8 & 0xff00) | (((int)style << 25 & 0xff000000)) | ((int)bordercolor & 0xff));
 #pragma warning restore 675
         return t;
       }

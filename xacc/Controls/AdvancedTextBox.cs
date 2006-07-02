@@ -128,7 +128,7 @@ namespace Xacc.Controls
 		Brush infobarback = SystemBrushes.Menu;
 		//Brush infobarfore = SystemBrushes.ControlText;
 		Pen infobarborder = Factory.Pen(SystemColors.Highlight, 1);
-		SolidBrush selbrush = Factory.SolidBrush(Color.FromArgb(62, SystemColors.Highlight));
+		SolidBrush selbrush = Factory.SolidBrush(Color.FromArgb(50, SystemColors.Highlight));
 		Pen selpen = Factory.Pen(SystemColors.Highlight,1);
 
 		GraphicsPath lastgp = null;
@@ -1760,7 +1760,7 @@ namespace Xacc.Controls
         if (!bounds.IsEmpty)
         {
           SmoothingMode sm = g.SmoothingMode;
-          g.SmoothingMode = SmoothingMode.HighSpeed;
+          g.SmoothingMode = SmoothingMode.HighQuality;
           g.FillPath(selbrush, gp);
           g.DrawPath(selpen, gp);
           g.SmoothingMode = sm;
@@ -3666,6 +3666,10 @@ namespace Xacc.Controls
           }
           set
           {
+            if (value == Color.Transparent)
+            {
+              value = Color.Empty;
+            }
             int i = 0;
             if (!infomap.ContainsKey(value))
             {
@@ -3690,6 +3694,10 @@ namespace Xacc.Controls
           }
           set
           {
+            if (value == Color.Transparent)
+            {
+              value = Color.Empty;
+            }
             int i = 0;
             if (!infomap.ContainsKey(value))
             {
@@ -3714,6 +3722,10 @@ namespace Xacc.Controls
           }
           set
           {
+            if (value == Color.Transparent)
+            {
+              value = Color.Empty;
+            }
             int i = 0;
             if (!infomap.ContainsKey(value))
             {

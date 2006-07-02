@@ -299,7 +299,7 @@ sealed class RubyLexer : LexerBase {
  { return Plain(); }
 						break;
 					case 10: 
-         { return Preprocessor(); }
+         { return Custom(KnownColor.Black, KnownColor.Yellow); }
 						break;
 					case 13: 
                                                                                                                                                                                                                                       { return String(); }

@@ -112,7 +112,7 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <ML_COMMENT>"="[^=\n]+            { return Comment(); }
 <ML_COMMENT>[^\n=]+               { return Comment(); }
 
-`[^`\n]*`             { return Preprocessor(); }
+`[^`\n]*`             { return Custom(KnownColor.Black, KnownColor.Yellow); }
 
 {line_comment}        { return Comment(); }
                     
