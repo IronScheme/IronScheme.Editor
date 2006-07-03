@@ -1060,7 +1060,8 @@ namespace CS_Lex
 	  
       m_outstream.WriteLine("\t\t\t\tif (YY_NO_STATE == yy_last_accept_state) {");
 
-      m_outstream.WriteLine("\t\t\t\t\tthrow (new System.Exception(\"Lexical Error: Unmatched Input.\"));");
+      //m_outstream.WriteLine("\t\t\t\t\tthrow (new System.Exception(\"Lexical Error: Unmatched Input.\"));");
+      m_outstream.WriteLine("\t\t\t\t\treturn Error();");
       m_outstream.WriteLine("\t\t\t\t}");
 
       m_outstream.WriteLine("\t\t\t\telse {");

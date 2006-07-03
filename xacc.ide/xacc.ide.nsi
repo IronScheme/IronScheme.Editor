@@ -173,9 +173,7 @@ Pop $0
 StrCmp "$0" "success" InstallNET AbortInstall
 
 InstallNET:
-Banner::show /NOUNLOAD "$(DESC_INSTALLING) $(DESC_SHORTDOTNET)..."
-nsExec::ExecToStack '"$TEMP\dotnetfx.exe" /q /c:"install.exe /noaspupgrade /q"'
-Banner::destroy
+Exec '"$TEMP\dotnetfx.exe" /q /c:"install.exe /qb"'
 
 Install:
 

@@ -35,6 +35,8 @@ using Xacc.Algorithms;
 using System.Diagnostics;
 using Xacc.ComponentModel;
 using Xacc.Controls;
+using System.Runtime.Remoting.Channels.Ipc;
+
 
 using ToolStripMenuItem = Xacc.Controls.ToolStripMenuItem;
 
@@ -98,6 +100,26 @@ namespace Xacc.Configuration
 #endif
       System.Threading.Thread.CurrentThread.CurrentCulture = 
         System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.InvariantCulture;
+
+      //try
+      //{
+      //  ST.Mutex m =
+      //  ST.Mutex.OpenExisting("XACCIDE");
+
+      //  if (m != null)
+      //  {
+      //    IpcClientChannel client = new IpcClientChannel("XACCIDE", null);
+
+      //  }
+      //}
+      //catch
+      //{
+      //  new System.Threading.Mutex(true, "XACCIDE");
+      //}
+
+      //IpcServerChannel server = new IpcServerChannel("XACCIDE");
+      
+      //ST.ThreadPool.QueueUserWorkItem( delegate(object state) { server.StartListening(null); });
 
       Application.EnableVisualStyles();
       SettingsService.idemode = true;

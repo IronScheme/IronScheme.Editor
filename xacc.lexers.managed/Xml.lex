@@ -63,6 +63,9 @@ nl		    =\n
 
 %%
 
+{ws}			                {;}
+\n                        {return NewLine();}
+
 <YYINITIAL>{comment_start}           {ENTER(comment); return Comment();}
 
 <comment>{comment_end}             {EXIT(); return Comment();}
@@ -113,11 +116,8 @@ nl		    =\n
 <mlstr>{mlstring_end}            {EXIT(); EXIT(); return String();}
 <mlstr>[^\"\n]+                  {return String();}
 
-<YYINITIAL>&[a-zA-Z]+\;              {return Other(); }
-<YYINITIAL>{identifier}              {return Plain();}
+&[a-zA-Z]+\;              {return Other(); }
+{identifier}              {return Identifier();}
 
-{ws}			                {;}
-\n                        {return NewLine();}
-
-<YYINITIAL>.                         {return Plain(); }
+.                         {return Plain(); }
 

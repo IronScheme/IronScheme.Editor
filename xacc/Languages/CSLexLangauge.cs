@@ -186,6 +186,7 @@ namespace Xacc.Languages.CSLex
         if (t.Class == TokenClass.Error)
         {
           t.Location.Error = true;
+          yylval = (Token) t;
           yyerror(string.Format("Unexpected '{0}'", YYCHAR));
         }
 

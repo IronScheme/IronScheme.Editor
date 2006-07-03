@@ -96,6 +96,7 @@
     <Reference Include="System.Drawing.Design">
       <Name>System.Drawing.Design</Name>
     </Reference>
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Web.Services">
       <Name>System.Web.Services</Name>
     </Reference>
@@ -290,6 +291,12 @@
     <Compile Include="Controls\ExceptionForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Controls\FileExplorer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\FileExplorer.Designer.cs">
+      <DependentUpon>FileExplorer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FindDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -316,6 +323,12 @@
     </Compile>
     <Compile Include="Controls\ProjectBuildOrderForm.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Properties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Properties.Designer.cs">
+      <DependentUpon>Properties.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\TreeView.cs">
       <SubType>Component</SubType>
@@ -405,6 +418,10 @@
     <EmbeddedResource Include="Controls\ExceptionForm.resx">
       <DependentUpon>ExceptionForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\FileExplorer.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FileExplorer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\FindDialog.resx">
       <DependentUpon>FindDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -422,6 +439,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ProjectBuildOrderForm.resx">
       <DependentUpon>ProjectBuildOrderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Properties.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Properties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TreeView.resx">
       <DependentUpon>TreeView.cs</DependentUpon>
