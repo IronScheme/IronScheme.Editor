@@ -14,21 +14,6 @@ using LexerBase = CSharp.LexerBase<CSharp.ValueType>;
 %{
 int docintag = 0;
 
-static ValueType Token(TokenClass c)
-{
-  ValueType t = new ValueType();
-  t.__type = -1;
-  t.__class = c;
-  return t;
-}
-
-static ValueType Token(TokenClass c, int type)
-{
-  ValueType t = new ValueType();
-  t.__type = type;
-  t.__class = c;
-  return t;
-}
 %}
 
 doc_comment            ="///"
@@ -113,10 +98,10 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <YYINITIAL>{line_comment}    { return Comment(); }
 
 <DOC_COMMENT>{new_line}        { EXIT(); return NewLine(); }
-<DOC_COMMENT>"<"[^>\n]*        { docintag = 1; return DocComment();}
-<DOC_COMMENT>"<"[^>\n]*">"     { return DocComment();}
+<DOC_COMMENT>"<"[^>\t\n]*        { docintag = 1; return DocComment();}
+<DOC_COMMENT>"<"[^>\t\n]*">"     { return DocComment();}
 <DOC_COMMENT>">"               { return DocComment();}
-<DOC_COMMENT>[^<>\n]+          { if (docintag == 1) {docintag = 0; return DocComment();} else return Comment(); }
+<DOC_COMMENT>[^<>\t\n]+          { if (docintag == 1) {docintag = 0; return DocComment();} else return Comment(); }
 
 <PPTAIL>[^\n]+            { return Preprocessor( PPID); }
 <PPTAIL>{new_line}        { EXIT(); EXIT(); return NewLine(); }

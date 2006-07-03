@@ -136,26 +136,44 @@ namespace gppg
       DisplayRule(rule_nr);
 
       Rule rule = rules[rule_nr];
-
       rhslen = rule.rhs.Length;
 
-      if (rule.rhs.Length == 1)
+      //System.Diagnostics.Trace.Write(string.Format("[{1,3}]{0,-15}:", SymbolToString(rule.lhs), rule.lhs));
+
+      //if (rule.rhs.Length == 0)
+      //{
+      //  System.Diagnostics.Trace.WriteLine(" /* empty */");
+      //}
+      //else
+      //{
+      //  System.Diagnostics.Trace.WriteLine("");
+      //  int c = 0;
+
+      //  foreach (int i in rule.rhs)
+      //  {
+      //    System.Diagnostics.Trace.WriteLine(string.Format("[{2,3}]  {0,-12} = {1}", SymbolToString(i), S(++c) ?? "<null>", i));
+      //  }
+      //}
+
+      //System.Diagnostics.Trace.WriteLine("");
+
+      if (rhslen == 1)
       {
-        yyval = value_stack.array[value_stack.top - rule.rhs.Length];
+        yyval = value_stack.array[value_stack.top - rhslen];
       }
       else
       {
         yyval = new ValueType();
       }
-      if (rule.rhs.Length > 1)
+      if (rhslen > 1)
       {
-        yyval.Location = value_stack.array[value_stack.top - rule.rhs.Length].Location
+        yyval.Location = value_stack.array[value_stack.top - rhslen].Location
           + value_stack.array[value_stack.top - 1].Location;
       }
 
       DoAction(rule_nr);
 
-      for (int i = 0; i < rule.rhs.Length; i++)
+      for (int i = 0; i < rhslen; i++)
       {
         state_stack.Pop();
         value_stack.Pop();
@@ -169,6 +187,7 @@ namespace gppg
       {
         current_state = states[current_state.Goto[rule.lhs]];
       }
+      // isnt this an error on the 'else'?
       state_stack.Push(current_state);
       value_stack.Push(yyval);
     }
@@ -390,12 +409,12 @@ namespace gppg
     private void DisplayProduction(Rule rule)
     {
       if (rule.rhs.Length == 0)
-        Console.Error.Write("/* empty */ ");
+        Write("/* empty */ ");
       else
         foreach (int symbol in rule.rhs)
-          Console.Error.Write("{0} ", SymbolToString(symbol));
+          Write("{0} ", SymbolToString(symbol));
 
-      Console.Error.WriteLine("-> {0}", SymbolToString(rule.lhs));
+      WriteLine("-> {0}", SymbolToString(rule.lhs));
     }
 
 

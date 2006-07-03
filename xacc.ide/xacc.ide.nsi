@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "xacc.ide"
-!define PRODUCT_VERSION "0.2.0.30"
+!define PRODUCT_VERSION "0.2.0.35"
 !define PRODUCT_PUBLISHER "leppie"
 !define PRODUCT_WEB_SITE "http://blogs.wdevs.com/leppie/"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\xacc.ide.exe"
@@ -173,7 +173,7 @@ Pop $0
 StrCmp "$0" "success" InstallNET AbortInstall
 
 InstallNET:
-Exec '"$TEMP\dotnetfx.exe" /q /c:"install.exe /qb"'
+Exec '"$TEMP\dotnetfx.exe" /q:a /c:"install.exe /qb"'
 
 Install:
 
@@ -199,7 +199,7 @@ SectionIn 1 2 RO
   File "WeifenLuo.WinFormsUI.Docking.dll"
 	File "xacc.runtime.dll"
 	File "LSharp.dll"
-	File "lsc.exe"
+	;File "lsc.exe"
 	File "xacc.lexers.managed.dll"
   File "xacc.config.xml"
   File "xacc.config.xsl"

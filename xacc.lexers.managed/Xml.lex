@@ -75,8 +75,8 @@ nl		    =\n
 <YYINITIAL>{pp_tag_start}            {ENTER(pp); return Keyword(); }
 
 <pp>{pp_tag_end}              {EXIT(); return Keyword();}
-<pp>[^\n%]+                   {return Plain(); }
-<pp>.                         {return Plain(); }
+<pp>[^\n%]+                   {return Custom(KnownColor.Black, KnownColor.Yellow); }
+<pp>.                         {return Custom(KnownColor.Black, KnownColor.Yellow); }
 
 <YYINITIAL>{cdatastart}              {ENTER(cdata); return Other(); }
 

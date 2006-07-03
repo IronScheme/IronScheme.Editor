@@ -174,7 +174,7 @@ sealed class XmlLexer : LexerBase {
 					yy_to_mark();
 					switch (yy_last_accept_state) {
 					case 36: 
-     {return Plain(); }
+     {return Custom(KnownColor.Black, KnownColor.Yellow); }
 						break;
 					case 12: case 47: 
                 {return DocComment();}
@@ -285,7 +285,7 @@ sealed class XmlLexer : LexerBase {
                 {EXIT(); ENTER(script); return Keyword();}
 						break;
 					case 35: 
-           {return Plain(); }
+           {return Custom(KnownColor.Black, KnownColor.Yellow); }
 						break;
 					case 28: case 51: case 58: 
                                 {return Plain();}

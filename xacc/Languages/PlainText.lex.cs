@@ -80,7 +80,7 @@ sealed class PlainTextLexer : LexerBase {
 			}
 			else {
 				if (YY_NO_STATE == yy_last_accept_state) {
-					throw (new System.Exception("Lexical Error: Unmatched Input."));
+					return Error();
 				}
 				else {
 					yy_anchor = yy_acpt[yy_last_accept_state];

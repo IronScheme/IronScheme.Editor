@@ -5094,10 +5094,13 @@ namespace Xacc.Controls
           string l					= buffer[vline];
           Font font         = buffer.font;
           
-          int fh						= 0;
+          int fh						= 0, fh2= 0;
+          float fd          = 0;
           try
           {
             fh = line * font.Height;
+            fh2 = font.Height;
+            fd = (fh2 - font.GetHeight()) / 2;
           }
           catch (Exception ex)
           {
@@ -5153,15 +5156,15 @@ namespace Xacc.Controls
                 if (di.backcolor != Color.Empty)
                 {
                   Brush bg = Factory.SolidBrush(di.backcolor);
-                  g.FillRectangle(bg, di.start, fh, di.end - di.start, font.Height - 1);
+                  g.FillRectangle(bg, di.start, fh + 1, di.end - di.start, fh2);
                 }
                 if (di.bordercolor != Color.Empty)
                 {
                   Pen bp = Factory.Pen(di.bordercolor, 1);
-                  g.DrawRectangle(bp, di.start, fh, di.end - di.start, font.Height - 1);
+                  g.DrawRectangle(bp, di.start, fh + 1, di.end - di.start, fh2);
                 }
 
-                g.DrawString(di.text, f, b, di.start, fh, buffer.sf);
+                g.DrawString(di.text, f, b, di.start, fh + fd, buffer.sf);
               }
 
               foreach (IToken t in tokens)
@@ -5171,20 +5174,20 @@ namespace Xacc.Controls
                 if (loc.Error)
                 {
                   float offset, w = MeasureString(l, loc.Column, loc.EndColumn, out offset);
-                  buffer.DrawSquiggle(g, (line + 1) * font.Height, (int)(offset),
+                  buffer.DrawSquiggle(g, (line + 1) * fh2, (int)(offset),
                     (int)(offset + w),Color.Red);
                 }
                 else if (loc.Warning)
                 {
                   float offset, w = MeasureString(l, loc.Column, loc.EndColumn, out offset);
-                  buffer.DrawSquiggle(g, (line + 1) * font.Height, (int)(offset),
+                  buffer.DrawSquiggle(g, (line + 1) * fh2, (int)(offset),
                     (int)(offset + w), Color.Blue);
                 }
               }
             }
             else
             {
-              g.DrawString(l, font, Brushes.Black, 0, fh, buffer.sf);
+              g.DrawString(l, font, Brushes.Black, 0, fh + fd, buffer.sf);
             }
           }
 
@@ -5428,7 +5431,7 @@ namespace Xacc.Controls
       {
         int line = CurrentLine, index = LineCharacterIndex;
         float x = MeasureString(line, index);
-        return (lastcr = new RectangleF(x - 1, line * fontheight, 2, fontheight));
+        return (lastcr = new RectangleF(x - 1, (line * fontheight) + 1, 2, fontheight + 1));
       }
 
       /// <summary>
@@ -5533,7 +5536,7 @@ namespace Xacc.Controls
           {
             pos = MeasureStringEnd(lines[startline], startlineindex, out offset);
 
-            RectangleF rr = prev = new RectangleF(offset - 1, startline * fontheight - 1, pos + 1 + fontwidth, fontheight);
+            RectangleF rr = prev = new RectangleF(offset - 1, startline * fontheight, pos + 1 + fontwidth, fontheight);
             
             l.AddArc(rr.X, rr.Y, radius, radius, 270, -90);
             r.AddArc(rr.Right - radius, rr.Y, radius, radius, 270, 90);
@@ -5546,7 +5549,7 @@ namespace Xacc.Controls
             {
               pos = MeasureString(lines[startline], 0, -1, out offset);
 
-              RectangleF rr = new RectangleF(offset - 1, startline * fontheight - 1, pos + 1 + fontwidth, fontheight);
+              RectangleF rr = new RectangleF(offset - 1, startline * fontheight, pos + 1 + fontwidth, fontheight);
 
               if (rr.Left < prev.Left)
               {
@@ -5572,7 +5575,7 @@ namespace Xacc.Controls
           {
             pos = MeasureString(lines[startline], 0, curlineindex, out offset);
 
-            RectangleF rr = new RectangleF(offset - 1, startline * fontheight - 1, pos + 1, fontheight);
+            RectangleF rr = new RectangleF(offset - 1, startline * fontheight, pos + 1, fontheight);
 
             if (rr.Left < prev.Left)
             {
@@ -5612,7 +5615,7 @@ namespace Xacc.Controls
             int angle = 180;
 
             pos = MeasureString(lines[startline], startlineindex, startlineindex + sellen, out offset);
-            RectangleF rr = new RectangleF(offset - 1, startline * fontheight - 1, pos + 1, fontheight);
+            RectangleF rr = new RectangleF(offset - 1, startline * fontheight, pos + 1, fontheight);
             
             // top left
             r.AddArc(rr.X, rr.Y, radius, radius, angle, 90);

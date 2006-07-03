@@ -219,16 +219,19 @@ namespace Xacc.Languages
     {
       loc.callback = delegate(IToken tok) 
       {
-        tok.Class = newclass;
-        if (newclass == TokenClass.Type)
+        if (tok.Class != TokenClass.Keyword)
         {
-          parsedtypes[tok.Text] = loc;
-        }
-        else
-        {
-          if (parsedtypes.ContainsKey(tok.Text))
+          tok.Class = newclass;
+          if (newclass == TokenClass.Type)
           {
-            parsedtypes.Remove(tok.Text);
+            parsedtypes[tok.Text] = loc;
+          }
+          else
+          {
+            if (parsedtypes.ContainsKey(tok.Text))
+            {
+              parsedtypes.Remove(tok.Text);
+            }
           }
         }
       };
