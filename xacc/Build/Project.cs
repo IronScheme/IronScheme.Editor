@@ -1749,7 +1749,7 @@ namespace Xacc.Build
       
       ab.Length--;
       ab.Append("|");
-      sb.Append("Text files (*.txt)|*.txt");
+      sb.Append("Text files (*.txt)|*.txt|");
       sb.Append("All files (*.*)|*.*");
 
       ofd.Filter = ab.ToString() + sb.ToString();

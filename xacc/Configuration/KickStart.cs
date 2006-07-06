@@ -35,6 +35,8 @@ using Xacc.Algorithms;
 using System.Diagnostics;
 using Xacc.ComponentModel;
 using Xacc.Controls;
+using System.Runtime.Remoting;
+using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
 
 
@@ -76,6 +78,15 @@ namespace Xacc.Configuration
     public string[] open;
   }
 
+  public class ServerService : MarshalByRefObject
+  {
+    public void OpenFile(string filename)
+    {
+      ServiceHost.File.Open(filename);
+    }
+  }
+
+
 	/// <summary>
 	/// Support to bootstrap the IDE
 	/// </summary>
@@ -86,40 +97,69 @@ namespace Xacc.Configuration
 
     static Form about;
 
+    static ST.Mutex real = null;
+
+    static void InvokeClient()
+    {
+      IpcClientChannel client = new IpcClientChannel();
+      ChannelServices.RegisterChannel(client, false);
+
+      RemotingConfiguration.RegisterWellKnownClientType(typeof(ServerService), "ipc://XACCIDE/ss");
+
+      ServerService s = new ServerService();
+      foreach (string fn in args.open)
+      {
+        s.OpenFile(fn);
+      }
+
+      ChannelServices.UnregisterChannel(client);
+    }
+
+
     /// <summary>
     /// Starts the IDE
     /// </summary>
     /// <param name="f">the hosting form</param>
     public static bool KickStart(Form f)
     {
+      args = new IdeArgs();
+
+      if (args.listermode)
+      {
+        ST.Mutex m = null;
+        try
+        {
+          m = ST.Mutex.OpenExisting("XACCIDE");
+        }
+        catch
+        {
+          // must assign, else GC will clean up
+          real = new System.Threading.Mutex(true, "XACCIDE");
+        }
+
+        if (m != null)
+        {
+          InvokeClient();
+          return false;
+        }
+      }
+
 #if !DEBUG
-      Application.ThreadException +=new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
-      AppDomain.CurrentDomain.UnhandledException +=new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+      Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+      AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
       try
       {
 #endif
-      System.Threading.Thread.CurrentThread.CurrentCulture = 
-        System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.InvariantCulture;
+        System.Threading.Thread.CurrentThread.CurrentCulture =
+          System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.InvariantCulture;
 
-      //try
-      //{
-      //  ST.Mutex m =
-      //  ST.Mutex.OpenExisting("XACCIDE");
+        if (args.listermode)
+        {
+          IpcServerChannel server = new IpcServerChannel("XACCIDE");
+          ChannelServices.RegisterChannel(server, false);
 
-      //  if (m != null)
-      //  {
-      //    IpcClientChannel client = new IpcClientChannel("XACCIDE", null);
-
-      //  }
-      //}
-      //catch
-      //{
-      //  new System.Threading.Mutex(true, "XACCIDE");
-      //}
-
-      //IpcServerChannel server = new IpcServerChannel("XACCIDE");
-      
-      //ST.ThreadPool.QueueUserWorkItem( delegate(object state) { server.StartListening(null); });
+          RemotingConfiguration.RegisterWellKnownServiceType(typeof(ServerService), "ss", WellKnownObjectMode.Singleton);
+        }
 
       Application.EnableVisualStyles();
       SettingsService.idemode = true;
@@ -132,7 +172,6 @@ namespace Xacc.Configuration
       about.Show();
       Application.DoEvents();
 
-      args = new IdeArgs();
       if (args.debug)
       {
         Diagnostics.Trace.debugmode = true;
@@ -198,14 +237,14 @@ namespace Xacc.Configuration
       //after everything has been loaded
       ServiceHost.Initialize();
 
-        try
-        {
-          ServiceHost.Scripting.InitCommand();
-        }
-        catch (Exception ex) // MONO
-        {
-          Trace.WriteLine(ex);
-        }
+      try
+      {
+        ServiceHost.Scripting.InitCommand();
+      }
+      catch (Exception ex) // MONO
+      {
+        Trace.WriteLine(ex);
+      }
 
       (ServiceHost.ToolBar as ToolBarService).ValidateToolBarButtons();
 
@@ -247,6 +286,8 @@ namespace Xacc.Configuration
       about.Close();
       return true;
     }
+
+
 
 		static void f_Closing(object sender, CancelEventArgs e)
 		{
