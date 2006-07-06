@@ -7,7 +7,7 @@ namespace Xacc.Languages
   sealed class PowerShellLang : CSLex.Language<CSLex.Yytoken>
   {
 	  public override string Name {get {return "PowerShell"; } }
-	  public override string[] Extensions {get { return new string[]{"ps1"}; } }
+	  public override string[] Extensions {get { return new string[]{"ps1","msh"}; } }
 	  LexerBase lexer = new PowerShellLexer();
 	  protected override LexerBase Lexer
 	  {

@@ -171,7 +171,18 @@ namespace gppg
           + value_stack.array[value_stack.top - 1].Location;
       }
 
+#if !DEBUG
+      try
+      {
+        DoAction(rule_nr);
+      }
+      catch (Exception ex)
+      {
+        Trace.WriteLine(ex, "Parser action");
+      }
+#else
       DoAction(rule_nr);
+#endif
 
       for (int i = 0; i < rhslen; i++)
       {

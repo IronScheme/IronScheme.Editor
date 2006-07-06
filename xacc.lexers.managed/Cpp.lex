@@ -27,7 +27,7 @@ int inproc;
 %}
 
 
-line_comment           =("//"[^/\n].*)|"//"
+line_comment           =("//".*)
 
 comment_start          ="/*"
 comment_end            ="*"+"/"
@@ -93,7 +93,7 @@ keyword3 =(friend|goto|if|inline|mutable|namespace|new|operator|private)
 keyword4 =(protected|public|register|reinterpret_cast|return|sizeof|static)
 keyword5 =(static_cast|struct|switch|template|throw|this|true|try|typedef)
 keyword6 =(typeid|typename|union|using|virtual|volatile|while|void|__cdecl|inline|__inline)
-mc_kw    =(__property|__value|__gc|__nogc|__abstract|__sealed|__box)
+mc_kw    =(__property|__value|__gc|__nogc|__abstract|__sealed|__box|__event)
 basetype =(bool|char|double|float|int|long|short|signed|unsigned|wchar_t)
 
 keyword               =({keyword1}|{keyword2}|{keyword3}|{keyword4}|{keyword5}|{keyword6}|{mc_kw}|{basetype})
@@ -119,7 +119,7 @@ operator =[-~!%^\*\(\)\+=\[\]\|\\:;,\./\?&<>\{\}]
 <ML_COMMENT>"*"+[^*/\n\t]*    { return Comment(); }
 <ML_COMMENT>{comment_end}     { EXIT(); return Comment(); }
 
-{line_comment}        { return Comment(); }
+<YYINITIAL>{line_comment}        { return Comment(); }
                       
 {keyword}             { return Keyword(); } 
                       

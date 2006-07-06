@@ -27,7 +27,7 @@ new_line               =\n
 
 preprocessor           =^({white_space})*#({white_space})*
 
-attr                   =\[({white_space})*(assembly|return)({white_space})*:
+attr                   =\[({white_space})*(assembly|return|param)({white_space})*:
 
 dec_digit              =[0-9]
 hex_digit              =[0-9A-Fa-f]

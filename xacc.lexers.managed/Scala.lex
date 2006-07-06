@@ -24,30 +24,30 @@ namespace Xacc.Languages
 %full
 
 WS		                    =[ \t]+
-Keyword()                   ="=>"|"<-"|"_"|"unit"|"Unit"|"package"|"synchronized"|"import"|"return"|"true"|"false"|"def"|"val"|"var"|"class"|"object"|"trait"|"case"|"override"|"new"|"protected"|"extends"|"if"|"null"|"throw"|"for"|"with"|"try"|"catch"|"this"|"type"|"else"|"match"|"append"|"private"|"while"|"yield"|"super"|"sealed"|"requires"|"implicit"|"finally"|"final"|"do"|"abstract"
+KEYWORD                   ="=>"|"<-"|"_"|"unit"|"Unit"|"package"|"synchronized"|"import"|"return"|"true"|"false"|"def"|"val"|"var"|"class"|"object"|"trait"|"case"|"override"|"new"|"protected"|"extends"|"if"|"null"|"throw"|"for"|"with"|"try"|"catch"|"this"|"type"|"else"|"match"|"append"|"private"|"while"|"yield"|"super"|"sealed"|"requires"|"implicit"|"finally"|"final"|"do"|"abstract"
 PREPROC                   =[^.]
-Number()                    =[0-9]+
-String()                    =\"([^\"\n])*\"
-Character()                 ='([^'])+'
-Type()                      =String|Int|Any|Boolean|List|Array|Character|Type|Pair|int|char|AnyRef
-Operator()                  =[-:\(\),\.!=&\|\[\];><\{\}\+\*/@#%]
+NUMBER                    =[0-9]+
+STRING                    =\"([^\"\n])*\"
+CHARACTER                 ='([^'])+'
+TYPE                      =String|Int|Any|Boolean|List|Array|Character|Type|Pair|int|char|AnyRef
+OPERATOR                  =[-:\(\),\.!=&\|\[\];><\{\}\+\*/@#%]
 LINE_COMMENT              =//[^\n]*
 COMMENT_START             ="/*"
 COMMENT_END               ="*/"
-Identifier()                =[a-zA-Z][_$a-zA-Z0-9]*
+IDENTIFIER                =[a-zA-Z][_$a-zA-Z0-9]*
 
 %state ML_COMMENT
 
 %%
 
-<YYINITIAL>{Keyword()}                  {return Keyword();}
+<YYINITIAL>{KEYWORD}                  {return Keyword();}
 <YYINITIAL>{PREPROC}                  {return Preprocessor();}
-<YYINITIAL>{String()}                   {return String();}
-<YYINITIAL>{Character()}                {return Character();}
-<YYINITIAL>{Number()}                   {return Number();}
-<YYINITIAL>{Operator()}                 {return Operator();}
-<YYINITIAL>{Type()}                     {return Type();}
-<YYINITIAL>{Identifier()}               {return Identifier();}
+<YYINITIAL>{STRING}                   {return String();}
+<YYINITIAL>{CHARACTER}                {return Character();}
+<YYINITIAL>{NUMBER}                   {return Number();}
+<YYINITIAL>{OPERATOR}                 {return Operator();}
+<YYINITIAL>{TYPE}                     {return Type();}
+<YYINITIAL>{IDENTIFIER}               {return Identifier();}
 <YYINITIAL>{LINE_COMMENT}             {return Comment();}
 <YYINITIAL>{COMMENT_START}            {ENTER(ML_COMMENT); return Comment();}
 
