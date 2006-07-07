@@ -223,7 +223,10 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 "virtual"         {return Keyword();}
 "void"            {return Keyword();}
 "volatile"        {return Keyword();}
-"while"           {return Keyword();}            
+"while"           {return Keyword();}
+"when"           {return Keyword();}
+"ignore"           {return Keyword();}
+"unless"           {return Keyword();}            
 
 "_"           {return Keyword();}            
 "ensure"           {return Keyword();}            
@@ -281,6 +284,8 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 
 "get"    { return Keyword(); }
 "set"    { return Keyword(); }
+
+@[^ \t\n]+               { return Identifier(); }
 
 {identifier}             { return Identifier(); }
 

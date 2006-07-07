@@ -28,11 +28,12 @@ int docintag = 0;
 %}
 
 doc_comment            ="///"
-single_line_comment    =("//"[^/\n].*)|"//"|(#{white_space}[^\n]*)
+lc                     =^({white_space})*#{white_space}[^\n\t]*
+single_line_comment    =("//"[^/\t\n].*)|"//"|(#{white_space}[^\n\t]*)
 
 white_space            =[ \t]
 
-preprocessor           =^{white_space}*#
+preprocessor           =^({white_space})*#
 
 dec_digit              =[0-9]
 hex_digit              =[0-9A-Fa-f]
@@ -103,17 +104,18 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <IN_COMMENT>"*"+"/"           { EXIT(); return Comment(); }
 
 <YYINITIAL>{doc_comment}     { ENTER(DOC_COMMENT); return DocComment(); }
+<YYINITIAL>{lc}               { return Comment(); }
 <YYINITIAL>{single_line_comment} { return Comment(); }
 <YYINITIAL>{preprocessor}    { ENTER(PREPROCESSOR); return Preprocessor(); }
 
 <YYINITIAL>{regex_string_start}    { ENTER(REGEX_STRING); return Other(); }
 
 <DOC_COMMENT>\n                { EXIT(); return NewLine(); }
-<DOC_COMMENT>"<"[^>\n]*        { docintag = 1; return DocComment();}
-<DOC_COMMENT>"<"[^>\n]*">"     { return DocComment();}
+<DOC_COMMENT>"<"[^>\n\t]*        { docintag = 1; return DocComment();}
+<DOC_COMMENT>"<"[^>\n\t]*">"     { return DocComment();}
 <DOC_COMMENT>{white_space}+    { ; /* ignore */ }
 <DOC_COMMENT>">"               { return DocComment();}
-<DOC_COMMENT>[^<>\n]+          { if (docintag == 1) {docintag = 0; return DocComment();} else return Comment(); }
+<DOC_COMMENT>[^<>\n\t]+          { if (docintag == 1) {docintag = 0; return DocComment();} else return Comment(); }
 
 <PPTAIL>[^\n]+            { return Preprocessor(); }
 <PPTAIL>\n                { EXIT(); EXIT(); return NewLine(); }

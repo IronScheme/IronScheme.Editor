@@ -52,8 +52,9 @@ character_literal      =\'({character})+\'
 
 
 single_string_char     =[^\\\"]
-reg_string_char        ={single_string_char}|{simple_esc_seq}|{hex_esc_seq}|{uni_esc_seq}
-regular_string         =\"{reg_string_char}*\"
+simple_esc_str         =\\[\"\\0abfnrtv]
+reg_string_char        =({single_string_char}|{simple_esc_str}|{hex_esc_seq}|{uni_esc_seq})
+regular_string         =\"({reg_string_char})*\"
 regular_string2        =((r|R)\"({single_string_char}|\\)*\")
 single_verbatim_char   =[^\"\n]
 verb_string_char       =({single_verbatim_char})
@@ -82,7 +83,7 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <VERB_STRING>{verbatim_string_end}      { EXIT(); return String(); }
 
                       
-{single_line_comment} { return Comment(); }
+<YYINITIAL>{single_line_comment} { return Comment(); }
 
 
 "and"        {return Keyword();}
@@ -120,10 +121,10 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
                       
 <YYINITIAL>{verbatim_string_start}                 { ENTER(VERB_STRING); return String(); }
 
-{integer_literal}     { return Number(); }
-{real_literal}        { return Number(); }
-{character_literal}   { return String(); }
-{string_literal}      { return String(); }
+<YYINITIAL>{integer_literal}     { return Number(); }
+<YYINITIAL>{real_literal}        { return Number(); }
+<YYINITIAL>{character_literal}   { return String(); }
+<YYINITIAL>{string_literal}      { return String(); }
 
 
 "+"     { return Operator(); }
