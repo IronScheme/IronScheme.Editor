@@ -199,6 +199,7 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <YYINITIAL>"void"            {return Keyword(VOID);}
 <YYINITIAL>"volatile"        {return Keyword(VOLATILE);}
 <YYINITIAL>"while"           {return Keyword(WHILE);}
+<YYINITIAL>"where"           {return Keyword(WHERE);}
 <YYINITIAL>"value"           {return Keyword(IDENTIFIER);}   
 
 <YYINITIAL>"partial"         {return Keyword();}
@@ -225,7 +226,7 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <YYINITIAL>"&="    { return Operator(ANDEQ); }
 <YYINITIAL>"|="    { return Operator(OREQ); }
 <YYINITIAL>"<<"    { return Operator(LTLT); }
-<YYINITIAL>">>"    { return Operator(GTGT); }
+<YYINITIAL>"> >"    { return Operator(GTGT); }
 <YYINITIAL>">>="   { return Operator(GTGTEQ); }
 <YYINITIAL>"<<="   { return Operator(LTLTEQ); }
 <YYINITIAL>"=="    { return Operator(EQEQ); }
@@ -236,6 +237,8 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <YYINITIAL>"||"    { return Operator(OROR); }
 <YYINITIAL>"++"    { return Operator(PLUSPLUS); }
 <YYINITIAL>"--"    { return Operator(MINUSMINUS); }
+<YYINITIAL>"??"    { return Operator(QQ); }
+
 
 <YYINITIAL>"->"    { return Operator(ARROW); }
 <YYINITIAL>"."     { return Operator(YYCHAR); }

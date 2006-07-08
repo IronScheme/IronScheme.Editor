@@ -204,6 +204,9 @@ namespace gppg
     }
 
 #if DEBUG
+
+    protected string[] stringstates, stringrules;
+
     public object SS { get { return yyval.Value; } }
     public object S(int i) { return i > rhslen ? null : value_stack.array[value_stack.top - rhslen - 1 + i].Value; }
     public object S1 { get { return S(1); } }
@@ -232,7 +235,7 @@ namespace gppg
     {
       get 
       {
-        int l = value_stack.top - 1;
+        int l = value_stack.top;
         object[] values = new object[l];
 
         for (int i = 0; i < l; i++)
@@ -248,7 +251,7 @@ namespace gppg
     {
       get
       {
-        int l = state_stack.top - 1;
+        int l = state_stack.top;
         int[] values = new int[l];
 
         for (int i = 0; i < l; i++)
@@ -256,6 +259,22 @@ namespace gppg
           values[i] = state_stack.array[i].num;
         }
         
+        return values;
+      }
+    }
+
+    public string[] StringStateStack
+    {
+      get
+      {
+        int l = state_stack.top;
+        string[] values = new string[l];
+
+        for (int i = 0; i < l; i++)
+        {
+          values[i] = stringstates[state_stack.array[i].num];
+        }
+
         return values;
       }
     }
@@ -288,7 +307,7 @@ namespace gppg
       StringBuilder errorMsg = new StringBuilder();
       errorMsg.AppendFormat("syntax error, unexpected {0}", TerminalToString(next));
 
-      if (current_state.parser_table.Count < 7)
+      if (current_state.parser_table.Count < 20)
       {
         bool first = true;
         foreach (int terminal in current_state.parser_table.Keys)

@@ -110,7 +110,7 @@ class TypeRef : CodeTypeRef
 %token  STRUCT SWITCH THIS THROW TRUE
 %token  TRY TYPEOF UINT ULONG UNCHECKED
 %token  UNSAFE USHORT USING VIRTUAL VOID
-%token  VOLATILE WHILE
+%token  VOLATILE WHILE WHERE
 
 /* The ones that seem to be context sensitive */
 
@@ -122,7 +122,7 @@ class TypeRef : CodeTypeRef
 %token ADD REMOVE
 
 /*** MULTI-CHARACTER OPERATORS ***/
-%token PLUSEQ MINUSEQ STAREQ DIVEQ MODEQ
+%token PLUSEQ MINUSEQ STAREQ DIVEQ MODEQ QQ
 %token XOREQ  ANDEQ   OREQ LTLT GTGT GTGTEQ LTLTEQ EQEQ NOTEQ
 %token LEQ GEQ ANDAND OROR PLUSPLUS MINUSMINUS ARROW
 
@@ -135,7 +135,7 @@ class TypeRef : CodeTypeRef
 %type <elem> constant_declaration field_declaration interface_indexer_declaration identifier_name
 %type <elem> namespace_declaration namespace_member_declaration struct_member_declaration interface_member_declaration
 %type <elem> enum_member_declaration constructor_declarator 
-%type <text> qualified_identifier qualifier namespace_name constant_declarator variable_declarator type_qualified_identifier
+%type <text> qualified_identifier qualifier namespace_name constant_declarator variable_declarator type_qualified_identifier member_name
 %type <elem> class_declaration struct_declaration interface_declaration enum_declaration delegate_declaration type_declaration
 %type <elem> class_member_declaration method_declaration property_declaration
 %type <elem> event_declaration indexer_declaration operator_declaration constructor_declaration destructor_declaration
@@ -179,6 +179,20 @@ type_name
   : qualified_identifier                               { $$ = new TypeRef($1); }
   ;
   
+member_name
+  : IDENTIFIER type_list_opt                        { $$ = $1; @@ = @1; }
+  ;
+
+type_list_opt
+  :
+  | '<' type_list '>' 
+  ;
+  
+type_list
+  : type
+  | type_list ',' type
+  ;
+  
 
 /***** C.2.2 Types *****/
 type
@@ -187,7 +201,7 @@ type
   ;
 non_array_type
   : simple_type
-  | type_name                                               
+  | type_name
   ;
 simple_type
   : primitive_type
@@ -356,6 +370,7 @@ postfix_expression
   | post_decrement_expression
   | pointer_member_access
   ;
+  
 unary_expression_not_plusminus
   : postfix_expression
   | '!' unary_expression
@@ -389,7 +404,7 @@ cast_expression
       unary_expression                                              { OverrideToken(@2, TokenClass.Type); MakePair(@1,@5); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}
   | '(' primitive_type type_quals_opt ')' unary_expression          { MakePair(@1,@4); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}
   | '(' class_type type_quals_opt ')' unary_expression              { MakePair(@1,@4); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}
-  | '(' VOID type_quals_opt ')' unary_expression                    { MakePair(@1,@4);}
+  | '(' VOID type_quals_opt ')' unary_expression                    { MakePair(@1,@4);} 
   ;
 type_quals_opt
   : /* Nothing */
@@ -421,8 +436,8 @@ shift_expression
   ;
 relational_expression
   : shift_expression
-  | relational_expression '<' shift_expression
   | relational_expression '>' shift_expression
+  | relational_expression '<' shift_expression
   | relational_expression LEQ shift_expression
   | relational_expression GEQ shift_expression
   | relational_expression IS type                                         {  OverrideToken(@3, TokenClass.Type); }
@@ -456,6 +471,7 @@ conditional_or_expression
 conditional_expression
   : conditional_or_expression
   | conditional_or_expression '?' expression ':' expression             { MakePair(@2,@4);}
+  | conditional_or_expression QQ expression 
   ;
 assignment
   : unary_expression assignment_operator expression
@@ -745,13 +761,13 @@ comma_opt
   ;
   
 qualified_identifier
-  : IDENTIFIER                                                   
-  | qualifier IDENTIFIER                                        { $$ = $1 + $2; @@ = @2;}
+  : member_name                                                   
+  | qualifier member_name                                        { $$ = $1 + $2; @@ = @2;}
   ;
 
 qualifier
-  : IDENTIFIER '.'                                                  { $$ = $1 + $<text>2; }
-  | qualifier IDENTIFIER '.'                                        { $$ = $1 + $<text>2 + $3; }
+  : member_name '.'                                                  { $$ = $1 + $<text>2; }
+  | qualifier member_name '.'                                        { $$ = $1 + $<text>2 + $3; }
   ;
   
 namespace_body
@@ -829,11 +845,33 @@ modifier
   | VIRTUAL
   | VOLATILE
   ;
+
+gen_clause_opt
+  :
+  | gen_clause
+  ;
+  
+gen_clause
+  : WHERE IDENTIFIER gen_class_base
+  ;
+  
+gen_class_type
+  : STRUCT
+  | CLASS
+  | class_type
+  ;
+  
+gen_class_base
+  : ':' gen_class_type                             
+  | ':' interface_type_list                              
+  | ':' gen_class_type ',' interface_type_list               
+  ;
+  
 /***** C.2.6 Classes *****/
 class_declaration
-  : attributes_opt modifiers_opt CLASS IDENTIFIER 
-    class_base_opt class_body comma_opt                       { CodeRefType ct = new CodeRefType($4); 
-                                                                ct.AddRange($6); $$ = ct; $$.Location = @4;
+  : attributes_opt modifiers_opt CLASS member_name 
+    class_base_opt gen_clause_opt class_body comma_opt                       { CodeRefType ct = new CodeRefType($4); 
+                                                                ct.AddRange($7); $$ = ct; $$.Location = @4;
                                                                 OverrideToken(@4, TokenClass.Type);}
   ;
 class_base_opt
@@ -908,7 +946,7 @@ method_header
     qualified_identifier '(' formal_parameter_list_opt ')'    { $$ = new CodeMethod($4,$3,$6);  $$.Location = @4;  MakePair(@5,@7); OverrideToken(@3, TokenClass.Type);}
   | attributes_opt modifiers_opt VOID qualified_identifier 
     '(' formal_parameter_list_opt ')'                         { $$ = new CodeMethod($4, new TypeRef(typeof(void)), $6); 
-                                                                $$.Location = @4;   MakePair(@5,@7);}
+                                                                $$.Location = @4;   MakePair(@5,@7);} 
   ;
 formal_parameter_list_opt
   : /* Nothing */                                             
@@ -1068,7 +1106,7 @@ constructor_body /*** Added by JP - same as method_body ***/
 
 /***** C.2.7 Structs *****/
 struct_declaration
-  : attributes_opt modifiers_opt STRUCT IDENTIFIER 
+  : attributes_opt modifiers_opt STRUCT member_name 
     struct_interfaces_opt struct_body comma_opt               { CodeValueType cv = new CodeValueType($4); 
                                                                 cv.AddRange($6); $$ = cv; $$.Location = @4;
                                                                 OverrideToken(@4, TokenClass.Type);}
@@ -1119,7 +1157,7 @@ variable_initializer_list
 
 /***** C.2.9 Interfaces *****/
 interface_declaration
-  : attributes_opt modifiers_opt INTERFACE IDENTIFIER 
+  : attributes_opt modifiers_opt INTERFACE member_name 
     interface_base_opt interface_body comma_opt                 { CodeInterface ci = new CodeInterface($4); 
                                                                   ci.AddRange($6); $$ = ci; $$.Location = @4;
                                                                   OverrideToken(@4, TokenClass.Type);}
@@ -1150,10 +1188,10 @@ interface_member_declaration
   ;
 /* inline return_type to avoid conflict with interface_property_declaration */
 interface_method_declaration
-  : attributes_opt new_opt type IDENTIFIER 
+  : attributes_opt new_opt type member_name 
     '(' formal_parameter_list_opt ')' interface_empty_body      { $$ = new CodeMethod($4,$3,$6); $$.Location = @4;
                                                                   MakePair(@5,@7);  OverrideToken(@3, TokenClass.Type);}
-  | attributes_opt new_opt VOID IDENTIFIER 
+  | attributes_opt new_opt VOID member_name 
     '(' formal_parameter_list_opt ')' interface_empty_body      { $$ = new CodeMethod($4, new TypeRef(typeof(void)), $6); 
                                                                   $$.Location = @4; MakePair(@5,@7); }
   ;
@@ -1162,7 +1200,7 @@ new_opt
   | NEW
   ;
 interface_property_declaration
-  : attributes_opt new_opt type IDENTIFIER 
+  : attributes_opt new_opt type member_name 
     '{' interface_accessors '}'                                  { $$ = new CodeProperty($4,$3); $$.Location = @4; 
                                                                   MakePair(@5,@7);  OverrideToken(@3, TokenClass.Type);}
   ;
@@ -1182,7 +1220,7 @@ interface_accessors
   | attributes_opt SET interface_empty_body attributes_opt GET interface_empty_body
   ;
 interface_event_declaration
-  : attributes_opt new_opt EVENT type IDENTIFIER interface_empty_body     { OverrideToken(@4, TokenClass.Type);}
+  : attributes_opt new_opt EVENT type member_name interface_empty_body     { OverrideToken(@4, TokenClass.Type);}
   ;
 
 /* mono seems to allow this */
@@ -1225,7 +1263,7 @@ enum_member_declaration
 
 /***** C.2.11 Delegates *****/
 delegate_declaration        
-  : attributes_opt modifiers_opt DELEGATE return_type IDENTIFIER 
+  : attributes_opt modifiers_opt DELEGATE return_type member_name 
     '(' formal_parameter_list_opt ')' ';'               { $$ = new CodeDelegate($5,$4,$7); $$.Location = @5;
                                                           MakePair(@6,@8);
                                                           OverrideToken(@5, TokenClass.Type);}

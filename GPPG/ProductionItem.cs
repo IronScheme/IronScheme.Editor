@@ -65,6 +65,28 @@ namespace gpcc
       return pos == production.rhs.Count;
     }
 
+    public string GetDebug()
+    {
+      StringBuilder builder = new StringBuilder();
+
+      builder.AppendFormat("{1}: ", production.num, production.lhs);
+      for (int i = 0; i < production.rhs.Count; i++)
+      {
+        if (i == pos)
+          builder.Append(". ");
+        builder.AppendFormat("{0} ", production.rhs[i]);
+      }
+
+      if (pos == production.rhs.Count)
+        builder.Append(".");
+
+      if (LA != null)
+        builder.AppendFormat("		{0}", LA);
+
+      return builder.ToString();
+
+    }
+
 
     public override string ToString()
     {

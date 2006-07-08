@@ -88,6 +88,19 @@ namespace gpcc
         nonTerminalTransitions.Add((NonTerminal)s, new Transition(this, (NonTerminal)s, next));
     }
 
+    public string GetDebug()
+    {
+      StringBuilder builder = new StringBuilder();
+
+      foreach (ProductionItem item in kernal_items)
+      {
+        builder.AppendFormat("{0}", item);
+        builder.AppendLine();
+      }
+
+      return builder.ToString().TrimEnd('\n','\r');
+    }
+
 
     public override string ToString()
     {
