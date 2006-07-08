@@ -135,7 +135,7 @@ class TypeRef : CodeTypeRef
 %type <elem> constant_declaration field_declaration interface_indexer_declaration identifier_name
 %type <elem> namespace_declaration namespace_member_declaration struct_member_declaration interface_member_declaration
 %type <elem> enum_member_declaration constructor_declarator 
-%type <text> qualified_identifier qualifier namespace_name constant_declarator variable_declarator type_qualified_identifier member_name
+%type <text> qualified_identifier qualifier namespace_name constant_declarator variable_declarator type_qualified_identifier
 %type <elem> class_declaration struct_declaration interface_declaration enum_declaration delegate_declaration type_declaration
 %type <elem> class_member_declaration method_declaration property_declaration
 %type <elem> event_declaration indexer_declaration operator_declaration constructor_declaration destructor_declaration
@@ -145,6 +145,16 @@ class TypeRef : CodeTypeRef
 %type <primval> literal mllit boolean_literal
 %type <list> variable_declarators constant_declarators
 %type <paramattr> parameter_modifier_opt
+
+%type <text> member_name
+%right BAR
+%left FOO
+
+
+
+%nonassoc REDUCE
+%nonassoc ELSE
+
 
 %%
 
@@ -180,14 +190,10 @@ type_name
   ;
   
 member_name
-  : IDENTIFIER type_list_opt                        { $$ = $1; @@ = @1; }
+  : IDENTIFIER %prec BAR                              { $$ = $1; @@ = @1; }
+  | IDENTIFIER '<' type_list '>'                      { $$ = $1; @@ = @1; }
   ;
 
-type_list_opt
-  :
-  | '<' type_list '>' 
-  ;
-  
 type_list
   : type
   | type_list ',' type
@@ -437,7 +443,7 @@ shift_expression
 relational_expression
   : shift_expression
   | relational_expression '>' shift_expression
-  | relational_expression '<' shift_expression
+  | relational_expression '<' shift_expression %prec FOO
   | relational_expression LEQ shift_expression
   | relational_expression GEQ shift_expression
   | relational_expression IS type                                         {  OverrideToken(@3, TokenClass.Type); }
@@ -579,7 +585,7 @@ selection_statement
   | switch_statement
   ;
 if_statement
-  : IF '(' boolean_expression ')' embedded_statement          { MakePair(@2,@4);}
+  : IF '(' boolean_expression ')' embedded_statement %prec REDUCE   { MakePair(@2,@4);}
   | IF '(' boolean_expression ')' embedded_statement 
     ELSE embedded_statement                                   { MakePair(@2,@4);}
   ;

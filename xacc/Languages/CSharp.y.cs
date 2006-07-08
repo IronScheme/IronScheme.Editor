@@ -17,7 +17,7 @@ using System.Reflection;
 
 namespace CSharp
 {
-public enum Tokens {IGNORE = -1,error=127,EOF=128,RANK_SPECIFIER=129,IDENTIFIER=130,INTEGER_LITERAL=131,REAL_LITERAL=132,CHARACTER_LITERAL=133,STRING_LITERAL=134,MLSTRING_LITERAL=135,ABSTRACT=136,AS=137,BASE=138,BOOL=139,BREAK=140,BYTE=141,CASE=142,CATCH=143,CHAR=144,CHECKED=145,CLASS=146,CONST=147,CONTINUE=148,DECIMAL=149,DEFAULT=150,DELEGATE=151,DO=152,DOUBLE=153,ELSE=154,ENUM=155,EVENT=156,EXPLICIT=157,EXTERN=158,FALSE=159,FINALLY=160,FIXED=161,FLOAT=162,FOR=163,FOREACH=164,GOTO=165,IF=166,IMPLICIT=167,IN=168,INT=169,INTERFACE=170,INTERNAL=171,IS=172,LOCK=173,LONG=174,NAMESPACE=175,NEW=176,NULL_LITERAL=177,OBJECT=178,OPERATOR=179,OUT=180,OVERRIDE=181,PARAMS=182,PRIVATE=183,PROTECTED=184,PUBLIC=185,READONLY=186,REF=187,RETURN=188,SBYTE=189,SEALED=190,SHORT=191,SIZEOF=192,STACKALLOC=193,STATIC=194,KW_STRING=195,STRUCT=196,SWITCH=197,THIS=198,THROW=199,TRUE=200,TRY=201,TYPEOF=202,UINT=203,ULONG=204,UNCHECKED=205,UNSAFE=206,USHORT=207,USING=208,VIRTUAL=209,VOID=210,VOLATILE=211,WHILE=212,WHERE=213,PPSTART=214,PPDEFINE=215,PPIF=216,PPELSE=217,PPENDIF=218,PPREGION=219,PPENDREGION=220,PPID=221,PPELIF=222,GET=223,SET=224,ADD=225,REMOVE=226,PLUSEQ=227,MINUSEQ=228,STAREQ=229,DIVEQ=230,MODEQ=231,QQ=232,XOREQ=233,ANDEQ=234,OREQ=235,LTLT=236,GTGT=237,GTGTEQ=238,LTLTEQ=239,EQEQ=240,NOTEQ=241,LEQ=242,GEQ=243,ANDAND=244,OROR=245,PLUSPLUS=246,MINUSMINUS=247,ARROW=248};
+public enum Tokens {IGNORE = -1,error=127,EOF=128,RANK_SPECIFIER=129,IDENTIFIER=130,INTEGER_LITERAL=131,REAL_LITERAL=132,CHARACTER_LITERAL=133,STRING_LITERAL=134,MLSTRING_LITERAL=135,ABSTRACT=136,AS=137,BASE=138,BOOL=139,BREAK=140,BYTE=141,CASE=142,CATCH=143,CHAR=144,CHECKED=145,CLASS=146,CONST=147,CONTINUE=148,DECIMAL=149,DEFAULT=150,DELEGATE=151,DO=152,DOUBLE=153,ELSE=154,ENUM=155,EVENT=156,EXPLICIT=157,EXTERN=158,FALSE=159,FINALLY=160,FIXED=161,FLOAT=162,FOR=163,FOREACH=164,GOTO=165,IF=166,IMPLICIT=167,IN=168,INT=169,INTERFACE=170,INTERNAL=171,IS=172,LOCK=173,LONG=174,NAMESPACE=175,NEW=176,NULL_LITERAL=177,OBJECT=178,OPERATOR=179,OUT=180,OVERRIDE=181,PARAMS=182,PRIVATE=183,PROTECTED=184,PUBLIC=185,READONLY=186,REF=187,RETURN=188,SBYTE=189,SEALED=190,SHORT=191,SIZEOF=192,STACKALLOC=193,STATIC=194,KW_STRING=195,STRUCT=196,SWITCH=197,THIS=198,THROW=199,TRUE=200,TRY=201,TYPEOF=202,UINT=203,ULONG=204,UNCHECKED=205,UNSAFE=206,USHORT=207,USING=208,VIRTUAL=209,VOID=210,VOLATILE=211,WHILE=212,WHERE=213,PPSTART=214,PPDEFINE=215,PPIF=216,PPELSE=217,PPENDIF=218,PPREGION=219,PPENDREGION=220,PPID=221,PPELIF=222,GET=223,SET=224,ADD=225,REMOVE=226,PLUSEQ=227,MINUSEQ=228,STAREQ=229,DIVEQ=230,MODEQ=231,QQ=232,XOREQ=233,ANDEQ=234,OREQ=235,LTLT=236,GTGT=237,GTGTEQ=238,LTLTEQ=239,EQEQ=240,NOTEQ=241,LEQ=242,GEQ=243,ANDAND=244,OROR=245,PLUSPLUS=246,MINUSMINUS=247,ARROW=248,BAR=249,FOO=250,REDUCE=251};
 
 public abstract class LexerBase<T> : Xacc.Languages.CSLex.Language<T>.LexerBase where T : struct, Xacc.ComponentModel.IToken
 {
@@ -143,6 +143,9 @@ public const int OROR=245;
 public const int PLUSPLUS=246;
 public const int MINUSMINUS=247;
 public const int ARROW=248;
+public const int BAR=249;
+public const int FOO=250;
+public const int REDUCE=251;
 }
 public struct ValueType : Xacc.ComponentModel.IToken
 #line 74 "D:\dev\XACC\xacc\Languages\CSharp.y"
@@ -255,3250 +258,1457 @@ class TypeRef : CodeTypeRef
     this.errToken = (int)Tokens.error;
     this.eofToken = (int)Tokens.EOF;
 
-    stringstates=new string[909];
-    stringrules=new string[542];
-    states=new State[909];
-stringstates[0] = @"1 $accept: . compilation_unit EOF ";
-    AddState(0,new State(new int[]{208,897,91,-306,175,-306,136,-306,158,-306,171,-306,176,-306,181,-306,183,-306,184,-306,185,-306,186,-306,190,-306,194,-306,206,-306,209,-306,211,-306,146,-306,196,-306,170,-306,155,-306,151,-306,128,-306},new int[]{-1,1,-189,3,-191,894,-194,907,-195,896,-196,906}));
-stringstates[1] = @"1 $accept: compilation_unit . EOF ";
+    states=new State[908];
+    AddState(0,new State(new int[]{208,896,91,-305,175,-305,136,-305,158,-305,171,-305,176,-305,181,-305,183,-305,184,-305,185,-305,186,-305,190,-305,194,-305,206,-305,209,-305,211,-305,146,-305,196,-305,170,-305,155,-305,151,-305,128,-305},new int[]{-1,1,-188,3,-190,893,-193,906,-194,895,-195,905}));
     AddState(1,new State(new int[]{128,2}));
-stringstates[2] = @"1 $accept: compilation_unit EOF .		[]";
     AddState(2,new State(-1));
-stringstates[3] = @"304 compilation_unit: using_directives_opt . attributes_opt 
-305 compilation_unit: using_directives_opt . namespace_member_declarations ";
-    AddState(3,new State(new int[]{91,369,175,-308,136,-308,158,-308,171,-308,176,-308,181,-308,183,-308,184,-308,185,-308,186,-308,190,-308,194,-308,206,-308,209,-308,211,-308,146,-308,196,-308,170,-308,155,-308,151,-308,128,-308},new int[]{-190,4,-2,908,-192,366,-239,367,-240,385,-24,893,-23,16,-41,892,-36,855,-37,856,-38,857,-39,858,-40,859}));
-stringstates[4] = @"304 compilation_unit: using_directives_opt attributes_opt .		[EOF, ]
-312 namespace_declaration: attributes_opt . NAMESPACE qualified_identifier namespace_body comma_opt 
-363 class_declaration: attributes_opt . modifiers_opt CLASS member_name class_base_opt gen_clause_opt class_body comma_opt 
-467 struct_declaration: attributes_opt . modifiers_opt STRUCT member_name struct_interfaces_opt struct_body comma_opt 
-491 interface_declaration: attributes_opt . modifiers_opt INTERFACE member_name interface_base_opt interface_body comma_opt 
-517 enum_declaration: attributes_opt . modifiers_opt ENUM IDENTIFIER enum_base_opt enum_body comma_opt 
-529 delegate_declaration: attributes_opt . modifiers_opt DELEGATE return_type member_name '(' formal_parameter_list_opt ')' ';' ";
-    AddState(4,new State(new int[]{175,5,136,828,158,829,171,830,176,831,181,832,183,833,184,834,185,835,186,836,190,837,194,838,206,839,209,840,211,841,128,-304,146,-336,196,-336,170,-336,155,-336,151,-336},new int[]{-197,18,-198,826,-199,842}));
-stringstates[5] = @"312 namespace_declaration: attributes_opt NAMESPACE . qualified_identifier namespace_body comma_opt ";
-    AddState(5,new State(new int[]{130,181},new int[]{-29,6,-35,179,-30,200}));
-stringstates[6] = @"312 namespace_declaration: attributes_opt NAMESPACE qualified_identifier . namespace_body comma_opt ";
+    AddState(3,new State(new int[]{91,368,175,-307,136,-307,158,-307,171,-307,176,-307,181,-307,183,-307,184,-307,185,-307,186,-307,190,-307,194,-307,206,-307,209,-307,211,-307,146,-307,196,-307,170,-307,155,-307,151,-307,128,-307},new int[]{-189,4,-2,907,-191,365,-238,366,-239,384,-24,892,-23,16,-40,891,-35,854,-36,855,-37,856,-38,857,-39,858}));
+    AddState(4,new State(new int[]{175,5,136,827,158,828,171,829,176,830,181,831,183,832,184,833,185,834,186,835,190,836,194,837,206,838,209,839,211,840,128,-303,146,-335,196,-335,170,-335,155,-335,151,-335},new int[]{-196,18,-197,825,-198,841}));
+    AddState(5,new State(new int[]{130,181},new int[]{-29,6,-72,179,-30,199}));
     AddState(6,new State(new int[]{123,10},new int[]{-3,7}));
-stringstates[7] = @"312 namespace_declaration: attributes_opt NAMESPACE qualified_identifier namespace_body . comma_opt ";
-    AddState(7,new State(new int[]{59,9,91,-313,175,-313,136,-313,158,-313,171,-313,176,-313,181,-313,183,-313,184,-313,185,-313,186,-313,190,-313,194,-313,206,-313,209,-313,211,-313,146,-313,196,-313,170,-313,155,-313,151,-313,128,-313,125,-313},new int[]{-193,8}));
-stringstates[8] = @"312 namespace_declaration: attributes_opt NAMESPACE qualified_identifier namespace_body comma_opt .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
-    AddState(8,new State(-312));
-stringstates[9] = @"314 comma_opt: ';' .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
-    AddState(9,new State(-314));
-stringstates[10] = @"319 namespace_body: '{' . using_directives_opt namespace_member_declarations_opt '}' ";
-    AddState(10,new State(new int[]{208,897,91,-306,125,-306,175,-306,136,-306,158,-306,171,-306,176,-306,181,-306,183,-306,184,-306,185,-306,186,-306,190,-306,194,-306,206,-306,209,-306,211,-306,146,-306,196,-306,170,-306,155,-306,151,-306},new int[]{-189,11,-191,894,-194,907,-195,896,-196,906}));
-stringstates[11] = @"319 namespace_body: '{' using_directives_opt . namespace_member_declarations_opt '}' ";
-    AddState(11,new State(new int[]{91,369,125,-310,175,-308,136,-308,158,-308,171,-308,176,-308,181,-308,183,-308,184,-308,185,-308,186,-308,190,-308,194,-308,206,-308,209,-308,211,-308,146,-308,196,-308,170,-308,155,-308,151,-308},new int[]{-4,12,-2,14,-24,893,-23,16,-190,17,-192,366,-239,367,-240,385,-41,892,-36,855,-37,856,-38,857,-39,858,-40,859}));
-stringstates[12] = @"319 namespace_body: '{' using_directives_opt namespace_member_declarations_opt . '}' ";
+    AddState(7,new State(new int[]{59,9,91,-312,175,-312,136,-312,158,-312,171,-312,176,-312,181,-312,183,-312,184,-312,185,-312,186,-312,190,-312,194,-312,206,-312,209,-312,211,-312,146,-312,196,-312,170,-312,155,-312,151,-312,128,-312,125,-312},new int[]{-192,8}));
+    AddState(8,new State(-311));
+    AddState(9,new State(-313));
+    AddState(10,new State(new int[]{208,896,91,-305,125,-305,175,-305,136,-305,158,-305,171,-305,176,-305,181,-305,183,-305,184,-305,185,-305,186,-305,190,-305,194,-305,206,-305,209,-305,211,-305,146,-305,196,-305,170,-305,155,-305,151,-305},new int[]{-188,11,-190,893,-193,906,-194,895,-195,905}));
+    AddState(11,new State(new int[]{91,368,125,-309,175,-307,136,-307,158,-307,171,-307,176,-307,181,-307,183,-307,184,-307,185,-307,186,-307,190,-307,194,-307,206,-307,209,-307,211,-307,146,-307,196,-307,170,-307,155,-307,151,-307},new int[]{-4,12,-2,14,-24,892,-23,16,-189,17,-191,365,-238,366,-239,384,-40,891,-35,854,-36,855,-37,856,-38,857,-39,858}));
     AddState(12,new State(new int[]{125,13}));
-stringstates[13] = @"319 namespace_body: '{' using_directives_opt namespace_member_declarations_opt '}' .		[';', '[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
-    AddState(13,new State(-319));
-stringstates[14] = @"311 namespace_member_declarations_opt: namespace_member_declarations .		['}', ]
-328 namespace_member_declarations: namespace_member_declarations . namespace_member_declaration ";
-    AddState(14,new State(new int[]{91,369,125,-311,175,-308,136,-308,158,-308,171,-308,176,-308,181,-308,183,-308,184,-308,185,-308,186,-308,190,-308,194,-308,206,-308,209,-308,211,-308,146,-308,196,-308,170,-308,155,-308,151,-308},new int[]{-24,15,-23,16,-190,17,-192,366,-239,367,-240,385,-41,892,-36,855,-37,856,-38,857,-39,858,-40,859}));
-stringstates[15] = @"328 namespace_member_declarations: namespace_member_declarations namespace_member_declaration .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
-    AddState(15,new State(-328));
-stringstates[16] = @"329 namespace_member_declaration: namespace_declaration .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
-    AddState(16,new State(-329));
-stringstates[17] = @"312 namespace_declaration: attributes_opt . NAMESPACE qualified_identifier namespace_body comma_opt 
-363 class_declaration: attributes_opt . modifiers_opt CLASS member_name class_base_opt gen_clause_opt class_body comma_opt 
-467 struct_declaration: attributes_opt . modifiers_opt STRUCT member_name struct_interfaces_opt struct_body comma_opt 
-491 interface_declaration: attributes_opt . modifiers_opt INTERFACE member_name interface_base_opt interface_body comma_opt 
-517 enum_declaration: attributes_opt . modifiers_opt ENUM IDENTIFIER enum_base_opt enum_body comma_opt 
-529 delegate_declaration: attributes_opt . modifiers_opt DELEGATE return_type member_name '(' formal_parameter_list_opt ')' ';' ";
-    AddState(17,new State(new int[]{175,5,136,828,158,829,171,830,176,831,181,832,183,833,184,834,185,835,186,836,190,837,194,838,206,839,209,840,211,841,146,-336,196,-336,170,-336,155,-336,151,-336},new int[]{-197,18,-198,826,-199,842}));
-stringstates[18] = @"363 class_declaration: attributes_opt modifiers_opt . CLASS member_name class_base_opt gen_clause_opt class_body comma_opt 
-467 struct_declaration: attributes_opt modifiers_opt . STRUCT member_name struct_interfaces_opt struct_body comma_opt 
-491 interface_declaration: attributes_opt modifiers_opt . INTERFACE member_name interface_base_opt interface_body comma_opt 
-517 enum_declaration: attributes_opt modifiers_opt . ENUM IDENTIFIER enum_base_opt enum_body comma_opt 
-529 delegate_declaration: attributes_opt modifiers_opt . DELEGATE return_type member_name '(' formal_parameter_list_opt ')' ';' ";
-    AddState(18,new State(new int[]{146,19,196,689,170,702,155,766,151,786}));
-stringstates[19] = @"363 class_declaration: attributes_opt modifiers_opt CLASS . member_name class_base_opt gen_clause_opt class_body comma_opt ";
-    AddState(19,new State(new int[]{130,181},new int[]{-35,20}));
-stringstates[20] = @"363 class_declaration: attributes_opt modifiers_opt CLASS member_name . class_base_opt gen_clause_opt class_body comma_opt ";
-    AddState(20,new State(new int[]{58,887,213,-364,123,-364},new int[]{-205,21,-206,886}));
-stringstates[21] = @"363 class_declaration: attributes_opt modifiers_opt CLASS member_name class_base_opt . gen_clause_opt class_body comma_opt ";
-    AddState(21,new State(new int[]{213,875,123,-354},new int[]{-200,22,-201,874}));
-stringstates[22] = @"363 class_declaration: attributes_opt modifiers_opt CLASS member_name class_base_opt gen_clause_opt . class_body comma_opt ";
+    AddState(13,new State(-318));
+    AddState(14,new State(new int[]{91,368,125,-310,175,-307,136,-307,158,-307,171,-307,176,-307,181,-307,183,-307,184,-307,185,-307,186,-307,190,-307,194,-307,206,-307,209,-307,211,-307,146,-307,196,-307,170,-307,155,-307,151,-307},new int[]{-24,15,-23,16,-189,17,-191,365,-238,366,-239,384,-40,891,-35,854,-36,855,-37,856,-38,857,-39,858}));
+    AddState(15,new State(-327));
+    AddState(16,new State(-328));
+    AddState(17,new State(new int[]{175,5,136,827,158,828,171,829,176,830,181,831,183,832,184,833,185,834,186,835,190,836,194,837,206,838,209,839,211,840,146,-335,196,-335,170,-335,155,-335,151,-335},new int[]{-196,18,-197,825,-198,841}));
+    AddState(18,new State(new int[]{146,19,196,688,170,701,155,765,151,785}));
+    AddState(19,new State(new int[]{130,181},new int[]{-72,20}));
+    AddState(20,new State(new int[]{58,886,213,-363,123,-363},new int[]{-204,21,-205,885}));
+    AddState(21,new State(new int[]{213,874,123,-353},new int[]{-199,22,-200,873}));
     AddState(22,new State(new int[]{123,25},new int[]{-7,23}));
-stringstates[23] = @"363 class_declaration: attributes_opt modifiers_opt CLASS member_name class_base_opt gen_clause_opt class_body . comma_opt ";
-    AddState(23,new State(new int[]{59,9,91,-313,175,-313,136,-313,158,-313,171,-313,176,-313,181,-313,183,-313,184,-313,185,-313,186,-313,190,-313,194,-313,206,-313,209,-313,211,-313,146,-313,196,-313,170,-313,155,-313,151,-313,128,-313,125,-313,147,-313,210,-313,156,-313,126,-313,189,-313,141,-313,191,-313,207,-313,169,-313,203,-313,174,-313,204,-313,144,-313,162,-313,153,-313,149,-313,139,-313,178,-313,195,-313,130,-313,167,-313,157,-313},new int[]{-193,24}));
-stringstates[24] = @"363 class_declaration: attributes_opt modifiers_opt CLASS member_name class_base_opt gen_clause_opt class_body comma_opt .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
-    AddState(24,new State(-363));
-stringstates[25] = @"371 class_body: '{' . class_member_declarations_opt '}' ";
-    AddState(25,new State(new int[]{91,369,125,-372,136,-308,158,-308,171,-308,176,-308,181,-308,183,-308,184,-308,185,-308,186,-308,190,-308,194,-308,206,-308,209,-308,211,-308,147,-308,210,-308,156,-308,126,-308,146,-308,196,-308,170,-308,155,-308,151,-308,189,-308,141,-308,191,-308,207,-308,169,-308,203,-308,174,-308,204,-308,144,-308,162,-308,153,-308,149,-308,139,-308,178,-308,195,-308,130,-308,167,-308,157,-308},new int[]{-6,26,-8,28,-42,873,-19,30,-190,31,-192,366,-239,367,-240,385,-20,864,-43,865,-53,845,-44,866,-45,867,-46,868,-47,869,-48,870,-49,871,-41,872,-36,855,-37,856,-38,857,-39,858,-40,859}));
-stringstates[26] = @"371 class_body: '{' class_member_declarations_opt . '}' ";
+    AddState(23,new State(new int[]{59,9,91,-312,175,-312,136,-312,158,-312,171,-312,176,-312,181,-312,183,-312,184,-312,185,-312,186,-312,190,-312,194,-312,206,-312,209,-312,211,-312,146,-312,196,-312,170,-312,155,-312,151,-312,128,-312,125,-312,147,-312,210,-312,156,-312,126,-312,189,-312,141,-312,191,-312,207,-312,169,-312,203,-312,174,-312,204,-312,144,-312,162,-312,153,-312,149,-312,139,-312,178,-312,195,-312,130,-312,167,-312,157,-312},new int[]{-192,24}));
+    AddState(24,new State(-362));
+    AddState(25,new State(new int[]{91,368,125,-371,136,-307,158,-307,171,-307,176,-307,181,-307,183,-307,184,-307,185,-307,186,-307,190,-307,194,-307,206,-307,209,-307,211,-307,147,-307,210,-307,156,-307,126,-307,146,-307,196,-307,170,-307,155,-307,151,-307,189,-307,141,-307,191,-307,207,-307,169,-307,203,-307,174,-307,204,-307,144,-307,162,-307,153,-307,149,-307,139,-307,178,-307,195,-307,130,-307,167,-307,157,-307},new int[]{-6,26,-8,28,-41,872,-19,30,-189,31,-191,365,-238,366,-239,384,-20,863,-42,864,-52,844,-43,865,-44,866,-45,867,-46,868,-47,869,-48,870,-40,871,-35,854,-36,855,-37,856,-38,857,-39,858}));
     AddState(26,new State(new int[]{125,27}));
-stringstates[27] = @"371 class_body: '{' class_member_declarations_opt '}' .		[';', '[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
-    AddState(27,new State(-371));
-stringstates[28] = @"373 class_member_declarations_opt: class_member_declarations .		['}', ]
-375 class_member_declarations: class_member_declarations . class_member_declaration ";
-    AddState(28,new State(new int[]{91,369,125,-373,136,-308,158,-308,171,-308,176,-308,181,-308,183,-308,184,-308,185,-308,186,-308,190,-308,194,-308,206,-308,209,-308,211,-308,147,-308,210,-308,156,-308,126,-308,146,-308,196,-308,170,-308,155,-308,151,-308,189,-308,141,-308,191,-308,207,-308,169,-308,203,-308,174,-308,204,-308,144,-308,162,-308,153,-308,149,-308,139,-308,178,-308,195,-308,130,-308,167,-308,157,-308},new int[]{-42,29,-19,30,-190,31,-192,366,-239,367,-240,385,-20,864,-43,865,-53,845,-44,866,-45,867,-46,868,-47,869,-48,870,-49,871,-41,872,-36,855,-37,856,-38,857,-39,858,-40,859}));
-stringstates[29] = @"375 class_member_declarations: class_member_declarations class_member_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(29,new State(-375));
-stringstates[30] = @"376 class_member_declaration: constant_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(30,new State(-376));
-stringstates[31] = @"386 constant_declaration: attributes_opt . modifiers_opt CONST type constant_declarators ';' 
-387 field_declaration: attributes_opt . modifiers_opt type variable_declarators ';' 
-389 method_header: attributes_opt . modifiers_opt type qualified_identifier '(' formal_parameter_list_opt ')' 
-390 method_header: attributes_opt . modifiers_opt VOID qualified_identifier '(' formal_parameter_list_opt ')' 
-406 property_declaration: attributes_opt . modifiers_opt type qualified_identifier '{' accessor_declarations '}' 
-417 event_declaration: attributes_opt . modifiers_opt EVENT type variable_declarators ';' 
-418 event_declaration: attributes_opt . modifiers_opt EVENT type qualified_identifier '{' event_accessor_declarations '}' 
-423 indexer_declaration: attributes_opt . modifiers_opt indexer_declarator '{' accessor_declarations '}' 
-427 operator_declaration: attributes_opt . modifiers_opt operator_declarator operator_body 
-456 constructor_declaration: attributes_opt . modifiers_opt constructor_declarator constructor_body 
-462 destructor_declaration: attributes_opt . modifiers_opt '~' IDENTIFIER '(' ')' block 
-363 class_declaration: attributes_opt . modifiers_opt CLASS member_name class_base_opt gen_clause_opt class_body comma_opt 
-467 struct_declaration: attributes_opt . modifiers_opt STRUCT member_name struct_interfaces_opt struct_body comma_opt 
-491 interface_declaration: attributes_opt . modifiers_opt INTERFACE member_name interface_base_opt interface_body comma_opt 
-517 enum_declaration: attributes_opt . modifiers_opt ENUM IDENTIFIER enum_base_opt enum_body comma_opt 
-529 delegate_declaration: attributes_opt . modifiers_opt DELEGATE return_type member_name '(' formal_parameter_list_opt ')' ';' ";
-    AddState(31,new State(new int[]{136,828,158,829,171,830,176,831,181,832,183,833,184,834,185,835,186,836,190,837,194,838,206,839,209,840,211,841,147,-336,210,-336,156,-336,126,-336,146,-336,196,-336,170,-336,155,-336,151,-336,189,-336,141,-336,191,-336,207,-336,169,-336,203,-336,174,-336,204,-336,144,-336,162,-336,153,-336,149,-336,139,-336,178,-336,195,-336,130,-336,167,-336,157,-336},new int[]{-197,32,-198,826,-199,842}));
-stringstates[32] = @"386 constant_declaration: attributes_opt modifiers_opt . CONST type constant_declarators ';' 
-387 field_declaration: attributes_opt modifiers_opt . type variable_declarators ';' 
-389 method_header: attributes_opt modifiers_opt . type qualified_identifier '(' formal_parameter_list_opt ')' 
-390 method_header: attributes_opt modifiers_opt . VOID qualified_identifier '(' formal_parameter_list_opt ')' 
-406 property_declaration: attributes_opt modifiers_opt . type qualified_identifier '{' accessor_declarations '}' 
-417 event_declaration: attributes_opt modifiers_opt . EVENT type variable_declarators ';' 
-418 event_declaration: attributes_opt modifiers_opt . EVENT type qualified_identifier '{' event_accessor_declarations '}' 
-423 indexer_declaration: attributes_opt modifiers_opt . indexer_declarator '{' accessor_declarations '}' 
-427 operator_declaration: attributes_opt modifiers_opt . operator_declarator operator_body 
-456 constructor_declaration: attributes_opt modifiers_opt . constructor_declarator constructor_body 
-462 destructor_declaration: attributes_opt modifiers_opt . '~' IDENTIFIER '(' ')' block 
-363 class_declaration: attributes_opt modifiers_opt . CLASS member_name class_base_opt gen_clause_opt class_body comma_opt 
-467 struct_declaration: attributes_opt modifiers_opt . STRUCT member_name struct_interfaces_opt struct_body comma_opt 
-491 interface_declaration: attributes_opt modifiers_opt . INTERFACE member_name interface_base_opt interface_body comma_opt 
-517 enum_declaration: attributes_opt modifiers_opt . ENUM IDENTIFIER enum_base_opt enum_body comma_opt 
-529 delegate_declaration: attributes_opt modifiers_opt . DELEGATE return_type member_name '(' formal_parameter_list_opt ')' ';' ";
-    AddState(32,new State(new int[]{147,33,210,648,156,653,126,684,146,19,196,689,170,702,155,766,151,786,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,795,167,812,157,819},new int[]{-56,341,-217,672,-219,676,-28,680,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205,-221,810,-222,811}));
-stringstates[33] = @"386 constant_declaration: attributes_opt modifiers_opt CONST . type constant_declarators ';' ";
-    AddState(33,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,34,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[34] = @"386 constant_declaration: attributes_opt modifiers_opt CONST type . constant_declarators ';' 
-45 pointer_type: type . '*' ";
-    AddState(34,new State(new int[]{42,188,130,39},new int[]{-71,35,-32,340}));
-stringstates[35] = @"386 constant_declaration: attributes_opt modifiers_opt CONST type constant_declarators . ';' 
-221 constant_declarators: constant_declarators . ',' constant_declarator ";
+    AddState(27,new State(-370));
+    AddState(28,new State(new int[]{91,368,125,-372,136,-307,158,-307,171,-307,176,-307,181,-307,183,-307,184,-307,185,-307,186,-307,190,-307,194,-307,206,-307,209,-307,211,-307,147,-307,210,-307,156,-307,126,-307,146,-307,196,-307,170,-307,155,-307,151,-307,189,-307,141,-307,191,-307,207,-307,169,-307,203,-307,174,-307,204,-307,144,-307,162,-307,153,-307,149,-307,139,-307,178,-307,195,-307,130,-307,167,-307,157,-307},new int[]{-41,29,-19,30,-189,31,-191,365,-238,366,-239,384,-20,863,-42,864,-52,844,-43,865,-44,866,-45,867,-46,868,-47,869,-48,870,-40,871,-35,854,-36,855,-37,856,-38,857,-39,858}));
+    AddState(29,new State(-374));
+    AddState(30,new State(-375));
+    AddState(31,new State(new int[]{136,827,158,828,171,829,176,830,181,831,183,832,184,833,185,834,186,835,190,836,194,837,206,838,209,839,211,840,147,-335,210,-335,156,-335,126,-335,146,-335,196,-335,170,-335,155,-335,151,-335,189,-335,141,-335,191,-335,207,-335,169,-335,203,-335,174,-335,204,-335,144,-335,162,-335,153,-335,149,-335,139,-335,178,-335,195,-335,130,-335,167,-335,157,-335},new int[]{-196,32,-197,825,-198,841}));
+    AddState(32,new State(new int[]{147,33,210,647,156,652,126,683,146,19,196,688,170,701,155,765,151,785,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,794,167,811,157,818},new int[]{-55,340,-216,671,-218,675,-28,679,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204,-220,809,-221,810}));
+    AddState(33,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,34,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(34,new State(new int[]{42,187,130,39},new int[]{-70,35,-32,339}));
     AddState(35,new State(new int[]{59,36,44,37}));
-stringstates[36] = @"386 constant_declaration: attributes_opt modifiers_opt CONST type constant_declarators ';' .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(36,new State(-386));
-stringstates[37] = @"221 constant_declarators: constant_declarators ',' . constant_declarator ";
+    AddState(36,new State(-385));
     AddState(37,new State(new int[]{130,39},new int[]{-32,38}));
-stringstates[38] = @"221 constant_declarators: constant_declarators ',' constant_declarator .		[';', ',', ]";
-    AddState(38,new State(-221));
-stringstates[39] = @"222 constant_declarator: IDENTIFIER . '=' constant_expression ";
+    AddState(38,new State(-220));
     AddState(39,new State(new int[]{61,40}));
-stringstates[40] = @"222 constant_declarator: IDENTIFIER '=' . constant_expression ";
-    AddState(40,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-129,41,-80,42,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[41] = @"222 constant_declarator: IDENTIFIER '=' constant_expression .		[';', ',', ]";
-    AddState(41,new State(-222));
-stringstates[42] = @"183 constant_expression: expression .		[';', ',', ':', '}', ]";
-    AddState(42,new State(-183));
-stringstates[43] = @"181 expression: conditional_expression .		[';', ',', ']', ')', '}', ':', ]";
-    AddState(43,new State(-181));
-stringstates[44] = @"166 conditional_expression: conditional_or_expression .		[';', ',', ']', ')', '}', ':', ]
-165 conditional_or_expression: conditional_or_expression . OROR conditional_and_expression 
-167 conditional_expression: conditional_or_expression . '?' expression ':' expression 
-168 conditional_expression: conditional_or_expression . QQ expression ";
-    AddState(44,new State(new int[]{245,45,63,334,232,338,59,-166,44,-166,93,-166,41,-166,125,-166,58,-166}));
-stringstates[45] = @"165 conditional_or_expression: conditional_or_expression OROR . conditional_and_expression ";
-    AddState(45,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-124,46,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,301,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[46] = @"165 conditional_or_expression: conditional_or_expression OROR conditional_and_expression .		[OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-163 conditional_and_expression: conditional_and_expression . ANDAND inclusive_or_expression ";
-    AddState(46,new State(new int[]{244,47,245,-165,63,-165,232,-165,59,-165,44,-165,93,-165,41,-165,125,-165,58,-165}));
-stringstates[47] = @"163 conditional_and_expression: conditional_and_expression ANDAND . inclusive_or_expression ";
-    AddState(47,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-123,48,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,301,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[48] = @"163 conditional_and_expression: conditional_and_expression ANDAND inclusive_or_expression .		[ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-161 inclusive_or_expression: inclusive_or_expression . '|' exclusive_or_expression ";
-    AddState(48,new State(new int[]{124,49,244,-163,245,-163,63,-163,232,-163,59,-163,44,-163,93,-163,41,-163,125,-163,58,-163}));
-stringstates[49] = @"161 inclusive_or_expression: inclusive_or_expression '|' . exclusive_or_expression ";
-    AddState(49,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-122,50,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,301,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[50] = @"161 inclusive_or_expression: inclusive_or_expression '|' exclusive_or_expression .		['|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-159 exclusive_or_expression: exclusive_or_expression . '^' and_expression ";
-    AddState(50,new State(new int[]{94,51,124,-161,244,-161,245,-161,63,-161,232,-161,59,-161,44,-161,93,-161,41,-161,125,-161,58,-161}));
-stringstates[51] = @"159 exclusive_or_expression: exclusive_or_expression '^' . and_expression ";
-    AddState(51,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-121,52,-120,83,-119,107,-118,143,-117,110,-113,111,-108,301,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[52] = @"159 exclusive_or_expression: exclusive_or_expression '^' and_expression .		['^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-157 and_expression: and_expression . '&' equality_expression ";
-    AddState(52,new State(new int[]{38,53,94,-159,124,-159,244,-159,245,-159,63,-159,232,-159,59,-159,44,-159,93,-159,41,-159,125,-159,58,-159}));
-stringstates[53] = @"157 and_expression: and_expression '&' . equality_expression ";
-    AddState(53,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-120,54,-119,107,-118,143,-117,110,-113,111,-108,301,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[54] = @"157 and_expression: and_expression '&' equality_expression .		['&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-154 equality_expression: equality_expression . EQEQ relational_expression 
-155 equality_expression: equality_expression . NOTEQ relational_expression ";
-    AddState(54,new State(new int[]{240,55,241,84,38,-157,94,-157,124,-157,244,-157,245,-157,63,-157,232,-157,59,-157,44,-157,93,-157,41,-157,125,-157,58,-157}));
-stringstates[55] = @"154 equality_expression: equality_expression EQEQ . relational_expression ";
-    AddState(55,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-119,56,-118,143,-117,110,-113,111,-108,301,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[56] = @"154 equality_expression: equality_expression EQEQ relational_expression .		[EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-147 relational_expression: relational_expression . '>' shift_expression 
-148 relational_expression: relational_expression . '<' shift_expression 
-149 relational_expression: relational_expression . LEQ shift_expression 
-150 relational_expression: relational_expression . GEQ shift_expression 
-151 relational_expression: relational_expression . IS type 
-152 relational_expression: relational_expression . AS type ";
-    AddState(56,new State(new int[]{62,57,60,86,242,108,243,302,172,304,137,306,240,-154,241,-154,38,-154,94,-154,124,-154,244,-154,245,-154,63,-154,232,-154,59,-154,44,-154,93,-154,41,-154,125,-154,58,-154}));
-stringstates[57] = @"147 relational_expression: relational_expression '>' . shift_expression ";
-    AddState(57,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-118,58,-117,110,-113,111,-108,301,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[58] = @"147 relational_expression: relational_expression '>' shift_expression .		['>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-144 shift_expression: shift_expression . LTLT additive_expression 
-145 shift_expression: shift_expression . GTGT additive_expression ";
-    AddState(58,new State(new int[]{236,59,237,88,62,-147,60,-147,242,-147,243,-147,172,-147,137,-147,240,-147,241,-147,38,-147,94,-147,124,-147,244,-147,245,-147,63,-147,232,-147,59,-147,44,-147,93,-147,41,-147,125,-147,58,-147}));
-stringstates[59] = @"144 shift_expression: shift_expression LTLT . additive_expression ";
-    AddState(59,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-117,60,-113,111,-108,301,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[60] = @"144 shift_expression: shift_expression LTLT additive_expression .		[LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-141 additive_expression: additive_expression . '+' multiplicative_expression 
-142 additive_expression: additive_expression . '-' multiplicative_expression ";
-    AddState(60,new State(new int[]{43,61,45,90,236,-144,237,-144,62,-144,60,-144,242,-144,243,-144,172,-144,137,-144,240,-144,241,-144,38,-144,94,-144,124,-144,244,-144,245,-144,63,-144,232,-144,59,-144,44,-144,93,-144,41,-144,125,-144,58,-144}));
-stringstates[61] = @"141 additive_expression: additive_expression '+' . multiplicative_expression ";
-    AddState(61,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-113,62,-108,301,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[62] = @"141 additive_expression: additive_expression '+' multiplicative_expression .		['+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-137 multiplicative_expression: multiplicative_expression . '*' unary_expression 
-138 multiplicative_expression: multiplicative_expression . '/' unary_expression 
-139 multiplicative_expression: multiplicative_expression . '%' unary_expression ";
-    AddState(62,new State(new int[]{42,63,47,92,37,112,43,-141,45,-141,236,-141,237,-141,62,-141,60,-141,242,-141,243,-141,172,-141,137,-141,240,-141,241,-141,38,-141,94,-141,124,-141,244,-141,245,-141,63,-141,232,-141,59,-141,44,-141,93,-141,41,-141,125,-141,58,-141}));
-stringstates[63] = @"137 multiplicative_expression: multiplicative_expression '*' . unary_expression ";
-    AddState(63,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-108,64,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[64] = @"137 multiplicative_expression: multiplicative_expression '*' unary_expression .		['*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(64,new State(-137));
-stringstates[65] = @"117 unary_expression: unary_expression_not_plusminus .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(65,new State(-117));
-stringstates[66] = @"111 unary_expression_not_plusminus: postfix_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-90 post_increment_expression: postfix_expression . PLUSPLUS 
-91 post_decrement_expression: postfix_expression . MINUSMINUS 
-103 pointer_member_access: postfix_expression . ARROW IDENTIFIER ";
-    AddState(66,new State(new int[]{246,67,247,68,248,69,61,-111,227,-111,228,-111,229,-111,230,-111,231,-111,233,-111,234,-111,235,-111,238,-111,239,-111,42,-111,47,-111,37,-111,43,-111,45,-111,236,-111,237,-111,62,-111,60,-111,242,-111,243,-111,172,-111,137,-111,240,-111,241,-111,38,-111,94,-111,124,-111,244,-111,245,-111,63,-111,232,-111,59,-111,44,-111,93,-111,41,-111,125,-111,58,-111}));
-stringstates[67] = @"90 post_increment_expression: postfix_expression PLUSPLUS .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(67,new State(-90));
-stringstates[68] = @"91 post_decrement_expression: postfix_expression MINUSMINUS .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(68,new State(-91));
-stringstates[69] = @"103 pointer_member_access: postfix_expression ARROW . IDENTIFIER ";
+    AddState(40,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-128,41,-79,42,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(41,new State(-221));
+    AddState(42,new State(-182));
+    AddState(43,new State(-180));
+    AddState(44,new State(new int[]{245,45,63,333,232,337,59,-165,44,-165,93,-165,41,-165,125,-165,58,-165}));
+    AddState(45,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-123,46,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,300,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(46,new State(new int[]{244,47,245,-164,63,-164,232,-164,59,-164,44,-164,93,-164,41,-164,125,-164,58,-164}));
+    AddState(47,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-122,48,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,300,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(48,new State(new int[]{124,49,244,-162,245,-162,63,-162,232,-162,59,-162,44,-162,93,-162,41,-162,125,-162,58,-162}));
+    AddState(49,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-121,50,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,300,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(50,new State(new int[]{94,51,124,-160,244,-160,245,-160,63,-160,232,-160,59,-160,44,-160,93,-160,41,-160,125,-160,58,-160}));
+    AddState(51,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-120,52,-119,83,-118,107,-117,143,-116,110,-112,111,-107,300,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(52,new State(new int[]{38,53,94,-158,124,-158,244,-158,245,-158,63,-158,232,-158,59,-158,44,-158,93,-158,41,-158,125,-158,58,-158}));
+    AddState(53,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-119,54,-118,107,-117,143,-116,110,-112,111,-107,300,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(54,new State(new int[]{240,55,241,84,38,-156,94,-156,124,-156,244,-156,245,-156,63,-156,232,-156,59,-156,44,-156,93,-156,41,-156,125,-156,58,-156}));
+    AddState(55,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-118,56,-117,143,-116,110,-112,111,-107,300,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(56,new State(new int[]{62,57,60,86,242,108,243,301,172,303,137,305,240,-153,241,-153,38,-153,94,-153,124,-153,244,-153,245,-153,63,-153,232,-153,59,-153,44,-153,93,-153,41,-153,125,-153,58,-153}));
+    AddState(57,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-117,58,-116,110,-112,111,-107,300,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(58,new State(new int[]{236,59,237,88,62,-146,60,-146,242,-146,243,-146,172,-146,137,-146,240,-146,241,-146,38,-146,94,-146,124,-146,244,-146,245,-146,63,-146,232,-146,59,-146,44,-146,93,-146,41,-146,125,-146,58,-146}));
+    AddState(59,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-116,60,-112,111,-107,300,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(60,new State(new int[]{43,61,45,90,236,-143,237,-143,62,-143,60,-143,242,-143,243,-143,172,-143,137,-143,240,-143,241,-143,38,-143,94,-143,124,-143,244,-143,245,-143,63,-143,232,-143,59,-143,44,-143,93,-143,41,-143,125,-143,58,-143}));
+    AddState(61,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-112,62,-107,300,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(62,new State(new int[]{42,63,47,92,37,112,43,-140,45,-140,236,-140,237,-140,62,-140,60,-140,242,-140,243,-140,172,-140,137,-140,240,-140,241,-140,38,-140,94,-140,124,-140,244,-140,245,-140,63,-140,232,-140,59,-140,44,-140,93,-140,41,-140,125,-140,58,-140}));
+    AddState(63,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-107,64,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(64,new State(-136));
+    AddState(65,new State(-116));
+    AddState(66,new State(new int[]{246,67,247,68,248,69,61,-110,227,-110,228,-110,229,-110,230,-110,231,-110,233,-110,234,-110,235,-110,238,-110,239,-110,42,-110,47,-110,37,-110,43,-110,45,-110,236,-110,237,-110,62,-110,60,-110,242,-110,243,-110,172,-110,137,-110,240,-110,241,-110,38,-110,94,-110,124,-110,244,-110,245,-110,63,-110,232,-110,59,-110,44,-110,93,-110,41,-110,125,-110,58,-110}));
+    AddState(67,new State(-89));
+    AddState(68,new State(-90));
     AddState(69,new State(new int[]{130,70}));
-stringstates[70] = @"103 pointer_member_access: postfix_expression ARROW IDENTIFIER .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(70,new State(-103));
-stringstates[71] = @"106 postfix_expression: primary_expression .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-74 member_access: primary_expression . '.' IDENTIFIER 
-81 element_access: primary_expression . '[' expression_list ']' ";
-    AddState(71,new State(new int[]{46,72,91,74,246,-106,247,-106,248,-106,61,-106,227,-106,228,-106,229,-106,230,-106,231,-106,233,-106,234,-106,235,-106,238,-106,239,-106,42,-106,47,-106,37,-106,43,-106,45,-106,236,-106,237,-106,62,-106,60,-106,242,-106,243,-106,172,-106,137,-106,240,-106,241,-106,38,-106,94,-106,124,-106,244,-106,245,-106,63,-106,232,-106,59,-106,44,-106,93,-106,41,-106,125,-106,58,-106}));
-stringstates[72] = @"74 member_access: primary_expression '.' . IDENTIFIER ";
+    AddState(70,new State(-102));
+    AddState(71,new State(new int[]{46,72,91,74,246,-105,247,-105,248,-105,61,-105,227,-105,228,-105,229,-105,230,-105,231,-105,233,-105,234,-105,235,-105,238,-105,239,-105,42,-105,47,-105,37,-105,43,-105,45,-105,236,-105,237,-105,62,-105,60,-105,242,-105,243,-105,172,-105,137,-105,240,-105,241,-105,38,-105,94,-105,124,-105,244,-105,245,-105,63,-105,232,-105,59,-105,44,-105,93,-105,41,-105,125,-105,58,-105}));
     AddState(72,new State(new int[]{130,73}));
-stringstates[73] = @"74 member_access: primary_expression '.' IDENTIFIER .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(73,new State(-74));
-stringstates[74] = @"81 element_access: primary_expression '[' . expression_list ']' ";
-    AddState(74,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-98,75,-80,178,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[75] = @"81 element_access: primary_expression '[' expression_list . ']' 
-86 expression_list: expression_list . ',' expression ";
+    AddState(73,new State(-73));
+    AddState(74,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-97,75,-79,178,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
     AddState(75,new State(new int[]{93,76,44,77}));
-stringstates[76] = @"81 element_access: primary_expression '[' expression_list ']' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(76,new State(-81));
-stringstates[77] = @"86 expression_list: expression_list ',' . expression ";
-    AddState(77,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-80,78,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[78] = @"86 expression_list: expression_list ',' expression .		[']', ',', ')', ]";
-    AddState(78,new State(-86));
-stringstates[79] = @"164 conditional_or_expression: conditional_and_expression .		[OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-163 conditional_and_expression: conditional_and_expression . ANDAND inclusive_or_expression ";
-    AddState(79,new State(new int[]{244,47,245,-164,63,-164,232,-164,59,-164,44,-164,93,-164,41,-164,125,-164,58,-164}));
-stringstates[80] = @"162 conditional_and_expression: inclusive_or_expression .		[ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-161 inclusive_or_expression: inclusive_or_expression . '|' exclusive_or_expression ";
-    AddState(80,new State(new int[]{124,49,244,-162,245,-162,63,-162,232,-162,59,-162,44,-162,93,-162,41,-162,125,-162,58,-162}));
-stringstates[81] = @"160 inclusive_or_expression: exclusive_or_expression .		['|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-159 exclusive_or_expression: exclusive_or_expression . '^' and_expression ";
-    AddState(81,new State(new int[]{94,51,124,-160,244,-160,245,-160,63,-160,232,-160,59,-160,44,-160,93,-160,41,-160,125,-160,58,-160}));
-stringstates[82] = @"158 exclusive_or_expression: and_expression .		['^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-157 and_expression: and_expression . '&' equality_expression ";
-    AddState(82,new State(new int[]{38,53,94,-158,124,-158,244,-158,245,-158,63,-158,232,-158,59,-158,44,-158,93,-158,41,-158,125,-158,58,-158}));
-stringstates[83] = @"156 and_expression: equality_expression .		['&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-154 equality_expression: equality_expression . EQEQ relational_expression 
-155 equality_expression: equality_expression . NOTEQ relational_expression ";
-    AddState(83,new State(new int[]{240,55,241,84,38,-156,94,-156,124,-156,244,-156,245,-156,63,-156,232,-156,59,-156,44,-156,93,-156,41,-156,125,-156,58,-156}));
-stringstates[84] = @"155 equality_expression: equality_expression NOTEQ . relational_expression ";
-    AddState(84,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-119,85,-118,143,-117,110,-113,111,-108,301,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[85] = @"155 equality_expression: equality_expression NOTEQ relational_expression .		[EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-147 relational_expression: relational_expression . '>' shift_expression 
-148 relational_expression: relational_expression . '<' shift_expression 
-149 relational_expression: relational_expression . LEQ shift_expression 
-150 relational_expression: relational_expression . GEQ shift_expression 
-151 relational_expression: relational_expression . IS type 
-152 relational_expression: relational_expression . AS type ";
-    AddState(85,new State(new int[]{62,57,60,86,242,108,243,302,172,304,137,306,240,-155,241,-155,38,-155,94,-155,124,-155,244,-155,245,-155,63,-155,232,-155,59,-155,44,-155,93,-155,41,-155,125,-155,58,-155}));
-stringstates[86] = @"148 relational_expression: relational_expression '<' . shift_expression ";
-    AddState(86,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-118,87,-117,110,-113,111,-108,301,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[87] = @"148 relational_expression: relational_expression '<' shift_expression .		['>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-144 shift_expression: shift_expression . LTLT additive_expression 
-145 shift_expression: shift_expression . GTGT additive_expression ";
-    AddState(87,new State(new int[]{236,59,237,88,62,-148,60,-148,242,-148,243,-148,172,-148,137,-148,240,-148,241,-148,38,-148,94,-148,124,-148,244,-148,245,-148,63,-148,232,-148,59,-148,44,-148,93,-148,41,-148,125,-148,58,-148}));
-stringstates[88] = @"145 shift_expression: shift_expression GTGT . additive_expression ";
-    AddState(88,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-117,89,-113,111,-108,301,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[89] = @"145 shift_expression: shift_expression GTGT additive_expression .		[LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-141 additive_expression: additive_expression . '+' multiplicative_expression 
-142 additive_expression: additive_expression . '-' multiplicative_expression ";
-    AddState(89,new State(new int[]{43,61,45,90,236,-145,237,-145,62,-145,60,-145,242,-145,243,-145,172,-145,137,-145,240,-145,241,-145,38,-145,94,-145,124,-145,244,-145,245,-145,63,-145,232,-145,59,-145,44,-145,93,-145,41,-145,125,-145,58,-145}));
-stringstates[90] = @"142 additive_expression: additive_expression '-' . multiplicative_expression ";
-    AddState(90,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-113,91,-108,301,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[91] = @"142 additive_expression: additive_expression '-' multiplicative_expression .		['+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-137 multiplicative_expression: multiplicative_expression . '*' unary_expression 
-138 multiplicative_expression: multiplicative_expression . '/' unary_expression 
-139 multiplicative_expression: multiplicative_expression . '%' unary_expression ";
-    AddState(91,new State(new int[]{42,63,47,92,37,112,43,-142,45,-142,236,-142,237,-142,62,-142,60,-142,242,-142,243,-142,172,-142,137,-142,240,-142,241,-142,38,-142,94,-142,124,-142,244,-142,245,-142,63,-142,232,-142,59,-142,44,-142,93,-142,41,-142,125,-142,58,-142}));
-stringstates[92] = @"138 multiplicative_expression: multiplicative_expression '/' . unary_expression ";
-    AddState(92,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-108,93,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[93] = @"138 multiplicative_expression: multiplicative_expression '/' unary_expression .		['*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(93,new State(-138));
-stringstates[94] = @"59 primary_expression: parenthesized_expression .		['.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(94,new State(-59));
-stringstates[95] = @"73 parenthesized_expression: '(' . expression ')' 
-124 cast_expression: '(' . expression ')' unary_expression_not_plusminus 
-125 cast_expression: '(' . multiplicative_expression '*' ')' unary_expression 
-126 cast_expression: '(' . qualified_identifier rank_specifier type_quals_opt ')' unary_expression 
-127 cast_expression: '(' . primitive_type type_quals_opt ')' unary_expression 
-128 cast_expression: '(' . class_type type_quals_opt ')' unary_expression 
-129 cast_expression: '(' . VOID type_quals_opt ')' unary_expression ";
-    AddState(95,new State(new int[]{210,330,40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-80,96,-113,308,-29,312,-60,322,-61,326,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-62,151,-64,152,-63,162,-88,172,-89,173,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[96] = @"73 parenthesized_expression: '(' expression . ')' 
-124 cast_expression: '(' expression . ')' unary_expression_not_plusminus ";
+    AddState(76,new State(-80));
+    AddState(77,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-79,78,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(78,new State(-85));
+    AddState(79,new State(new int[]{244,47,245,-163,63,-163,232,-163,59,-163,44,-163,93,-163,41,-163,125,-163,58,-163}));
+    AddState(80,new State(new int[]{124,49,244,-161,245,-161,63,-161,232,-161,59,-161,44,-161,93,-161,41,-161,125,-161,58,-161}));
+    AddState(81,new State(new int[]{94,51,124,-159,244,-159,245,-159,63,-159,232,-159,59,-159,44,-159,93,-159,41,-159,125,-159,58,-159}));
+    AddState(82,new State(new int[]{38,53,94,-157,124,-157,244,-157,245,-157,63,-157,232,-157,59,-157,44,-157,93,-157,41,-157,125,-157,58,-157}));
+    AddState(83,new State(new int[]{240,55,241,84,38,-155,94,-155,124,-155,244,-155,245,-155,63,-155,232,-155,59,-155,44,-155,93,-155,41,-155,125,-155,58,-155}));
+    AddState(84,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-118,85,-117,143,-116,110,-112,111,-107,300,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(85,new State(new int[]{62,57,60,86,242,108,243,301,172,303,137,305,240,-154,241,-154,38,-154,94,-154,124,-154,244,-154,245,-154,63,-154,232,-154,59,-154,44,-154,93,-154,41,-154,125,-154,58,-154}));
+    AddState(86,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-117,87,-116,110,-112,111,-107,300,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(87,new State(new int[]{236,59,237,88,62,-147,60,-147,242,-147,243,-147,172,-147,137,-147,240,-147,241,-147,38,-147,94,-147,124,-147,244,-147,245,-147,63,-147,232,-147,59,-147,44,-147,93,-147,41,-147,125,-147,58,-147}));
+    AddState(88,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-116,89,-112,111,-107,300,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(89,new State(new int[]{43,61,45,90,236,-144,237,-144,62,-144,60,-144,242,-144,243,-144,172,-144,137,-144,240,-144,241,-144,38,-144,94,-144,124,-144,244,-144,245,-144,63,-144,232,-144,59,-144,44,-144,93,-144,41,-144,125,-144,58,-144}));
+    AddState(90,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-112,91,-107,300,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(91,new State(new int[]{42,63,47,92,37,112,43,-141,45,-141,236,-141,237,-141,62,-141,60,-141,242,-141,243,-141,172,-141,137,-141,240,-141,241,-141,38,-141,94,-141,124,-141,244,-141,245,-141,63,-141,232,-141,59,-141,44,-141,93,-141,41,-141,125,-141,58,-141}));
+    AddState(92,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-107,93,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(93,new State(-137));
+    AddState(94,new State(-58));
+    AddState(95,new State(new int[]{210,329,40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-79,96,-112,307,-29,311,-59,321,-60,325,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-61,151,-63,152,-62,162,-87,172,-88,173,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
     AddState(96,new State(new int[]{41,97}));
-stringstates[97] = @"73 parenthesized_expression: '(' expression ')' .		['.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-124 cast_expression: '(' expression ')' . unary_expression_not_plusminus ";
-    AddState(97,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,46,-73,91,-73,246,-73,247,-73,248,-73,61,-73,227,-73,228,-73,229,-73,230,-73,231,-73,233,-73,234,-73,235,-73,238,-73,239,-73,42,-73,47,-73,37,-73,43,-73,45,-73,236,-73,237,-73,62,-73,60,-73,242,-73,243,-73,172,-73,137,-73,240,-73,241,-73,38,-73,94,-73,124,-73,244,-73,245,-73,63,-73,232,-73,59,-73,44,-73,93,-73,41,-73,125,-73,58,-73},new int[]{-109,98,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247}));
-stringstates[98] = @"124 cast_expression: '(' expression ')' unary_expression_not_plusminus .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(98,new State(-124));
-stringstates[99] = @"60 primary_expression: primary_expression_no_parenthesis .		['.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-77 invocation_expression: primary_expression_no_parenthesis . '(' argument_list_opt ')' ";
-    AddState(99,new State(new int[]{40,100,46,-60,91,-60,246,-60,247,-60,248,-60,61,-60,227,-60,228,-60,229,-60,230,-60,231,-60,233,-60,234,-60,235,-60,238,-60,239,-60,42,-60,47,-60,37,-60,43,-60,45,-60,236,-60,237,-60,62,-60,60,-60,242,-60,243,-60,172,-60,137,-60,240,-60,241,-60,38,-60,94,-60,124,-60,244,-60,245,-60,63,-60,232,-60,59,-60,44,-60,93,-60,41,-60,125,-60,58,-60}));
-stringstates[100] = @"77 invocation_expression: primary_expression_no_parenthesis '(' . argument_list_opt ')' ";
-    AddState(100,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,187,268,180,271,41,-79},new int[]{-97,101,-81,103,-82,267,-80,106,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[101] = @"77 invocation_expression: primary_expression_no_parenthesis '(' argument_list_opt . ')' ";
+    AddState(97,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,46,-72,91,-72,246,-72,247,-72,248,-72,61,-72,227,-72,228,-72,229,-72,230,-72,231,-72,233,-72,234,-72,235,-72,238,-72,239,-72,42,-72,47,-72,37,-72,43,-72,45,-72,236,-72,237,-72,62,-72,60,-72,242,-72,243,-72,172,-72,137,-72,240,-72,241,-72,38,-72,94,-72,124,-72,244,-72,245,-72,63,-72,232,-72,59,-72,44,-72,93,-72,41,-72,125,-72,58,-72},new int[]{-108,98,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246}));
+    AddState(98,new State(-123));
+    AddState(99,new State(new int[]{40,100,46,-59,91,-59,246,-59,247,-59,248,-59,61,-59,227,-59,228,-59,229,-59,230,-59,231,-59,233,-59,234,-59,235,-59,238,-59,239,-59,42,-59,47,-59,37,-59,43,-59,45,-59,236,-59,237,-59,62,-59,60,-59,242,-59,243,-59,172,-59,137,-59,240,-59,241,-59,38,-59,94,-59,124,-59,244,-59,245,-59,63,-59,232,-59,59,-59,44,-59,93,-59,41,-59,125,-59,58,-59}));
+    AddState(100,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,187,267,180,270,41,-78},new int[]{-96,101,-80,103,-81,266,-79,106,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
     AddState(101,new State(new int[]{41,102}));
-stringstates[102] = @"77 invocation_expression: primary_expression_no_parenthesis '(' argument_list_opt ')' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(102,new State(-77));
-stringstates[103] = @"80 argument_list_opt: argument_list .		[')', ]
-55 argument_list: argument_list . ',' argument ";
-    AddState(103,new State(new int[]{44,104,41,-80}));
-stringstates[104] = @"55 argument_list: argument_list ',' . argument ";
-    AddState(104,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,187,268,180,271},new int[]{-82,105,-80,106,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[105] = @"55 argument_list: argument_list ',' argument .		[',', ')', ]";
-    AddState(105,new State(-55));
-stringstates[106] = @"56 argument: expression .		[',', ')', ]";
-    AddState(106,new State(-56));
-stringstates[107] = @"153 equality_expression: relational_expression .		[EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-147 relational_expression: relational_expression . '>' shift_expression 
-148 relational_expression: relational_expression . '<' shift_expression 
-149 relational_expression: relational_expression . LEQ shift_expression 
-150 relational_expression: relational_expression . GEQ shift_expression 
-151 relational_expression: relational_expression . IS type 
-152 relational_expression: relational_expression . AS type ";
-    AddState(107,new State(new int[]{62,57,60,86,242,108,243,302,172,304,137,306,240,-153,241,-153,38,-153,94,-153,124,-153,244,-153,245,-153,63,-153,232,-153,59,-153,44,-153,93,-153,41,-153,125,-153,58,-153}));
-stringstates[108] = @"149 relational_expression: relational_expression LEQ . shift_expression ";
-    AddState(108,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-118,109,-117,110,-113,111,-108,301,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[109] = @"149 relational_expression: relational_expression LEQ shift_expression .		['>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-144 shift_expression: shift_expression . LTLT additive_expression 
-145 shift_expression: shift_expression . GTGT additive_expression ";
-    AddState(109,new State(new int[]{236,59,237,88,62,-149,60,-149,242,-149,243,-149,172,-149,137,-149,240,-149,241,-149,38,-149,94,-149,124,-149,244,-149,245,-149,63,-149,232,-149,59,-149,44,-149,93,-149,41,-149,125,-149,58,-149}));
-stringstates[110] = @"143 shift_expression: additive_expression .		[LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-141 additive_expression: additive_expression . '+' multiplicative_expression 
-142 additive_expression: additive_expression . '-' multiplicative_expression ";
-    AddState(110,new State(new int[]{43,61,45,90,236,-143,237,-143,62,-143,60,-143,242,-143,243,-143,172,-143,137,-143,240,-143,241,-143,38,-143,94,-143,124,-143,244,-143,245,-143,63,-143,232,-143,59,-143,44,-143,93,-143,41,-143,125,-143,58,-143}));
-stringstates[111] = @"140 additive_expression: multiplicative_expression .		['+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-137 multiplicative_expression: multiplicative_expression . '*' unary_expression 
-138 multiplicative_expression: multiplicative_expression . '/' unary_expression 
-139 multiplicative_expression: multiplicative_expression . '%' unary_expression ";
-    AddState(111,new State(new int[]{42,63,47,92,37,112,43,-140,45,-140,236,-140,237,-140,62,-140,60,-140,242,-140,243,-140,172,-140,137,-140,240,-140,241,-140,38,-140,94,-140,124,-140,244,-140,245,-140,63,-140,232,-140,59,-140,44,-140,93,-140,41,-140,125,-140,58,-140}));
-stringstates[112] = @"139 multiplicative_expression: multiplicative_expression '%' . unary_expression ";
-    AddState(112,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-108,113,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[113] = @"139 multiplicative_expression: multiplicative_expression '%' unary_expression .		['*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(113,new State(-139));
-stringstates[114] = @"61 primary_expression_no_parenthesis: literal .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(114,new State(-61));
-stringstates[115] = @"2 literal: boolean_literal .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
+    AddState(102,new State(-76));
+    AddState(103,new State(new int[]{44,104,41,-79}));
+    AddState(104,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,187,267,180,270},new int[]{-81,105,-79,106,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(105,new State(-54));
+    AddState(106,new State(-55));
+    AddState(107,new State(new int[]{62,57,60,86,242,108,243,301,172,303,137,305,240,-152,241,-152,38,-152,94,-152,124,-152,244,-152,245,-152,63,-152,232,-152,59,-152,44,-152,93,-152,41,-152,125,-152,58,-152}));
+    AddState(108,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-117,109,-116,110,-112,111,-107,300,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(109,new State(new int[]{236,59,237,88,62,-148,60,-148,242,-148,243,-148,172,-148,137,-148,240,-148,241,-148,38,-148,94,-148,124,-148,244,-148,245,-148,63,-148,232,-148,59,-148,44,-148,93,-148,41,-148,125,-148,58,-148}));
+    AddState(110,new State(new int[]{43,61,45,90,236,-142,237,-142,62,-142,60,-142,242,-142,243,-142,172,-142,137,-142,240,-142,241,-142,38,-142,94,-142,124,-142,244,-142,245,-142,63,-142,232,-142,59,-142,44,-142,93,-142,41,-142,125,-142,58,-142}));
+    AddState(111,new State(new int[]{42,63,47,92,37,112,43,-139,45,-139,236,-139,237,-139,62,-139,60,-139,242,-139,243,-139,172,-139,137,-139,240,-139,241,-139,38,-139,94,-139,124,-139,244,-139,245,-139,63,-139,232,-139,59,-139,44,-139,93,-139,41,-139,125,-139,58,-139}));
+    AddState(112,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-107,113,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(113,new State(-138));
+    AddState(114,new State(-60));
     AddState(115,new State(-2));
-stringstates[116] = @"11 boolean_literal: TRUE .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(116,new State(-11));
-stringstates[117] = @"12 boolean_literal: FALSE .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(117,new State(-12));
-stringstates[118] = @"3 literal: INTEGER_LITERAL .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(118,new State(-3));
-stringstates[119] = @"4 literal: REAL_LITERAL .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(119,new State(-4));
-stringstates[120] = @"5 literal: CHARACTER_LITERAL .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(120,new State(-5));
-stringstates[121] = @"6 literal: STRING_LITERAL .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(121,new State(-6));
-stringstates[122] = @"7 literal: NULL_LITERAL .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(122,new State(-7));
-stringstates[123] = @"8 literal: mllit .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-10 mllit: mllit . MLSTRING_LITERAL ";
     AddState(123,new State(new int[]{135,124,40,-8,46,-8,91,-8,246,-8,247,-8,248,-8,61,-8,227,-8,228,-8,229,-8,230,-8,231,-8,233,-8,234,-8,235,-8,238,-8,239,-8,42,-8,47,-8,37,-8,43,-8,45,-8,236,-8,237,-8,62,-8,60,-8,242,-8,243,-8,172,-8,137,-8,240,-8,241,-8,38,-8,94,-8,124,-8,244,-8,245,-8,63,-8,232,-8,59,-8,44,-8,93,-8,41,-8,125,-8,58,-8}));
-stringstates[124] = @"10 mllit: mllit MLSTRING_LITERAL .		[MLSTRING_LITERAL, '(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(124,new State(-10));
-stringstates[125] = @"9 mllit: MLSTRING_LITERAL .		[MLSTRING_LITERAL, '(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(125,new State(-9));
-stringstates[126] = @"62 primary_expression_no_parenthesis: array_creation_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(126,new State(-62));
-stringstates[127] = @"95 array_creation_expression: NEW . non_array_type '[' expression_list ']' rank_specifiers_opt array_initializer_opt 
-96 array_creation_expression: NEW . array_type array_initializer 
-93 object_creation_expression: NEW . type '(' argument_list_opt ')' 
-94 object_creation_expression: NEW . error ";
-    AddState(127,new State(new int[]{127,300,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-58,128,-65,294,-56,296,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-66,205,-29,198,-35,179,-30,200}));
-stringstates[128] = @"95 array_creation_expression: NEW non_array_type . '[' expression_list ']' rank_specifiers_opt array_initializer_opt 
-20 type: non_array_type .		['(', '*', ]";
-    AddState(128,new State(new int[]{91,129,40,-20,42,-20}));
-stringstates[129] = @"95 array_creation_expression: NEW non_array_type '[' . expression_list ']' rank_specifiers_opt array_initializer_opt ";
-    AddState(129,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-98,130,-80,178,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[130] = @"95 array_creation_expression: NEW non_array_type '[' expression_list . ']' rank_specifiers_opt array_initializer_opt 
-86 expression_list: expression_list . ',' expression ";
+    AddState(126,new State(-61));
+    AddState(127,new State(new int[]{127,299,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-57,128,-64,293,-55,295,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-65,204,-29,197,-72,179,-30,199}));
+    AddState(128,new State(new int[]{91,129,40,-19,42,-19}));
+    AddState(129,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-97,130,-79,178,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
     AddState(130,new State(new int[]{93,131,44,77}));
-stringstates[131] = @"95 array_creation_expression: NEW non_array_type '[' expression_list ']' . rank_specifiers_opt array_initializer_opt ";
-    AddState(131,new State(new int[]{129,192,123,-50,40,-50,46,-50,91,-50,246,-50,247,-50,248,-50,61,-50,227,-50,228,-50,229,-50,230,-50,231,-50,233,-50,234,-50,235,-50,238,-50,239,-50,42,-50,47,-50,37,-50,43,-50,45,-50,236,-50,237,-50,62,-50,60,-50,242,-50,243,-50,172,-50,137,-50,240,-50,241,-50,38,-50,94,-50,124,-50,244,-50,245,-50,63,-50,232,-50,59,-50,44,-50,93,-50,41,-50,125,-50,58,-50},new int[]{-78,132,-77,292}));
-stringstates[132] = @"95 array_creation_expression: NEW non_array_type '[' expression_list ']' rank_specifiers_opt . array_initializer_opt ";
-    AddState(132,new State(new int[]{123,135,40,-97,46,-97,91,-97,246,-97,247,-97,248,-97,61,-97,227,-97,228,-97,229,-97,230,-97,231,-97,233,-97,234,-97,235,-97,238,-97,239,-97,42,-97,47,-97,37,-97,43,-97,45,-97,236,-97,237,-97,62,-97,60,-97,242,-97,243,-97,172,-97,137,-97,240,-97,241,-97,38,-97,94,-97,124,-97,244,-97,245,-97,63,-97,232,-97,59,-97,44,-97,93,-97,41,-97,125,-97,58,-97},new int[]{-104,133,-105,134}));
-stringstates[133] = @"95 array_creation_expression: NEW non_array_type '[' expression_list ']' rank_specifiers_opt array_initializer_opt .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(133,new State(-95));
-stringstates[134] = @"98 array_initializer_opt: array_initializer .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(134,new State(-98));
-stringstates[135] = @"485 array_initializer: '{' . variable_initializer_list_opt '}' 
-486 array_initializer: '{' . variable_initializer_list ',' '}' ";
-    AddState(135,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,123,135,193,286,125,-487},new int[]{-229,136,-230,138,-152,291,-80,142,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263,-105,284,-153,285}));
-stringstates[136] = @"485 array_initializer: '{' variable_initializer_list_opt . '}' ";
+    AddState(131,new State(new int[]{129,191,123,-49,40,-49,46,-49,91,-49,246,-49,247,-49,248,-49,61,-49,227,-49,228,-49,229,-49,230,-49,231,-49,233,-49,234,-49,235,-49,238,-49,239,-49,42,-49,47,-49,37,-49,43,-49,45,-49,236,-49,237,-49,62,-49,60,-49,242,-49,243,-49,172,-49,137,-49,240,-49,241,-49,38,-49,94,-49,124,-49,244,-49,245,-49,63,-49,232,-49,59,-49,44,-49,93,-49,41,-49,125,-49,58,-49},new int[]{-77,132,-76,291}));
+    AddState(132,new State(new int[]{123,135,40,-96,46,-96,91,-96,246,-96,247,-96,248,-96,61,-96,227,-96,228,-96,229,-96,230,-96,231,-96,233,-96,234,-96,235,-96,238,-96,239,-96,42,-96,47,-96,37,-96,43,-96,45,-96,236,-96,237,-96,62,-96,60,-96,242,-96,243,-96,172,-96,137,-96,240,-96,241,-96,38,-96,94,-96,124,-96,244,-96,245,-96,63,-96,232,-96,59,-96,44,-96,93,-96,41,-96,125,-96,58,-96},new int[]{-103,133,-104,134}));
+    AddState(133,new State(-94));
+    AddState(134,new State(-97));
+    AddState(135,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,123,135,193,285,125,-486},new int[]{-228,136,-229,138,-151,290,-79,142,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262,-104,283,-152,284}));
     AddState(136,new State(new int[]{125,137}));
-stringstates[137] = @"485 array_initializer: '{' variable_initializer_list_opt '}' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(137,new State(-485));
-stringstates[138] = @"486 array_initializer: '{' variable_initializer_list . ',' '}' 
-488 variable_initializer_list_opt: variable_initializer_list .		['}', ]
-490 variable_initializer_list: variable_initializer_list . ',' variable_initializer ";
-    AddState(138,new State(new int[]{44,139,125,-488}));
-stringstates[139] = @"486 array_initializer: '{' variable_initializer_list ',' . '}' 
-490 variable_initializer_list: variable_initializer_list ',' . variable_initializer ";
-    AddState(139,new State(new int[]{125,140,40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,123,135,193,286},new int[]{-152,141,-80,142,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263,-105,284,-153,285}));
-stringstates[140] = @"486 array_initializer: '{' variable_initializer_list ',' '}' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(140,new State(-486));
-stringstates[141] = @"490 variable_initializer_list: variable_initializer_list ',' variable_initializer .		[',', '}', ]";
-    AddState(141,new State(-490));
-stringstates[142] = @"215 variable_initializer: expression .		[',', '}', ';', ')', ]";
-    AddState(142,new State(-215));
-stringstates[143] = @"146 relational_expression: shift_expression .		['>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-144 shift_expression: shift_expression . LTLT additive_expression 
-145 shift_expression: shift_expression . GTGT additive_expression ";
-    AddState(143,new State(new int[]{236,59,237,88,62,-146,60,-146,242,-146,243,-146,172,-146,137,-146,240,-146,241,-146,38,-146,94,-146,124,-146,244,-146,245,-146,63,-146,232,-146,59,-146,44,-146,93,-146,41,-146,125,-146,58,-146}));
-stringstates[144] = @"136 multiplicative_expression: unary_expression .		['*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-169 assignment: unary_expression . assignment_operator expression ";
-    AddState(144,new State(new int[]{61,273,227,274,228,275,229,276,230,277,231,278,233,279,234,280,235,281,238,282,239,283,42,-136,47,-136,37,-136,43,-136,45,-136,236,-136,237,-136,62,-136,60,-136,242,-136,243,-136,172,-136,137,-136,240,-136,241,-136,38,-136,94,-136,124,-136,244,-136,245,-136,63,-136,232,-136,59,-136,44,-136,93,-136,41,-136,125,-136,58,-136},new int[]{-128,145}));
-stringstates[145] = @"169 assignment: unary_expression assignment_operator . expression ";
-    AddState(145,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-80,146,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[146] = @"169 assignment: unary_expression assignment_operator expression .		[';', ',', ']', ')', '}', ':', ]";
-    AddState(146,new State(-169));
-stringstates[147] = @"63 primary_expression_no_parenthesis: member_access .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(147,new State(-63));
-stringstates[148] = @"75 member_access: primitive_type . '.' IDENTIFIER ";
+    AddState(137,new State(-484));
+    AddState(138,new State(new int[]{44,139,125,-487}));
+    AddState(139,new State(new int[]{125,140,40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,123,135,193,285},new int[]{-151,141,-79,142,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262,-104,283,-152,284}));
+    AddState(140,new State(-485));
+    AddState(141,new State(-489));
+    AddState(142,new State(-214));
+    AddState(143,new State(new int[]{236,59,237,88,62,-145,60,-145,242,-145,243,-145,172,-145,137,-145,240,-145,241,-145,38,-145,94,-145,124,-145,244,-145,245,-145,63,-145,232,-145,59,-145,44,-145,93,-145,41,-145,125,-145,58,-145}));
+    AddState(144,new State(new int[]{61,272,227,273,228,274,229,275,230,276,231,277,233,278,234,279,235,280,238,281,239,282,42,-135,47,-135,37,-135,43,-135,45,-135,236,-135,237,-135,62,-135,60,-135,242,-135,243,-135,172,-135,137,-135,240,-135,241,-135,38,-135,94,-135,124,-135,244,-135,245,-135,63,-135,232,-135,59,-135,44,-135,93,-135,41,-135,125,-135,58,-135},new int[]{-127,145}));
+    AddState(145,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-79,146,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(146,new State(-168));
+    AddState(147,new State(-62));
     AddState(148,new State(new int[]{46,149}));
-stringstates[149] = @"75 member_access: primitive_type '.' . IDENTIFIER ";
     AddState(149,new State(new int[]{130,150}));
-stringstates[150] = @"75 member_access: primitive_type '.' IDENTIFIER .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(150,new State(-75));
-stringstates[151] = @"27 primitive_type: numeric_type .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
-    AddState(151,new State(-27));
-stringstates[152] = @"29 numeric_type: integral_type .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
-    AddState(152,new State(-29));
-stringstates[153] = @"32 integral_type: SBYTE .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', '{', ]";
-    AddState(153,new State(-32));
-stringstates[154] = @"33 integral_type: BYTE .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', '{', ]";
-    AddState(154,new State(-33));
-stringstates[155] = @"34 integral_type: SHORT .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', '{', ]";
-    AddState(155,new State(-34));
-stringstates[156] = @"35 integral_type: USHORT .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', '{', ]";
-    AddState(156,new State(-35));
-stringstates[157] = @"36 integral_type: INT .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', '{', ]";
-    AddState(157,new State(-36));
-stringstates[158] = @"37 integral_type: UINT .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', '{', ]";
-    AddState(158,new State(-37));
-stringstates[159] = @"38 integral_type: LONG .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', '{', ]";
-    AddState(159,new State(-38));
-stringstates[160] = @"39 integral_type: ULONG .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', '{', ]";
-    AddState(160,new State(-39));
-stringstates[161] = @"40 integral_type: CHAR .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', '{', ]";
-    AddState(161,new State(-40));
-stringstates[162] = @"30 numeric_type: floating_point_type .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
-    AddState(162,new State(-30));
-stringstates[163] = @"41 floating_point_type: FLOAT .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
-    AddState(163,new State(-41));
-stringstates[164] = @"42 floating_point_type: DOUBLE .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
-    AddState(164,new State(-42));
-stringstates[165] = @"31 numeric_type: DECIMAL .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
-    AddState(165,new State(-31));
-stringstates[166] = @"28 primitive_type: BOOL .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
-    AddState(166,new State(-28));
-stringstates[167] = @"76 member_access: class_type . '.' IDENTIFIER ";
+    AddState(150,new State(-74));
+    AddState(151,new State(-26));
+    AddState(152,new State(-28));
+    AddState(153,new State(-31));
+    AddState(154,new State(-32));
+    AddState(155,new State(-33));
+    AddState(156,new State(-34));
+    AddState(157,new State(-35));
+    AddState(158,new State(-36));
+    AddState(159,new State(-37));
+    AddState(160,new State(-38));
+    AddState(161,new State(-39));
+    AddState(162,new State(-29));
+    AddState(163,new State(-40));
+    AddState(164,new State(-41));
+    AddState(165,new State(-30));
+    AddState(166,new State(-27));
     AddState(167,new State(new int[]{46,168}));
-stringstates[168] = @"76 member_access: class_type '.' . IDENTIFIER ";
     AddState(168,new State(new int[]{130,169}));
-stringstates[169] = @"76 member_access: class_type '.' IDENTIFIER .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(169,new State(-76));
-stringstates[170] = @"43 class_type: OBJECT .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', '{', WHERE, ]";
-    AddState(170,new State(-43));
-stringstates[171] = @"44 class_type: KW_STRING .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', ',', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', '{', WHERE, ]";
-    AddState(171,new State(-44));
-stringstates[172] = @"64 primary_expression_no_parenthesis: invocation_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(172,new State(-64));
-stringstates[173] = @"65 primary_expression_no_parenthesis: element_access .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(173,new State(-65));
-stringstates[174] = @"82 element_access: qualified_identifier . '[' expression_list ']' 
-78 invocation_expression: qualified_identifier . '(' argument_list_opt ')' 
-107 postfix_expression: qualified_identifier .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(174,new State(new int[]{91,175,40,264,246,-107,247,-107,248,-107,61,-107,227,-107,228,-107,229,-107,230,-107,231,-107,233,-107,234,-107,235,-107,238,-107,239,-107,42,-107,47,-107,37,-107,43,-107,45,-107,236,-107,237,-107,62,-107,60,-107,242,-107,243,-107,172,-107,137,-107,240,-107,241,-107,38,-107,94,-107,124,-107,244,-107,245,-107,63,-107,232,-107,59,-107,44,-107,93,-107,41,-107,125,-107,58,-107}));
-stringstates[175] = @"82 element_access: qualified_identifier '[' . expression_list ']' ";
-    AddState(175,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-98,176,-80,178,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[176] = @"82 element_access: qualified_identifier '[' expression_list . ']' 
-86 expression_list: expression_list . ',' expression ";
+    AddState(169,new State(-75));
+    AddState(170,new State(-42));
+    AddState(171,new State(-43));
+    AddState(172,new State(-63));
+    AddState(173,new State(-64));
+    AddState(174,new State(new int[]{91,175,40,263,246,-106,247,-106,248,-106,61,-106,227,-106,228,-106,229,-106,230,-106,231,-106,233,-106,234,-106,235,-106,238,-106,239,-106,42,-106,47,-106,37,-106,43,-106,45,-106,236,-106,237,-106,62,-106,60,-106,242,-106,243,-106,172,-106,137,-106,240,-106,241,-106,38,-106,94,-106,124,-106,244,-106,245,-106,63,-106,232,-106,59,-106,44,-106,93,-106,41,-106,125,-106,58,-106}));
+    AddState(175,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-97,176,-79,178,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
     AddState(176,new State(new int[]{93,177,44,77}));
-stringstates[177] = @"82 element_access: qualified_identifier '[' expression_list ']' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(177,new State(-82));
-stringstates[178] = @"85 expression_list: expression .		[']', ',', ')', ]";
-    AddState(178,new State(-85));
-stringstates[179] = @"315 qualified_identifier: member_name .		['{', RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '[', '(', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', WHERE, ]
-317 qualifier: member_name . '.' ";
-    AddState(179,new State(new int[]{46,180,123,-315,129,-315,42,-315,198,-315,179,-315,130,-315,91,-315,40,-315,246,-315,247,-315,248,-315,61,-315,227,-315,228,-315,229,-315,230,-315,231,-315,233,-315,234,-315,235,-315,238,-315,239,-315,47,-315,37,-315,43,-315,45,-315,236,-315,237,-315,62,-315,60,-315,242,-315,243,-315,172,-315,137,-315,240,-315,241,-315,38,-315,94,-315,124,-315,244,-315,245,-315,63,-315,232,-315,59,-315,44,-315,93,-315,41,-315,125,-315,58,-315,213,-315}));
-stringstates[180] = @"317 qualifier: member_name '.' .		[IDENTIFIER, THIS, ]";
-    AddState(180,new State(-317));
-stringstates[181] = @"15 member_name: IDENTIFIER . type_list_opt ";
-    AddState(181,new State(new int[]{60,183,46,-16,123,-16,58,-16,213,-16,129,-16,42,-16,130,-16,91,-16,40,-16,246,-16,247,-16,248,-16,61,-16,227,-16,228,-16,229,-16,230,-16,231,-16,233,-16,234,-16,235,-16,238,-16,239,-16,47,-16,37,-16,43,-16,45,-16,236,-16,237,-16,62,-16,242,-16,243,-16,172,-16,137,-16,240,-16,241,-16,38,-16,94,-16,124,-16,244,-16,245,-16,63,-16,232,-16,59,-16,44,-16,93,-16,41,-16,125,-16,198,-16,179,-16},new int[]{-74,182}));
-stringstates[182] = @"15 member_name: IDENTIFIER type_list_opt .		['.', '{', ':', WHERE, RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '[', '(', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ]";
-    AddState(182,new State(-15));
-stringstates[183] = @"17 type_list_opt: '<' . type_list '>' ";
-    AddState(183,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-75,184,-56,206,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[184] = @"17 type_list_opt: '<' type_list . '>' 
-19 type_list: type_list . ',' type ";
-    AddState(184,new State(new int[]{62,185,44,186}));
-stringstates[185] = @"17 type_list_opt: '<' type_list '>' .		['.', '{', ':', WHERE, RANK_SPECIFIER, '*', IDENTIFIER, '[', '(', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', THIS, OPERATOR, ]";
-    AddState(185,new State(-17));
-stringstates[186] = @"19 type_list: type_list ',' . type ";
-    AddState(186,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,187,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[187] = @"19 type_list: type_list ',' type .		['>', ',', ]
-45 pointer_type: type . '*' ";
-    AddState(187,new State(new int[]{42,188,62,-19,44,-19}));
-stringstates[188] = @"45 pointer_type: type '*' .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '[', '(', '>', ',', ')', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
-    AddState(188,new State(-45));
-stringstates[189] = @"20 type: non_array_type .		['*', THIS, OPERATOR, IDENTIFIER, '>', ',', ')', '[', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', '(', ]";
-    AddState(189,new State(-20));
-stringstates[190] = @"22 non_array_type: simple_type .		['*', THIS, OPERATOR, IDENTIFIER, '[', '(', '>', ',', ')', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]
-48 array_type: simple_type . rank_specifier ";
-    AddState(190,new State(new int[]{129,192,42,-22,198,-22,179,-22,130,-22,91,-22,40,-22,62,-22,44,-22,41,-22,60,-22,242,-22,243,-22,172,-22,137,-22,240,-22,241,-22,38,-22,94,-22,124,-22,244,-22,245,-22,63,-22,232,-22,59,-22,93,-22,125,-22,58,-22},new int[]{-77,191}));
-stringstates[191] = @"48 array_type: simple_type rank_specifier .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '{', '(', '>', ',', ')', '[', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
-    AddState(191,new State(-48));
-stringstates[192] = @"52 rank_specifier: RANK_SPECIFIER .		[RANK_SPECIFIER, '{', '(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', THIS, OPERATOR, IDENTIFIER, ]";
-    AddState(192,new State(-52));
-stringstates[193] = @"24 simple_type: primitive_type .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '[', '(', '>', ',', ')', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
+    AddState(177,new State(-81));
+    AddState(178,new State(-84));
+    AddState(179,new State(new int[]{46,180,123,-314,129,-314,42,-314,198,-314,179,-314,130,-314,91,-314,40,-314,246,-314,247,-314,248,-314,61,-314,227,-314,228,-314,229,-314,230,-314,231,-314,233,-314,234,-314,235,-314,238,-314,239,-314,47,-314,37,-314,43,-314,45,-314,236,-314,237,-314,62,-314,60,-314,242,-314,243,-314,172,-314,137,-314,240,-314,241,-314,38,-314,94,-314,124,-314,244,-314,245,-314,63,-314,232,-314,59,-314,44,-314,93,-314,41,-314,125,-314,58,-314,213,-314}));
+    AddState(180,new State(-316));
+    AddState(181,new State(new int[]{60,182,46,-15,123,-15,58,-15,213,-15,129,-15,42,-15,130,-15,91,-15,40,-15,246,-15,247,-15,248,-15,61,-15,227,-15,228,-15,229,-15,230,-15,231,-15,233,-15,234,-15,235,-15,238,-15,239,-15,47,-15,37,-15,43,-15,45,-15,236,-15,237,-15,62,-15,242,-15,243,-15,172,-15,137,-15,240,-15,241,-15,38,-15,94,-15,124,-15,244,-15,245,-15,63,-15,232,-15,59,-15,44,-15,93,-15,41,-15,125,-15,198,-15,179,-15}));
+    AddState(182,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-74,183,-55,205,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(183,new State(new int[]{62,184,44,185}));
+    AddState(184,new State(-16));
+    AddState(185,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,186,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(186,new State(new int[]{42,187,62,-18,44,-18}));
+    AddState(187,new State(-44));
+    AddState(188,new State(-19));
+    AddState(189,new State(new int[]{129,191,42,-21,198,-21,179,-21,130,-21,91,-21,40,-21,62,-21,44,-21,41,-21,60,-21,242,-21,243,-21,172,-21,137,-21,240,-21,241,-21,38,-21,94,-21,124,-21,244,-21,245,-21,63,-21,232,-21,59,-21,93,-21,125,-21,58,-21},new int[]{-76,190}));
+    AddState(190,new State(-47));
+    AddState(191,new State(-51));
+    AddState(192,new State(-23));
     AddState(193,new State(-24));
-stringstates[194] = @"25 simple_type: class_type .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '[', '(', '>', ',', ')', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
     AddState(194,new State(-25));
-stringstates[195] = @"26 simple_type: pointer_type .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '[', '(', '>', ',', ')', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
-    AddState(195,new State(-26));
-stringstates[196] = @"21 type: array_type .		['*', THIS, OPERATOR, IDENTIFIER, '>', ',', ')', '[', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', '(', ]
-47 array_type: array_type . rank_specifier ";
-    AddState(196,new State(new int[]{129,192,42,-21,198,-21,179,-21,130,-21,62,-21,44,-21,41,-21,91,-21,60,-21,242,-21,243,-21,172,-21,137,-21,240,-21,241,-21,38,-21,94,-21,124,-21,244,-21,245,-21,63,-21,232,-21,59,-21,93,-21,125,-21,58,-21,40,-21},new int[]{-77,197}));
-stringstates[197] = @"47 array_type: array_type rank_specifier .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '{', '(', '>', ',', ')', '[', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
-    AddState(197,new State(-47));
-stringstates[198] = @"49 array_type: qualified_identifier . rank_specifier 
-14 type_name: qualified_identifier .		['*', THIS, OPERATOR, IDENTIFIER, '[', '(', '>', ',', ')', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
-    AddState(198,new State(new int[]{129,192,42,-14,198,-14,179,-14,130,-14,91,-14,40,-14,62,-14,44,-14,41,-14,60,-14,242,-14,243,-14,172,-14,137,-14,240,-14,241,-14,38,-14,94,-14,124,-14,244,-14,245,-14,63,-14,232,-14,59,-14,93,-14,125,-14,58,-14},new int[]{-77,199}));
-stringstates[199] = @"49 array_type: qualified_identifier rank_specifier .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '{', '(', '>', ',', ')', '[', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
-    AddState(199,new State(-49));
-stringstates[200] = @"316 qualified_identifier: qualifier . member_name 
-318 qualifier: qualifier . member_name '.' ";
-    AddState(200,new State(new int[]{130,181},new int[]{-35,201}));
-stringstates[201] = @"316 qualified_identifier: qualifier member_name .		['{', RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '[', '(', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', WHERE, ]
-318 qualifier: qualifier member_name . '.' ";
-    AddState(201,new State(new int[]{46,202,123,-316,129,-316,42,-316,198,-316,179,-316,130,-316,91,-316,40,-316,246,-316,247,-316,248,-316,61,-316,227,-316,228,-316,229,-316,230,-316,231,-316,233,-316,234,-316,235,-316,238,-316,239,-316,47,-316,37,-316,43,-316,45,-316,236,-316,237,-316,62,-316,60,-316,242,-316,243,-316,172,-316,137,-316,240,-316,241,-316,38,-316,94,-316,124,-316,244,-316,245,-316,63,-316,232,-316,59,-316,44,-316,93,-316,41,-316,125,-316,58,-316,213,-316}));
-stringstates[202] = @"318 qualifier: qualifier member_name '.' .		[IDENTIFIER, THIS, ]";
-    AddState(202,new State(-318));
-stringstates[203] = @"46 pointer_type: VOID . '*' ";
-    AddState(203,new State(new int[]{42,204}));
-stringstates[204] = @"46 pointer_type: VOID '*' .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '[', '(', '>', ',', ')', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
-    AddState(204,new State(-46));
-stringstates[205] = @"23 non_array_type: type_name .		['*', THIS, OPERATOR, IDENTIFIER, '[', '(', '>', ',', ')', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
-    AddState(205,new State(-23));
-stringstates[206] = @"18 type_list: type .		['>', ',', ]
-45 pointer_type: type . '*' ";
-    AddState(206,new State(new int[]{42,188,62,-18,44,-18}));
-stringstates[207] = @"66 primary_expression_no_parenthesis: this_access .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(207,new State(-66));
-stringstates[208] = @"87 this_access: THIS .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(208,new State(-87));
-stringstates[209] = @"67 primary_expression_no_parenthesis: base_access .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(209,new State(-67));
-stringstates[210] = @"88 base_access: BASE . '.' IDENTIFIER 
-89 base_access: BASE . '[' expression_list ']' ";
-    AddState(210,new State(new int[]{46,211,91,213}));
-stringstates[211] = @"88 base_access: BASE '.' . IDENTIFIER ";
-    AddState(211,new State(new int[]{130,212}));
-stringstates[212] = @"88 base_access: BASE '.' IDENTIFIER .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(212,new State(-88));
-stringstates[213] = @"89 base_access: BASE '[' . expression_list ']' ";
-    AddState(213,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-98,214,-80,178,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[214] = @"89 base_access: BASE '[' expression_list . ']' 
-86 expression_list: expression_list . ',' expression ";
-    AddState(214,new State(new int[]{93,215,44,77}));
-stringstates[215] = @"89 base_access: BASE '[' expression_list ']' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(215,new State(-89));
-stringstates[216] = @"68 primary_expression_no_parenthesis: new_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(216,new State(-68));
-stringstates[217] = @"92 new_expression: object_creation_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(217,new State(-92));
-stringstates[218] = @"69 primary_expression_no_parenthesis: typeof_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(218,new State(-69));
-stringstates[219] = @"99 typeof_expression: TYPEOF . '(' type ')' 
-100 typeof_expression: TYPEOF . '(' VOID ')' ";
-    AddState(219,new State(new int[]{40,220}));
-stringstates[220] = @"99 typeof_expression: TYPEOF '(' . type ')' 
-100 typeof_expression: TYPEOF '(' . VOID ')' ";
-    AddState(220,new State(new int[]{210,223,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181},new int[]{-56,221,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[221] = @"99 typeof_expression: TYPEOF '(' type . ')' 
-45 pointer_type: type . '*' ";
-    AddState(221,new State(new int[]{41,222,42,188}));
-stringstates[222] = @"99 typeof_expression: TYPEOF '(' type ')' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(222,new State(-99));
-stringstates[223] = @"100 typeof_expression: TYPEOF '(' VOID . ')' 
-46 pointer_type: VOID . '*' ";
-    AddState(223,new State(new int[]{41,224,42,204}));
-stringstates[224] = @"100 typeof_expression: TYPEOF '(' VOID ')' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(224,new State(-100));
-stringstates[225] = @"70 primary_expression_no_parenthesis: sizeof_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(225,new State(-70));
-stringstates[226] = @"105 sizeof_expression: SIZEOF . '(' type ')' ";
-    AddState(226,new State(new int[]{40,227}));
-stringstates[227] = @"105 sizeof_expression: SIZEOF '(' . type ')' ";
-    AddState(227,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,228,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[228] = @"105 sizeof_expression: SIZEOF '(' type . ')' 
-45 pointer_type: type . '*' ";
-    AddState(228,new State(new int[]{41,229,42,188}));
-stringstates[229] = @"105 sizeof_expression: SIZEOF '(' type ')' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(229,new State(-105));
-stringstates[230] = @"71 primary_expression_no_parenthesis: checked_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(230,new State(-71));
-stringstates[231] = @"101 checked_expression: CHECKED . '(' expression ')' ";
-    AddState(231,new State(new int[]{40,232}));
-stringstates[232] = @"101 checked_expression: CHECKED '(' . expression ')' ";
-    AddState(232,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-80,233,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[233] = @"101 checked_expression: CHECKED '(' expression . ')' ";
-    AddState(233,new State(new int[]{41,234}));
-stringstates[234] = @"101 checked_expression: CHECKED '(' expression ')' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(234,new State(-101));
-stringstates[235] = @"72 primary_expression_no_parenthesis: unchecked_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(235,new State(-72));
-stringstates[236] = @"102 unchecked_expression: UNCHECKED . '(' expression ')' ";
-    AddState(236,new State(new int[]{40,237}));
-stringstates[237] = @"102 unchecked_expression: UNCHECKED '(' . expression ')' ";
-    AddState(237,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-80,238,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[238] = @"102 unchecked_expression: UNCHECKED '(' expression . ')' ";
-    AddState(238,new State(new int[]{41,239}));
-stringstates[239] = @"102 unchecked_expression: UNCHECKED '(' expression ')' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(239,new State(-102));
-stringstates[240] = @"108 postfix_expression: post_increment_expression .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
+    AddState(195,new State(new int[]{129,191,42,-20,198,-20,179,-20,130,-20,62,-20,44,-20,41,-20,91,-20,60,-20,242,-20,243,-20,172,-20,137,-20,240,-20,241,-20,38,-20,94,-20,124,-20,244,-20,245,-20,63,-20,232,-20,59,-20,93,-20,125,-20,58,-20,40,-20},new int[]{-76,196}));
+    AddState(196,new State(-46));
+    AddState(197,new State(new int[]{129,191,42,-14,198,-14,179,-14,130,-14,91,-14,40,-14,62,-14,44,-14,41,-14,60,-14,242,-14,243,-14,172,-14,137,-14,240,-14,241,-14,38,-14,94,-14,124,-14,244,-14,245,-14,63,-14,232,-14,59,-14,93,-14,125,-14,58,-14},new int[]{-76,198}));
+    AddState(198,new State(-48));
+    AddState(199,new State(new int[]{130,181},new int[]{-72,200}));
+    AddState(200,new State(new int[]{46,201,123,-315,129,-315,42,-315,198,-315,179,-315,130,-315,91,-315,40,-315,246,-315,247,-315,248,-315,61,-315,227,-315,228,-315,229,-315,230,-315,231,-315,233,-315,234,-315,235,-315,238,-315,239,-315,47,-315,37,-315,43,-315,45,-315,236,-315,237,-315,62,-315,60,-315,242,-315,243,-315,172,-315,137,-315,240,-315,241,-315,38,-315,94,-315,124,-315,244,-315,245,-315,63,-315,232,-315,59,-315,44,-315,93,-315,41,-315,125,-315,58,-315,213,-315}));
+    AddState(201,new State(-317));
+    AddState(202,new State(new int[]{42,203}));
+    AddState(203,new State(-45));
+    AddState(204,new State(-22));
+    AddState(205,new State(new int[]{42,187,62,-17,44,-17}));
+    AddState(206,new State(-65));
+    AddState(207,new State(-86));
+    AddState(208,new State(-66));
+    AddState(209,new State(new int[]{46,210,91,212}));
+    AddState(210,new State(new int[]{130,211}));
+    AddState(211,new State(-87));
+    AddState(212,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-97,213,-79,178,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(213,new State(new int[]{93,214,44,77}));
+    AddState(214,new State(-88));
+    AddState(215,new State(-67));
+    AddState(216,new State(-91));
+    AddState(217,new State(-68));
+    AddState(218,new State(new int[]{40,219}));
+    AddState(219,new State(new int[]{210,222,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181},new int[]{-55,220,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(220,new State(new int[]{41,221,42,187}));
+    AddState(221,new State(-98));
+    AddState(222,new State(new int[]{41,223,42,203}));
+    AddState(223,new State(-99));
+    AddState(224,new State(-69));
+    AddState(225,new State(new int[]{40,226}));
+    AddState(226,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,227,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(227,new State(new int[]{41,228,42,187}));
+    AddState(228,new State(-104));
+    AddState(229,new State(-70));
+    AddState(230,new State(new int[]{40,231}));
+    AddState(231,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-79,232,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(232,new State(new int[]{41,233}));
+    AddState(233,new State(-100));
+    AddState(234,new State(-71));
+    AddState(235,new State(new int[]{40,236}));
+    AddState(236,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-79,237,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(237,new State(new int[]{41,238}));
+    AddState(238,new State(-101));
+    AddState(239,new State(-107));
     AddState(240,new State(-108));
-stringstates[241] = @"109 postfix_expression: post_decrement_expression .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(241,new State(-109));
-stringstates[242] = @"110 postfix_expression: pointer_member_access .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(242,new State(-110));
-stringstates[243] = @"112 unary_expression_not_plusminus: '!' . unary_expression ";
-    AddState(243,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-108,244,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[244] = @"112 unary_expression_not_plusminus: '!' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(244,new State(-112));
-stringstates[245] = @"113 unary_expression_not_plusminus: '~' . unary_expression ";
-    AddState(245,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-108,246,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[246] = @"113 unary_expression_not_plusminus: '~' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
+    AddState(242,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-107,243,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(243,new State(-111));
+    AddState(244,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-107,245,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(245,new State(-112));
     AddState(246,new State(-113));
-stringstates[247] = @"114 unary_expression_not_plusminus: cast_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(247,new State(-114));
-stringstates[248] = @"118 unary_expression: '+' . unary_expression ";
-    AddState(248,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-108,249,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[249] = @"118 unary_expression: '+' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(249,new State(-118));
-stringstates[250] = @"119 unary_expression: '-' . unary_expression ";
-    AddState(250,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-108,251,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[251] = @"119 unary_expression: '-' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(251,new State(-119));
-stringstates[252] = @"120 unary_expression: '*' . unary_expression ";
-    AddState(252,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-108,253,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[253] = @"120 unary_expression: '*' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
+    AddState(247,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-107,248,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(248,new State(-117));
+    AddState(249,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-107,250,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(250,new State(-118));
+    AddState(251,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-107,252,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(252,new State(-119));
     AddState(253,new State(-120));
-stringstates[254] = @"121 unary_expression: pre_increment_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(254,new State(-121));
-stringstates[255] = @"115 pre_increment_expression: PLUSPLUS . unary_expression ";
-    AddState(255,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-108,256,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[256] = @"115 pre_increment_expression: PLUSPLUS unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(256,new State(-115));
-stringstates[257] = @"122 unary_expression: pre_decrement_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(257,new State(-122));
-stringstates[258] = @"116 pre_decrement_expression: MINUSMINUS . unary_expression ";
-    AddState(258,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-108,259,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[259] = @"116 pre_decrement_expression: MINUSMINUS unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(259,new State(-116));
-stringstates[260] = @"123 unary_expression: addressof_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(260,new State(-123));
-stringstates[261] = @"104 addressof_expression: '&' . unary_expression ";
-    AddState(261,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-108,262,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[262] = @"104 addressof_expression: '&' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(262,new State(-104));
-stringstates[263] = @"182 expression: assignment .		[';', ',', ']', ')', '}', ':', ]";
-    AddState(263,new State(-182));
-stringstates[264] = @"78 invocation_expression: qualified_identifier '(' . argument_list_opt ')' ";
-    AddState(264,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,187,268,180,271,41,-79},new int[]{-97,265,-81,103,-82,267,-80,106,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[265] = @"78 invocation_expression: qualified_identifier '(' argument_list_opt . ')' ";
-    AddState(265,new State(new int[]{41,266}));
-stringstates[266] = @"78 invocation_expression: qualified_identifier '(' argument_list_opt ')' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(266,new State(-78));
-stringstates[267] = @"54 argument_list: argument .		[',', ')', ]";
-    AddState(267,new State(-54));
-stringstates[268] = @"57 argument: REF . variable_reference ";
-    AddState(268,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-79,269,-80,270,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[269] = @"57 argument: REF variable_reference .		[',', ')', ]";
-    AddState(269,new State(-57));
-stringstates[270] = @"53 variable_reference: expression .		[',', ')', ]";
-    AddState(270,new State(-53));
-stringstates[271] = @"58 argument: OUT . variable_reference ";
-    AddState(271,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-79,272,-80,270,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[272] = @"58 argument: OUT variable_reference .		[',', ')', ]";
-    AddState(272,new State(-58));
-stringstates[273] = @"170 assignment_operator: '=' .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
+    AddState(254,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-107,255,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(255,new State(-114));
+    AddState(256,new State(-121));
+    AddState(257,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-107,258,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(258,new State(-115));
+    AddState(259,new State(-122));
+    AddState(260,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-107,261,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(261,new State(-103));
+    AddState(262,new State(-181));
+    AddState(263,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,187,267,180,270,41,-78},new int[]{-96,264,-80,103,-81,266,-79,106,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(264,new State(new int[]{41,265}));
+    AddState(265,new State(-77));
+    AddState(266,new State(-53));
+    AddState(267,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-78,268,-79,269,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(268,new State(-56));
+    AddState(269,new State(-52));
+    AddState(270,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-78,271,-79,269,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(271,new State(-57));
+    AddState(272,new State(-169));
     AddState(273,new State(-170));
-stringstates[274] = @"171 assignment_operator: PLUSEQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(274,new State(-171));
-stringstates[275] = @"172 assignment_operator: MINUSEQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(275,new State(-172));
-stringstates[276] = @"173 assignment_operator: STAREQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(276,new State(-173));
-stringstates[277] = @"174 assignment_operator: DIVEQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(277,new State(-174));
-stringstates[278] = @"175 assignment_operator: MODEQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(278,new State(-175));
-stringstates[279] = @"176 assignment_operator: XOREQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(279,new State(-176));
-stringstates[280] = @"177 assignment_operator: ANDEQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(280,new State(-177));
-stringstates[281] = @"178 assignment_operator: OREQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(281,new State(-178));
-stringstates[282] = @"179 assignment_operator: GTGTEQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(282,new State(-179));
-stringstates[283] = @"180 assignment_operator: LTLTEQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
-    AddState(283,new State(-180));
-stringstates[284] = @"216 variable_initializer: array_initializer .		[',', '}', ';', ')', ]";
+    AddState(283,new State(-215));
     AddState(284,new State(-216));
-stringstates[285] = @"217 variable_initializer: stackalloc_initializer .		[',', '}', ';', ')', ]";
-    AddState(285,new State(-217));
-stringstates[286] = @"218 stackalloc_initializer: STACKALLOC . type '[' expression ']' ";
-    AddState(286,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,287,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[287] = @"218 stackalloc_initializer: STACKALLOC type . '[' expression ']' 
-45 pointer_type: type . '*' ";
-    AddState(287,new State(new int[]{91,288,42,188}));
-stringstates[288] = @"218 stackalloc_initializer: STACKALLOC type '[' . expression ']' ";
-    AddState(288,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-80,289,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[289] = @"218 stackalloc_initializer: STACKALLOC type '[' expression . ']' ";
-    AddState(289,new State(new int[]{93,290}));
-stringstates[290] = @"218 stackalloc_initializer: STACKALLOC type '[' expression ']' .		[',', '}', ';', ')', ]";
-    AddState(290,new State(-218));
-stringstates[291] = @"489 variable_initializer_list: variable_initializer .		[',', '}', ]";
-    AddState(291,new State(-489));
-stringstates[292] = @"51 rank_specifiers_opt: rank_specifier . rank_specifiers_opt ";
-    AddState(292,new State(new int[]{129,192,123,-50,40,-50,46,-50,91,-50,246,-50,247,-50,248,-50,61,-50,227,-50,228,-50,229,-50,230,-50,231,-50,233,-50,234,-50,235,-50,238,-50,239,-50,42,-50,47,-50,37,-50,43,-50,45,-50,236,-50,237,-50,62,-50,60,-50,242,-50,243,-50,172,-50,137,-50,240,-50,241,-50,38,-50,94,-50,124,-50,244,-50,245,-50,63,-50,232,-50,59,-50,44,-50,93,-50,41,-50,125,-50,58,-50},new int[]{-78,293,-77,292}));
-stringstates[293] = @"51 rank_specifiers_opt: rank_specifier rank_specifiers_opt .		['{', '(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(293,new State(-51));
-stringstates[294] = @"96 array_creation_expression: NEW array_type . array_initializer 
-21 type: array_type .		['(', '*', ]
-47 array_type: array_type . rank_specifier ";
-    AddState(294,new State(new int[]{123,135,129,192,40,-21,42,-21},new int[]{-105,295,-77,197}));
-stringstates[295] = @"96 array_creation_expression: NEW array_type array_initializer .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(295,new State(-96));
-stringstates[296] = @"93 object_creation_expression: NEW type . '(' argument_list_opt ')' 
-45 pointer_type: type . '*' ";
-    AddState(296,new State(new int[]{40,297,42,188}));
-stringstates[297] = @"93 object_creation_expression: NEW type '(' . argument_list_opt ')' ";
-    AddState(297,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,187,268,180,271,41,-79},new int[]{-97,298,-81,103,-82,267,-80,106,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[298] = @"93 object_creation_expression: NEW type '(' argument_list_opt . ')' ";
-    AddState(298,new State(new int[]{41,299}));
-stringstates[299] = @"93 object_creation_expression: NEW type '(' argument_list_opt ')' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
+    AddState(285,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,286,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(286,new State(new int[]{91,287,42,187}));
+    AddState(287,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-79,288,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(288,new State(new int[]{93,289}));
+    AddState(289,new State(-217));
+    AddState(290,new State(-488));
+    AddState(291,new State(new int[]{129,191,123,-49,40,-49,46,-49,91,-49,246,-49,247,-49,248,-49,61,-49,227,-49,228,-49,229,-49,230,-49,231,-49,233,-49,234,-49,235,-49,238,-49,239,-49,42,-49,47,-49,37,-49,43,-49,45,-49,236,-49,237,-49,62,-49,60,-49,242,-49,243,-49,172,-49,137,-49,240,-49,241,-49,38,-49,94,-49,124,-49,244,-49,245,-49,63,-49,232,-49,59,-49,44,-49,93,-49,41,-49,125,-49,58,-49},new int[]{-77,292,-76,291}));
+    AddState(292,new State(-50));
+    AddState(293,new State(new int[]{123,135,129,191,40,-20,42,-20},new int[]{-104,294,-76,196}));
+    AddState(294,new State(-95));
+    AddState(295,new State(new int[]{40,296,42,187}));
+    AddState(296,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,187,267,180,270,41,-78},new int[]{-96,297,-80,103,-81,266,-79,106,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(297,new State(new int[]{41,298}));
+    AddState(298,new State(-92));
     AddState(299,new State(-93));
-stringstates[300] = @"94 object_creation_expression: NEW error .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(300,new State(-94));
-stringstates[301] = @"136 multiplicative_expression: unary_expression .		['*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(301,new State(-136));
-stringstates[302] = @"150 relational_expression: relational_expression GEQ . shift_expression ";
-    AddState(302,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-118,303,-117,110,-113,111,-108,301,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[303] = @"150 relational_expression: relational_expression GEQ shift_expression .		['>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-144 shift_expression: shift_expression . LTLT additive_expression 
-145 shift_expression: shift_expression . GTGT additive_expression ";
-    AddState(303,new State(new int[]{236,59,237,88,62,-150,60,-150,242,-150,243,-150,172,-150,137,-150,240,-150,241,-150,38,-150,94,-150,124,-150,244,-150,245,-150,63,-150,232,-150,59,-150,44,-150,93,-150,41,-150,125,-150,58,-150}));
-stringstates[304] = @"151 relational_expression: relational_expression IS . type ";
-    AddState(304,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,305,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[305] = @"151 relational_expression: relational_expression IS type .		['>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-45 pointer_type: type . '*' ";
-    AddState(305,new State(new int[]{42,188,62,-151,60,-151,242,-151,243,-151,172,-151,137,-151,240,-151,241,-151,38,-151,94,-151,124,-151,244,-151,245,-151,63,-151,232,-151,59,-151,44,-151,93,-151,41,-151,125,-151,58,-151}));
-stringstates[306] = @"152 relational_expression: relational_expression AS . type ";
-    AddState(306,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,307,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[307] = @"152 relational_expression: relational_expression AS type .		['>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-45 pointer_type: type . '*' ";
-    AddState(307,new State(new int[]{42,188,62,-152,60,-152,242,-152,243,-152,172,-152,137,-152,240,-152,241,-152,38,-152,94,-152,124,-152,244,-152,245,-152,63,-152,232,-152,59,-152,44,-152,93,-152,41,-152,125,-152,58,-152}));
-stringstates[308] = @"125 cast_expression: '(' multiplicative_expression . '*' ')' unary_expression 
-140 additive_expression: multiplicative_expression .		['+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ')', ]
-137 multiplicative_expression: multiplicative_expression . '*' unary_expression 
-138 multiplicative_expression: multiplicative_expression . '/' unary_expression 
-139 multiplicative_expression: multiplicative_expression . '%' unary_expression ";
-    AddState(308,new State(new int[]{42,309,47,92,37,112,43,-140,45,-140,236,-140,237,-140,62,-140,60,-140,242,-140,243,-140,172,-140,137,-140,240,-140,241,-140,38,-140,94,-140,124,-140,244,-140,245,-140,63,-140,232,-140,41,-140}));
-stringstates[309] = @"125 cast_expression: '(' multiplicative_expression '*' . ')' unary_expression 
-137 multiplicative_expression: multiplicative_expression '*' . unary_expression ";
-    AddState(309,new State(new int[]{41,310,40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-108,64,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[310] = @"125 cast_expression: '(' multiplicative_expression '*' ')' . unary_expression ";
-    AddState(310,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-108,311,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[311] = @"125 cast_expression: '(' multiplicative_expression '*' ')' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(311,new State(-125));
-stringstates[312] = @"126 cast_expression: '(' qualified_identifier . rank_specifier type_quals_opt ')' unary_expression 
-82 element_access: qualified_identifier . '[' expression_list ']' 
-78 invocation_expression: qualified_identifier . '(' argument_list_opt ')' 
-107 postfix_expression: qualified_identifier .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ')', ]";
-    AddState(312,new State(new int[]{91,175,40,264,129,192,246,-107,247,-107,248,-107,61,-107,227,-107,228,-107,229,-107,230,-107,231,-107,233,-107,234,-107,235,-107,238,-107,239,-107,42,-107,47,-107,37,-107,43,-107,45,-107,236,-107,237,-107,62,-107,60,-107,242,-107,243,-107,172,-107,137,-107,240,-107,241,-107,38,-107,94,-107,124,-107,244,-107,245,-107,63,-107,232,-107,41,-107},new int[]{-77,313}));
-stringstates[313] = @"126 cast_expression: '(' qualified_identifier rank_specifier . type_quals_opt ')' unary_expression ";
-    AddState(313,new State(new int[]{129,192,42,320,41,-130},new int[]{-114,314,-115,317,-116,321,-77,319}));
-stringstates[314] = @"126 cast_expression: '(' qualified_identifier rank_specifier type_quals_opt . ')' unary_expression ";
-    AddState(314,new State(new int[]{41,315}));
-stringstates[315] = @"126 cast_expression: '(' qualified_identifier rank_specifier type_quals_opt ')' . unary_expression ";
-    AddState(315,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-108,316,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[316] = @"126 cast_expression: '(' qualified_identifier rank_specifier type_quals_opt ')' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(316,new State(-126));
-stringstates[317] = @"131 type_quals_opt: type_quals .		[')', ]
-133 type_quals: type_quals . type_qual ";
-    AddState(317,new State(new int[]{129,192,42,320,41,-131},new int[]{-116,318,-77,319}));
-stringstates[318] = @"133 type_quals: type_quals type_qual .		[RANK_SPECIFIER, '*', ')', ]";
+    AddState(300,new State(-135));
+    AddState(301,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-117,302,-116,110,-112,111,-107,300,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(302,new State(new int[]{236,59,237,88,62,-149,60,-149,242,-149,243,-149,172,-149,137,-149,240,-149,241,-149,38,-149,94,-149,124,-149,244,-149,245,-149,63,-149,232,-149,59,-149,44,-149,93,-149,41,-149,125,-149,58,-149}));
+    AddState(303,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,304,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(304,new State(new int[]{42,187,62,-150,60,-150,242,-150,243,-150,172,-150,137,-150,240,-150,241,-150,38,-150,94,-150,124,-150,244,-150,245,-150,63,-150,232,-150,59,-150,44,-150,93,-150,41,-150,125,-150,58,-150}));
+    AddState(305,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,306,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(306,new State(new int[]{42,187,62,-151,60,-151,242,-151,243,-151,172,-151,137,-151,240,-151,241,-151,38,-151,94,-151,124,-151,244,-151,245,-151,63,-151,232,-151,59,-151,44,-151,93,-151,41,-151,125,-151,58,-151}));
+    AddState(307,new State(new int[]{42,308,47,92,37,112,43,-139,45,-139,236,-139,237,-139,62,-139,60,-139,242,-139,243,-139,172,-139,137,-139,240,-139,241,-139,38,-139,94,-139,124,-139,244,-139,245,-139,63,-139,232,-139,41,-139}));
+    AddState(308,new State(new int[]{41,309,40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-107,64,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(309,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-107,310,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(310,new State(-124));
+    AddState(311,new State(new int[]{91,175,40,263,129,191,246,-106,247,-106,248,-106,61,-106,227,-106,228,-106,229,-106,230,-106,231,-106,233,-106,234,-106,235,-106,238,-106,239,-106,42,-106,47,-106,37,-106,43,-106,45,-106,236,-106,237,-106,62,-106,60,-106,242,-106,243,-106,172,-106,137,-106,240,-106,241,-106,38,-106,94,-106,124,-106,244,-106,245,-106,63,-106,232,-106,41,-106},new int[]{-76,312}));
+    AddState(312,new State(new int[]{129,191,42,319,41,-129},new int[]{-113,313,-114,316,-115,320,-76,318}));
+    AddState(313,new State(new int[]{41,314}));
+    AddState(314,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-107,315,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(315,new State(-125));
+    AddState(316,new State(new int[]{129,191,42,319,41,-130},new int[]{-115,317,-76,318}));
+    AddState(317,new State(-132));
     AddState(318,new State(-133));
-stringstates[319] = @"134 type_qual: rank_specifier .		[RANK_SPECIFIER, '*', ')', ]";
     AddState(319,new State(-134));
-stringstates[320] = @"135 type_qual: '*' .		[RANK_SPECIFIER, '*', ')', ]";
-    AddState(320,new State(-135));
-stringstates[321] = @"132 type_quals: type_qual .		[RANK_SPECIFIER, '*', ')', ]";
-    AddState(321,new State(-132));
-stringstates[322] = @"127 cast_expression: '(' primitive_type . type_quals_opt ')' unary_expression 
-75 member_access: primitive_type . '.' IDENTIFIER ";
-    AddState(322,new State(new int[]{46,149,129,192,42,320,41,-130},new int[]{-114,323,-115,317,-116,321,-77,319}));
-stringstates[323] = @"127 cast_expression: '(' primitive_type type_quals_opt . ')' unary_expression ";
-    AddState(323,new State(new int[]{41,324}));
-stringstates[324] = @"127 cast_expression: '(' primitive_type type_quals_opt ')' . unary_expression ";
-    AddState(324,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-108,325,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[325] = @"127 cast_expression: '(' primitive_type type_quals_opt ')' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(325,new State(-127));
-stringstates[326] = @"128 cast_expression: '(' class_type . type_quals_opt ')' unary_expression 
-76 member_access: class_type . '.' IDENTIFIER ";
-    AddState(326,new State(new int[]{46,168,129,192,42,320,41,-130},new int[]{-114,327,-115,317,-116,321,-77,319}));
-stringstates[327] = @"128 cast_expression: '(' class_type type_quals_opt . ')' unary_expression ";
-    AddState(327,new State(new int[]{41,328}));
-stringstates[328] = @"128 cast_expression: '(' class_type type_quals_opt ')' . unary_expression ";
-    AddState(328,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-108,329,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[329] = @"128 cast_expression: '(' class_type type_quals_opt ')' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(329,new State(-128));
-stringstates[330] = @"129 cast_expression: '(' VOID . type_quals_opt ')' unary_expression ";
-    AddState(330,new State(new int[]{129,192,42,320,41,-130},new int[]{-114,331,-115,317,-116,321,-77,319}));
-stringstates[331] = @"129 cast_expression: '(' VOID type_quals_opt . ')' unary_expression ";
-    AddState(331,new State(new int[]{41,332}));
-stringstates[332] = @"129 cast_expression: '(' VOID type_quals_opt ')' . unary_expression ";
-    AddState(332,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-108,333,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260}));
-stringstates[333] = @"129 cast_expression: '(' VOID type_quals_opt ')' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
-    AddState(333,new State(-129));
-stringstates[334] = @"167 conditional_expression: conditional_or_expression '?' . expression ':' expression ";
-    AddState(334,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-80,335,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[335] = @"167 conditional_expression: conditional_or_expression '?' expression . ':' expression ";
-    AddState(335,new State(new int[]{58,336}));
-stringstates[336] = @"167 conditional_expression: conditional_or_expression '?' expression ':' . expression ";
-    AddState(336,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-80,337,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[337] = @"167 conditional_expression: conditional_or_expression '?' expression ':' expression .		[';', ',', ']', ')', '}', ':', ]";
-    AddState(337,new State(-167));
-stringstates[338] = @"168 conditional_expression: conditional_or_expression QQ . expression ";
-    AddState(338,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-80,339,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[339] = @"168 conditional_expression: conditional_or_expression QQ expression .		[';', ',', ']', ')', '}', ':', ]";
-    AddState(339,new State(-168));
-stringstates[340] = @"220 constant_declarators: constant_declarator .		[';', ',', ]";
-    AddState(340,new State(-220));
-stringstates[341] = @"387 field_declaration: attributes_opt modifiers_opt type . variable_declarators ';' 
-389 method_header: attributes_opt modifiers_opt type . qualified_identifier '(' formal_parameter_list_opt ')' 
-406 property_declaration: attributes_opt modifiers_opt type . qualified_identifier '{' accessor_declarations '}' 
-45 pointer_type: type . '*' 
-424 indexer_declarator: type . THIS '[' formal_parameter_list ']' 
-425 indexer_declarator: type . qualified_this '[' formal_parameter_list ']' 
-430 overloadable_operator_declarator: type . OPERATOR overloadable_operator '(' type IDENTIFIER ')' 
-431 overloadable_operator_declarator: type . OPERATOR overloadable_operator '(' type IDENTIFIER ',' type IDENTIFIER ')' ";
-    AddState(341,new State(new int[]{42,188,198,605,179,613,130,645},new int[]{-70,342,-29,349,-218,609,-33,412,-35,179,-30,646}));
-stringstates[342] = @"387 field_declaration: attributes_opt modifiers_opt type variable_declarators . ';' 
-212 variable_declarators: variable_declarators . ',' variable_declarator ";
-    AddState(342,new State(new int[]{59,343,44,344}));
-stringstates[343] = @"387 field_declaration: attributes_opt modifiers_opt type variable_declarators ';' .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(343,new State(-387));
-stringstates[344] = @"212 variable_declarators: variable_declarators ',' . variable_declarator ";
-    AddState(344,new State(new int[]{130,346},new int[]{-33,345}));
-stringstates[345] = @"212 variable_declarators: variable_declarators ',' variable_declarator .		[';', ',', ')', ]";
-    AddState(345,new State(-212));
-stringstates[346] = @"213 variable_declarator: IDENTIFIER .		[';', ',', ')', ]
-214 variable_declarator: IDENTIFIER . '=' variable_initializer ";
-    AddState(346,new State(new int[]{61,347,59,-213,44,-213,41,-213}));
-stringstates[347] = @"214 variable_declarator: IDENTIFIER '=' . variable_initializer ";
-    AddState(347,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,123,135,193,286},new int[]{-152,348,-80,142,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263,-105,284,-153,285}));
-stringstates[348] = @"214 variable_declarator: IDENTIFIER '=' variable_initializer .		[';', ',', ')', ]";
-    AddState(348,new State(-214));
-stringstates[349] = @"389 method_header: attributes_opt modifiers_opt type qualified_identifier . '(' formal_parameter_list_opt ')' 
-406 property_declaration: attributes_opt modifiers_opt type qualified_identifier . '{' accessor_declarations '}' ";
-    AddState(349,new State(new int[]{40,350,123,388}));
-stringstates[350] = @"389 method_header: attributes_opt modifiers_opt type qualified_identifier '(' . formal_parameter_list_opt ')' ";
-    AddState(350,new State(new int[]{91,369,41,-391,182,-308,187,-308,180,-308,189,-308,141,-308,191,-308,207,-308,169,-308,203,-308,174,-308,204,-308,144,-308,162,-308,153,-308,149,-308,139,-308,178,-308,195,-308,130,-308,210,-308},new int[]{-11,351,-12,353,-50,387,-51,356,-190,357,-192,366,-239,367,-240,385,-52,386}));
-stringstates[351] = @"389 method_header: attributes_opt modifiers_opt type qualified_identifier '(' formal_parameter_list_opt . ')' ";
-    AddState(351,new State(new int[]{41,352}));
-stringstates[352] = @"389 method_header: attributes_opt modifiers_opt type qualified_identifier '(' formal_parameter_list_opt ')' .		['{', ';', ]";
-    AddState(352,new State(-389));
-stringstates[353] = @"392 formal_parameter_list_opt: formal_parameter_list .		[')', ]
-398 formal_parameter_list: formal_parameter_list . ',' formal_parameter ";
-    AddState(353,new State(new int[]{44,354,41,-392}));
-stringstates[354] = @"398 formal_parameter_list: formal_parameter_list ',' . formal_parameter ";
-    AddState(354,new State(new int[]{91,369,182,-308,187,-308,180,-308,189,-308,141,-308,191,-308,207,-308,169,-308,203,-308,174,-308,204,-308,144,-308,162,-308,153,-308,149,-308,139,-308,178,-308,195,-308,130,-308,210,-308},new int[]{-50,355,-51,356,-190,357,-192,366,-239,367,-240,385,-52,386}));
-stringstates[355] = @"398 formal_parameter_list: formal_parameter_list ',' formal_parameter .		[',', ')', ']', ]";
+    AddState(320,new State(-131));
+    AddState(321,new State(new int[]{46,149,129,191,42,319,41,-129},new int[]{-113,322,-114,316,-115,320,-76,318}));
+    AddState(322,new State(new int[]{41,323}));
+    AddState(323,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-107,324,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(324,new State(-126));
+    AddState(325,new State(new int[]{46,168,129,191,42,319,41,-129},new int[]{-113,326,-114,316,-115,320,-76,318}));
+    AddState(326,new State(new int[]{41,327}));
+    AddState(327,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-107,328,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(328,new State(-127));
+    AddState(329,new State(new int[]{129,191,42,319,41,-129},new int[]{-113,330,-114,316,-115,320,-76,318}));
+    AddState(330,new State(new int[]{41,331}));
+    AddState(331,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-107,332,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259}));
+    AddState(332,new State(-128));
+    AddState(333,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-79,334,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(334,new State(new int[]{58,335}));
+    AddState(335,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-79,336,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(336,new State(-166));
+    AddState(337,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-79,338,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(338,new State(-167));
+    AddState(339,new State(-219));
+    AddState(340,new State(new int[]{42,187,198,604,179,612,130,644},new int[]{-69,341,-29,348,-217,608,-33,411,-72,179,-30,645}));
+    AddState(341,new State(new int[]{59,342,44,343}));
+    AddState(342,new State(-386));
+    AddState(343,new State(new int[]{130,345},new int[]{-33,344}));
+    AddState(344,new State(-211));
+    AddState(345,new State(new int[]{61,346,59,-212,44,-212,41,-212}));
+    AddState(346,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,123,135,193,285},new int[]{-151,347,-79,142,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262,-104,283,-152,284}));
+    AddState(347,new State(-213));
+    AddState(348,new State(new int[]{40,349,123,387}));
+    AddState(349,new State(new int[]{91,368,41,-390,182,-307,187,-307,180,-307,189,-307,141,-307,191,-307,207,-307,169,-307,203,-307,174,-307,204,-307,144,-307,162,-307,153,-307,149,-307,139,-307,178,-307,195,-307,130,-307,210,-307},new int[]{-11,350,-12,352,-49,386,-50,355,-189,356,-191,365,-238,366,-239,384,-51,385}));
+    AddState(350,new State(new int[]{41,351}));
+    AddState(351,new State(-388));
+    AddState(352,new State(new int[]{44,353,41,-391}));
+    AddState(353,new State(new int[]{91,368,182,-307,187,-307,180,-307,189,-307,141,-307,191,-307,207,-307,169,-307,203,-307,174,-307,204,-307,144,-307,162,-307,153,-307,149,-307,139,-307,178,-307,195,-307,130,-307,210,-307},new int[]{-49,354,-50,355,-189,356,-191,365,-238,366,-239,384,-51,385}));
+    AddState(354,new State(-397));
     AddState(355,new State(-398));
-stringstates[356] = @"399 formal_parameter: fixed_parameter .		[',', ')', ']', ]";
-    AddState(356,new State(-399));
-stringstates[357] = @"401 fixed_parameter: attributes_opt . parameter_modifier_opt type IDENTIFIER 
-405 parameter_array: attributes_opt . PARAMS type IDENTIFIER ";
-    AddState(357,new State(new int[]{182,361,187,364,180,365,189,-402,141,-402,191,-402,207,-402,169,-402,203,-402,174,-402,204,-402,144,-402,162,-402,153,-402,149,-402,139,-402,178,-402,195,-402,130,-402,210,-402},new int[]{-72,358}));
-stringstates[358] = @"401 fixed_parameter: attributes_opt parameter_modifier_opt . type IDENTIFIER ";
-    AddState(358,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,359,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[359] = @"401 fixed_parameter: attributes_opt parameter_modifier_opt type . IDENTIFIER 
-45 pointer_type: type . '*' ";
-    AddState(359,new State(new int[]{130,360,42,188}));
-stringstates[360] = @"401 fixed_parameter: attributes_opt parameter_modifier_opt type IDENTIFIER .		[',', ')', ']', ]";
-    AddState(360,new State(-401));
-stringstates[361] = @"405 parameter_array: attributes_opt PARAMS . type IDENTIFIER ";
-    AddState(361,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,362,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[362] = @"405 parameter_array: attributes_opt PARAMS type . IDENTIFIER 
-45 pointer_type: type . '*' ";
-    AddState(362,new State(new int[]{130,363,42,188}));
-stringstates[363] = @"405 parameter_array: attributes_opt PARAMS type IDENTIFIER .		[',', ')', ']', ]";
-    AddState(363,new State(-405));
-stringstates[364] = @"403 parameter_modifier_opt: REF .		[SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, VOID, ]";
+    AddState(356,new State(new int[]{182,360,187,363,180,364,189,-401,141,-401,191,-401,207,-401,169,-401,203,-401,174,-401,204,-401,144,-401,162,-401,153,-401,149,-401,139,-401,178,-401,195,-401,130,-401,210,-401},new int[]{-71,357}));
+    AddState(357,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,358,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(358,new State(new int[]{130,359,42,187}));
+    AddState(359,new State(-400));
+    AddState(360,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,361,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(361,new State(new int[]{130,362,42,187}));
+    AddState(362,new State(-404));
+    AddState(363,new State(-402));
     AddState(364,new State(-403));
-stringstates[365] = @"404 parameter_modifier_opt: OUT .		[SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, VOID, ]";
-    AddState(365,new State(-404));
-stringstates[366] = @"309 attributes_opt: attributes .		[NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, PARAMS, REF, OUT, GET, SET, ADD, REMOVE, ]";
-    AddState(366,new State(-309));
-stringstates[367] = @"530 attributes: attribute_sections .		[NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, PARAMS, REF, OUT, GET, SET, ADD, REMOVE, ]
-532 attribute_sections: attribute_sections . attribute_section ";
-    AddState(367,new State(new int[]{91,369,175,-530,136,-530,158,-530,171,-530,176,-530,181,-530,183,-530,184,-530,185,-530,186,-530,190,-530,194,-530,206,-530,209,-530,211,-530,146,-530,196,-530,170,-530,155,-530,151,-530,128,-530,147,-530,210,-530,156,-530,126,-530,189,-530,141,-530,191,-530,207,-530,169,-530,203,-530,174,-530,204,-530,144,-530,162,-530,153,-530,149,-530,139,-530,178,-530,195,-530,130,-530,167,-530,157,-530,182,-530,187,-530,180,-530,223,-530,224,-530,225,-530,226,-530},new int[]{-240,368}));
-stringstates[368] = @"532 attribute_sections: attribute_sections attribute_section .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, PARAMS, REF, OUT, GET, SET, ADD, REMOVE, ]";
-    AddState(368,new State(-532));
-stringstates[369] = @"533 attribute_section: '[' . attribute_list ']' 
-534 attribute_section: '[' . attribute_list ',' ']' ";
-    AddState(369,new State(new int[]{130,181},new int[]{-241,370,-242,384,-243,375,-66,382,-29,383,-35,179,-30,200}));
-stringstates[370] = @"533 attribute_section: '[' attribute_list . ']' 
-534 attribute_section: '[' attribute_list . ',' ']' 
-536 attribute_list: attribute_list . ',' attribute ";
-    AddState(370,new State(new int[]{93,371,44,372}));
-stringstates[371] = @"533 attribute_section: '[' attribute_list ']' .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, PARAMS, REF, OUT, GET, SET, ADD, REMOVE, ]";
-    AddState(371,new State(-533));
-stringstates[372] = @"534 attribute_section: '[' attribute_list ',' . ']' 
-536 attribute_list: attribute_list ',' . attribute ";
-    AddState(372,new State(new int[]{93,373,130,181},new int[]{-242,374,-243,375,-66,382,-29,383,-35,179,-30,200}));
-stringstates[373] = @"534 attribute_section: '[' attribute_list ',' ']' .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, PARAMS, REF, OUT, GET, SET, ADD, REMOVE, ]";
-    AddState(373,new State(-534));
-stringstates[374] = @"536 attribute_list: attribute_list ',' attribute .		[']', ',', ]";
-    AddState(374,new State(-536));
-stringstates[375] = @"537 attribute: attribute_name . attribute_arguments_opt ";
-    AddState(375,new State(new int[]{40,378,93,-538,44,-538},new int[]{-244,376,-245,377}));
-stringstates[376] = @"537 attribute: attribute_name attribute_arguments_opt .		[']', ',', ]";
-    AddState(376,new State(-537));
-stringstates[377] = @"539 attribute_arguments_opt: attribute_arguments .		[']', ',', ]";
-    AddState(377,new State(-539));
-stringstates[378] = @"541 attribute_arguments: '(' . expression_list_opt ')' ";
-    AddState(378,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,41,-83},new int[]{-99,379,-98,381,-80,178,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[379] = @"541 attribute_arguments: '(' expression_list_opt . ')' ";
-    AddState(379,new State(new int[]{41,380}));
-stringstates[380] = @"541 attribute_arguments: '(' expression_list_opt ')' .		[']', ',', ]";
-    AddState(380,new State(-541));
-stringstates[381] = @"84 expression_list_opt: expression_list .		[')', ]
-86 expression_list: expression_list . ',' expression ";
-    AddState(381,new State(new int[]{44,77,41,-84}));
-stringstates[382] = @"540 attribute_name: type_name .		['(', ']', ',', ]";
-    AddState(382,new State(-540));
-stringstates[383] = @"14 type_name: qualified_identifier .		['(', ']', ',', IDENTIFIER, ')', '{', WHERE, ]";
-    AddState(383,new State(-14));
-stringstates[384] = @"535 attribute_list: attribute .		[']', ',', ]";
-    AddState(384,new State(-535));
-stringstates[385] = @"531 attribute_sections: attribute_section .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, PARAMS, REF, OUT, GET, SET, ADD, REMOVE, ]";
-    AddState(385,new State(-531));
-stringstates[386] = @"400 formal_parameter: parameter_array .		[',', ')', ']', ]";
-    AddState(386,new State(-400));
-stringstates[387] = @"397 formal_parameter_list: formal_parameter .		[',', ')', ']', ]";
-    AddState(387,new State(-397));
-stringstates[388] = @"406 property_declaration: attributes_opt modifiers_opt type qualified_identifier '{' . accessor_declarations '}' ";
-    AddState(388,new State(new int[]{91,369,223,-308,224,-308},new int[]{-208,389,-209,391,-190,598,-192,366,-239,367,-240,385,-211,601}));
-stringstates[389] = @"406 property_declaration: attributes_opt modifiers_opt type qualified_identifier '{' accessor_declarations . '}' ";
-    AddState(389,new State(new int[]{125,390}));
-stringstates[390] = @"406 property_declaration: attributes_opt modifiers_opt type qualified_identifier '{' accessor_declarations '}' .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(390,new State(-406));
-stringstates[391] = @"407 accessor_declarations: get_accessor_declaration . set_accessor_declaration_opt ";
-    AddState(391,new State(new int[]{91,369,125,-409,224,-308},new int[]{-210,392,-211,393,-190,394,-192,366,-239,367,-240,385}));
-stringstates[392] = @"407 accessor_declarations: get_accessor_declaration set_accessor_declaration_opt .		['}', ]";
-    AddState(392,new State(-407));
-stringstates[393] = @"410 set_accessor_declaration_opt: set_accessor_declaration .		['}', ]";
-    AddState(393,new State(-410));
-stringstates[394] = @"414 set_accessor_declaration: attributes_opt . SET accessor_body ";
-    AddState(394,new State(new int[]{224,395}));
-stringstates[395] = @"414 set_accessor_declaration: attributes_opt SET . accessor_body ";
-    AddState(395,new State(new int[]{123,398,59,597},new int[]{-213,396,-135,397}));
-stringstates[396] = @"414 set_accessor_declaration: attributes_opt SET accessor_body .		['[', GET, '}', ]";
+    AddState(365,new State(-308));
+    AddState(366,new State(new int[]{91,368,175,-529,136,-529,158,-529,171,-529,176,-529,181,-529,183,-529,184,-529,185,-529,186,-529,190,-529,194,-529,206,-529,209,-529,211,-529,146,-529,196,-529,170,-529,155,-529,151,-529,128,-529,147,-529,210,-529,156,-529,126,-529,189,-529,141,-529,191,-529,207,-529,169,-529,203,-529,174,-529,204,-529,144,-529,162,-529,153,-529,149,-529,139,-529,178,-529,195,-529,130,-529,167,-529,157,-529,182,-529,187,-529,180,-529,223,-529,224,-529,225,-529,226,-529},new int[]{-239,367}));
+    AddState(367,new State(-531));
+    AddState(368,new State(new int[]{130,181},new int[]{-240,369,-241,383,-242,374,-65,381,-29,382,-72,179,-30,199}));
+    AddState(369,new State(new int[]{93,370,44,371}));
+    AddState(370,new State(-532));
+    AddState(371,new State(new int[]{93,372,130,181},new int[]{-241,373,-242,374,-65,381,-29,382,-72,179,-30,199}));
+    AddState(372,new State(-533));
+    AddState(373,new State(-535));
+    AddState(374,new State(new int[]{40,377,93,-537,44,-537},new int[]{-243,375,-244,376}));
+    AddState(375,new State(-536));
+    AddState(376,new State(-538));
+    AddState(377,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,41,-82},new int[]{-98,378,-97,380,-79,178,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(378,new State(new int[]{41,379}));
+    AddState(379,new State(-540));
+    AddState(380,new State(new int[]{44,77,41,-83}));
+    AddState(381,new State(-539));
+    AddState(382,new State(-14));
+    AddState(383,new State(-534));
+    AddState(384,new State(-530));
+    AddState(385,new State(-399));
+    AddState(386,new State(-396));
+    AddState(387,new State(new int[]{91,368,223,-307,224,-307},new int[]{-207,388,-208,390,-189,597,-191,365,-238,366,-239,384,-210,600}));
+    AddState(388,new State(new int[]{125,389}));
+    AddState(389,new State(-405));
+    AddState(390,new State(new int[]{91,368,125,-408,224,-307},new int[]{-209,391,-210,392,-189,393,-191,365,-238,366,-239,384}));
+    AddState(391,new State(-406));
+    AddState(392,new State(-409));
+    AddState(393,new State(new int[]{224,394}));
+    AddState(394,new State(new int[]{123,397,59,596},new int[]{-212,395,-134,396}));
+    AddState(395,new State(-413));
     AddState(396,new State(-414));
-stringstates[397] = @"415 accessor_body: block .		['[', GET, '}', SET, ]";
-    AddState(397,new State(-415));
-stringstates[398] = @"201 block: '{' . statement_list_opt '}' ";
-    AddState(398,new State(new int[]{130,404,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,210,203,147,418,123,398,59,424,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,198,208,138,210,202,219,192,226,145,430,205,432,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,166,442,197,450,212,464,152,470,163,479,164,490,140,500,148,503,165,506,188,515,199,520,201,524,173,548,208,554,206,560,161,563,125,-202},new int[]{-148,399,-149,401,-131,589,-132,403,-133,407,-150,408,-56,410,-58,189,-59,190,-60,413,-62,151,-64,152,-63,162,-61,414,-76,195,-65,196,-29,415,-35,179,-30,200,-66,205,-151,416,-134,421,-135,422,-136,423,-137,425,-154,426,-88,428,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-83,71,-84,94,-89,173,-90,207,-91,209,-92,216,-103,429,-93,218,-94,225,-95,230,-96,235,-127,434,-108,435,-109,65,-101,66,-100,436,-102,437,-106,242,-110,247,-111,438,-112,439,-107,260,-138,440,-155,441,-156,449,-139,462,-163,463,-164,469,-165,478,-166,489,-140,498,-175,499,-176,502,-177,505,-178,514,-179,519,-141,523,-142,545,-143,546,-144,547,-145,553,-146,559,-147,562}));
-stringstates[399] = @"201 block: '{' statement_list_opt . '}' ";
-    AddState(399,new State(new int[]{125,400}));
-stringstates[400] = @"201 block: '{' statement_list_opt '}' .		['[', GET, '}', IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, CASE, DEFAULT, ELSE, CATCH, FINALLY, SET, ADD, REMOVE, ABSTRACT, EXTERN, INTERNAL, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, VIRTUAL, VOLATILE, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, IMPLICIT, EXPLICIT, ]";
-    AddState(400,new State(-201));
-stringstates[401] = @"203 statement_list_opt: statement_list .		['}', ]
-205 statement_list: statement_list . statement ";
-    AddState(401,new State(new int[]{130,404,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,210,203,147,418,123,398,59,424,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,198,208,138,210,202,219,192,226,145,430,205,432,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,166,442,197,450,212,464,152,470,163,479,164,490,140,500,148,503,165,506,188,515,199,520,201,524,173,548,208,554,206,560,161,563,125,-203},new int[]{-131,402,-132,403,-133,407,-150,408,-56,410,-58,189,-59,190,-60,413,-62,151,-64,152,-63,162,-61,414,-76,195,-65,196,-29,415,-35,179,-30,200,-66,205,-151,416,-134,421,-135,422,-136,423,-137,425,-154,426,-88,428,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-83,71,-84,94,-89,173,-90,207,-91,209,-92,216,-103,429,-93,218,-94,225,-95,230,-96,235,-127,434,-108,435,-109,65,-101,66,-100,436,-102,437,-106,242,-110,247,-111,438,-112,439,-107,260,-138,440,-155,441,-156,449,-139,462,-163,463,-164,469,-165,478,-166,489,-140,498,-175,499,-176,502,-177,505,-178,514,-179,519,-141,523,-142,545,-143,546,-144,547,-145,553,-146,559,-147,562}));
-stringstates[402] = @"205 statement_list: statement_list statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ]";
-    AddState(402,new State(-205));
-stringstates[403] = @"185 statement: labeled_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ]";
-    AddState(403,new State(-185));
-stringstates[404] = @"207 labeled_statement: IDENTIFIER . ':' statement 
-15 member_name: IDENTIFIER . type_list_opt ";
-    AddState(404,new State(new int[]{58,405,60,183,46,-16,40,-16,91,-16,129,-16,42,-16,130,-16,246,-16,247,-16,248,-16,61,-16,227,-16,228,-16,229,-16,230,-16,231,-16,233,-16,234,-16,235,-16,238,-16,239,-16},new int[]{-74,182}));
-stringstates[405] = @"207 labeled_statement: IDENTIFIER ':' . statement ";
-    AddState(405,new State(new int[]{130,404,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,210,203,147,418,123,398,59,424,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,198,208,138,210,202,219,192,226,145,430,205,432,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,166,442,197,450,212,464,152,470,163,479,164,490,140,500,148,503,165,506,188,515,199,520,201,524,173,548,208,554,206,560,161,563},new int[]{-131,406,-132,403,-133,407,-150,408,-56,410,-58,189,-59,190,-60,413,-62,151,-64,152,-63,162,-61,414,-76,195,-65,196,-29,415,-35,179,-30,200,-66,205,-151,416,-134,421,-135,422,-136,423,-137,425,-154,426,-88,428,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-83,71,-84,94,-89,173,-90,207,-91,209,-92,216,-103,429,-93,218,-94,225,-95,230,-96,235,-127,434,-108,435,-109,65,-101,66,-100,436,-102,437,-106,242,-110,247,-111,438,-112,439,-107,260,-138,440,-155,441,-156,449,-139,462,-163,463,-164,469,-165,478,-166,489,-140,498,-175,499,-176,502,-177,505,-178,514,-179,519,-141,523,-142,545,-143,546,-144,547,-145,553,-146,559,-147,562}));
-stringstates[406] = @"207 labeled_statement: IDENTIFIER ':' statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ]";
-    AddState(406,new State(-207));
-stringstates[407] = @"186 statement: declaration_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ]";
-    AddState(407,new State(-186));
-stringstates[408] = @"208 declaration_statement: local_variable_declaration . ';' ";
-    AddState(408,new State(new int[]{59,409}));
-stringstates[409] = @"208 declaration_statement: local_variable_declaration ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ]";
-    AddState(409,new State(-208));
-stringstates[410] = @"210 local_variable_declaration: type . variable_declarators 
-45 pointer_type: type . '*' ";
-    AddState(410,new State(new int[]{42,188,130,346},new int[]{-70,411,-33,412}));
-stringstates[411] = @"210 local_variable_declaration: type variable_declarators .		[';', ')', ]
-212 variable_declarators: variable_declarators . ',' variable_declarator ";
-    AddState(411,new State(new int[]{44,344,59,-210,41,-210}));
-stringstates[412] = @"211 variable_declarators: variable_declarator .		[';', ',', ')', ]";
-    AddState(412,new State(-211));
-stringstates[413] = @"24 simple_type: primitive_type .		[RANK_SPECIFIER, '*', IDENTIFIER, ]
-75 member_access: primitive_type . '.' IDENTIFIER ";
-    AddState(413,new State(new int[]{46,149,129,-24,42,-24,130,-24}));
-stringstates[414] = @"25 simple_type: class_type .		[RANK_SPECIFIER, '*', IDENTIFIER, ]
-76 member_access: class_type . '.' IDENTIFIER ";
-    AddState(414,new State(new int[]{46,168,129,-25,42,-25,130,-25}));
-stringstates[415] = @"49 array_type: qualified_identifier . rank_specifier 
-14 type_name: qualified_identifier .		['*', IDENTIFIER, ]
-78 invocation_expression: qualified_identifier . '(' argument_list_opt ')' 
-82 element_access: qualified_identifier . '[' expression_list ']' 
-107 postfix_expression: qualified_identifier .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '>', '<', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ')', ]";
-    AddState(415,new State(new int[]{40,264,91,175,129,192,42,-14,130,-14,246,-107,247,-107,248,-107,61,-107,227,-107,228,-107,229,-107,230,-107,231,-107,233,-107,234,-107,235,-107,238,-107,239,-107,47,-107,37,-107,43,-107,45,-107,236,-107,237,-107,62,-107,60,-107,242,-107,243,-107,172,-107,137,-107,240,-107,241,-107,38,-107,94,-107,124,-107,244,-107,245,-107,63,-107,232,-107,41,-107},new int[]{-77,199}));
-stringstates[416] = @"209 declaration_statement: local_constant_declaration . ';' ";
-    AddState(416,new State(new int[]{59,417}));
-stringstates[417] = @"209 declaration_statement: local_constant_declaration ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ]";
-    AddState(417,new State(-209));
-stringstates[418] = @"219 local_constant_declaration: CONST . type constant_declarators ";
-    AddState(418,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,419,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[419] = @"219 local_constant_declaration: CONST type . constant_declarators 
-45 pointer_type: type . '*' ";
-    AddState(419,new State(new int[]{42,188,130,39},new int[]{-71,420,-32,340}));
-stringstates[420] = @"219 local_constant_declaration: CONST type constant_declarators .		[';', ]
-221 constant_declarators: constant_declarators . ',' constant_declarator ";
-    AddState(420,new State(new int[]{44,37,59,-219}));
-stringstates[421] = @"187 statement: embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ]";
+    AddState(397,new State(new int[]{130,403,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,210,202,147,417,123,397,59,423,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,198,207,138,209,202,218,192,225,145,429,205,431,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,166,441,197,449,212,463,152,469,163,478,164,489,140,499,148,502,165,505,188,514,199,519,201,523,173,547,208,553,206,559,161,562,125,-201},new int[]{-147,398,-148,400,-130,588,-131,402,-132,406,-149,407,-55,409,-57,188,-58,189,-59,412,-61,151,-63,152,-62,162,-60,413,-75,194,-64,195,-29,414,-72,179,-30,199,-65,204,-150,415,-133,420,-134,421,-135,422,-136,424,-153,425,-87,427,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-82,71,-83,94,-88,173,-89,206,-90,208,-91,215,-102,428,-92,217,-93,224,-94,229,-95,234,-126,433,-107,434,-108,65,-100,66,-99,435,-101,436,-105,241,-109,246,-110,437,-111,438,-106,259,-137,439,-154,440,-155,448,-138,461,-162,462,-163,468,-164,477,-165,488,-139,497,-174,498,-175,501,-176,504,-177,513,-178,518,-140,522,-141,544,-142,545,-143,546,-144,552,-145,558,-146,561}));
+    AddState(398,new State(new int[]{125,399}));
+    AddState(399,new State(-200));
+    AddState(400,new State(new int[]{130,403,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,210,202,147,417,123,397,59,423,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,198,207,138,209,202,218,192,225,145,429,205,431,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,166,441,197,449,212,463,152,469,163,478,164,489,140,499,148,502,165,505,188,514,199,519,201,523,173,547,208,553,206,559,161,562,125,-202},new int[]{-130,401,-131,402,-132,406,-149,407,-55,409,-57,188,-58,189,-59,412,-61,151,-63,152,-62,162,-60,413,-75,194,-64,195,-29,414,-72,179,-30,199,-65,204,-150,415,-133,420,-134,421,-135,422,-136,424,-153,425,-87,427,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-82,71,-83,94,-88,173,-89,206,-90,208,-91,215,-102,428,-92,217,-93,224,-94,229,-95,234,-126,433,-107,434,-108,65,-100,66,-99,435,-101,436,-105,241,-109,246,-110,437,-111,438,-106,259,-137,439,-154,440,-155,448,-138,461,-162,462,-163,468,-164,477,-165,488,-139,497,-174,498,-175,501,-176,504,-177,513,-178,518,-140,522,-141,544,-142,545,-143,546,-144,552,-145,558,-146,561}));
+    AddState(401,new State(-204));
+    AddState(402,new State(-184));
+    AddState(403,new State(new int[]{58,404,60,182,46,-15,40,-15,91,-15,129,-15,42,-15,130,-15,246,-15,247,-15,248,-15,61,-15,227,-15,228,-15,229,-15,230,-15,231,-15,233,-15,234,-15,235,-15,238,-15,239,-15}));
+    AddState(404,new State(new int[]{130,403,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,210,202,147,417,123,397,59,423,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,198,207,138,209,202,218,192,225,145,429,205,431,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,166,441,197,449,212,463,152,469,163,478,164,489,140,499,148,502,165,505,188,514,199,519,201,523,173,547,208,553,206,559,161,562},new int[]{-130,405,-131,402,-132,406,-149,407,-55,409,-57,188,-58,189,-59,412,-61,151,-63,152,-62,162,-60,413,-75,194,-64,195,-29,414,-72,179,-30,199,-65,204,-150,415,-133,420,-134,421,-135,422,-136,424,-153,425,-87,427,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-82,71,-83,94,-88,173,-89,206,-90,208,-91,215,-102,428,-92,217,-93,224,-94,229,-95,234,-126,433,-107,434,-108,65,-100,66,-99,435,-101,436,-105,241,-109,246,-110,437,-111,438,-106,259,-137,439,-154,440,-155,448,-138,461,-162,462,-163,468,-164,477,-165,488,-139,497,-174,498,-175,501,-176,504,-177,513,-178,518,-140,522,-141,544,-142,545,-143,546,-144,552,-145,558,-146,561}));
+    AddState(405,new State(-206));
+    AddState(406,new State(-185));
+    AddState(407,new State(new int[]{59,408}));
+    AddState(408,new State(-207));
+    AddState(409,new State(new int[]{42,187,130,345},new int[]{-69,410,-33,411}));
+    AddState(410,new State(new int[]{44,343,59,-209,41,-209}));
+    AddState(411,new State(-210));
+    AddState(412,new State(new int[]{46,149,129,-23,42,-23,130,-23}));
+    AddState(413,new State(new int[]{46,168,129,-24,42,-24,130,-24}));
+    AddState(414,new State(new int[]{40,263,91,175,129,191,42,-14,130,-14,246,-106,247,-106,248,-106,61,-106,227,-106,228,-106,229,-106,230,-106,231,-106,233,-106,234,-106,235,-106,238,-106,239,-106,47,-106,37,-106,43,-106,45,-106,236,-106,237,-106,62,-106,60,-106,242,-106,243,-106,172,-106,137,-106,240,-106,241,-106,38,-106,94,-106,124,-106,244,-106,245,-106,63,-106,232,-106,41,-106},new int[]{-76,198}));
+    AddState(415,new State(new int[]{59,416}));
+    AddState(416,new State(-208));
+    AddState(417,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,418,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(418,new State(new int[]{42,187,130,39},new int[]{-70,419,-32,339}));
+    AddState(419,new State(new int[]{44,37,59,-218}));
+    AddState(420,new State(-186));
     AddState(421,new State(-187));
-stringstates[422] = @"188 embedded_statement: block .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
     AddState(422,new State(-188));
-stringstates[423] = @"189 embedded_statement: empty_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(423,new State(-189));
-stringstates[424] = @"206 empty_statement: ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(424,new State(-206));
-stringstates[425] = @"190 embedded_statement: expression_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(425,new State(-190));
-stringstates[426] = @"223 expression_statement: statement_expression . ';' ";
-    AddState(426,new State(new int[]{59,427}));
-stringstates[427] = @"223 expression_statement: statement_expression ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(427,new State(-223));
-stringstates[428] = @"224 statement_expression: invocation_expression .		[';', ',', ')', ]
-64 primary_expression_no_parenthesis: invocation_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, ]";
-    AddState(428,new State(new int[]{59,-224,44,-224,41,-224,40,-64,46,-64,91,-64,246,-64,247,-64,248,-64,61,-64,227,-64,228,-64,229,-64,230,-64,231,-64,233,-64,234,-64,235,-64,238,-64,239,-64}));
-stringstates[429] = @"92 new_expression: object_creation_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, ]
-225 statement_expression: object_creation_expression .		[';', ',', ')', ]";
-    AddState(429,new State(new int[]{40,-92,46,-92,91,-92,246,-92,247,-92,248,-92,61,-92,227,-92,228,-92,229,-92,230,-92,231,-92,233,-92,234,-92,235,-92,238,-92,239,-92,59,-225,44,-225,41,-225}));
-stringstates[430] = @"101 checked_expression: CHECKED . '(' expression ')' 
-293 checked_statement: CHECKED . block ";
-    AddState(430,new State(new int[]{40,232,123,398},new int[]{-135,431}));
-stringstates[431] = @"293 checked_statement: CHECKED block .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(431,new State(-293));
-stringstates[432] = @"102 unchecked_expression: UNCHECKED . '(' expression ')' 
-294 unchecked_statement: UNCHECKED . block ";
-    AddState(432,new State(new int[]{40,237,123,398},new int[]{-135,433}));
-stringstates[433] = @"294 unchecked_statement: UNCHECKED block .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(433,new State(-294));
-stringstates[434] = @"226 statement_expression: assignment .		[';', ',', ')', ]";
-    AddState(434,new State(-226));
-stringstates[435] = @"169 assignment: unary_expression . assignment_operator expression ";
-    AddState(435,new State(new int[]{61,273,227,274,228,275,229,276,230,277,231,278,233,279,234,280,235,281,238,282,239,283},new int[]{-128,145}));
-stringstates[436] = @"108 postfix_expression: post_increment_expression .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, ]
-227 statement_expression: post_increment_expression .		[';', ',', ')', ]";
+    AddState(423,new State(-205));
+    AddState(424,new State(-189));
+    AddState(425,new State(new int[]{59,426}));
+    AddState(426,new State(-222));
+    AddState(427,new State(new int[]{59,-223,44,-223,41,-223,40,-63,46,-63,91,-63,246,-63,247,-63,248,-63,61,-63,227,-63,228,-63,229,-63,230,-63,231,-63,233,-63,234,-63,235,-63,238,-63,239,-63}));
+    AddState(428,new State(new int[]{40,-91,46,-91,91,-91,246,-91,247,-91,248,-91,61,-91,227,-91,228,-91,229,-91,230,-91,231,-91,233,-91,234,-91,235,-91,238,-91,239,-91,59,-224,44,-224,41,-224}));
+    AddState(429,new State(new int[]{40,231,123,397},new int[]{-134,430}));
+    AddState(430,new State(-292));
+    AddState(431,new State(new int[]{40,236,123,397},new int[]{-134,432}));
+    AddState(432,new State(-293));
+    AddState(433,new State(-225));
+    AddState(434,new State(new int[]{61,272,227,273,228,274,229,275,230,276,231,277,233,278,234,279,235,280,238,281,239,282},new int[]{-127,145}));
+    AddState(435,new State(new int[]{246,-107,247,-107,248,-107,61,-107,227,-107,228,-107,229,-107,230,-107,231,-107,233,-107,234,-107,235,-107,238,-107,239,-107,59,-226,44,-226,41,-226}));
     AddState(436,new State(new int[]{246,-108,247,-108,248,-108,61,-108,227,-108,228,-108,229,-108,230,-108,231,-108,233,-108,234,-108,235,-108,238,-108,239,-108,59,-227,44,-227,41,-227}));
-stringstates[437] = @"109 postfix_expression: post_decrement_expression .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, ]
-228 statement_expression: post_decrement_expression .		[';', ',', ')', ]";
-    AddState(437,new State(new int[]{246,-109,247,-109,248,-109,61,-109,227,-109,228,-109,229,-109,230,-109,231,-109,233,-109,234,-109,235,-109,238,-109,239,-109,59,-228,44,-228,41,-228}));
-stringstates[438] = @"121 unary_expression: pre_increment_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, ]
-229 statement_expression: pre_increment_expression .		[';', ',', ')', ]";
+    AddState(437,new State(new int[]{61,-120,227,-120,228,-120,229,-120,230,-120,231,-120,233,-120,234,-120,235,-120,238,-120,239,-120,59,-228,44,-228,41,-228}));
     AddState(438,new State(new int[]{61,-121,227,-121,228,-121,229,-121,230,-121,231,-121,233,-121,234,-121,235,-121,238,-121,239,-121,59,-229,44,-229,41,-229}));
-stringstates[439] = @"122 unary_expression: pre_decrement_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, GTGTEQ, LTLTEQ, ]
-230 statement_expression: pre_decrement_expression .		[';', ',', ')', ]";
-    AddState(439,new State(new int[]{61,-122,227,-122,228,-122,229,-122,230,-122,231,-122,233,-122,234,-122,235,-122,238,-122,239,-122,59,-230,44,-230,41,-230}));
-stringstates[440] = @"191 embedded_statement: selection_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(440,new State(-191));
-stringstates[441] = @"231 selection_statement: if_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(441,new State(-231));
-stringstates[442] = @"233 if_statement: IF . '(' boolean_expression ')' embedded_statement 
-234 if_statement: IF . '(' boolean_expression ')' embedded_statement ELSE embedded_statement ";
-    AddState(442,new State(new int[]{40,443}));
-stringstates[443] = @"233 if_statement: IF '(' . boolean_expression ')' embedded_statement 
-234 if_statement: IF '(' . boolean_expression ')' embedded_statement ELSE embedded_statement ";
-    AddState(443,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-130,444,-80,477,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[444] = @"233 if_statement: IF '(' boolean_expression . ')' embedded_statement 
-234 if_statement: IF '(' boolean_expression . ')' embedded_statement ELSE embedded_statement ";
-    AddState(444,new State(new int[]{41,445}));
-stringstates[445] = @"233 if_statement: IF '(' boolean_expression ')' . embedded_statement 
-234 if_statement: IF '(' boolean_expression ')' . embedded_statement ELSE embedded_statement ";
-    AddState(445,new State(new int[]{123,398,59,424,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,208,138,210,202,219,192,226,145,430,205,432,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,166,442,197,450,212,464,152,470,163,479,164,490,140,500,148,503,165,506,188,515,199,520,201,524,173,548,208,554,206,560,161,563},new int[]{-134,446,-135,422,-136,423,-137,425,-154,426,-88,428,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-83,71,-84,94,-29,174,-35,179,-30,200,-89,173,-90,207,-91,209,-92,216,-103,429,-93,218,-94,225,-95,230,-96,235,-60,148,-62,151,-64,152,-63,162,-61,167,-127,434,-108,435,-109,65,-101,66,-100,436,-102,437,-106,242,-110,247,-111,438,-112,439,-107,260,-138,440,-155,441,-156,449,-139,462,-163,463,-164,469,-165,478,-166,489,-140,498,-175,499,-176,502,-177,505,-178,514,-179,519,-141,523,-142,545,-143,546,-144,547,-145,553,-146,559,-147,562}));
-stringstates[446] = @"233 if_statement: IF '(' boolean_expression ')' embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]
-234 if_statement: IF '(' boolean_expression ')' embedded_statement . ELSE embedded_statement ";
-    AddState(446,new State(new int[]{154,447,130,-233,189,-233,141,-233,191,-233,207,-233,169,-233,203,-233,174,-233,204,-233,144,-233,162,-233,153,-233,149,-233,139,-233,178,-233,195,-233,210,-233,147,-233,123,-233,59,-233,200,-233,159,-233,131,-233,132,-233,133,-233,134,-233,177,-233,135,-233,176,-233,40,-233,198,-233,138,-233,202,-233,192,-233,145,-233,205,-233,33,-233,126,-233,43,-233,45,-233,42,-233,246,-233,247,-233,38,-233,166,-233,197,-233,212,-233,152,-233,163,-233,164,-233,140,-233,148,-233,165,-233,188,-233,199,-233,201,-233,173,-233,208,-233,206,-233,161,-233,125,-233,142,-233,150,-233}));
-stringstates[447] = @"234 if_statement: IF '(' boolean_expression ')' embedded_statement ELSE . embedded_statement ";
-    AddState(447,new State(new int[]{123,398,59,424,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,208,138,210,202,219,192,226,145,430,205,432,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,166,442,197,450,212,464,152,470,163,479,164,490,140,500,148,503,165,506,188,515,199,520,201,524,173,548,208,554,206,560,161,563},new int[]{-134,448,-135,422,-136,423,-137,425,-154,426,-88,428,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-83,71,-84,94,-29,174,-35,179,-30,200,-89,173,-90,207,-91,209,-92,216,-103,429,-93,218,-94,225,-95,230,-96,235,-60,148,-62,151,-64,152,-63,162,-61,167,-127,434,-108,435,-109,65,-101,66,-100,436,-102,437,-106,242,-110,247,-111,438,-112,439,-107,260,-138,440,-155,441,-156,449,-139,462,-163,463,-164,469,-165,478,-166,489,-140,498,-175,499,-176,502,-177,505,-178,514,-179,519,-141,523,-142,545,-143,546,-144,547,-145,553,-146,559,-147,562}));
-stringstates[448] = @"234 if_statement: IF '(' boolean_expression ')' embedded_statement ELSE embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(448,new State(-234));
-stringstates[449] = @"232 selection_statement: switch_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(449,new State(-232));
-stringstates[450] = @"235 switch_statement: SWITCH . '(' expression ')' switch_block ";
-    AddState(450,new State(new int[]{40,451}));
-stringstates[451] = @"235 switch_statement: SWITCH '(' . expression ')' switch_block ";
-    AddState(451,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-80,452,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[452] = @"235 switch_statement: SWITCH '(' expression . ')' switch_block ";
-    AddState(452,new State(new int[]{41,453}));
-stringstates[453] = @"235 switch_statement: SWITCH '(' expression ')' . switch_block ";
-    AddState(453,new State(new int[]{123,455},new int[]{-157,454}));
-stringstates[454] = @"235 switch_statement: SWITCH '(' expression ')' switch_block .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(454,new State(-235));
-stringstates[455] = @"236 switch_block: '{' . switch_sections_opt '}' ";
-    AddState(455,new State(new int[]{142,590,150,593,125,-237},new int[]{-158,456,-159,458,-160,596,-161,460,-162,595}));
-stringstates[456] = @"236 switch_block: '{' switch_sections_opt . '}' ";
-    AddState(456,new State(new int[]{125,457}));
-stringstates[457] = @"236 switch_block: '{' switch_sections_opt '}' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(457,new State(-236));
-stringstates[458] = @"238 switch_sections_opt: switch_sections .		['}', ]
-240 switch_sections: switch_sections . switch_section ";
-    AddState(458,new State(new int[]{142,590,150,593,125,-238},new int[]{-160,459,-161,460,-162,595}));
-stringstates[459] = @"240 switch_sections: switch_sections switch_section .		[CASE, DEFAULT, '}', ]";
-    AddState(459,new State(-240));
-stringstates[460] = @"241 switch_section: switch_labels . statement_list 
-243 switch_labels: switch_labels . switch_label ";
-    AddState(460,new State(new int[]{130,404,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,210,203,147,418,123,398,59,424,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,198,208,138,210,202,219,192,226,145,430,205,432,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,166,442,197,450,212,464,152,470,163,479,164,490,140,500,148,503,165,506,188,515,199,520,201,524,173,548,208,554,206,560,161,563,142,590,150,593},new int[]{-149,461,-162,588,-131,589,-132,403,-133,407,-150,408,-56,410,-58,189,-59,190,-60,413,-62,151,-64,152,-63,162,-61,414,-76,195,-65,196,-29,415,-35,179,-30,200,-66,205,-151,416,-134,421,-135,422,-136,423,-137,425,-154,426,-88,428,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-83,71,-84,94,-89,173,-90,207,-91,209,-92,216,-103,429,-93,218,-94,225,-95,230,-96,235,-127,434,-108,435,-109,65,-101,66,-100,436,-102,437,-106,242,-110,247,-111,438,-112,439,-107,260,-138,440,-155,441,-156,449,-139,462,-163,463,-164,469,-165,478,-166,489,-140,498,-175,499,-176,502,-177,505,-178,514,-179,519,-141,523,-142,545,-143,546,-144,547,-145,553,-146,559,-147,562}));
-stringstates[461] = @"241 switch_section: switch_labels statement_list .		[CASE, DEFAULT, '}', ]
-205 statement_list: statement_list . statement ";
-    AddState(461,new State(new int[]{130,404,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,210,203,147,418,123,398,59,424,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,198,208,138,210,202,219,192,226,145,430,205,432,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,166,442,197,450,212,464,152,470,163,479,164,490,140,500,148,503,165,506,188,515,199,520,201,524,173,548,208,554,206,560,161,563,142,-241,150,-241,125,-241},new int[]{-131,402,-132,403,-133,407,-150,408,-56,410,-58,189,-59,190,-60,413,-62,151,-64,152,-63,162,-61,414,-76,195,-65,196,-29,415,-35,179,-30,200,-66,205,-151,416,-134,421,-135,422,-136,423,-137,425,-154,426,-88,428,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-83,71,-84,94,-89,173,-90,207,-91,209,-92,216,-103,429,-93,218,-94,225,-95,230,-96,235,-127,434,-108,435,-109,65,-101,66,-100,436,-102,437,-106,242,-110,247,-111,438,-112,439,-107,260,-138,440,-155,441,-156,449,-139,462,-163,463,-164,469,-165,478,-166,489,-140,498,-175,499,-176,502,-177,505,-178,514,-179,519,-141,523,-142,545,-143,546,-144,547,-145,553,-146,559,-147,562}));
-stringstates[462] = @"192 embedded_statement: iteration_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(462,new State(-192));
-stringstates[463] = @"246 iteration_statement: while_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(463,new State(-246));
-stringstates[464] = @"251 while_statement: WHILE . '(' boolean_expression ')' embedded_statement ";
-    AddState(464,new State(new int[]{40,465}));
-stringstates[465] = @"251 while_statement: WHILE '(' . boolean_expression ')' embedded_statement ";
-    AddState(465,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-130,466,-80,477,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[466] = @"251 while_statement: WHILE '(' boolean_expression . ')' embedded_statement ";
-    AddState(466,new State(new int[]{41,467}));
-stringstates[467] = @"251 while_statement: WHILE '(' boolean_expression ')' . embedded_statement ";
-    AddState(467,new State(new int[]{123,398,59,424,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,208,138,210,202,219,192,226,145,430,205,432,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,166,442,197,450,212,464,152,470,163,479,164,490,140,500,148,503,165,506,188,515,199,520,201,524,173,548,208,554,206,560,161,563},new int[]{-134,468,-135,422,-136,423,-137,425,-154,426,-88,428,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-83,71,-84,94,-29,174,-35,179,-30,200,-89,173,-90,207,-91,209,-92,216,-103,429,-93,218,-94,225,-95,230,-96,235,-60,148,-62,151,-64,152,-63,162,-61,167,-127,434,-108,435,-109,65,-101,66,-100,436,-102,437,-106,242,-110,247,-111,438,-112,439,-107,260,-138,440,-155,441,-156,449,-139,462,-163,463,-164,469,-165,478,-166,489,-140,498,-175,499,-176,502,-177,505,-178,514,-179,519,-141,523,-142,545,-143,546,-144,547,-145,553,-146,559,-147,562}));
-stringstates[468] = @"251 while_statement: WHILE '(' boolean_expression ')' embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(468,new State(-251));
-stringstates[469] = @"247 iteration_statement: do_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(469,new State(-247));
-stringstates[470] = @"252 do_statement: DO . embedded_statement WHILE '(' boolean_expression ')' ';' ";
-    AddState(470,new State(new int[]{123,398,59,424,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,208,138,210,202,219,192,226,145,430,205,432,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,166,442,197,450,212,464,152,470,163,479,164,490,140,500,148,503,165,506,188,515,199,520,201,524,173,548,208,554,206,560,161,563},new int[]{-134,471,-135,422,-136,423,-137,425,-154,426,-88,428,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-83,71,-84,94,-29,174,-35,179,-30,200,-89,173,-90,207,-91,209,-92,216,-103,429,-93,218,-94,225,-95,230,-96,235,-60,148,-62,151,-64,152,-63,162,-61,167,-127,434,-108,435,-109,65,-101,66,-100,436,-102,437,-106,242,-110,247,-111,438,-112,439,-107,260,-138,440,-155,441,-156,449,-139,462,-163,463,-164,469,-165,478,-166,489,-140,498,-175,499,-176,502,-177,505,-178,514,-179,519,-141,523,-142,545,-143,546,-144,547,-145,553,-146,559,-147,562}));
-stringstates[471] = @"252 do_statement: DO embedded_statement . WHILE '(' boolean_expression ')' ';' ";
-    AddState(471,new State(new int[]{212,472}));
-stringstates[472] = @"252 do_statement: DO embedded_statement WHILE . '(' boolean_expression ')' ';' ";
-    AddState(472,new State(new int[]{40,473}));
-stringstates[473] = @"252 do_statement: DO embedded_statement WHILE '(' . boolean_expression ')' ';' ";
-    AddState(473,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-130,474,-80,477,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[474] = @"252 do_statement: DO embedded_statement WHILE '(' boolean_expression . ')' ';' ";
-    AddState(474,new State(new int[]{41,475}));
-stringstates[475] = @"252 do_statement: DO embedded_statement WHILE '(' boolean_expression ')' . ';' ";
-    AddState(475,new State(new int[]{59,476}));
-stringstates[476] = @"252 do_statement: DO embedded_statement WHILE '(' boolean_expression ')' ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(476,new State(-252));
-stringstates[477] = @"184 boolean_expression: expression .		[')', ';', ]";
-    AddState(477,new State(-184));
-stringstates[478] = @"248 iteration_statement: for_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(478,new State(-248));
-stringstates[479] = @"254 for_statement: FOR . '(' for_initializer_opt ';' for_condition_opt ';' for_iterator_opt ')' @1 embedded_statement ";
-    AddState(479,new State(new int[]{40,480}));
-stringstates[480] = @"254 for_statement: FOR '(' . for_initializer_opt ';' for_condition_opt ';' for_iterator_opt ')' @1 embedded_statement ";
-    AddState(480,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,59,-255},new int[]{-167,481,-171,585,-150,586,-56,410,-58,189,-59,190,-60,413,-62,151,-64,152,-63,162,-61,414,-76,195,-65,196,-29,415,-35,179,-30,200,-66,205,-174,587,-154,582,-88,428,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-83,71,-84,94,-89,173,-90,207,-91,209,-92,216,-103,429,-93,218,-94,225,-95,230,-96,235,-127,434,-108,435,-109,65,-101,66,-100,436,-102,437,-106,242,-110,247,-111,438,-112,439,-107,260}));
-stringstates[481] = @"254 for_statement: FOR '(' for_initializer_opt . ';' for_condition_opt ';' for_iterator_opt ')' @1 embedded_statement ";
-    AddState(481,new State(new int[]{59,482}));
-stringstates[482] = @"254 for_statement: FOR '(' for_initializer_opt ';' . for_condition_opt ';' for_iterator_opt ')' @1 embedded_statement ";
-    AddState(482,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,59,-257},new int[]{-168,483,-172,583,-130,584,-80,477,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[483] = @"254 for_statement: FOR '(' for_initializer_opt ';' for_condition_opt . ';' for_iterator_opt ')' @1 embedded_statement ";
-    AddState(483,new State(new int[]{59,484}));
-stringstates[484] = @"254 for_statement: FOR '(' for_initializer_opt ';' for_condition_opt ';' . for_iterator_opt ')' @1 embedded_statement ";
-    AddState(484,new State(new int[]{200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,208,138,210,202,219,192,226,145,231,205,236,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,41,-259},new int[]{-169,485,-173,578,-174,579,-154,582,-88,428,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-83,71,-84,94,-29,174,-35,179,-30,200,-89,173,-90,207,-91,209,-92,216,-103,429,-93,218,-94,225,-95,230,-96,235,-60,148,-62,151,-64,152,-63,162,-61,167,-127,434,-108,435,-109,65,-101,66,-100,436,-102,437,-106,242,-110,247,-111,438,-112,439,-107,260}));
-stringstates[485] = @"254 for_statement: FOR '(' for_initializer_opt ';' for_condition_opt ';' for_iterator_opt . ')' @1 embedded_statement ";
-    AddState(485,new State(new int[]{41,486}));
-stringstates[486] = @"254 for_statement: FOR '(' for_initializer_opt ';' for_condition_opt ';' for_iterator_opt ')' . @1 embedded_statement ";
-    AddState(486,new State(-253,new int[]{-170,487}));
-stringstates[487] = @"254 for_statement: FOR '(' for_initializer_opt ';' for_condition_opt ';' for_iterator_opt ')' @1 . embedded_statement ";
-    AddState(487,new State(new int[]{123,398,59,424,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,208,138,210,202,219,192,226,145,430,205,432,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,166,442,197,450,212,464,152,470,163,479,164,490,140,500,148,503,165,506,188,515,199,520,201,524,173,548,208,554,206,560,161,563},new int[]{-134,488,-135,422,-136,423,-137,425,-154,426,-88,428,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-83,71,-84,94,-29,174,-35,179,-30,200,-89,173,-90,207,-91,209,-92,216,-103,429,-93,218,-94,225,-95,230,-96,235,-60,148,-62,151,-64,152,-63,162,-61,167,-127,434,-108,435,-109,65,-101,66,-100,436,-102,437,-106,242,-110,247,-111,438,-112,439,-107,260,-138,440,-155,441,-156,449,-139,462,-163,463,-164,469,-165,478,-166,489,-140,498,-175,499,-176,502,-177,505,-178,514,-179,519,-141,523,-142,545,-143,546,-144,547,-145,553,-146,559,-147,562}));
-stringstates[488] = @"254 for_statement: FOR '(' for_initializer_opt ';' for_condition_opt ';' for_iterator_opt ')' @1 embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(488,new State(-254));
-stringstates[489] = @"249 iteration_statement: foreach_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(489,new State(-249));
-stringstates[490] = @"267 foreach_statement: FOREACH . '(' type IDENTIFIER IN expression ')' embedded_statement ";
-    AddState(490,new State(new int[]{40,491}));
-stringstates[491] = @"267 foreach_statement: FOREACH '(' . type IDENTIFIER IN expression ')' embedded_statement ";
-    AddState(491,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,492,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[492] = @"267 foreach_statement: FOREACH '(' type . IDENTIFIER IN expression ')' embedded_statement 
-45 pointer_type: type . '*' ";
-    AddState(492,new State(new int[]{130,493,42,188}));
-stringstates[493] = @"267 foreach_statement: FOREACH '(' type IDENTIFIER . IN expression ')' embedded_statement ";
-    AddState(493,new State(new int[]{168,494}));
-stringstates[494] = @"267 foreach_statement: FOREACH '(' type IDENTIFIER IN . expression ')' embedded_statement ";
-    AddState(494,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-80,495,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[495] = @"267 foreach_statement: FOREACH '(' type IDENTIFIER IN expression . ')' embedded_statement ";
-    AddState(495,new State(new int[]{41,496}));
-stringstates[496] = @"267 foreach_statement: FOREACH '(' type IDENTIFIER IN expression ')' . embedded_statement ";
-    AddState(496,new State(new int[]{123,398,59,424,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,208,138,210,202,219,192,226,145,430,205,432,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,166,442,197,450,212,464,152,470,163,479,164,490,140,500,148,503,165,506,188,515,199,520,201,524,173,548,208,554,206,560,161,563},new int[]{-134,497,-135,422,-136,423,-137,425,-154,426,-88,428,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-83,71,-84,94,-29,174,-35,179,-30,200,-89,173,-90,207,-91,209,-92,216,-103,429,-93,218,-94,225,-95,230,-96,235,-60,148,-62,151,-64,152,-63,162,-61,167,-127,434,-108,435,-109,65,-101,66,-100,436,-102,437,-106,242,-110,247,-111,438,-112,439,-107,260,-138,440,-155,441,-156,449,-139,462,-163,463,-164,469,-165,478,-166,489,-140,498,-175,499,-176,502,-177,505,-178,514,-179,519,-141,523,-142,545,-143,546,-144,547,-145,553,-146,559,-147,562}));
-stringstates[497] = @"267 foreach_statement: FOREACH '(' type IDENTIFIER IN expression ')' embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(497,new State(-267));
-stringstates[498] = @"193 embedded_statement: jump_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(498,new State(-193));
-stringstates[499] = @"268 jump_statement: break_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(499,new State(-268));
-stringstates[500] = @"273 break_statement: BREAK . ';' ";
-    AddState(500,new State(new int[]{59,501}));
-stringstates[501] = @"273 break_statement: BREAK ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(501,new State(-273));
-stringstates[502] = @"269 jump_statement: continue_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(502,new State(-269));
-stringstates[503] = @"274 continue_statement: CONTINUE . ';' ";
-    AddState(503,new State(new int[]{59,504}));
-stringstates[504] = @"274 continue_statement: CONTINUE ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(504,new State(-274));
-stringstates[505] = @"270 jump_statement: goto_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(505,new State(-270));
-stringstates[506] = @"275 goto_statement: GOTO . IDENTIFIER ';' 
-276 goto_statement: GOTO . CASE constant_expression ';' 
-277 goto_statement: GOTO . DEFAULT ';' ";
-    AddState(506,new State(new int[]{130,507,142,509,150,512}));
-stringstates[507] = @"275 goto_statement: GOTO IDENTIFIER . ';' ";
-    AddState(507,new State(new int[]{59,508}));
-stringstates[508] = @"275 goto_statement: GOTO IDENTIFIER ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(508,new State(-275));
-stringstates[509] = @"276 goto_statement: GOTO CASE . constant_expression ';' ";
-    AddState(509,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-129,510,-80,42,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[510] = @"276 goto_statement: GOTO CASE constant_expression . ';' ";
-    AddState(510,new State(new int[]{59,511}));
-stringstates[511] = @"276 goto_statement: GOTO CASE constant_expression ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(511,new State(-276));
-stringstates[512] = @"277 goto_statement: GOTO DEFAULT . ';' ";
-    AddState(512,new State(new int[]{59,513}));
-stringstates[513] = @"277 goto_statement: GOTO DEFAULT ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(513,new State(-277));
-stringstates[514] = @"271 jump_statement: return_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(514,new State(-271));
-stringstates[515] = @"278 return_statement: RETURN . expression_opt ';' ";
-    AddState(515,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,59,-279},new int[]{-180,516,-80,518,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[516] = @"278 return_statement: RETURN expression_opt . ';' ";
-    AddState(516,new State(new int[]{59,517}));
-stringstates[517] = @"278 return_statement: RETURN expression_opt ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(517,new State(-278));
-stringstates[518] = @"280 expression_opt: expression .		[';', ]";
-    AddState(518,new State(-280));
-stringstates[519] = @"272 jump_statement: throw_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(519,new State(-272));
-stringstates[520] = @"281 throw_statement: THROW . expression_opt ';' ";
-    AddState(520,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,59,-279},new int[]{-180,521,-80,518,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[521] = @"281 throw_statement: THROW expression_opt . ';' ";
-    AddState(521,new State(new int[]{59,522}));
-stringstates[522] = @"281 throw_statement: THROW expression_opt ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(522,new State(-281));
-stringstates[523] = @"194 embedded_statement: try_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(523,new State(-194));
-stringstates[524] = @"282 try_statement: TRY . block catch_clauses 
-283 try_statement: TRY . block finally_clause 
-284 try_statement: TRY . block catch_clauses finally_clause ";
-    AddState(524,new State(new int[]{123,398},new int[]{-135,525}));
-stringstates[525] = @"282 try_statement: TRY block . catch_clauses 
-283 try_statement: TRY block . finally_clause 
-284 try_statement: TRY block . catch_clauses finally_clause ";
-    AddState(525,new State(new int[]{143,531,160,529},new int[]{-181,526,-182,543,-183,544}));
-stringstates[526] = @"282 try_statement: TRY block catch_clauses .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]
-284 try_statement: TRY block catch_clauses . finally_clause 
-286 catch_clauses: catch_clauses . catch_clause ";
-    AddState(526,new State(new int[]{160,529,143,531,130,-282,189,-282,141,-282,191,-282,207,-282,169,-282,203,-282,174,-282,204,-282,144,-282,162,-282,153,-282,149,-282,139,-282,178,-282,195,-282,210,-282,147,-282,123,-282,59,-282,200,-282,159,-282,131,-282,132,-282,133,-282,134,-282,177,-282,135,-282,176,-282,40,-282,198,-282,138,-282,202,-282,192,-282,145,-282,205,-282,33,-282,126,-282,43,-282,45,-282,42,-282,246,-282,247,-282,38,-282,166,-282,197,-282,212,-282,152,-282,163,-282,164,-282,140,-282,148,-282,165,-282,188,-282,199,-282,201,-282,173,-282,208,-282,206,-282,161,-282,125,-282,142,-282,150,-282,154,-282},new int[]{-182,527,-183,528}));
-stringstates[527] = @"284 try_statement: TRY block catch_clauses finally_clause .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(527,new State(-284));
-stringstates[528] = @"286 catch_clauses: catch_clauses catch_clause .		[FINALLY, CATCH, IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(528,new State(-286));
-stringstates[529] = @"292 finally_clause: FINALLY . block ";
-    AddState(529,new State(new int[]{123,398},new int[]{-135,530}));
-stringstates[530] = @"292 finally_clause: FINALLY block .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(530,new State(-292));
-stringstates[531] = @"287 catch_clause: CATCH . '(' class_type identifier_opt ')' block 
-288 catch_clause: CATCH . '(' type_name identifier_opt ')' block 
-289 catch_clause: CATCH . block ";
-    AddState(531,new State(new int[]{40,532,123,398},new int[]{-135,542}));
-stringstates[532] = @"287 catch_clause: CATCH '(' . class_type identifier_opt ')' block 
-288 catch_clause: CATCH '(' . type_name identifier_opt ')' block ";
-    AddState(532,new State(new int[]{178,170,195,171,130,181},new int[]{-61,533,-66,538,-29,383,-35,179,-30,200}));
-stringstates[533] = @"287 catch_clause: CATCH '(' class_type . identifier_opt ')' block ";
-    AddState(533,new State(new int[]{130,537,41,-290},new int[]{-184,534}));
-stringstates[534] = @"287 catch_clause: CATCH '(' class_type identifier_opt . ')' block ";
-    AddState(534,new State(new int[]{41,535}));
-stringstates[535] = @"287 catch_clause: CATCH '(' class_type identifier_opt ')' . block ";
-    AddState(535,new State(new int[]{123,398},new int[]{-135,536}));
-stringstates[536] = @"287 catch_clause: CATCH '(' class_type identifier_opt ')' block .		[FINALLY, CATCH, IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(536,new State(-287));
-stringstates[537] = @"291 identifier_opt: IDENTIFIER .		[')', ]";
-    AddState(537,new State(-291));
-stringstates[538] = @"288 catch_clause: CATCH '(' type_name . identifier_opt ')' block ";
-    AddState(538,new State(new int[]{130,537,41,-290},new int[]{-184,539}));
-stringstates[539] = @"288 catch_clause: CATCH '(' type_name identifier_opt . ')' block ";
-    AddState(539,new State(new int[]{41,540}));
-stringstates[540] = @"288 catch_clause: CATCH '(' type_name identifier_opt ')' . block ";
-    AddState(540,new State(new int[]{123,398},new int[]{-135,541}));
-stringstates[541] = @"288 catch_clause: CATCH '(' type_name identifier_opt ')' block .		[FINALLY, CATCH, IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
+    AddState(439,new State(-190));
+    AddState(440,new State(-230));
+    AddState(441,new State(new int[]{40,442}));
+    AddState(442,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-129,443,-79,476,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(443,new State(new int[]{41,444}));
+    AddState(444,new State(new int[]{123,397,59,423,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,207,138,209,202,218,192,225,145,429,205,431,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,166,441,197,449,212,463,152,469,163,478,164,489,140,499,148,502,165,505,188,514,199,519,201,523,173,547,208,553,206,559,161,562},new int[]{-133,445,-134,421,-135,422,-136,424,-153,425,-87,427,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-82,71,-83,94,-29,174,-72,179,-30,199,-88,173,-89,206,-90,208,-91,215,-102,428,-92,217,-93,224,-94,229,-95,234,-59,148,-61,151,-63,152,-62,162,-60,167,-126,433,-107,434,-108,65,-100,66,-99,435,-101,436,-105,241,-109,246,-110,437,-111,438,-106,259,-137,439,-154,440,-155,448,-138,461,-162,462,-163,468,-164,477,-165,488,-139,497,-174,498,-175,501,-176,504,-177,513,-178,518,-140,522,-141,544,-142,545,-143,546,-144,552,-145,558,-146,561}));
+    AddState(445,new State(new int[]{154,446,130,-232,189,-232,141,-232,191,-232,207,-232,169,-232,203,-232,174,-232,204,-232,144,-232,162,-232,153,-232,149,-232,139,-232,178,-232,195,-232,210,-232,147,-232,123,-232,59,-232,200,-232,159,-232,131,-232,132,-232,133,-232,134,-232,177,-232,135,-232,176,-232,40,-232,198,-232,138,-232,202,-232,192,-232,145,-232,205,-232,33,-232,126,-232,43,-232,45,-232,42,-232,246,-232,247,-232,38,-232,166,-232,197,-232,212,-232,152,-232,163,-232,164,-232,140,-232,148,-232,165,-232,188,-232,199,-232,201,-232,173,-232,208,-232,206,-232,161,-232,125,-232,142,-232,150,-232}));
+    AddState(446,new State(new int[]{123,397,59,423,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,207,138,209,202,218,192,225,145,429,205,431,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,166,441,197,449,212,463,152,469,163,478,164,489,140,499,148,502,165,505,188,514,199,519,201,523,173,547,208,553,206,559,161,562},new int[]{-133,447,-134,421,-135,422,-136,424,-153,425,-87,427,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-82,71,-83,94,-29,174,-72,179,-30,199,-88,173,-89,206,-90,208,-91,215,-102,428,-92,217,-93,224,-94,229,-95,234,-59,148,-61,151,-63,152,-62,162,-60,167,-126,433,-107,434,-108,65,-100,66,-99,435,-101,436,-105,241,-109,246,-110,437,-111,438,-106,259,-137,439,-154,440,-155,448,-138,461,-162,462,-163,468,-164,477,-165,488,-139,497,-174,498,-175,501,-176,504,-177,513,-178,518,-140,522,-141,544,-142,545,-143,546,-144,552,-145,558,-146,561}));
+    AddState(447,new State(-233));
+    AddState(448,new State(-231));
+    AddState(449,new State(new int[]{40,450}));
+    AddState(450,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-79,451,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(451,new State(new int[]{41,452}));
+    AddState(452,new State(new int[]{123,454},new int[]{-156,453}));
+    AddState(453,new State(-234));
+    AddState(454,new State(new int[]{142,589,150,592,125,-236},new int[]{-157,455,-158,457,-159,595,-160,459,-161,594}));
+    AddState(455,new State(new int[]{125,456}));
+    AddState(456,new State(-235));
+    AddState(457,new State(new int[]{142,589,150,592,125,-237},new int[]{-159,458,-160,459,-161,594}));
+    AddState(458,new State(-239));
+    AddState(459,new State(new int[]{130,403,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,210,202,147,417,123,397,59,423,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,198,207,138,209,202,218,192,225,145,429,205,431,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,166,441,197,449,212,463,152,469,163,478,164,489,140,499,148,502,165,505,188,514,199,519,201,523,173,547,208,553,206,559,161,562,142,589,150,592},new int[]{-148,460,-161,587,-130,588,-131,402,-132,406,-149,407,-55,409,-57,188,-58,189,-59,412,-61,151,-63,152,-62,162,-60,413,-75,194,-64,195,-29,414,-72,179,-30,199,-65,204,-150,415,-133,420,-134,421,-135,422,-136,424,-153,425,-87,427,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-82,71,-83,94,-88,173,-89,206,-90,208,-91,215,-102,428,-92,217,-93,224,-94,229,-95,234,-126,433,-107,434,-108,65,-100,66,-99,435,-101,436,-105,241,-109,246,-110,437,-111,438,-106,259,-137,439,-154,440,-155,448,-138,461,-162,462,-163,468,-164,477,-165,488,-139,497,-174,498,-175,501,-176,504,-177,513,-178,518,-140,522,-141,544,-142,545,-143,546,-144,552,-145,558,-146,561}));
+    AddState(460,new State(new int[]{130,403,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,210,202,147,417,123,397,59,423,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,198,207,138,209,202,218,192,225,145,429,205,431,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,166,441,197,449,212,463,152,469,163,478,164,489,140,499,148,502,165,505,188,514,199,519,201,523,173,547,208,553,206,559,161,562,142,-240,150,-240,125,-240},new int[]{-130,401,-131,402,-132,406,-149,407,-55,409,-57,188,-58,189,-59,412,-61,151,-63,152,-62,162,-60,413,-75,194,-64,195,-29,414,-72,179,-30,199,-65,204,-150,415,-133,420,-134,421,-135,422,-136,424,-153,425,-87,427,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-82,71,-83,94,-88,173,-89,206,-90,208,-91,215,-102,428,-92,217,-93,224,-94,229,-95,234,-126,433,-107,434,-108,65,-100,66,-99,435,-101,436,-105,241,-109,246,-110,437,-111,438,-106,259,-137,439,-154,440,-155,448,-138,461,-162,462,-163,468,-164,477,-165,488,-139,497,-174,498,-175,501,-176,504,-177,513,-178,518,-140,522,-141,544,-142,545,-143,546,-144,552,-145,558,-146,561}));
+    AddState(461,new State(-191));
+    AddState(462,new State(-245));
+    AddState(463,new State(new int[]{40,464}));
+    AddState(464,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-129,465,-79,476,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(465,new State(new int[]{41,466}));
+    AddState(466,new State(new int[]{123,397,59,423,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,207,138,209,202,218,192,225,145,429,205,431,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,166,441,197,449,212,463,152,469,163,478,164,489,140,499,148,502,165,505,188,514,199,519,201,523,173,547,208,553,206,559,161,562},new int[]{-133,467,-134,421,-135,422,-136,424,-153,425,-87,427,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-82,71,-83,94,-29,174,-72,179,-30,199,-88,173,-89,206,-90,208,-91,215,-102,428,-92,217,-93,224,-94,229,-95,234,-59,148,-61,151,-63,152,-62,162,-60,167,-126,433,-107,434,-108,65,-100,66,-99,435,-101,436,-105,241,-109,246,-110,437,-111,438,-106,259,-137,439,-154,440,-155,448,-138,461,-162,462,-163,468,-164,477,-165,488,-139,497,-174,498,-175,501,-176,504,-177,513,-178,518,-140,522,-141,544,-142,545,-143,546,-144,552,-145,558,-146,561}));
+    AddState(467,new State(-250));
+    AddState(468,new State(-246));
+    AddState(469,new State(new int[]{123,397,59,423,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,207,138,209,202,218,192,225,145,429,205,431,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,166,441,197,449,212,463,152,469,163,478,164,489,140,499,148,502,165,505,188,514,199,519,201,523,173,547,208,553,206,559,161,562},new int[]{-133,470,-134,421,-135,422,-136,424,-153,425,-87,427,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-82,71,-83,94,-29,174,-72,179,-30,199,-88,173,-89,206,-90,208,-91,215,-102,428,-92,217,-93,224,-94,229,-95,234,-59,148,-61,151,-63,152,-62,162,-60,167,-126,433,-107,434,-108,65,-100,66,-99,435,-101,436,-105,241,-109,246,-110,437,-111,438,-106,259,-137,439,-154,440,-155,448,-138,461,-162,462,-163,468,-164,477,-165,488,-139,497,-174,498,-175,501,-176,504,-177,513,-178,518,-140,522,-141,544,-142,545,-143,546,-144,552,-145,558,-146,561}));
+    AddState(470,new State(new int[]{212,471}));
+    AddState(471,new State(new int[]{40,472}));
+    AddState(472,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-129,473,-79,476,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(473,new State(new int[]{41,474}));
+    AddState(474,new State(new int[]{59,475}));
+    AddState(475,new State(-251));
+    AddState(476,new State(-183));
+    AddState(477,new State(-247));
+    AddState(478,new State(new int[]{40,479}));
+    AddState(479,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,59,-254},new int[]{-166,480,-170,584,-149,585,-55,409,-57,188,-58,189,-59,412,-61,151,-63,152,-62,162,-60,413,-75,194,-64,195,-29,414,-72,179,-30,199,-65,204,-173,586,-153,581,-87,427,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-82,71,-83,94,-88,173,-89,206,-90,208,-91,215,-102,428,-92,217,-93,224,-94,229,-95,234,-126,433,-107,434,-108,65,-100,66,-99,435,-101,436,-105,241,-109,246,-110,437,-111,438,-106,259}));
+    AddState(480,new State(new int[]{59,481}));
+    AddState(481,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,59,-256},new int[]{-167,482,-171,582,-129,583,-79,476,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(482,new State(new int[]{59,483}));
+    AddState(483,new State(new int[]{200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,207,138,209,202,218,192,225,145,230,205,235,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,41,-258},new int[]{-168,484,-172,577,-173,578,-153,581,-87,427,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-82,71,-83,94,-29,174,-72,179,-30,199,-88,173,-89,206,-90,208,-91,215,-102,428,-92,217,-93,224,-94,229,-95,234,-59,148,-61,151,-63,152,-62,162,-60,167,-126,433,-107,434,-108,65,-100,66,-99,435,-101,436,-105,241,-109,246,-110,437,-111,438,-106,259}));
+    AddState(484,new State(new int[]{41,485}));
+    AddState(485,new State(-252,new int[]{-169,486}));
+    AddState(486,new State(new int[]{123,397,59,423,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,207,138,209,202,218,192,225,145,429,205,431,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,166,441,197,449,212,463,152,469,163,478,164,489,140,499,148,502,165,505,188,514,199,519,201,523,173,547,208,553,206,559,161,562},new int[]{-133,487,-134,421,-135,422,-136,424,-153,425,-87,427,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-82,71,-83,94,-29,174,-72,179,-30,199,-88,173,-89,206,-90,208,-91,215,-102,428,-92,217,-93,224,-94,229,-95,234,-59,148,-61,151,-63,152,-62,162,-60,167,-126,433,-107,434,-108,65,-100,66,-99,435,-101,436,-105,241,-109,246,-110,437,-111,438,-106,259,-137,439,-154,440,-155,448,-138,461,-162,462,-163,468,-164,477,-165,488,-139,497,-174,498,-175,501,-176,504,-177,513,-178,518,-140,522,-141,544,-142,545,-143,546,-144,552,-145,558,-146,561}));
+    AddState(487,new State(-253));
+    AddState(488,new State(-248));
+    AddState(489,new State(new int[]{40,490}));
+    AddState(490,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,491,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(491,new State(new int[]{130,492,42,187}));
+    AddState(492,new State(new int[]{168,493}));
+    AddState(493,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-79,494,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(494,new State(new int[]{41,495}));
+    AddState(495,new State(new int[]{123,397,59,423,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,207,138,209,202,218,192,225,145,429,205,431,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,166,441,197,449,212,463,152,469,163,478,164,489,140,499,148,502,165,505,188,514,199,519,201,523,173,547,208,553,206,559,161,562},new int[]{-133,496,-134,421,-135,422,-136,424,-153,425,-87,427,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-82,71,-83,94,-29,174,-72,179,-30,199,-88,173,-89,206,-90,208,-91,215,-102,428,-92,217,-93,224,-94,229,-95,234,-59,148,-61,151,-63,152,-62,162,-60,167,-126,433,-107,434,-108,65,-100,66,-99,435,-101,436,-105,241,-109,246,-110,437,-111,438,-106,259,-137,439,-154,440,-155,448,-138,461,-162,462,-163,468,-164,477,-165,488,-139,497,-174,498,-175,501,-176,504,-177,513,-178,518,-140,522,-141,544,-142,545,-143,546,-144,552,-145,558,-146,561}));
+    AddState(496,new State(-266));
+    AddState(497,new State(-192));
+    AddState(498,new State(-267));
+    AddState(499,new State(new int[]{59,500}));
+    AddState(500,new State(-272));
+    AddState(501,new State(-268));
+    AddState(502,new State(new int[]{59,503}));
+    AddState(503,new State(-273));
+    AddState(504,new State(-269));
+    AddState(505,new State(new int[]{130,506,142,508,150,511}));
+    AddState(506,new State(new int[]{59,507}));
+    AddState(507,new State(-274));
+    AddState(508,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-128,509,-79,42,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(509,new State(new int[]{59,510}));
+    AddState(510,new State(-275));
+    AddState(511,new State(new int[]{59,512}));
+    AddState(512,new State(-276));
+    AddState(513,new State(-270));
+    AddState(514,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,59,-278},new int[]{-179,515,-79,517,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(515,new State(new int[]{59,516}));
+    AddState(516,new State(-277));
+    AddState(517,new State(-279));
+    AddState(518,new State(-271));
+    AddState(519,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,59,-278},new int[]{-179,520,-79,517,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(520,new State(new int[]{59,521}));
+    AddState(521,new State(-280));
+    AddState(522,new State(-193));
+    AddState(523,new State(new int[]{123,397},new int[]{-134,524}));
+    AddState(524,new State(new int[]{143,530,160,528},new int[]{-180,525,-181,542,-182,543}));
+    AddState(525,new State(new int[]{160,528,143,530,130,-281,189,-281,141,-281,191,-281,207,-281,169,-281,203,-281,174,-281,204,-281,144,-281,162,-281,153,-281,149,-281,139,-281,178,-281,195,-281,210,-281,147,-281,123,-281,59,-281,200,-281,159,-281,131,-281,132,-281,133,-281,134,-281,177,-281,135,-281,176,-281,40,-281,198,-281,138,-281,202,-281,192,-281,145,-281,205,-281,33,-281,126,-281,43,-281,45,-281,42,-281,246,-281,247,-281,38,-281,166,-281,197,-281,212,-281,152,-281,163,-281,164,-281,140,-281,148,-281,165,-281,188,-281,199,-281,201,-281,173,-281,208,-281,206,-281,161,-281,125,-281,142,-281,150,-281,154,-281},new int[]{-181,526,-182,527}));
+    AddState(526,new State(-283));
+    AddState(527,new State(-285));
+    AddState(528,new State(new int[]{123,397},new int[]{-134,529}));
+    AddState(529,new State(-291));
+    AddState(530,new State(new int[]{40,531,123,397},new int[]{-134,541}));
+    AddState(531,new State(new int[]{178,170,195,171,130,181},new int[]{-60,532,-65,537,-29,382,-72,179,-30,199}));
+    AddState(532,new State(new int[]{130,536,41,-289},new int[]{-183,533}));
+    AddState(533,new State(new int[]{41,534}));
+    AddState(534,new State(new int[]{123,397},new int[]{-134,535}));
+    AddState(535,new State(-286));
+    AddState(536,new State(-290));
+    AddState(537,new State(new int[]{130,536,41,-289},new int[]{-183,538}));
+    AddState(538,new State(new int[]{41,539}));
+    AddState(539,new State(new int[]{123,397},new int[]{-134,540}));
+    AddState(540,new State(-287));
     AddState(541,new State(-288));
-stringstates[542] = @"289 catch_clause: CATCH block .		[FINALLY, CATCH, IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(542,new State(-289));
-stringstates[543] = @"283 try_statement: TRY block finally_clause .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(543,new State(-283));
-stringstates[544] = @"285 catch_clauses: catch_clause .		[FINALLY, CATCH, IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(544,new State(-285));
-stringstates[545] = @"195 embedded_statement: checked_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
+    AddState(542,new State(-282));
+    AddState(543,new State(-284));
+    AddState(544,new State(-194));
     AddState(545,new State(-195));
-stringstates[546] = @"196 embedded_statement: unchecked_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
     AddState(546,new State(-196));
-stringstates[547] = @"197 embedded_statement: lock_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(547,new State(-197));
-stringstates[548] = @"295 lock_statement: LOCK . '(' expression ')' embedded_statement ";
-    AddState(548,new State(new int[]{40,549}));
-stringstates[549] = @"295 lock_statement: LOCK '(' . expression ')' embedded_statement ";
-    AddState(549,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-80,550,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[550] = @"295 lock_statement: LOCK '(' expression . ')' embedded_statement ";
-    AddState(550,new State(new int[]{41,551}));
-stringstates[551] = @"295 lock_statement: LOCK '(' expression ')' . embedded_statement ";
-    AddState(551,new State(new int[]{123,398,59,424,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,208,138,210,202,219,192,226,145,430,205,432,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,166,442,197,450,212,464,152,470,163,479,164,490,140,500,148,503,165,506,188,515,199,520,201,524,173,548,208,554,206,560,161,563},new int[]{-134,552,-135,422,-136,423,-137,425,-154,426,-88,428,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-83,71,-84,94,-29,174,-35,179,-30,200,-89,173,-90,207,-91,209,-92,216,-103,429,-93,218,-94,225,-95,230,-96,235,-60,148,-62,151,-64,152,-63,162,-61,167,-127,434,-108,435,-109,65,-101,66,-100,436,-102,437,-106,242,-110,247,-111,438,-112,439,-107,260,-138,440,-155,441,-156,449,-139,462,-163,463,-164,469,-165,478,-166,489,-140,498,-175,499,-176,502,-177,505,-178,514,-179,519,-141,523,-142,545,-143,546,-144,547,-145,553,-146,559,-147,562}));
-stringstates[552] = @"295 lock_statement: LOCK '(' expression ')' embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(552,new State(-295));
-stringstates[553] = @"198 embedded_statement: using_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(553,new State(-198));
-stringstates[554] = @"296 using_statement: USING . '(' resource_acquisition ')' embedded_statement ";
-    AddState(554,new State(new int[]{40,555}));
-stringstates[555] = @"296 using_statement: USING '(' . resource_acquisition ')' embedded_statement ";
-    AddState(555,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203,40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-185,556,-150,576,-56,410,-58,189,-59,190,-60,413,-62,151,-64,152,-63,162,-61,414,-76,195,-65,196,-29,415,-35,179,-30,200,-66,205,-80,577,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-88,172,-89,173,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[556] = @"296 using_statement: USING '(' resource_acquisition . ')' embedded_statement ";
-    AddState(556,new State(new int[]{41,557}));
-stringstates[557] = @"296 using_statement: USING '(' resource_acquisition ')' . embedded_statement ";
-    AddState(557,new State(new int[]{123,398,59,424,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,208,138,210,202,219,192,226,145,430,205,432,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,166,442,197,450,212,464,152,470,163,479,164,490,140,500,148,503,165,506,188,515,199,520,201,524,173,548,208,554,206,560,161,563},new int[]{-134,558,-135,422,-136,423,-137,425,-154,426,-88,428,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-83,71,-84,94,-29,174,-35,179,-30,200,-89,173,-90,207,-91,209,-92,216,-103,429,-93,218,-94,225,-95,230,-96,235,-60,148,-62,151,-64,152,-63,162,-61,167,-127,434,-108,435,-109,65,-101,66,-100,436,-102,437,-106,242,-110,247,-111,438,-112,439,-107,260,-138,440,-155,441,-156,449,-139,462,-163,463,-164,469,-165,478,-166,489,-140,498,-175,499,-176,502,-177,505,-178,514,-179,519,-141,523,-142,545,-143,546,-144,547,-145,553,-146,559,-147,562}));
-stringstates[558] = @"296 using_statement: USING '(' resource_acquisition ')' embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(558,new State(-296));
-stringstates[559] = @"199 embedded_statement: unsafe_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(559,new State(-199));
-stringstates[560] = @"250 unsafe_statement: UNSAFE . block ";
-    AddState(560,new State(new int[]{123,398},new int[]{-135,561}));
-stringstates[561] = @"250 unsafe_statement: UNSAFE block .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(561,new State(-250));
-stringstates[562] = @"200 embedded_statement: fixed_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(562,new State(-200));
-stringstates[563] = @"300 fixed_statement: FIXED . '(' type fixed_pointer_declarators ')' @2 embedded_statement ";
-    AddState(563,new State(new int[]{40,564}));
-stringstates[564] = @"300 fixed_statement: FIXED '(' . type fixed_pointer_declarators ')' @2 embedded_statement ";
-    AddState(564,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,565,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[565] = @"300 fixed_statement: FIXED '(' type . fixed_pointer_declarators ')' @2 embedded_statement 
-45 pointer_type: type . '*' ";
-    AddState(565,new State(new int[]{42,188,130,572},new int[]{-186,566,-188,575}));
-stringstates[566] = @"300 fixed_statement: FIXED '(' type fixed_pointer_declarators . ')' @2 embedded_statement 
-302 fixed_pointer_declarators: fixed_pointer_declarators . ',' fixed_pointer_declarator ";
-    AddState(566,new State(new int[]{41,567,44,570}));
-stringstates[567] = @"300 fixed_statement: FIXED '(' type fixed_pointer_declarators ')' . @2 embedded_statement ";
-    AddState(567,new State(-299,new int[]{-187,568}));
-stringstates[568] = @"300 fixed_statement: FIXED '(' type fixed_pointer_declarators ')' @2 . embedded_statement ";
-    AddState(568,new State(new int[]{123,398,59,424,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,208,138,210,202,219,192,226,145,430,205,432,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,166,442,197,450,212,464,152,470,163,479,164,490,140,500,148,503,165,506,188,515,199,520,201,524,173,548,208,554,206,560,161,563},new int[]{-134,569,-135,422,-136,423,-137,425,-154,426,-88,428,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-83,71,-84,94,-29,174,-35,179,-30,200,-89,173,-90,207,-91,209,-92,216,-103,429,-93,218,-94,225,-95,230,-96,235,-60,148,-62,151,-64,152,-63,162,-61,167,-127,434,-108,435,-109,65,-101,66,-100,436,-102,437,-106,242,-110,247,-111,438,-112,439,-107,260,-138,440,-155,441,-156,449,-139,462,-163,463,-164,469,-165,478,-166,489,-140,498,-175,499,-176,502,-177,505,-178,514,-179,519,-141,523,-142,545,-143,546,-144,547,-145,553,-146,559,-147,562}));
-stringstates[569] = @"300 fixed_statement: FIXED '(' type fixed_pointer_declarators ')' @2 embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ELSE, ]";
-    AddState(569,new State(-300));
-stringstates[570] = @"302 fixed_pointer_declarators: fixed_pointer_declarators ',' . fixed_pointer_declarator ";
-    AddState(570,new State(new int[]{130,572},new int[]{-188,571}));
-stringstates[571] = @"302 fixed_pointer_declarators: fixed_pointer_declarators ',' fixed_pointer_declarator .		[')', ',', ]";
-    AddState(571,new State(-302));
-stringstates[572] = @"303 fixed_pointer_declarator: IDENTIFIER . '=' expression ";
-    AddState(572,new State(new int[]{61,573}));
-stringstates[573] = @"303 fixed_pointer_declarator: IDENTIFIER '=' . expression ";
-    AddState(573,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-80,574,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[574] = @"303 fixed_pointer_declarator: IDENTIFIER '=' expression .		[')', ',', ]";
-    AddState(574,new State(-303));
-stringstates[575] = @"301 fixed_pointer_declarators: fixed_pointer_declarator .		[')', ',', ]";
-    AddState(575,new State(-301));
-stringstates[576] = @"297 resource_acquisition: local_variable_declaration .		[')', ]";
+    AddState(547,new State(new int[]{40,548}));
+    AddState(548,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-79,549,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(549,new State(new int[]{41,550}));
+    AddState(550,new State(new int[]{123,397,59,423,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,207,138,209,202,218,192,225,145,429,205,431,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,166,441,197,449,212,463,152,469,163,478,164,489,140,499,148,502,165,505,188,514,199,519,201,523,173,547,208,553,206,559,161,562},new int[]{-133,551,-134,421,-135,422,-136,424,-153,425,-87,427,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-82,71,-83,94,-29,174,-72,179,-30,199,-88,173,-89,206,-90,208,-91,215,-102,428,-92,217,-93,224,-94,229,-95,234,-59,148,-61,151,-63,152,-62,162,-60,167,-126,433,-107,434,-108,65,-100,66,-99,435,-101,436,-105,241,-109,246,-110,437,-111,438,-106,259,-137,439,-154,440,-155,448,-138,461,-162,462,-163,468,-164,477,-165,488,-139,497,-174,498,-175,501,-176,504,-177,513,-178,518,-140,522,-141,544,-142,545,-143,546,-144,552,-145,558,-146,561}));
+    AddState(551,new State(-294));
+    AddState(552,new State(-197));
+    AddState(553,new State(new int[]{40,554}));
+    AddState(554,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202,40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-184,555,-149,575,-55,409,-57,188,-58,189,-59,412,-61,151,-63,152,-62,162,-60,413,-75,194,-64,195,-29,414,-72,179,-30,199,-65,204,-79,576,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-87,172,-88,173,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(555,new State(new int[]{41,556}));
+    AddState(556,new State(new int[]{123,397,59,423,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,207,138,209,202,218,192,225,145,429,205,431,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,166,441,197,449,212,463,152,469,163,478,164,489,140,499,148,502,165,505,188,514,199,519,201,523,173,547,208,553,206,559,161,562},new int[]{-133,557,-134,421,-135,422,-136,424,-153,425,-87,427,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-82,71,-83,94,-29,174,-72,179,-30,199,-88,173,-89,206,-90,208,-91,215,-102,428,-92,217,-93,224,-94,229,-95,234,-59,148,-61,151,-63,152,-62,162,-60,167,-126,433,-107,434,-108,65,-100,66,-99,435,-101,436,-105,241,-109,246,-110,437,-111,438,-106,259,-137,439,-154,440,-155,448,-138,461,-162,462,-163,468,-164,477,-165,488,-139,497,-174,498,-175,501,-176,504,-177,513,-178,518,-140,522,-141,544,-142,545,-143,546,-144,552,-145,558,-146,561}));
+    AddState(557,new State(-295));
+    AddState(558,new State(-198));
+    AddState(559,new State(new int[]{123,397},new int[]{-134,560}));
+    AddState(560,new State(-249));
+    AddState(561,new State(-199));
+    AddState(562,new State(new int[]{40,563}));
+    AddState(563,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,564,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(564,new State(new int[]{42,187,130,571},new int[]{-185,565,-187,574}));
+    AddState(565,new State(new int[]{41,566,44,569}));
+    AddState(566,new State(-298,new int[]{-186,567}));
+    AddState(567,new State(new int[]{123,397,59,423,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,207,138,209,202,218,192,225,145,429,205,431,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,166,441,197,449,212,463,152,469,163,478,164,489,140,499,148,502,165,505,188,514,199,519,201,523,173,547,208,553,206,559,161,562},new int[]{-133,568,-134,421,-135,422,-136,424,-153,425,-87,427,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-82,71,-83,94,-29,174,-72,179,-30,199,-88,173,-89,206,-90,208,-91,215,-102,428,-92,217,-93,224,-94,229,-95,234,-59,148,-61,151,-63,152,-62,162,-60,167,-126,433,-107,434,-108,65,-100,66,-99,435,-101,436,-105,241,-109,246,-110,437,-111,438,-106,259,-137,439,-154,440,-155,448,-138,461,-162,462,-163,468,-164,477,-165,488,-139,497,-174,498,-175,501,-176,504,-177,513,-178,518,-140,522,-141,544,-142,545,-143,546,-144,552,-145,558,-146,561}));
+    AddState(568,new State(-299));
+    AddState(569,new State(new int[]{130,571},new int[]{-187,570}));
+    AddState(570,new State(-301));
+    AddState(571,new State(new int[]{61,572}));
+    AddState(572,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-79,573,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(573,new State(-302));
+    AddState(574,new State(-300));
+    AddState(575,new State(-296));
     AddState(576,new State(-297));
-stringstates[577] = @"298 resource_acquisition: expression .		[')', ]";
-    AddState(577,new State(-298));
-stringstates[578] = @"260 for_iterator_opt: for_iterator .		[')', ]";
-    AddState(578,new State(-260));
-stringstates[579] = @"264 for_iterator: statement_expression_list .		[')', ]
-266 statement_expression_list: statement_expression_list . ',' statement_expression ";
-    AddState(579,new State(new int[]{44,580,41,-264}));
-stringstates[580] = @"266 statement_expression_list: statement_expression_list ',' . statement_expression ";
-    AddState(580,new State(new int[]{200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,208,138,210,202,219,192,226,145,231,205,236,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-154,581,-88,428,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-83,71,-84,94,-29,174,-35,179,-30,200,-89,173,-90,207,-91,209,-92,216,-103,429,-93,218,-94,225,-95,230,-96,235,-60,148,-62,151,-64,152,-63,162,-61,167,-127,434,-108,435,-109,65,-101,66,-100,436,-102,437,-106,242,-110,247,-111,438,-112,439,-107,260}));
-stringstates[581] = @"266 statement_expression_list: statement_expression_list ',' statement_expression .		[',', ';', ')', ]";
-    AddState(581,new State(-266));
-stringstates[582] = @"265 statement_expression_list: statement_expression .		[',', ';', ')', ]";
-    AddState(582,new State(-265));
-stringstates[583] = @"258 for_condition_opt: for_condition .		[';', ]";
-    AddState(583,new State(-258));
-stringstates[584] = @"263 for_condition: boolean_expression .		[';', ]";
-    AddState(584,new State(-263));
-stringstates[585] = @"256 for_initializer_opt: for_initializer .		[';', ]";
-    AddState(585,new State(-256));
-stringstates[586] = @"261 for_initializer: local_variable_declaration .		[';', ]";
-    AddState(586,new State(-261));
-stringstates[587] = @"262 for_initializer: statement_expression_list .		[';', ]
-266 statement_expression_list: statement_expression_list . ',' statement_expression ";
-    AddState(587,new State(new int[]{44,580,59,-262}));
-stringstates[588] = @"243 switch_labels: switch_labels switch_label .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, CASE, DEFAULT, ]";
-    AddState(588,new State(-243));
-stringstates[589] = @"204 statement_list: statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, DEFAULT, ]";
-    AddState(589,new State(-204));
-stringstates[590] = @"244 switch_label: CASE . constant_expression ':' ";
-    AddState(590,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-129,591,-80,42,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[591] = @"244 switch_label: CASE constant_expression . ':' ";
-    AddState(591,new State(new int[]{58,592}));
-stringstates[592] = @"244 switch_label: CASE constant_expression ':' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, CASE, DEFAULT, ]";
-    AddState(592,new State(-244));
-stringstates[593] = @"245 switch_label: DEFAULT . ':' ";
-    AddState(593,new State(new int[]{58,594}));
-stringstates[594] = @"245 switch_label: DEFAULT ':' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, CASE, DEFAULT, ]";
-    AddState(594,new State(-245));
-stringstates[595] = @"242 switch_labels: switch_label .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', THIS, BASE, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, CASE, DEFAULT, ]";
-    AddState(595,new State(-242));
-stringstates[596] = @"239 switch_sections: switch_section .		[CASE, DEFAULT, '}', ]";
-    AddState(596,new State(-239));
-stringstates[597] = @"416 accessor_body: ';' .		['[', GET, '}', SET, ]";
-    AddState(597,new State(-416));
-stringstates[598] = @"413 get_accessor_declaration: attributes_opt . GET accessor_body 
-414 set_accessor_declaration: attributes_opt . SET accessor_body ";
-    AddState(598,new State(new int[]{223,599,224,395}));
-stringstates[599] = @"413 get_accessor_declaration: attributes_opt GET . accessor_body ";
-    AddState(599,new State(new int[]{123,398,59,597},new int[]{-213,600,-135,397}));
-stringstates[600] = @"413 get_accessor_declaration: attributes_opt GET accessor_body .		['[', SET, '}', ]";
-    AddState(600,new State(-413));
-stringstates[601] = @"408 accessor_declarations: set_accessor_declaration . get_accessor_declaration_opt ";
-    AddState(601,new State(new int[]{91,369,125,-411,223,-308},new int[]{-212,602,-209,603,-190,604,-192,366,-239,367,-240,385}));
-stringstates[602] = @"408 accessor_declarations: set_accessor_declaration get_accessor_declaration_opt .		['}', ]";
-    AddState(602,new State(-408));
-stringstates[603] = @"412 get_accessor_declaration_opt: get_accessor_declaration .		['}', ]";
-    AddState(603,new State(-412));
-stringstates[604] = @"413 get_accessor_declaration: attributes_opt . GET accessor_body ";
-    AddState(604,new State(new int[]{223,599}));
-stringstates[605] = @"424 indexer_declarator: type THIS . '[' formal_parameter_list ']' ";
-    AddState(605,new State(new int[]{91,606}));
-stringstates[606] = @"424 indexer_declarator: type THIS '[' . formal_parameter_list ']' ";
-    AddState(606,new State(new int[]{91,369,182,-308,187,-308,180,-308,189,-308,141,-308,191,-308,207,-308,169,-308,203,-308,174,-308,204,-308,144,-308,162,-308,153,-308,149,-308,139,-308,178,-308,195,-308,130,-308,210,-308},new int[]{-12,607,-50,387,-51,356,-190,357,-192,366,-239,367,-240,385,-52,386}));
-stringstates[607] = @"424 indexer_declarator: type THIS '[' formal_parameter_list . ']' 
-398 formal_parameter_list: formal_parameter_list . ',' formal_parameter ";
-    AddState(607,new State(new int[]{93,608,44,354}));
-stringstates[608] = @"424 indexer_declarator: type THIS '[' formal_parameter_list ']' .		['{', ]";
-    AddState(608,new State(-424));
-stringstates[609] = @"425 indexer_declarator: type qualified_this . '[' formal_parameter_list ']' ";
-    AddState(609,new State(new int[]{91,610}));
-stringstates[610] = @"425 indexer_declarator: type qualified_this '[' . formal_parameter_list ']' ";
-    AddState(610,new State(new int[]{91,369,182,-308,187,-308,180,-308,189,-308,141,-308,191,-308,207,-308,169,-308,203,-308,174,-308,204,-308,144,-308,162,-308,153,-308,149,-308,139,-308,178,-308,195,-308,130,-308,210,-308},new int[]{-12,611,-50,387,-51,356,-190,357,-192,366,-239,367,-240,385,-52,386}));
-stringstates[611] = @"425 indexer_declarator: type qualified_this '[' formal_parameter_list . ']' 
-398 formal_parameter_list: formal_parameter_list . ',' formal_parameter ";
-    AddState(611,new State(new int[]{93,612,44,354}));
-stringstates[612] = @"425 indexer_declarator: type qualified_this '[' formal_parameter_list ']' .		['{', ]";
-    AddState(612,new State(-425));
-stringstates[613] = @"430 overloadable_operator_declarator: type OPERATOR . overloadable_operator '(' type IDENTIFIER ')' 
-431 overloadable_operator_declarator: type OPERATOR . overloadable_operator '(' type IDENTIFIER ',' type IDENTIFIER ')' ";
-    AddState(613,new State(new int[]{43,623,45,624,33,625,126,626,246,627,247,628,200,629,159,630,42,631,47,632,37,633,38,634,124,635,94,636,236,637,237,638,240,639,241,640,62,641,60,642,243,643,242,644},new int[]{-223,614}));
-stringstates[614] = @"430 overloadable_operator_declarator: type OPERATOR overloadable_operator . '(' type IDENTIFIER ')' 
-431 overloadable_operator_declarator: type OPERATOR overloadable_operator . '(' type IDENTIFIER ',' type IDENTIFIER ')' ";
-    AddState(614,new State(new int[]{40,615}));
-stringstates[615] = @"430 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' . type IDENTIFIER ')' 
-431 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' . type IDENTIFIER ',' type IDENTIFIER ')' ";
-    AddState(615,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,616,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[616] = @"430 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type . IDENTIFIER ')' 
-431 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type . IDENTIFIER ',' type IDENTIFIER ')' 
-45 pointer_type: type . '*' ";
-    AddState(616,new State(new int[]{130,617,42,188}));
-stringstates[617] = @"430 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type IDENTIFIER . ')' 
-431 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type IDENTIFIER . ',' type IDENTIFIER ')' ";
-    AddState(617,new State(new int[]{41,618,44,619}));
-stringstates[618] = @"430 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type IDENTIFIER ')' .		['{', ';', ]";
-    AddState(618,new State(-430));
-stringstates[619] = @"431 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type IDENTIFIER ',' . type IDENTIFIER ')' ";
-    AddState(619,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,620,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[620] = @"431 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type IDENTIFIER ',' type . IDENTIFIER ')' 
-45 pointer_type: type . '*' ";
-    AddState(620,new State(new int[]{130,621,42,188}));
-stringstates[621] = @"431 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type IDENTIFIER ',' type IDENTIFIER . ')' ";
-    AddState(621,new State(new int[]{41,622}));
-stringstates[622] = @"431 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type IDENTIFIER ',' type IDENTIFIER ')' .		['{', ';', ]";
+    AddState(577,new State(-259));
+    AddState(578,new State(new int[]{44,579,41,-263}));
+    AddState(579,new State(new int[]{200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,40,95,130,181,198,207,138,209,202,218,192,225,145,230,205,235,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-153,580,-87,427,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-82,71,-83,94,-29,174,-72,179,-30,199,-88,173,-89,206,-90,208,-91,215,-102,428,-92,217,-93,224,-94,229,-95,234,-59,148,-61,151,-63,152,-62,162,-60,167,-126,433,-107,434,-108,65,-100,66,-99,435,-101,436,-105,241,-109,246,-110,437,-111,438,-106,259}));
+    AddState(580,new State(-265));
+    AddState(581,new State(-264));
+    AddState(582,new State(-257));
+    AddState(583,new State(-262));
+    AddState(584,new State(-255));
+    AddState(585,new State(-260));
+    AddState(586,new State(new int[]{44,579,59,-261}));
+    AddState(587,new State(-242));
+    AddState(588,new State(-203));
+    AddState(589,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-128,590,-79,42,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(590,new State(new int[]{58,591}));
+    AddState(591,new State(-243));
+    AddState(592,new State(new int[]{58,593}));
+    AddState(593,new State(-244));
+    AddState(594,new State(-241));
+    AddState(595,new State(-238));
+    AddState(596,new State(-415));
+    AddState(597,new State(new int[]{223,598,224,394}));
+    AddState(598,new State(new int[]{123,397,59,596},new int[]{-212,599,-134,396}));
+    AddState(599,new State(-412));
+    AddState(600,new State(new int[]{91,368,125,-410,223,-307},new int[]{-211,601,-208,602,-189,603,-191,365,-238,366,-239,384}));
+    AddState(601,new State(-407));
+    AddState(602,new State(-411));
+    AddState(603,new State(new int[]{223,598}));
+    AddState(604,new State(new int[]{91,605}));
+    AddState(605,new State(new int[]{91,368,182,-307,187,-307,180,-307,189,-307,141,-307,191,-307,207,-307,169,-307,203,-307,174,-307,204,-307,144,-307,162,-307,153,-307,149,-307,139,-307,178,-307,195,-307,130,-307,210,-307},new int[]{-12,606,-49,386,-50,355,-189,356,-191,365,-238,366,-239,384,-51,385}));
+    AddState(606,new State(new int[]{93,607,44,353}));
+    AddState(607,new State(-423));
+    AddState(608,new State(new int[]{91,609}));
+    AddState(609,new State(new int[]{91,368,182,-307,187,-307,180,-307,189,-307,141,-307,191,-307,207,-307,169,-307,203,-307,174,-307,204,-307,144,-307,162,-307,153,-307,149,-307,139,-307,178,-307,195,-307,130,-307,210,-307},new int[]{-12,610,-49,386,-50,355,-189,356,-191,365,-238,366,-239,384,-51,385}));
+    AddState(610,new State(new int[]{93,611,44,353}));
+    AddState(611,new State(-424));
+    AddState(612,new State(new int[]{43,622,45,623,33,624,126,625,246,626,247,627,200,628,159,629,42,630,47,631,37,632,38,633,124,634,94,635,236,636,237,637,240,638,241,639,62,640,60,641,243,642,242,643},new int[]{-222,613}));
+    AddState(613,new State(new int[]{40,614}));
+    AddState(614,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,615,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(615,new State(new int[]{130,616,42,187}));
+    AddState(616,new State(new int[]{41,617,44,618}));
+    AddState(617,new State(-429));
+    AddState(618,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,619,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(619,new State(new int[]{130,620,42,187}));
+    AddState(620,new State(new int[]{41,621}));
+    AddState(621,new State(-430));
     AddState(622,new State(-431));
-stringstates[623] = @"432 overloadable_operator: '+' .		['(', ]";
     AddState(623,new State(-432));
-stringstates[624] = @"433 overloadable_operator: '-' .		['(', ]";
     AddState(624,new State(-433));
-stringstates[625] = @"434 overloadable_operator: '!' .		['(', ]";
     AddState(625,new State(-434));
-stringstates[626] = @"435 overloadable_operator: '~' .		['(', ]";
     AddState(626,new State(-435));
-stringstates[627] = @"436 overloadable_operator: PLUSPLUS .		['(', ]";
     AddState(627,new State(-436));
-stringstates[628] = @"437 overloadable_operator: MINUSMINUS .		['(', ]";
     AddState(628,new State(-437));
-stringstates[629] = @"438 overloadable_operator: TRUE .		['(', ]";
     AddState(629,new State(-438));
-stringstates[630] = @"439 overloadable_operator: FALSE .		['(', ]";
     AddState(630,new State(-439));
-stringstates[631] = @"440 overloadable_operator: '*' .		['(', ]";
     AddState(631,new State(-440));
-stringstates[632] = @"441 overloadable_operator: '/' .		['(', ]";
     AddState(632,new State(-441));
-stringstates[633] = @"442 overloadable_operator: '%' .		['(', ]";
     AddState(633,new State(-442));
-stringstates[634] = @"443 overloadable_operator: '&' .		['(', ]";
     AddState(634,new State(-443));
-stringstates[635] = @"444 overloadable_operator: '|' .		['(', ]";
     AddState(635,new State(-444));
-stringstates[636] = @"445 overloadable_operator: '^' .		['(', ]";
     AddState(636,new State(-445));
-stringstates[637] = @"446 overloadable_operator: LTLT .		['(', ]";
     AddState(637,new State(-446));
-stringstates[638] = @"447 overloadable_operator: GTGT .		['(', ]";
     AddState(638,new State(-447));
-stringstates[639] = @"448 overloadable_operator: EQEQ .		['(', ]";
     AddState(639,new State(-448));
-stringstates[640] = @"449 overloadable_operator: NOTEQ .		['(', ]";
     AddState(640,new State(-449));
-stringstates[641] = @"450 overloadable_operator: '>' .		['(', ]";
     AddState(641,new State(-450));
-stringstates[642] = @"451 overloadable_operator: '<' .		['(', ]";
     AddState(642,new State(-451));
-stringstates[643] = @"452 overloadable_operator: GEQ .		['(', ]";
     AddState(643,new State(-452));
-stringstates[644] = @"453 overloadable_operator: LEQ .		['(', ]";
-    AddState(644,new State(-453));
-stringstates[645] = @"213 variable_declarator: IDENTIFIER .		[';', ',', ]
-214 variable_declarator: IDENTIFIER . '=' variable_initializer 
-15 member_name: IDENTIFIER . type_list_opt ";
-    AddState(645,new State(new int[]{61,347,60,183,59,-213,44,-213,46,-16,40,-16,123,-16},new int[]{-74,182}));
-stringstates[646] = @"316 qualified_identifier: qualifier . member_name 
-318 qualifier: qualifier . member_name '.' 
-426 qualified_this: qualifier . THIS ";
-    AddState(646,new State(new int[]{198,647,130,181},new int[]{-35,201}));
-stringstates[647] = @"426 qualified_this: qualifier THIS .		['[', ]";
-    AddState(647,new State(-426));
-stringstates[648] = @"390 method_header: attributes_opt modifiers_opt VOID . qualified_identifier '(' formal_parameter_list_opt ')' 
-46 pointer_type: VOID . '*' ";
-    AddState(648,new State(new int[]{42,204,130,181},new int[]{-29,649,-35,179,-30,200}));
-stringstates[649] = @"390 method_header: attributes_opt modifiers_opt VOID qualified_identifier . '(' formal_parameter_list_opt ')' ";
-    AddState(649,new State(new int[]{40,650}));
-stringstates[650] = @"390 method_header: attributes_opt modifiers_opt VOID qualified_identifier '(' . formal_parameter_list_opt ')' ";
-    AddState(650,new State(new int[]{91,369,41,-391,182,-308,187,-308,180,-308,189,-308,141,-308,191,-308,207,-308,169,-308,203,-308,174,-308,204,-308,144,-308,162,-308,153,-308,149,-308,139,-308,178,-308,195,-308,130,-308,210,-308},new int[]{-11,651,-12,353,-50,387,-51,356,-190,357,-192,366,-239,367,-240,385,-52,386}));
-stringstates[651] = @"390 method_header: attributes_opt modifiers_opt VOID qualified_identifier '(' formal_parameter_list_opt . ')' ";
-    AddState(651,new State(new int[]{41,652}));
-stringstates[652] = @"390 method_header: attributes_opt modifiers_opt VOID qualified_identifier '(' formal_parameter_list_opt ')' .		['{', ';', ]";
-    AddState(652,new State(-390));
-stringstates[653] = @"417 event_declaration: attributes_opt modifiers_opt EVENT . type variable_declarators ';' 
-418 event_declaration: attributes_opt modifiers_opt EVENT . type qualified_identifier '{' event_accessor_declarations '}' ";
-    AddState(653,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,654,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[654] = @"417 event_declaration: attributes_opt modifiers_opt EVENT type . variable_declarators ';' 
-418 event_declaration: attributes_opt modifiers_opt EVENT type . qualified_identifier '{' event_accessor_declarations '}' 
-45 pointer_type: type . '*' ";
-    AddState(654,new State(new int[]{42,188,130,645},new int[]{-70,655,-29,657,-33,412,-35,179,-30,200}));
-stringstates[655] = @"417 event_declaration: attributes_opt modifiers_opt EVENT type variable_declarators . ';' 
-212 variable_declarators: variable_declarators . ',' variable_declarator ";
-    AddState(655,new State(new int[]{59,656,44,344}));
-stringstates[656] = @"417 event_declaration: attributes_opt modifiers_opt EVENT type variable_declarators ';' .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(656,new State(-417));
-stringstates[657] = @"418 event_declaration: attributes_opt modifiers_opt EVENT type qualified_identifier . '{' event_accessor_declarations '}' ";
-    AddState(657,new State(new int[]{123,658}));
-stringstates[658] = @"418 event_declaration: attributes_opt modifiers_opt EVENT type qualified_identifier '{' . event_accessor_declarations '}' ";
-    AddState(658,new State(new int[]{91,369,225,-308,226,-308},new int[]{-214,659,-215,661,-190,666,-192,366,-239,367,-240,385,-216,669}));
-stringstates[659] = @"418 event_declaration: attributes_opt modifiers_opt EVENT type qualified_identifier '{' event_accessor_declarations . '}' ";
-    AddState(659,new State(new int[]{125,660}));
-stringstates[660] = @"418 event_declaration: attributes_opt modifiers_opt EVENT type qualified_identifier '{' event_accessor_declarations '}' .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(660,new State(-418));
-stringstates[661] = @"419 event_accessor_declarations: add_accessor_declaration . remove_accessor_declaration ";
-    AddState(661,new State(new int[]{91,369,226,-308},new int[]{-216,662,-190,663,-192,366,-239,367,-240,385}));
-stringstates[662] = @"419 event_accessor_declarations: add_accessor_declaration remove_accessor_declaration .		['}', ]";
-    AddState(662,new State(-419));
-stringstates[663] = @"422 remove_accessor_declaration: attributes_opt . REMOVE block ";
-    AddState(663,new State(new int[]{226,664}));
-stringstates[664] = @"422 remove_accessor_declaration: attributes_opt REMOVE . block ";
-    AddState(664,new State(new int[]{123,398},new int[]{-135,665}));
-stringstates[665] = @"422 remove_accessor_declaration: attributes_opt REMOVE block .		['[', ADD, '}', ]";
-    AddState(665,new State(-422));
-stringstates[666] = @"421 add_accessor_declaration: attributes_opt . ADD block 
-422 remove_accessor_declaration: attributes_opt . REMOVE block ";
-    AddState(666,new State(new int[]{225,667,226,664}));
-stringstates[667] = @"421 add_accessor_declaration: attributes_opt ADD . block ";
-    AddState(667,new State(new int[]{123,398},new int[]{-135,668}));
-stringstates[668] = @"421 add_accessor_declaration: attributes_opt ADD block .		['[', REMOVE, '}', ]";
-    AddState(668,new State(-421));
-stringstates[669] = @"420 event_accessor_declarations: remove_accessor_declaration . add_accessor_declaration ";
-    AddState(669,new State(new int[]{91,369,225,-308},new int[]{-215,670,-190,671,-192,366,-239,367,-240,385}));
-stringstates[670] = @"420 event_accessor_declarations: remove_accessor_declaration add_accessor_declaration .		['}', ]";
-    AddState(670,new State(-420));
-stringstates[671] = @"421 add_accessor_declaration: attributes_opt . ADD block ";
-    AddState(671,new State(new int[]{225,667}));
-stringstates[672] = @"423 indexer_declaration: attributes_opt modifiers_opt indexer_declarator . '{' accessor_declarations '}' ";
-    AddState(672,new State(new int[]{123,673}));
-stringstates[673] = @"423 indexer_declaration: attributes_opt modifiers_opt indexer_declarator '{' . accessor_declarations '}' ";
-    AddState(673,new State(new int[]{91,369,223,-308,224,-308},new int[]{-208,674,-209,391,-190,598,-192,366,-239,367,-240,385,-211,601}));
-stringstates[674] = @"423 indexer_declaration: attributes_opt modifiers_opt indexer_declarator '{' accessor_declarations . '}' ";
-    AddState(674,new State(new int[]{125,675}));
-stringstates[675] = @"423 indexer_declaration: attributes_opt modifiers_opt indexer_declarator '{' accessor_declarations '}' .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(675,new State(-423));
-stringstates[676] = @"427 operator_declaration: attributes_opt modifiers_opt operator_declarator . operator_body ";
-    AddState(676,new State(new int[]{123,398,59,679},new int[]{-220,677,-135,678}));
-stringstates[677] = @"427 operator_declaration: attributes_opt modifiers_opt operator_declarator operator_body .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(677,new State(-427));
-stringstates[678] = @"463 operator_body: block .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
+    AddState(644,new State(new int[]{61,346,60,182,59,-212,44,-212,46,-15,40,-15,123,-15}));
+    AddState(645,new State(new int[]{198,646,130,181},new int[]{-72,200}));
+    AddState(646,new State(-425));
+    AddState(647,new State(new int[]{42,203,130,181},new int[]{-29,648,-72,179,-30,199}));
+    AddState(648,new State(new int[]{40,649}));
+    AddState(649,new State(new int[]{91,368,41,-390,182,-307,187,-307,180,-307,189,-307,141,-307,191,-307,207,-307,169,-307,203,-307,174,-307,204,-307,144,-307,162,-307,153,-307,149,-307,139,-307,178,-307,195,-307,130,-307,210,-307},new int[]{-11,650,-12,352,-49,386,-50,355,-189,356,-191,365,-238,366,-239,384,-51,385}));
+    AddState(650,new State(new int[]{41,651}));
+    AddState(651,new State(-389));
+    AddState(652,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,653,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(653,new State(new int[]{42,187,130,644},new int[]{-69,654,-29,656,-33,411,-72,179,-30,199}));
+    AddState(654,new State(new int[]{59,655,44,343}));
+    AddState(655,new State(-416));
+    AddState(656,new State(new int[]{123,657}));
+    AddState(657,new State(new int[]{91,368,225,-307,226,-307},new int[]{-213,658,-214,660,-189,665,-191,365,-238,366,-239,384,-215,668}));
+    AddState(658,new State(new int[]{125,659}));
+    AddState(659,new State(-417));
+    AddState(660,new State(new int[]{91,368,226,-307},new int[]{-215,661,-189,662,-191,365,-238,366,-239,384}));
+    AddState(661,new State(-418));
+    AddState(662,new State(new int[]{226,663}));
+    AddState(663,new State(new int[]{123,397},new int[]{-134,664}));
+    AddState(664,new State(-421));
+    AddState(665,new State(new int[]{225,666,226,663}));
+    AddState(666,new State(new int[]{123,397},new int[]{-134,667}));
+    AddState(667,new State(-420));
+    AddState(668,new State(new int[]{91,368,225,-307},new int[]{-214,669,-189,670,-191,365,-238,366,-239,384}));
+    AddState(669,new State(-419));
+    AddState(670,new State(new int[]{225,666}));
+    AddState(671,new State(new int[]{123,672}));
+    AddState(672,new State(new int[]{91,368,223,-307,224,-307},new int[]{-207,673,-208,390,-189,597,-191,365,-238,366,-239,384,-210,600}));
+    AddState(673,new State(new int[]{125,674}));
+    AddState(674,new State(-422));
+    AddState(675,new State(new int[]{123,397,59,678},new int[]{-219,676,-134,677}));
+    AddState(676,new State(-426));
+    AddState(677,new State(-462));
     AddState(678,new State(-463));
-stringstates[679] = @"464 operator_body: ';' .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(679,new State(-464));
-stringstates[680] = @"456 constructor_declaration: attributes_opt modifiers_opt constructor_declarator . constructor_body ";
-    AddState(680,new State(new int[]{123,398,59,683},new int[]{-224,681,-135,682}));
-stringstates[681] = @"456 constructor_declaration: attributes_opt modifiers_opt constructor_declarator constructor_body .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(681,new State(-456));
-stringstates[682] = @"465 constructor_body: block .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
+    AddState(679,new State(new int[]{123,397,59,682},new int[]{-223,680,-134,681}));
+    AddState(680,new State(-455));
+    AddState(681,new State(-464));
     AddState(682,new State(-465));
-stringstates[683] = @"466 constructor_body: ';' .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(683,new State(-466));
-stringstates[684] = @"462 destructor_declaration: attributes_opt modifiers_opt '~' . IDENTIFIER '(' ')' block ";
-    AddState(684,new State(new int[]{130,685}));
-stringstates[685] = @"462 destructor_declaration: attributes_opt modifiers_opt '~' IDENTIFIER . '(' ')' block ";
-    AddState(685,new State(new int[]{40,686}));
-stringstates[686] = @"462 destructor_declaration: attributes_opt modifiers_opt '~' IDENTIFIER '(' . ')' block ";
-    AddState(686,new State(new int[]{41,687}));
-stringstates[687] = @"462 destructor_declaration: attributes_opt modifiers_opt '~' IDENTIFIER '(' ')' . block ";
-    AddState(687,new State(new int[]{123,398},new int[]{-135,688}));
-stringstates[688] = @"462 destructor_declaration: attributes_opt modifiers_opt '~' IDENTIFIER '(' ')' block .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(688,new State(-462));
-stringstates[689] = @"467 struct_declaration: attributes_opt modifiers_opt STRUCT . member_name struct_interfaces_opt struct_body comma_opt ";
-    AddState(689,new State(new int[]{130,181},new int[]{-35,690}));
-stringstates[690] = @"467 struct_declaration: attributes_opt modifiers_opt STRUCT member_name . struct_interfaces_opt struct_body comma_opt ";
-    AddState(690,new State(new int[]{58,862,123,-468},new int[]{-227,691,-228,861}));
-stringstates[691] = @"467 struct_declaration: attributes_opt modifiers_opt STRUCT member_name struct_interfaces_opt . struct_body comma_opt ";
-    AddState(691,new State(new int[]{123,694},new int[]{-9,692}));
-stringstates[692] = @"467 struct_declaration: attributes_opt modifiers_opt STRUCT member_name struct_interfaces_opt struct_body . comma_opt ";
-    AddState(692,new State(new int[]{59,9,91,-313,175,-313,136,-313,158,-313,171,-313,176,-313,181,-313,183,-313,184,-313,185,-313,186,-313,190,-313,194,-313,206,-313,209,-313,211,-313,146,-313,196,-313,170,-313,155,-313,151,-313,128,-313,125,-313,147,-313,210,-313,156,-313,126,-313,189,-313,141,-313,191,-313,207,-313,169,-313,203,-313,174,-313,204,-313,144,-313,162,-313,153,-313,149,-313,139,-313,178,-313,195,-313,130,-313,167,-313,157,-313},new int[]{-193,693}));
-stringstates[693] = @"467 struct_declaration: attributes_opt modifiers_opt STRUCT member_name struct_interfaces_opt struct_body comma_opt .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
-    AddState(693,new State(-467));
-stringstates[694] = @"471 struct_body: '{' . struct_member_declarations_opt '}' ";
-    AddState(694,new State(new int[]{91,369,125,-472,136,-308,158,-308,171,-308,176,-308,181,-308,183,-308,184,-308,185,-308,186,-308,190,-308,194,-308,206,-308,209,-308,211,-308,147,-308,210,-308,156,-308,146,-308,196,-308,170,-308,155,-308,151,-308,189,-308,141,-308,191,-308,207,-308,169,-308,203,-308,174,-308,204,-308,144,-308,162,-308,153,-308,149,-308,139,-308,178,-308,195,-308,130,-308,167,-308,157,-308},new int[]{-13,695,-14,697,-25,860,-19,699,-190,700,-192,366,-239,367,-240,385,-20,843,-43,844,-53,845,-44,849,-45,850,-46,851,-47,852,-48,853,-41,854,-36,855,-37,856,-38,857,-39,858,-40,859}));
-stringstates[695] = @"471 struct_body: '{' struct_member_declarations_opt . '}' ";
-    AddState(695,new State(new int[]{125,696}));
-stringstates[696] = @"471 struct_body: '{' struct_member_declarations_opt '}' .		[';', '[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
-    AddState(696,new State(-471));
-stringstates[697] = @"473 struct_member_declarations_opt: struct_member_declarations .		['}', ]
-475 struct_member_declarations: struct_member_declarations . struct_member_declaration ";
-    AddState(697,new State(new int[]{91,369,125,-473,136,-308,158,-308,171,-308,176,-308,181,-308,183,-308,184,-308,185,-308,186,-308,190,-308,194,-308,206,-308,209,-308,211,-308,147,-308,210,-308,156,-308,146,-308,196,-308,170,-308,155,-308,151,-308,189,-308,141,-308,191,-308,207,-308,169,-308,203,-308,174,-308,204,-308,144,-308,162,-308,153,-308,149,-308,139,-308,178,-308,195,-308,130,-308,167,-308,157,-308},new int[]{-25,698,-19,699,-190,700,-192,366,-239,367,-240,385,-20,843,-43,844,-53,845,-44,849,-45,850,-46,851,-47,852,-48,853,-41,854,-36,855,-37,856,-38,857,-39,858,-40,859}));
-stringstates[698] = @"475 struct_member_declarations: struct_member_declarations struct_member_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
+    AddState(683,new State(new int[]{130,684}));
+    AddState(684,new State(new int[]{40,685}));
+    AddState(685,new State(new int[]{41,686}));
+    AddState(686,new State(new int[]{123,397},new int[]{-134,687}));
+    AddState(687,new State(-461));
+    AddState(688,new State(new int[]{130,181},new int[]{-72,689}));
+    AddState(689,new State(new int[]{58,861,123,-467},new int[]{-226,690,-227,860}));
+    AddState(690,new State(new int[]{123,693},new int[]{-9,691}));
+    AddState(691,new State(new int[]{59,9,91,-312,175,-312,136,-312,158,-312,171,-312,176,-312,181,-312,183,-312,184,-312,185,-312,186,-312,190,-312,194,-312,206,-312,209,-312,211,-312,146,-312,196,-312,170,-312,155,-312,151,-312,128,-312,125,-312,147,-312,210,-312,156,-312,126,-312,189,-312,141,-312,191,-312,207,-312,169,-312,203,-312,174,-312,204,-312,144,-312,162,-312,153,-312,149,-312,139,-312,178,-312,195,-312,130,-312,167,-312,157,-312},new int[]{-192,692}));
+    AddState(692,new State(-466));
+    AddState(693,new State(new int[]{91,368,125,-471,136,-307,158,-307,171,-307,176,-307,181,-307,183,-307,184,-307,185,-307,186,-307,190,-307,194,-307,206,-307,209,-307,211,-307,147,-307,210,-307,156,-307,146,-307,196,-307,170,-307,155,-307,151,-307,189,-307,141,-307,191,-307,207,-307,169,-307,203,-307,174,-307,204,-307,144,-307,162,-307,153,-307,149,-307,139,-307,178,-307,195,-307,130,-307,167,-307,157,-307},new int[]{-13,694,-14,696,-25,859,-19,698,-189,699,-191,365,-238,366,-239,384,-20,842,-42,843,-52,844,-43,848,-44,849,-45,850,-46,851,-47,852,-40,853,-35,854,-36,855,-37,856,-38,857,-39,858}));
+    AddState(694,new State(new int[]{125,695}));
+    AddState(695,new State(-470));
+    AddState(696,new State(new int[]{91,368,125,-472,136,-307,158,-307,171,-307,176,-307,181,-307,183,-307,184,-307,185,-307,186,-307,190,-307,194,-307,206,-307,209,-307,211,-307,147,-307,210,-307,156,-307,146,-307,196,-307,170,-307,155,-307,151,-307,189,-307,141,-307,191,-307,207,-307,169,-307,203,-307,174,-307,204,-307,144,-307,162,-307,153,-307,149,-307,139,-307,178,-307,195,-307,130,-307,167,-307,157,-307},new int[]{-25,697,-19,698,-189,699,-191,365,-238,366,-239,384,-20,842,-42,843,-52,844,-43,848,-44,849,-45,850,-46,851,-47,852,-40,853,-35,854,-36,855,-37,856,-38,857,-39,858}));
+    AddState(697,new State(-474));
     AddState(698,new State(-475));
-stringstates[699] = @"476 struct_member_declaration: constant_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(699,new State(-476));
-stringstates[700] = @"386 constant_declaration: attributes_opt . modifiers_opt CONST type constant_declarators ';' 
-387 field_declaration: attributes_opt . modifiers_opt type variable_declarators ';' 
-389 method_header: attributes_opt . modifiers_opt type qualified_identifier '(' formal_parameter_list_opt ')' 
-390 method_header: attributes_opt . modifiers_opt VOID qualified_identifier '(' formal_parameter_list_opt ')' 
-406 property_declaration: attributes_opt . modifiers_opt type qualified_identifier '{' accessor_declarations '}' 
-417 event_declaration: attributes_opt . modifiers_opt EVENT type variable_declarators ';' 
-418 event_declaration: attributes_opt . modifiers_opt EVENT type qualified_identifier '{' event_accessor_declarations '}' 
-423 indexer_declaration: attributes_opt . modifiers_opt indexer_declarator '{' accessor_declarations '}' 
-427 operator_declaration: attributes_opt . modifiers_opt operator_declarator operator_body 
-456 constructor_declaration: attributes_opt . modifiers_opt constructor_declarator constructor_body 
-363 class_declaration: attributes_opt . modifiers_opt CLASS member_name class_base_opt gen_clause_opt class_body comma_opt 
-467 struct_declaration: attributes_opt . modifiers_opt STRUCT member_name struct_interfaces_opt struct_body comma_opt 
-491 interface_declaration: attributes_opt . modifiers_opt INTERFACE member_name interface_base_opt interface_body comma_opt 
-517 enum_declaration: attributes_opt . modifiers_opt ENUM IDENTIFIER enum_base_opt enum_body comma_opt 
-529 delegate_declaration: attributes_opt . modifiers_opt DELEGATE return_type member_name '(' formal_parameter_list_opt ')' ';' ";
-    AddState(700,new State(new int[]{136,828,158,829,171,830,176,831,181,832,183,833,184,834,185,835,186,836,190,837,194,838,206,839,209,840,211,841,147,-336,210,-336,156,-336,146,-336,196,-336,170,-336,155,-336,151,-336,189,-336,141,-336,191,-336,207,-336,169,-336,203,-336,174,-336,204,-336,144,-336,162,-336,153,-336,149,-336,139,-336,178,-336,195,-336,130,-336,167,-336,157,-336},new int[]{-197,701,-198,826,-199,842}));
-stringstates[701] = @"386 constant_declaration: attributes_opt modifiers_opt . CONST type constant_declarators ';' 
-387 field_declaration: attributes_opt modifiers_opt . type variable_declarators ';' 
-389 method_header: attributes_opt modifiers_opt . type qualified_identifier '(' formal_parameter_list_opt ')' 
-390 method_header: attributes_opt modifiers_opt . VOID qualified_identifier '(' formal_parameter_list_opt ')' 
-406 property_declaration: attributes_opt modifiers_opt . type qualified_identifier '{' accessor_declarations '}' 
-417 event_declaration: attributes_opt modifiers_opt . EVENT type variable_declarators ';' 
-418 event_declaration: attributes_opt modifiers_opt . EVENT type qualified_identifier '{' event_accessor_declarations '}' 
-423 indexer_declaration: attributes_opt modifiers_opt . indexer_declarator '{' accessor_declarations '}' 
-427 operator_declaration: attributes_opt modifiers_opt . operator_declarator operator_body 
-456 constructor_declaration: attributes_opt modifiers_opt . constructor_declarator constructor_body 
-363 class_declaration: attributes_opt modifiers_opt . CLASS member_name class_base_opt gen_clause_opt class_body comma_opt 
-467 struct_declaration: attributes_opt modifiers_opt . STRUCT member_name struct_interfaces_opt struct_body comma_opt 
-491 interface_declaration: attributes_opt modifiers_opt . INTERFACE member_name interface_base_opt interface_body comma_opt 
-517 enum_declaration: attributes_opt modifiers_opt . ENUM IDENTIFIER enum_base_opt enum_body comma_opt 
-529 delegate_declaration: attributes_opt modifiers_opt . DELEGATE return_type member_name '(' formal_parameter_list_opt ')' ';' ";
-    AddState(701,new State(new int[]{147,33,210,648,156,653,146,19,196,689,170,702,155,766,151,786,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,795,167,812,157,819},new int[]{-56,341,-217,672,-219,676,-28,680,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205,-221,810,-222,811}));
-stringstates[702] = @"491 interface_declaration: attributes_opt modifiers_opt INTERFACE . member_name interface_base_opt interface_body comma_opt ";
-    AddState(702,new State(new int[]{130,181},new int[]{-35,703}));
-stringstates[703] = @"491 interface_declaration: attributes_opt modifiers_opt INTERFACE member_name . interface_base_opt interface_body comma_opt ";
-    AddState(703,new State(new int[]{58,761,123,-492},new int[]{-231,704,-232,760}));
-stringstates[704] = @"491 interface_declaration: attributes_opt modifiers_opt INTERFACE member_name interface_base_opt . interface_body comma_opt ";
-    AddState(704,new State(new int[]{123,707},new int[]{-5,705}));
-stringstates[705] = @"491 interface_declaration: attributes_opt modifiers_opt INTERFACE member_name interface_base_opt interface_body . comma_opt ";
-    AddState(705,new State(new int[]{59,9,91,-313,175,-313,136,-313,158,-313,171,-313,176,-313,181,-313,183,-313,184,-313,185,-313,186,-313,190,-313,194,-313,206,-313,209,-313,211,-313,146,-313,196,-313,170,-313,155,-313,151,-313,128,-313,125,-313,147,-313,210,-313,156,-313,126,-313,189,-313,141,-313,191,-313,207,-313,169,-313,203,-313,174,-313,204,-313,144,-313,162,-313,153,-313,149,-313,139,-313,178,-313,195,-313,130,-313,167,-313,157,-313},new int[]{-193,706}));
-stringstates[706] = @"491 interface_declaration: attributes_opt modifiers_opt INTERFACE member_name interface_base_opt interface_body comma_opt .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
-    AddState(706,new State(-491));
-stringstates[707] = @"495 interface_body: '{' . interface_member_declarations_opt '}' ";
-    AddState(707,new State(new int[]{91,369,125,-496,176,-308,210,-308,156,-308,189,-308,141,-308,191,-308,207,-308,169,-308,203,-308,174,-308,204,-308,144,-308,162,-308,153,-308,149,-308,139,-308,178,-308,195,-308,130,-308},new int[]{-10,708,-15,710,-26,759,-54,712,-190,713,-192,366,-239,367,-240,385,-55,756,-233,757,-21,758}));
-stringstates[708] = @"495 interface_body: '{' interface_member_declarations_opt . '}' ";
-    AddState(708,new State(new int[]{125,709}));
-stringstates[709] = @"495 interface_body: '{' interface_member_declarations_opt '}' .		[';', '[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
-    AddState(709,new State(-495));
-stringstates[710] = @"497 interface_member_declarations_opt: interface_member_declarations .		['}', ]
-499 interface_member_declarations: interface_member_declarations . interface_member_declaration ";
-    AddState(710,new State(new int[]{91,369,125,-497,176,-308,210,-308,156,-308,189,-308,141,-308,191,-308,207,-308,169,-308,203,-308,174,-308,204,-308,144,-308,162,-308,153,-308,149,-308,139,-308,178,-308,195,-308,130,-308},new int[]{-26,711,-54,712,-190,713,-192,366,-239,367,-240,385,-55,756,-233,757,-21,758}));
-stringstates[711] = @"499 interface_member_declarations: interface_member_declarations interface_member_declaration .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
+    AddState(699,new State(new int[]{136,827,158,828,171,829,176,830,181,831,183,832,184,833,185,834,186,835,190,836,194,837,206,838,209,839,211,840,147,-335,210,-335,156,-335,146,-335,196,-335,170,-335,155,-335,151,-335,189,-335,141,-335,191,-335,207,-335,169,-335,203,-335,174,-335,204,-335,144,-335,162,-335,153,-335,149,-335,139,-335,178,-335,195,-335,130,-335,167,-335,157,-335},new int[]{-196,700,-197,825,-198,841}));
+    AddState(700,new State(new int[]{147,33,210,647,156,652,146,19,196,688,170,701,155,765,151,785,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,794,167,811,157,818},new int[]{-55,340,-216,671,-218,675,-28,679,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204,-220,809,-221,810}));
+    AddState(701,new State(new int[]{130,181},new int[]{-72,702}));
+    AddState(702,new State(new int[]{58,760,123,-491},new int[]{-230,703,-231,759}));
+    AddState(703,new State(new int[]{123,706},new int[]{-5,704}));
+    AddState(704,new State(new int[]{59,9,91,-312,175,-312,136,-312,158,-312,171,-312,176,-312,181,-312,183,-312,184,-312,185,-312,186,-312,190,-312,194,-312,206,-312,209,-312,211,-312,146,-312,196,-312,170,-312,155,-312,151,-312,128,-312,125,-312,147,-312,210,-312,156,-312,126,-312,189,-312,141,-312,191,-312,207,-312,169,-312,203,-312,174,-312,204,-312,144,-312,162,-312,153,-312,149,-312,139,-312,178,-312,195,-312,130,-312,167,-312,157,-312},new int[]{-192,705}));
+    AddState(705,new State(-490));
+    AddState(706,new State(new int[]{91,368,125,-495,176,-307,210,-307,156,-307,189,-307,141,-307,191,-307,207,-307,169,-307,203,-307,174,-307,204,-307,144,-307,162,-307,153,-307,149,-307,139,-307,178,-307,195,-307,130,-307},new int[]{-10,707,-15,709,-26,758,-53,711,-189,712,-191,365,-238,366,-239,384,-54,755,-232,756,-21,757}));
+    AddState(707,new State(new int[]{125,708}));
+    AddState(708,new State(-494));
+    AddState(709,new State(new int[]{91,368,125,-496,176,-307,210,-307,156,-307,189,-307,141,-307,191,-307,207,-307,169,-307,203,-307,174,-307,204,-307,144,-307,162,-307,153,-307,149,-307,139,-307,178,-307,195,-307,130,-307},new int[]{-26,710,-53,711,-189,712,-191,365,-238,366,-239,384,-54,755,-232,756,-21,757}));
+    AddState(710,new State(-498));
     AddState(711,new State(-499));
-stringstates[712] = @"500 interface_member_declaration: interface_method_declaration .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
-    AddState(712,new State(-500));
-stringstates[713] = @"504 interface_method_declaration: attributes_opt . new_opt type member_name '(' formal_parameter_list_opt ')' interface_empty_body 
-505 interface_method_declaration: attributes_opt . new_opt VOID member_name '(' formal_parameter_list_opt ')' interface_empty_body 
-508 interface_property_declaration: attributes_opt . new_opt type member_name '{' interface_accessors '}' 
-514 interface_event_declaration: attributes_opt . new_opt EVENT type member_name interface_empty_body 
-509 interface_indexer_declaration: attributes_opt . new_opt type THIS '[' formal_parameter_list ']' '{' interface_accessors '}' ";
-    AddState(713,new State(new int[]{176,755,210,-506,156,-506,189,-506,141,-506,191,-506,207,-506,169,-506,203,-506,174,-506,204,-506,144,-506,162,-506,153,-506,149,-506,139,-506,178,-506,195,-506,130,-506},new int[]{-234,714}));
-stringstates[714] = @"504 interface_method_declaration: attributes_opt new_opt . type member_name '(' formal_parameter_list_opt ')' interface_empty_body 
-505 interface_method_declaration: attributes_opt new_opt . VOID member_name '(' formal_parameter_list_opt ')' interface_empty_body 
-508 interface_property_declaration: attributes_opt new_opt . type member_name '{' interface_accessors '}' 
-514 interface_event_declaration: attributes_opt new_opt . EVENT type member_name interface_empty_body 
-509 interface_indexer_declaration: attributes_opt new_opt . type THIS '[' formal_parameter_list ']' '{' interface_accessors '}' ";
-    AddState(714,new State(new int[]{210,745,156,751,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181},new int[]{-56,715,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[715] = @"504 interface_method_declaration: attributes_opt new_opt type . member_name '(' formal_parameter_list_opt ')' interface_empty_body 
-508 interface_property_declaration: attributes_opt new_opt type . member_name '{' interface_accessors '}' 
-509 interface_indexer_declaration: attributes_opt new_opt type . THIS '[' formal_parameter_list ']' '{' interface_accessors '}' 
-45 pointer_type: type . '*' ";
-    AddState(715,new State(new int[]{198,738,42,188,130,181},new int[]{-35,716}));
-stringstates[716] = @"504 interface_method_declaration: attributes_opt new_opt type member_name . '(' formal_parameter_list_opt ')' interface_empty_body 
-508 interface_property_declaration: attributes_opt new_opt type member_name . '{' interface_accessors '}' ";
-    AddState(716,new State(new int[]{40,717,123,724}));
-stringstates[717] = @"504 interface_method_declaration: attributes_opt new_opt type member_name '(' . formal_parameter_list_opt ')' interface_empty_body ";
-    AddState(717,new State(new int[]{91,369,41,-391,182,-308,187,-308,180,-308,189,-308,141,-308,191,-308,207,-308,169,-308,203,-308,174,-308,204,-308,144,-308,162,-308,153,-308,149,-308,139,-308,178,-308,195,-308,130,-308,210,-308},new int[]{-11,718,-12,353,-50,387,-51,356,-190,357,-192,366,-239,367,-240,385,-52,386}));
-stringstates[718] = @"504 interface_method_declaration: attributes_opt new_opt type member_name '(' formal_parameter_list_opt . ')' interface_empty_body ";
-    AddState(718,new State(new int[]{41,719}));
-stringstates[719] = @"504 interface_method_declaration: attributes_opt new_opt type member_name '(' formal_parameter_list_opt ')' . interface_empty_body ";
-    AddState(719,new State(new int[]{59,721,123,722},new int[]{-235,720}));
-stringstates[720] = @"504 interface_method_declaration: attributes_opt new_opt type member_name '(' formal_parameter_list_opt ')' interface_empty_body .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
-    AddState(720,new State(-504));
-stringstates[721] = @"515 interface_empty_body: ';' .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', SET, GET, ]";
-    AddState(721,new State(-515));
-stringstates[722] = @"516 interface_empty_body: '{' . '}' ";
-    AddState(722,new State(new int[]{125,723}));
-stringstates[723] = @"516 interface_empty_body: '{' '}' .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', SET, GET, ]";
-    AddState(723,new State(-516));
-stringstates[724] = @"508 interface_property_declaration: attributes_opt new_opt type member_name '{' . interface_accessors '}' ";
-    AddState(724,new State(new int[]{91,369,223,-308,224,-308},new int[]{-236,725,-190,727,-192,366,-239,367,-240,385}));
-stringstates[725] = @"508 interface_property_declaration: attributes_opt new_opt type member_name '{' interface_accessors . '}' ";
-    AddState(725,new State(new int[]{125,726}));
-stringstates[726] = @"508 interface_property_declaration: attributes_opt new_opt type member_name '{' interface_accessors '}' .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
-    AddState(726,new State(-508));
-stringstates[727] = @"510 interface_accessors: attributes_opt . GET interface_empty_body 
-511 interface_accessors: attributes_opt . SET interface_empty_body 
-512 interface_accessors: attributes_opt . GET interface_empty_body attributes_opt SET interface_empty_body 
-513 interface_accessors: attributes_opt . SET interface_empty_body attributes_opt GET interface_empty_body ";
-    AddState(727,new State(new int[]{223,728,224,733}));
-stringstates[728] = @"510 interface_accessors: attributes_opt GET . interface_empty_body 
-512 interface_accessors: attributes_opt GET . interface_empty_body attributes_opt SET interface_empty_body ";
-    AddState(728,new State(new int[]{59,721,123,722},new int[]{-235,729}));
-stringstates[729] = @"510 interface_accessors: attributes_opt GET interface_empty_body .		['}', ]
-512 interface_accessors: attributes_opt GET interface_empty_body . attributes_opt SET interface_empty_body ";
-    AddState(729,new State(new int[]{91,369,125,-510,224,-308},new int[]{-190,730,-192,366,-239,367,-240,385}));
-stringstates[730] = @"512 interface_accessors: attributes_opt GET interface_empty_body attributes_opt . SET interface_empty_body ";
-    AddState(730,new State(new int[]{224,731}));
-stringstates[731] = @"512 interface_accessors: attributes_opt GET interface_empty_body attributes_opt SET . interface_empty_body ";
-    AddState(731,new State(new int[]{59,721,123,722},new int[]{-235,732}));
-stringstates[732] = @"512 interface_accessors: attributes_opt GET interface_empty_body attributes_opt SET interface_empty_body .		['}', ]";
-    AddState(732,new State(-512));
-stringstates[733] = @"511 interface_accessors: attributes_opt SET . interface_empty_body 
-513 interface_accessors: attributes_opt SET . interface_empty_body attributes_opt GET interface_empty_body ";
-    AddState(733,new State(new int[]{59,721,123,722},new int[]{-235,734}));
-stringstates[734] = @"511 interface_accessors: attributes_opt SET interface_empty_body .		['}', ]
-513 interface_accessors: attributes_opt SET interface_empty_body . attributes_opt GET interface_empty_body ";
-    AddState(734,new State(new int[]{91,369,125,-511,223,-308},new int[]{-190,735,-192,366,-239,367,-240,385}));
-stringstates[735] = @"513 interface_accessors: attributes_opt SET interface_empty_body attributes_opt . GET interface_empty_body ";
-    AddState(735,new State(new int[]{223,736}));
-stringstates[736] = @"513 interface_accessors: attributes_opt SET interface_empty_body attributes_opt GET . interface_empty_body ";
-    AddState(736,new State(new int[]{59,721,123,722},new int[]{-235,737}));
-stringstates[737] = @"513 interface_accessors: attributes_opt SET interface_empty_body attributes_opt GET interface_empty_body .		['}', ]";
-    AddState(737,new State(-513));
-stringstates[738] = @"509 interface_indexer_declaration: attributes_opt new_opt type THIS . '[' formal_parameter_list ']' '{' interface_accessors '}' ";
-    AddState(738,new State(new int[]{91,739}));
-stringstates[739] = @"509 interface_indexer_declaration: attributes_opt new_opt type THIS '[' . formal_parameter_list ']' '{' interface_accessors '}' ";
-    AddState(739,new State(new int[]{91,369,182,-308,187,-308,180,-308,189,-308,141,-308,191,-308,207,-308,169,-308,203,-308,174,-308,204,-308,144,-308,162,-308,153,-308,149,-308,139,-308,178,-308,195,-308,130,-308,210,-308},new int[]{-12,740,-50,387,-51,356,-190,357,-192,366,-239,367,-240,385,-52,386}));
-stringstates[740] = @"509 interface_indexer_declaration: attributes_opt new_opt type THIS '[' formal_parameter_list . ']' '{' interface_accessors '}' 
-398 formal_parameter_list: formal_parameter_list . ',' formal_parameter ";
-    AddState(740,new State(new int[]{93,741,44,354}));
-stringstates[741] = @"509 interface_indexer_declaration: attributes_opt new_opt type THIS '[' formal_parameter_list ']' . '{' interface_accessors '}' ";
-    AddState(741,new State(new int[]{123,742}));
-stringstates[742] = @"509 interface_indexer_declaration: attributes_opt new_opt type THIS '[' formal_parameter_list ']' '{' . interface_accessors '}' ";
-    AddState(742,new State(new int[]{91,369,223,-308,224,-308},new int[]{-236,743,-190,727,-192,366,-239,367,-240,385}));
-stringstates[743] = @"509 interface_indexer_declaration: attributes_opt new_opt type THIS '[' formal_parameter_list ']' '{' interface_accessors . '}' ";
-    AddState(743,new State(new int[]{125,744}));
-stringstates[744] = @"509 interface_indexer_declaration: attributes_opt new_opt type THIS '[' formal_parameter_list ']' '{' interface_accessors '}' .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
-    AddState(744,new State(-509));
-stringstates[745] = @"505 interface_method_declaration: attributes_opt new_opt VOID . member_name '(' formal_parameter_list_opt ')' interface_empty_body 
-46 pointer_type: VOID . '*' ";
-    AddState(745,new State(new int[]{42,204,130,181},new int[]{-35,746}));
-stringstates[746] = @"505 interface_method_declaration: attributes_opt new_opt VOID member_name . '(' formal_parameter_list_opt ')' interface_empty_body ";
-    AddState(746,new State(new int[]{40,747}));
-stringstates[747] = @"505 interface_method_declaration: attributes_opt new_opt VOID member_name '(' . formal_parameter_list_opt ')' interface_empty_body ";
-    AddState(747,new State(new int[]{91,369,41,-391,182,-308,187,-308,180,-308,189,-308,141,-308,191,-308,207,-308,169,-308,203,-308,174,-308,204,-308,144,-308,162,-308,153,-308,149,-308,139,-308,178,-308,195,-308,130,-308,210,-308},new int[]{-11,748,-12,353,-50,387,-51,356,-190,357,-192,366,-239,367,-240,385,-52,386}));
-stringstates[748] = @"505 interface_method_declaration: attributes_opt new_opt VOID member_name '(' formal_parameter_list_opt . ')' interface_empty_body ";
-    AddState(748,new State(new int[]{41,749}));
-stringstates[749] = @"505 interface_method_declaration: attributes_opt new_opt VOID member_name '(' formal_parameter_list_opt ')' . interface_empty_body ";
-    AddState(749,new State(new int[]{59,721,123,722},new int[]{-235,750}));
-stringstates[750] = @"505 interface_method_declaration: attributes_opt new_opt VOID member_name '(' formal_parameter_list_opt ')' interface_empty_body .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
-    AddState(750,new State(-505));
-stringstates[751] = @"514 interface_event_declaration: attributes_opt new_opt EVENT . type member_name interface_empty_body ";
-    AddState(751,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,752,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[752] = @"514 interface_event_declaration: attributes_opt new_opt EVENT type . member_name interface_empty_body 
-45 pointer_type: type . '*' ";
-    AddState(752,new State(new int[]{42,188,130,181},new int[]{-35,753}));
-stringstates[753] = @"514 interface_event_declaration: attributes_opt new_opt EVENT type member_name . interface_empty_body ";
-    AddState(753,new State(new int[]{59,721,123,722},new int[]{-235,754}));
-stringstates[754] = @"514 interface_event_declaration: attributes_opt new_opt EVENT type member_name interface_empty_body .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
-    AddState(754,new State(-514));
-stringstates[755] = @"507 new_opt: NEW .		[VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, ]";
-    AddState(755,new State(-507));
-stringstates[756] = @"501 interface_member_declaration: interface_property_declaration .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
+    AddState(712,new State(new int[]{176,754,210,-505,156,-505,189,-505,141,-505,191,-505,207,-505,169,-505,203,-505,174,-505,204,-505,144,-505,162,-505,153,-505,149,-505,139,-505,178,-505,195,-505,130,-505},new int[]{-233,713}));
+    AddState(713,new State(new int[]{210,744,156,750,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181},new int[]{-55,714,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(714,new State(new int[]{198,737,42,187,130,181},new int[]{-72,715}));
+    AddState(715,new State(new int[]{40,716,123,723}));
+    AddState(716,new State(new int[]{91,368,41,-390,182,-307,187,-307,180,-307,189,-307,141,-307,191,-307,207,-307,169,-307,203,-307,174,-307,204,-307,144,-307,162,-307,153,-307,149,-307,139,-307,178,-307,195,-307,130,-307,210,-307},new int[]{-11,717,-12,352,-49,386,-50,355,-189,356,-191,365,-238,366,-239,384,-51,385}));
+    AddState(717,new State(new int[]{41,718}));
+    AddState(718,new State(new int[]{59,720,123,721},new int[]{-234,719}));
+    AddState(719,new State(-503));
+    AddState(720,new State(-514));
+    AddState(721,new State(new int[]{125,722}));
+    AddState(722,new State(-515));
+    AddState(723,new State(new int[]{91,368,223,-307,224,-307},new int[]{-235,724,-189,726,-191,365,-238,366,-239,384}));
+    AddState(724,new State(new int[]{125,725}));
+    AddState(725,new State(-507));
+    AddState(726,new State(new int[]{223,727,224,732}));
+    AddState(727,new State(new int[]{59,720,123,721},new int[]{-234,728}));
+    AddState(728,new State(new int[]{91,368,125,-509,224,-307},new int[]{-189,729,-191,365,-238,366,-239,384}));
+    AddState(729,new State(new int[]{224,730}));
+    AddState(730,new State(new int[]{59,720,123,721},new int[]{-234,731}));
+    AddState(731,new State(-511));
+    AddState(732,new State(new int[]{59,720,123,721},new int[]{-234,733}));
+    AddState(733,new State(new int[]{91,368,125,-510,223,-307},new int[]{-189,734,-191,365,-238,366,-239,384}));
+    AddState(734,new State(new int[]{223,735}));
+    AddState(735,new State(new int[]{59,720,123,721},new int[]{-234,736}));
+    AddState(736,new State(-512));
+    AddState(737,new State(new int[]{91,738}));
+    AddState(738,new State(new int[]{91,368,182,-307,187,-307,180,-307,189,-307,141,-307,191,-307,207,-307,169,-307,203,-307,174,-307,204,-307,144,-307,162,-307,153,-307,149,-307,139,-307,178,-307,195,-307,130,-307,210,-307},new int[]{-12,739,-49,386,-50,355,-189,356,-191,365,-238,366,-239,384,-51,385}));
+    AddState(739,new State(new int[]{93,740,44,353}));
+    AddState(740,new State(new int[]{123,741}));
+    AddState(741,new State(new int[]{91,368,223,-307,224,-307},new int[]{-235,742,-189,726,-191,365,-238,366,-239,384}));
+    AddState(742,new State(new int[]{125,743}));
+    AddState(743,new State(-508));
+    AddState(744,new State(new int[]{42,203,130,181},new int[]{-72,745}));
+    AddState(745,new State(new int[]{40,746}));
+    AddState(746,new State(new int[]{91,368,41,-390,182,-307,187,-307,180,-307,189,-307,141,-307,191,-307,207,-307,169,-307,203,-307,174,-307,204,-307,144,-307,162,-307,153,-307,149,-307,139,-307,178,-307,195,-307,130,-307,210,-307},new int[]{-11,747,-12,352,-49,386,-50,355,-189,356,-191,365,-238,366,-239,384,-51,385}));
+    AddState(747,new State(new int[]{41,748}));
+    AddState(748,new State(new int[]{59,720,123,721},new int[]{-234,749}));
+    AddState(749,new State(-504));
+    AddState(750,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,751,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(751,new State(new int[]{42,187,130,181},new int[]{-72,752}));
+    AddState(752,new State(new int[]{59,720,123,721},new int[]{-234,753}));
+    AddState(753,new State(-513));
+    AddState(754,new State(-506));
+    AddState(755,new State(-500));
     AddState(756,new State(-501));
-stringstates[757] = @"502 interface_member_declaration: interface_event_declaration .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
     AddState(757,new State(-502));
-stringstates[758] = @"503 interface_member_declaration: interface_indexer_declaration .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
-    AddState(758,new State(-503));
-stringstates[759] = @"498 interface_member_declarations: interface_member_declaration .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
-    AddState(759,new State(-498));
-stringstates[760] = @"493 interface_base_opt: interface_base .		['{', ]";
-    AddState(760,new State(-493));
-stringstates[761] = @"494 interface_base: ':' . interface_type_list ";
-    AddState(761,new State(new int[]{130,181},new int[]{-204,762,-66,765,-29,383,-35,179,-30,200}));
-stringstates[762] = @"494 interface_base: ':' interface_type_list .		['{', ]
-370 interface_type_list: interface_type_list . ',' type_name ";
-    AddState(762,new State(new int[]{44,763,123,-494}));
-stringstates[763] = @"370 interface_type_list: interface_type_list ',' . type_name ";
-    AddState(763,new State(new int[]{130,181},new int[]{-66,764,-29,383,-35,179,-30,200}));
-stringstates[764] = @"370 interface_type_list: interface_type_list ',' type_name .		[',', '{', WHERE, ]";
-    AddState(764,new State(-370));
-stringstates[765] = @"369 interface_type_list: type_name .		[',', '{', WHERE, ]";
-    AddState(765,new State(-369));
-stringstates[766] = @"517 enum_declaration: attributes_opt modifiers_opt ENUM . IDENTIFIER enum_base_opt enum_body comma_opt ";
-    AddState(766,new State(new int[]{130,767}));
-stringstates[767] = @"517 enum_declaration: attributes_opt modifiers_opt ENUM IDENTIFIER . enum_base_opt enum_body comma_opt ";
-    AddState(767,new State(new int[]{58,784,123,-518},new int[]{-237,768,-238,783}));
-stringstates[768] = @"517 enum_declaration: attributes_opt modifiers_opt ENUM IDENTIFIER enum_base_opt . enum_body comma_opt ";
-    AddState(768,new State(new int[]{123,771},new int[]{-16,769}));
-stringstates[769] = @"517 enum_declaration: attributes_opt modifiers_opt ENUM IDENTIFIER enum_base_opt enum_body . comma_opt ";
-    AddState(769,new State(new int[]{59,9,91,-313,175,-313,136,-313,158,-313,171,-313,176,-313,181,-313,183,-313,184,-313,185,-313,186,-313,190,-313,194,-313,206,-313,209,-313,211,-313,146,-313,196,-313,170,-313,155,-313,151,-313,128,-313,125,-313,147,-313,210,-313,156,-313,126,-313,189,-313,141,-313,191,-313,207,-313,169,-313,203,-313,174,-313,204,-313,144,-313,162,-313,153,-313,149,-313,139,-313,178,-313,195,-313,130,-313,167,-313,157,-313},new int[]{-193,770}));
-stringstates[770] = @"517 enum_declaration: attributes_opt modifiers_opt ENUM IDENTIFIER enum_base_opt enum_body comma_opt .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
-    AddState(770,new State(-517));
-stringstates[771] = @"521 enum_body: '{' . enum_member_declarations_opt '}' 
-522 enum_body: '{' . enum_member_declarations ',' '}' ";
-    AddState(771,new State(new int[]{91,369,125,-523,130,-308},new int[]{-17,772,-18,774,-27,782,-190,778,-192,366,-239,367,-240,385}));
-stringstates[772] = @"521 enum_body: '{' enum_member_declarations_opt . '}' ";
-    AddState(772,new State(new int[]{125,773}));
-stringstates[773] = @"521 enum_body: '{' enum_member_declarations_opt '}' .		[';', '[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
-    AddState(773,new State(-521));
-stringstates[774] = @"522 enum_body: '{' enum_member_declarations . ',' '}' 
-524 enum_member_declarations_opt: enum_member_declarations .		['}', ]
-526 enum_member_declarations: enum_member_declarations . ',' enum_member_declaration ";
-    AddState(774,new State(new int[]{44,775,125,-524}));
-stringstates[775] = @"522 enum_body: '{' enum_member_declarations ',' . '}' 
-526 enum_member_declarations: enum_member_declarations ',' . enum_member_declaration ";
-    AddState(775,new State(new int[]{125,776,91,369,130,-308},new int[]{-27,777,-190,778,-192,366,-239,367,-240,385}));
-stringstates[776] = @"522 enum_body: '{' enum_member_declarations ',' '}' .		[';', '[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
-    AddState(776,new State(-522));
-stringstates[777] = @"526 enum_member_declarations: enum_member_declarations ',' enum_member_declaration .		[',', '}', ]";
-    AddState(777,new State(-526));
-stringstates[778] = @"527 enum_member_declaration: attributes_opt . IDENTIFIER 
-528 enum_member_declaration: attributes_opt . IDENTIFIER '=' constant_expression ";
-    AddState(778,new State(new int[]{130,779}));
-stringstates[779] = @"527 enum_member_declaration: attributes_opt IDENTIFIER .		[',', '}', ]
-528 enum_member_declaration: attributes_opt IDENTIFIER . '=' constant_expression ";
-    AddState(779,new State(new int[]{61,780,44,-527,125,-527}));
-stringstates[780] = @"528 enum_member_declaration: attributes_opt IDENTIFIER '=' . constant_expression ";
-    AddState(780,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261},new int[]{-129,781,-80,42,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[781] = @"528 enum_member_declaration: attributes_opt IDENTIFIER '=' constant_expression .		[',', '}', ]";
-    AddState(781,new State(-528));
-stringstates[782] = @"525 enum_member_declarations: enum_member_declaration .		[',', '}', ]";
-    AddState(782,new State(-525));
-stringstates[783] = @"519 enum_base_opt: enum_base .		['{', ]";
-    AddState(783,new State(-519));
-stringstates[784] = @"520 enum_base: ':' . integral_type ";
-    AddState(784,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161},new int[]{-64,785}));
-stringstates[785] = @"520 enum_base: ':' integral_type .		['{', ]";
-    AddState(785,new State(-520));
-stringstates[786] = @"529 delegate_declaration: attributes_opt modifiers_opt DELEGATE . return_type member_name '(' formal_parameter_list_opt ')' ';' ";
-    AddState(786,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,794},new int[]{-57,787,-56,793,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[787] = @"529 delegate_declaration: attributes_opt modifiers_opt DELEGATE return_type . member_name '(' formal_parameter_list_opt ')' ';' ";
-    AddState(787,new State(new int[]{130,181},new int[]{-35,788}));
-stringstates[788] = @"529 delegate_declaration: attributes_opt modifiers_opt DELEGATE return_type member_name . '(' formal_parameter_list_opt ')' ';' ";
-    AddState(788,new State(new int[]{40,789}));
-stringstates[789] = @"529 delegate_declaration: attributes_opt modifiers_opt DELEGATE return_type member_name '(' . formal_parameter_list_opt ')' ';' ";
-    AddState(789,new State(new int[]{91,369,41,-391,182,-308,187,-308,180,-308,189,-308,141,-308,191,-308,207,-308,169,-308,203,-308,174,-308,204,-308,144,-308,162,-308,153,-308,149,-308,139,-308,178,-308,195,-308,130,-308,210,-308},new int[]{-11,790,-12,353,-50,387,-51,356,-190,357,-192,366,-239,367,-240,385,-52,386}));
-stringstates[790] = @"529 delegate_declaration: attributes_opt modifiers_opt DELEGATE return_type member_name '(' formal_parameter_list_opt . ')' ';' ";
-    AddState(790,new State(new int[]{41,791}));
-stringstates[791] = @"529 delegate_declaration: attributes_opt modifiers_opt DELEGATE return_type member_name '(' formal_parameter_list_opt ')' . ';' ";
-    AddState(791,new State(new int[]{59,792}));
-stringstates[792] = @"529 delegate_declaration: attributes_opt modifiers_opt DELEGATE return_type member_name '(' formal_parameter_list_opt ')' ';' .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
-    AddState(792,new State(-529));
-stringstates[793] = @"393 return_type: type .		[IDENTIFIER, ]
-45 pointer_type: type . '*' ";
-    AddState(793,new State(new int[]{42,188,130,-393}));
-stringstates[794] = @"46 pointer_type: VOID . '*' 
-394 return_type: VOID .		[IDENTIFIER, ]";
-    AddState(794,new State(new int[]{42,204,130,-394}));
-stringstates[795] = @"15 member_name: IDENTIFIER . type_list_opt 
-457 constructor_declarator: IDENTIFIER . '(' formal_parameter_list_opt ')' constructor_initializer_opt ";
-    AddState(795,new State(new int[]{40,796,60,183,46,-16,129,-16,42,-16,198,-16,179,-16,130,-16},new int[]{-74,182}));
-stringstates[796] = @"457 constructor_declarator: IDENTIFIER '(' . formal_parameter_list_opt ')' constructor_initializer_opt ";
-    AddState(796,new State(new int[]{91,369,41,-391,182,-308,187,-308,180,-308,189,-308,141,-308,191,-308,207,-308,169,-308,203,-308,174,-308,204,-308,144,-308,162,-308,153,-308,149,-308,139,-308,178,-308,195,-308,130,-308,210,-308},new int[]{-11,797,-12,353,-50,387,-51,356,-190,357,-192,366,-239,367,-240,385,-52,386}));
-stringstates[797] = @"457 constructor_declarator: IDENTIFIER '(' formal_parameter_list_opt . ')' constructor_initializer_opt ";
-    AddState(797,new State(new int[]{41,798}));
-stringstates[798] = @"457 constructor_declarator: IDENTIFIER '(' formal_parameter_list_opt ')' . constructor_initializer_opt ";
-    AddState(798,new State(new int[]{58,801,123,-458,59,-458},new int[]{-225,799,-226,800}));
-stringstates[799] = @"457 constructor_declarator: IDENTIFIER '(' formal_parameter_list_opt ')' constructor_initializer_opt .		['{', ';', ]";
-    AddState(799,new State(-457));
-stringstates[800] = @"459 constructor_initializer_opt: constructor_initializer .		['{', ';', ]";
-    AddState(800,new State(-459));
-stringstates[801] = @"460 constructor_initializer: ':' . BASE '(' argument_list_opt ')' 
-461 constructor_initializer: ':' . THIS '(' argument_list_opt ')' ";
-    AddState(801,new State(new int[]{138,802,198,806}));
-stringstates[802] = @"460 constructor_initializer: ':' BASE . '(' argument_list_opt ')' ";
-    AddState(802,new State(new int[]{40,803}));
-stringstates[803] = @"460 constructor_initializer: ':' BASE '(' . argument_list_opt ')' ";
-    AddState(803,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,187,268,180,271,41,-79},new int[]{-97,804,-81,103,-82,267,-80,106,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[804] = @"460 constructor_initializer: ':' BASE '(' argument_list_opt . ')' ";
-    AddState(804,new State(new int[]{41,805}));
-stringstates[805] = @"460 constructor_initializer: ':' BASE '(' argument_list_opt ')' .		['{', ';', ]";
-    AddState(805,new State(-460));
-stringstates[806] = @"461 constructor_initializer: ':' THIS . '(' argument_list_opt ')' ";
-    AddState(806,new State(new int[]{40,807}));
-stringstates[807] = @"461 constructor_initializer: ':' THIS '(' . argument_list_opt ')' ";
-    AddState(807,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,208,138,210,202,219,192,226,145,231,205,236,33,243,126,245,43,248,45,250,42,252,246,255,247,258,38,261,187,268,180,271,41,-79},new int[]{-97,808,-81,103,-82,267,-80,106,-126,43,-125,44,-124,79,-123,80,-122,81,-121,82,-120,83,-119,107,-118,143,-117,110,-113,111,-108,144,-109,65,-101,66,-83,71,-84,94,-85,99,-67,114,-69,115,-68,123,-86,126,-87,147,-60,148,-62,151,-64,152,-63,162,-61,167,-88,172,-89,173,-29,174,-35,179,-30,200,-90,207,-91,209,-92,216,-103,217,-93,218,-94,225,-95,230,-96,235,-100,240,-102,241,-106,242,-110,247,-111,254,-112,257,-107,260,-127,263}));
-stringstates[808] = @"461 constructor_initializer: ':' THIS '(' argument_list_opt . ')' ";
-    AddState(808,new State(new int[]{41,809}));
-stringstates[809] = @"461 constructor_initializer: ':' THIS '(' argument_list_opt ')' .		['{', ';', ]";
-    AddState(809,new State(-461));
-stringstates[810] = @"428 operator_declarator: overloadable_operator_declarator .		['{', ';', ]";
+    AddState(758,new State(-497));
+    AddState(759,new State(-492));
+    AddState(760,new State(new int[]{130,181},new int[]{-203,761,-65,764,-29,382,-72,179,-30,199}));
+    AddState(761,new State(new int[]{44,762,123,-493}));
+    AddState(762,new State(new int[]{130,181},new int[]{-65,763,-29,382,-72,179,-30,199}));
+    AddState(763,new State(-369));
+    AddState(764,new State(-368));
+    AddState(765,new State(new int[]{130,766}));
+    AddState(766,new State(new int[]{58,783,123,-517},new int[]{-236,767,-237,782}));
+    AddState(767,new State(new int[]{123,770},new int[]{-16,768}));
+    AddState(768,new State(new int[]{59,9,91,-312,175,-312,136,-312,158,-312,171,-312,176,-312,181,-312,183,-312,184,-312,185,-312,186,-312,190,-312,194,-312,206,-312,209,-312,211,-312,146,-312,196,-312,170,-312,155,-312,151,-312,128,-312,125,-312,147,-312,210,-312,156,-312,126,-312,189,-312,141,-312,191,-312,207,-312,169,-312,203,-312,174,-312,204,-312,144,-312,162,-312,153,-312,149,-312,139,-312,178,-312,195,-312,130,-312,167,-312,157,-312},new int[]{-192,769}));
+    AddState(769,new State(-516));
+    AddState(770,new State(new int[]{91,368,125,-522,130,-307},new int[]{-17,771,-18,773,-27,781,-189,777,-191,365,-238,366,-239,384}));
+    AddState(771,new State(new int[]{125,772}));
+    AddState(772,new State(-520));
+    AddState(773,new State(new int[]{44,774,125,-523}));
+    AddState(774,new State(new int[]{125,775,91,368,130,-307},new int[]{-27,776,-189,777,-191,365,-238,366,-239,384}));
+    AddState(775,new State(-521));
+    AddState(776,new State(-525));
+    AddState(777,new State(new int[]{130,778}));
+    AddState(778,new State(new int[]{61,779,44,-526,125,-526}));
+    AddState(779,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260},new int[]{-128,780,-79,42,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(780,new State(-527));
+    AddState(781,new State(-524));
+    AddState(782,new State(-518));
+    AddState(783,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161},new int[]{-63,784}));
+    AddState(784,new State(-519));
+    AddState(785,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,793},new int[]{-56,786,-55,792,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(786,new State(new int[]{130,181},new int[]{-72,787}));
+    AddState(787,new State(new int[]{40,788}));
+    AddState(788,new State(new int[]{91,368,41,-390,182,-307,187,-307,180,-307,189,-307,141,-307,191,-307,207,-307,169,-307,203,-307,174,-307,204,-307,144,-307,162,-307,153,-307,149,-307,139,-307,178,-307,195,-307,130,-307,210,-307},new int[]{-11,789,-12,352,-49,386,-50,355,-189,356,-191,365,-238,366,-239,384,-51,385}));
+    AddState(789,new State(new int[]{41,790}));
+    AddState(790,new State(new int[]{59,791}));
+    AddState(791,new State(-528));
+    AddState(792,new State(new int[]{42,187,130,-392}));
+    AddState(793,new State(new int[]{42,203,130,-393}));
+    AddState(794,new State(new int[]{60,182,40,795,46,-15,129,-15,42,-15,198,-15,179,-15,130,-15}));
+    AddState(795,new State(new int[]{91,368,41,-390,182,-307,187,-307,180,-307,189,-307,141,-307,191,-307,207,-307,169,-307,203,-307,174,-307,204,-307,144,-307,162,-307,153,-307,149,-307,139,-307,178,-307,195,-307,130,-307,210,-307},new int[]{-11,796,-12,352,-49,386,-50,355,-189,356,-191,365,-238,366,-239,384,-51,385}));
+    AddState(796,new State(new int[]{41,797}));
+    AddState(797,new State(new int[]{58,800,123,-457,59,-457},new int[]{-224,798,-225,799}));
+    AddState(798,new State(-456));
+    AddState(799,new State(-458));
+    AddState(800,new State(new int[]{138,801,198,805}));
+    AddState(801,new State(new int[]{40,802}));
+    AddState(802,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,187,267,180,270,41,-78},new int[]{-96,803,-80,103,-81,266,-79,106,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(803,new State(new int[]{41,804}));
+    AddState(804,new State(-459));
+    AddState(805,new State(new int[]{40,806}));
+    AddState(806,new State(new int[]{40,95,200,116,159,117,131,118,132,119,133,120,134,121,177,122,135,125,176,127,189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,198,207,138,209,202,218,192,225,145,230,205,235,33,242,126,244,43,247,45,249,42,251,246,254,247,257,38,260,187,267,180,270,41,-78},new int[]{-96,807,-80,103,-81,266,-79,106,-125,43,-124,44,-123,79,-122,80,-121,81,-120,82,-119,83,-118,107,-117,143,-116,110,-112,111,-107,144,-108,65,-100,66,-82,71,-83,94,-84,99,-66,114,-68,115,-67,123,-85,126,-86,147,-59,148,-61,151,-63,152,-62,162,-60,167,-87,172,-88,173,-29,174,-72,179,-30,199,-89,206,-90,208,-91,215,-102,216,-92,217,-93,224,-94,229,-95,234,-99,239,-101,240,-105,241,-109,246,-110,253,-111,256,-106,259,-126,262}));
+    AddState(807,new State(new int[]{41,808}));
+    AddState(808,new State(-460));
+    AddState(809,new State(-427));
     AddState(810,new State(-428));
-stringstates[811] = @"429 operator_declarator: conversion_operator_declarator .		['{', ';', ]";
-    AddState(811,new State(-429));
-stringstates[812] = @"454 conversion_operator_declarator: IMPLICIT . OPERATOR type '(' type IDENTIFIER ')' ";
-    AddState(812,new State(new int[]{179,813}));
-stringstates[813] = @"454 conversion_operator_declarator: IMPLICIT OPERATOR . type '(' type IDENTIFIER ')' ";
-    AddState(813,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,814,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[814] = @"454 conversion_operator_declarator: IMPLICIT OPERATOR type . '(' type IDENTIFIER ')' 
-45 pointer_type: type . '*' ";
-    AddState(814,new State(new int[]{40,815,42,188}));
-stringstates[815] = @"454 conversion_operator_declarator: IMPLICIT OPERATOR type '(' . type IDENTIFIER ')' ";
-    AddState(815,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,816,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[816] = @"454 conversion_operator_declarator: IMPLICIT OPERATOR type '(' type . IDENTIFIER ')' 
-45 pointer_type: type . '*' ";
-    AddState(816,new State(new int[]{130,817,42,188}));
-stringstates[817] = @"454 conversion_operator_declarator: IMPLICIT OPERATOR type '(' type IDENTIFIER . ')' ";
-    AddState(817,new State(new int[]{41,818}));
-stringstates[818] = @"454 conversion_operator_declarator: IMPLICIT OPERATOR type '(' type IDENTIFIER ')' .		['{', ';', ]";
-    AddState(818,new State(-454));
-stringstates[819] = @"455 conversion_operator_declarator: EXPLICIT . OPERATOR type '(' type IDENTIFIER ')' ";
-    AddState(819,new State(new int[]{179,820}));
-stringstates[820] = @"455 conversion_operator_declarator: EXPLICIT OPERATOR . type '(' type IDENTIFIER ')' ";
-    AddState(820,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,821,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[821] = @"455 conversion_operator_declarator: EXPLICIT OPERATOR type . '(' type IDENTIFIER ')' 
-45 pointer_type: type . '*' ";
-    AddState(821,new State(new int[]{40,822,42,188}));
-stringstates[822] = @"455 conversion_operator_declarator: EXPLICIT OPERATOR type '(' . type IDENTIFIER ')' ";
-    AddState(822,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,203},new int[]{-56,823,-58,189,-59,190,-60,193,-62,151,-64,152,-63,162,-61,194,-76,195,-65,196,-29,198,-35,179,-30,200,-66,205}));
-stringstates[823] = @"455 conversion_operator_declarator: EXPLICIT OPERATOR type '(' type . IDENTIFIER ')' 
-45 pointer_type: type . '*' ";
-    AddState(823,new State(new int[]{130,824,42,188}));
-stringstates[824] = @"455 conversion_operator_declarator: EXPLICIT OPERATOR type '(' type IDENTIFIER . ')' ";
-    AddState(824,new State(new int[]{41,825}));
-stringstates[825] = @"455 conversion_operator_declarator: EXPLICIT OPERATOR type '(' type IDENTIFIER ')' .		['{', ';', ]";
-    AddState(825,new State(-455));
-stringstates[826] = @"337 modifiers_opt: modifiers .		[CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]
-339 modifiers: modifiers . modifier ";
-    AddState(826,new State(new int[]{136,828,158,829,171,830,176,831,181,832,183,833,184,834,185,835,186,836,190,837,194,838,206,839,209,840,211,841,146,-337,196,-337,170,-337,155,-337,151,-337,147,-337,210,-337,156,-337,126,-337,189,-337,141,-337,191,-337,207,-337,169,-337,203,-337,174,-337,204,-337,144,-337,162,-337,153,-337,149,-337,139,-337,178,-337,195,-337,130,-337,167,-337,157,-337},new int[]{-199,827}));
-stringstates[827] = @"339 modifiers: modifiers modifier .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
+    AddState(811,new State(new int[]{179,812}));
+    AddState(812,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,813,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(813,new State(new int[]{40,814,42,187}));
+    AddState(814,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,815,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(815,new State(new int[]{130,816,42,187}));
+    AddState(816,new State(new int[]{41,817}));
+    AddState(817,new State(-453));
+    AddState(818,new State(new int[]{179,819}));
+    AddState(819,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,820,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(820,new State(new int[]{40,821,42,187}));
+    AddState(821,new State(new int[]{189,153,141,154,191,155,207,156,169,157,203,158,174,159,204,160,144,161,162,163,153,164,149,165,139,166,178,170,195,171,130,181,210,202},new int[]{-55,822,-57,188,-58,189,-59,192,-61,151,-63,152,-62,162,-60,193,-75,194,-64,195,-29,197,-72,179,-30,199,-65,204}));
+    AddState(822,new State(new int[]{130,823,42,187}));
+    AddState(823,new State(new int[]{41,824}));
+    AddState(824,new State(-454));
+    AddState(825,new State(new int[]{136,827,158,828,171,829,176,830,181,831,183,832,184,833,185,834,186,835,190,836,194,837,206,838,209,839,211,840,146,-336,196,-336,170,-336,155,-336,151,-336,147,-336,210,-336,156,-336,126,-336,189,-336,141,-336,191,-336,207,-336,169,-336,203,-336,174,-336,204,-336,144,-336,162,-336,153,-336,149,-336,139,-336,178,-336,195,-336,130,-336,167,-336,157,-336},new int[]{-198,826}));
+    AddState(826,new State(-338));
     AddState(827,new State(-339));
-stringstates[828] = @"340 modifier: ABSTRACT .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(828,new State(-340));
-stringstates[829] = @"341 modifier: EXTERN .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(829,new State(-341));
-stringstates[830] = @"342 modifier: INTERNAL .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(830,new State(-342));
-stringstates[831] = @"343 modifier: NEW .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(831,new State(-343));
-stringstates[832] = @"344 modifier: OVERRIDE .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(832,new State(-344));
-stringstates[833] = @"345 modifier: PRIVATE .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(833,new State(-345));
-stringstates[834] = @"346 modifier: PROTECTED .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(834,new State(-346));
-stringstates[835] = @"347 modifier: PUBLIC .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(835,new State(-347));
-stringstates[836] = @"348 modifier: READONLY .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(836,new State(-348));
-stringstates[837] = @"349 modifier: SEALED .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(837,new State(-349));
-stringstates[838] = @"350 modifier: STATIC .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(838,new State(-350));
-stringstates[839] = @"351 modifier: UNSAFE .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(839,new State(-351));
-stringstates[840] = @"352 modifier: VIRTUAL .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(840,new State(-352));
-stringstates[841] = @"353 modifier: VOLATILE .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
-    AddState(841,new State(-353));
-stringstates[842] = @"338 modifiers: modifier .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
-    AddState(842,new State(-338));
-stringstates[843] = @"477 struct_member_declaration: field_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
+    AddState(841,new State(-337));
+    AddState(842,new State(-476));
     AddState(843,new State(-477));
-stringstates[844] = @"478 struct_member_declaration: method_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(844,new State(-478));
-stringstates[845] = @"388 method_declaration: method_header . method_body ";
-    AddState(845,new State(new int[]{123,398,59,848},new int[]{-207,846,-135,847}));
-stringstates[846] = @"388 method_declaration: method_header method_body .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(846,new State(-388));
-stringstates[847] = @"395 method_body: block .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
+    AddState(844,new State(new int[]{123,397,59,847},new int[]{-206,845,-134,846}));
+    AddState(845,new State(-387));
+    AddState(846,new State(-394));
     AddState(847,new State(-395));
-stringstates[848] = @"396 method_body: ';' .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(848,new State(-396));
-stringstates[849] = @"479 struct_member_declaration: property_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
+    AddState(848,new State(-478));
     AddState(849,new State(-479));
-stringstates[850] = @"480 struct_member_declaration: event_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(850,new State(-480));
-stringstates[851] = @"481 struct_member_declaration: indexer_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(851,new State(-481));
-stringstates[852] = @"482 struct_member_declaration: operator_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(852,new State(-482));
-stringstates[853] = @"483 struct_member_declaration: constructor_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(853,new State(-483));
-stringstates[854] = @"484 struct_member_declaration: type_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(854,new State(-484));
-stringstates[855] = @"331 type_declaration: class_declaration .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
+    AddState(854,new State(-330));
     AddState(855,new State(-331));
-stringstates[856] = @"332 type_declaration: struct_declaration .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(856,new State(-332));
-stringstates[857] = @"333 type_declaration: interface_declaration .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(857,new State(-333));
-stringstates[858] = @"334 type_declaration: enum_declaration .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(858,new State(-334));
-stringstates[859] = @"335 type_declaration: delegate_declaration .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
-    AddState(859,new State(-335));
-stringstates[860] = @"474 struct_member_declarations: struct_member_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(860,new State(-474));
-stringstates[861] = @"469 struct_interfaces_opt: struct_interfaces .		['{', ]";
-    AddState(861,new State(-469));
-stringstates[862] = @"470 struct_interfaces: ':' . interface_type_list ";
-    AddState(862,new State(new int[]{130,181},new int[]{-204,863,-66,765,-29,383,-35,179,-30,200}));
-stringstates[863] = @"470 struct_interfaces: ':' interface_type_list .		['{', ]
-370 interface_type_list: interface_type_list . ',' type_name ";
-    AddState(863,new State(new int[]{44,763,123,-470}));
-stringstates[864] = @"377 class_member_declaration: field_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
+    AddState(859,new State(-473));
+    AddState(860,new State(-468));
+    AddState(861,new State(new int[]{130,181},new int[]{-203,862,-65,764,-29,382,-72,179,-30,199}));
+    AddState(862,new State(new int[]{44,762,123,-469}));
+    AddState(863,new State(-376));
     AddState(864,new State(-377));
-stringstates[865] = @"378 class_member_declaration: method_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(865,new State(-378));
-stringstates[866] = @"379 class_member_declaration: property_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(866,new State(-379));
-stringstates[867] = @"380 class_member_declaration: event_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(867,new State(-380));
-stringstates[868] = @"381 class_member_declaration: indexer_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(868,new State(-381));
-stringstates[869] = @"382 class_member_declaration: operator_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(869,new State(-382));
-stringstates[870] = @"383 class_member_declaration: constructor_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(870,new State(-383));
-stringstates[871] = @"384 class_member_declaration: destructor_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(871,new State(-384));
-stringstates[872] = @"385 class_member_declaration: type_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(872,new State(-385));
-stringstates[873] = @"374 class_member_declarations: class_member_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
-    AddState(873,new State(-374));
-stringstates[874] = @"355 gen_clause_opt: gen_clause .		['{', ]";
-    AddState(874,new State(-355));
-stringstates[875] = @"356 gen_clause: WHERE . IDENTIFIER gen_class_base ";
-    AddState(875,new State(new int[]{130,876}));
-stringstates[876] = @"356 gen_clause: WHERE IDENTIFIER . gen_class_base ";
-    AddState(876,new State(new int[]{58,878},new int[]{-202,877}));
-stringstates[877] = @"356 gen_clause: WHERE IDENTIFIER gen_class_base .		['{', ]";
-    AddState(877,new State(-356));
-stringstates[878] = @"360 gen_class_base: ':' . gen_class_type 
-361 gen_class_base: ':' . interface_type_list 
-362 gen_class_base: ':' . gen_class_type ',' interface_type_list ";
-    AddState(878,new State(new int[]{196,883,146,884,178,170,195,171,130,181},new int[]{-203,879,-204,882,-61,885,-66,765,-29,383,-35,179,-30,200}));
-stringstates[879] = @"360 gen_class_base: ':' gen_class_type .		['{', ]
-362 gen_class_base: ':' gen_class_type . ',' interface_type_list ";
-    AddState(879,new State(new int[]{44,880,123,-360}));
-stringstates[880] = @"362 gen_class_base: ':' gen_class_type ',' . interface_type_list ";
-    AddState(880,new State(new int[]{130,181},new int[]{-204,881,-66,765,-29,383,-35,179,-30,200}));
-stringstates[881] = @"362 gen_class_base: ':' gen_class_type ',' interface_type_list .		['{', ]
-370 interface_type_list: interface_type_list . ',' type_name ";
-    AddState(881,new State(new int[]{44,763,123,-362}));
-stringstates[882] = @"361 gen_class_base: ':' interface_type_list .		['{', ]
-370 interface_type_list: interface_type_list . ',' type_name ";
-    AddState(882,new State(new int[]{44,763,123,-361}));
-stringstates[883] = @"357 gen_class_type: STRUCT .		[',', '{', ]";
+    AddState(872,new State(-373));
+    AddState(873,new State(-354));
+    AddState(874,new State(new int[]{130,875}));
+    AddState(875,new State(new int[]{58,877},new int[]{-201,876}));
+    AddState(876,new State(-355));
+    AddState(877,new State(new int[]{196,882,146,883,178,170,195,171,130,181},new int[]{-202,878,-203,881,-60,884,-65,764,-29,382,-72,179,-30,199}));
+    AddState(878,new State(new int[]{44,879,123,-359}));
+    AddState(879,new State(new int[]{130,181},new int[]{-203,880,-65,764,-29,382,-72,179,-30,199}));
+    AddState(880,new State(new int[]{44,762,123,-361}));
+    AddState(881,new State(new int[]{44,762,123,-360}));
+    AddState(882,new State(-356));
     AddState(883,new State(-357));
-stringstates[884] = @"358 gen_class_type: CLASS .		[',', '{', ]";
     AddState(884,new State(-358));
-stringstates[885] = @"359 gen_class_type: class_type .		[',', '{', ]";
-    AddState(885,new State(-359));
-stringstates[886] = @"365 class_base_opt: class_base .		[WHERE, '{', ]";
-    AddState(886,new State(-365));
-stringstates[887] = @"366 class_base: ':' . class_type 
-367 class_base: ':' . interface_type_list 
-368 class_base: ':' . class_type ',' interface_type_list ";
-    AddState(887,new State(new int[]{178,170,195,171,130,181},new int[]{-61,888,-204,891,-66,765,-29,383,-35,179,-30,200}));
-stringstates[888] = @"366 class_base: ':' class_type .		[WHERE, '{', ]
-368 class_base: ':' class_type . ',' interface_type_list ";
-    AddState(888,new State(new int[]{44,889,213,-366,123,-366}));
-stringstates[889] = @"368 class_base: ':' class_type ',' . interface_type_list ";
-    AddState(889,new State(new int[]{130,181},new int[]{-204,890,-66,765,-29,383,-35,179,-30,200}));
-stringstates[890] = @"368 class_base: ':' class_type ',' interface_type_list .		[WHERE, '{', ]
-370 interface_type_list: interface_type_list . ',' type_name ";
-    AddState(890,new State(new int[]{44,763,213,-368,123,-368}));
-stringstates[891] = @"367 class_base: ':' interface_type_list .		[WHERE, '{', ]
-370 interface_type_list: interface_type_list . ',' type_name ";
-    AddState(891,new State(new int[]{44,763,213,-367,123,-367}));
-stringstates[892] = @"330 namespace_member_declaration: type_declaration .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
-    AddState(892,new State(-330));
-stringstates[893] = @"327 namespace_member_declarations: namespace_member_declaration .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
-    AddState(893,new State(-327));
-stringstates[894] = @"307 using_directives_opt: using_directives .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]
-321 using_directives: using_directives . using_directive ";
-    AddState(894,new State(new int[]{208,897,91,-307,175,-307,136,-307,158,-307,171,-307,176,-307,181,-307,183,-307,184,-307,185,-307,186,-307,190,-307,194,-307,206,-307,209,-307,211,-307,146,-307,196,-307,170,-307,155,-307,151,-307,128,-307,125,-307},new int[]{-194,895,-195,896,-196,906}));
-stringstates[895] = @"321 using_directives: using_directives using_directive .		[USING, '[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
+    AddState(885,new State(-364));
+    AddState(886,new State(new int[]{178,170,195,171,130,181},new int[]{-60,887,-203,890,-65,764,-29,382,-72,179,-30,199}));
+    AddState(887,new State(new int[]{44,888,213,-365,123,-365}));
+    AddState(888,new State(new int[]{130,181},new int[]{-203,889,-65,764,-29,382,-72,179,-30,199}));
+    AddState(889,new State(new int[]{44,762,213,-367,123,-367}));
+    AddState(890,new State(new int[]{44,762,213,-366,123,-366}));
+    AddState(891,new State(-329));
+    AddState(892,new State(-326));
+    AddState(893,new State(new int[]{208,896,91,-306,175,-306,136,-306,158,-306,171,-306,176,-306,181,-306,183,-306,184,-306,185,-306,186,-306,190,-306,194,-306,206,-306,209,-306,211,-306,146,-306,196,-306,170,-306,155,-306,151,-306,128,-306,125,-306},new int[]{-193,894,-194,895,-195,905}));
+    AddState(894,new State(-320));
     AddState(895,new State(-321));
-stringstates[896] = @"322 using_directive: using_alias_directive .		[USING, '[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
-    AddState(896,new State(-322));
-stringstates[897] = @"324 using_alias_directive: USING . IDENTIFIER '=' qualified_identifier ';' 
-325 using_namespace_directive: USING . namespace_name ';' 
-326 using_namespace_directive: USING . error ";
-    AddState(897,new State(new int[]{130,898,127,904},new int[]{-31,902,-29,905,-35,179,-30,200}));
-stringstates[898] = @"324 using_alias_directive: USING IDENTIFIER . '=' qualified_identifier ';' 
-15 member_name: IDENTIFIER . type_list_opt ";
-    AddState(898,new State(new int[]{61,899,60,183,46,-16,59,-16},new int[]{-74,182}));
-stringstates[899] = @"324 using_alias_directive: USING IDENTIFIER '=' . qualified_identifier ';' ";
-    AddState(899,new State(new int[]{130,181},new int[]{-29,900,-35,179,-30,200}));
-stringstates[900] = @"324 using_alias_directive: USING IDENTIFIER '=' qualified_identifier . ';' ";
-    AddState(900,new State(new int[]{59,901}));
-stringstates[901] = @"324 using_alias_directive: USING IDENTIFIER '=' qualified_identifier ';' .		[USING, '[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
-    AddState(901,new State(-324));
-stringstates[902] = @"325 using_namespace_directive: USING namespace_name . ';' ";
-    AddState(902,new State(new int[]{59,903}));
-stringstates[903] = @"325 using_namespace_directive: USING namespace_name ';' .		[USING, '[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
+    AddState(896,new State(new int[]{130,897,127,903},new int[]{-31,901,-29,904,-72,179,-30,199}));
+    AddState(897,new State(new int[]{61,898,60,182,46,-15,59,-15}));
+    AddState(898,new State(new int[]{130,181},new int[]{-29,899,-72,179,-30,199}));
+    AddState(899,new State(new int[]{59,900}));
+    AddState(900,new State(-323));
+    AddState(901,new State(new int[]{59,902}));
+    AddState(902,new State(-324));
     AddState(903,new State(-325));
-stringstates[904] = @"326 using_namespace_directive: USING error .		[USING, '[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
-    AddState(904,new State(-326));
-stringstates[905] = @"13 namespace_name: qualified_identifier .		[';', ]";
-    AddState(905,new State(-13));
-stringstates[906] = @"323 using_directive: using_namespace_directive .		[USING, '[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
-    AddState(906,new State(-323));
-stringstates[907] = @"320 using_directives: using_directive .		[USING, '[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
-    AddState(907,new State(-320));
-stringstates[908] = @"305 compilation_unit: using_directives_opt namespace_member_declarations .		[EOF, ]
-328 namespace_member_declarations: namespace_member_declarations . namespace_member_declaration ";
-    AddState(908,new State(new int[]{91,369,128,-305,175,-308,136,-308,158,-308,171,-308,176,-308,181,-308,183,-308,184,-308,185,-308,186,-308,190,-308,194,-308,206,-308,209,-308,211,-308,146,-308,196,-308,170,-308,155,-308,151,-308},new int[]{-24,15,-23,16,-190,17,-192,366,-239,367,-240,385,-41,892,-36,855,-37,856,-38,857,-39,858,-40,859}));
+    AddState(904,new State(-13));
+    AddState(905,new State(-322));
+    AddState(906,new State(-319));
+    AddState(907,new State(new int[]{91,368,128,-304,175,-307,136,-307,158,-307,171,-307,176,-307,181,-307,183,-307,184,-307,185,-307,186,-307,190,-307,194,-307,206,-307,209,-307,211,-307,146,-307,196,-307,170,-307,155,-307,151,-307},new int[]{-24,15,-23,16,-189,17,-191,365,-238,366,-239,384,-40,891,-35,854,-36,855,-37,856,-38,857,-39,858}));
 
-    rules=new Rule[542];
-stringrules[1] = @"$accept -> compilation_unit EOF ";
+    rules=new Rule[541];
     rules[1]=new Rule(-73, new int[]{-1,128});
-stringrules[2] = @"literal -> boolean_literal ";
-    rules[2]=new Rule(-67, new int[]{-69});
-stringrules[3] = @"literal -> INTEGER_LITERAL ";
-    rules[3]=new Rule(-67, new int[]{131});
-stringrules[4] = @"literal -> REAL_LITERAL ";
-    rules[4]=new Rule(-67, new int[]{132});
-stringrules[5] = @"literal -> CHARACTER_LITERAL ";
-    rules[5]=new Rule(-67, new int[]{133});
-stringrules[6] = @"literal -> STRING_LITERAL ";
-    rules[6]=new Rule(-67, new int[]{134});
-stringrules[7] = @"literal -> NULL_LITERAL ";
-    rules[7]=new Rule(-67, new int[]{177});
-stringrules[8] = @"literal -> mllit ";
-    rules[8]=new Rule(-67, new int[]{-68});
-stringrules[9] = @"mllit -> MLSTRING_LITERAL ";
-    rules[9]=new Rule(-68, new int[]{135});
-stringrules[10] = @"mllit -> mllit MLSTRING_LITERAL ";
-    rules[10]=new Rule(-68, new int[]{-68,135});
-stringrules[11] = @"boolean_literal -> TRUE ";
-    rules[11]=new Rule(-69, new int[]{200});
-stringrules[12] = @"boolean_literal -> FALSE ";
-    rules[12]=new Rule(-69, new int[]{159});
-stringrules[13] = @"namespace_name -> qualified_identifier ";
+    rules[2]=new Rule(-66, new int[]{-68});
+    rules[3]=new Rule(-66, new int[]{131});
+    rules[4]=new Rule(-66, new int[]{132});
+    rules[5]=new Rule(-66, new int[]{133});
+    rules[6]=new Rule(-66, new int[]{134});
+    rules[7]=new Rule(-66, new int[]{177});
+    rules[8]=new Rule(-66, new int[]{-67});
+    rules[9]=new Rule(-67, new int[]{135});
+    rules[10]=new Rule(-67, new int[]{-67,135});
+    rules[11]=new Rule(-68, new int[]{200});
+    rules[12]=new Rule(-68, new int[]{159});
     rules[13]=new Rule(-31, new int[]{-29});
-stringrules[14] = @"type_name -> qualified_identifier ";
-    rules[14]=new Rule(-66, new int[]{-29});
-stringrules[15] = @"member_name -> IDENTIFIER type_list_opt ";
-    rules[15]=new Rule(-35, new int[]{130,-74});
-stringrules[16] = @"type_list_opt -> ";
-    rules[16]=new Rule(-74, new int[]{});
-stringrules[17] = @"type_list_opt -> '<' type_list '>' ";
-    rules[17]=new Rule(-74, new int[]{60,-75,62});
-stringrules[18] = @"type_list -> type ";
-    rules[18]=new Rule(-75, new int[]{-56});
-stringrules[19] = @"type_list -> type_list ',' type ";
-    rules[19]=new Rule(-75, new int[]{-75,44,-56});
-stringrules[20] = @"type -> non_array_type ";
-    rules[20]=new Rule(-56, new int[]{-58});
-stringrules[21] = @"type -> array_type ";
-    rules[21]=new Rule(-56, new int[]{-65});
-stringrules[22] = @"non_array_type -> simple_type ";
-    rules[22]=new Rule(-58, new int[]{-59});
-stringrules[23] = @"non_array_type -> type_name ";
-    rules[23]=new Rule(-58, new int[]{-66});
-stringrules[24] = @"simple_type -> primitive_type ";
-    rules[24]=new Rule(-59, new int[]{-60});
-stringrules[25] = @"simple_type -> class_type ";
-    rules[25]=new Rule(-59, new int[]{-61});
-stringrules[26] = @"simple_type -> pointer_type ";
-    rules[26]=new Rule(-59, new int[]{-76});
-stringrules[27] = @"primitive_type -> numeric_type ";
-    rules[27]=new Rule(-60, new int[]{-62});
-stringrules[28] = @"primitive_type -> BOOL ";
-    rules[28]=new Rule(-60, new int[]{139});
-stringrules[29] = @"numeric_type -> integral_type ";
-    rules[29]=new Rule(-62, new int[]{-64});
-stringrules[30] = @"numeric_type -> floating_point_type ";
-    rules[30]=new Rule(-62, new int[]{-63});
-stringrules[31] = @"numeric_type -> DECIMAL ";
-    rules[31]=new Rule(-62, new int[]{149});
-stringrules[32] = @"integral_type -> SBYTE ";
-    rules[32]=new Rule(-64, new int[]{189});
-stringrules[33] = @"integral_type -> BYTE ";
-    rules[33]=new Rule(-64, new int[]{141});
-stringrules[34] = @"integral_type -> SHORT ";
-    rules[34]=new Rule(-64, new int[]{191});
-stringrules[35] = @"integral_type -> USHORT ";
-    rules[35]=new Rule(-64, new int[]{207});
-stringrules[36] = @"integral_type -> INT ";
-    rules[36]=new Rule(-64, new int[]{169});
-stringrules[37] = @"integral_type -> UINT ";
-    rules[37]=new Rule(-64, new int[]{203});
-stringrules[38] = @"integral_type -> LONG ";
-    rules[38]=new Rule(-64, new int[]{174});
-stringrules[39] = @"integral_type -> ULONG ";
-    rules[39]=new Rule(-64, new int[]{204});
-stringrules[40] = @"integral_type -> CHAR ";
-    rules[40]=new Rule(-64, new int[]{144});
-stringrules[41] = @"floating_point_type -> FLOAT ";
-    rules[41]=new Rule(-63, new int[]{162});
-stringrules[42] = @"floating_point_type -> DOUBLE ";
-    rules[42]=new Rule(-63, new int[]{153});
-stringrules[43] = @"class_type -> OBJECT ";
-    rules[43]=new Rule(-61, new int[]{178});
-stringrules[44] = @"class_type -> KW_STRING ";
-    rules[44]=new Rule(-61, new int[]{195});
-stringrules[45] = @"pointer_type -> type '*' ";
-    rules[45]=new Rule(-76, new int[]{-56,42});
-stringrules[46] = @"pointer_type -> VOID '*' ";
-    rules[46]=new Rule(-76, new int[]{210,42});
-stringrules[47] = @"array_type -> array_type rank_specifier ";
-    rules[47]=new Rule(-65, new int[]{-65,-77});
-stringrules[48] = @"array_type -> simple_type rank_specifier ";
-    rules[48]=new Rule(-65, new int[]{-59,-77});
-stringrules[49] = @"array_type -> qualified_identifier rank_specifier ";
-    rules[49]=new Rule(-65, new int[]{-29,-77});
-stringrules[50] = @"rank_specifiers_opt -> ";
-    rules[50]=new Rule(-78, new int[]{});
-stringrules[51] = @"rank_specifiers_opt -> rank_specifier rank_specifiers_opt ";
-    rules[51]=new Rule(-78, new int[]{-77,-78});
-stringrules[52] = @"rank_specifier -> RANK_SPECIFIER ";
-    rules[52]=new Rule(-77, new int[]{129});
-stringrules[53] = @"variable_reference -> expression ";
-    rules[53]=new Rule(-79, new int[]{-80});
-stringrules[54] = @"argument_list -> argument ";
-    rules[54]=new Rule(-81, new int[]{-82});
-stringrules[55] = @"argument_list -> argument_list ',' argument ";
-    rules[55]=new Rule(-81, new int[]{-81,44,-82});
-stringrules[56] = @"argument -> expression ";
-    rules[56]=new Rule(-82, new int[]{-80});
-stringrules[57] = @"argument -> REF variable_reference ";
-    rules[57]=new Rule(-82, new int[]{187,-79});
-stringrules[58] = @"argument -> OUT variable_reference ";
-    rules[58]=new Rule(-82, new int[]{180,-79});
-stringrules[59] = @"primary_expression -> parenthesized_expression ";
-    rules[59]=new Rule(-83, new int[]{-84});
-stringrules[60] = @"primary_expression -> primary_expression_no_parenthesis ";
-    rules[60]=new Rule(-83, new int[]{-85});
-stringrules[61] = @"primary_expression_no_parenthesis -> literal ";
-    rules[61]=new Rule(-85, new int[]{-67});
-stringrules[62] = @"primary_expression_no_parenthesis -> array_creation_expression ";
-    rules[62]=new Rule(-85, new int[]{-86});
-stringrules[63] = @"primary_expression_no_parenthesis -> member_access ";
-    rules[63]=new Rule(-85, new int[]{-87});
-stringrules[64] = @"primary_expression_no_parenthesis -> invocation_expression ";
-    rules[64]=new Rule(-85, new int[]{-88});
-stringrules[65] = @"primary_expression_no_parenthesis -> element_access ";
-    rules[65]=new Rule(-85, new int[]{-89});
-stringrules[66] = @"primary_expression_no_parenthesis -> this_access ";
-    rules[66]=new Rule(-85, new int[]{-90});
-stringrules[67] = @"primary_expression_no_parenthesis -> base_access ";
-    rules[67]=new Rule(-85, new int[]{-91});
-stringrules[68] = @"primary_expression_no_parenthesis -> new_expression ";
-    rules[68]=new Rule(-85, new int[]{-92});
-stringrules[69] = @"primary_expression_no_parenthesis -> typeof_expression ";
-    rules[69]=new Rule(-85, new int[]{-93});
-stringrules[70] = @"primary_expression_no_parenthesis -> sizeof_expression ";
-    rules[70]=new Rule(-85, new int[]{-94});
-stringrules[71] = @"primary_expression_no_parenthesis -> checked_expression ";
-    rules[71]=new Rule(-85, new int[]{-95});
-stringrules[72] = @"primary_expression_no_parenthesis -> unchecked_expression ";
-    rules[72]=new Rule(-85, new int[]{-96});
-stringrules[73] = @"parenthesized_expression -> '(' expression ')' ";
-    rules[73]=new Rule(-84, new int[]{40,-80,41});
-stringrules[74] = @"member_access -> primary_expression '.' IDENTIFIER ";
-    rules[74]=new Rule(-87, new int[]{-83,46,130});
-stringrules[75] = @"member_access -> primitive_type '.' IDENTIFIER ";
-    rules[75]=new Rule(-87, new int[]{-60,46,130});
-stringrules[76] = @"member_access -> class_type '.' IDENTIFIER ";
-    rules[76]=new Rule(-87, new int[]{-61,46,130});
-stringrules[77] = @"invocation_expression -> primary_expression_no_parenthesis '(' argument_list_opt ')' ";
-    rules[77]=new Rule(-88, new int[]{-85,40,-97,41});
-stringrules[78] = @"invocation_expression -> qualified_identifier '(' argument_list_opt ')' ";
-    rules[78]=new Rule(-88, new int[]{-29,40,-97,41});
-stringrules[79] = @"argument_list_opt -> ";
-    rules[79]=new Rule(-97, new int[]{});
-stringrules[80] = @"argument_list_opt -> argument_list ";
-    rules[80]=new Rule(-97, new int[]{-81});
-stringrules[81] = @"element_access -> primary_expression '[' expression_list ']' ";
-    rules[81]=new Rule(-89, new int[]{-83,91,-98,93});
-stringrules[82] = @"element_access -> qualified_identifier '[' expression_list ']' ";
-    rules[82]=new Rule(-89, new int[]{-29,91,-98,93});
-stringrules[83] = @"expression_list_opt -> ";
-    rules[83]=new Rule(-99, new int[]{});
-stringrules[84] = @"expression_list_opt -> expression_list ";
-    rules[84]=new Rule(-99, new int[]{-98});
-stringrules[85] = @"expression_list -> expression ";
-    rules[85]=new Rule(-98, new int[]{-80});
-stringrules[86] = @"expression_list -> expression_list ',' expression ";
-    rules[86]=new Rule(-98, new int[]{-98,44,-80});
-stringrules[87] = @"this_access -> THIS ";
-    rules[87]=new Rule(-90, new int[]{198});
-stringrules[88] = @"base_access -> BASE '.' IDENTIFIER ";
-    rules[88]=new Rule(-91, new int[]{138,46,130});
-stringrules[89] = @"base_access -> BASE '[' expression_list ']' ";
-    rules[89]=new Rule(-91, new int[]{138,91,-98,93});
-stringrules[90] = @"post_increment_expression -> postfix_expression PLUSPLUS ";
-    rules[90]=new Rule(-100, new int[]{-101,246});
-stringrules[91] = @"post_decrement_expression -> postfix_expression MINUSMINUS ";
-    rules[91]=new Rule(-102, new int[]{-101,247});
-stringrules[92] = @"new_expression -> object_creation_expression ";
-    rules[92]=new Rule(-92, new int[]{-103});
-stringrules[93] = @"object_creation_expression -> NEW type '(' argument_list_opt ')' ";
-    rules[93]=new Rule(-103, new int[]{176,-56,40,-97,41});
-stringrules[94] = @"object_creation_expression -> NEW error ";
-    rules[94]=new Rule(-103, new int[]{176,127});
-stringrules[95] = @"array_creation_expression -> NEW non_array_type '[' expression_list ']' rank_specifiers_opt array_initializer_opt ";
-    rules[95]=new Rule(-86, new int[]{176,-58,91,-98,93,-78,-104});
-stringrules[96] = @"array_creation_expression -> NEW array_type array_initializer ";
-    rules[96]=new Rule(-86, new int[]{176,-65,-105});
-stringrules[97] = @"array_initializer_opt -> ";
-    rules[97]=new Rule(-104, new int[]{});
-stringrules[98] = @"array_initializer_opt -> array_initializer ";
-    rules[98]=new Rule(-104, new int[]{-105});
-stringrules[99] = @"typeof_expression -> TYPEOF '(' type ')' ";
-    rules[99]=new Rule(-93, new int[]{202,40,-56,41});
-stringrules[100] = @"typeof_expression -> TYPEOF '(' VOID ')' ";
-    rules[100]=new Rule(-93, new int[]{202,40,210,41});
-stringrules[101] = @"checked_expression -> CHECKED '(' expression ')' ";
-    rules[101]=new Rule(-95, new int[]{145,40,-80,41});
-stringrules[102] = @"unchecked_expression -> UNCHECKED '(' expression ')' ";
-    rules[102]=new Rule(-96, new int[]{205,40,-80,41});
-stringrules[103] = @"pointer_member_access -> postfix_expression ARROW IDENTIFIER ";
-    rules[103]=new Rule(-106, new int[]{-101,248,130});
-stringrules[104] = @"addressof_expression -> '&' unary_expression ";
-    rules[104]=new Rule(-107, new int[]{38,-108});
-stringrules[105] = @"sizeof_expression -> SIZEOF '(' type ')' ";
-    rules[105]=new Rule(-94, new int[]{192,40,-56,41});
-stringrules[106] = @"postfix_expression -> primary_expression ";
-    rules[106]=new Rule(-101, new int[]{-83});
-stringrules[107] = @"postfix_expression -> qualified_identifier ";
-    rules[107]=new Rule(-101, new int[]{-29});
-stringrules[108] = @"postfix_expression -> post_increment_expression ";
-    rules[108]=new Rule(-101, new int[]{-100});
-stringrules[109] = @"postfix_expression -> post_decrement_expression ";
-    rules[109]=new Rule(-101, new int[]{-102});
-stringrules[110] = @"postfix_expression -> pointer_member_access ";
-    rules[110]=new Rule(-101, new int[]{-106});
-stringrules[111] = @"unary_expression_not_plusminus -> postfix_expression ";
-    rules[111]=new Rule(-109, new int[]{-101});
-stringrules[112] = @"unary_expression_not_plusminus -> '!' unary_expression ";
-    rules[112]=new Rule(-109, new int[]{33,-108});
-stringrules[113] = @"unary_expression_not_plusminus -> '~' unary_expression ";
-    rules[113]=new Rule(-109, new int[]{126,-108});
-stringrules[114] = @"unary_expression_not_plusminus -> cast_expression ";
-    rules[114]=new Rule(-109, new int[]{-110});
-stringrules[115] = @"pre_increment_expression -> PLUSPLUS unary_expression ";
-    rules[115]=new Rule(-111, new int[]{246,-108});
-stringrules[116] = @"pre_decrement_expression -> MINUSMINUS unary_expression ";
-    rules[116]=new Rule(-112, new int[]{247,-108});
-stringrules[117] = @"unary_expression -> unary_expression_not_plusminus ";
-    rules[117]=new Rule(-108, new int[]{-109});
-stringrules[118] = @"unary_expression -> '+' unary_expression ";
-    rules[118]=new Rule(-108, new int[]{43,-108});
-stringrules[119] = @"unary_expression -> '-' unary_expression ";
-    rules[119]=new Rule(-108, new int[]{45,-108});
-stringrules[120] = @"unary_expression -> '*' unary_expression ";
-    rules[120]=new Rule(-108, new int[]{42,-108});
-stringrules[121] = @"unary_expression -> pre_increment_expression ";
-    rules[121]=new Rule(-108, new int[]{-111});
-stringrules[122] = @"unary_expression -> pre_decrement_expression ";
-    rules[122]=new Rule(-108, new int[]{-112});
-stringrules[123] = @"unary_expression -> addressof_expression ";
-    rules[123]=new Rule(-108, new int[]{-107});
-stringrules[124] = @"cast_expression -> '(' expression ')' unary_expression_not_plusminus ";
-    rules[124]=new Rule(-110, new int[]{40,-80,41,-109});
-stringrules[125] = @"cast_expression -> '(' multiplicative_expression '*' ')' unary_expression ";
-    rules[125]=new Rule(-110, new int[]{40,-113,42,41,-108});
-stringrules[126] = @"cast_expression -> '(' qualified_identifier rank_specifier type_quals_opt ')' unary_expression ";
-    rules[126]=new Rule(-110, new int[]{40,-29,-77,-114,41,-108});
-stringrules[127] = @"cast_expression -> '(' primitive_type type_quals_opt ')' unary_expression ";
-    rules[127]=new Rule(-110, new int[]{40,-60,-114,41,-108});
-stringrules[128] = @"cast_expression -> '(' class_type type_quals_opt ')' unary_expression ";
-    rules[128]=new Rule(-110, new int[]{40,-61,-114,41,-108});
-stringrules[129] = @"cast_expression -> '(' VOID type_quals_opt ')' unary_expression ";
-    rules[129]=new Rule(-110, new int[]{40,210,-114,41,-108});
-stringrules[130] = @"type_quals_opt -> ";
-    rules[130]=new Rule(-114, new int[]{});
-stringrules[131] = @"type_quals_opt -> type_quals ";
+    rules[14]=new Rule(-65, new int[]{-29});
+    rules[15]=new Rule(-72, new int[]{130});
+    rules[16]=new Rule(-72, new int[]{130,60,-74,62});
+    rules[17]=new Rule(-74, new int[]{-55});
+    rules[18]=new Rule(-74, new int[]{-74,44,-55});
+    rules[19]=new Rule(-55, new int[]{-57});
+    rules[20]=new Rule(-55, new int[]{-64});
+    rules[21]=new Rule(-57, new int[]{-58});
+    rules[22]=new Rule(-57, new int[]{-65});
+    rules[23]=new Rule(-58, new int[]{-59});
+    rules[24]=new Rule(-58, new int[]{-60});
+    rules[25]=new Rule(-58, new int[]{-75});
+    rules[26]=new Rule(-59, new int[]{-61});
+    rules[27]=new Rule(-59, new int[]{139});
+    rules[28]=new Rule(-61, new int[]{-63});
+    rules[29]=new Rule(-61, new int[]{-62});
+    rules[30]=new Rule(-61, new int[]{149});
+    rules[31]=new Rule(-63, new int[]{189});
+    rules[32]=new Rule(-63, new int[]{141});
+    rules[33]=new Rule(-63, new int[]{191});
+    rules[34]=new Rule(-63, new int[]{207});
+    rules[35]=new Rule(-63, new int[]{169});
+    rules[36]=new Rule(-63, new int[]{203});
+    rules[37]=new Rule(-63, new int[]{174});
+    rules[38]=new Rule(-63, new int[]{204});
+    rules[39]=new Rule(-63, new int[]{144});
+    rules[40]=new Rule(-62, new int[]{162});
+    rules[41]=new Rule(-62, new int[]{153});
+    rules[42]=new Rule(-60, new int[]{178});
+    rules[43]=new Rule(-60, new int[]{195});
+    rules[44]=new Rule(-75, new int[]{-55,42});
+    rules[45]=new Rule(-75, new int[]{210,42});
+    rules[46]=new Rule(-64, new int[]{-64,-76});
+    rules[47]=new Rule(-64, new int[]{-58,-76});
+    rules[48]=new Rule(-64, new int[]{-29,-76});
+    rules[49]=new Rule(-77, new int[]{});
+    rules[50]=new Rule(-77, new int[]{-76,-77});
+    rules[51]=new Rule(-76, new int[]{129});
+    rules[52]=new Rule(-78, new int[]{-79});
+    rules[53]=new Rule(-80, new int[]{-81});
+    rules[54]=new Rule(-80, new int[]{-80,44,-81});
+    rules[55]=new Rule(-81, new int[]{-79});
+    rules[56]=new Rule(-81, new int[]{187,-78});
+    rules[57]=new Rule(-81, new int[]{180,-78});
+    rules[58]=new Rule(-82, new int[]{-83});
+    rules[59]=new Rule(-82, new int[]{-84});
+    rules[60]=new Rule(-84, new int[]{-66});
+    rules[61]=new Rule(-84, new int[]{-85});
+    rules[62]=new Rule(-84, new int[]{-86});
+    rules[63]=new Rule(-84, new int[]{-87});
+    rules[64]=new Rule(-84, new int[]{-88});
+    rules[65]=new Rule(-84, new int[]{-89});
+    rules[66]=new Rule(-84, new int[]{-90});
+    rules[67]=new Rule(-84, new int[]{-91});
+    rules[68]=new Rule(-84, new int[]{-92});
+    rules[69]=new Rule(-84, new int[]{-93});
+    rules[70]=new Rule(-84, new int[]{-94});
+    rules[71]=new Rule(-84, new int[]{-95});
+    rules[72]=new Rule(-83, new int[]{40,-79,41});
+    rules[73]=new Rule(-86, new int[]{-82,46,130});
+    rules[74]=new Rule(-86, new int[]{-59,46,130});
+    rules[75]=new Rule(-86, new int[]{-60,46,130});
+    rules[76]=new Rule(-87, new int[]{-84,40,-96,41});
+    rules[77]=new Rule(-87, new int[]{-29,40,-96,41});
+    rules[78]=new Rule(-96, new int[]{});
+    rules[79]=new Rule(-96, new int[]{-80});
+    rules[80]=new Rule(-88, new int[]{-82,91,-97,93});
+    rules[81]=new Rule(-88, new int[]{-29,91,-97,93});
+    rules[82]=new Rule(-98, new int[]{});
+    rules[83]=new Rule(-98, new int[]{-97});
+    rules[84]=new Rule(-97, new int[]{-79});
+    rules[85]=new Rule(-97, new int[]{-97,44,-79});
+    rules[86]=new Rule(-89, new int[]{198});
+    rules[87]=new Rule(-90, new int[]{138,46,130});
+    rules[88]=new Rule(-90, new int[]{138,91,-97,93});
+    rules[89]=new Rule(-99, new int[]{-100,246});
+    rules[90]=new Rule(-101, new int[]{-100,247});
+    rules[91]=new Rule(-91, new int[]{-102});
+    rules[92]=new Rule(-102, new int[]{176,-55,40,-96,41});
+    rules[93]=new Rule(-102, new int[]{176,127});
+    rules[94]=new Rule(-85, new int[]{176,-57,91,-97,93,-77,-103});
+    rules[95]=new Rule(-85, new int[]{176,-64,-104});
+    rules[96]=new Rule(-103, new int[]{});
+    rules[97]=new Rule(-103, new int[]{-104});
+    rules[98]=new Rule(-92, new int[]{202,40,-55,41});
+    rules[99]=new Rule(-92, new int[]{202,40,210,41});
+    rules[100]=new Rule(-94, new int[]{145,40,-79,41});
+    rules[101]=new Rule(-95, new int[]{205,40,-79,41});
+    rules[102]=new Rule(-105, new int[]{-100,248,130});
+    rules[103]=new Rule(-106, new int[]{38,-107});
+    rules[104]=new Rule(-93, new int[]{192,40,-55,41});
+    rules[105]=new Rule(-100, new int[]{-82});
+    rules[106]=new Rule(-100, new int[]{-29});
+    rules[107]=new Rule(-100, new int[]{-99});
+    rules[108]=new Rule(-100, new int[]{-101});
+    rules[109]=new Rule(-100, new int[]{-105});
+    rules[110]=new Rule(-108, new int[]{-100});
+    rules[111]=new Rule(-108, new int[]{33,-107});
+    rules[112]=new Rule(-108, new int[]{126,-107});
+    rules[113]=new Rule(-108, new int[]{-109});
+    rules[114]=new Rule(-110, new int[]{246,-107});
+    rules[115]=new Rule(-111, new int[]{247,-107});
+    rules[116]=new Rule(-107, new int[]{-108});
+    rules[117]=new Rule(-107, new int[]{43,-107});
+    rules[118]=new Rule(-107, new int[]{45,-107});
+    rules[119]=new Rule(-107, new int[]{42,-107});
+    rules[120]=new Rule(-107, new int[]{-110});
+    rules[121]=new Rule(-107, new int[]{-111});
+    rules[122]=new Rule(-107, new int[]{-106});
+    rules[123]=new Rule(-109, new int[]{40,-79,41,-108});
+    rules[124]=new Rule(-109, new int[]{40,-112,42,41,-107});
+    rules[125]=new Rule(-109, new int[]{40,-29,-76,-113,41,-107});
+    rules[126]=new Rule(-109, new int[]{40,-59,-113,41,-107});
+    rules[127]=new Rule(-109, new int[]{40,-60,-113,41,-107});
+    rules[128]=new Rule(-109, new int[]{40,210,-113,41,-107});
+    rules[129]=new Rule(-113, new int[]{});
+    rules[130]=new Rule(-113, new int[]{-114});
     rules[131]=new Rule(-114, new int[]{-115});
-stringrules[132] = @"type_quals -> type_qual ";
-    rules[132]=new Rule(-115, new int[]{-116});
-stringrules[133] = @"type_quals -> type_quals type_qual ";
-    rules[133]=new Rule(-115, new int[]{-115,-116});
-stringrules[134] = @"type_qual -> rank_specifier ";
-    rules[134]=new Rule(-116, new int[]{-77});
-stringrules[135] = @"type_qual -> '*' ";
-    rules[135]=new Rule(-116, new int[]{42});
-stringrules[136] = @"multiplicative_expression -> unary_expression ";
-    rules[136]=new Rule(-113, new int[]{-108});
-stringrules[137] = @"multiplicative_expression -> multiplicative_expression '*' unary_expression ";
-    rules[137]=new Rule(-113, new int[]{-113,42,-108});
-stringrules[138] = @"multiplicative_expression -> multiplicative_expression '/' unary_expression ";
-    rules[138]=new Rule(-113, new int[]{-113,47,-108});
-stringrules[139] = @"multiplicative_expression -> multiplicative_expression '%' unary_expression ";
-    rules[139]=new Rule(-113, new int[]{-113,37,-108});
-stringrules[140] = @"additive_expression -> multiplicative_expression ";
-    rules[140]=new Rule(-117, new int[]{-113});
-stringrules[141] = @"additive_expression -> additive_expression '+' multiplicative_expression ";
-    rules[141]=new Rule(-117, new int[]{-117,43,-113});
-stringrules[142] = @"additive_expression -> additive_expression '-' multiplicative_expression ";
-    rules[142]=new Rule(-117, new int[]{-117,45,-113});
-stringrules[143] = @"shift_expression -> additive_expression ";
-    rules[143]=new Rule(-118, new int[]{-117});
-stringrules[144] = @"shift_expression -> shift_expression LTLT additive_expression ";
-    rules[144]=new Rule(-118, new int[]{-118,236,-117});
-stringrules[145] = @"shift_expression -> shift_expression GTGT additive_expression ";
-    rules[145]=new Rule(-118, new int[]{-118,237,-117});
-stringrules[146] = @"relational_expression -> shift_expression ";
-    rules[146]=new Rule(-119, new int[]{-118});
-stringrules[147] = @"relational_expression -> relational_expression '>' shift_expression ";
-    rules[147]=new Rule(-119, new int[]{-119,62,-118});
-stringrules[148] = @"relational_expression -> relational_expression '<' shift_expression ";
-    rules[148]=new Rule(-119, new int[]{-119,60,-118});
-stringrules[149] = @"relational_expression -> relational_expression LEQ shift_expression ";
-    rules[149]=new Rule(-119, new int[]{-119,242,-118});
-stringrules[150] = @"relational_expression -> relational_expression GEQ shift_expression ";
-    rules[150]=new Rule(-119, new int[]{-119,243,-118});
-stringrules[151] = @"relational_expression -> relational_expression IS type ";
-    rules[151]=new Rule(-119, new int[]{-119,172,-56});
-stringrules[152] = @"relational_expression -> relational_expression AS type ";
-    rules[152]=new Rule(-119, new int[]{-119,137,-56});
-stringrules[153] = @"equality_expression -> relational_expression ";
-    rules[153]=new Rule(-120, new int[]{-119});
-stringrules[154] = @"equality_expression -> equality_expression EQEQ relational_expression ";
-    rules[154]=new Rule(-120, new int[]{-120,240,-119});
-stringrules[155] = @"equality_expression -> equality_expression NOTEQ relational_expression ";
-    rules[155]=new Rule(-120, new int[]{-120,241,-119});
-stringrules[156] = @"and_expression -> equality_expression ";
-    rules[156]=new Rule(-121, new int[]{-120});
-stringrules[157] = @"and_expression -> and_expression '&' equality_expression ";
-    rules[157]=new Rule(-121, new int[]{-121,38,-120});
-stringrules[158] = @"exclusive_or_expression -> and_expression ";
-    rules[158]=new Rule(-122, new int[]{-121});
-stringrules[159] = @"exclusive_or_expression -> exclusive_or_expression '^' and_expression ";
-    rules[159]=new Rule(-122, new int[]{-122,94,-121});
-stringrules[160] = @"inclusive_or_expression -> exclusive_or_expression ";
-    rules[160]=new Rule(-123, new int[]{-122});
-stringrules[161] = @"inclusive_or_expression -> inclusive_or_expression '|' exclusive_or_expression ";
-    rules[161]=new Rule(-123, new int[]{-123,124,-122});
-stringrules[162] = @"conditional_and_expression -> inclusive_or_expression ";
-    rules[162]=new Rule(-124, new int[]{-123});
-stringrules[163] = @"conditional_and_expression -> conditional_and_expression ANDAND inclusive_or_expression ";
-    rules[163]=new Rule(-124, new int[]{-124,244,-123});
-stringrules[164] = @"conditional_or_expression -> conditional_and_expression ";
-    rules[164]=new Rule(-125, new int[]{-124});
-stringrules[165] = @"conditional_or_expression -> conditional_or_expression OROR conditional_and_expression ";
-    rules[165]=new Rule(-125, new int[]{-125,245,-124});
-stringrules[166] = @"conditional_expression -> conditional_or_expression ";
-    rules[166]=new Rule(-126, new int[]{-125});
-stringrules[167] = @"conditional_expression -> conditional_or_expression '?' expression ':' expression ";
-    rules[167]=new Rule(-126, new int[]{-125,63,-80,58,-80});
-stringrules[168] = @"conditional_expression -> conditional_or_expression QQ expression ";
-    rules[168]=new Rule(-126, new int[]{-125,232,-80});
-stringrules[169] = @"assignment -> unary_expression assignment_operator expression ";
-    rules[169]=new Rule(-127, new int[]{-108,-128,-80});
-stringrules[170] = @"assignment_operator -> '=' ";
-    rules[170]=new Rule(-128, new int[]{61});
-stringrules[171] = @"assignment_operator -> PLUSEQ ";
-    rules[171]=new Rule(-128, new int[]{227});
-stringrules[172] = @"assignment_operator -> MINUSEQ ";
-    rules[172]=new Rule(-128, new int[]{228});
-stringrules[173] = @"assignment_operator -> STAREQ ";
-    rules[173]=new Rule(-128, new int[]{229});
-stringrules[174] = @"assignment_operator -> DIVEQ ";
-    rules[174]=new Rule(-128, new int[]{230});
-stringrules[175] = @"assignment_operator -> MODEQ ";
-    rules[175]=new Rule(-128, new int[]{231});
-stringrules[176] = @"assignment_operator -> XOREQ ";
-    rules[176]=new Rule(-128, new int[]{233});
-stringrules[177] = @"assignment_operator -> ANDEQ ";
-    rules[177]=new Rule(-128, new int[]{234});
-stringrules[178] = @"assignment_operator -> OREQ ";
-    rules[178]=new Rule(-128, new int[]{235});
-stringrules[179] = @"assignment_operator -> GTGTEQ ";
-    rules[179]=new Rule(-128, new int[]{238});
-stringrules[180] = @"assignment_operator -> LTLTEQ ";
-    rules[180]=new Rule(-128, new int[]{239});
-stringrules[181] = @"expression -> conditional_expression ";
-    rules[181]=new Rule(-80, new int[]{-126});
-stringrules[182] = @"expression -> assignment ";
-    rules[182]=new Rule(-80, new int[]{-127});
-stringrules[183] = @"constant_expression -> expression ";
-    rules[183]=new Rule(-129, new int[]{-80});
-stringrules[184] = @"boolean_expression -> expression ";
-    rules[184]=new Rule(-130, new int[]{-80});
-stringrules[185] = @"statement -> labeled_statement ";
-    rules[185]=new Rule(-131, new int[]{-132});
-stringrules[186] = @"statement -> declaration_statement ";
-    rules[186]=new Rule(-131, new int[]{-133});
-stringrules[187] = @"statement -> embedded_statement ";
-    rules[187]=new Rule(-131, new int[]{-134});
-stringrules[188] = @"embedded_statement -> block ";
-    rules[188]=new Rule(-134, new int[]{-135});
-stringrules[189] = @"embedded_statement -> empty_statement ";
-    rules[189]=new Rule(-134, new int[]{-136});
-stringrules[190] = @"embedded_statement -> expression_statement ";
-    rules[190]=new Rule(-134, new int[]{-137});
-stringrules[191] = @"embedded_statement -> selection_statement ";
-    rules[191]=new Rule(-134, new int[]{-138});
-stringrules[192] = @"embedded_statement -> iteration_statement ";
-    rules[192]=new Rule(-134, new int[]{-139});
-stringrules[193] = @"embedded_statement -> jump_statement ";
-    rules[193]=new Rule(-134, new int[]{-140});
-stringrules[194] = @"embedded_statement -> try_statement ";
-    rules[194]=new Rule(-134, new int[]{-141});
-stringrules[195] = @"embedded_statement -> checked_statement ";
-    rules[195]=new Rule(-134, new int[]{-142});
-stringrules[196] = @"embedded_statement -> unchecked_statement ";
-    rules[196]=new Rule(-134, new int[]{-143});
-stringrules[197] = @"embedded_statement -> lock_statement ";
-    rules[197]=new Rule(-134, new int[]{-144});
-stringrules[198] = @"embedded_statement -> using_statement ";
-    rules[198]=new Rule(-134, new int[]{-145});
-stringrules[199] = @"embedded_statement -> unsafe_statement ";
-    rules[199]=new Rule(-134, new int[]{-146});
-stringrules[200] = @"embedded_statement -> fixed_statement ";
-    rules[200]=new Rule(-134, new int[]{-147});
-stringrules[201] = @"block -> '{' statement_list_opt '}' ";
-    rules[201]=new Rule(-135, new int[]{123,-148,125});
-stringrules[202] = @"statement_list_opt -> ";
-    rules[202]=new Rule(-148, new int[]{});
-stringrules[203] = @"statement_list_opt -> statement_list ";
-    rules[203]=new Rule(-148, new int[]{-149});
-stringrules[204] = @"statement_list -> statement ";
-    rules[204]=new Rule(-149, new int[]{-131});
-stringrules[205] = @"statement_list -> statement_list statement ";
-    rules[205]=new Rule(-149, new int[]{-149,-131});
-stringrules[206] = @"empty_statement -> ';' ";
-    rules[206]=new Rule(-136, new int[]{59});
-stringrules[207] = @"labeled_statement -> IDENTIFIER ':' statement ";
-    rules[207]=new Rule(-132, new int[]{130,58,-131});
-stringrules[208] = @"declaration_statement -> local_variable_declaration ';' ";
-    rules[208]=new Rule(-133, new int[]{-150,59});
-stringrules[209] = @"declaration_statement -> local_constant_declaration ';' ";
-    rules[209]=new Rule(-133, new int[]{-151,59});
-stringrules[210] = @"local_variable_declaration -> type variable_declarators ";
-    rules[210]=new Rule(-150, new int[]{-56,-70});
-stringrules[211] = @"variable_declarators -> variable_declarator ";
-    rules[211]=new Rule(-70, new int[]{-33});
-stringrules[212] = @"variable_declarators -> variable_declarators ',' variable_declarator ";
-    rules[212]=new Rule(-70, new int[]{-70,44,-33});
-stringrules[213] = @"variable_declarator -> IDENTIFIER ";
-    rules[213]=new Rule(-33, new int[]{130});
-stringrules[214] = @"variable_declarator -> IDENTIFIER '=' variable_initializer ";
-    rules[214]=new Rule(-33, new int[]{130,61,-152});
-stringrules[215] = @"variable_initializer -> expression ";
-    rules[215]=new Rule(-152, new int[]{-80});
-stringrules[216] = @"variable_initializer -> array_initializer ";
-    rules[216]=new Rule(-152, new int[]{-105});
-stringrules[217] = @"variable_initializer -> stackalloc_initializer ";
-    rules[217]=new Rule(-152, new int[]{-153});
-stringrules[218] = @"stackalloc_initializer -> STACKALLOC type '[' expression ']' ";
-    rules[218]=new Rule(-153, new int[]{193,-56,91,-80,93});
-stringrules[219] = @"local_constant_declaration -> CONST type constant_declarators ";
-    rules[219]=new Rule(-151, new int[]{147,-56,-71});
-stringrules[220] = @"constant_declarators -> constant_declarator ";
-    rules[220]=new Rule(-71, new int[]{-32});
-stringrules[221] = @"constant_declarators -> constant_declarators ',' constant_declarator ";
-    rules[221]=new Rule(-71, new int[]{-71,44,-32});
-stringrules[222] = @"constant_declarator -> IDENTIFIER '=' constant_expression ";
-    rules[222]=new Rule(-32, new int[]{130,61,-129});
-stringrules[223] = @"expression_statement -> statement_expression ';' ";
-    rules[223]=new Rule(-137, new int[]{-154,59});
-stringrules[224] = @"statement_expression -> invocation_expression ";
-    rules[224]=new Rule(-154, new int[]{-88});
-stringrules[225] = @"statement_expression -> object_creation_expression ";
-    rules[225]=new Rule(-154, new int[]{-103});
-stringrules[226] = @"statement_expression -> assignment ";
-    rules[226]=new Rule(-154, new int[]{-127});
-stringrules[227] = @"statement_expression -> post_increment_expression ";
-    rules[227]=new Rule(-154, new int[]{-100});
-stringrules[228] = @"statement_expression -> post_decrement_expression ";
-    rules[228]=new Rule(-154, new int[]{-102});
-stringrules[229] = @"statement_expression -> pre_increment_expression ";
-    rules[229]=new Rule(-154, new int[]{-111});
-stringrules[230] = @"statement_expression -> pre_decrement_expression ";
-    rules[230]=new Rule(-154, new int[]{-112});
-stringrules[231] = @"selection_statement -> if_statement ";
-    rules[231]=new Rule(-138, new int[]{-155});
-stringrules[232] = @"selection_statement -> switch_statement ";
-    rules[232]=new Rule(-138, new int[]{-156});
-stringrules[233] = @"if_statement -> IF '(' boolean_expression ')' embedded_statement ";
-    rules[233]=new Rule(-155, new int[]{166,40,-130,41,-134});
-stringrules[234] = @"if_statement -> IF '(' boolean_expression ')' embedded_statement ELSE embedded_statement ";
-    rules[234]=new Rule(-155, new int[]{166,40,-130,41,-134,154,-134});
-stringrules[235] = @"switch_statement -> SWITCH '(' expression ')' switch_block ";
-    rules[235]=new Rule(-156, new int[]{197,40,-80,41,-157});
-stringrules[236] = @"switch_block -> '{' switch_sections_opt '}' ";
-    rules[236]=new Rule(-157, new int[]{123,-158,125});
-stringrules[237] = @"switch_sections_opt -> ";
-    rules[237]=new Rule(-158, new int[]{});
-stringrules[238] = @"switch_sections_opt -> switch_sections ";
+    rules[132]=new Rule(-114, new int[]{-114,-115});
+    rules[133]=new Rule(-115, new int[]{-76});
+    rules[134]=new Rule(-115, new int[]{42});
+    rules[135]=new Rule(-112, new int[]{-107});
+    rules[136]=new Rule(-112, new int[]{-112,42,-107});
+    rules[137]=new Rule(-112, new int[]{-112,47,-107});
+    rules[138]=new Rule(-112, new int[]{-112,37,-107});
+    rules[139]=new Rule(-116, new int[]{-112});
+    rules[140]=new Rule(-116, new int[]{-116,43,-112});
+    rules[141]=new Rule(-116, new int[]{-116,45,-112});
+    rules[142]=new Rule(-117, new int[]{-116});
+    rules[143]=new Rule(-117, new int[]{-117,236,-116});
+    rules[144]=new Rule(-117, new int[]{-117,237,-116});
+    rules[145]=new Rule(-118, new int[]{-117});
+    rules[146]=new Rule(-118, new int[]{-118,62,-117});
+    rules[147]=new Rule(-118, new int[]{-118,60,-117});
+    rules[148]=new Rule(-118, new int[]{-118,242,-117});
+    rules[149]=new Rule(-118, new int[]{-118,243,-117});
+    rules[150]=new Rule(-118, new int[]{-118,172,-55});
+    rules[151]=new Rule(-118, new int[]{-118,137,-55});
+    rules[152]=new Rule(-119, new int[]{-118});
+    rules[153]=new Rule(-119, new int[]{-119,240,-118});
+    rules[154]=new Rule(-119, new int[]{-119,241,-118});
+    rules[155]=new Rule(-120, new int[]{-119});
+    rules[156]=new Rule(-120, new int[]{-120,38,-119});
+    rules[157]=new Rule(-121, new int[]{-120});
+    rules[158]=new Rule(-121, new int[]{-121,94,-120});
+    rules[159]=new Rule(-122, new int[]{-121});
+    rules[160]=new Rule(-122, new int[]{-122,124,-121});
+    rules[161]=new Rule(-123, new int[]{-122});
+    rules[162]=new Rule(-123, new int[]{-123,244,-122});
+    rules[163]=new Rule(-124, new int[]{-123});
+    rules[164]=new Rule(-124, new int[]{-124,245,-123});
+    rules[165]=new Rule(-125, new int[]{-124});
+    rules[166]=new Rule(-125, new int[]{-124,63,-79,58,-79});
+    rules[167]=new Rule(-125, new int[]{-124,232,-79});
+    rules[168]=new Rule(-126, new int[]{-107,-127,-79});
+    rules[169]=new Rule(-127, new int[]{61});
+    rules[170]=new Rule(-127, new int[]{227});
+    rules[171]=new Rule(-127, new int[]{228});
+    rules[172]=new Rule(-127, new int[]{229});
+    rules[173]=new Rule(-127, new int[]{230});
+    rules[174]=new Rule(-127, new int[]{231});
+    rules[175]=new Rule(-127, new int[]{233});
+    rules[176]=new Rule(-127, new int[]{234});
+    rules[177]=new Rule(-127, new int[]{235});
+    rules[178]=new Rule(-127, new int[]{238});
+    rules[179]=new Rule(-127, new int[]{239});
+    rules[180]=new Rule(-79, new int[]{-125});
+    rules[181]=new Rule(-79, new int[]{-126});
+    rules[182]=new Rule(-128, new int[]{-79});
+    rules[183]=new Rule(-129, new int[]{-79});
+    rules[184]=new Rule(-130, new int[]{-131});
+    rules[185]=new Rule(-130, new int[]{-132});
+    rules[186]=new Rule(-130, new int[]{-133});
+    rules[187]=new Rule(-133, new int[]{-134});
+    rules[188]=new Rule(-133, new int[]{-135});
+    rules[189]=new Rule(-133, new int[]{-136});
+    rules[190]=new Rule(-133, new int[]{-137});
+    rules[191]=new Rule(-133, new int[]{-138});
+    rules[192]=new Rule(-133, new int[]{-139});
+    rules[193]=new Rule(-133, new int[]{-140});
+    rules[194]=new Rule(-133, new int[]{-141});
+    rules[195]=new Rule(-133, new int[]{-142});
+    rules[196]=new Rule(-133, new int[]{-143});
+    rules[197]=new Rule(-133, new int[]{-144});
+    rules[198]=new Rule(-133, new int[]{-145});
+    rules[199]=new Rule(-133, new int[]{-146});
+    rules[200]=new Rule(-134, new int[]{123,-147,125});
+    rules[201]=new Rule(-147, new int[]{});
+    rules[202]=new Rule(-147, new int[]{-148});
+    rules[203]=new Rule(-148, new int[]{-130});
+    rules[204]=new Rule(-148, new int[]{-148,-130});
+    rules[205]=new Rule(-135, new int[]{59});
+    rules[206]=new Rule(-131, new int[]{130,58,-130});
+    rules[207]=new Rule(-132, new int[]{-149,59});
+    rules[208]=new Rule(-132, new int[]{-150,59});
+    rules[209]=new Rule(-149, new int[]{-55,-69});
+    rules[210]=new Rule(-69, new int[]{-33});
+    rules[211]=new Rule(-69, new int[]{-69,44,-33});
+    rules[212]=new Rule(-33, new int[]{130});
+    rules[213]=new Rule(-33, new int[]{130,61,-151});
+    rules[214]=new Rule(-151, new int[]{-79});
+    rules[215]=new Rule(-151, new int[]{-104});
+    rules[216]=new Rule(-151, new int[]{-152});
+    rules[217]=new Rule(-152, new int[]{193,-55,91,-79,93});
+    rules[218]=new Rule(-150, new int[]{147,-55,-70});
+    rules[219]=new Rule(-70, new int[]{-32});
+    rules[220]=new Rule(-70, new int[]{-70,44,-32});
+    rules[221]=new Rule(-32, new int[]{130,61,-128});
+    rules[222]=new Rule(-136, new int[]{-153,59});
+    rules[223]=new Rule(-153, new int[]{-87});
+    rules[224]=new Rule(-153, new int[]{-102});
+    rules[225]=new Rule(-153, new int[]{-126});
+    rules[226]=new Rule(-153, new int[]{-99});
+    rules[227]=new Rule(-153, new int[]{-101});
+    rules[228]=new Rule(-153, new int[]{-110});
+    rules[229]=new Rule(-153, new int[]{-111});
+    rules[230]=new Rule(-137, new int[]{-154});
+    rules[231]=new Rule(-137, new int[]{-155});
+    rules[232]=new Rule(-154, new int[]{166,40,-129,41,-133});
+    rules[233]=new Rule(-154, new int[]{166,40,-129,41,-133,154,-133});
+    rules[234]=new Rule(-155, new int[]{197,40,-79,41,-156});
+    rules[235]=new Rule(-156, new int[]{123,-157,125});
+    rules[236]=new Rule(-157, new int[]{});
+    rules[237]=new Rule(-157, new int[]{-158});
     rules[238]=new Rule(-158, new int[]{-159});
-stringrules[239] = @"switch_sections -> switch_section ";
-    rules[239]=new Rule(-159, new int[]{-160});
-stringrules[240] = @"switch_sections -> switch_sections switch_section ";
-    rules[240]=new Rule(-159, new int[]{-159,-160});
-stringrules[241] = @"switch_section -> switch_labels statement_list ";
-    rules[241]=new Rule(-160, new int[]{-161,-149});
-stringrules[242] = @"switch_labels -> switch_label ";
-    rules[242]=new Rule(-161, new int[]{-162});
-stringrules[243] = @"switch_labels -> switch_labels switch_label ";
-    rules[243]=new Rule(-161, new int[]{-161,-162});
-stringrules[244] = @"switch_label -> CASE constant_expression ':' ";
-    rules[244]=new Rule(-162, new int[]{142,-129,58});
-stringrules[245] = @"switch_label -> DEFAULT ':' ";
-    rules[245]=new Rule(-162, new int[]{150,58});
-stringrules[246] = @"iteration_statement -> while_statement ";
-    rules[246]=new Rule(-139, new int[]{-163});
-stringrules[247] = @"iteration_statement -> do_statement ";
-    rules[247]=new Rule(-139, new int[]{-164});
-stringrules[248] = @"iteration_statement -> for_statement ";
-    rules[248]=new Rule(-139, new int[]{-165});
-stringrules[249] = @"iteration_statement -> foreach_statement ";
-    rules[249]=new Rule(-139, new int[]{-166});
-stringrules[250] = @"unsafe_statement -> UNSAFE block ";
-    rules[250]=new Rule(-146, new int[]{206,-135});
-stringrules[251] = @"while_statement -> WHILE '(' boolean_expression ')' embedded_statement ";
-    rules[251]=new Rule(-163, new int[]{212,40,-130,41,-134});
-stringrules[252] = @"do_statement -> DO embedded_statement WHILE '(' boolean_expression ')' ';' ";
-    rules[252]=new Rule(-164, new int[]{152,-134,212,40,-130,41,59});
-stringrules[253] = @"@1 -> ";
-    rules[253]=new Rule(-170, new int[]{});
-stringrules[254] = @"for_statement -> FOR '(' for_initializer_opt ';' for_condition_opt ';' for_iterator_opt ')' @1 embedded_statement ";
-    rules[254]=new Rule(-165, new int[]{163,40,-167,59,-168,59,-169,41,-170,-134});
-stringrules[255] = @"for_initializer_opt -> ";
-    rules[255]=new Rule(-167, new int[]{});
-stringrules[256] = @"for_initializer_opt -> for_initializer ";
-    rules[256]=new Rule(-167, new int[]{-171});
-stringrules[257] = @"for_condition_opt -> ";
-    rules[257]=new Rule(-168, new int[]{});
-stringrules[258] = @"for_condition_opt -> for_condition ";
-    rules[258]=new Rule(-168, new int[]{-172});
-stringrules[259] = @"for_iterator_opt -> ";
-    rules[259]=new Rule(-169, new int[]{});
-stringrules[260] = @"for_iterator_opt -> for_iterator ";
-    rules[260]=new Rule(-169, new int[]{-173});
-stringrules[261] = @"for_initializer -> local_variable_declaration ";
-    rules[261]=new Rule(-171, new int[]{-150});
-stringrules[262] = @"for_initializer -> statement_expression_list ";
-    rules[262]=new Rule(-171, new int[]{-174});
-stringrules[263] = @"for_condition -> boolean_expression ";
-    rules[263]=new Rule(-172, new int[]{-130});
-stringrules[264] = @"for_iterator -> statement_expression_list ";
-    rules[264]=new Rule(-173, new int[]{-174});
-stringrules[265] = @"statement_expression_list -> statement_expression ";
-    rules[265]=new Rule(-174, new int[]{-154});
-stringrules[266] = @"statement_expression_list -> statement_expression_list ',' statement_expression ";
-    rules[266]=new Rule(-174, new int[]{-174,44,-154});
-stringrules[267] = @"foreach_statement -> FOREACH '(' type IDENTIFIER IN expression ')' embedded_statement ";
-    rules[267]=new Rule(-166, new int[]{164,40,-56,130,168,-80,41,-134});
-stringrules[268] = @"jump_statement -> break_statement ";
-    rules[268]=new Rule(-140, new int[]{-175});
-stringrules[269] = @"jump_statement -> continue_statement ";
-    rules[269]=new Rule(-140, new int[]{-176});
-stringrules[270] = @"jump_statement -> goto_statement ";
-    rules[270]=new Rule(-140, new int[]{-177});
-stringrules[271] = @"jump_statement -> return_statement ";
-    rules[271]=new Rule(-140, new int[]{-178});
-stringrules[272] = @"jump_statement -> throw_statement ";
-    rules[272]=new Rule(-140, new int[]{-179});
-stringrules[273] = @"break_statement -> BREAK ';' ";
-    rules[273]=new Rule(-175, new int[]{140,59});
-stringrules[274] = @"continue_statement -> CONTINUE ';' ";
-    rules[274]=new Rule(-176, new int[]{148,59});
-stringrules[275] = @"goto_statement -> GOTO IDENTIFIER ';' ";
-    rules[275]=new Rule(-177, new int[]{165,130,59});
-stringrules[276] = @"goto_statement -> GOTO CASE constant_expression ';' ";
-    rules[276]=new Rule(-177, new int[]{165,142,-129,59});
-stringrules[277] = @"goto_statement -> GOTO DEFAULT ';' ";
-    rules[277]=new Rule(-177, new int[]{165,150,59});
-stringrules[278] = @"return_statement -> RETURN expression_opt ';' ";
-    rules[278]=new Rule(-178, new int[]{188,-180,59});
-stringrules[279] = @"expression_opt -> ";
-    rules[279]=new Rule(-180, new int[]{});
-stringrules[280] = @"expression_opt -> expression ";
-    rules[280]=new Rule(-180, new int[]{-80});
-stringrules[281] = @"throw_statement -> THROW expression_opt ';' ";
-    rules[281]=new Rule(-179, new int[]{199,-180,59});
-stringrules[282] = @"try_statement -> TRY block catch_clauses ";
-    rules[282]=new Rule(-141, new int[]{201,-135,-181});
-stringrules[283] = @"try_statement -> TRY block finally_clause ";
-    rules[283]=new Rule(-141, new int[]{201,-135,-182});
-stringrules[284] = @"try_statement -> TRY block catch_clauses finally_clause ";
-    rules[284]=new Rule(-141, new int[]{201,-135,-181,-182});
-stringrules[285] = @"catch_clauses -> catch_clause ";
-    rules[285]=new Rule(-181, new int[]{-183});
-stringrules[286] = @"catch_clauses -> catch_clauses catch_clause ";
-    rules[286]=new Rule(-181, new int[]{-181,-183});
-stringrules[287] = @"catch_clause -> CATCH '(' class_type identifier_opt ')' block ";
-    rules[287]=new Rule(-183, new int[]{143,40,-61,-184,41,-135});
-stringrules[288] = @"catch_clause -> CATCH '(' type_name identifier_opt ')' block ";
-    rules[288]=new Rule(-183, new int[]{143,40,-66,-184,41,-135});
-stringrules[289] = @"catch_clause -> CATCH block ";
-    rules[289]=new Rule(-183, new int[]{143,-135});
-stringrules[290] = @"identifier_opt -> ";
-    rules[290]=new Rule(-184, new int[]{});
-stringrules[291] = @"identifier_opt -> IDENTIFIER ";
-    rules[291]=new Rule(-184, new int[]{130});
-stringrules[292] = @"finally_clause -> FINALLY block ";
-    rules[292]=new Rule(-182, new int[]{160,-135});
-stringrules[293] = @"checked_statement -> CHECKED block ";
-    rules[293]=new Rule(-142, new int[]{145,-135});
-stringrules[294] = @"unchecked_statement -> UNCHECKED block ";
-    rules[294]=new Rule(-143, new int[]{205,-135});
-stringrules[295] = @"lock_statement -> LOCK '(' expression ')' embedded_statement ";
-    rules[295]=new Rule(-144, new int[]{173,40,-80,41,-134});
-stringrules[296] = @"using_statement -> USING '(' resource_acquisition ')' embedded_statement ";
-    rules[296]=new Rule(-145, new int[]{208,40,-185,41,-134});
-stringrules[297] = @"resource_acquisition -> local_variable_declaration ";
-    rules[297]=new Rule(-185, new int[]{-150});
-stringrules[298] = @"resource_acquisition -> expression ";
-    rules[298]=new Rule(-185, new int[]{-80});
-stringrules[299] = @"@2 -> ";
-    rules[299]=new Rule(-187, new int[]{});
-stringrules[300] = @"fixed_statement -> FIXED '(' type fixed_pointer_declarators ')' @2 embedded_statement ";
-    rules[300]=new Rule(-147, new int[]{161,40,-56,-186,41,-187,-134});
-stringrules[301] = @"fixed_pointer_declarators -> fixed_pointer_declarator ";
-    rules[301]=new Rule(-186, new int[]{-188});
-stringrules[302] = @"fixed_pointer_declarators -> fixed_pointer_declarators ',' fixed_pointer_declarator ";
-    rules[302]=new Rule(-186, new int[]{-186,44,-188});
-stringrules[303] = @"fixed_pointer_declarator -> IDENTIFIER '=' expression ";
-    rules[303]=new Rule(-188, new int[]{130,61,-80});
-stringrules[304] = @"compilation_unit -> using_directives_opt attributes_opt ";
-    rules[304]=new Rule(-1, new int[]{-189,-190});
-stringrules[305] = @"compilation_unit -> using_directives_opt namespace_member_declarations ";
-    rules[305]=new Rule(-1, new int[]{-189,-2});
-stringrules[306] = @"using_directives_opt -> ";
-    rules[306]=new Rule(-189, new int[]{});
-stringrules[307] = @"using_directives_opt -> using_directives ";
-    rules[307]=new Rule(-189, new int[]{-191});
-stringrules[308] = @"attributes_opt -> ";
-    rules[308]=new Rule(-190, new int[]{});
-stringrules[309] = @"attributes_opt -> attributes ";
-    rules[309]=new Rule(-190, new int[]{-192});
-stringrules[310] = @"namespace_member_declarations_opt -> ";
-    rules[310]=new Rule(-4, new int[]{});
-stringrules[311] = @"namespace_member_declarations_opt -> namespace_member_declarations ";
-    rules[311]=new Rule(-4, new int[]{-2});
-stringrules[312] = @"namespace_declaration -> attributes_opt NAMESPACE qualified_identifier namespace_body comma_opt ";
-    rules[312]=new Rule(-23, new int[]{-190,175,-29,-3,-193});
-stringrules[313] = @"comma_opt -> ";
-    rules[313]=new Rule(-193, new int[]{});
-stringrules[314] = @"comma_opt -> ';' ";
-    rules[314]=new Rule(-193, new int[]{59});
-stringrules[315] = @"qualified_identifier -> member_name ";
-    rules[315]=new Rule(-29, new int[]{-35});
-stringrules[316] = @"qualified_identifier -> qualifier member_name ";
-    rules[316]=new Rule(-29, new int[]{-30,-35});
-stringrules[317] = @"qualifier -> member_name '.' ";
-    rules[317]=new Rule(-30, new int[]{-35,46});
-stringrules[318] = @"qualifier -> qualifier member_name '.' ";
-    rules[318]=new Rule(-30, new int[]{-30,-35,46});
-stringrules[319] = @"namespace_body -> '{' using_directives_opt namespace_member_declarations_opt '}' ";
-    rules[319]=new Rule(-3, new int[]{123,-189,-4,125});
-stringrules[320] = @"using_directives -> using_directive ";
-    rules[320]=new Rule(-191, new int[]{-194});
-stringrules[321] = @"using_directives -> using_directives using_directive ";
-    rules[321]=new Rule(-191, new int[]{-191,-194});
-stringrules[322] = @"using_directive -> using_alias_directive ";
-    rules[322]=new Rule(-194, new int[]{-195});
-stringrules[323] = @"using_directive -> using_namespace_directive ";
-    rules[323]=new Rule(-194, new int[]{-196});
-stringrules[324] = @"using_alias_directive -> USING IDENTIFIER '=' qualified_identifier ';' ";
-    rules[324]=new Rule(-195, new int[]{208,130,61,-29,59});
-stringrules[325] = @"using_namespace_directive -> USING namespace_name ';' ";
-    rules[325]=new Rule(-196, new int[]{208,-31,59});
-stringrules[326] = @"using_namespace_directive -> USING error ";
-    rules[326]=new Rule(-196, new int[]{208,127});
-stringrules[327] = @"namespace_member_declarations -> namespace_member_declaration ";
-    rules[327]=new Rule(-2, new int[]{-24});
-stringrules[328] = @"namespace_member_declarations -> namespace_member_declarations namespace_member_declaration ";
-    rules[328]=new Rule(-2, new int[]{-2,-24});
-stringrules[329] = @"namespace_member_declaration -> namespace_declaration ";
-    rules[329]=new Rule(-24, new int[]{-23});
-stringrules[330] = @"namespace_member_declaration -> type_declaration ";
-    rules[330]=new Rule(-24, new int[]{-41});
-stringrules[331] = @"type_declaration -> class_declaration ";
-    rules[331]=new Rule(-41, new int[]{-36});
-stringrules[332] = @"type_declaration -> struct_declaration ";
-    rules[332]=new Rule(-41, new int[]{-37});
-stringrules[333] = @"type_declaration -> interface_declaration ";
-    rules[333]=new Rule(-41, new int[]{-38});
-stringrules[334] = @"type_declaration -> enum_declaration ";
-    rules[334]=new Rule(-41, new int[]{-39});
-stringrules[335] = @"type_declaration -> delegate_declaration ";
-    rules[335]=new Rule(-41, new int[]{-40});
-stringrules[336] = @"modifiers_opt -> ";
-    rules[336]=new Rule(-197, new int[]{});
-stringrules[337] = @"modifiers_opt -> modifiers ";
+    rules[239]=new Rule(-158, new int[]{-158,-159});
+    rules[240]=new Rule(-159, new int[]{-160,-148});
+    rules[241]=new Rule(-160, new int[]{-161});
+    rules[242]=new Rule(-160, new int[]{-160,-161});
+    rules[243]=new Rule(-161, new int[]{142,-128,58});
+    rules[244]=new Rule(-161, new int[]{150,58});
+    rules[245]=new Rule(-138, new int[]{-162});
+    rules[246]=new Rule(-138, new int[]{-163});
+    rules[247]=new Rule(-138, new int[]{-164});
+    rules[248]=new Rule(-138, new int[]{-165});
+    rules[249]=new Rule(-145, new int[]{206,-134});
+    rules[250]=new Rule(-162, new int[]{212,40,-129,41,-133});
+    rules[251]=new Rule(-163, new int[]{152,-133,212,40,-129,41,59});
+    rules[252]=new Rule(-169, new int[]{});
+    rules[253]=new Rule(-164, new int[]{163,40,-166,59,-167,59,-168,41,-169,-133});
+    rules[254]=new Rule(-166, new int[]{});
+    rules[255]=new Rule(-166, new int[]{-170});
+    rules[256]=new Rule(-167, new int[]{});
+    rules[257]=new Rule(-167, new int[]{-171});
+    rules[258]=new Rule(-168, new int[]{});
+    rules[259]=new Rule(-168, new int[]{-172});
+    rules[260]=new Rule(-170, new int[]{-149});
+    rules[261]=new Rule(-170, new int[]{-173});
+    rules[262]=new Rule(-171, new int[]{-129});
+    rules[263]=new Rule(-172, new int[]{-173});
+    rules[264]=new Rule(-173, new int[]{-153});
+    rules[265]=new Rule(-173, new int[]{-173,44,-153});
+    rules[266]=new Rule(-165, new int[]{164,40,-55,130,168,-79,41,-133});
+    rules[267]=new Rule(-139, new int[]{-174});
+    rules[268]=new Rule(-139, new int[]{-175});
+    rules[269]=new Rule(-139, new int[]{-176});
+    rules[270]=new Rule(-139, new int[]{-177});
+    rules[271]=new Rule(-139, new int[]{-178});
+    rules[272]=new Rule(-174, new int[]{140,59});
+    rules[273]=new Rule(-175, new int[]{148,59});
+    rules[274]=new Rule(-176, new int[]{165,130,59});
+    rules[275]=new Rule(-176, new int[]{165,142,-128,59});
+    rules[276]=new Rule(-176, new int[]{165,150,59});
+    rules[277]=new Rule(-177, new int[]{188,-179,59});
+    rules[278]=new Rule(-179, new int[]{});
+    rules[279]=new Rule(-179, new int[]{-79});
+    rules[280]=new Rule(-178, new int[]{199,-179,59});
+    rules[281]=new Rule(-140, new int[]{201,-134,-180});
+    rules[282]=new Rule(-140, new int[]{201,-134,-181});
+    rules[283]=new Rule(-140, new int[]{201,-134,-180,-181});
+    rules[284]=new Rule(-180, new int[]{-182});
+    rules[285]=new Rule(-180, new int[]{-180,-182});
+    rules[286]=new Rule(-182, new int[]{143,40,-60,-183,41,-134});
+    rules[287]=new Rule(-182, new int[]{143,40,-65,-183,41,-134});
+    rules[288]=new Rule(-182, new int[]{143,-134});
+    rules[289]=new Rule(-183, new int[]{});
+    rules[290]=new Rule(-183, new int[]{130});
+    rules[291]=new Rule(-181, new int[]{160,-134});
+    rules[292]=new Rule(-141, new int[]{145,-134});
+    rules[293]=new Rule(-142, new int[]{205,-134});
+    rules[294]=new Rule(-143, new int[]{173,40,-79,41,-133});
+    rules[295]=new Rule(-144, new int[]{208,40,-184,41,-133});
+    rules[296]=new Rule(-184, new int[]{-149});
+    rules[297]=new Rule(-184, new int[]{-79});
+    rules[298]=new Rule(-186, new int[]{});
+    rules[299]=new Rule(-146, new int[]{161,40,-55,-185,41,-186,-133});
+    rules[300]=new Rule(-185, new int[]{-187});
+    rules[301]=new Rule(-185, new int[]{-185,44,-187});
+    rules[302]=new Rule(-187, new int[]{130,61,-79});
+    rules[303]=new Rule(-1, new int[]{-188,-189});
+    rules[304]=new Rule(-1, new int[]{-188,-2});
+    rules[305]=new Rule(-188, new int[]{});
+    rules[306]=new Rule(-188, new int[]{-190});
+    rules[307]=new Rule(-189, new int[]{});
+    rules[308]=new Rule(-189, new int[]{-191});
+    rules[309]=new Rule(-4, new int[]{});
+    rules[310]=new Rule(-4, new int[]{-2});
+    rules[311]=new Rule(-23, new int[]{-189,175,-29,-3,-192});
+    rules[312]=new Rule(-192, new int[]{});
+    rules[313]=new Rule(-192, new int[]{59});
+    rules[314]=new Rule(-29, new int[]{-72});
+    rules[315]=new Rule(-29, new int[]{-30,-72});
+    rules[316]=new Rule(-30, new int[]{-72,46});
+    rules[317]=new Rule(-30, new int[]{-30,-72,46});
+    rules[318]=new Rule(-3, new int[]{123,-188,-4,125});
+    rules[319]=new Rule(-190, new int[]{-193});
+    rules[320]=new Rule(-190, new int[]{-190,-193});
+    rules[321]=new Rule(-193, new int[]{-194});
+    rules[322]=new Rule(-193, new int[]{-195});
+    rules[323]=new Rule(-194, new int[]{208,130,61,-29,59});
+    rules[324]=new Rule(-195, new int[]{208,-31,59});
+    rules[325]=new Rule(-195, new int[]{208,127});
+    rules[326]=new Rule(-2, new int[]{-24});
+    rules[327]=new Rule(-2, new int[]{-2,-24});
+    rules[328]=new Rule(-24, new int[]{-23});
+    rules[329]=new Rule(-24, new int[]{-40});
+    rules[330]=new Rule(-40, new int[]{-35});
+    rules[331]=new Rule(-40, new int[]{-36});
+    rules[332]=new Rule(-40, new int[]{-37});
+    rules[333]=new Rule(-40, new int[]{-38});
+    rules[334]=new Rule(-40, new int[]{-39});
+    rules[335]=new Rule(-196, new int[]{});
+    rules[336]=new Rule(-196, new int[]{-197});
     rules[337]=new Rule(-197, new int[]{-198});
-stringrules[338] = @"modifiers -> modifier ";
-    rules[338]=new Rule(-198, new int[]{-199});
-stringrules[339] = @"modifiers -> modifiers modifier ";
-    rules[339]=new Rule(-198, new int[]{-198,-199});
-stringrules[340] = @"modifier -> ABSTRACT ";
-    rules[340]=new Rule(-199, new int[]{136});
-stringrules[341] = @"modifier -> EXTERN ";
-    rules[341]=new Rule(-199, new int[]{158});
-stringrules[342] = @"modifier -> INTERNAL ";
-    rules[342]=new Rule(-199, new int[]{171});
-stringrules[343] = @"modifier -> NEW ";
-    rules[343]=new Rule(-199, new int[]{176});
-stringrules[344] = @"modifier -> OVERRIDE ";
-    rules[344]=new Rule(-199, new int[]{181});
-stringrules[345] = @"modifier -> PRIVATE ";
-    rules[345]=new Rule(-199, new int[]{183});
-stringrules[346] = @"modifier -> PROTECTED ";
-    rules[346]=new Rule(-199, new int[]{184});
-stringrules[347] = @"modifier -> PUBLIC ";
-    rules[347]=new Rule(-199, new int[]{185});
-stringrules[348] = @"modifier -> READONLY ";
-    rules[348]=new Rule(-199, new int[]{186});
-stringrules[349] = @"modifier -> SEALED ";
-    rules[349]=new Rule(-199, new int[]{190});
-stringrules[350] = @"modifier -> STATIC ";
-    rules[350]=new Rule(-199, new int[]{194});
-stringrules[351] = @"modifier -> UNSAFE ";
-    rules[351]=new Rule(-199, new int[]{206});
-stringrules[352] = @"modifier -> VIRTUAL ";
-    rules[352]=new Rule(-199, new int[]{209});
-stringrules[353] = @"modifier -> VOLATILE ";
-    rules[353]=new Rule(-199, new int[]{211});
-stringrules[354] = @"gen_clause_opt -> ";
-    rules[354]=new Rule(-200, new int[]{});
-stringrules[355] = @"gen_clause_opt -> gen_clause ";
-    rules[355]=new Rule(-200, new int[]{-201});
-stringrules[356] = @"gen_clause -> WHERE IDENTIFIER gen_class_base ";
-    rules[356]=new Rule(-201, new int[]{213,130,-202});
-stringrules[357] = @"gen_class_type -> STRUCT ";
-    rules[357]=new Rule(-203, new int[]{196});
-stringrules[358] = @"gen_class_type -> CLASS ";
-    rules[358]=new Rule(-203, new int[]{146});
-stringrules[359] = @"gen_class_type -> class_type ";
-    rules[359]=new Rule(-203, new int[]{-61});
-stringrules[360] = @"gen_class_base -> ':' gen_class_type ";
-    rules[360]=new Rule(-202, new int[]{58,-203});
-stringrules[361] = @"gen_class_base -> ':' interface_type_list ";
-    rules[361]=new Rule(-202, new int[]{58,-204});
-stringrules[362] = @"gen_class_base -> ':' gen_class_type ',' interface_type_list ";
-    rules[362]=new Rule(-202, new int[]{58,-203,44,-204});
-stringrules[363] = @"class_declaration -> attributes_opt modifiers_opt CLASS member_name class_base_opt gen_clause_opt class_body comma_opt ";
-    rules[363]=new Rule(-36, new int[]{-190,-197,146,-35,-205,-200,-7,-193});
-stringrules[364] = @"class_base_opt -> ";
-    rules[364]=new Rule(-205, new int[]{});
-stringrules[365] = @"class_base_opt -> class_base ";
-    rules[365]=new Rule(-205, new int[]{-206});
-stringrules[366] = @"class_base -> ':' class_type ";
-    rules[366]=new Rule(-206, new int[]{58,-61});
-stringrules[367] = @"class_base -> ':' interface_type_list ";
-    rules[367]=new Rule(-206, new int[]{58,-204});
-stringrules[368] = @"class_base -> ':' class_type ',' interface_type_list ";
-    rules[368]=new Rule(-206, new int[]{58,-61,44,-204});
-stringrules[369] = @"interface_type_list -> type_name ";
-    rules[369]=new Rule(-204, new int[]{-66});
-stringrules[370] = @"interface_type_list -> interface_type_list ',' type_name ";
-    rules[370]=new Rule(-204, new int[]{-204,44,-66});
-stringrules[371] = @"class_body -> '{' class_member_declarations_opt '}' ";
-    rules[371]=new Rule(-7, new int[]{123,-6,125});
-stringrules[372] = @"class_member_declarations_opt -> ";
-    rules[372]=new Rule(-6, new int[]{});
-stringrules[373] = @"class_member_declarations_opt -> class_member_declarations ";
-    rules[373]=new Rule(-6, new int[]{-8});
-stringrules[374] = @"class_member_declarations -> class_member_declaration ";
-    rules[374]=new Rule(-8, new int[]{-42});
-stringrules[375] = @"class_member_declarations -> class_member_declarations class_member_declaration ";
-    rules[375]=new Rule(-8, new int[]{-8,-42});
-stringrules[376] = @"class_member_declaration -> constant_declaration ";
-    rules[376]=new Rule(-42, new int[]{-19});
-stringrules[377] = @"class_member_declaration -> field_declaration ";
-    rules[377]=new Rule(-42, new int[]{-20});
-stringrules[378] = @"class_member_declaration -> method_declaration ";
-    rules[378]=new Rule(-42, new int[]{-43});
-stringrules[379] = @"class_member_declaration -> property_declaration ";
-    rules[379]=new Rule(-42, new int[]{-44});
-stringrules[380] = @"class_member_declaration -> event_declaration ";
-    rules[380]=new Rule(-42, new int[]{-45});
-stringrules[381] = @"class_member_declaration -> indexer_declaration ";
-    rules[381]=new Rule(-42, new int[]{-46});
-stringrules[382] = @"class_member_declaration -> operator_declaration ";
-    rules[382]=new Rule(-42, new int[]{-47});
-stringrules[383] = @"class_member_declaration -> constructor_declaration ";
-    rules[383]=new Rule(-42, new int[]{-48});
-stringrules[384] = @"class_member_declaration -> destructor_declaration ";
-    rules[384]=new Rule(-42, new int[]{-49});
-stringrules[385] = @"class_member_declaration -> type_declaration ";
-    rules[385]=new Rule(-42, new int[]{-41});
-stringrules[386] = @"constant_declaration -> attributes_opt modifiers_opt CONST type constant_declarators ';' ";
-    rules[386]=new Rule(-19, new int[]{-190,-197,147,-56,-71,59});
-stringrules[387] = @"field_declaration -> attributes_opt modifiers_opt type variable_declarators ';' ";
-    rules[387]=new Rule(-20, new int[]{-190,-197,-56,-70,59});
-stringrules[388] = @"method_declaration -> method_header method_body ";
-    rules[388]=new Rule(-43, new int[]{-53,-207});
-stringrules[389] = @"method_header -> attributes_opt modifiers_opt type qualified_identifier '(' formal_parameter_list_opt ')' ";
-    rules[389]=new Rule(-53, new int[]{-190,-197,-56,-29,40,-11,41});
-stringrules[390] = @"method_header -> attributes_opt modifiers_opt VOID qualified_identifier '(' formal_parameter_list_opt ')' ";
-    rules[390]=new Rule(-53, new int[]{-190,-197,210,-29,40,-11,41});
-stringrules[391] = @"formal_parameter_list_opt -> ";
-    rules[391]=new Rule(-11, new int[]{});
-stringrules[392] = @"formal_parameter_list_opt -> formal_parameter_list ";
-    rules[392]=new Rule(-11, new int[]{-12});
-stringrules[393] = @"return_type -> type ";
-    rules[393]=new Rule(-57, new int[]{-56});
-stringrules[394] = @"return_type -> VOID ";
-    rules[394]=new Rule(-57, new int[]{210});
-stringrules[395] = @"method_body -> block ";
-    rules[395]=new Rule(-207, new int[]{-135});
-stringrules[396] = @"method_body -> ';' ";
-    rules[396]=new Rule(-207, new int[]{59});
-stringrules[397] = @"formal_parameter_list -> formal_parameter ";
-    rules[397]=new Rule(-12, new int[]{-50});
-stringrules[398] = @"formal_parameter_list -> formal_parameter_list ',' formal_parameter ";
-    rules[398]=new Rule(-12, new int[]{-12,44,-50});
-stringrules[399] = @"formal_parameter -> fixed_parameter ";
-    rules[399]=new Rule(-50, new int[]{-51});
-stringrules[400] = @"formal_parameter -> parameter_array ";
-    rules[400]=new Rule(-50, new int[]{-52});
-stringrules[401] = @"fixed_parameter -> attributes_opt parameter_modifier_opt type IDENTIFIER ";
-    rules[401]=new Rule(-51, new int[]{-190,-72,-56,130});
-stringrules[402] = @"parameter_modifier_opt -> ";
-    rules[402]=new Rule(-72, new int[]{});
-stringrules[403] = @"parameter_modifier_opt -> REF ";
-    rules[403]=new Rule(-72, new int[]{187});
-stringrules[404] = @"parameter_modifier_opt -> OUT ";
-    rules[404]=new Rule(-72, new int[]{180});
-stringrules[405] = @"parameter_array -> attributes_opt PARAMS type IDENTIFIER ";
-    rules[405]=new Rule(-52, new int[]{-190,182,-56,130});
-stringrules[406] = @"property_declaration -> attributes_opt modifiers_opt type qualified_identifier '{' accessor_declarations '}' ";
-    rules[406]=new Rule(-44, new int[]{-190,-197,-56,-29,123,-208,125});
-stringrules[407] = @"accessor_declarations -> get_accessor_declaration set_accessor_declaration_opt ";
-    rules[407]=new Rule(-208, new int[]{-209,-210});
-stringrules[408] = @"accessor_declarations -> set_accessor_declaration get_accessor_declaration_opt ";
-    rules[408]=new Rule(-208, new int[]{-211,-212});
-stringrules[409] = @"set_accessor_declaration_opt -> ";
-    rules[409]=new Rule(-210, new int[]{});
-stringrules[410] = @"set_accessor_declaration_opt -> set_accessor_declaration ";
-    rules[410]=new Rule(-210, new int[]{-211});
-stringrules[411] = @"get_accessor_declaration_opt -> ";
-    rules[411]=new Rule(-212, new int[]{});
-stringrules[412] = @"get_accessor_declaration_opt -> get_accessor_declaration ";
-    rules[412]=new Rule(-212, new int[]{-209});
-stringrules[413] = @"get_accessor_declaration -> attributes_opt GET accessor_body ";
-    rules[413]=new Rule(-209, new int[]{-190,223,-213});
-stringrules[414] = @"set_accessor_declaration -> attributes_opt SET accessor_body ";
-    rules[414]=new Rule(-211, new int[]{-190,224,-213});
-stringrules[415] = @"accessor_body -> block ";
-    rules[415]=new Rule(-213, new int[]{-135});
-stringrules[416] = @"accessor_body -> ';' ";
-    rules[416]=new Rule(-213, new int[]{59});
-stringrules[417] = @"event_declaration -> attributes_opt modifiers_opt EVENT type variable_declarators ';' ";
-    rules[417]=new Rule(-45, new int[]{-190,-197,156,-56,-70,59});
-stringrules[418] = @"event_declaration -> attributes_opt modifiers_opt EVENT type qualified_identifier '{' event_accessor_declarations '}' ";
-    rules[418]=new Rule(-45, new int[]{-190,-197,156,-56,-29,123,-214,125});
-stringrules[419] = @"event_accessor_declarations -> add_accessor_declaration remove_accessor_declaration ";
-    rules[419]=new Rule(-214, new int[]{-215,-216});
-stringrules[420] = @"event_accessor_declarations -> remove_accessor_declaration add_accessor_declaration ";
-    rules[420]=new Rule(-214, new int[]{-216,-215});
-stringrules[421] = @"add_accessor_declaration -> attributes_opt ADD block ";
-    rules[421]=new Rule(-215, new int[]{-190,225,-135});
-stringrules[422] = @"remove_accessor_declaration -> attributes_opt REMOVE block ";
-    rules[422]=new Rule(-216, new int[]{-190,226,-135});
-stringrules[423] = @"indexer_declaration -> attributes_opt modifiers_opt indexer_declarator '{' accessor_declarations '}' ";
-    rules[423]=new Rule(-46, new int[]{-190,-197,-217,123,-208,125});
-stringrules[424] = @"indexer_declarator -> type THIS '[' formal_parameter_list ']' ";
-    rules[424]=new Rule(-217, new int[]{-56,198,91,-12,93});
-stringrules[425] = @"indexer_declarator -> type qualified_this '[' formal_parameter_list ']' ";
-    rules[425]=new Rule(-217, new int[]{-56,-218,91,-12,93});
-stringrules[426] = @"qualified_this -> qualifier THIS ";
-    rules[426]=new Rule(-218, new int[]{-30,198});
-stringrules[427] = @"operator_declaration -> attributes_opt modifiers_opt operator_declarator operator_body ";
-    rules[427]=new Rule(-47, new int[]{-190,-197,-219,-220});
-stringrules[428] = @"operator_declarator -> overloadable_operator_declarator ";
-    rules[428]=new Rule(-219, new int[]{-221});
-stringrules[429] = @"operator_declarator -> conversion_operator_declarator ";
-    rules[429]=new Rule(-219, new int[]{-222});
-stringrules[430] = @"overloadable_operator_declarator -> type OPERATOR overloadable_operator '(' type IDENTIFIER ')' ";
-    rules[430]=new Rule(-221, new int[]{-56,179,-223,40,-56,130,41});
-stringrules[431] = @"overloadable_operator_declarator -> type OPERATOR overloadable_operator '(' type IDENTIFIER ',' type IDENTIFIER ')' ";
-    rules[431]=new Rule(-221, new int[]{-56,179,-223,40,-56,130,44,-56,130,41});
-stringrules[432] = @"overloadable_operator -> '+' ";
-    rules[432]=new Rule(-223, new int[]{43});
-stringrules[433] = @"overloadable_operator -> '-' ";
-    rules[433]=new Rule(-223, new int[]{45});
-stringrules[434] = @"overloadable_operator -> '!' ";
-    rules[434]=new Rule(-223, new int[]{33});
-stringrules[435] = @"overloadable_operator -> '~' ";
-    rules[435]=new Rule(-223, new int[]{126});
-stringrules[436] = @"overloadable_operator -> PLUSPLUS ";
-    rules[436]=new Rule(-223, new int[]{246});
-stringrules[437] = @"overloadable_operator -> MINUSMINUS ";
-    rules[437]=new Rule(-223, new int[]{247});
-stringrules[438] = @"overloadable_operator -> TRUE ";
-    rules[438]=new Rule(-223, new int[]{200});
-stringrules[439] = @"overloadable_operator -> FALSE ";
-    rules[439]=new Rule(-223, new int[]{159});
-stringrules[440] = @"overloadable_operator -> '*' ";
-    rules[440]=new Rule(-223, new int[]{42});
-stringrules[441] = @"overloadable_operator -> '/' ";
-    rules[441]=new Rule(-223, new int[]{47});
-stringrules[442] = @"overloadable_operator -> '%' ";
-    rules[442]=new Rule(-223, new int[]{37});
-stringrules[443] = @"overloadable_operator -> '&' ";
-    rules[443]=new Rule(-223, new int[]{38});
-stringrules[444] = @"overloadable_operator -> '|' ";
-    rules[444]=new Rule(-223, new int[]{124});
-stringrules[445] = @"overloadable_operator -> '^' ";
-    rules[445]=new Rule(-223, new int[]{94});
-stringrules[446] = @"overloadable_operator -> LTLT ";
-    rules[446]=new Rule(-223, new int[]{236});
-stringrules[447] = @"overloadable_operator -> GTGT ";
-    rules[447]=new Rule(-223, new int[]{237});
-stringrules[448] = @"overloadable_operator -> EQEQ ";
-    rules[448]=new Rule(-223, new int[]{240});
-stringrules[449] = @"overloadable_operator -> NOTEQ ";
-    rules[449]=new Rule(-223, new int[]{241});
-stringrules[450] = @"overloadable_operator -> '>' ";
-    rules[450]=new Rule(-223, new int[]{62});
-stringrules[451] = @"overloadable_operator -> '<' ";
-    rules[451]=new Rule(-223, new int[]{60});
-stringrules[452] = @"overloadable_operator -> GEQ ";
-    rules[452]=new Rule(-223, new int[]{243});
-stringrules[453] = @"overloadable_operator -> LEQ ";
-    rules[453]=new Rule(-223, new int[]{242});
-stringrules[454] = @"conversion_operator_declarator -> IMPLICIT OPERATOR type '(' type IDENTIFIER ')' ";
-    rules[454]=new Rule(-222, new int[]{167,179,-56,40,-56,130,41});
-stringrules[455] = @"conversion_operator_declarator -> EXPLICIT OPERATOR type '(' type IDENTIFIER ')' ";
-    rules[455]=new Rule(-222, new int[]{157,179,-56,40,-56,130,41});
-stringrules[456] = @"constructor_declaration -> attributes_opt modifiers_opt constructor_declarator constructor_body ";
-    rules[456]=new Rule(-48, new int[]{-190,-197,-28,-224});
-stringrules[457] = @"constructor_declarator -> IDENTIFIER '(' formal_parameter_list_opt ')' constructor_initializer_opt ";
-    rules[457]=new Rule(-28, new int[]{130,40,-11,41,-225});
-stringrules[458] = @"constructor_initializer_opt -> ";
-    rules[458]=new Rule(-225, new int[]{});
-stringrules[459] = @"constructor_initializer_opt -> constructor_initializer ";
-    rules[459]=new Rule(-225, new int[]{-226});
-stringrules[460] = @"constructor_initializer -> ':' BASE '(' argument_list_opt ')' ";
-    rules[460]=new Rule(-226, new int[]{58,138,40,-97,41});
-stringrules[461] = @"constructor_initializer -> ':' THIS '(' argument_list_opt ')' ";
-    rules[461]=new Rule(-226, new int[]{58,198,40,-97,41});
-stringrules[462] = @"destructor_declaration -> attributes_opt modifiers_opt '~' IDENTIFIER '(' ')' block ";
-    rules[462]=new Rule(-49, new int[]{-190,-197,126,130,40,41,-135});
-stringrules[463] = @"operator_body -> block ";
-    rules[463]=new Rule(-220, new int[]{-135});
-stringrules[464] = @"operator_body -> ';' ";
-    rules[464]=new Rule(-220, new int[]{59});
-stringrules[465] = @"constructor_body -> block ";
-    rules[465]=new Rule(-224, new int[]{-135});
-stringrules[466] = @"constructor_body -> ';' ";
-    rules[466]=new Rule(-224, new int[]{59});
-stringrules[467] = @"struct_declaration -> attributes_opt modifiers_opt STRUCT member_name struct_interfaces_opt struct_body comma_opt ";
-    rules[467]=new Rule(-37, new int[]{-190,-197,196,-35,-227,-9,-193});
-stringrules[468] = @"struct_interfaces_opt -> ";
-    rules[468]=new Rule(-227, new int[]{});
-stringrules[469] = @"struct_interfaces_opt -> struct_interfaces ";
-    rules[469]=new Rule(-227, new int[]{-228});
-stringrules[470] = @"struct_interfaces -> ':' interface_type_list ";
-    rules[470]=new Rule(-228, new int[]{58,-204});
-stringrules[471] = @"struct_body -> '{' struct_member_declarations_opt '}' ";
-    rules[471]=new Rule(-9, new int[]{123,-13,125});
-stringrules[472] = @"struct_member_declarations_opt -> ";
-    rules[472]=new Rule(-13, new int[]{});
-stringrules[473] = @"struct_member_declarations_opt -> struct_member_declarations ";
-    rules[473]=new Rule(-13, new int[]{-14});
-stringrules[474] = @"struct_member_declarations -> struct_member_declaration ";
-    rules[474]=new Rule(-14, new int[]{-25});
-stringrules[475] = @"struct_member_declarations -> struct_member_declarations struct_member_declaration ";
-    rules[475]=new Rule(-14, new int[]{-14,-25});
-stringrules[476] = @"struct_member_declaration -> constant_declaration ";
-    rules[476]=new Rule(-25, new int[]{-19});
-stringrules[477] = @"struct_member_declaration -> field_declaration ";
-    rules[477]=new Rule(-25, new int[]{-20});
-stringrules[478] = @"struct_member_declaration -> method_declaration ";
+    rules[338]=new Rule(-197, new int[]{-197,-198});
+    rules[339]=new Rule(-198, new int[]{136});
+    rules[340]=new Rule(-198, new int[]{158});
+    rules[341]=new Rule(-198, new int[]{171});
+    rules[342]=new Rule(-198, new int[]{176});
+    rules[343]=new Rule(-198, new int[]{181});
+    rules[344]=new Rule(-198, new int[]{183});
+    rules[345]=new Rule(-198, new int[]{184});
+    rules[346]=new Rule(-198, new int[]{185});
+    rules[347]=new Rule(-198, new int[]{186});
+    rules[348]=new Rule(-198, new int[]{190});
+    rules[349]=new Rule(-198, new int[]{194});
+    rules[350]=new Rule(-198, new int[]{206});
+    rules[351]=new Rule(-198, new int[]{209});
+    rules[352]=new Rule(-198, new int[]{211});
+    rules[353]=new Rule(-199, new int[]{});
+    rules[354]=new Rule(-199, new int[]{-200});
+    rules[355]=new Rule(-200, new int[]{213,130,-201});
+    rules[356]=new Rule(-202, new int[]{196});
+    rules[357]=new Rule(-202, new int[]{146});
+    rules[358]=new Rule(-202, new int[]{-60});
+    rules[359]=new Rule(-201, new int[]{58,-202});
+    rules[360]=new Rule(-201, new int[]{58,-203});
+    rules[361]=new Rule(-201, new int[]{58,-202,44,-203});
+    rules[362]=new Rule(-35, new int[]{-189,-196,146,-72,-204,-199,-7,-192});
+    rules[363]=new Rule(-204, new int[]{});
+    rules[364]=new Rule(-204, new int[]{-205});
+    rules[365]=new Rule(-205, new int[]{58,-60});
+    rules[366]=new Rule(-205, new int[]{58,-203});
+    rules[367]=new Rule(-205, new int[]{58,-60,44,-203});
+    rules[368]=new Rule(-203, new int[]{-65});
+    rules[369]=new Rule(-203, new int[]{-203,44,-65});
+    rules[370]=new Rule(-7, new int[]{123,-6,125});
+    rules[371]=new Rule(-6, new int[]{});
+    rules[372]=new Rule(-6, new int[]{-8});
+    rules[373]=new Rule(-8, new int[]{-41});
+    rules[374]=new Rule(-8, new int[]{-8,-41});
+    rules[375]=new Rule(-41, new int[]{-19});
+    rules[376]=new Rule(-41, new int[]{-20});
+    rules[377]=new Rule(-41, new int[]{-42});
+    rules[378]=new Rule(-41, new int[]{-43});
+    rules[379]=new Rule(-41, new int[]{-44});
+    rules[380]=new Rule(-41, new int[]{-45});
+    rules[381]=new Rule(-41, new int[]{-46});
+    rules[382]=new Rule(-41, new int[]{-47});
+    rules[383]=new Rule(-41, new int[]{-48});
+    rules[384]=new Rule(-41, new int[]{-40});
+    rules[385]=new Rule(-19, new int[]{-189,-196,147,-55,-70,59});
+    rules[386]=new Rule(-20, new int[]{-189,-196,-55,-69,59});
+    rules[387]=new Rule(-42, new int[]{-52,-206});
+    rules[388]=new Rule(-52, new int[]{-189,-196,-55,-29,40,-11,41});
+    rules[389]=new Rule(-52, new int[]{-189,-196,210,-29,40,-11,41});
+    rules[390]=new Rule(-11, new int[]{});
+    rules[391]=new Rule(-11, new int[]{-12});
+    rules[392]=new Rule(-56, new int[]{-55});
+    rules[393]=new Rule(-56, new int[]{210});
+    rules[394]=new Rule(-206, new int[]{-134});
+    rules[395]=new Rule(-206, new int[]{59});
+    rules[396]=new Rule(-12, new int[]{-49});
+    rules[397]=new Rule(-12, new int[]{-12,44,-49});
+    rules[398]=new Rule(-49, new int[]{-50});
+    rules[399]=new Rule(-49, new int[]{-51});
+    rules[400]=new Rule(-50, new int[]{-189,-71,-55,130});
+    rules[401]=new Rule(-71, new int[]{});
+    rules[402]=new Rule(-71, new int[]{187});
+    rules[403]=new Rule(-71, new int[]{180});
+    rules[404]=new Rule(-51, new int[]{-189,182,-55,130});
+    rules[405]=new Rule(-43, new int[]{-189,-196,-55,-29,123,-207,125});
+    rules[406]=new Rule(-207, new int[]{-208,-209});
+    rules[407]=new Rule(-207, new int[]{-210,-211});
+    rules[408]=new Rule(-209, new int[]{});
+    rules[409]=new Rule(-209, new int[]{-210});
+    rules[410]=new Rule(-211, new int[]{});
+    rules[411]=new Rule(-211, new int[]{-208});
+    rules[412]=new Rule(-208, new int[]{-189,223,-212});
+    rules[413]=new Rule(-210, new int[]{-189,224,-212});
+    rules[414]=new Rule(-212, new int[]{-134});
+    rules[415]=new Rule(-212, new int[]{59});
+    rules[416]=new Rule(-44, new int[]{-189,-196,156,-55,-69,59});
+    rules[417]=new Rule(-44, new int[]{-189,-196,156,-55,-29,123,-213,125});
+    rules[418]=new Rule(-213, new int[]{-214,-215});
+    rules[419]=new Rule(-213, new int[]{-215,-214});
+    rules[420]=new Rule(-214, new int[]{-189,225,-134});
+    rules[421]=new Rule(-215, new int[]{-189,226,-134});
+    rules[422]=new Rule(-45, new int[]{-189,-196,-216,123,-207,125});
+    rules[423]=new Rule(-216, new int[]{-55,198,91,-12,93});
+    rules[424]=new Rule(-216, new int[]{-55,-217,91,-12,93});
+    rules[425]=new Rule(-217, new int[]{-30,198});
+    rules[426]=new Rule(-46, new int[]{-189,-196,-218,-219});
+    rules[427]=new Rule(-218, new int[]{-220});
+    rules[428]=new Rule(-218, new int[]{-221});
+    rules[429]=new Rule(-220, new int[]{-55,179,-222,40,-55,130,41});
+    rules[430]=new Rule(-220, new int[]{-55,179,-222,40,-55,130,44,-55,130,41});
+    rules[431]=new Rule(-222, new int[]{43});
+    rules[432]=new Rule(-222, new int[]{45});
+    rules[433]=new Rule(-222, new int[]{33});
+    rules[434]=new Rule(-222, new int[]{126});
+    rules[435]=new Rule(-222, new int[]{246});
+    rules[436]=new Rule(-222, new int[]{247});
+    rules[437]=new Rule(-222, new int[]{200});
+    rules[438]=new Rule(-222, new int[]{159});
+    rules[439]=new Rule(-222, new int[]{42});
+    rules[440]=new Rule(-222, new int[]{47});
+    rules[441]=new Rule(-222, new int[]{37});
+    rules[442]=new Rule(-222, new int[]{38});
+    rules[443]=new Rule(-222, new int[]{124});
+    rules[444]=new Rule(-222, new int[]{94});
+    rules[445]=new Rule(-222, new int[]{236});
+    rules[446]=new Rule(-222, new int[]{237});
+    rules[447]=new Rule(-222, new int[]{240});
+    rules[448]=new Rule(-222, new int[]{241});
+    rules[449]=new Rule(-222, new int[]{62});
+    rules[450]=new Rule(-222, new int[]{60});
+    rules[451]=new Rule(-222, new int[]{243});
+    rules[452]=new Rule(-222, new int[]{242});
+    rules[453]=new Rule(-221, new int[]{167,179,-55,40,-55,130,41});
+    rules[454]=new Rule(-221, new int[]{157,179,-55,40,-55,130,41});
+    rules[455]=new Rule(-47, new int[]{-189,-196,-28,-223});
+    rules[456]=new Rule(-28, new int[]{130,40,-11,41,-224});
+    rules[457]=new Rule(-224, new int[]{});
+    rules[458]=new Rule(-224, new int[]{-225});
+    rules[459]=new Rule(-225, new int[]{58,138,40,-96,41});
+    rules[460]=new Rule(-225, new int[]{58,198,40,-96,41});
+    rules[461]=new Rule(-48, new int[]{-189,-196,126,130,40,41,-134});
+    rules[462]=new Rule(-219, new int[]{-134});
+    rules[463]=new Rule(-219, new int[]{59});
+    rules[464]=new Rule(-223, new int[]{-134});
+    rules[465]=new Rule(-223, new int[]{59});
+    rules[466]=new Rule(-36, new int[]{-189,-196,196,-72,-226,-9,-192});
+    rules[467]=new Rule(-226, new int[]{});
+    rules[468]=new Rule(-226, new int[]{-227});
+    rules[469]=new Rule(-227, new int[]{58,-203});
+    rules[470]=new Rule(-9, new int[]{123,-13,125});
+    rules[471]=new Rule(-13, new int[]{});
+    rules[472]=new Rule(-13, new int[]{-14});
+    rules[473]=new Rule(-14, new int[]{-25});
+    rules[474]=new Rule(-14, new int[]{-14,-25});
+    rules[475]=new Rule(-25, new int[]{-19});
+    rules[476]=new Rule(-25, new int[]{-20});
+    rules[477]=new Rule(-25, new int[]{-42});
     rules[478]=new Rule(-25, new int[]{-43});
-stringrules[479] = @"struct_member_declaration -> property_declaration ";
     rules[479]=new Rule(-25, new int[]{-44});
-stringrules[480] = @"struct_member_declaration -> event_declaration ";
     rules[480]=new Rule(-25, new int[]{-45});
-stringrules[481] = @"struct_member_declaration -> indexer_declaration ";
     rules[481]=new Rule(-25, new int[]{-46});
-stringrules[482] = @"struct_member_declaration -> operator_declaration ";
     rules[482]=new Rule(-25, new int[]{-47});
-stringrules[483] = @"struct_member_declaration -> constructor_declaration ";
-    rules[483]=new Rule(-25, new int[]{-48});
-stringrules[484] = @"struct_member_declaration -> type_declaration ";
-    rules[484]=new Rule(-25, new int[]{-41});
-stringrules[485] = @"array_initializer -> '{' variable_initializer_list_opt '}' ";
-    rules[485]=new Rule(-105, new int[]{123,-229,125});
-stringrules[486] = @"array_initializer -> '{' variable_initializer_list ',' '}' ";
-    rules[486]=new Rule(-105, new int[]{123,-230,44,125});
-stringrules[487] = @"variable_initializer_list_opt -> ";
-    rules[487]=new Rule(-229, new int[]{});
-stringrules[488] = @"variable_initializer_list_opt -> variable_initializer_list ";
-    rules[488]=new Rule(-229, new int[]{-230});
-stringrules[489] = @"variable_initializer_list -> variable_initializer ";
-    rules[489]=new Rule(-230, new int[]{-152});
-stringrules[490] = @"variable_initializer_list -> variable_initializer_list ',' variable_initializer ";
-    rules[490]=new Rule(-230, new int[]{-230,44,-152});
-stringrules[491] = @"interface_declaration -> attributes_opt modifiers_opt INTERFACE member_name interface_base_opt interface_body comma_opt ";
-    rules[491]=new Rule(-38, new int[]{-190,-197,170,-35,-231,-5,-193});
-stringrules[492] = @"interface_base_opt -> ";
-    rules[492]=new Rule(-231, new int[]{});
-stringrules[493] = @"interface_base_opt -> interface_base ";
-    rules[493]=new Rule(-231, new int[]{-232});
-stringrules[494] = @"interface_base -> ':' interface_type_list ";
-    rules[494]=new Rule(-232, new int[]{58,-204});
-stringrules[495] = @"interface_body -> '{' interface_member_declarations_opt '}' ";
-    rules[495]=new Rule(-5, new int[]{123,-10,125});
-stringrules[496] = @"interface_member_declarations_opt -> ";
-    rules[496]=new Rule(-10, new int[]{});
-stringrules[497] = @"interface_member_declarations_opt -> interface_member_declarations ";
-    rules[497]=new Rule(-10, new int[]{-15});
-stringrules[498] = @"interface_member_declarations -> interface_member_declaration ";
-    rules[498]=new Rule(-15, new int[]{-26});
-stringrules[499] = @"interface_member_declarations -> interface_member_declarations interface_member_declaration ";
-    rules[499]=new Rule(-15, new int[]{-15,-26});
-stringrules[500] = @"interface_member_declaration -> interface_method_declaration ";
+    rules[483]=new Rule(-25, new int[]{-40});
+    rules[484]=new Rule(-104, new int[]{123,-228,125});
+    rules[485]=new Rule(-104, new int[]{123,-229,44,125});
+    rules[486]=new Rule(-228, new int[]{});
+    rules[487]=new Rule(-228, new int[]{-229});
+    rules[488]=new Rule(-229, new int[]{-151});
+    rules[489]=new Rule(-229, new int[]{-229,44,-151});
+    rules[490]=new Rule(-37, new int[]{-189,-196,170,-72,-230,-5,-192});
+    rules[491]=new Rule(-230, new int[]{});
+    rules[492]=new Rule(-230, new int[]{-231});
+    rules[493]=new Rule(-231, new int[]{58,-203});
+    rules[494]=new Rule(-5, new int[]{123,-10,125});
+    rules[495]=new Rule(-10, new int[]{});
+    rules[496]=new Rule(-10, new int[]{-15});
+    rules[497]=new Rule(-15, new int[]{-26});
+    rules[498]=new Rule(-15, new int[]{-15,-26});
+    rules[499]=new Rule(-26, new int[]{-53});
     rules[500]=new Rule(-26, new int[]{-54});
-stringrules[501] = @"interface_member_declaration -> interface_property_declaration ";
-    rules[501]=new Rule(-26, new int[]{-55});
-stringrules[502] = @"interface_member_declaration -> interface_event_declaration ";
-    rules[502]=new Rule(-26, new int[]{-233});
-stringrules[503] = @"interface_member_declaration -> interface_indexer_declaration ";
-    rules[503]=new Rule(-26, new int[]{-21});
-stringrules[504] = @"interface_method_declaration -> attributes_opt new_opt type member_name '(' formal_parameter_list_opt ')' interface_empty_body ";
-    rules[504]=new Rule(-54, new int[]{-190,-234,-56,-35,40,-11,41,-235});
-stringrules[505] = @"interface_method_declaration -> attributes_opt new_opt VOID member_name '(' formal_parameter_list_opt ')' interface_empty_body ";
-    rules[505]=new Rule(-54, new int[]{-190,-234,210,-35,40,-11,41,-235});
-stringrules[506] = @"new_opt -> ";
-    rules[506]=new Rule(-234, new int[]{});
-stringrules[507] = @"new_opt -> NEW ";
-    rules[507]=new Rule(-234, new int[]{176});
-stringrules[508] = @"interface_property_declaration -> attributes_opt new_opt type member_name '{' interface_accessors '}' ";
-    rules[508]=new Rule(-55, new int[]{-190,-234,-56,-35,123,-236,125});
-stringrules[509] = @"interface_indexer_declaration -> attributes_opt new_opt type THIS '[' formal_parameter_list ']' '{' interface_accessors '}' ";
-    rules[509]=new Rule(-21, new int[]{-190,-234,-56,198,91,-12,93,123,-236,125});
-stringrules[510] = @"interface_accessors -> attributes_opt GET interface_empty_body ";
-    rules[510]=new Rule(-236, new int[]{-190,223,-235});
-stringrules[511] = @"interface_accessors -> attributes_opt SET interface_empty_body ";
-    rules[511]=new Rule(-236, new int[]{-190,224,-235});
-stringrules[512] = @"interface_accessors -> attributes_opt GET interface_empty_body attributes_opt SET interface_empty_body ";
-    rules[512]=new Rule(-236, new int[]{-190,223,-235,-190,224,-235});
-stringrules[513] = @"interface_accessors -> attributes_opt SET interface_empty_body attributes_opt GET interface_empty_body ";
-    rules[513]=new Rule(-236, new int[]{-190,224,-235,-190,223,-235});
-stringrules[514] = @"interface_event_declaration -> attributes_opt new_opt EVENT type member_name interface_empty_body ";
-    rules[514]=new Rule(-233, new int[]{-190,-234,156,-56,-35,-235});
-stringrules[515] = @"interface_empty_body -> ';' ";
-    rules[515]=new Rule(-235, new int[]{59});
-stringrules[516] = @"interface_empty_body -> '{' '}' ";
-    rules[516]=new Rule(-235, new int[]{123,125});
-stringrules[517] = @"enum_declaration -> attributes_opt modifiers_opt ENUM IDENTIFIER enum_base_opt enum_body comma_opt ";
-    rules[517]=new Rule(-39, new int[]{-190,-197,155,130,-237,-16,-193});
-stringrules[518] = @"enum_base_opt -> ";
-    rules[518]=new Rule(-237, new int[]{});
-stringrules[519] = @"enum_base_opt -> enum_base ";
-    rules[519]=new Rule(-237, new int[]{-238});
-stringrules[520] = @"enum_base -> ':' integral_type ";
-    rules[520]=new Rule(-238, new int[]{58,-64});
-stringrules[521] = @"enum_body -> '{' enum_member_declarations_opt '}' ";
-    rules[521]=new Rule(-16, new int[]{123,-17,125});
-stringrules[522] = @"enum_body -> '{' enum_member_declarations ',' '}' ";
-    rules[522]=new Rule(-16, new int[]{123,-18,44,125});
-stringrules[523] = @"enum_member_declarations_opt -> ";
-    rules[523]=new Rule(-17, new int[]{});
-stringrules[524] = @"enum_member_declarations_opt -> enum_member_declarations ";
-    rules[524]=new Rule(-17, new int[]{-18});
-stringrules[525] = @"enum_member_declarations -> enum_member_declaration ";
-    rules[525]=new Rule(-18, new int[]{-27});
-stringrules[526] = @"enum_member_declarations -> enum_member_declarations ',' enum_member_declaration ";
-    rules[526]=new Rule(-18, new int[]{-18,44,-27});
-stringrules[527] = @"enum_member_declaration -> attributes_opt IDENTIFIER ";
-    rules[527]=new Rule(-27, new int[]{-190,130});
-stringrules[528] = @"enum_member_declaration -> attributes_opt IDENTIFIER '=' constant_expression ";
-    rules[528]=new Rule(-27, new int[]{-190,130,61,-129});
-stringrules[529] = @"delegate_declaration -> attributes_opt modifiers_opt DELEGATE return_type member_name '(' formal_parameter_list_opt ')' ';' ";
-    rules[529]=new Rule(-40, new int[]{-190,-197,151,-57,-35,40,-11,41,59});
-stringrules[530] = @"attributes -> attribute_sections ";
-    rules[530]=new Rule(-192, new int[]{-239});
-stringrules[531] = @"attribute_sections -> attribute_section ";
-    rules[531]=new Rule(-239, new int[]{-240});
-stringrules[532] = @"attribute_sections -> attribute_sections attribute_section ";
-    rules[532]=new Rule(-239, new int[]{-239,-240});
-stringrules[533] = @"attribute_section -> '[' attribute_list ']' ";
-    rules[533]=new Rule(-240, new int[]{91,-241,93});
-stringrules[534] = @"attribute_section -> '[' attribute_list ',' ']' ";
-    rules[534]=new Rule(-240, new int[]{91,-241,44,93});
-stringrules[535] = @"attribute_list -> attribute ";
-    rules[535]=new Rule(-241, new int[]{-242});
-stringrules[536] = @"attribute_list -> attribute_list ',' attribute ";
-    rules[536]=new Rule(-241, new int[]{-241,44,-242});
-stringrules[537] = @"attribute -> attribute_name attribute_arguments_opt ";
-    rules[537]=new Rule(-242, new int[]{-243,-244});
-stringrules[538] = @"attribute_arguments_opt -> ";
-    rules[538]=new Rule(-244, new int[]{});
-stringrules[539] = @"attribute_arguments_opt -> attribute_arguments ";
-    rules[539]=new Rule(-244, new int[]{-245});
-stringrules[540] = @"attribute_name -> type_name ";
-    rules[540]=new Rule(-243, new int[]{-66});
-stringrules[541] = @"attribute_arguments -> '(' expression_list_opt ')' ";
-    rules[541]=new Rule(-245, new int[]{40,-99,41});
+    rules[501]=new Rule(-26, new int[]{-232});
+    rules[502]=new Rule(-26, new int[]{-21});
+    rules[503]=new Rule(-53, new int[]{-189,-233,-55,-72,40,-11,41,-234});
+    rules[504]=new Rule(-53, new int[]{-189,-233,210,-72,40,-11,41,-234});
+    rules[505]=new Rule(-233, new int[]{});
+    rules[506]=new Rule(-233, new int[]{176});
+    rules[507]=new Rule(-54, new int[]{-189,-233,-55,-72,123,-235,125});
+    rules[508]=new Rule(-21, new int[]{-189,-233,-55,198,91,-12,93,123,-235,125});
+    rules[509]=new Rule(-235, new int[]{-189,223,-234});
+    rules[510]=new Rule(-235, new int[]{-189,224,-234});
+    rules[511]=new Rule(-235, new int[]{-189,223,-234,-189,224,-234});
+    rules[512]=new Rule(-235, new int[]{-189,224,-234,-189,223,-234});
+    rules[513]=new Rule(-232, new int[]{-189,-233,156,-55,-72,-234});
+    rules[514]=new Rule(-234, new int[]{59});
+    rules[515]=new Rule(-234, new int[]{123,125});
+    rules[516]=new Rule(-38, new int[]{-189,-196,155,130,-236,-16,-192});
+    rules[517]=new Rule(-236, new int[]{});
+    rules[518]=new Rule(-236, new int[]{-237});
+    rules[519]=new Rule(-237, new int[]{58,-63});
+    rules[520]=new Rule(-16, new int[]{123,-17,125});
+    rules[521]=new Rule(-16, new int[]{123,-18,44,125});
+    rules[522]=new Rule(-17, new int[]{});
+    rules[523]=new Rule(-17, new int[]{-18});
+    rules[524]=new Rule(-18, new int[]{-27});
+    rules[525]=new Rule(-18, new int[]{-18,44,-27});
+    rules[526]=new Rule(-27, new int[]{-189,130});
+    rules[527]=new Rule(-27, new int[]{-189,130,61,-128});
+    rules[528]=new Rule(-39, new int[]{-189,-196,151,-56,-72,40,-11,41,59});
+    rules[529]=new Rule(-191, new int[]{-238});
+    rules[530]=new Rule(-238, new int[]{-239});
+    rules[531]=new Rule(-238, new int[]{-238,-239});
+    rules[532]=new Rule(-239, new int[]{91,-240,93});
+    rules[533]=new Rule(-239, new int[]{91,-240,44,93});
+    rules[534]=new Rule(-240, new int[]{-241});
+    rules[535]=new Rule(-240, new int[]{-240,44,-241});
+    rules[536]=new Rule(-241, new int[]{-242,-243});
+    rules[537]=new Rule(-243, new int[]{});
+    rules[538]=new Rule(-243, new int[]{-244});
+    rules[539]=new Rule(-242, new int[]{-65});
+    rules[540]=new Rule(-244, new int[]{40,-98,41});
 
     nonTerminals = new string[] {"", "compilation_unit", "namespace_member_declarations", 
       "namespace_body", "namespace_member_declarations_opt", "interface_body", 
@@ -3511,7 +1721,7 @@ stringrules[541] = @"attribute_arguments -> '(' expression_list_opt ')' ";
       "namespace_member_declaration", "struct_member_declaration", "interface_member_declaration", 
       "enum_member_declaration", "constructor_declarator", "qualified_identifier", 
       "qualifier", "namespace_name", "constant_declarator", "variable_declarator", 
-      "type_qualified_identifier", "member_name", "class_declaration", "struct_declaration", 
+      "type_qualified_identifier", "class_declaration", "struct_declaration", 
       "interface_declaration", "enum_declaration", "delegate_declaration", "type_declaration", 
       "class_member_declaration", "method_declaration", "property_declaration", 
       "event_declaration", "indexer_declaration", "operator_declaration", "constructor_declaration", 
@@ -3520,7 +1730,7 @@ stringrules[541] = @"attribute_arguments -> '(' expression_list_opt ')' ";
       "type", "return_type", "non_array_type", "simple_type", "primitive_type", 
       "class_type", "numeric_type", "floating_point_type", "integral_type", "array_type", 
       "type_name", "literal", "mllit", "boolean_literal", "variable_declarators", 
-      "constant_declarators", "parameter_modifier_opt", "$accept", "type_list_opt", 
+      "constant_declarators", "parameter_modifier_opt", "member_name", "$accept", 
       "type_list", "pointer_type", "rank_specifier", "rank_specifiers_opt", "variable_reference", 
       "expression", "argument_list", "argument", "primary_expression", "parenthesized_expression", 
       "primary_expression_no_parenthesis", "array_creation_expression", "member_access", 
@@ -3574,442 +1784,447 @@ stringrules[541] = @"attribute_arguments -> '(' expression_list_opt ')' ";
     switch (action)
     {
       case 3: // literal -> INTEGER_LITERAL 
-#line 154 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 164 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.primval = 0;/*int.Parse($1);*/ }
 #line hidden
         break;
       case 4: // literal -> REAL_LITERAL 
-#line 155 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 165 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.primval = 0f; /*float.Parse($1);*/ }
 #line hidden
         break;
       case 5: // literal -> CHARACTER_LITERAL 
-#line 156 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 166 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.primval = value_stack.array[value_stack.top-1].text[0]; }
 #line hidden
         break;
       case 7: // literal -> NULL_LITERAL 
-#line 158 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 168 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.primval = null; }
 #line hidden
         break;
       case 10: // mllit -> mllit MLSTRING_LITERAL 
-#line 164 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 174 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.primval = value_stack.array[value_stack.top-2].primval + value_stack.array[value_stack.top-1].text; }
 #line hidden
         break;
       case 11: // boolean_literal -> TRUE 
-#line 168 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 178 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.primval = true; }
 #line hidden
         break;
       case 12: // boolean_literal -> FALSE 
-#line 169 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 179 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.primval = false; }
 #line hidden
         break;
       case 14: // type_name -> qualified_identifier 
-#line 179 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 189 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(value_stack.array[value_stack.top-1].text); }
 #line hidden
         break;
-      case 15: // member_name -> IDENTIFIER type_list_opt 
-#line 183 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.text = value_stack.array[value_stack.top-2].text; @yyval.Location = @value_stack.array[value_stack.top-2].Location; }
+      case 15: // member_name -> IDENTIFIER 
+#line 193 "D:\dev\XACC\xacc\Languages\CSharp.y"
+			{ yyval.text = value_stack.array[value_stack.top-1].text; @yyval.Location = @value_stack.array[value_stack.top-1].Location; }
 #line hidden
         break;
-      case 20: // type -> non_array_type 
-#line 199 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 16: // member_name -> IDENTIFIER '<' type_list '>' 
+#line 194 "D:\dev\XACC\xacc\Languages\CSharp.y"
+			{ yyval.text = value_stack.array[value_stack.top-4].text; @yyval.Location = @value_stack.array[value_stack.top-4].Location; }
+#line hidden
+        break;
+      case 19: // type -> non_array_type 
+#line 205 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(value_stack.array[value_stack.top-1].typeref, false);}
 #line hidden
         break;
-      case 21: // type -> array_type 
-#line 200 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 20: // type -> array_type 
+#line 206 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(value_stack.array[value_stack.top-1].typeref, true); }
 #line hidden
         break;
-      case 28: // primitive_type -> BOOL 
-#line 213 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 27: // primitive_type -> BOOL 
+#line 219 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(bool)); }
 #line hidden
         break;
-      case 31: // numeric_type -> DECIMAL 
-#line 218 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 30: // numeric_type -> DECIMAL 
+#line 224 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(decimal)); }
 #line hidden
         break;
-      case 32: // integral_type -> SBYTE 
-#line 221 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 31: // integral_type -> SBYTE 
+#line 227 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(sbyte)); }
 #line hidden
         break;
-      case 33: // integral_type -> BYTE 
-#line 222 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 32: // integral_type -> BYTE 
+#line 228 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(byte)); }
 #line hidden
         break;
-      case 34: // integral_type -> SHORT 
-#line 223 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 33: // integral_type -> SHORT 
+#line 229 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(short)); }
 #line hidden
         break;
-      case 35: // integral_type -> USHORT 
-#line 224 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 34: // integral_type -> USHORT 
+#line 230 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(ushort)); }
 #line hidden
         break;
-      case 36: // integral_type -> INT 
-#line 225 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 35: // integral_type -> INT 
+#line 231 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(int)); }
 #line hidden
         break;
-      case 37: // integral_type -> UINT 
-#line 226 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 36: // integral_type -> UINT 
+#line 232 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(uint)); }
 #line hidden
         break;
-      case 38: // integral_type -> LONG 
-#line 227 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 37: // integral_type -> LONG 
+#line 233 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(long)); }
 #line hidden
         break;
-      case 39: // integral_type -> ULONG 
-#line 228 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 38: // integral_type -> ULONG 
+#line 234 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(ulong)); }
 #line hidden
         break;
-      case 40: // integral_type -> CHAR 
-#line 229 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 39: // integral_type -> CHAR 
+#line 235 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(char)); }
 #line hidden
         break;
-      case 41: // floating_point_type -> FLOAT 
-#line 232 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 40: // floating_point_type -> FLOAT 
+#line 238 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(float)); }
 #line hidden
         break;
-      case 42: // floating_point_type -> DOUBLE 
-#line 233 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 41: // floating_point_type -> DOUBLE 
+#line 239 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(double)); }
 #line hidden
         break;
-      case 43: // class_type -> OBJECT 
-#line 236 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 42: // class_type -> OBJECT 
+#line 242 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(object)); }
 #line hidden
         break;
-      case 44: // class_type -> KW_STRING 
-#line 237 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 43: // class_type -> KW_STRING 
+#line 243 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(string)); }
 #line hidden
         break;
-      case 47: // array_type -> array_type rank_specifier 
-#line 244 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 46: // array_type -> array_type rank_specifier 
+#line 250 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = value_stack.array[value_stack.top-2].typeref; @yyval.Location = @value_stack.array[value_stack.top-2].Location;}
 #line hidden
         break;
-      case 48: // array_type -> simple_type rank_specifier 
-#line 245 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 47: // array_type -> simple_type rank_specifier 
+#line 251 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = value_stack.array[value_stack.top-2].typeref; @yyval.Location = @value_stack.array[value_stack.top-2].Location;}
 #line hidden
         break;
-      case 49: // array_type -> qualified_identifier rank_specifier 
-#line 246 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 48: // array_type -> qualified_identifier rank_specifier 
+#line 252 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(value_stack.array[value_stack.top-2].text,true); @yyval.Location = @value_stack.array[value_stack.top-2].Location;}
 #line hidden
         break;
-      case 73: // parenthesized_expression -> '(' expression ')' 
-#line 288 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 72: // parenthesized_expression -> '(' expression ')' 
+#line 294 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); yyval = value_stack.array[value_stack.top-2]; @yyval.Location = @value_stack.array[value_stack.top-2].Location;}
 #line hidden
         break;
-      case 74: // member_access -> primary_expression '.' IDENTIFIER 
-#line 291 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 73: // member_access -> primary_expression '.' IDENTIFIER 
+#line 297 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ /* if (IsType($1))
                                                                       {  
                                                                         OverrideToken(@1, TokenClass.Type); 
                                                                       }; instance class members */ }
 #line hidden
         break;
-      case 75: // member_access -> primitive_type '.' IDENTIFIER 
-#line 295 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 74: // member_access -> primitive_type '.' IDENTIFIER 
+#line 301 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{   }
 #line hidden
         break;
-      case 76: // member_access -> class_type '.' IDENTIFIER 
-#line 296 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 75: // member_access -> class_type '.' IDENTIFIER 
+#line 302 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  /* static class members */ }
 #line hidden
         break;
-      case 77: // invocation_expression -> primary_expression_no_parenthesis '(' argument_list_opt ')' 
-#line 299 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 76: // invocation_expression -> primary_expression_no_parenthesis '(' argument_list_opt ')' 
+#line 305 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); @yyval.Location = @value_stack.array[value_stack.top-4].Location;}
 #line hidden
         break;
-      case 78: // invocation_expression -> qualified_identifier '(' argument_list_opt ')' 
-#line 300 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 77: // invocation_expression -> qualified_identifier '(' argument_list_opt ')' 
+#line 306 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); @yyval.Location = @value_stack.array[value_stack.top-4].Location; }
 #line hidden
         break;
-      case 81: // element_access -> primary_expression '[' expression_list ']' 
-#line 307 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 80: // element_access -> primary_expression '[' expression_list ']' 
+#line 313 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 82: // element_access -> qualified_identifier '[' expression_list ']' 
-#line 308 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 81: // element_access -> qualified_identifier '[' expression_list ']' 
+#line 314 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 89: // base_access -> BASE '[' expression_list ']' 
-#line 323 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 88: // base_access -> BASE '[' expression_list ']' 
+#line 329 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 93: // object_creation_expression -> NEW type '(' argument_list_opt ')' 
-#line 335 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 92: // object_creation_expression -> NEW type '(' argument_list_opt ')' 
+#line 341 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-4].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); AddAutoComplete(@value_stack.array[value_stack.top-5].Location, typeof(CodeType), typeof(CodeNamespace)); }
 #line hidden
         break;
-      case 94: // object_creation_expression -> NEW error 
-#line 336 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 93: // object_creation_expression -> NEW error 
+#line 342 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ AddAutoComplete(@value_stack.array[value_stack.top-2].Location, typeof(CodeType), typeof(CodeNamespace)); }
 #line hidden
         break;
-      case 95: // array_creation_expression -> NEW non_array_type '[' expression_list ']' rank_specifiers_opt array_initializer_opt 
-#line 340 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 94: // array_creation_expression -> NEW non_array_type '[' expression_list ']' rank_specifiers_opt array_initializer_opt 
+#line 346 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-6].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-5].Location,@value_stack.array[value_stack.top-3].Location); AddAutoComplete(@value_stack.array[value_stack.top-7].Location, typeof(CodeType), typeof(CodeNamespace)); }
 #line hidden
         break;
-      case 96: // array_creation_expression -> NEW array_type array_initializer 
-#line 341 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 95: // array_creation_expression -> NEW array_type array_initializer 
+#line 347 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-2].Location, TokenClass.Type); AddAutoComplete(@value_stack.array[value_stack.top-3].Location, typeof(CodeType),typeof(CodeNamespace)); }
 #line hidden
         break;
-      case 99: // typeof_expression -> TYPEOF '(' type ')' 
-#line 348 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 98: // typeof_expression -> TYPEOF '(' type ')' 
+#line 354 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-2].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); AddAutoComplete(@value_stack.array[value_stack.top-3].Location, typeof(CodeType),typeof(CodeNamespace)); }
 #line hidden
         break;
-      case 100: // typeof_expression -> TYPEOF '(' VOID ')' 
-#line 349 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
-#line hidden
-        break;
-      case 101: // checked_expression -> CHECKED '(' expression ')' 
-#line 352 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
-#line hidden
-        break;
-      case 102: // unchecked_expression -> UNCHECKED '(' expression ')' 
+      case 99: // typeof_expression -> TYPEOF '(' VOID ')' 
 #line 355 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 103: // pointer_member_access -> postfix_expression ARROW IDENTIFIER 
+      case 100: // checked_expression -> CHECKED '(' expression ')' 
 #line 358 "D:\dev\XACC\xacc\Languages\CSharp.y"
+			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
+#line hidden
+        break;
+      case 101: // unchecked_expression -> UNCHECKED '(' expression ')' 
+#line 361 "D:\dev\XACC\xacc\Languages\CSharp.y"
+			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
+#line hidden
+        break;
+      case 102: // pointer_member_access -> postfix_expression ARROW IDENTIFIER 
+#line 364 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ /* instance class members */ }
 #line hidden
         break;
-      case 105: // sizeof_expression -> SIZEOF '(' type ')' 
-#line 364 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 104: // sizeof_expression -> SIZEOF '(' type ')' 
+#line 370 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-2].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); AddAutoComplete(@value_stack.array[value_stack.top-3].Location, typeof(CodeType), typeof(CodeNamespace));}
 #line hidden
         break;
-      case 124: // cast_expression -> '(' expression ')' unary_expression_not_plusminus 
-#line 401 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 123: // cast_expression -> '(' expression ')' unary_expression_not_plusminus 
+#line 407 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
-      case 125: // cast_expression -> '(' multiplicative_expression '*' ')' unary_expression 
-#line 402 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 124: // cast_expression -> '(' multiplicative_expression '*' ')' unary_expression 
+#line 408 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-5].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
-      case 126: // cast_expression -> '(' qualified_identifier rank_specifier type_quals_opt ')' unary_expression 
-#line 404 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 125: // cast_expression -> '(' qualified_identifier rank_specifier type_quals_opt ')' unary_expression 
+#line 410 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-6].Location,@value_stack.array[value_stack.top-2].Location); AddAutoComplete(@value_stack.array[value_stack.top-6].Location, typeof(CodeType), typeof(CodeNamespace));}
 #line hidden
         break;
-      case 127: // cast_expression -> '(' primitive_type type_quals_opt ')' unary_expression 
-#line 405 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 126: // cast_expression -> '(' primitive_type type_quals_opt ')' unary_expression 
+#line 411 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-5].Location,@value_stack.array[value_stack.top-2].Location); AddAutoComplete(@value_stack.array[value_stack.top-5].Location, typeof(CodeType), typeof(CodeNamespace));}
 #line hidden
         break;
-      case 128: // cast_expression -> '(' class_type type_quals_opt ')' unary_expression 
-#line 406 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 127: // cast_expression -> '(' class_type type_quals_opt ')' unary_expression 
+#line 412 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-5].Location,@value_stack.array[value_stack.top-2].Location); AddAutoComplete(@value_stack.array[value_stack.top-5].Location, typeof(CodeType), typeof(CodeNamespace));}
 #line hidden
         break;
-      case 129: // cast_expression -> '(' VOID type_quals_opt ')' unary_expression 
-#line 407 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 128: // cast_expression -> '(' VOID type_quals_opt ')' unary_expression 
+#line 413 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-5].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
-      case 151: // relational_expression -> relational_expression IS type 
-#line 443 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 150: // relational_expression -> relational_expression IS type 
+#line 449 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-1].Location, TokenClass.Type); }
 #line hidden
         break;
-      case 152: // relational_expression -> relational_expression AS type 
-#line 444 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 151: // relational_expression -> relational_expression AS type 
+#line 450 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-1].Location, TokenClass.Type); }
 #line hidden
         break;
-      case 167: // conditional_expression -> conditional_or_expression '?' expression ':' expression 
-#line 473 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 166: // conditional_expression -> conditional_or_expression '?' expression ':' expression 
+#line 479 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
-      case 201: // block -> '{' statement_list_opt '}' 
-#line 515 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 200: // block -> '{' statement_list_opt '}' 
+#line 521 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 210: // local_variable_declaration -> type variable_declarators 
-#line 537 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 209: // local_variable_declaration -> type variable_declarators 
+#line 543 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-2].Location, TokenClass.Type); }
 #line hidden
         break;
-      case 211: // variable_declarators -> variable_declarator 
-#line 540 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 210: // variable_declarators -> variable_declarator 
+#line 546 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.list = new ArrayList(); yyval.list.Add(value_stack.array[value_stack.top-1].text); }
 #line hidden
         break;
-      case 212: // variable_declarators -> variable_declarators ',' variable_declarator 
-#line 541 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 211: // variable_declarators -> variable_declarators ',' variable_declarator 
+#line 547 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.list = value_stack.array[value_stack.top-3].list;  yyval.list.Add(value_stack.array[value_stack.top-1].text); }
 #line hidden
         break;
-      case 214: // variable_declarator -> IDENTIFIER '=' variable_initializer 
-#line 545 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 213: // variable_declarator -> IDENTIFIER '=' variable_initializer 
+#line 551 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.text = value_stack.array[value_stack.top-3].text; }
 #line hidden
         break;
-      case 218: // stackalloc_initializer -> STACKALLOC type '[' expression ']' 
-#line 553 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 217: // stackalloc_initializer -> STACKALLOC type '[' expression ']' 
+#line 559 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-4].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 220: // constant_declarators -> constant_declarator 
-#line 559 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 219: // constant_declarators -> constant_declarator 
+#line 565 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.list = new ArrayList(); yyval.list.Add(value_stack.array[value_stack.top-1].text); }
 #line hidden
         break;
-      case 221: // constant_declarators -> constant_declarators ',' constant_declarator 
-#line 560 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 220: // constant_declarators -> constant_declarators ',' constant_declarator 
+#line 566 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.list = value_stack.array[value_stack.top-3].list; yyval.list.Add(value_stack.array[value_stack.top-1].text); }
 #line hidden
         break;
-      case 222: // constant_declarator -> IDENTIFIER '=' constant_expression 
-#line 563 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 221: // constant_declarator -> IDENTIFIER '=' constant_expression 
+#line 569 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.text = value_stack.array[value_stack.top-3].text ;}
 #line hidden
         break;
-      case 233: // if_statement -> IF '(' boolean_expression ')' embedded_statement 
-#line 582 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 232: // if_statement -> IF '(' boolean_expression ')' embedded_statement 
+#line 588 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
-      case 234: // if_statement -> IF '(' boolean_expression ')' embedded_statement ELSE embedded_statement 
-#line 584 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 233: // if_statement -> IF '(' boolean_expression ')' embedded_statement ELSE embedded_statement 
+#line 590 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-6].Location,@value_stack.array[value_stack.top-4].Location);}
 #line hidden
         break;
-      case 235: // switch_statement -> SWITCH '(' expression ')' switch_block 
-#line 587 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 234: // switch_statement -> SWITCH '(' expression ')' switch_block 
+#line 593 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
-      case 236: // switch_block -> '{' switch_sections_opt '}' 
-#line 590 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 235: // switch_block -> '{' switch_sections_opt '}' 
+#line 596 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 251: // while_statement -> WHILE '(' boolean_expression ')' embedded_statement 
-#line 621 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 250: // while_statement -> WHILE '(' boolean_expression ')' embedded_statement 
+#line 627 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
-      case 252: // do_statement -> DO embedded_statement WHILE '(' boolean_expression ')' ';' 
-#line 624 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 251: // do_statement -> DO embedded_statement WHILE '(' boolean_expression ')' ';' 
+#line 630 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
-      case 253: // @1 -> 
-#line 628 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 252: // @1 -> 
+#line 634 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-7].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 267: // foreach_statement -> FOREACH '(' type IDENTIFIER IN expression ')' embedded_statement 
-#line 658 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 266: // foreach_statement -> FOREACH '(' type IDENTIFIER IN expression ')' embedded_statement 
+#line 664 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-7].Location,@value_stack.array[value_stack.top-2].Location); AddAutoComplete(@value_stack.array[value_stack.top-7].Location, typeof(CodeType), typeof(CodeNamespace));
                                                                          OverrideToken(@value_stack.array[value_stack.top-6].Location, TokenClass.Type);}
 #line hidden
         break;
-      case 287: // catch_clause -> CATCH '(' class_type identifier_opt ')' block 
-#line 699 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 286: // catch_clause -> CATCH '(' class_type identifier_opt ')' block 
+#line 705 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-5].Location,@value_stack.array[value_stack.top-2].Location); AddAutoComplete(@value_stack.array[value_stack.top-5].Location, typeof(CodeType), typeof(CodeNamespace));}
 #line hidden
         break;
-      case 288: // catch_clause -> CATCH '(' type_name identifier_opt ')' block 
-#line 700 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 287: // catch_clause -> CATCH '(' type_name identifier_opt ')' block 
+#line 706 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-4].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-5].Location,@value_stack.array[value_stack.top-2].Location); AddAutoComplete(@value_stack.array[value_stack.top-5].Location, typeof(CodeType), typeof(CodeNamespace));}
 #line hidden
         break;
-      case 295: // lock_statement -> LOCK '(' expression ')' embedded_statement 
-#line 717 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 294: // lock_statement -> LOCK '(' expression ')' embedded_statement 
+#line 723 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
-      case 296: // using_statement -> USING '(' resource_acquisition ')' embedded_statement 
-#line 720 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 295: // using_statement -> USING '(' resource_acquisition ')' embedded_statement 
+#line 726 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
-      case 299: // @2 -> 
-#line 727 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 298: // @2 -> 
+#line 733 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
-      case 304: // compilation_unit -> using_directives_opt attributes_opt 
-#line 738 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 303: // compilation_unit -> using_directives_opt attributes_opt 
+#line 744 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ ; }
 #line hidden
         break;
-      case 305: // compilation_unit -> using_directives_opt namespace_member_declarations 
-#line 739 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 304: // compilation_unit -> using_directives_opt namespace_member_declarations 
+#line 745 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ CodeModel.AddRange(value_stack.array[value_stack.top-1].elemlist); }
 #line hidden
         break;
-      case 312: // namespace_declaration -> attributes_opt NAMESPACE qualified_identifier namespace_body comma_opt 
-#line 755 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 311: // namespace_declaration -> attributes_opt NAMESPACE qualified_identifier namespace_body comma_opt 
+#line 761 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{CodeNamespace ns = new CodeNamespace(value_stack.array[value_stack.top-3].text); 
                                                                      ns.AddRange(value_stack.array[value_stack.top-2].elemlist); yyval.elem = ns; yyval.elem.Location = @value_stack.array[value_stack.top-3].Location;}
 #line hidden
         break;
-      case 316: // qualified_identifier -> qualifier member_name 
-#line 765 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 315: // qualified_identifier -> qualifier member_name 
+#line 771 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.text = value_stack.array[value_stack.top-2].text + value_stack.array[value_stack.top-1].text; @yyval.Location = @value_stack.array[value_stack.top-1].Location;}
 #line hidden
         break;
-      case 317: // qualifier -> member_name '.' 
-#line 769 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 316: // qualifier -> member_name '.' 
+#line 775 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.text = value_stack.array[value_stack.top-2].text + value_stack.array[value_stack.top-1].text; }
 #line hidden
         break;
-      case 318: // qualifier -> qualifier member_name '.' 
-#line 770 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 317: // qualifier -> qualifier member_name '.' 
+#line 776 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.text = value_stack.array[value_stack.top-3].text + value_stack.array[value_stack.top-2].text + value_stack.array[value_stack.top-1]; }
 #line hidden
         break;
-      case 319: // namespace_body -> '{' using_directives_opt namespace_member_declarations_opt '}' 
-#line 774 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 318: // namespace_body -> '{' using_directives_opt namespace_member_declarations_opt '}' 
+#line 780 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist ; { MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location);}}
 #line hidden
         break;
-      case 324: // using_alias_directive -> USING IDENTIFIER '=' qualified_identifier ';' 
-#line 788 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 323: // using_alias_directive -> USING IDENTIFIER '=' qualified_identifier ';' 
+#line 794 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{
                                                                       AddAutoComplete(@value_stack.array[value_stack.top-3].Location,typeof(CodeType), typeof(CodeNamespace)); 
                                                                       AddAlias(value_stack.array[value_stack.top-4].text, value_stack.array[value_stack.top-2].text);
@@ -4017,83 +2232,83 @@ stringrules[541] = @"attribute_arguments -> '(' expression_list_opt ')' ";
                                                                     }
 #line hidden
         break;
-      case 325: // using_namespace_directive -> USING namespace_name ';' 
-#line 795 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 324: // using_namespace_directive -> USING namespace_name ';' 
+#line 801 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{
                                                                       AddAutoComplete(@value_stack.array[value_stack.top-3].Location, true, typeof(CodeNamespace)); 
                                                                       AddImport(value_stack.array[value_stack.top-2].text);
                                                                     }
 #line hidden
         break;
-      case 326: // using_namespace_directive -> USING error 
-#line 799 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 325: // using_namespace_directive -> USING error 
+#line 805 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ AddAutoComplete(@value_stack.array[value_stack.top-2].Location, true, typeof(CodeNamespace));}
 #line hidden
         break;
-      case 327: // namespace_member_declarations -> namespace_member_declaration 
-#line 802 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 326: // namespace_member_declarations -> namespace_member_declaration 
+#line 808 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = new CodeElementList(value_stack.array[value_stack.top-1].elem);}
 #line hidden
         break;
-      case 328: // namespace_member_declarations -> namespace_member_declarations namespace_member_declaration 
-#line 803 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 327: // namespace_member_declarations -> namespace_member_declarations namespace_member_declaration 
+#line 809 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
-      case 363: // class_declaration -> attributes_opt modifiers_opt CLASS member_name class_base_opt gen_clause_opt class_body comma_opt 
-#line 873 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 362: // class_declaration -> attributes_opt modifiers_opt CLASS member_name class_base_opt gen_clause_opt class_body comma_opt 
+#line 879 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ CodeRefType ct = new CodeRefType(value_stack.array[value_stack.top-5].text); 
                                                                 ct.AddRange(value_stack.array[value_stack.top-2].elemlist); yyval.elem = ct; yyval.elem.Location = @value_stack.array[value_stack.top-5].Location;
                                                                 OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type);}
 #line hidden
         break;
-      case 366: // class_base -> ':' class_type 
-#line 882 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 365: // class_base -> ':' class_type 
+#line 888 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ AddAutoComplete(@value_stack.array[value_stack.top-2].Location, typeof(CodeType), typeof(CodeNamespace)); }
 #line hidden
         break;
-      case 367: // class_base -> ':' interface_type_list 
-#line 883 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 366: // class_base -> ':' interface_type_list 
+#line 889 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ AddAutoComplete(@value_stack.array[value_stack.top-2].Location, typeof(CodeType), typeof(CodeNamespace)); }
 #line hidden
         break;
-      case 368: // class_base -> ':' class_type ',' interface_type_list 
-#line 884 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 367: // class_base -> ':' class_type ',' interface_type_list 
+#line 890 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ AddAutoComplete(@value_stack.array[value_stack.top-4].Location, typeof(CodeType), typeof(CodeNamespace)); }
 #line hidden
         break;
-      case 369: // interface_type_list -> type_name 
-#line 887 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 368: // interface_type_list -> type_name 
+#line 893 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-1].Location, TokenClass.Type); }
 #line hidden
         break;
-      case 370: // interface_type_list -> interface_type_list ',' type_name 
-#line 888 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 369: // interface_type_list -> interface_type_list ',' type_name 
+#line 894 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-1].Location, TokenClass.Type); }
 #line hidden
         break;
-      case 371: // class_body -> '{' class_member_declarations_opt '}' 
-#line 891 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 370: // class_body -> '{' class_member_declarations_opt '}' 
+#line 897 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; { MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}}
 #line hidden
         break;
-      case 372: // class_member_declarations_opt -> 
-#line 894 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 371: // class_member_declarations_opt -> 
+#line 900 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = new CodeElementList(); }
 #line hidden
         break;
-      case 374: // class_member_declarations -> class_member_declaration 
-#line 898 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 373: // class_member_declarations -> class_member_declaration 
+#line 904 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = new CodeElementList(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
-      case 375: // class_member_declarations -> class_member_declarations class_member_declaration 
-#line 899 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 374: // class_member_declarations -> class_member_declarations class_member_declaration 
+#line 905 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
-      case 386: // constant_declaration -> attributes_opt modifiers_opt CONST type constant_declarators ';' 
-#line 915 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 385: // constant_declaration -> attributes_opt modifiers_opt CONST type constant_declarators ';' 
+#line 921 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ 
                                                                 CodeElementList cel = new CodeElementList();
                                                                 foreach (string s in value_stack.array[value_stack.top-2].list)
@@ -4106,8 +2321,8 @@ stringrules[541] = @"attribute_arguments -> '(' expression_list_opt ')' ";
                                                               }
 #line hidden
         break;
-      case 387: // field_declaration -> attributes_opt modifiers_opt type variable_declarators ';' 
-#line 928 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 386: // field_declaration -> attributes_opt modifiers_opt type variable_declarators ';' 
+#line 934 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ 
                                                                 OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type);
                                                                 CodeElementList cel = new CodeElementList();
@@ -4121,74 +2336,74 @@ stringrules[541] = @"attribute_arguments -> '(' expression_list_opt ')' ";
                                                               }
 #line hidden
         break;
-      case 388: // method_declaration -> method_header method_body 
-#line 941 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 387: // method_declaration -> method_header method_body 
+#line 947 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = value_stack.array[value_stack.top-2].elem;}
 #line hidden
         break;
-      case 389: // method_header -> attributes_opt modifiers_opt type qualified_identifier '(' formal_parameter_list_opt ')' 
-#line 946 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 388: // method_header -> attributes_opt modifiers_opt type qualified_identifier '(' formal_parameter_list_opt ')' 
+#line 952 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeMethod(value_stack.array[value_stack.top-4].text,value_stack.array[value_stack.top-5].typeref,value_stack.array[value_stack.top-2].elemlist);  yyval.elem.Location = @value_stack.array[value_stack.top-4].Location;  MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type);}
 #line hidden
         break;
-      case 390: // method_header -> attributes_opt modifiers_opt VOID qualified_identifier '(' formal_parameter_list_opt ')' 
-#line 948 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 389: // method_header -> attributes_opt modifiers_opt VOID qualified_identifier '(' formal_parameter_list_opt ')' 
+#line 954 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeMethod(value_stack.array[value_stack.top-4].text, new TypeRef(typeof(void)), value_stack.array[value_stack.top-2].elemlist); 
                                                                 yyval.elem.Location = @value_stack.array[value_stack.top-4].Location;   MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 393: // return_type -> type 
-#line 956 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 392: // return_type -> type 
+#line 962 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-1].Location, TokenClass.Type); }
 #line hidden
         break;
-      case 394: // return_type -> VOID 
-#line 957 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 393: // return_type -> VOID 
+#line 963 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(void)); }
 #line hidden
         break;
-      case 397: // formal_parameter_list -> formal_parameter 
-#line 964 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 396: // formal_parameter_list -> formal_parameter 
+#line 970 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = new CodeElementList(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
-      case 398: // formal_parameter_list -> formal_parameter_list ',' formal_parameter 
-#line 965 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 397: // formal_parameter_list -> formal_parameter_list ',' formal_parameter 
+#line 971 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-3].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
-      case 401: // fixed_parameter -> attributes_opt parameter_modifier_opt type IDENTIFIER 
-#line 972 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 400: // fixed_parameter -> attributes_opt parameter_modifier_opt type IDENTIFIER 
+#line 978 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeParameter(value_stack.array[value_stack.top-1].text,value_stack.array[value_stack.top-2].typeref,value_stack.array[value_stack.top-3].paramattr); OverrideToken(@value_stack.array[value_stack.top-2].Location, TokenClass.Type);}
 #line hidden
         break;
-      case 402: // parameter_modifier_opt -> 
-#line 975 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 401: // parameter_modifier_opt -> 
+#line 981 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.paramattr = ParameterAttributes.None; }
 #line hidden
         break;
-      case 403: // parameter_modifier_opt -> REF 
-#line 976 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 402: // parameter_modifier_opt -> REF 
+#line 982 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.paramattr = (ParameterAttributes.Out | ParameterAttributes.In); }
 #line hidden
         break;
-      case 404: // parameter_modifier_opt -> OUT 
-#line 977 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 403: // parameter_modifier_opt -> OUT 
+#line 983 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.paramattr = ParameterAttributes.Out; }
 #line hidden
         break;
-      case 405: // parameter_array -> attributes_opt PARAMS type IDENTIFIER 
-#line 980 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 404: // parameter_array -> attributes_opt PARAMS type IDENTIFIER 
+#line 986 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeParameter(value_stack.array[value_stack.top-1].text,value_stack.array[value_stack.top-2].typeref); OverrideToken(@value_stack.array[value_stack.top-2].Location, TokenClass.Type); }
 #line hidden
         break;
-      case 406: // property_declaration -> attributes_opt modifiers_opt type qualified_identifier '{' accessor_declarations '}' 
-#line 985 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 405: // property_declaration -> attributes_opt modifiers_opt type qualified_identifier '{' accessor_declarations '}' 
+#line 991 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeProperty(value_stack.array[value_stack.top-4].text,value_stack.array[value_stack.top-5].typeref); yyval.elem.Location = @value_stack.array[value_stack.top-4].Location; MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type);}
 #line hidden
         break;
-      case 417: // event_declaration -> attributes_opt modifiers_opt EVENT type variable_declarators ';' 
-#line 1012 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 416: // event_declaration -> attributes_opt modifiers_opt EVENT type variable_declarators ';' 
+#line 1018 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ 
                                                                 OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type);
                                                                 CodeElementList cel = new CodeElementList();
@@ -4202,8 +2417,8 @@ stringrules[541] = @"attribute_arguments -> '(' expression_list_opt ')' ";
                                                               }
 #line hidden
         break;
-      case 418: // event_declaration -> attributes_opt modifiers_opt EVENT type qualified_identifier '{' event_accessor_declarations '}' 
-#line 1024 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 417: // event_declaration -> attributes_opt modifiers_opt EVENT type qualified_identifier '{' event_accessor_declarations '}' 
+#line 1030 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ 
                                                                   OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type);
                                                                   MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);
@@ -4212,213 +2427,213 @@ stringrules[541] = @"attribute_arguments -> '(' expression_list_opt ')' ";
                                                                 yyval.elem = cf;  }
 #line hidden
         break;
-      case 423: // indexer_declaration -> attributes_opt modifiers_opt indexer_declarator '{' accessor_declarations '}' 
-#line 1045 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 422: // indexer_declaration -> attributes_opt modifiers_opt indexer_declarator '{' accessor_declarations '}' 
+#line 1051 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ /*$$ = new CodeProperty("Item", null);*/ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 424: // indexer_declarator -> type THIS '[' formal_parameter_list ']' 
-#line 1048 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 423: // indexer_declarator -> type THIS '[' formal_parameter_list ']' 
+#line 1054 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 425: // indexer_declarator -> type qualified_this '[' formal_parameter_list ']' 
-#line 1049 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 424: // indexer_declarator -> type qualified_this '[' formal_parameter_list ']' 
+#line 1055 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 430: // overloadable_operator_declarator -> type OPERATOR overloadable_operator '(' type IDENTIFIER ')' 
-#line 1064 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 429: // overloadable_operator_declarator -> type OPERATOR overloadable_operator '(' type IDENTIFIER ')' 
+#line 1070 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-7].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location);  OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type);}
 #line hidden
         break;
-      case 431: // overloadable_operator_declarator -> type OPERATOR overloadable_operator '(' type IDENTIFIER ',' type IDENTIFIER ')' 
-#line 1066 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 430: // overloadable_operator_declarator -> type OPERATOR overloadable_operator '(' type IDENTIFIER ',' type IDENTIFIER ')' 
+#line 1072 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-10].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-7].Location,@value_stack.array[value_stack.top-1].Location);  OverrideToken(@value_stack.array[value_stack.top-6].Location, TokenClass.Type);  OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type);}
 #line hidden
         break;
-      case 454: // conversion_operator_declarator -> IMPLICIT OPERATOR type '(' type IDENTIFIER ')' 
-#line 1075 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 453: // conversion_operator_declarator -> IMPLICIT OPERATOR type '(' type IDENTIFIER ')' 
+#line 1081 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type);  OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 455: // conversion_operator_declarator -> EXPLICIT OPERATOR type '(' type IDENTIFIER ')' 
-#line 1076 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 454: // conversion_operator_declarator -> EXPLICIT OPERATOR type '(' type IDENTIFIER ')' 
+#line 1082 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type);  OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 456: // constructor_declaration -> attributes_opt modifiers_opt constructor_declarator constructor_body 
-#line 1080 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 455: // constructor_declaration -> attributes_opt modifiers_opt constructor_declarator constructor_body 
+#line 1086 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = value_stack.array[value_stack.top-2].elem;  }
 #line hidden
         break;
-      case 457: // constructor_declarator -> IDENTIFIER '(' formal_parameter_list_opt ')' constructor_initializer_opt 
-#line 1084 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 456: // constructor_declarator -> IDENTIFIER '(' formal_parameter_list_opt ')' constructor_initializer_opt 
+#line 1090 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeConstructor(value_stack.array[value_stack.top-5].text, value_stack.array[value_stack.top-3].elemlist); yyval.elem.Location = @value_stack.array[value_stack.top-5].Location;
                                                                  MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);  OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type);}
 #line hidden
         break;
-      case 460: // constructor_initializer -> ':' BASE '(' argument_list_opt ')' 
-#line 1092 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 459: // constructor_initializer -> ':' BASE '(' argument_list_opt ')' 
+#line 1098 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 461: // constructor_initializer -> ':' THIS '(' argument_list_opt ')' 
-#line 1093 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 460: // constructor_initializer -> ':' THIS '(' argument_list_opt ')' 
+#line 1099 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 462: // destructor_declaration -> attributes_opt modifiers_opt '~' IDENTIFIER '(' ')' block 
-#line 1096 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 461: // destructor_declaration -> attributes_opt modifiers_opt '~' IDENTIFIER '(' ')' block 
+#line 1102 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-4].Location, TokenClass.Type); yyval.elem = new CodeDestructor(value_stack.array[value_stack.top-4].text); yyval.elem.Location = @value_stack.array[value_stack.top-4].Location;}
 #line hidden
         break;
-      case 467: // struct_declaration -> attributes_opt modifiers_opt STRUCT member_name struct_interfaces_opt struct_body comma_opt 
-#line 1110 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 466: // struct_declaration -> attributes_opt modifiers_opt STRUCT member_name struct_interfaces_opt struct_body comma_opt 
+#line 1116 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ CodeValueType cv = new CodeValueType(value_stack.array[value_stack.top-4].text); 
                                                                 cv.AddRange(value_stack.array[value_stack.top-2].elemlist); yyval.elem = cv; yyval.elem.Location = @value_stack.array[value_stack.top-4].Location;
                                                                 OverrideToken(@value_stack.array[value_stack.top-4].Location, TokenClass.Type);}
 #line hidden
         break;
-      case 471: // struct_body -> '{' struct_member_declarations_opt '}' 
-#line 1122 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 470: // struct_body -> '{' struct_member_declarations_opt '}' 
+#line 1128 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; { MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}}
 #line hidden
         break;
-      case 474: // struct_member_declarations -> struct_member_declaration 
-#line 1129 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 473: // struct_member_declarations -> struct_member_declaration 
+#line 1135 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = new CodeElementList(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
-      case 475: // struct_member_declarations -> struct_member_declarations struct_member_declaration 
-#line 1130 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 474: // struct_member_declarations -> struct_member_declarations struct_member_declaration 
+#line 1136 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
-      case 485: // array_initializer -> '{' variable_initializer_list_opt '}' 
-#line 1146 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 484: // array_initializer -> '{' variable_initializer_list_opt '}' 
+#line 1152 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 486: // array_initializer -> '{' variable_initializer_list ',' '}' 
-#line 1147 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 485: // array_initializer -> '{' variable_initializer_list ',' '}' 
+#line 1153 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 491: // interface_declaration -> attributes_opt modifiers_opt INTERFACE member_name interface_base_opt interface_body comma_opt 
-#line 1161 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 490: // interface_declaration -> attributes_opt modifiers_opt INTERFACE member_name interface_base_opt interface_body comma_opt 
+#line 1167 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ CodeInterface ci = new CodeInterface(value_stack.array[value_stack.top-4].text); 
                                                                   ci.AddRange(value_stack.array[value_stack.top-2].elemlist); yyval.elem = ci; yyval.elem.Location = @value_stack.array[value_stack.top-4].Location;
                                                                   OverrideToken(@value_stack.array[value_stack.top-4].Location, TokenClass.Type);}
 #line hidden
         break;
-      case 495: // interface_body -> '{' interface_member_declarations_opt '}' 
-#line 1173 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 494: // interface_body -> '{' interface_member_declarations_opt '}' 
+#line 1179 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 498: // interface_member_declarations -> interface_member_declaration 
-#line 1180 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 497: // interface_member_declarations -> interface_member_declaration 
+#line 1186 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = new CodeElementList(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
-      case 499: // interface_member_declarations -> interface_member_declarations interface_member_declaration 
-#line 1181 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 498: // interface_member_declarations -> interface_member_declarations interface_member_declaration 
+#line 1187 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
-      case 504: // interface_method_declaration -> attributes_opt new_opt type member_name '(' formal_parameter_list_opt ')' interface_empty_body 
-#line 1192 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 503: // interface_method_declaration -> attributes_opt new_opt type member_name '(' formal_parameter_list_opt ')' interface_empty_body 
+#line 1198 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeMethod(value_stack.array[value_stack.top-5].text,value_stack.array[value_stack.top-6].typeref,value_stack.array[value_stack.top-3].elemlist); yyval.elem.Location = @value_stack.array[value_stack.top-5].Location;
                                                                   MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);  OverrideToken(@value_stack.array[value_stack.top-6].Location, TokenClass.Type);}
 #line hidden
         break;
-      case 505: // interface_method_declaration -> attributes_opt new_opt VOID member_name '(' formal_parameter_list_opt ')' interface_empty_body 
-#line 1195 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 504: // interface_method_declaration -> attributes_opt new_opt VOID member_name '(' formal_parameter_list_opt ')' interface_empty_body 
+#line 1201 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeMethod(value_stack.array[value_stack.top-5].text, new TypeRef(typeof(void)), value_stack.array[value_stack.top-3].elemlist); 
                                                                   yyval.elem.Location = @value_stack.array[value_stack.top-5].Location; MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location); }
 #line hidden
         break;
-      case 508: // interface_property_declaration -> attributes_opt new_opt type member_name '{' interface_accessors '}' 
-#line 1204 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 507: // interface_property_declaration -> attributes_opt new_opt type member_name '{' interface_accessors '}' 
+#line 1210 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeProperty(value_stack.array[value_stack.top-4].text,value_stack.array[value_stack.top-5].typeref); yyval.elem.Location = @value_stack.array[value_stack.top-4].Location; 
                                                                   MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);  OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type);}
 #line hidden
         break;
-      case 509: // interface_indexer_declaration -> attributes_opt new_opt type THIS '[' formal_parameter_list ']' '{' interface_accessors '}' 
-#line 1210 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 508: // interface_indexer_declaration -> attributes_opt new_opt type THIS '[' formal_parameter_list ']' '{' interface_accessors '}' 
+#line 1216 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-6].Location,@value_stack.array[value_stack.top-4].Location);  MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);
                                                                    yyval.elem = new CodeProperty("Item", value_stack.array[value_stack.top-8].typeref); yyval.elem.Location = @value_stack.array[value_stack.top-7].Location;
                                                                     OverrideToken(@value_stack.array[value_stack.top-8].Location, TokenClass.Type); 
                                                                  }
 #line hidden
         break;
-      case 514: // interface_event_declaration -> attributes_opt new_opt EVENT type member_name interface_empty_body 
-#line 1223 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 513: // interface_event_declaration -> attributes_opt new_opt EVENT type member_name interface_empty_body 
+#line 1229 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type);}
 #line hidden
         break;
-      case 517: // enum_declaration -> attributes_opt modifiers_opt ENUM IDENTIFIER enum_base_opt enum_body comma_opt 
-#line 1235 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 516: // enum_declaration -> attributes_opt modifiers_opt ENUM IDENTIFIER enum_base_opt enum_body comma_opt 
+#line 1241 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ CodeEnum ce = new CodeEnum(value_stack.array[value_stack.top-4].text); 
                                                         ce.AddRange(value_stack.array[value_stack.top-2].elemlist); yyval.elem = ce; yyval.elem.Location = @value_stack.array[value_stack.top-4].Location;
                                                         OverrideToken(@value_stack.array[value_stack.top-4].Location, TokenClass.Type);}
 #line hidden
         break;
-      case 521: // enum_body -> '{' enum_member_declarations_opt '}' 
-#line 1247 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 520: // enum_body -> '{' enum_member_declarations_opt '}' 
+#line 1253 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 522: // enum_body -> '{' enum_member_declarations ',' '}' 
-#line 1248 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 521: // enum_body -> '{' enum_member_declarations ',' '}' 
+#line 1254 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-3].elemlist; MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location); }
 #line hidden
         break;
-      case 525: // enum_member_declarations -> enum_member_declaration 
-#line 1255 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 524: // enum_member_declarations -> enum_member_declaration 
+#line 1261 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = new CodeElementList(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
-      case 526: // enum_member_declarations -> enum_member_declarations ',' enum_member_declaration 
-#line 1257 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 525: // enum_member_declarations -> enum_member_declarations ',' enum_member_declaration 
+#line 1263 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-3].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
-      case 527: // enum_member_declaration -> attributes_opt IDENTIFIER 
-#line 1260 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 526: // enum_member_declaration -> attributes_opt IDENTIFIER 
+#line 1266 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeField(value_stack.array[value_stack.top-1].text, new TypeRef(typeof(int))); yyval.elem.Location = @value_stack.array[value_stack.top-1].Location;}
 #line hidden
         break;
-      case 528: // enum_member_declaration -> attributes_opt IDENTIFIER '=' constant_expression 
-#line 1261 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 527: // enum_member_declaration -> attributes_opt IDENTIFIER '=' constant_expression 
+#line 1267 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeField(value_stack.array[value_stack.top-3].text, new TypeRef(typeof(int))); yyval.elem.Location = @value_stack.array[value_stack.top-3].Location;}
 #line hidden
         break;
-      case 529: // delegate_declaration -> attributes_opt modifiers_opt DELEGATE return_type member_name '(' formal_parameter_list_opt ')' ';' 
-#line 1267 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 528: // delegate_declaration -> attributes_opt modifiers_opt DELEGATE return_type member_name '(' formal_parameter_list_opt ')' ';' 
+#line 1273 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeDelegate(value_stack.array[value_stack.top-5].text,value_stack.array[value_stack.top-6].typeref,value_stack.array[value_stack.top-3].elemlist); yyval.elem.Location = @value_stack.array[value_stack.top-5].Location;
                                                           MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);
                                                           OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type);}
 #line hidden
         break;
-      case 533: // attribute_section -> '[' attribute_list ']' 
-#line 1281 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 532: // attribute_section -> '[' attribute_list ']' 
+#line 1287 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 534: // attribute_section -> '[' attribute_list ',' ']' 
-#line 1282 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 533: // attribute_section -> '[' attribute_list ',' ']' 
+#line 1288 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
-      case 540: // attribute_name -> type_name 
-#line 1297 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 539: // attribute_name -> type_name 
+#line 1303 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-1].Location, TokenClass.Type); }
 #line hidden
         break;
-      case 541: // attribute_arguments -> '(' expression_list_opt ')' 
-#line 1300 "D:\dev\XACC\xacc\Languages\CSharp.y"
+      case 540: // attribute_arguments -> '(' expression_list_opt ')' 
+#line 1306 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
@@ -4433,7 +2648,7 @@ stringrules[541] = @"attribute_arguments -> '(' expression_list_opt ')' ";
       return CharToString((char)terminal);
   }
 
-#line 1303 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1309 "D:\dev\XACC\xacc\Languages\CSharp.y"
 
 
 string[] defaultrefs = {"mscorlib.dll", "System.dll", "System.Xml.dll", "System.Drawing.dll", "System.Windows.Forms.dll"};
