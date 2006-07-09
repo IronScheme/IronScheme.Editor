@@ -123,7 +123,7 @@ class TypeRef : CodeTypeRef
 
 /*** MULTI-CHARACTER OPERATORS ***/
 %token PLUSEQ MINUSEQ STAREQ DIVEQ MODEQ QQ
-%token XOREQ  ANDEQ   OREQ LTLT GTGT GTGTEQ LTLTEQ EQEQ NOTEQ
+%token XOREQ  ANDEQ   OREQ LTLT GTGT LTLTEQ EQEQ NOTEQ
 %token LEQ GEQ ANDAND OROR PLUSPLUS MINUSMINUS ARROW
 
 %start compilation_unit  /* I think */
@@ -147,13 +147,12 @@ class TypeRef : CodeTypeRef
 %type <paramattr> parameter_modifier_opt
 
 %type <text> member_name
-%right BAR
-%left FOO
 
-
-
-%nonassoc REDUCE
+%nonassoc IFREDUCE
 %nonassoc ELSE
+
+%right REDUCE
+%left SHIFT
 
 
 %%
@@ -186,19 +185,32 @@ namespace_name
   ;
   
 type_name
-  : qualified_identifier                               { $$ = new TypeRef($1); }
+  : qualified_identifier   type_list_opt                            { $$ = new TypeRef($1); OverrideToken(@1, TokenClass.Type);}
   ;
   
 member_name
-  : IDENTIFIER %prec BAR                              { $$ = $1; @@ = @1; }
-  | IDENTIFIER '<' type_list '>'                      { $$ = $1; @@ = @1; }
+  : IDENTIFIER                             { $$ = $1; @@ = @1; }
   ;
+  
+type_list_opt
+  : 
+  | '<' type_list '>'
+  ;  
 
 type_list
   : type
   | type_list ',' type
   ;
   
+type_arg_list_opt
+  :
+  | '<' type_arg_list '>'
+  ;  
+  
+type_arg_list
+  : IDENTIFIER
+  | type_arg_list ',' IDENTIFIER  
+  ;
 
 /***** C.2.2 Types *****/
 type
@@ -294,12 +306,12 @@ parenthesized_expression
   : '(' expression ')'                                              { MakePair(@1,@3); $$ = $2; @@ = @2;}
   ;
 member_access
-  : primary_expression '.' IDENTIFIER                               { /* if (IsType($1))
+  : primary_expression '.' IDENTIFIER type_list_opt                              { /* if (IsType($1))
                                                                       {  
                                                                         OverrideToken(@1, TokenClass.Type); 
                                                                       }; instance class members */ }
-  | primitive_type '.' IDENTIFIER                                   {   }
-  | class_type '.' IDENTIFIER                                       {  /* static class members */ }
+  | primitive_type '.' IDENTIFIER  type_list_opt                                 {   }
+  | class_type '.' IDENTIFIER  type_list_opt                                     {  /* static class members */ }
   ;
 invocation_expression
   : primary_expression_no_parenthesis '(' argument_list_opt ')'     { MakePair(@2,@4); @@ = @1;}
@@ -438,12 +450,13 @@ additive_expression
 shift_expression
   : additive_expression 
   | shift_expression LTLT additive_expression
-  | shift_expression GTGT additive_expression
+  | shift_expression '>' '>' additive_expression
   ;
+
 relational_expression
   : shift_expression
-  | relational_expression '>' shift_expression
-  | relational_expression '<' shift_expression %prec FOO
+  | relational_expression '>' shift_expression %prec REDUCE
+  | relational_expression '<' shift_expression
   | relational_expression LEQ shift_expression
   | relational_expression GEQ shift_expression
   | relational_expression IS type                                         {  OverrideToken(@3, TokenClass.Type); }
@@ -481,14 +494,16 @@ conditional_expression
   ;
 assignment
   : unary_expression assignment_operator expression
+  | unary_expression '>' GEQ  expression
   ;
 assignment_operator
   : '=' | PLUSEQ | MINUSEQ | STAREQ | DIVEQ | MODEQ 
-  | XOREQ | ANDEQ | OREQ | GTGTEQ | LTLTEQ 
+  | XOREQ | ANDEQ | OREQ | LTLTEQ
   ;
 expression
   : conditional_expression
   | assignment
+  | error
   ;
 constant_expression
   : expression
@@ -585,7 +600,7 @@ selection_statement
   | switch_statement
   ;
 if_statement
-  : IF '(' boolean_expression ')' embedded_statement %prec REDUCE   { MakePair(@2,@4);}
+  : IF '(' boolean_expression ')' embedded_statement %prec IFREDUCE   { MakePair(@2,@4);}
   | IF '(' boolean_expression ')' embedded_statement 
     ELSE embedded_statement                                   { MakePair(@2,@4);}
   ;
@@ -767,13 +782,13 @@ comma_opt
   ;
   
 qualified_identifier
-  : member_name                                                   
-  | qualifier member_name                                        { $$ = $1 + $2; @@ = @2;}
+  : IDENTIFIER                                                   
+  | qualifier IDENTIFIER                                        { $$ = $1 + $2; @@ = @2;}
   ;
 
 qualifier
-  : member_name '.'                                                  { $$ = $1 + $<text>2; }
-  | qualifier member_name '.'                                        { $$ = $1 + $<text>2 + $3; }
+  : IDENTIFIER '.'                                                  { $$ = $1 + "."; }
+  | qualifier IDENTIFIER '.'                                        { $$ = $1 + $2 + "."; }
   ;
   
 namespace_body
@@ -854,7 +869,7 @@ modifier
 
 gen_clause_opt
   :
-  | gen_clause
+  | gen_clause_opt gen_clause
   ;
   
 gen_clause
@@ -875,9 +890,9 @@ gen_class_base
   
 /***** C.2.6 Classes *****/
 class_declaration
-  : attributes_opt modifiers_opt CLASS member_name 
+  : attributes_opt modifiers_opt CLASS IDENTIFIER type_arg_list_opt 
     class_base_opt gen_clause_opt class_body comma_opt                       { CodeRefType ct = new CodeRefType($4); 
-                                                                ct.AddRange($7); $$ = ct; $$.Location = @4;
+                                                                ct.AddRange($8); $$ = ct; $$.Location = @4;
                                                                 OverrideToken(@4, TokenClass.Type);}
   ;
 class_base_opt
@@ -890,8 +905,8 @@ class_base
   | ':' class_type ',' interface_type_list                    { AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace)); }
   ;
 interface_type_list
-  : type_name                                                 { OverrideToken(@1, TokenClass.Type); }
-  | interface_type_list ',' type_name                         { OverrideToken(@3, TokenClass.Type); }
+  : type_name                                                { OverrideToken(@1, TokenClass.Type); }
+  | interface_type_list ',' type_name                          { OverrideToken(@3, TokenClass.Type); }
   ;
 class_body
   : '{' class_member_declarations_opt '}'                     { $$ = $2; { MakePair(@1,@3);}}
@@ -949,10 +964,10 @@ method_declaration
 /* Inline return_type to avoid conflict with field_declaration */
 method_header
   : attributes_opt modifiers_opt type 
-    qualified_identifier '(' formal_parameter_list_opt ')'    { $$ = new CodeMethod($4,$3,$6);  $$.Location = @4;  MakePair(@5,@7); OverrideToken(@3, TokenClass.Type);}
-  | attributes_opt modifiers_opt VOID qualified_identifier 
-    '(' formal_parameter_list_opt ')'                         { $$ = new CodeMethod($4, new TypeRef(typeof(void)), $6); 
-                                                                $$.Location = @4;   MakePair(@5,@7);} 
+    qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')'    { $$ = new CodeMethod($4,$3,$7);  $$.Location = @4;  MakePair(@6,@8); OverrideToken(@3, TokenClass.Type);}
+  | attributes_opt modifiers_opt VOID qualified_identifier type_arg_list_opt
+    '(' formal_parameter_list_opt ')'                         { $$ = new CodeMethod($4, new TypeRef(typeof(void)), $7); 
+                                                                $$.Location = @4;   MakePair(@4,@8);} 
   ;
 formal_parameter_list_opt
   : /* Nothing */                                             
