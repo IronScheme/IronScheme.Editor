@@ -22,6 +22,7 @@ namespace gpcc
     public Set<Terminal> terminalTransitions = new Set<Terminal>();
     public Dictionary<NonTerminal, Transition> nonTerminalTransitions = new Dictionary<NonTerminal, Transition>();
     public Dictionary<Terminal, ParserAction> parseTable = new Dictionary<Terminal, ParserAction>();
+    public Dictionary<Terminal, ParserAction> conflictTable = new Dictionary<Terminal, ParserAction>();
 
 
     public State(Production production)
@@ -120,7 +121,7 @@ namespace gpcc
 
       foreach (KeyValuePair<Terminal, ParserAction> a in parseTable)
       {
-        builder.AppendFormat("    {0,-14} {1}", a.Key, a.Value);
+        builder.AppendFormat("    {0,-20} {1}", a.Key, a.Value);
         builder.AppendLine();
       }
 
@@ -128,11 +129,25 @@ namespace gpcc
 
       foreach (KeyValuePair<NonTerminal, Transition> n in nonTerminalTransitions)
       {
-        builder.AppendFormat("    {0,-14} go to state {1}", n.Key, Goto[n.Key].num);
+        builder.AppendFormat("    {0,-20} go to state {1}", n.Key, Goto[n.Key].num);
         builder.AppendLine();
       }
 
       builder.AppendLine();
+
+      if (conflictTable.Count > 0)
+      {
+        builder.Append("    Conflicts:");
+        builder.AppendLine();
+
+        foreach (KeyValuePair<Terminal, ParserAction> a in conflictTable)
+        {
+          builder.AppendFormat("    {0,-20} {1}", a.Key, a.Value);
+          builder.AppendLine();
+        }
+
+        builder.AppendLine();
+      }
 
       return builder.ToString();
     }

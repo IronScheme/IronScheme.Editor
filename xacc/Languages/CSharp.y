@@ -151,8 +151,9 @@ class TypeRef : CodeTypeRef
 %nonassoc IFREDUCE
 %nonassoc ELSE
 
-%right REDUCE
-%left SHIFT
+%right SHIFT
+%left '>' '<'
+%left REDUCE
 
 
 %%
@@ -193,8 +194,8 @@ member_name
   ;
   
 type_list_opt
-  : 
-  | '<' type_list '>'
+  : %prec SHIFT 
+  | '<' type_list '>'   
   ;  
 
 type_list
@@ -287,6 +288,7 @@ argument
 primary_expression
   : parenthesized_expression
   | primary_expression_no_parenthesis
+  | error
   ;
 primary_expression_no_parenthesis
   : literal
@@ -306,7 +308,7 @@ parenthesized_expression
   : '(' expression ')'                                              { MakePair(@1,@3); $$ = $2; @@ = @2;}
   ;
 member_access
-  : primary_expression '.' IDENTIFIER type_list_opt                              { /* if (IsType($1))
+  : primary_expression '.' IDENTIFIER type_list_opt                           { /* if (IsType($1))
                                                                       {  
                                                                         OverrideToken(@1, TokenClass.Type); 
                                                                       }; instance class members */ }
@@ -383,7 +385,7 @@ sizeof_expression
   ;
 postfix_expression
   : primary_expression
-  | qualified_identifier
+  | qualified_identifier %prec REDUCE
   | post_increment_expression
   | post_decrement_expression
   | pointer_member_access
@@ -437,7 +439,7 @@ type_qual
   | '*'
   ;
 multiplicative_expression
-  : unary_expression
+  : unary_expression %prec REDUCE
   | multiplicative_expression '*' unary_expression  
   | multiplicative_expression '/' unary_expression
   | multiplicative_expression '%' unary_expression
@@ -454,11 +456,11 @@ shift_expression
   ;
 
 relational_expression
-  : shift_expression
-  | relational_expression '>' shift_expression %prec REDUCE
-  | relational_expression '<' shift_expression
-  | relational_expression LEQ shift_expression
-  | relational_expression GEQ shift_expression
+  : shift_expression  %prec REDUCE
+  | relational_expression '<' shift_expression 
+  | relational_expression '>' shift_expression %prec SHIFT
+  | relational_expression LEQ shift_expression %prec SHIFT
+  | relational_expression GEQ shift_expression %prec SHIFT
   | relational_expression IS type                                         {  OverrideToken(@3, TokenClass.Type); }
   | relational_expression AS type                                         {  OverrideToken(@3, TokenClass.Type); }
   ;
@@ -501,9 +503,8 @@ assignment_operator
   | XOREQ | ANDEQ | OREQ | LTLTEQ
   ;
 expression
-  : conditional_expression
+  : conditional_expression 
   | assignment
-  | error
   ;
 constant_expression
   : expression

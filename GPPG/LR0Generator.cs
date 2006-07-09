@@ -147,8 +147,11 @@ namespace gpcc
                     }
                   }
                   else
+                  {
                     Console.Error.WriteLine("Shift/Reduce conflict, state {0} on {1}", state.num, t);
-                  // choose in favour of the shift
+                    state.conflictTable[t] = new Reduce(item);
+                    // choose in favour of the shift
+                  }
                 }
               }
               else
