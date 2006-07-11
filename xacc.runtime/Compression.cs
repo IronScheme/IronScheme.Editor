@@ -18,6 +18,8 @@ namespace Xacc.Runtime
 	{
     Compression(){}
 
+    //http://www.codeproject.com/useritems/ViewStateCompression.asp
+
     public static byte[] Compress(byte[] buffer)
     {
 #if BZ2
@@ -26,7 +28,14 @@ namespace Xacc.Runtime
 #if SHARPZIPLIB
       return blah;
 #else
-      return buffer;
+      using (MemoryStream output = new MemoryStream())
+      {
+        using (GZipStream gzip = new GZipStream(output, CompressionMode.Compress, true))
+        {
+          gzip.Write(buffer, 0, buffer.Length);
+        }
+        return output.ToArray();
+      }
 #endif
 #endif
     }
@@ -39,7 +48,24 @@ namespace Xacc.Runtime
 #if SHARPZIPLIB
       return blah;
 #else
-      return buffer;
+      using (MemoryStream input = new MemoryStream(buffer))
+      {
+        using (GZipStream gzip = new GZipStream(input, CompressionMode.Decompress, true))
+        {
+          using (MemoryStream output = new MemoryStream())
+          {
+            byte[] buff = new byte[buffer.Length * 2];
+            int read = -1;
+            
+            while ((read = gzip.Read(buff, 0, buff.Length)) > 0)
+            {
+              output.Write(buff, 0, read);
+            }
+            return output.ToArray();
+          }
+        }
+      }
+      
 #endif
 #endif
     }

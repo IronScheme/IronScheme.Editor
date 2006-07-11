@@ -226,7 +226,8 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <YYINITIAL>"&="    { return Operator(ANDEQ); }
 <YYINITIAL>"|="    { return Operator(OREQ); }
 <YYINITIAL>"<<"    { return Operator(LTLT); }
-
+<YYINITIAL>">>"   { return Operator(GTGT); }
+<YYINITIAL>">>="   { return Operator(GTGTEQ); }
 <YYINITIAL>"<<="   { return Operator(LTLTEQ); }
 <YYINITIAL>"=="    { return Operator(EQEQ); }
 <YYINITIAL>"!="    { return Operator(NOTEQ); }

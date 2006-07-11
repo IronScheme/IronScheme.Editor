@@ -122,7 +122,7 @@ class TypeRef : CodeTypeRef
 %token ADD REMOVE
 
 /*** MULTI-CHARACTER OPERATORS ***/
-%token PLUSEQ MINUSEQ STAREQ DIVEQ MODEQ QQ
+%token PLUSEQ MINUSEQ STAREQ DIVEQ MODEQ QQ GTGTEQ GTGT
 %token XOREQ  ANDEQ   OREQ LTLT GTGT LTLTEQ EQEQ NOTEQ
 %token LEQ GEQ ANDAND OROR PLUSPLUS MINUSMINUS ARROW
 
@@ -137,7 +137,7 @@ class TypeRef : CodeTypeRef
 %type <elem> enum_member_declaration constructor_declarator 
 %type <text> qualified_identifier qualifier namespace_name constant_declarator variable_declarator type_qualified_identifier
 %type <elem> class_declaration struct_declaration interface_declaration enum_declaration delegate_declaration type_declaration
-%type <elem> class_member_declaration method_declaration property_declaration
+%type <elem> class_member_declaration method_declaration property_declaration type2
 %type <elem> event_declaration indexer_declaration operator_declaration constructor_declaration destructor_declaration
 %type <elem> formal_parameter fixed_parameter parameter_array method_header interface_method_declaration interface_property_declaration
 %type <typeref> type return_type non_array_type simple_type primitive_type class_type numeric_type floating_point_type
@@ -146,14 +146,15 @@ class TypeRef : CodeTypeRef
 %type <list> variable_declarators constant_declarators
 %type <paramattr> parameter_modifier_opt
 
-%type <text> member_name
+%type <text> member_name qualifier2 type_name2
 
 %nonassoc IFREDUCE
 %nonassoc ELSE
 
 %right SHIFT
-%left '>' '<'
+%nonassoc '>' '<'
 %left REDUCE
+
 
 
 %%
@@ -194,8 +195,9 @@ member_name
   ;
   
 type_list_opt
-  : %prec SHIFT 
-  | '<' type_list '>'   
+  :  %prec SHIFT
+  | '<' type_list '>'
+  | '<' qualified_identifier '<' type_list GTGT
   ;  
 
 type_list
@@ -214,6 +216,8 @@ type_arg_list
   ;
 
 /***** C.2.2 Types *****/
+
+
 type
   : non_array_type                                          { $$ = new TypeRef($1, false);}
   | array_type                                              { $$ = new TypeRef($1, true); }
@@ -385,7 +389,7 @@ sizeof_expression
   ;
 postfix_expression
   : primary_expression
-  | qualified_identifier %prec REDUCE
+  | qualified_identifier
   | post_increment_expression
   | post_decrement_expression
   | pointer_member_access
@@ -452,15 +456,15 @@ additive_expression
 shift_expression
   : additive_expression 
   | shift_expression LTLT additive_expression
-  | shift_expression '>' '>' additive_expression
+  | shift_expression GTGT additive_expression 
   ;
 
 relational_expression
-  : shift_expression  %prec REDUCE
+  : shift_expression
   | relational_expression '<' shift_expression 
-  | relational_expression '>' shift_expression %prec SHIFT
-  | relational_expression LEQ shift_expression %prec SHIFT
-  | relational_expression GEQ shift_expression %prec SHIFT
+  | relational_expression '>' shift_expression
+  | relational_expression LEQ shift_expression
+  | relational_expression GEQ shift_expression
   | relational_expression IS type                                         {  OverrideToken(@3, TokenClass.Type); }
   | relational_expression AS type                                         {  OverrideToken(@3, TokenClass.Type); }
   ;
@@ -496,11 +500,10 @@ conditional_expression
   ;
 assignment
   : unary_expression assignment_operator expression
-  | unary_expression '>' GEQ  expression
   ;
 assignment_operator
   : '=' | PLUSEQ | MINUSEQ | STAREQ | DIVEQ | MODEQ 
-  | XOREQ | ANDEQ | OREQ | LTLTEQ
+  | XOREQ | ANDEQ | OREQ | LTLTEQ | GTGTEQ
   ;
 expression
   : conditional_expression 
@@ -782,6 +785,17 @@ comma_opt
   | ';'
   ;
   
+type_name2
+  : IDENTIFIER type_list_opt                                                  { $$ = $1; @@ = @1;}
+  | qualifier2 IDENTIFIER type_list_opt                                       { $$ = $1 + $2; @@ = @2;}
+  ;  
+
+qualifier2
+  : IDENTIFIER type_list_opt '.'                                              { $$ = $1 + ".";}
+  | qualifier IDENTIFIER type_list_opt '.'                                    { $$ = $1 + $2 + ".";}
+  ;
+
+  
 qualified_identifier
   : IDENTIFIER                                                   
   | qualifier IDENTIFIER                                        { $$ = $1 + $2; @@ = @2;}
@@ -827,6 +841,7 @@ namespace_member_declarations
 namespace_member_declaration
   : namespace_declaration
   | type_declaration
+  | error
   ;
 type_declaration
   : class_declaration
@@ -906,8 +921,8 @@ class_base
   | ':' class_type ',' interface_type_list                    { AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace)); }
   ;
 interface_type_list
-  : type_name                                                { OverrideToken(@1, TokenClass.Type); }
-  | interface_type_list ',' type_name                          { OverrideToken(@3, TokenClass.Type); }
+  : type_name2                                                { OverrideToken(@1, TokenClass.Type); }
+  | interface_type_list ',' type_name2                          { OverrideToken(@3, TokenClass.Type); }
   ;
 class_body
   : '{' class_member_declarations_opt '}'                     { $$ = $2; { MakePair(@1,@3);}}
@@ -930,7 +945,8 @@ class_member_declaration
   | operator_declaration
   | constructor_declaration
   | destructor_declaration
-  | type_declaration                                            
+  | type_declaration
+  | error                                            
   ;
 constant_declaration
   : attributes_opt modifiers_opt CONST 
