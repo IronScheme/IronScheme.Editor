@@ -396,7 +396,7 @@ namespace Xacc.Controls
         int startline;
         IDrawInfo[][] dis = buffer.GetSelectedDrawInfo(out startline);
         StringWriter w = new StringWriter();
-        w.Write("<pre style='color:black;background-color:white;font-family:Bitstream Vera Sans Mono,Lucida Console,Courier New;'>");
+        w.Write("<pre style='color:black;background-color:white;font-family:Consolas,Bitstream Vera Sans Mono,Lucida Console,Courier New;'>");
         for (int i = 0; i < dis.Length; i++)
         {
           IDrawInfo[] line = dis[i];

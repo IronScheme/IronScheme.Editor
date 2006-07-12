@@ -555,7 +555,6 @@
     <None Include="Languages\Changelog.lex" />
     <None Include="Languages\CSharp.lex" />
     <None Include="Languages\CSharp.y" />
-    <None Include="Languages\CSharp2.y" />
     <None Include="Languages\CSLex.lex" />
     <None Include="Languages\LSharp.lex" />
     <None Include="Languages\LSharp.y" />

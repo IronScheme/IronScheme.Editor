@@ -138,25 +138,6 @@ namespace gppg
       Rule rule = rules[rule_nr];
       rhslen = rule.rhs.Length;
 
-      //System.Diagnostics.Trace.Write(string.Format("[{1,3}]{0,-15}:", SymbolToString(rule.lhs), rule.lhs));
-
-      //if (rule.rhs.Length == 0)
-      //{
-      //  System.Diagnostics.Trace.WriteLine(" /* empty */");
-      //}
-      //else
-      //{
-      //  System.Diagnostics.Trace.WriteLine("");
-      //  int c = 0;
-
-      //  foreach (int i in rule.rhs)
-      //  {
-      //    System.Diagnostics.Trace.WriteLine(string.Format("[{2,3}]  {0,-12} = {1}", SymbolToString(i), S(++c) ?? "<null>", i));
-      //  }
-      //}
-
-      //System.Diagnostics.Trace.WriteLine("");
-
       if (rhslen == 1)
       {
         yyval = value_stack.array[value_stack.top - rhslen];
@@ -304,25 +285,28 @@ namespace gppg
 
     public void ReportError()
     {
-      StringBuilder errorMsg = new StringBuilder();
-      errorMsg.AppendFormat("syntax error, unexpected {0}", TerminalToString(next));
-
-      if (current_state.parser_table.Count < 20)
+      if (!SuppressErrors)
       {
-        bool first = true;
-        foreach (int terminal in current_state.parser_table.Keys)
+        StringBuilder errorMsg = new StringBuilder();
+        errorMsg.AppendFormat("syntax error, unexpected {0}", TerminalToString(next));
+
+        if (current_state.parser_table.Count < 20)
         {
-          if (first)
-            errorMsg.Append(", expecting ");
-          else
-            errorMsg.Append(", or ");
+          bool first = true;
+          foreach (int terminal in current_state.parser_table.Keys)
+          {
+            if (first)
+              errorMsg.Append(", expecting ");
+            else
+              errorMsg.Append(", or ");
 
-          errorMsg.Append(TerminalToString(terminal));
-          first = false;
+            errorMsg.Append(TerminalToString(terminal));
+            first = false;
+          }
         }
-      }
 
-      scanner.yyerror(errorMsg.ToString());
+        scanner.yyerror(errorMsg.ToString());
+      }
     }
 
 

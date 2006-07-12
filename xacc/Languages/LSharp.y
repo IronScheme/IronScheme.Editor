@@ -72,8 +72,6 @@ class Keyword : CodeElement
   }
 }
 
-
-
 [Serializable]
 [Image("File.Type.NA.png")]
 class File : CodeContainerElement
@@ -105,14 +103,12 @@ class Literal : CodeElement
 
 %union
 {
-
   public CodeElementList  list {get {return value as CodeElementList; } set {this.value = value;}}
   public CodeElement      elem {get {return value as CodeElement; } set {this.value = value;}}
   
 #if DEBUG
   public object Value { get { return value; } }
 #endif
-
 }
 
 %token LBRACE RBRACE DEFMACRO DEFUN ADD APPEND APPLY ASSOC CAAR CAAAR CAADR CADAR CADDR CADR CAR

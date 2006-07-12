@@ -195,6 +195,7 @@ namespace Xacc.Languages.CSLex
 
       internal IEnumerator lines;
 
+      //TODO: some kind of user override would be nice, but u need look ahead
       public override int yylex()
       {
         while (lines.MoveNext())
@@ -209,6 +210,8 @@ namespace Xacc.Languages.CSLex
         }
         return eofToken;
       }
+      
+      #region Token classes
 
 
       protected static Token Preprocessor()
@@ -413,6 +416,8 @@ namespace Xacc.Languages.CSLex
 #pragma warning restore 675
         return t;
       }
+
+      #endregion
 
       protected int yychar;
       protected int yyline;

@@ -197,7 +197,7 @@ member_name
 type_list_opt
   :  %prec SHIFT
   | '<' type_list '>'
-  | '<' qualified_identifier '<' type_list GTGT
+  | '<' qualified_identifier '<' type_list GTGT                     { OverrideToken(@2, TokenClass.Type);}
   ;  
 
 type_list
@@ -537,7 +537,8 @@ embedded_statement
   | fixed_statement
   ;
 block
-  : '{' statement_list_opt '}'                              { MakePair(@1,@3);}
+  : '{'                                               
+  statement_list_opt '}'                              { MakePair(@1,@3);}
   ;
 statement_list_opt
   : /* Nothing */
@@ -976,7 +977,7 @@ field_declaration
                                                               }
   ;
 method_declaration
-  : method_header method_body                                 { $$ = $1;}
+  : method_header { SuppressErrors = true; } method_body                                 { $$ = $1; SuppressErrors = false; }
   ;
 /* Inline return_type to avoid conflict with field_declaration */
 method_header
@@ -984,7 +985,7 @@ method_header
     qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')'    { $$ = new CodeMethod($4,$3,$7);  $$.Location = @4;  MakePair(@6,@8); OverrideToken(@3, TokenClass.Type);}
   | attributes_opt modifiers_opt VOID qualified_identifier type_arg_list_opt
     '(' formal_parameter_list_opt ')'                         { $$ = new CodeMethod($4, new TypeRef(typeof(void)), $7); 
-                                                                $$.Location = @4;   MakePair(@4,@8);} 
+                                                                $$.Location = @4;   MakePair(@6,@8);} 
   ;
 formal_parameter_list_opt
   : /* Nothing */                                             
