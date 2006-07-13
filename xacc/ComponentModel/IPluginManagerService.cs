@@ -101,35 +101,57 @@ namespace Xacc.ComponentModel
 		{
       try
       {
+        Configuration.IdeSupport.about.progressBar1.Value = 10;
         new LanguageService();
 
+        Configuration.IdeSupport.about.progressBar1.Value += 4;
+
         new ImageListProvider();
+        Configuration.IdeSupport.about.progressBar1.Value += 4;
         if (SettingsService.idemode)
         {
           new ToolBarService();
+          Configuration.IdeSupport.about.progressBar1.Value += 4;
           new MenuService();
+          Configuration.IdeSupport.about.progressBar1.Value += 4;
           new StatusBarService();
+          Configuration.IdeSupport.about.progressBar1.Value += 4;
         }
         
         new DiscoveryService();
+        Configuration.IdeSupport.about.progressBar1.Value += 4;
         new CodeModelManager();
+        Configuration.IdeSupport.about.progressBar1.Value += 4;
         new ErrorService();
+        Configuration.IdeSupport.about.progressBar1.Value += 4;
 
         // figure some way out to order these for toolbar/menu
         new FileManager();
+        Configuration.IdeSupport.about.progressBar1.Value += 4;
         new EditService();
+        Configuration.IdeSupport.about.progressBar1.Value += 4;
       
         new ProjectManager();
+        Configuration.IdeSupport.about.progressBar1.Value += 4;
         new DebugService();
+        Configuration.IdeSupport.about.progressBar1.Value += 4;
         new ToolsService();
+        Configuration.IdeSupport.about.progressBar1.Value += 4;
 
         new HelpService();
+        Configuration.IdeSupport.about.progressBar1.Value += 4;
         new ScriptingService();
+        Configuration.IdeSupport.about.progressBar1.Value += 4;
         new FontManager();
+        Configuration.IdeSupport.about.progressBar1.Value += 4;
         new StandardConsole();
+        Configuration.IdeSupport.about.progressBar1.Value += 4;
         new SettingsService();
+        Configuration.IdeSupport.about.progressBar1.Value += 4;
       
         bool cres = Configuration.ConfigCompiler.CompileConfig();
+
+        Configuration.IdeSupport.about.progressBar1.Value = 85;
 
         if (!cres)
         {

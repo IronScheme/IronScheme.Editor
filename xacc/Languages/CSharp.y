@@ -10,6 +10,7 @@ public override string[] Extensions {get {return new string[]{"cs"}; }}
 public override string Name {get {return "C#"; }}
 LexerBase lexer = new CSharpLexer();
 protected override LexerBase Lexer {get {return lexer; }}
+protected override bool SuppressAllErrors {get {return true;} }
 
 [Serializable]
 class TypeRef : CodeTypeRef

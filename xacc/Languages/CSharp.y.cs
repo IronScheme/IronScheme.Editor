@@ -148,7 +148,7 @@ public const int SHIFT=250;
 public const int REDUCE=251;
 }
 public struct ValueType : Xacc.ComponentModel.IToken
-#line 74 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 75 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{
   public ArrayList            list        {get {return value as ArrayList; } set {this.value = value;}}
   public CodeNamespace        ns          {get {return value as CodeNamespace; } set {this.value = value;}}
@@ -195,6 +195,7 @@ public override string[] Extensions {get {return new string[]{"cs"}; }}
 public override string Name {get {return "C#"; }}
 LexerBase lexer = new CSharpLexer();
 protected override LexerBase Lexer {get {return lexer; }}
+protected override bool SuppressAllErrors {get {return true;} }
 
 [Serializable]
 class TypeRef : CodeTypeRef
@@ -1831,162 +1832,162 @@ class TypeRef : CodeTypeRef
     switch (action)
     {
       case 3: // literal -> INTEGER_LITERAL 
-#line 165 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 166 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.primval = 0;/*int.Parse($1);*/ }
 #line hidden
         break;
       case 4: // literal -> REAL_LITERAL 
-#line 166 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 167 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.primval = 0f; /*float.Parse($1);*/ }
 #line hidden
         break;
       case 5: // literal -> CHARACTER_LITERAL 
-#line 167 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 168 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.primval = value_stack.array[value_stack.top-1].text[0]; }
 #line hidden
         break;
       case 7: // literal -> NULL_LITERAL 
-#line 169 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 170 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.primval = null; }
 #line hidden
         break;
       case 10: // mllit -> mllit MLSTRING_LITERAL 
-#line 175 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 176 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.primval = value_stack.array[value_stack.top-2].primval + value_stack.array[value_stack.top-1].text; }
 #line hidden
         break;
       case 11: // boolean_literal -> TRUE 
-#line 179 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 180 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.primval = true; }
 #line hidden
         break;
       case 12: // boolean_literal -> FALSE 
-#line 180 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 181 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.primval = false; }
 #line hidden
         break;
       case 14: // type_name -> qualified_identifier type_list_opt 
-#line 190 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 191 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(value_stack.array[value_stack.top-2].text); OverrideToken(@value_stack.array[value_stack.top-2].Location, TokenClass.Type);}
 #line hidden
         break;
       case 15: // member_name -> IDENTIFIER 
-#line 194 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 195 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.text = value_stack.array[value_stack.top-1].text; @yyval.Location = @value_stack.array[value_stack.top-1].Location; }
 #line hidden
         break;
       case 18: // type_list_opt -> '<' qualified_identifier '<' type_list GTGT 
-#line 200 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 201 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-4].Location, TokenClass.Type);}
 #line hidden
         break;
       case 25: // type -> non_array_type 
-#line 222 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 223 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(value_stack.array[value_stack.top-1].typeref, false);}
 #line hidden
         break;
       case 26: // type -> array_type 
-#line 223 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 224 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(value_stack.array[value_stack.top-1].typeref, true); }
 #line hidden
         break;
       case 33: // primitive_type -> BOOL 
-#line 236 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 237 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(bool)); }
 #line hidden
         break;
       case 36: // numeric_type -> DECIMAL 
-#line 241 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 242 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(decimal)); }
 #line hidden
         break;
       case 37: // integral_type -> SBYTE 
-#line 244 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 245 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(sbyte)); }
 #line hidden
         break;
       case 38: // integral_type -> BYTE 
-#line 245 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 246 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(byte)); }
 #line hidden
         break;
       case 39: // integral_type -> SHORT 
-#line 246 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 247 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(short)); }
 #line hidden
         break;
       case 40: // integral_type -> USHORT 
-#line 247 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 248 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(ushort)); }
 #line hidden
         break;
       case 41: // integral_type -> INT 
-#line 248 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 249 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(int)); }
 #line hidden
         break;
       case 42: // integral_type -> UINT 
-#line 249 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 250 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(uint)); }
 #line hidden
         break;
       case 43: // integral_type -> LONG 
-#line 250 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 251 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(long)); }
 #line hidden
         break;
       case 44: // integral_type -> ULONG 
-#line 251 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 252 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(ulong)); }
 #line hidden
         break;
       case 45: // integral_type -> CHAR 
-#line 252 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 253 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(char)); }
 #line hidden
         break;
       case 46: // floating_point_type -> FLOAT 
-#line 255 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 256 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(float)); }
 #line hidden
         break;
       case 47: // floating_point_type -> DOUBLE 
-#line 256 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 257 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(double)); }
 #line hidden
         break;
       case 48: // class_type -> OBJECT 
-#line 259 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 260 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(object)); }
 #line hidden
         break;
       case 49: // class_type -> KW_STRING 
-#line 260 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 261 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(string)); }
 #line hidden
         break;
       case 52: // array_type -> array_type rank_specifier 
-#line 267 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ yyval.typeref = value_stack.array[value_stack.top-2].typeref; @yyval.Location = @value_stack.array[value_stack.top-2].Location;}
-#line hidden
-        break;
-      case 53: // array_type -> simple_type rank_specifier 
 #line 268 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = value_stack.array[value_stack.top-2].typeref; @yyval.Location = @value_stack.array[value_stack.top-2].Location;}
 #line hidden
         break;
-      case 54: // array_type -> qualified_identifier rank_specifier 
+      case 53: // array_type -> simple_type rank_specifier 
 #line 269 "D:\dev\XACC\xacc\Languages\CSharp.y"
+			{ yyval.typeref = value_stack.array[value_stack.top-2].typeref; @yyval.Location = @value_stack.array[value_stack.top-2].Location;}
+#line hidden
+        break;
+      case 54: // array_type -> qualified_identifier rank_specifier 
+#line 270 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(value_stack.array[value_stack.top-2].text,true); @yyval.Location = @value_stack.array[value_stack.top-2].Location;}
 #line hidden
         break;
       case 79: // parenthesized_expression -> '(' expression ')' 
-#line 312 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 313 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); yyval = value_stack.array[value_stack.top-2]; @yyval.Location = @value_stack.array[value_stack.top-2].Location;}
 #line hidden
         break;
       case 80: // member_access -> primary_expression '.' IDENTIFIER type_list_opt 
-#line 315 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 316 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ /* if (IsType($1))
                                                                       {  
                                                                         OverrideToken(@1, TokenClass.Type); 
@@ -1994,304 +1995,304 @@ class TypeRef : CodeTypeRef
 #line hidden
         break;
       case 81: // member_access -> primitive_type '.' IDENTIFIER type_list_opt 
-#line 319 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 320 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{   }
 #line hidden
         break;
       case 82: // member_access -> class_type '.' IDENTIFIER type_list_opt 
-#line 320 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 321 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  /* static class members */ }
 #line hidden
         break;
       case 83: // invocation_expression -> primary_expression_no_parenthesis '(' argument_list_opt ')' 
-#line 323 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 324 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); @yyval.Location = @value_stack.array[value_stack.top-4].Location;}
 #line hidden
         break;
       case 84: // invocation_expression -> qualified_identifier '(' argument_list_opt ')' 
-#line 324 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 325 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); @yyval.Location = @value_stack.array[value_stack.top-4].Location; }
 #line hidden
         break;
       case 87: // element_access -> primary_expression '[' expression_list ']' 
-#line 331 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
-#line hidden
-        break;
-      case 88: // element_access -> qualified_identifier '[' expression_list ']' 
 #line 332 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
+      case 88: // element_access -> qualified_identifier '[' expression_list ']' 
+#line 333 "D:\dev\XACC\xacc\Languages\CSharp.y"
+			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
+#line hidden
+        break;
       case 95: // base_access -> BASE '[' expression_list ']' 
-#line 347 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 348 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 99: // object_creation_expression -> NEW type '(' argument_list_opt ')' 
-#line 359 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 360 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-4].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); AddAutoComplete(@value_stack.array[value_stack.top-5].Location, typeof(CodeType), typeof(CodeNamespace)); }
 #line hidden
         break;
       case 100: // object_creation_expression -> NEW error 
-#line 360 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 361 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ AddAutoComplete(@value_stack.array[value_stack.top-2].Location, typeof(CodeType), typeof(CodeNamespace)); }
 #line hidden
         break;
       case 101: // array_creation_expression -> NEW non_array_type '[' expression_list ']' rank_specifiers_opt array_initializer_opt 
-#line 364 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 365 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-6].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-5].Location,@value_stack.array[value_stack.top-3].Location); AddAutoComplete(@value_stack.array[value_stack.top-7].Location, typeof(CodeType), typeof(CodeNamespace)); }
 #line hidden
         break;
       case 102: // array_creation_expression -> NEW array_type array_initializer 
-#line 365 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 366 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-2].Location, TokenClass.Type); AddAutoComplete(@value_stack.array[value_stack.top-3].Location, typeof(CodeType),typeof(CodeNamespace)); }
 #line hidden
         break;
       case 105: // typeof_expression -> TYPEOF '(' type ')' 
-#line 372 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 373 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-2].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); AddAutoComplete(@value_stack.array[value_stack.top-3].Location, typeof(CodeType),typeof(CodeNamespace)); }
 #line hidden
         break;
       case 106: // typeof_expression -> TYPEOF '(' VOID ')' 
-#line 373 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 374 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 107: // checked_expression -> CHECKED '(' expression ')' 
-#line 376 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 377 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 108: // unchecked_expression -> UNCHECKED '(' expression ')' 
-#line 379 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 380 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 109: // pointer_member_access -> postfix_expression ARROW IDENTIFIER 
-#line 382 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 383 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ /* instance class members */ }
 #line hidden
         break;
       case 111: // sizeof_expression -> SIZEOF '(' type ')' 
-#line 388 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 389 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-2].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); AddAutoComplete(@value_stack.array[value_stack.top-3].Location, typeof(CodeType), typeof(CodeNamespace));}
 #line hidden
         break;
       case 130: // cast_expression -> '(' expression ')' unary_expression_not_plusminus 
-#line 425 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 426 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
       case 131: // cast_expression -> '(' multiplicative_expression '*' ')' unary_expression 
-#line 426 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 427 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-5].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
       case 132: // cast_expression -> '(' qualified_identifier rank_specifier type_quals_opt ')' unary_expression 
-#line 428 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 429 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-6].Location,@value_stack.array[value_stack.top-2].Location); AddAutoComplete(@value_stack.array[value_stack.top-6].Location, typeof(CodeType), typeof(CodeNamespace));}
 #line hidden
         break;
       case 133: // cast_expression -> '(' primitive_type type_quals_opt ')' unary_expression 
-#line 429 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ MakePair(@value_stack.array[value_stack.top-5].Location,@value_stack.array[value_stack.top-2].Location); AddAutoComplete(@value_stack.array[value_stack.top-5].Location, typeof(CodeType), typeof(CodeNamespace));}
-#line hidden
-        break;
-      case 134: // cast_expression -> '(' class_type type_quals_opt ')' unary_expression 
 #line 430 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-5].Location,@value_stack.array[value_stack.top-2].Location); AddAutoComplete(@value_stack.array[value_stack.top-5].Location, typeof(CodeType), typeof(CodeNamespace));}
 #line hidden
         break;
-      case 135: // cast_expression -> '(' VOID type_quals_opt ')' unary_expression 
+      case 134: // cast_expression -> '(' class_type type_quals_opt ')' unary_expression 
 #line 431 "D:\dev\XACC\xacc\Languages\CSharp.y"
+			{ MakePair(@value_stack.array[value_stack.top-5].Location,@value_stack.array[value_stack.top-2].Location); AddAutoComplete(@value_stack.array[value_stack.top-5].Location, typeof(CodeType), typeof(CodeNamespace));}
+#line hidden
+        break;
+      case 135: // cast_expression -> '(' VOID type_quals_opt ')' unary_expression 
+#line 432 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-5].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
       case 157: // relational_expression -> relational_expression IS type 
-#line 468 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{  OverrideToken(@value_stack.array[value_stack.top-1].Location, TokenClass.Type); }
-#line hidden
-        break;
-      case 158: // relational_expression -> relational_expression AS type 
 #line 469 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-1].Location, TokenClass.Type); }
 #line hidden
         break;
+      case 158: // relational_expression -> relational_expression AS type 
+#line 470 "D:\dev\XACC\xacc\Languages\CSharp.y"
+			{  OverrideToken(@value_stack.array[value_stack.top-1].Location, TokenClass.Type); }
+#line hidden
+        break;
       case 173: // conditional_expression -> conditional_or_expression '?' expression ':' expression 
-#line 498 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 499 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
       case 207: // block -> '{' statement_list_opt '}' 
-#line 541 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 542 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 216: // local_variable_declaration -> type variable_declarators 
-#line 563 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 564 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-2].Location, TokenClass.Type); }
 #line hidden
         break;
       case 217: // variable_declarators -> variable_declarator 
-#line 566 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 567 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.list = new ArrayList(); yyval.list.Add(value_stack.array[value_stack.top-1].text); }
 #line hidden
         break;
       case 218: // variable_declarators -> variable_declarators ',' variable_declarator 
-#line 567 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 568 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.list = value_stack.array[value_stack.top-3].list;  yyval.list.Add(value_stack.array[value_stack.top-1].text); }
 #line hidden
         break;
       case 220: // variable_declarator -> IDENTIFIER '=' variable_initializer 
-#line 571 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 572 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.text = value_stack.array[value_stack.top-3].text; }
 #line hidden
         break;
       case 224: // stackalloc_initializer -> STACKALLOC type '[' expression ']' 
-#line 579 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 580 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-4].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 226: // constant_declarators -> constant_declarator 
-#line 585 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 586 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.list = new ArrayList(); yyval.list.Add(value_stack.array[value_stack.top-1].text); }
 #line hidden
         break;
       case 227: // constant_declarators -> constant_declarators ',' constant_declarator 
-#line 586 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 587 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.list = value_stack.array[value_stack.top-3].list; yyval.list.Add(value_stack.array[value_stack.top-1].text); }
 #line hidden
         break;
       case 228: // constant_declarator -> IDENTIFIER '=' constant_expression 
-#line 589 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 590 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.text = value_stack.array[value_stack.top-3].text ;}
 #line hidden
         break;
       case 239: // if_statement -> IF '(' boolean_expression ')' embedded_statement 
-#line 608 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 609 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
       case 240: // if_statement -> IF '(' boolean_expression ')' embedded_statement ELSE embedded_statement 
-#line 610 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 611 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-6].Location,@value_stack.array[value_stack.top-4].Location);}
 #line hidden
         break;
       case 241: // switch_statement -> SWITCH '(' expression ')' switch_block 
-#line 613 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 614 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
       case 242: // switch_block -> '{' switch_sections_opt '}' 
-#line 616 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 617 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 257: // while_statement -> WHILE '(' boolean_expression ')' embedded_statement 
-#line 647 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 648 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
       case 258: // do_statement -> DO embedded_statement WHILE '(' boolean_expression ')' ';' 
-#line 650 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 651 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
       case 259: // @1 -> 
-#line 654 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 655 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-7].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 273: // foreach_statement -> FOREACH '(' type IDENTIFIER IN expression ')' embedded_statement 
-#line 684 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 685 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-7].Location,@value_stack.array[value_stack.top-2].Location); AddAutoComplete(@value_stack.array[value_stack.top-7].Location, typeof(CodeType), typeof(CodeNamespace));
                                                                          OverrideToken(@value_stack.array[value_stack.top-6].Location, TokenClass.Type);}
 #line hidden
         break;
       case 293: // catch_clause -> CATCH '(' class_type identifier_opt ')' block 
-#line 725 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 726 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-5].Location,@value_stack.array[value_stack.top-2].Location); AddAutoComplete(@value_stack.array[value_stack.top-5].Location, typeof(CodeType), typeof(CodeNamespace));}
 #line hidden
         break;
       case 294: // catch_clause -> CATCH '(' type_name identifier_opt ')' block 
-#line 726 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 727 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-4].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-5].Location,@value_stack.array[value_stack.top-2].Location); AddAutoComplete(@value_stack.array[value_stack.top-5].Location, typeof(CodeType), typeof(CodeNamespace));}
 #line hidden
         break;
       case 301: // lock_statement -> LOCK '(' expression ')' embedded_statement 
-#line 743 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 744 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
       case 302: // using_statement -> USING '(' resource_acquisition ')' embedded_statement 
-#line 746 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 747 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
       case 305: // @2 -> 
-#line 753 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 754 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);}
 #line hidden
         break;
       case 310: // compilation_unit -> using_directives_opt attributes_opt 
-#line 764 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 765 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ ; }
 #line hidden
         break;
       case 311: // compilation_unit -> using_directives_opt namespace_member_declarations 
-#line 765 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 766 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ CodeModel.AddRange(value_stack.array[value_stack.top-1].elemlist); }
 #line hidden
         break;
       case 318: // namespace_declaration -> attributes_opt NAMESPACE qualified_identifier namespace_body comma_opt 
-#line 781 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 782 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{CodeNamespace ns = new CodeNamespace(value_stack.array[value_stack.top-3].text); 
                                                                      ns.AddRange(value_stack.array[value_stack.top-2].elemlist); yyval.elem = ns; yyval.elem.Location = @value_stack.array[value_stack.top-3].Location;}
 #line hidden
         break;
       case 321: // type_name2 -> IDENTIFIER type_list_opt 
-#line 790 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 791 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.text = value_stack.array[value_stack.top-2].text; @yyval.Location = @value_stack.array[value_stack.top-2].Location;}
 #line hidden
         break;
       case 322: // type_name2 -> qualifier2 IDENTIFIER type_list_opt 
-#line 791 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 792 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.text = value_stack.array[value_stack.top-3].text + value_stack.array[value_stack.top-2].text; @yyval.Location = @value_stack.array[value_stack.top-2].Location;}
 #line hidden
         break;
       case 323: // qualifier2 -> IDENTIFIER type_list_opt '.' 
-#line 795 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 796 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.text = value_stack.array[value_stack.top-3].text + ".";}
 #line hidden
         break;
       case 324: // qualifier2 -> qualifier IDENTIFIER type_list_opt '.' 
-#line 796 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 797 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.text = value_stack.array[value_stack.top-4].text + value_stack.array[value_stack.top-3].text + ".";}
 #line hidden
         break;
       case 326: // qualified_identifier -> qualifier IDENTIFIER 
-#line 802 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 803 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.text = value_stack.array[value_stack.top-2].text + value_stack.array[value_stack.top-1].text; @yyval.Location = @value_stack.array[value_stack.top-1].Location;}
 #line hidden
         break;
       case 327: // qualifier -> IDENTIFIER '.' 
-#line 806 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 807 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.text = value_stack.array[value_stack.top-2].text + "."; }
 #line hidden
         break;
       case 328: // qualifier -> qualifier IDENTIFIER '.' 
-#line 807 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 808 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.text = value_stack.array[value_stack.top-3].text + value_stack.array[value_stack.top-2].text + "."; }
 #line hidden
         break;
       case 329: // namespace_body -> '{' using_directives_opt namespace_member_declarations_opt '}' 
-#line 811 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 812 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist ; { MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location);}}
 #line hidden
         break;
       case 334: // using_alias_directive -> USING IDENTIFIER '=' qualified_identifier ';' 
-#line 825 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 826 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{
                                                                       AddAutoComplete(@value_stack.array[value_stack.top-3].Location,typeof(CodeType), typeof(CodeNamespace)); 
                                                                       AddAlias(value_stack.array[value_stack.top-4].text, value_stack.array[value_stack.top-2].text);
@@ -2300,7 +2301,7 @@ class TypeRef : CodeTypeRef
 #line hidden
         break;
       case 335: // using_namespace_directive -> USING namespace_name ';' 
-#line 832 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 833 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{
                                                                       AddAutoComplete(@value_stack.array[value_stack.top-3].Location, true, typeof(CodeNamespace)); 
                                                                       AddImport(value_stack.array[value_stack.top-2].text);
@@ -2308,74 +2309,74 @@ class TypeRef : CodeTypeRef
 #line hidden
         break;
       case 336: // using_namespace_directive -> USING error 
-#line 836 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 837 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ AddAutoComplete(@value_stack.array[value_stack.top-2].Location, true, typeof(CodeNamespace));}
 #line hidden
         break;
       case 337: // namespace_member_declarations -> namespace_member_declaration 
-#line 839 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 840 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = new CodeElementList(value_stack.array[value_stack.top-1].elem);}
 #line hidden
         break;
       case 338: // namespace_member_declarations -> namespace_member_declarations namespace_member_declaration 
-#line 840 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 841 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 374: // class_declaration -> attributes_opt modifiers_opt CLASS IDENTIFIER type_arg_list_opt class_base_opt gen_clause_opt class_body comma_opt 
-#line 911 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 912 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ CodeRefType ct = new CodeRefType(value_stack.array[value_stack.top-6].text); 
                                                                 ct.AddRange(value_stack.array[value_stack.top-2].elemlist); yyval.elem = ct; yyval.elem.Location = @value_stack.array[value_stack.top-6].Location;
                                                                 OverrideToken(@value_stack.array[value_stack.top-6].Location, TokenClass.Type);}
 #line hidden
         break;
       case 377: // class_base -> ':' class_type 
-#line 920 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ AddAutoComplete(@value_stack.array[value_stack.top-2].Location, typeof(CodeType), typeof(CodeNamespace)); }
-#line hidden
-        break;
-      case 378: // class_base -> ':' interface_type_list 
 #line 921 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ AddAutoComplete(@value_stack.array[value_stack.top-2].Location, typeof(CodeType), typeof(CodeNamespace)); }
 #line hidden
         break;
-      case 379: // class_base -> ':' class_type ',' interface_type_list 
+      case 378: // class_base -> ':' interface_type_list 
 #line 922 "D:\dev\XACC\xacc\Languages\CSharp.y"
+			{ AddAutoComplete(@value_stack.array[value_stack.top-2].Location, typeof(CodeType), typeof(CodeNamespace)); }
+#line hidden
+        break;
+      case 379: // class_base -> ':' class_type ',' interface_type_list 
+#line 923 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ AddAutoComplete(@value_stack.array[value_stack.top-4].Location, typeof(CodeType), typeof(CodeNamespace)); }
 #line hidden
         break;
       case 380: // interface_type_list -> type_name2 
-#line 925 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ OverrideToken(@value_stack.array[value_stack.top-1].Location, TokenClass.Type); }
-#line hidden
-        break;
-      case 381: // interface_type_list -> interface_type_list ',' type_name2 
 #line 926 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-1].Location, TokenClass.Type); }
 #line hidden
         break;
+      case 381: // interface_type_list -> interface_type_list ',' type_name2 
+#line 927 "D:\dev\XACC\xacc\Languages\CSharp.y"
+			{ OverrideToken(@value_stack.array[value_stack.top-1].Location, TokenClass.Type); }
+#line hidden
+        break;
       case 382: // class_body -> '{' class_member_declarations_opt '}' 
-#line 929 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 930 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; { MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}}
 #line hidden
         break;
       case 383: // class_member_declarations_opt -> 
-#line 932 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 933 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = new CodeElementList(); }
 #line hidden
         break;
       case 385: // class_member_declarations -> class_member_declaration 
-#line 936 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 937 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = new CodeElementList(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 386: // class_member_declarations -> class_member_declarations class_member_declaration 
-#line 937 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 938 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 398: // constant_declaration -> attributes_opt modifiers_opt CONST type constant_declarators ';' 
-#line 954 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 955 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ 
                                                                 CodeElementList cel = new CodeElementList();
                                                                 foreach (string s in value_stack.array[value_stack.top-2].list)
@@ -2389,7 +2390,7 @@ class TypeRef : CodeTypeRef
 #line hidden
         break;
       case 399: // field_declaration -> attributes_opt modifiers_opt type variable_declarators ';' 
-#line 967 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 968 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ 
                                                                 OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type);
                                                                 CodeElementList cel = new CodeElementList();
@@ -2404,78 +2405,78 @@ class TypeRef : CodeTypeRef
 #line hidden
         break;
       case 400: // @3 -> 
-#line 980 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 981 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ SuppressErrors = true; }
 #line hidden
         break;
       case 401: // method_declaration -> method_header @3 method_body 
-#line 980 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 981 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = value_stack.array[value_stack.top-3].elem; SuppressErrors = false; }
 #line hidden
         break;
       case 402: // method_header -> attributes_opt modifiers_opt type qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')' 
-#line 985 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 986 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeMethod(value_stack.array[value_stack.top-5].text,value_stack.array[value_stack.top-6].typeref,value_stack.array[value_stack.top-2].elemlist);  yyval.elem.Location = @value_stack.array[value_stack.top-5].Location;  MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); OverrideToken(@value_stack.array[value_stack.top-6].Location, TokenClass.Type);}
 #line hidden
         break;
       case 403: // method_header -> attributes_opt modifiers_opt VOID qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')' 
-#line 987 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 988 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeMethod(value_stack.array[value_stack.top-5].text, new TypeRef(typeof(void)), value_stack.array[value_stack.top-2].elemlist); 
                                                                 yyval.elem.Location = @value_stack.array[value_stack.top-5].Location;   MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 406: // return_type -> type 
-#line 995 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 996 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-1].Location, TokenClass.Type); }
 #line hidden
         break;
       case 407: // return_type -> VOID 
-#line 996 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 997 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.typeref = new TypeRef(typeof(void)); }
 #line hidden
         break;
       case 410: // formal_parameter_list -> formal_parameter 
-#line 1003 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1004 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = new CodeElementList(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 411: // formal_parameter_list -> formal_parameter_list ',' formal_parameter 
-#line 1004 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1005 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-3].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 414: // fixed_parameter -> attributes_opt parameter_modifier_opt type IDENTIFIER 
-#line 1011 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1012 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeParameter(value_stack.array[value_stack.top-1].text,value_stack.array[value_stack.top-2].typeref,value_stack.array[value_stack.top-3].paramattr); OverrideToken(@value_stack.array[value_stack.top-2].Location, TokenClass.Type);}
 #line hidden
         break;
       case 415: // parameter_modifier_opt -> 
-#line 1014 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1015 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.paramattr = ParameterAttributes.None; }
 #line hidden
         break;
       case 416: // parameter_modifier_opt -> REF 
-#line 1015 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1016 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.paramattr = (ParameterAttributes.Out | ParameterAttributes.In); }
 #line hidden
         break;
       case 417: // parameter_modifier_opt -> OUT 
-#line 1016 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1017 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.paramattr = ParameterAttributes.Out; }
 #line hidden
         break;
       case 418: // parameter_array -> attributes_opt PARAMS type IDENTIFIER 
-#line 1019 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1020 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeParameter(value_stack.array[value_stack.top-1].text,value_stack.array[value_stack.top-2].typeref); OverrideToken(@value_stack.array[value_stack.top-2].Location, TokenClass.Type); }
 #line hidden
         break;
       case 419: // property_declaration -> attributes_opt modifiers_opt type qualified_identifier '{' accessor_declarations '}' 
-#line 1024 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1025 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeProperty(value_stack.array[value_stack.top-4].text,value_stack.array[value_stack.top-5].typeref); yyval.elem.Location = @value_stack.array[value_stack.top-4].Location; MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type);}
 #line hidden
         break;
       case 430: // event_declaration -> attributes_opt modifiers_opt EVENT type variable_declarators ';' 
-#line 1051 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1052 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ 
                                                                 OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type);
                                                                 CodeElementList cel = new CodeElementList();
@@ -2490,7 +2491,7 @@ class TypeRef : CodeTypeRef
 #line hidden
         break;
       case 431: // event_declaration -> attributes_opt modifiers_opt EVENT type qualified_identifier '{' event_accessor_declarations '}' 
-#line 1063 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1064 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ 
                                                                   OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type);
                                                                   MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);
@@ -2500,140 +2501,140 @@ class TypeRef : CodeTypeRef
 #line hidden
         break;
       case 436: // indexer_declaration -> attributes_opt modifiers_opt indexer_declarator '{' accessor_declarations '}' 
-#line 1084 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1085 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ /*$$ = new CodeProperty("Item", null);*/ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 437: // indexer_declarator -> type THIS '[' formal_parameter_list ']' 
-#line 1087 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{  OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
-#line hidden
-        break;
-      case 438: // indexer_declarator -> type qualified_this '[' formal_parameter_list ']' 
 #line 1088 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
+      case 438: // indexer_declarator -> type qualified_this '[' formal_parameter_list ']' 
+#line 1089 "D:\dev\XACC\xacc\Languages\CSharp.y"
+			{  OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
+#line hidden
+        break;
       case 443: // overloadable_operator_declarator -> type OPERATOR overloadable_operator '(' type IDENTIFIER ')' 
-#line 1103 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1104 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-7].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location);  OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type);}
 #line hidden
         break;
       case 444: // overloadable_operator_declarator -> type OPERATOR overloadable_operator '(' type IDENTIFIER ',' type IDENTIFIER ')' 
-#line 1105 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1106 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-10].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-7].Location,@value_stack.array[value_stack.top-1].Location);  OverrideToken(@value_stack.array[value_stack.top-6].Location, TokenClass.Type);  OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type);}
 #line hidden
         break;
       case 467: // conversion_operator_declarator -> IMPLICIT OPERATOR type '(' type IDENTIFIER ')' 
-#line 1114 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1115 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type);  OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 468: // conversion_operator_declarator -> EXPLICIT OPERATOR type '(' type IDENTIFIER ')' 
-#line 1115 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1116 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type);  OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type); MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 469: // constructor_declaration -> attributes_opt modifiers_opt constructor_declarator constructor_body 
-#line 1119 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1120 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = value_stack.array[value_stack.top-2].elem;  }
 #line hidden
         break;
       case 470: // constructor_declarator -> IDENTIFIER '(' formal_parameter_list_opt ')' constructor_initializer_opt 
-#line 1123 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1124 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeConstructor(value_stack.array[value_stack.top-5].text, value_stack.array[value_stack.top-3].elemlist); yyval.elem.Location = @value_stack.array[value_stack.top-5].Location;
                                                                  MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);  OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type);}
 #line hidden
         break;
       case 473: // constructor_initializer -> ':' BASE '(' argument_list_opt ')' 
-#line 1131 "D:\dev\XACC\xacc\Languages\CSharp.y"
-			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
-#line hidden
-        break;
-      case 474: // constructor_initializer -> ':' THIS '(' argument_list_opt ')' 
 #line 1132 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
+      case 474: // constructor_initializer -> ':' THIS '(' argument_list_opt ')' 
+#line 1133 "D:\dev\XACC\xacc\Languages\CSharp.y"
+			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
+#line hidden
+        break;
       case 475: // destructor_declaration -> attributes_opt modifiers_opt '~' IDENTIFIER '(' ')' block 
-#line 1135 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1136 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{  OverrideToken(@value_stack.array[value_stack.top-4].Location, TokenClass.Type); yyval.elem = new CodeDestructor(value_stack.array[value_stack.top-4].text); yyval.elem.Location = @value_stack.array[value_stack.top-4].Location;}
 #line hidden
         break;
       case 480: // struct_declaration -> attributes_opt modifiers_opt STRUCT member_name struct_interfaces_opt struct_body comma_opt 
-#line 1149 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1150 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ CodeValueType cv = new CodeValueType(value_stack.array[value_stack.top-4].text); 
                                                                 cv.AddRange(value_stack.array[value_stack.top-2].elemlist); yyval.elem = cv; yyval.elem.Location = @value_stack.array[value_stack.top-4].Location;
                                                                 OverrideToken(@value_stack.array[value_stack.top-4].Location, TokenClass.Type);}
 #line hidden
         break;
       case 484: // struct_body -> '{' struct_member_declarations_opt '}' 
-#line 1161 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1162 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; { MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}}
 #line hidden
         break;
       case 487: // struct_member_declarations -> struct_member_declaration 
-#line 1168 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1169 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = new CodeElementList(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 488: // struct_member_declarations -> struct_member_declarations struct_member_declaration 
-#line 1169 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1170 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 498: // array_initializer -> '{' variable_initializer_list_opt '}' 
-#line 1185 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1186 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 499: // array_initializer -> '{' variable_initializer_list ',' '}' 
-#line 1186 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1187 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 504: // interface_declaration -> attributes_opt modifiers_opt INTERFACE member_name interface_base_opt interface_body comma_opt 
-#line 1200 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1201 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ CodeInterface ci = new CodeInterface(value_stack.array[value_stack.top-4].text); 
                                                                   ci.AddRange(value_stack.array[value_stack.top-2].elemlist); yyval.elem = ci; yyval.elem.Location = @value_stack.array[value_stack.top-4].Location;
                                                                   OverrideToken(@value_stack.array[value_stack.top-4].Location, TokenClass.Type);}
 #line hidden
         break;
       case 508: // interface_body -> '{' interface_member_declarations_opt '}' 
-#line 1212 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1213 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 511: // interface_member_declarations -> interface_member_declaration 
-#line 1219 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1220 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = new CodeElementList(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 512: // interface_member_declarations -> interface_member_declarations interface_member_declaration 
-#line 1220 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1221 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 517: // interface_method_declaration -> attributes_opt new_opt type member_name '(' formal_parameter_list_opt ')' interface_empty_body 
-#line 1231 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1232 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeMethod(value_stack.array[value_stack.top-5].text,value_stack.array[value_stack.top-6].typeref,value_stack.array[value_stack.top-3].elemlist); yyval.elem.Location = @value_stack.array[value_stack.top-5].Location;
                                                                   MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);  OverrideToken(@value_stack.array[value_stack.top-6].Location, TokenClass.Type);}
 #line hidden
         break;
       case 518: // interface_method_declaration -> attributes_opt new_opt VOID member_name '(' formal_parameter_list_opt ')' interface_empty_body 
-#line 1234 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1235 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeMethod(value_stack.array[value_stack.top-5].text, new TypeRef(typeof(void)), value_stack.array[value_stack.top-3].elemlist); 
                                                                   yyval.elem.Location = @value_stack.array[value_stack.top-5].Location; MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location); }
 #line hidden
         break;
       case 521: // interface_property_declaration -> attributes_opt new_opt type member_name '{' interface_accessors '}' 
-#line 1243 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1244 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeProperty(value_stack.array[value_stack.top-4].text,value_stack.array[value_stack.top-5].typeref); yyval.elem.Location = @value_stack.array[value_stack.top-4].Location; 
                                                                   MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);  OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type);}
 #line hidden
         break;
       case 522: // interface_indexer_declaration -> attributes_opt new_opt type THIS '[' formal_parameter_list ']' '{' interface_accessors '}' 
-#line 1249 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1250 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-6].Location,@value_stack.array[value_stack.top-4].Location);  MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);
                                                                    yyval.elem = new CodeProperty("Item", value_stack.array[value_stack.top-8].typeref); yyval.elem.Location = @value_stack.array[value_stack.top-7].Location;
                                                                     OverrideToken(@value_stack.array[value_stack.top-8].Location, TokenClass.Type); 
@@ -2641,71 +2642,71 @@ class TypeRef : CodeTypeRef
 #line hidden
         break;
       case 527: // interface_event_declaration -> attributes_opt new_opt EVENT type member_name interface_empty_body 
-#line 1262 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1263 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type);}
 #line hidden
         break;
       case 530: // enum_declaration -> attributes_opt modifiers_opt ENUM IDENTIFIER enum_base_opt enum_body comma_opt 
-#line 1274 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1275 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ CodeEnum ce = new CodeEnum(value_stack.array[value_stack.top-4].text); 
                                                         ce.AddRange(value_stack.array[value_stack.top-2].elemlist); yyval.elem = ce; yyval.elem.Location = @value_stack.array[value_stack.top-4].Location;
                                                         OverrideToken(@value_stack.array[value_stack.top-4].Location, TokenClass.Type);}
 #line hidden
         break;
       case 534: // enum_body -> '{' enum_member_declarations_opt '}' 
-#line 1286 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1287 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-2].elemlist; MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 535: // enum_body -> '{' enum_member_declarations ',' '}' 
-#line 1287 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1288 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-3].elemlist; MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location); }
 #line hidden
         break;
       case 538: // enum_member_declarations -> enum_member_declaration 
-#line 1294 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1295 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = new CodeElementList(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 539: // enum_member_declarations -> enum_member_declarations ',' enum_member_declaration 
-#line 1296 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1297 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elemlist = value_stack.array[value_stack.top-3].elemlist; yyval.elemlist.Add(value_stack.array[value_stack.top-1].elem); }
 #line hidden
         break;
       case 540: // enum_member_declaration -> attributes_opt IDENTIFIER 
-#line 1299 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1300 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeField(value_stack.array[value_stack.top-1].text, new TypeRef(typeof(int))); yyval.elem.Location = @value_stack.array[value_stack.top-1].Location;}
 #line hidden
         break;
       case 541: // enum_member_declaration -> attributes_opt IDENTIFIER '=' constant_expression 
-#line 1300 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1301 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeField(value_stack.array[value_stack.top-3].text, new TypeRef(typeof(int))); yyval.elem.Location = @value_stack.array[value_stack.top-3].Location;}
 #line hidden
         break;
       case 542: // delegate_declaration -> attributes_opt modifiers_opt DELEGATE return_type member_name '(' formal_parameter_list_opt ')' ';' 
-#line 1306 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1307 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ yyval.elem = new CodeDelegate(value_stack.array[value_stack.top-5].text,value_stack.array[value_stack.top-6].typeref,value_stack.array[value_stack.top-3].elemlist); yyval.elem.Location = @value_stack.array[value_stack.top-5].Location;
                                                           MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-2].Location);
                                                           OverrideToken(@value_stack.array[value_stack.top-5].Location, TokenClass.Type);}
 #line hidden
         break;
       case 546: // attribute_section -> '[' attribute_list ']' 
-#line 1320 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1321 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 547: // attribute_section -> '[' attribute_list ',' ']' 
-#line 1321 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1322 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
       case 553: // attribute_name -> type_name 
-#line 1336 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1337 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ OverrideToken(@value_stack.array[value_stack.top-1].Location, TokenClass.Type); }
 #line hidden
         break;
       case 554: // attribute_arguments -> '(' expression_list_opt ')' 
-#line 1339 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1340 "D:\dev\XACC\xacc\Languages\CSharp.y"
 			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location);}
 #line hidden
         break;
@@ -2720,7 +2721,7 @@ class TypeRef : CodeTypeRef
       return CharToString((char)terminal);
   }
 
-#line 1342 "D:\dev\XACC\xacc\Languages\CSharp.y"
+#line 1343 "D:\dev\XACC\xacc\Languages\CSharp.y"
 
 
 string[] defaultrefs = {"mscorlib.dll", "System.dll", "System.Xml.dll", "System.Drawing.dll", "System.Windows.Forms.dll"};

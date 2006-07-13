@@ -29,9 +29,11 @@ namespace Xacc.Controls
 {
   class AboutForm : Form
   {
+    public ProgressBar progressBar1;
+  
     public AboutForm()
     {
-      Size = new Size(408, 261);
+      Size = new Size(408, 280);
       ShowInTaskbar = false;
       FormBorderStyle = FormBorderStyle.None;
       StartPosition = FormStartPosition.CenterParent;
@@ -48,6 +50,30 @@ namespace Xacc.Controls
 
       SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
       UpdateStyles();
+      InitializeComponent();
+    }
+
+    private void InitializeComponent()
+    {
+      this.progressBar1 = new System.Windows.Forms.ProgressBar();
+      this.SuspendLayout();
+      // 
+      // progressBar1
+      // 
+      this.progressBar1.Location = new System.Drawing.Point(6, 258);
+      this.progressBar1.Name = "progressBar1";
+      this.progressBar1.Size = new System.Drawing.Size(395, 16);
+      this.progressBar1.TabIndex = 0;
+      this.progressBar1.Value = 0;
+      // 
+      // AboutForm
+      // 
+      this.ClientSize = new System.Drawing.Size(408, 280);
+      this.Controls.Add(this.progressBar1);
+      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+      this.Name = "AboutForm";
+      this.ResumeLayout(false);
+
     }
   }
 }

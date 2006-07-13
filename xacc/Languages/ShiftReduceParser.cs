@@ -282,29 +282,34 @@ namespace gppg
       return DiscardInvalidTokens();
     }
 
+    protected virtual bool SuppressAllErrors { get { return false; } }
 
     public void ReportError()
     {
-      if (!SuppressErrors)
+      StringBuilder errorMsg = new StringBuilder();
+      errorMsg.AppendFormat("syntax error, unexpected {0}", TerminalToString(next));
+
+      if (current_state.parser_table.Count < 20)
       {
-        StringBuilder errorMsg = new StringBuilder();
-        errorMsg.AppendFormat("syntax error, unexpected {0}", TerminalToString(next));
-
-        if (current_state.parser_table.Count < 20)
+        bool first = true;
+        foreach (int terminal in current_state.parser_table.Keys)
         {
-          bool first = true;
-          foreach (int terminal in current_state.parser_table.Keys)
-          {
-            if (first)
-              errorMsg.Append(", expecting ");
-            else
-              errorMsg.Append(", or ");
+          if (first)
+            errorMsg.Append(", expecting ");
+          else
+            errorMsg.Append(", or ");
 
-            errorMsg.Append(TerminalToString(terminal));
-            first = false;
-          }
+          errorMsg.Append(TerminalToString(terminal));
+          first = false;
         }
+      }
 
+      if (SuppressErrors || SuppressAllErrors)
+      {
+        Trace.WriteLine(errorMsg + " @ " + scanner.yylval.Location, "Parser         ");
+      }
+      else
+      {
         scanner.yyerror(errorMsg.ToString());
       }
     }

@@ -95,7 +95,7 @@ namespace Xacc.Configuration
     static TextWriter tracelog;
     static IdeArgs args;
 
-    static Form about;
+    internal static AboutForm about;
 
     static ST.Mutex real = null;
 
@@ -188,7 +188,10 @@ namespace Xacc.Configuration
 
       f.KeyPreview = true;
 
+
       IWindowService ws = new WindowService(f);
+
+      about.progressBar1.Value += 10;
 
       Assembly thisass = typeof(IdeSupport).Assembly;
 
@@ -229,13 +232,18 @@ namespace Xacc.Configuration
 
       ServiceHost.Window.Document.BringToFront();
       new ViewService();
+      about.progressBar1.Value += 5;
       new KeyboardHandler();
 
       ServiceHost.State = ApplicationState.Normal;
 
+      about.progressBar1.Value += 5;
+
 
       //after everything has been loaded
       ServiceHost.Initialize();
+
+      about.progressBar1.Value += 5;
 
       try
       {
