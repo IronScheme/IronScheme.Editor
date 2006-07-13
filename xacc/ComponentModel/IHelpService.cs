@@ -37,7 +37,7 @@ namespace Xacc.ComponentModel
 	[Menu("Help")]
 	sealed class HelpService : ServiceBase, IHelpService
 	{
-    [MenuItem("ReadMe", Index = 1)]
+    [MenuItem("ReadMe.txt", Index = 1)]
     public void ReadMe()
     {
       AdvancedTextBox atb = ServiceHost.File.Open(Application.StartupPath + Path.DirectorySeparatorChar + "ReadMe.txt")
@@ -46,7 +46,7 @@ namespace Xacc.ComponentModel
       atb.ReadOnly = true;
     }
 
-    [MenuItem("ChangeLog", Index = 2)]
+    [MenuItem("ChangeLog.txt", Index = 2)]
     public void ChangeLog()
     {
       AdvancedTextBox atb = ServiceHost.File.Open(Application.StartupPath + Path.DirectorySeparatorChar + "ChangeLog.txt")
@@ -62,11 +62,33 @@ namespace Xacc.ComponentModel
       exf.ShowDialog(ServiceHost.Window.MainForm);
     }
 
+    [MenuItem("Trace log", Index = 11)]
+    public void TraceLog()
+    {
+      Form f = new Form();
+      AdvancedTextBox atb = new AdvancedTextBox();
+      atb.Text = Diagnostics.Trace.GetFullTrace();
+      atb.ReadOnly = true;
+      f.StartPosition = FormStartPosition.CenterParent;
+      f.Size = new System.Drawing.Size(700, 500);
+      f.ShowInTaskbar = false;
+      f.MinimizeBox = false;
+      f.Text = "Trace log";
+      atb.Dock = DockStyle.Fill;
+      f.Controls.Add(atb);
+
+      f.ShowDialog(ServiceHost.Window.MainForm);
+      
+    }
+
 
     [MenuItem("About", Index = 1000, Image = "Help.About.png", AllowToolBar = true)]
     public void ShowAbout()
     {
-      Form f = new Controls.AboutForm();
+      AboutForm f = new Controls.AboutForm();
+      f.progressBar1.Visible = false;
+      f.linkLabel1.Visible = true;
+      f.linkLabel1.Text = "(c)2003-2006 llewellyn@pritchard.org";
       f.Click += new EventHandler(CloseAbout);
       f.ShowDialog(ServiceHost.Window.MainForm);
     }

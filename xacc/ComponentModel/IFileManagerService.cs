@@ -218,6 +218,9 @@ namespace Xacc.ComponentModel
     /// Fire when a file has been closed
     /// </summary>
     event	FileManagerEventHandler					Closed;
+
+
+    IDockContent FileTab { get;}
 	}
 
   /// <summary>
@@ -259,6 +262,13 @@ namespace Xacc.ComponentModel
 
     // this is unreliable
 		internal string current = null;
+
+    IDockContent filetab = Runtime.DockFactory.Content();
+
+    public IDockContent FileTab
+    {
+      get { return filetab; }
+    }
 
 		protected override void Dispose(bool disposing)
 		{
@@ -444,6 +454,19 @@ namespace Xacc.ComponentModel
 				}
 				reader.Close();
 			}
+
+      FileExplorer fe = new FileExplorer();
+      fe.Folder = Environment.CurrentDirectory;
+      fe.Dock = DockStyle.Fill;
+
+      filetab.Controls.Add(fe);
+
+      IWindowService ws = ServiceHost.Window;
+      filetab.Show(ws.Document, DockState.DockRightAutoHide);
+      filetab.Hide();
+      filetab.HideOnClose = true;
+
+      filetab.Text = "File Explorer";
 
       ToolStripMenuItem wins = ServiceHost.Menu["Window"];
 

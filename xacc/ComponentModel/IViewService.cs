@@ -78,7 +78,28 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Outline", Index = 11, Image="CodeValueType.png")]
+    [MenuItem("File Explorer", Index = 11, Image = "Project.Type.png")]
+    bool ShowFileExplorer
+    {
+      get
+      {
+        IDockContent dc = ServiceHost.File.FileTab;
+        return dc.DockState != DockState.Hidden;
+      }
+      set
+      {
+        if (!ShowProjectExplorer)
+        {
+          ServiceHost.File.FileTab.Activate();
+        }
+        else
+        {
+          ServiceHost.File.FileTab.Hide();
+        }
+      }
+    }
+
+    [MenuItem("Outline", Index = 12, Image="CodeValueType.png")]
     bool ShowOutline
     {
       get 

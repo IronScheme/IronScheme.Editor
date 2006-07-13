@@ -107,9 +107,22 @@ namespace Xacc.Configuration
       RemotingConfiguration.RegisterWellKnownClientType(typeof(ServerService), "ipc://XACCIDE/ss");
 
       ServerService s = new ServerService();
-      foreach (string fn in args.open)
+      if (args.open != null)
       {
-        s.OpenFile(fn);
+        foreach (string fn in args.open)
+        {
+          StringBuilder sb = new StringBuilder(256);
+          int len = kernel32.GetLongPathName(fn, sb, 255);
+          try
+          {
+            s.OpenFile(sb.ToString());
+          }
+          catch (Exception ex)
+          {
+            Trace.WriteLine("Could not load file: " + sb + " Message: " + ex.Message);
+          }
+          
+        }
       }
 
       ChannelServices.UnregisterChannel(client);

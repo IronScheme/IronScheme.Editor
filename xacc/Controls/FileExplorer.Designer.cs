@@ -28,21 +28,6 @@ namespace Xacc.Controls
     /// </summary>
     private void InitializeComponent()
     {
-      System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node1");
-      System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Node5");
-      System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Node6");
-      System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Node7");
-      System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Node2", new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode3,
-            treeNode4});
-      System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Node3");
-      System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Node4");
-      System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Node0", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode5,
-            treeNode6,
-            treeNode7});
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileExplorer));
       this.treeView1 = new System.Windows.Forms.TreeView();
       this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -53,32 +38,14 @@ namespace Xacc.Controls
       // 
       // treeView1
       // 
-      this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.treeView1.LabelEdit = true;
       this.treeView1.Location = new System.Drawing.Point(0, 25);
       this.treeView1.Name = "treeView1";
-      treeNode1.Name = "Node1";
-      treeNode1.Text = "Node1";
-      treeNode2.Name = "Node5";
-      treeNode2.Text = "Node5";
-      treeNode3.Name = "Node6";
-      treeNode3.Text = "Node6";
-      treeNode4.Name = "Node7";
-      treeNode4.Text = "Node7";
-      treeNode5.Name = "Node2";
-      treeNode5.Text = "Node2";
-      treeNode6.Name = "Node3";
-      treeNode6.Text = "Node3";
-      treeNode7.Name = "Node4";
-      treeNode7.Text = "Node4";
-      treeNode8.Name = "Node0";
-      treeNode8.Text = "Node0";
-      this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode8});
       this.treeView1.ShowNodeToolTips = true;
       this.treeView1.Size = new System.Drawing.Size(252, 500);
       this.treeView1.TabIndex = 0;
+      this.treeView1.DoubleClick += new System.EventHandler(this.treeView1_DoubleClick);
       // 
       // toolStrip1
       // 

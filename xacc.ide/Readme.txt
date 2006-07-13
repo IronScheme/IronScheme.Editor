@@ -4,8 +4,7 @@ What is xacc.ide?
 xacc.ide is a small and fast integrated development environment (IDE) mainly 
 targeted at .NET development. It has syntax support for 27 languages and project 
 support for various compilers. It has support for step debugging .NET based 
-executables. Also featured is AutoComplete, brace matching and folding support 
-for some languages.
+executables. Also featured is brace matching and folding support for some languages.
 
 xacc.ide is also opensource software (OSS). The core is released under the 
 GNU LGPL, and the rest BSD license.
@@ -43,6 +42,8 @@ Xacc.ide requires the .NET framework to run and compile C# and VB.NET applicatio
 It works on both .NET 1.1 and .NET 2.0 without differences. For other projects, 
 their respective compilers are required to build applications.
 
+UPDATE: The new 0.2 series requires .NET 2.0.
+
 Recommended
 ===========
 
@@ -55,11 +56,11 @@ The following is a list of recommended tools:
 Features
 ========
 
-•	Super fast code editor written 100% C#
-•	Syntax highlighting for 27 general purpose languages
-•	Easily customized project support
-•	Integrated debugger for .NET based applications
-•	Builtin scripting support
+•	Super fast code editor/IDE written in 100% C#
+•	Syntax highlighting for +-27 general purpose languages
+•	Easily customized project support (moving to MSBuild)
+•	Integrated debugger for .NET based applications (moving to MDbg)
+•	Builtin scripting support (currently LSharp, adding IronPython & PowerShell support)
 •	Extensive keybinding support
 •	Installation not needed, xcopy support
 •	Small distribution
@@ -74,7 +75,7 @@ by pressing Ctrl + Enter, or only the select line by pressing Ctrl + Shift + Ent
 Contact information
 ===================
 
-Website	  http://xacc.sourceforge.netEmail	    llewellyn@pritchard.orgBlog	    http://xacc.no-ip.orgDownload	http://sourceforge.net/projects/xacc
+Website	  http://xacc.sourceforge.netEmail	    llewellyn@pritchard.orgBlog	    http://blogs.wdevs.com/leppieDownload	http://sourceforge.net/projects/xacc
 Credits
 =======
 
@@ -86,14 +87,13 @@ be unfound. Here’s an incomplete list:
 •	Radek Polak
 •	Perica
 •	Daniel Grunwald
+•	All the members of Code Project
+•	All bug reporters
 
-The authors of Flex.
-
-The authors of Berkeley Yacc (byacc).
-
+The authors of CSlex. (http://www.infosys.tuwien.ac.at/cuplex/lex.htm)
+The authors of GPPG. (http://plas.fit.qut.edu.au/gppg/)
 Rhys Whetherley for the initial skeleton (gap buffer) for the editor.
-
-Rob Blackwell for Lsharp.
+Rob Blackwell for Lsharp. (http://www.lsharp.org/)
 
 Licensing
 =========
@@ -123,10 +123,5 @@ Others
 
 All other source code and components under their original licensing.
 
-Tools
-
-cspp	No license (or BSD)
-flex	GNU GPL
-xyacc	No license determined yet
 
 

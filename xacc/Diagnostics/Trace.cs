@@ -25,7 +25,7 @@ namespace Xacc.Diagnostics
 {
 	class Trace
 	{
-    const int TRACELENGTH = 100;
+    const int TRACELENGTH = 1024;
     static readonly string[] TRACE = new string[TRACELENGTH];
     static int pos = 0;
     public static bool debugmode = false;
@@ -43,7 +43,7 @@ namespace Xacc.Diagnostics
       }
     }
 
-    public static string GetTrace()
+    public static string GetFullTrace()
     {
       pos %= TRACELENGTH;
       ArrayList alllines = new ArrayList();
@@ -64,9 +64,14 @@ namespace Xacc.Diagnostics
         }
       }
 
-      string sysinfo = SystemInfo;
-        
       string ts = string.Join(Environment.NewLine, alllines.ToArray(typeof(string)) as string[]);
+      return ts;
+    }
+
+    public static string GetTrace()
+    {
+      string sysinfo = SystemInfo;
+      string ts = GetFullTrace();
       if (ts.Length > 1000 - sysinfo.Length)
       {
         ts = ts.Substring(ts.Length - (1000 - sysinfo.Length));
