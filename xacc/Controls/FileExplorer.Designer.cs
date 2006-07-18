@@ -46,6 +46,7 @@ namespace Xacc.Controls
       this.treeView1.Size = new System.Drawing.Size(252, 500);
       this.treeView1.TabIndex = 0;
       this.treeView1.DoubleClick += new System.EventHandler(this.treeView1_DoubleClick);
+      this.treeView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.treeView1_MouseDown);
       // 
       // toolStrip1
       // 

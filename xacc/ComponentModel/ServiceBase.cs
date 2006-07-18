@@ -365,8 +365,25 @@ namespace Xacc.ComponentModel
           ToolStripMenuItem pmi = null;
           if (mia.mi == null)
           {
-            pmi = new ToolStripMenuItem(mia.Text);
-            pmi.Click += ev;
+            if (mia.Converter == null)
+            {
+              pmi = new ToolStripMenuItem(mia.Text);
+              pmi.Click += ev;
+            }
+            else
+            {
+              pmi = new ToolStripMenuItem(mia.Text);
+              pmi.DropDownOpening += new EventHandler(pmi_DropDownOpening);
+              TypeConverter tc = Activator.CreateInstance(mia.Converter) as TypeConverter;
+
+              foreach (string file in tc.GetStandardValues())
+              {
+                ToolStripMenuItem smi = new ToolStripMenuItem(file);
+                pmi.DropDownItems.Add(smi);
+
+                smi.Click += new EventHandler(pmi_Click);
+              }
+            }
           }
           else
           {
@@ -439,6 +456,37 @@ namespace Xacc.ComponentModel
         }
       }
       Initialize();
+    }
+
+    void pmi_Click(object sender, EventArgs e)
+    {
+      ToolStripMenuItem pmi = sender as ToolStripMenuItem;
+
+      string v = pmi.Text;
+
+      MenuItemAttribute mia = attrmap[pmi.OwnerItem] as MenuItemAttribute;
+
+      PropertyInfo pi = mia.invoke as PropertyInfo;
+
+      pi.SetValue(this, v, null);
+    }
+
+    void pmi_DropDownOpening(object sender, EventArgs e)
+    {
+      ToolStripMenuItem pmi = sender as ToolStripMenuItem;
+      pmi.DropDownItems.Clear();
+
+      MenuItemAttribute mia = attrmap[pmi] as MenuItemAttribute;
+
+      TypeConverter tc = Activator.CreateInstance(mia.Converter) as TypeConverter;
+
+      foreach (string file in tc.GetStandardValues())
+      {
+        ToolStripMenuItem smi = new ToolStripMenuItem(file);
+        pmi.DropDownItems.Add(smi);
+
+        smi.Click+=new EventHandler(pmi_Click);
+      }
     }
 
     internal void DefaultHandler(object sender, EventArgs e)

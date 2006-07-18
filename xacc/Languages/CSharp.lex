@@ -45,7 +45,7 @@ part_real              =({dec_digit})*\.({dec_digit})+({exponent_part})?({real_s
 real_literal           ={whole_real1}|{whole_real2}|{part_real}
 
 single_char            =[^'\\\n]
-simple_esc_seq         =\\['\\0abfnrtv]
+simple_esc_seq         =\\['\\\"0abfnrtv]
 uni_esc_seq1           =\\u{hex_digit}{hex_digit}{hex_digit}{hex_digit}
 uni_esc_seq2           =\\U{hex_digit}{hex_digit}{hex_digit}{hex_digit}{hex_digit}{hex_digit}{hex_digit}{hex_digit}
 uni_esc_seq            ={uni_esc_seq1}|{uni_esc_seq2}
@@ -226,7 +226,6 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <YYINITIAL>"&="    { return Operator(ANDEQ); }
 <YYINITIAL>"|="    { return Operator(OREQ); }
 <YYINITIAL>"<<"    { return Operator(LTLT); }
-<YYINITIAL>">>"   { return Operator(GTGT); }
 <YYINITIAL>">>="   { return Operator(GTGTEQ); }
 <YYINITIAL>"<<="   { return Operator(LTLTEQ); }
 <YYINITIAL>"=="    { return Operator(EQEQ); }

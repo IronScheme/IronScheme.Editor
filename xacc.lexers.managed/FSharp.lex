@@ -7,7 +7,7 @@ namespace Xacc.Languages
   sealed class FSharpLang : CSLex.Language<Yytoken>
   {
 	  public override string Name {get {return "FSharp"; } }
-	  public override string[] Extensions {get { return new string[]{"fs"}; } }
+	  public override string[] Extensions {get { return new string[]{"fs","fsi"}; } }
 	  LexerBase lexer = new FSharpLexer();
 	  protected override LexerBase Lexer
 	  {
@@ -22,8 +22,8 @@ namespace Xacc.Languages
 
 %full
 
-keyword =(abstract|and|as|assert|asr|begin|class|constraint|default|delegate|do|done|downcast|downto|else|end|enum|exception|false|finally|for|fun|function|if|in|inherit|interface|land|lazy|let|lor|lsl|lsr|lxor|match|member|mod|module|mutable|new|null|of|open|or|override|rec|sig|static|struct|then|to|true|try|type|val|when|inline|upcast|while|with)
-operator =[-~!%^\*\(\)\+=\[\]\|\\:;,\./\?&<>\{\}]
+keyword =(abstract|and|as|assert|asr|begin|class|constraint|default|delegate|do|done|downcast|downto|else|end|enum|exception|false|finally|for|foreach|fun|function|if|ignore|in|inherit|interface|land|lazy|let|lor|lsl|lsr|lxor|match|member|mod|module|mutable|new|null|of|open|or|override|rec|sig|static|struct|then|to|true|try|type|val|when|inline|upcast|while|with)
+operator =[-~!%^\*\(\)\+=\[\]\|\\:;,\./\?&<>\{\}]|"<@@"|"@@>"
 
 comment_start          ="(*"
 comment_end            ="*)"
@@ -85,6 +85,7 @@ ws_identifier          ={identifier}(({white_space})+{identifier})*
 rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 
 %state ML_COMMENT
+%state ML_STRING
 
 %%
 {white_space}         { ; }
@@ -92,20 +93,23 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 
 <YYINITIAL>{comment_start}       { ENTER(ML_COMMENT); return Comment(); }
 
-<ML_COMMENT>[^*\n]*               { return Comment(); }
-<ML_COMMENT>"*"+[^*\)\n]*         { return Comment(); }
+<YYINITIAL>\"                    { ENTER(ML_STRING); return String(); }
+
+<ML_STRING>({reg_string_char})+  { return String() ; }
+<ML_STRING>\"                     { EXIT(); return String() ; }
+
+<ML_COMMENT>[^*\t\n]+             { return Comment(); }
+<ML_COMMENT>"*"                   { return Comment(); }
 <ML_COMMENT>{comment_end}         { EXIT(); return Comment(); }
 
-{preprocessor}[^\n].+ { return Preprocessor(); }
+<YYINITIAL>{preprocessor}[^\n].+ { return Preprocessor(); }
 
-{singlelinecomment}   { return Comment(); }                      
+<YYINITIAL>{singlelinecomment}   { return Comment(); }                      
                     
 {keyword}             { return Keyword(); } 
                       
 {integer_literal}     { return Number(); }
 {real_literal}        { return Number();}
-
-{string_literal}      { return String(); }
 
 {operator}            { return Operator(); }                     
 

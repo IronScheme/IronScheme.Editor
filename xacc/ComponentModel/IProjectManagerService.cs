@@ -153,6 +153,8 @@ namespace Xacc.ComponentModel
     readonly OutlineView outlineview = new OutlineView();
     readonly IDockContent to = Runtime.DockFactory.Content();
 
+    ArrayList recentfiles = new ArrayList();
+
     Project current;
 
     readonly Engine buildengine = Engine.GlobalEngine;
@@ -185,8 +187,45 @@ namespace Xacc.ComponentModel
 			}
 		}
 
+    public string[] RecentProjects
+    {
+      get
+      {
+        recentfiles.Sort();
+
+        if (recentfiles.Count > 10)
+        {
+          recentfiles.RemoveRange(10, recentfiles.Count - 10);
+        }
+        string[] rec = new string[recentfiles.Count];
+        for (int i = 0; i < recentfiles.Count; i++)
+        {
+          rec[i] = (recentfiles[i] as MRUFile).filename;
+        }
+        return rec;
+      }
+    }
+
     protected override void Dispose(bool disposing)
     {
+			if (disposing)
+			{
+				TextWriter writer = File.CreateText( Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar + 
+          "recentprojects.ini");
+
+				//reverse the list so it gets loaded in reverse
+				string[] rc = RecentProjects;
+				Array.Reverse(rc);
+
+				foreach (string file in rc)
+				{
+					writer.WriteLine(file);
+				}
+
+				writer.Flush();
+				writer.Close();
+			}
+
       CloseAll();
       base.Dispose (disposing);
     }
@@ -314,6 +353,30 @@ namespace Xacc.ComponentModel
       }
     }
 
+    class RecentProjectsConvertor : TypeConverter
+    {
+      public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+      {
+        return true;
+      }
+
+      public override TypeConverter.StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+      {
+        return new StandardValuesCollection((ServiceHost.Project as ProjectManager).RecentProjects);
+      }
+    }
+
+
+    [MenuItem("Recent Projects", Index = 900, Converter = typeof(RecentProjectsConvertor))]
+    string RecentProject
+    {
+      get { return string.Empty; }
+      set
+      {
+        Open(value);
+      }
+    }
+
     [MenuItem("Build Order", Index = 1000, State = ApplicationState.Project)]
     void ShowBuildOrderDialog()
     {
@@ -333,6 +396,24 @@ namespace Xacc.ComponentModel
 
 		public ProjectManager()
 		{
+      string recfn = Application.StartupPath + Path.DirectorySeparatorChar + "recentprojects.ini";
+      if (File.Exists(recfn))
+      {
+        TextReader reader = File.OpenText(recfn);
+        string rf;
+        //fast CPU hack ;p
+        int priority = 0;
+
+        while ((rf = reader.ReadLine()) != null)
+        {
+          if (File.Exists(rf))
+          {
+            recentfiles.Add(new MRUFile(rf, priority++));
+          }
+        }
+        reader.Close();
+      }
+
       if (SettingsService.idemode)
       {
         tp.Text = "Project Explorer";
@@ -509,6 +590,18 @@ namespace Xacc.ComponentModel
       {
         return null;
       }
+
+      foreach (MRUFile mru in recentfiles)
+      {
+        if (mru.filename == prjfile)
+        {
+          mru.Update();
+          goto DONE;
+        }
+      }
+      recentfiles.Add(new MRUFile(prjfile));
+
+    DONE:
 
       string ext = Path.GetExtension(prjfile);
 

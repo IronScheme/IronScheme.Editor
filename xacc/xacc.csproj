@@ -170,6 +170,7 @@
     <Compile Include="ComponentModel\ColorInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ComponentModel\IPropertyService.cs" />
     <Compile Include="ComponentModel\IStatusBarService.cs" />
     <Compile Include="ComponentModel\Cordbg.cs">
       <SubType>Component</SubType>

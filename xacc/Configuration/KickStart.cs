@@ -250,7 +250,7 @@ namespace Xacc.Configuration
 
       ServiceHost.State = ApplicationState.Normal;
 
-      about.progressBar1.Value += 5;
+      about.progressBar1.Value += 5; //65
 
 
       //after everything has been loaded

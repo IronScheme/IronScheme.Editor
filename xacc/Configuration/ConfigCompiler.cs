@@ -118,11 +118,9 @@ namespace Xacc.Configuration
       {
         if (File.Exists(OUTASS))
         {
-          if (File.GetLastWriteTime(INFILE) > File.GetLastWriteTime(OUTASS) 
-            || File.GetLastWriteTime(OUTASS) < File.GetLastWriteTime("xacc.dll")
-            || File.GetLastWriteTime(INFILE) < File.GetLastWriteTime("xacc.ide.exe.config"))
-          {
-          }
+          if (File.GetLastWriteTime(INFILE) > File.GetLastWriteTime(OUTASS)) { }
+          else if (File.GetLastWriteTime(OUTASS) < File.GetLastWriteTime("xacc.dll")) { }
+          else if (File.GetLastWriteTime(OUTASS) < File.GetLastWriteTime("xacc.ide.exe.config")) { }
           else
           {
             Trace.WriteLine("Config compiler", "Config not changed - skipping recompiling");
@@ -296,7 +294,7 @@ using System.Text.RegularExpressions;
 using System.Xml.Serialization;
               
 [assembly: AssemblyTitle(""xacc.config"")]
-[assembly: AssemblyVersion(""0.1.3.*"")]
+[assembly: AssemblyVersion(""0.2.0.*"")]
 [assembly:PluginProvider(typeof(Xacc.Serialization.AssemblyLoader))]
 
 namespace Xacc.Serialization 

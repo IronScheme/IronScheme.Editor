@@ -134,6 +134,68 @@ namespace Xacc.Build
       ProjectName = prj.GetEvaluatedProperty("ProjectName");
       Environment.CurrentDirectory = RootDirectory = prj.GetEvaluatedProperty("ProjectDir");
 
+      Trace.WriteLine("Items");
+
+      foreach (BuildItemGroup big in prj.ItemGroups)
+      {
+        //if (!big.IsImported)
+        {
+          Trace.WriteLine("(" + big.Condition + ")" + "================================");
+          foreach (BuildItem bi in big)
+          {
+            //if (!bi.IsImported)
+            {
+              Trace.WriteLine("\t" + bi.Name + "(" + bi.Condition + "): " + bi.Include);
+            }
+          }
+          Trace.WriteLine("");
+        }
+      }
+
+      Trace.WriteLine("");
+
+      Trace.WriteLine("Properties");
+
+      foreach (BuildPropertyGroup big in prj.PropertyGroups)
+      {
+        //if (!big.IsImported)
+        {
+          Trace.WriteLine("(" + big.Condition + ")" + "================================");
+          foreach (BuildProperty bi in big)
+          {
+            //if (!bi.IsImported)
+            {
+              Trace.WriteLine("\t" + bi.Name + "(" + bi.Condition + "): " + bi.Value);
+            }
+          }
+          Trace.WriteLine("");
+        }
+      }
+
+      Trace.WriteLine("");
+
+      Trace.WriteLine("Targets");
+
+      foreach (Target t in prj.Targets)
+      {
+        //if (!t.IsImported)
+        {
+          Trace.WriteLine(t.Name + " (" + t.Condition + ") deps: " + t.DependsOnTargets);
+          
+          foreach (BuildTask bt in t)
+          {
+            Trace.WriteLine("\t"+bt.Name + " (" + bt.Condition + "): " + bt.Type);
+
+            foreach (string tt in bt.GetParameterNames())
+            {
+              Trace.WriteLine("\t\t" + tt + " = " + bt.GetParameterValue(tt));
+            }
+          }
+
+          Trace.WriteLine("");
+        }
+      }
+
       Compile c = new Compile();
 
       foreach (BuildItem bi in prj.GetEvaluatedItemsByName("Compile"))

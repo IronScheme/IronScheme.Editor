@@ -10,7 +10,9 @@ public override string[] Extensions {get {return new string[]{"cs"}; }}
 public override string Name {get {return "C#"; }}
 LexerBase lexer = new CSharpLexer();
 protected override LexerBase Lexer {get {return lexer; }}
+#if !DEBUG
 protected override bool SuppressAllErrors {get {return true;} }
+#endif
 
 [Serializable]
 class TypeRef : CodeTypeRef
@@ -198,7 +200,6 @@ member_name
 type_list_opt
   :  %prec SHIFT
   | '<' type_list '>'
-  | '<' qualified_identifier '<' type_list GTGT                     { OverrideToken(@2, TokenClass.Type);}
   ;  
 
 type_list
@@ -457,12 +458,12 @@ additive_expression
 shift_expression
   : additive_expression 
   | shift_expression LTLT additive_expression
-  | shift_expression GTGT additive_expression 
+/*  | shift_expression GTGT additive_expression */
   ;
 
 relational_expression
   : shift_expression
-  | relational_expression '<' shift_expression 
+  | relational_expression '<' shift_expression %prec REDUCE
   | relational_expression '>' shift_expression
   | relational_expression LEQ shift_expression
   | relational_expression GEQ shift_expression
@@ -794,7 +795,7 @@ type_name2
 
 qualifier2
   : IDENTIFIER type_list_opt '.'                                              { $$ = $1 + ".";}
-  | qualifier IDENTIFIER type_list_opt '.'                                    { $$ = $1 + $2 + ".";}
+  | qualifier2 IDENTIFIER type_list_opt '.'                                    { $$ = $1 + $2 + ".";}
   ;
 
   
@@ -974,7 +975,7 @@ field_declaration
                                                                   cf.Location = @3;
                                                                   cel.Add( cf ); 
                                                                 }
-                                                                $$ = new CodeComplexMember(cel);;
+                                                                $$ = new CodeComplexMember(cel);
                                                               }
   ;
 method_declaration

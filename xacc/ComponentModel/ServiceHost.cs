@@ -190,12 +190,21 @@ namespace Xacc.ComponentModel
 
     internal static void Initialize()
     {
+      float F = 30;
+
+      int i = 0;
+
+      int c = services.Count * 2;
+      
       foreach (IService svc in services.Values)
       {
         if (svc is System.ComponentModel.ISupportInitialize)
         {
           ((System.ComponentModel.ISupportInitialize)svc).BeginInit();
         }
+
+        Configuration.IdeSupport.about.progressBar1.Value = 65 + (int)(F * i / c);
+        i++;
       }
 
       foreach (IService svc in services.Values)
@@ -204,6 +213,8 @@ namespace Xacc.ComponentModel
         {
           ((System.ComponentModel.ISupportInitialize)svc).EndInit();
         }
+        Configuration.IdeSupport.about.progressBar1.Value = 65 + (int)(F * i / c);
+        i++;
       }
     }
 
@@ -350,6 +361,15 @@ namespace Xacc.ComponentModel
 		{
 			get { return Get<IWindowService>();}
 		}
+
+    /// <summary>
+    /// Gets the property.
+    /// </summary>
+    /// <value>The property.</value>
+    public static IPropertyService Property
+    {
+      get { return Get<IPropertyService>(); }
+    }
 
     /// <summary>
     /// Gets the IToolsService

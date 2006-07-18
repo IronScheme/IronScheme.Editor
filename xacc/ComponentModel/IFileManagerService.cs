@@ -248,6 +248,34 @@ namespace Xacc.ComponentModel
 		}
 	}
 
+  sealed class MRUFile : IComparable
+  {
+    DateTime lastuse;
+    internal string filename;
+
+    public MRUFile(string filename, int priority)
+    {
+      lastuse = DateTime.FromFileTime(priority);
+      this.filename = filename;
+    }
+
+    public MRUFile(string filename)
+    {
+      lastuse = DateTime.Now;
+      this.filename = filename;
+    }
+    public int CompareTo(object obj)
+    {
+      MRUFile com = obj as MRUFile;
+      return com.lastuse.CompareTo(lastuse);
+    }
+
+    public void Update()
+    {
+      lastuse = DateTime.Now;
+    }
+  }
+
   /// <summary>
   /// EventHandler for file related events
   /// </summary>
@@ -274,7 +302,6 @@ namespace Xacc.ComponentModel
 		{
 			if (disposing)
 			{
-#if FALSE
 				TextWriter writer = File.CreateText( Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar + 
           "recent.ini");
 
@@ -289,41 +316,12 @@ namespace Xacc.ComponentModel
 
 				writer.Flush();
 				writer.Close();
-#endif
 			}
 			base.Dispose (disposing);
 		}
 
-
-		class MRUFile : IComparable
-		{
-			DateTime lastuse;
-			internal string filename;
-
-			public MRUFile(string filename, int priority)
-			{
-				lastuse = DateTime.FromFileTime(priority);
-				this.filename = filename;
-			}
-
-			public MRUFile(string filename)
-			{
-				lastuse = DateTime.Now;
-				this.filename = filename;
-			}
-			public int CompareTo(object obj)
-			{
-				MRUFile com = obj as MRUFile;
-				return com.lastuse.CompareTo(lastuse);
-			}
-
-			public void Update()
-			{
-				lastuse = DateTime.Now;
-			}
-		}
-
-		void OpenRecent(object sender, EventArgs e)
+    [Obsolete("???")]
+    void OpenRecent(object sender, EventArgs e)
 		{
       ToolStripMenuItem mi = sender as ToolStripMenuItem;
 			ArrayList menus = new ArrayList();
@@ -364,14 +362,6 @@ namespace Xacc.ComponentModel
 		public event	FileManagerEventHandler	Saved;
 		public event	FileManagerEventHandler	Closing;
 		public event	FileManagerEventHandler	Closed;
-
-    string RecentFile
-    {
-      set
-      {
-
-      }
-    }
 
 		public string[] RecentFiles
 		{
@@ -456,7 +446,7 @@ namespace Xacc.ComponentModel
 			}
 
       FileExplorer fe = new FileExplorer();
-      fe.Folder = Environment.CurrentDirectory;
+      fe.Folder = Application.StartupPath;
       fe.Dock = DockStyle.Fill;
 
       filetab.Controls.Add(fe);
@@ -518,6 +508,30 @@ namespace Xacc.ComponentModel
     public Control CurrentControl
     {
       get { return this[current]; }
+    }
+
+    class RecentFilesConvertor : TypeConverter
+    {
+      public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+      {
+        return true;
+      }
+
+      public override TypeConverter.StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+      {
+        return new StandardValuesCollection((ServiceHost.File as FileManager).RecentFiles);
+      }
+    }
+
+
+    [MenuItem("Recent Files", Index = 900, Converter=typeof(RecentFilesConvertor))]
+    string RecentFile
+    {
+      get { return string.Empty; }
+      set
+      {
+        Open(value);
+      }
     }
 
     [MenuItem("Exit", Index = 1000, Image = "File.Exit.png")]
@@ -1025,6 +1039,21 @@ namespace Xacc.ComponentModel
         c.Dock = DockStyle.Fill;
         tp.Show(ServiceHost.Window.Document, ds);
         c.Tag = tp;
+
+        if (Path.GetFileName(filename) != "command.ls")
+        {
+          foreach (MRUFile mru in recentfiles)
+          {
+            if (mru.filename == filename)
+            {
+              mru.Update();
+              goto DONE;
+            }
+          }
+          recentfiles.Add(new MRUFile(filename));
+
+        DONE: ;
+        }
             
         buffers.Add(filename, c);
         current = filename;

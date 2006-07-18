@@ -46,6 +46,8 @@ namespace Xacc.Controls
       }
     }
 
+    Dictionary<string, int> extmap = new Dictionary<string, int>();
+
     ImageList images = new ImageList();
 
     void AddFolder(string folder, TreeNode parent)
@@ -66,8 +68,18 @@ namespace Xacc.Controls
 
         try
         {
-          images.Images.Add(Icon.ExtractAssociatedIcon(file));
-          filenode.SelectedImageIndex = filenode.ImageIndex = images.Images.Count - 1;
+          string ext = Path.GetExtension(file);
+          if (extmap.ContainsKey(ext))
+          {
+            filenode.SelectedImageIndex = filenode.ImageIndex = extmap[ext];
+          }
+          else
+          {
+            extmap[ext] = images.Images.Count;
+            images.Images.Add(Icon.ExtractAssociatedIcon(file));
+            filenode.SelectedImageIndex = filenode.ImageIndex = images.Images.Count - 1;
+          }
+          
         }
         catch
         {
@@ -80,13 +92,18 @@ namespace Xacc.Controls
       }
     }
 
-    private void treeView1_DoubleClick(object sender, EventArgs e)
+    void treeView1_DoubleClick(object sender, EventArgs e)
     {
       TreeNode n = treeView1.SelectedNode;
       if (n != null)
       {
         ComponentModel.ServiceHost.File.Open(n.Tag as string);
       }
+    }
+
+    void treeView1_MouseDown(object sender, MouseEventArgs e)
+    {
+      treeView1.SelectedNode = treeView1.GetNodeAt(e.X, e.Y);
     }
   }
 }
