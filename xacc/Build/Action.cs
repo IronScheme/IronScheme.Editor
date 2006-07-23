@@ -40,6 +40,9 @@ using ST = System.Threading;
 
 using Xacc.CodeModel;
 
+using Microsoft.Build.Utilities;
+using Microsoft.Build.Framework;
+
 #endregion
 
 
@@ -51,7 +54,7 @@ namespace Xacc.Build
   [System.Xml.Serialization.XmlTypeAttribute(Namespace="xacc:build")]
 	[Name("n/a")]
   [MultipleInput(false)]
-	public abstract class Action : IComparable
+	public abstract class Action : ToolTask
 	{
     readonly string name;
 
@@ -90,32 +93,21 @@ namespace Xacc.Build
     /// </summary>
 		public static readonly Action None = new NullAction();
 
-    /// <summary>
-    /// Compare one action to another to resolve build order/dependencies
-    /// </summary>
-    /// <param name="obj">the obj to compare to</param>
-    /// <returns>-1 before, 0 same, 1 after</returns>
-		public virtual int CompareTo(object obj)
-		{
-			return 0;
-		}
-
-    internal static readonly IComparer Comparer = new ActionSorter();
-
-    class ActionSorter : IComparer
+    protected override string GenerateFullPathToTool()
     {
-      public int Compare(object x, object y)
-      {
-        CustomAction a = x as CustomAction;
-        if (a == null)
-        {
-          return 0;
-        }
-        return a.CompareTo(y);
-      }
+      throw new Exception("The method or operation is not implemented.");
     }
 
-	}
+    protected override string ToolName
+    {
+      get { return Name; }
+    }
+
+
+  }
+
+
+  #region Attributes
 
   /// <summary>
   /// Attribute to define OutputExtension of CustomAction
@@ -243,6 +235,8 @@ namespace Xacc.Build
     }
   }
 
+  #endregion
+
   /// <summary>
   /// Class to define Action with no invoke
   /// </summary>
@@ -251,15 +245,7 @@ namespace Xacc.Build
   [InputExtension("*")]
   public sealed class NullAction : CustomAction
   {
-    /// <summary>
-    /// Invokes the action
-    /// </summary>
-    /// <param name="files">the input files</param>
-    /// <returns>true</returns>
-    public override bool Invoke(params string[] files)
-    {
-      return true;
-    }
+
   }
 
   /// <summary>
@@ -276,7 +262,7 @@ namespace Xacc.Build
     /// <summary>
     /// Intended for internal use only.
     /// </summary>
-    protected static readonly string[] ZEROARRAY = new string[0];
+    protected static readonly string[] ZEROARRAY = { };
 
     string[] input = ZEROARRAY;
     string output;
@@ -290,13 +276,6 @@ namespace Xacc.Build
       get {return isavailable;}
       set {isavailable = value;}
     }
-
-    /// <summary>
-    /// Invokes the action
-    /// </summary>
-    /// <param name="files">the input files</param>
-    /// <returns>true if success, false if fail</returns>
-    public abstract bool Invoke(params string[] files);
 
     /// <summary>
     /// Gets the output extenstion of the type
@@ -337,93 +316,6 @@ namespace Xacc.Build
       return Path.ChangeExtension(inputfile, OutputExtension);
     }
 
-    internal bool DependsOn(CustomAction a)
-    {
-      if (a == this)
-      {
-        return false;
-      }
-
-      CustomAction b = this as CustomAction;
-      string output = a.Output;
-      ArrayList blist = new ArrayList();
-
-      if (b.Input != null)
-      {
-        blist.AddRange(b.Input);
-      }
-      if (b.Dependson != null)
-      {
-        blist.AddRange(b.Dependson);
-      }
-
-      if (b.subactions != null)
-      {
-        foreach (OptionAction c in b.subactions.Values)
-        {
-          string[] vals = c.GetOption();
-          if (vals != null)
-          {
-            blist.AddRange(vals);
-          }
-        }
-      }
-
-      foreach (string infile in blist)
-      {
-        if (infile == output)
-        {
-          return true;
-        }
-      }
-
-      if (b.Dependson != null)
-      {
-        foreach (string infile in b.Dependson)
-        {
-          foreach (string sinfile in a.Input)
-          {
-            if (infile == sinfile)
-            {
-              return true;
-            }
-          }
-        }
-      }
-      return false;
-    }
-
-    /// <summary>
-    /// Compare one action to another to resolve build order/dependencies
-    /// </summary>
-    /// <param name="obj">the obj to compare to</param>
-    /// <returns>this: -1 before, 0 same, 1 after</returns>
-    public override int CompareTo(object obj)
-    {
-      if (obj == this)
-      {
-        return 0;
-      }
-      CustomAction ca = obj as CustomAction;
-      if (ca != null)
-      {
-        if (this.DependsOn(ca))
-        {
-          return 1;
-        }
-        else 
-          if (ca.DependsOn(this))
-        {
-          return -1;
-        }
-        else
-        {
-          return 0;
-        }
-      }
-      return -1;
-    }
-
     /// <summary>
     /// Gets or sets an array of input files
     /// </summary>
@@ -448,6 +340,7 @@ namespace Xacc.Build
     /// Gets or sets the output filename
     /// </summary>
     [XmlElement("output", IsNullable=true)]
+    [Microsoft.Build.Framework.Output]
     public string Output
     {
       get 
@@ -471,9 +364,6 @@ namespace Xacc.Build
       }
     }
 
-    readonly Option __dependson = new Option("Dependencies", "dependson", "string", "Input", 
-      "", "", false, "", ";", "", OptionType.Normal, ZEROARRAY);
-
     /// <summary>
     /// Create an instance of a CustomAction
     /// </summary>
@@ -481,34 +371,12 @@ namespace Xacc.Build
     {
       const BindingFlags BF = BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.DeclaredOnly;
 
-      if (GetType() != typeof(NullAction))
-      {
-        AddOption(__dependson);
-      }
-
       foreach (FieldInfo fi in GetType().GetFields(BF))
       {
         if (fi.FieldType == typeof(Option))
         {
           AddOption(fi.GetValue(this) as Option);
         }
-      }
-    }
-
-    /// <summary>
-    /// Gets of sets a list of dependent files
-    /// </summary>
-    [XmlElement("dependson", IsNullable=true)]
-    public string[] Dependson
-    {
-      get {return (string[]) options[__dependson];}
-      set 
-      {
-        if (value == null)
-        {
-          value = ZEROARRAY;
-        }
-        options[__dependson] = value;
       }
     }
 
@@ -630,28 +498,89 @@ namespace Xacc.Build
     /// The line offset, if needed
     /// </summary>
     protected int lineoffset = 0;
+
+    void LogResult(ActionResult ar)
+    {
+      switch (ar.Type)
+      {
+        case ActionResultType.Error:
+          Log.LogError("", ar.ErrorCode, "", ar.Location.Filename, ar.Location.LineNumber, ar.Location.Column, 0, 0, ar.Message);
+          break;
+        case ActionResultType.Warning:
+          Log.LogWarning("", ar.ErrorCode, "", ar.Location.Filename, ar.Location.LineNumber, ar.Location.Column, 0, 0, ar.Message);
+          break;
+        case ActionResultType.Info:
+          Log.LogMessage("", ar.ErrorCode, "", ar.Location.Filename, ar.Location.LineNumber, ar.Location.Column, 0, 0, ar.Message);
+          break;
+        case ActionResultType.Ok:
+          Log.LogMessage("", ar.ErrorCode, "", ar.Location.Filename, ar.Location.LineNumber, ar.Location.Column, 0, 0, ar.Message);
+          break;
+      }
+    }
+
+    protected override void LogEventsFromTextOutput(string singleLine, MessageImportance messageImportance)
+    {
+      switch (messageImportance)
+      {
+        case MessageImportance.High:
+          if (ReadError)
+          {
+            LogResult(ParseResult(singleLine, ErrorParser));
+          }
+          else goto default;
+          break;
+        case MessageImportance.Low:
+          if (ReadOut)
+          {
+            LogResult(ParseResult(singleLine, OutParser));
+          }
+          else goto default;
+          break;
+        default:
+          base.LogEventsFromTextOutput(singleLine, messageImportance);
+          break;
+      }
+    }
+
+    protected override MessageImportance StandardErrorLoggingImportance
+    {
+      get { return MessageImportance.High;}
+    }
+
+    protected override MessageImportance StandardOutputLoggingImportance
+    {
+      get { return MessageImportance.Low; }
+    }
+
     
     /// <summary>
     /// Gets the name of the program to run
     /// </summary>
-    public abstract string Program {get;}
+    protected abstract string Program {get;}
 
     /// <summary>
     /// Gets the default arguments when invoking Program
     /// </summary>
-		public virtual string DefaultArguments		
+		protected virtual string DefaultArguments		
     {
       get {return string.Empty;}
     }
 
-    /// <summary>
-    /// Gets a dictionary to add enviromental variables to, for the process
-    /// </summary>
-		protected StringDictionary	EnvironmentVariables	
+    protected override string GenerateFullPathToTool()
     {
-      get {return envvar;}
+      return Program;
     }
-		
+
+    protected override string GenerateCommandLineCommands()
+    {
+      return BuildOptions(string.Join(" ", Input));
+    }
+
+    protected override StringDictionary EnvironmentOverride
+    {
+      get { return envvar; }
+    }
+    
     /// <summary>
     /// Gets the out parser, if any
     /// </summary>
@@ -723,12 +652,11 @@ namespace Xacc.Build
 
     ActionResult ParseResult(string msg, Regex type)
     {
-      ActionResult result = new ActionResult(ActionResultType.Invalid, 0, msg, null);
+      ActionResult result = new ActionResult(ActionResultType.Ok, 0, msg, null);
 
       Match m = type.Match(msg);
       if (m.Groups["filename"].Success)
       {
-        result.type = ActionResultType.Ok;
         string fn = m.Groups["filename"].Value;
 
         if (fn == string.Empty)
@@ -738,32 +666,34 @@ namespace Xacc.Build
         else
         {
           fn = Path.GetFullPath(fn);
-          result.Location.filename =  ServiceHost.Project.Current.GetRelativeFilename(fn);
+          
+          string root = Path.GetDirectoryName(BuildEngine.ProjectFileOfTaskNode);
+          root = char.ToLower(root[0]) + root.Substring(1) + Path.DirectorySeparatorChar;
+          result.Location.filename = fn.Replace(root, "");
         }
       }
       if (m.Groups["message"].Success)
       {
-        result.type = ActionResultType.Ok;
         result.msg = m.Groups["message"].Value;
+      }
+      if (m.Groups["code"].Success)
+      {
+        result.code = m.Groups["code"].Value;
       }
       if (m.Groups["line"].Success)
       {
-        result.type = ActionResultType.Ok;
         result.Location.LineNumber = Convert.ToInt32(m.Groups["line"].Value) + lineoffset;
       }
       if (m.Groups["column"].Success)
       {
-        result.type = ActionResultType.Ok;
         result.Location.Column = Convert.ToInt32(m.Groups["column"].Value) - 1;
       }
       if (m.Groups["error"].Success)
       {
-        result.type = ActionResultType.Ok;
         result.Location.Error = true;
       }
       if (m.Groups["warning"].Success)
       {
-        result.type = ActionResultType.Ok;
         result.Location.Warning = true;
       }
       if (m.Groups["info"].Success)
@@ -772,209 +702,6 @@ namespace Xacc.Build
       }
       return result;
     }
-	
-		StringWriter outwrite;
-		StringWriter errwrite;
-	
-    System.Threading.ManualResetEvent errres = new System.Threading.ManualResetEvent(false);
-
-		void ThreadedReadError(object reader)
-		{
-			errwrite = new StringWriter();
-			StreamReader r = reader as StreamReader;
-			string line = null;
-			while ((line = r.ReadLine()) != null)
-			{
-				errwrite.WriteLine(line);
-			}
-			errwrite.Close();
-      errres.Set();
-		}
-
-    System.Threading.ManualResetEvent outres = new System.Threading.ManualResetEvent(false);
-
-		void ThreadedReadOut(object reader)
-		{
-			outwrite = new StringWriter();
-			StreamReader r = reader as StreamReader;
-			string line = null;
-			while ((line = r.ReadLine()) != null)
-			{
-				outwrite.WriteLine(line);
-			}
-			outwrite.Close();
-      outres.Set();
-		}
-
-    /// <summary>
-    /// Invokes the action
-    /// </summary>
-    /// <param name="files">the input files</param>
-    /// <returns>true if success, false if fail</returns>
-		public sealed override bool Invoke(params string[] files)
-		{
-      ServiceHost.Error.ClearErrors(this);
-      if (files == null || files.Length == 0)
-      {
-        return true;
-      }
-
-      if (!IsAvailable)
-      {
-        ServiceHost.Error.OutputErrors( this, new ActionResult(ActionResultType.Error, 0, 
-          string.Format("Program: {0} is not available, please install", Program),files[0]));
-        return false;
-      }
-
-      string pgm = Program;
-
-			Process action = new Process();
-      if (pgm == null || pgm == string.Empty)
-      {
-        pgm = GetOptionValue(Options[0]) as string;
-      }
-			ProcessStartInfo si = new ProcessStartInfo(pgm);
-			
-			si.CreateNoWindow					= true;
-			si.RedirectStandardError	= true;
-			si.RedirectStandardOutput = true;
-			si.UseShellExecute				= false;
-			si.WorkingDirectory = Environment.CurrentDirectory;
-
-      string[] ffiles = new string[files.Length];
-
-			for (int i = 0; i < files.Length; i++)
-			{
-				ffiles[i] = '"' + files[i] + '"';
-			}
-
-			string filename = string.Join(" ", ffiles);
-
-			foreach (string var in envvar.Keys)
-			{
-				if (si.EnvironmentVariables.ContainsKey(var))
-				{
-					string newval = envvar[var] + si.EnvironmentVariables[var];
-					si.EnvironmentVariables[var] = newval;
-				}
-				else
-				{
-					si.EnvironmentVariables.Add(var, envvar[var]);
-				}
-			}
-			
-			string args = BuildOptions(filename).Trim();
-
-			si.Arguments = args;
-			Console.WriteLine("> " + Path.GetFileNameWithoutExtension(Program) + " " + args);
-			Console.WriteLine();
-			action.StartInfo = si;
-			//lest go!
-
-			try
-			{
-				action.Start();
-			}
-			catch (Exception ex)
-			{
-				ServiceHost.Error.OutputErrors( this, new ActionResult(ActionResultType.Error, 0, 
-					string.Format("Process failed: {0}", ex.GetBaseException().Message), Program));
-				return false;
-			}
-
-      errres.Reset();
-      outres.Reset();
-
-			ST.ThreadPool.QueueUserWorkItem(new ST.WaitCallback(ThreadedReadError), action.StandardError);
-			ST.ThreadPool.QueueUserWorkItem(new ST.WaitCallback(ThreadedReadOut), action.StandardOutput);
-
-			action.WaitForExit();
-
-      errres.WaitOne();
-      outres.WaitOne();
-
-      int acres = action.ExitCode;
-
-			ArrayList res = new ArrayList();
-
-			string output = string.Empty;
-			
-			if (errwrite != null)
-			{
-				output = errwrite.ToString();
-				Console.Error.Write(output);
-			}
-
-			if (ReadError)
-			{
-				foreach (string msg in output.Split('\n'))
-				{
-					if (msg.Length > 0 && msg[0] != '\r')
-					{
-						ActionResult ar = ParseResult(msg, ErrorParser);
-
-						if (ar.Type != ActionResultType.Invalid)
-						{
-							if (ar.Location.Filename == null && !MultipleInput)
-							{
-								ar.Location.filename = filename;
-							}
-							res.Add(ar);
-						}
-					}
-				}
-			}
-
-			if (outwrite != null)
-			{
-				output = outwrite.ToString();
-				Console.Out.Write(output);
-			}
-			else
-			{
-				output = string.Empty;
-			}
-
-			if (ReadOut)
-			{
-				foreach (string msg in output.Split('\n'))
-				{
-					if (msg.Length > 0 && msg[0] != '\r')
-					{
-						ActionResult ar = ParseResult(msg, OutParser);
-
-						if (ar.Type != ActionResultType.Invalid)
-						{
-							if (ar.Location.Filename == null && !MultipleInput)
-							{
-								ar.Location.filename = filename;
-							}
-							res.Add(ar);
-						}
-					}
-				}
-			}
-
-			action.Dispose();
-
-			ActionResult[] results = res.ToArray(typeof(ActionResult)) as ActionResult[];
-
-			IErrorService err = ServiceHost.Error;
-			if (err != null)
-			{	
-				err.OutputErrors(this, results);
-			}
-
-			foreach (ActionResult ar in results)
-			{
-				if (ar.Type == ActionResultType.Error)
-				{
-					return false;
-				}
-			}
-
-			return (acres == 0);
-		}
 	}
 
   /// <summary>

@@ -3265,8 +3265,10 @@ namespace Xacc.Controls
 
 		#region Split View
 #if BROKEN
-		bool splitting = false; //why does this generate a warning?????
-		bool splitted = false;
+#pragma warning disable 414
+    bool splitting = false; //why does this generate a warning?????
+#pragma warning restore 414
+    bool splitted = false;
 		AdvancedTextBox splitview;
     internal bool normalmode = true;
 

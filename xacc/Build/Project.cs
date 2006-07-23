@@ -101,11 +101,6 @@ namespace Xacc.Build
         AddOptionAction(new Reference(this));
         AddOptionAction(new Resource(this));
       }
-
-      public override bool Invoke(params string[] files)
-      {
-        return true;
-      }
     }
 
     [Name("Reference")]
@@ -677,106 +672,6 @@ namespace Xacc.Build
 
     #endregion
 
-    #region Dependency Tree
-
-    void SortActions()
-    {
-      // copy list
-      ArrayList actions = new ArrayList(Actions);
-      
-      Hashtable depcount = new Hashtable();
-      Hashtable refcount = new Hashtable();
-
-      foreach (Action a in actions)
-      {
-        depcount[a] = new ArrayList();
-        refcount[a] = new ArrayList();
-      }
-
-      // build tree
-      foreach (Action a in actions)
-      {
-        foreach (Action b in actions)
-        {
-          if (a == b)
-          {
-            continue;
-          }
-
-          CustomAction ca = a as CustomAction;
-          CustomAction cb = b as CustomAction;
-
-
-          if (ca != null && cb != null) 
-          {
-            if (ca.DependsOn(cb))
-            {
-              ((ArrayList)depcount[cb]).Add(ca);
-              ((ArrayList)refcount[ca]).Add(cb);
-            }
-          }
-        }
-      }
-
-      ArrayList nofriends = new ArrayList();
-
-      foreach (Action a in actions)
-      {
-        if (((ArrayList)depcount[a]).Count == 0 && ((ArrayList)refcount[a]).Count == 0)
-        {
-          depcount.Remove(a);
-          refcount.Remove(a);
-          nofriends.Add(a);
-        }
-      }
-
-      actions = new ArrayList(depcount.Keys);
-
-      for (int i = 0; i < actions.Count - 1; i++)
-      {
-        Action a = (Action) actions[i];
-        Action b = (Action) actions[i + 1];
-        ArrayList adeps = (ArrayList) depcount[a];
-        ArrayList arefs = (ArrayList) refcount[a];
-        ArrayList bdeps = (ArrayList) depcount[b];
-        ArrayList brefs = (ArrayList) refcount[b];
-        
-        if (adeps.Count < bdeps.Count || arefs.Count > brefs.Count)
-        {
-          actions[i] = b;
-          actions[i + 1] = a;
-          i -= 2;
-          if (i < -1)
-          {
-            i = -1;
-          }
-
-        }
-      }
-
-      for (int i = 0; i < actions.Count - 1; i++)
-      {
-        CustomAction a = (CustomAction) actions[i];
-        CustomAction b = (CustomAction) actions[i + 1];
-        
-        if (a.DependsOn(b))
-        {
-          actions[i] = b;
-          actions[i + 1] = a;
-          i -= 2;
-          if (i < -1)
-          {
-            i = -1;
-          }
-        }
-      }
-
-      actions.AddRange(nofriends);
-      this.actions = actions.ToArray(typeof(Action)) as Action[];
-    }
-
-    #endregion
-
     #region Constructor
 
     static Project()
@@ -1313,44 +1208,6 @@ namespace Xacc.Build
     public bool Build()
     {
       ServiceHost.Error.ClearErrors(this);
-
-      foreach (string file in Sources)
-      {
-        if (ServiceHost.File.IsDirty(file))
-        {
-          AdvancedTextBox atb = ServiceHost.File[file] as AdvancedTextBox;
-          if (atb != null)
-          {
-            atb.SaveFile(file);
-          }
-        }
-      }
-
-      SortActions();
-
-      foreach (Action a in Actions)
-      {
-        CustomAction ca = a as CustomAction;
-
-        if (ca != null)
-        {
-//          if (ca.OutputOption != null)
-//          {
-//            string of = ca.Output;
-//            if (of == null || of == Path.GetFileName(of))
-//            {
-//              ca.Output = OutputLocation + Path.DirectorySeparatorChar + of;
-//            }
-//          }
-          if (!ca.Invoke(ca.Input))
-          {
-            ServiceHost.Error.OutputErrors( this, new ActionResult(ActionResultType.Error,0, 
-              ProjectName + " : Build failed", GetRelativeFilename(Location)));
-            (ServiceHost.Error as ErrorService).tbp.Show();
-            return false;
-          }
-        }
-      }
 
       ServiceHost.Error.OutputErrors(this, new ActionResult(ActionResultType.Ok,0, 
         ProjectName + " : Build succeeded", GetRelativeFilename(Location)));

@@ -155,6 +155,16 @@ namespace Xacc.CodeModel
     }
 
     /// <summary>
+    /// Gets or sets the end line number.
+    /// </summary>
+    /// <value>The end line number.</value>
+    public int EndLineNumber
+    {
+      get { return LineNumber + LineCount - 1; }
+      set { LineCount = EndLineNumber - LineNumber + 1; }
+    }
+
+    /// <summary>
     /// Gets or sets the start column
     /// </summary>
     public int Column

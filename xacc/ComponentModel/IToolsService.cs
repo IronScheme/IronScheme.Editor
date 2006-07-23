@@ -149,7 +149,7 @@ namespace Xacc.ComponentModel
     void InvokeLangTool(object sender, EventArgs e)
     {
       Build.ProcessAction pa = ((ToolStripMenuItem)sender).Tag as Build.ProcessAction;
-      bool res = pa.Invoke(ServiceHost.File.Current);
+      //bool res = pa.Invoke(ServiceHost.File.Current);
     }
 
     Hashtable langtools = new Hashtable();

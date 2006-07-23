@@ -17,7 +17,7 @@
   -->
 
   <action 
-    id            ="csc" 
+    id            ="Csc2" 
     program       ="${NETFX}\csc.exe" 
     multipleinput ="true"
     defaultargs   ="-nologo -fullpaths"
@@ -29,8 +29,8 @@
 
     <outparser><![CDATA[
 (?<filename>^([A-Z]:)?[^\(]+)\((?<line>\d+),(?<column>\d+)\):
-\s((?<warning>warning)|(?<error>error))\s[^:]+:(?<message>.+$)|
-(?<error>(fatal\s)?error)[^:]+:(?<message>.+$)
+\s((?<warning>warning)|(?<error>error))\s(?<code>[^:]+):(?<message>.+$)|
+(?<error>(fatal\s)?error)\s(?<code>[^:]+):(?<message>.+$)
 ]]> </outparser>
    
     <options 
@@ -236,39 +236,8 @@
     </options>
   </action>
   
-  <action    
-    id            ="custom" 
-    program       ="" 
-    name          ="Custom Action" >
-    
-    <description>Custom action</description>
-    <options>
-      <category name	=	"Custom">
-      	<option
-			    name					=	"Executable" 
-			    description		=	"The full path of the executable" 
-			    form					=	"custom">
-			  </option>
-      </category>
-    </options>
-  </action>
-  
-  <action    
-    id            ="cspp" 
-    program       ="${XACC}\Tools\cspp.exe" 
-    inputext      ="csp"
-    outputext     ="cs"
-    name          ="C# preprocessor" >
-    
-    <outparser><![CDATA[
-(?<filename>[^\(]*)\((?<line>\d+)\)\s:\s((?<warning>warning)|(?<error>(fatal\s)?error))\sC\d+:(?<message>.+$)
-]]> </outparser>
-
-    <description>C# preprocessor</description>
-  </action>
-	
 	<action    
-    id            ="ncc" 
+    id            ="Ncc" 
     program       ="${PFILES}\Nemerle\ncc.exe" 
     inputext      ="n"
     multipleinput ="true"
@@ -283,7 +252,7 @@
   </action>
   
   <action    
-    id            ="booc" 
+    id            ="Booc" 
     program       ="d:\boo-0.7.5.2013\bin\booc.exe" 
     inputext      ="boo"
     image         ="boo.png"
@@ -342,64 +311,11 @@
   </action>
   
   <action    
-    id            ="dcc32" 
-    program       ="${PFILES}\Borland\Delphi7\bin\dcc32.exe" 
-    inputext      ="dpr"
-    defaultargs   ="-B"
-    image         ="dcc32.png"
-    name          ="Delphi" >
-    
-    <errparser><![CDATA[
-(?<filename>[^\(]+)\((?<line>\d+)\)\s((?<warning>Warning)|(?<error>Error)):\s(?<message>.+)$
-    ]]></errparser> 
-
-    <outparser><![CDATA[
-(?<filename>[^\(]+)\((?<line>\d+)\)\s((?<warning>Warning)|(?<error>Error)):\s(?<message>.+)$
-    ]]></outparser> 
-    
-    <envvars>
-      <envvar name="PATH">${PFILES}\Borland\Delphi7\bin;</envvar>
-    </envvars>
-   
-    <options 
-			    prefix				=	"-"
-			    argprefix			=	"" >
-	    <category 
-			    name					=	"Input"
-			    description		=	"Controls the input of the compiler">
-		    <option
-			    name					=	"Use package" 
-			    form					=	"r"
-			    type          = "input"
-			    argquote			=	'"' />
-	    </category>			    
-	    <category 
-			    name					=	"Output"
-			    description		=	"Controls the output of the compiler">
-			  <option 
-			    name					=	"Target type" 
-			    description		=	"Defines the target type" 
-			    form					=	"C" >
-			    <allowedvalues>C|G</allowedvalues>
-		    </option>
-	    </category>
-	    <category
-	        name          = "Advanced">
- 		    <option 
-			    name					=	"Enable debugging" 
-			    description		=	"Emit debugging information" 
-			    form					=	"V" 
-			    argtype				=	"bool" />
-	    </category>
-	  </options>
-  </action>
-  
-  <action    
-    id            ="flex" 
-    program       ="${XACC}\Tools\flex.exe" 
+    id            ="Cslex" 
+    program       ="${XACC}\Tools\cslex.exe" 
     inputext      ="l;ll;lex"
     outputext     ="c"
-    name          ="Flex" 
+    name          ="CSLex" 
     image         ="gcc.png" >
     
     <errparser><![CDATA[
@@ -409,12 +325,12 @@
   </action>
 
   <action    
-    id            ="xyacc" 
-    program       ="${XACC}\Tools\xyacc.exe" 
-    inputext      ="y;yy"
+    id            ="Gppg" 
+    program       ="${XACC}\Tools\gppg.exe" 
+    inputext      ="y"
     outputext     ="cs"
     defaultargs   ="-d"
-    name          ="xyacc" >
+    name          ="GPPG" >
 
     <errparser><![CDATA[
 xyacc\.exe:\s((?<warning>w)|(?<error>e))\s\-\sline\s(?<line>\d+)\sof\s""(?<filename>[^""]+)"",\s(?<message>.+)$
@@ -433,7 +349,7 @@ xyacc\.exe:\s((?<warning>w)|(?<error>e))\s\-\sline\s(?<line>\d+)\sof\s""(?<filen
   </action>
 
   <action    
-    id            ="msvc" 
+    id            ="Cl" 
     program       ="${VC}\bin\cl.exe" 
     inputext      ="c;cpp;cc"
     outputext     ="obj"
@@ -509,7 +425,7 @@ xyacc\.exe:\s((?<warning>w)|(?<error>e))\s\-\sline\s(?<line>\d+)\sof\s""(?<filen
   </action>
   
   <action    
-    id            ="mslink" 
+    id            ="Link" 
     program       ="${VC}\bin\link.exe" 
     inputext      ="obj;lib"
     defaultargs   ="-nologo"
@@ -530,7 +446,7 @@ xyacc\.exe:\s((?<warning>w)|(?<error>e))\s\-\sline\s(?<line>\d+)\sof\s""(?<filen
   </action>
   
   <action    
-    id            ="ilmerge" 
+    id            ="Ilmerge" 
     program       ="${PFILES}\Microsoft\ILMerge\ILMerge.exe" 
     inputext      ="dll;exe"
     image         ="ms.png"
@@ -539,7 +455,7 @@ xyacc\.exe:\s((?<warning>w)|(?<error>e))\s\-\sline\s(?<line>\d+)\sof\s""(?<filen
   </action>
   
   <action    
-    id            ="fxc" 
+    id            ="Fxc" 
     program       ="${PFILES}\Microsoft DirectX SDK (December 2005)\Utilities\Bin\x86\fxc.exe" 
     inputext      ="fx;hlsl"
     image         ="dx.png"
@@ -548,7 +464,7 @@ xyacc\.exe:\s((?<warning>w)|(?<error>e))\s\-\sline\s(?<line>\d+)\sof\s""(?<filen
   </action>
 
   <action    
-    id            ="makensis" 
+    id            ="Makensis" 
     program       ="${NSIS}\makensis.exe" 
     inputext      ="nsi"
     name          ="NSIS Installer Compiler" >
@@ -557,14 +473,14 @@ xyacc\.exe:\s((?<warning>w)|(?<error>e))\s\-\sline\s(?<line>\d+)\sof\s""(?<filen
   </action>
   
   <action    
-        id            ="tidy" 
-        program       ="${XACC}\Tools\tidy.exe" 
-        defaultargs   ="-m"
-        name          ="Html Tidy" >
+    id            ="Tidy" 
+    program       ="${XACC}\Tools\tidy.exe" 
+    defaultargs   ="-m"
+    name          ="Html Tidy" >
 	</action>
   
   <action    
-    id            ="xsd" 
+    id            ="Xsd" 
     program       ="${NETSDK}\bin\xsd.exe" 
     inputext      ="xsd"
     outputext     ="cs"
@@ -597,7 +513,7 @@ xyacc\.exe:\s((?<warning>w)|(?<error>e))\s\-\sline\s(?<line>\d+)\sof\s""(?<filen
   </action>
   
   <action    
-    id            ="ilasm" 
+    id            ="Ilasm" 
     program       ="${NETFX}\ilasm.exe" 
     inputext      ="il"
     multipleinput ="true"
@@ -651,108 +567,7 @@ xyacc\.exe:\s((?<warning>w)|(?<error>e))\s\-\sline\s(?<line>\d+)\sof\s""(?<filen
   <!--
   PROJECTS
   -->
-  
-  <project  id          = "csharp" 
-            name        = "C# project"
-            image       = "Project.Type.C#.png"
-            description = "Basic C# project">
-            
-    <action ref="csc"/>
-    <action ref="xsd"/>
-    <action ref="cspp"/>
-    <action ref="custom"/>
-  </project>
-  
-  <project  id          = "c" 
-            name        = "C project"
-            image       = "Project.Type.C.png"
-            description = "Basic C project">
-            
-    <action ref="msvc"/>
-    <action ref="mslink"/>
-		<action ref="custom"/>
-  </project>
-  
-  <project  id          = "il" 
-            name        = "IL project"
-            image       = "Project.Type.IL.png"
-            description = "Basic IL project">
-            
-    <action ref="ilasm"/>
-		<action ref="custom"/>
-  </project>
-  
-  <project  id          = "nemerle" 
-            name        = "Nemerle project"
-            image       = "nemerle-icon.png"
-            description = "Basic Nemerle project">
-            
-    <action ref="ncc"/>
-		<action ref="custom"/>
-  </project>
-  
-  <project  id          = "boo" 
-            name        = "Boo project"
-            description = "Basic Boo project">
-            
-    <action ref="booc"/>
-		<action ref="custom"/>
-  </project>
-  
-  <project  id          = "nsis" 
-            name        = "NSIS project"
-            description = "Basic NSIS project">
-
-    <action ref="makensis"/>
-  </project>
-  
-  <project  id          = "hlsl" 
-            name        = "HLSL project"
-            image       ="dx.png"
-            description = "Basic HLSL project">
-    <action ref="fxc"/>         
-  </project>
-  
-  <project  id          = "xacclang" 
-            name        = "xacc.language project"
-            description = "xacc.language project">
-
-    <action ref="xyacc"/>
-    <action ref="flex"/>
-    <action ref="msvc"/>
-    <action ref="csc"/>
-  </project>
-
-  <project  id          = "complex" 
-            name        = "Complex project"
-            description = "Complex project">
-
-    <!-- just add everything -->
-    <action ref="xyacc"/>
-    <action ref="flex"/>
-    <action ref="makensis"/>
-    <action ref="csc"/>
-    <action ref="xsd"/>
-    <action ref="cspp"/>
-    <action ref="ncc"/>
-    <action ref="ilasm"/>
-    <action ref="msvc"/>
-    <action ref="mslink"/>
-    <action ref="ilmerge"/>
-    <action ref="custom"/>
-    <action ref="booc"/>
-  </project>
-  
-  <project  id          = "delphi" 
-            image       = "dcc32.png"
-            name        = "Delphi project">
-    <action ref="dcc32"/>
-  </project>
-	
-  <project  id          = "LSharp" 
-            name        = "LSharp project">
-  </project>
-	
+  	
 
   <!--
   PLUGINS  <plugin>xacc.parsers.dll</plugin>
@@ -768,7 +583,7 @@ xyacc\.exe:\s((?<warning>w)|(?<error>e))\s\-\sline\s(?<line>\d+)\sof\s""(?<filen
 	<tool name="Language Designer" command="${XACC}\xacc.languagedesigner.exe"/>
 	
 	<language name="Xml">
-    <action ref="tidy"/>
+    <action ref="Tidy"/>
 	</language>
 	
 </config>

@@ -64,6 +64,16 @@ namespace Xacc.Runtime
       get {return DEFAULTARGS;}
     }
 
+    public static string MakeReferences(params string[] dlls)
+    {
+      string output = string.Empty;
+      foreach (string dll in dlls)
+      {
+        output += MakeReference(dll) + " ";
+      }
+      return output.Trim();
+    }
+
     public static string MakeReference(string dll)
     {
       return REFPREFIX + dll;

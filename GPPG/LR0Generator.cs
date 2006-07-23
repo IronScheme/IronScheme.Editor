@@ -103,10 +103,13 @@ namespace gpcc
       {
         // Add shift actions ...
         foreach (Terminal t in state.terminalTransitions)
+        {
           state.parseTable[t] = new Shift(state.Goto[t]);
+        }
 
         // Add reduce actions ...
         foreach (ProductionItem item in state.all_items)
+        {
           if (item.isReduction())
           {
             // Accept on everything
@@ -158,6 +161,7 @@ namespace gpcc
                 state.parseTable[t] = new Reduce(item);
             }
           }
+        }
       }
     }
 

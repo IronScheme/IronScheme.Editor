@@ -22,7 +22,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Xacc</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <StartupObject>Xacc.Reflection.MetaReader</StartupObject>
+    <StartupObject>
+    </StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <SccAuxPath>

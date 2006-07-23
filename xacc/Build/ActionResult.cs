@@ -38,6 +38,7 @@ namespace Xacc.Build
   public struct ActionResult
   {
     Location loc;
+    internal string code;
     internal string msg;
     internal ActionResultType type;
 
@@ -54,7 +55,12 @@ namespace Xacc.Build
     /// </summary>
     public string Message
     {
-      get { return msg; }
+      get { return msg.Trim(); }
+    }
+
+    public string ErrorCode
+    {
+      get { return code; }
     }
 
     /// <summary>
@@ -75,6 +81,7 @@ namespace Xacc.Build
       this.msg = msg;
       this.loc = loc;
       type = ActionResultType.Info;
+      this.code = string.Empty;
     }
 
     /// <summary>
@@ -85,7 +92,7 @@ namespace Xacc.Build
     /// <param name="message">the message</param>
     /// <param name="filename">the filename</param>
     public ActionResult(ActionResultType type, int line, string message, string filename)
-      : this(type, line, 0, message, filename)
+      : this(type, line, 0, message, filename, string.Empty)
     {
     }
 
@@ -97,8 +104,9 @@ namespace Xacc.Build
     /// <param name="column">column</param>
     /// <param name="message">the message</param>
     /// <param name="filename">the filename</param>
-    public ActionResult(ActionResultType type, int line, int column, string message, string filename)
+    public ActionResult(ActionResultType type, int line, int column, string message, string filename, string code)
     {
+      this.code = code;
       loc = new Location(line, column, 0, column + 1, filename);
       switch (type)
       {

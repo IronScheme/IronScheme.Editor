@@ -42,7 +42,7 @@ tag_start                 ="<!"|"<?"|"<"
 tag_mid_end               =">"
 tag_end                   ="?>"|"/>"
 
-mlstring_start            ="\""[^\n\"]*\n
+mlstring_start            ="\""
 mlstring_end              ="\""
 string                    =("\""[^\n\"]*"\"")|("'"[^']*"'")
 
@@ -70,7 +70,7 @@ nl		    =\n
 
 <comment>{comment_end}             {EXIT(); return Comment();}
 <comment>[^-\n]+                   {return DocComment();}
-<comment>.                         {return DocComment(); }
+<comment>\-                        {return DocComment(); }
 
 <YYINITIAL>{pp_tag_start}            {ENTER(pp); return Keyword(); }
 
@@ -117,7 +117,7 @@ nl		    =\n
 <mlstr>[^\"\n]+                  {return String();}
 
 &[a-zA-Z]+\;              {return Other(); }
-{identifier}              {return Identifier();}
+<YYINITIAL>{identifier}              {return Identifier();}
 
 .                         {return Plain(); }
 

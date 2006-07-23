@@ -173,8 +173,9 @@ namespace Xacc.Configuration
         }
         string args = Compiler.DefaultArgs;
 
-        args += string.Format(" {0} {1} {4} {3} {2}", 
-          Compiler.MakeOut(OUTASS), Compiler.MakeDebug(dbg), TMPFILE, Compiler.MakeReference("xacc.dll"),
+        args += string.Format(" {0} {1} {4} {3} {2}",
+          Compiler.MakeOut(OUTASS), Compiler.MakeDebug(dbg), TMPFILE, 
+          Compiler.MakeReferences("xacc.dll", "Microsoft.Build.Utilities.dll", "Microsoft.Build.Framework.dll"),
           Compiler.MakeTarget("library"));
 
         Trace.WriteLine("C# config compiler", "stdin  : {0} {1}",cmd, args);
@@ -237,17 +238,6 @@ namespace Xacc.Configuration
         Assembly ass = Assembly.LoadFile(Path.GetFullPath(OUTASS));
         ComponentModel.ServiceHost.Plugin.LoadAssembly(ass);
         
-        if (!File.Exists(XSDBUILD))
-        {
-          try
-          {
-            Schema.ExportSchema(XSDBUILD);
-          }
-          catch (Exception ex)
-          {
-            Trace.WriteLine("Config compiler", "Export build schema failed : {0}", ex);
-          }
-        }
         return true;
       }
       else
@@ -292,6 +282,7 @@ using Xacc.Build;
 using Xacc.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+using Microsoft.Build.Framework;
               
 [assembly: AssemblyTitle(""xacc.config"")]
 [assembly: AssemblyVersion(""0.2.0.*"")]
@@ -341,7 +332,7 @@ class AssemblyLoader : AssemblyPluginProvider
                   {
                     foreach (projectaction a in l.action)
                     {
-                      output.WriteLine("ServiceHost.Language.AddAction({0}, typeof(Action_{1}));", Stringify(l.name), a.@ref);
+                      output.WriteLine("ServiceHost.Language.AddAction({0}, typeof({1}));", Stringify(l.name), a.@ref);
                     }
                   }
                 }
@@ -391,7 +382,7 @@ class AssemblyLoader : AssemblyPluginProvider
                     output.WriteLine("[MultipleInput({0})]", a.multipleinput.ToString().ToLower());
                   }
 
-                  output.WriteLine("public sealed class Action_{0} : ProcessAction", a.id);
+                  output.WriteLine("public sealed class {0} : ProcessAction", a.id);
                   output.WriteLine("{");
 
                   if (a.outparser != null)
@@ -414,13 +405,13 @@ class AssemblyLoader : AssemblyPluginProvider
                     output.WriteLine();
                   }
 
-                  output.WriteLine("public override string Program {{get {{return @\"{0}\";}}}}", a.program); //dont use stringify here
+                  output.WriteLine("protected override string Program {{get {{return @\"{0}\";}}}}", a.program); //dont use stringify here
                   output.WriteLine();
 
 
                   if (a.defaultargs != null)
                   {
-                    output.WriteLine("public override string DefaultArguments	{{get {{return @{0}; }}}}", Stringify(a.defaultargs));
+                    output.WriteLine("protected override string DefaultArguments	{{get {{return @{0}; }}}}", Stringify(a.defaultargs));
                     output.WriteLine();
                   }
 
@@ -510,7 +501,11 @@ class AssemblyLoader : AssemblyPluginProvider
                           {
                             output.WriteLine(@"[XmlElement(""{0}"")]", o.form);
                           }
-                  
+
+                          if (o.required)
+                          {
+                            output.WriteLine("[Required]");
+                          }
                           output.WriteLine("public string{0} {1}", (isarray ? "[]" : "") , Cap(o.form));
                           output.WriteLine("{");
                           output.WriteLine("get {{return (string{0}) options[__{1}];}}", (isarray ? "[]" : "") , o.form);
@@ -522,7 +517,7 @@ class AssemblyLoader : AssemblyPluginProvider
                     }
                   }
 
-                  output.WriteLine("public Action_{0}()", a.id);
+                  output.WriteLine("public {0}()", a.id);
                   output.WriteLine("{");
                   if (!File.Exists(a.program))
                   {
@@ -532,7 +527,7 @@ class AssemblyLoader : AssemblyPluginProvider
                   {
                     foreach (envvar ev in a.envvars)
                     {
-                      output.WriteLine("EnvironmentVariables.Add(@{0}, @{1});", Stringify(ev.name), Stringify(SubProgram(ev.Value)));
+                      output.WriteLine("EnvironmentOverride.Add(@{0}, @{1});", Stringify(ev.name), Stringify(SubProgram(ev.Value)));
                     }
                   }
                   foreach (option o in optionactions)
@@ -548,7 +543,7 @@ class AssemblyLoader : AssemblyPluginProvider
                     output.WriteLine("[Name({0},{1})]", Stringify(o.name), Stringify(o.description));
                     output.WriteLine("sealed class OptionAction_{0} : OptionAction", o.form);
                     output.WriteLine("{");
-                    output.WriteLine("public OptionAction_{0}(Action_{1} ca, Option o) : base(ca,o){{}}", o.form, a.id);
+                    output.WriteLine("public OptionAction_{0}({1} ca, Option o) : base(ca,o){{}}", o.form, a.id);
                     output.WriteLine("}");
                     output.WriteLine();
                   }
@@ -589,7 +584,7 @@ class AssemblyLoader : AssemblyPluginProvider
                     {
                       if (!invalid.ContainsKey(pa.@ref))
                       {
-                        output.WriteLine(@"AddActionType(typeof(Action_{0}));", pa.@ref);
+                        output.WriteLine(@"AddActionType(typeof({0}));", pa.@ref);
                       }
                     }
                   }
@@ -602,7 +597,7 @@ class AssemblyLoader : AssemblyPluginProvider
                     {
                       if (!invalid.ContainsKey(pa.@ref))
                       {
-                        output.WriteLine(@"[XmlElement(""{0}"", typeof(Action_{0}))]", pa.@ref);
+                        output.WriteLine(@"[XmlElement(""{0}"", typeof({0}))]", pa.@ref);
                       }
                     }
                   }
