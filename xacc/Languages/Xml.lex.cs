@@ -1,4 +1,5 @@
 using Xacc.Languages.CSLex;
+#pragma warning disable 162
 using Xacc.ComponentModel;
 using System.Drawing;
 using LexerBase = Xacc.Languages.CSLex.Language<Xacc.Languages.CSLex.Yytoken>.LexerBase;

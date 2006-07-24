@@ -340,7 +340,7 @@ namespace Xacc.Build
     /// Gets or sets the output filename
     /// </summary>
     [XmlElement("output", IsNullable=true)]
-    [Microsoft.Build.Framework.Output]
+    [Output]
     public string Output
     {
       get 
@@ -380,13 +380,16 @@ namespace Xacc.Build
       }
     }
 
+    [Obsolete]
     internal Action GetAction(Type t)
     {
       return subactions[t] as Action;
     }
 
+    [Obsolete]
     Hashtable subactions = new Hashtable();
 
+    [Obsolete]
     internal Type[] ActionTypes
     {
       get { return new ArrayList(subactions.Keys).ToArray(typeof(Type)) as Type[]; }
@@ -396,6 +399,7 @@ namespace Xacc.Build
     /// Add an OptionAction to this Action
     /// </summary>
     /// <param name="oa">the OptionAction to add</param>
+    [Obsolete]
     protected void AddOptionAction(OptionAction oa)
     {
       subactions.Add(oa.GetType(), oa);
@@ -504,16 +508,14 @@ namespace Xacc.Build
       switch (ar.Type)
       {
         case ActionResultType.Error:
-          Log.LogError("", ar.ErrorCode, "", ar.Location.Filename, ar.Location.LineNumber, ar.Location.Column, 0, 0, ar.Message);
+          Log.LogError(null, ar.ErrorCode, null, ar.Location.Filename, ar.Location.LineNumber, ar.Location.Column, 0, 0, ar.Message);
           break;
         case ActionResultType.Warning:
-          Log.LogWarning("", ar.ErrorCode, "", ar.Location.Filename, ar.Location.LineNumber, ar.Location.Column, 0, 0, ar.Message);
+          Log.LogWarning(null, ar.ErrorCode, null, ar.Location.Filename, ar.Location.LineNumber, ar.Location.Column, 0, 0, ar.Message);
           break;
         case ActionResultType.Info:
-          Log.LogMessage("", ar.ErrorCode, "", ar.Location.Filename, ar.Location.LineNumber, ar.Location.Column, 0, 0, ar.Message);
-          break;
         case ActionResultType.Ok:
-          Log.LogMessage("", ar.ErrorCode, "", ar.Location.Filename, ar.Location.LineNumber, ar.Location.Column, 0, 0, ar.Message);
+          Log.LogMessage(null, ar.ErrorCode, null, ar.Location.Filename, ar.Location.LineNumber, ar.Location.Column, 0, 0, ar.Message);
           break;
       }
     }
@@ -652,7 +654,7 @@ namespace Xacc.Build
 
     ActionResult ParseResult(string msg, Regex type)
     {
-      ActionResult result = new ActionResult(ActionResultType.Ok, 0, msg, null);
+      ActionResult result = new ActionResult(ActionResultType.Info, 0, msg, null);
 
       Match m = type.Match(msg);
       if (m.Groups["filename"].Success)
@@ -690,10 +692,12 @@ namespace Xacc.Build
       }
       if (m.Groups["error"].Success)
       {
+        result.type = ActionResultType.Error;
         result.Location.Error = true;
       }
       if (m.Groups["warning"].Success)
       {
+        result.type = ActionResultType.Warning;
         result.Location.Warning = true;
       }
       if (m.Groups["info"].Success)

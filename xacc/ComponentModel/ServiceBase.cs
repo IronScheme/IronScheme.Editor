@@ -373,6 +373,11 @@ namespace Xacc.ComponentModel
             else
             {
               pmi = new ToolStripMenuItem(mia.Text);
+
+              PropertyInfo pi = mia.invoke as PropertyInfo;
+
+              string v = pi.GetValue(this, null) as string;
+
               pmi.DropDownOpening += new EventHandler(pmi_DropDownOpening);
               TypeConverter tc = Activator.CreateInstance(mia.Converter) as TypeConverter;
 
@@ -380,6 +385,11 @@ namespace Xacc.ComponentModel
               {
                 ToolStripMenuItem smi = new ToolStripMenuItem(file);
                 pmi.DropDownItems.Add(smi);
+
+                if (file == v)
+                {
+                  smi.Checked = true;
+                }
 
                 smi.Click += new EventHandler(pmi_Click);
               }
@@ -464,7 +474,7 @@ namespace Xacc.ComponentModel
 
       string v = pmi.Text;
 
-      MenuItemAttribute mia = attrmap[pmi.OwnerItem] as MenuItemAttribute;
+      MenuItemAttribute mia = attrmap[((ToolStripMenuItem) pmi.OwnerItem).clonedfrom] as MenuItemAttribute;
 
       PropertyInfo pi = mia.invoke as PropertyInfo;
 
@@ -476,7 +486,11 @@ namespace Xacc.ComponentModel
       ToolStripMenuItem pmi = sender as ToolStripMenuItem;
       pmi.DropDownItems.Clear();
 
-      MenuItemAttribute mia = attrmap[pmi] as MenuItemAttribute;
+      MenuItemAttribute mia = attrmap[pmi.clonedfrom] as MenuItemAttribute; // eek??
+
+      PropertyInfo pi = mia.invoke as PropertyInfo;
+
+      string v = pi.GetValue(this, null) as string;
 
       TypeConverter tc = Activator.CreateInstance(mia.Converter) as TypeConverter;
 
@@ -484,6 +498,11 @@ namespace Xacc.ComponentModel
       {
         ToolStripMenuItem smi = new ToolStripMenuItem(file);
         pmi.DropDownItems.Add(smi);
+
+        if (file == v)
+        {
+          smi.Checked = true;
+        }
 
         smi.Click+=new EventHandler(pmi_Click);
       }

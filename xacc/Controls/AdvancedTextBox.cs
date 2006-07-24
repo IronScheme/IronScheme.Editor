@@ -208,7 +208,7 @@ namespace Xacc.Controls
       get {return buffer;}
     }
 
-    class LanguageTypeConvertor : TypeConverter
+    internal class LanguageTypeConvertor : TypeConverter
     {
       public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
       {
@@ -218,7 +218,13 @@ namespace Xacc.Controls
       public override System.ComponentModel.TypeConverter.StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
       {
         IList ll = ServiceHost.Language.Languages;
-        return new StandardValuesCollection(ll);
+        ArrayList sl = new ArrayList();
+        foreach (Language l in ll)
+        {
+          sl.Add(l.Name);
+        }
+        sl.Sort();
+        return new StandardValuesCollection(sl);
       }
 
       public override bool GetStandardValuesExclusive(ITypeDescriptorContext context)
@@ -235,8 +241,10 @@ namespace Xacc.Controls
       get {return buffer.Language.Name;}
       set 
       {
+        buffer.parsetimer.Enabled = false;
         buffer.Language = ServiceHost.Language.GetLanguage(value);
         Invalidate();
+        buffer.parsetimer.Enabled = true;
       }
     }
 

@@ -367,6 +367,28 @@ namespace Xacc.ComponentModel
       }
     }
 
+    [MenuItem("Language", Index = 50, State = ApplicationState.Buffer, Converter=typeof(AdvancedTextBox.LanguageTypeConvertor))]
+    string ChangeEditorLanguage
+    {
+      get
+      {
+        AdvancedTextBox atb = fm.CurrentControl as AdvancedTextBox;
+        if (atb != null)
+        {
+          return atb.EditorLanguage;
+        }
+        return null;
+      }
+      set
+      {
+        AdvancedTextBox atb = fm.CurrentControl as AdvancedTextBox;
+        if (atb != null)
+        {
+          atb.EditorLanguage = value;
+        }
+      }
+    }
+
 #if DEBUG
     [MenuItem("Break to line", Index = 1000, State = ApplicationState.Buffer)]
     void BreakLine()

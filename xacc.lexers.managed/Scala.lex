@@ -25,7 +25,6 @@ namespace Xacc.Languages
 
 WS		                    =[ \t]+
 KEYWORD                   ="=>"|"<-"|"_"|"unit"|"Unit"|"package"|"synchronized"|"import"|"return"|"true"|"false"|"def"|"val"|"var"|"class"|"object"|"trait"|"case"|"override"|"new"|"protected"|"extends"|"if"|"null"|"throw"|"for"|"with"|"try"|"catch"|"this"|"type"|"else"|"match"|"append"|"private"|"while"|"yield"|"super"|"sealed"|"requires"|"implicit"|"finally"|"final"|"do"|"abstract"
-PREPROC                   =[^.]
 NUMBER                    =[0-9]+
 STRING                    =\"([^\"\n])*\"
 CHARACTER                 ='([^'])+'
@@ -41,7 +40,6 @@ IDENTIFIER                =[a-zA-Z][_$a-zA-Z0-9]*
 %%
 
 <YYINITIAL>{KEYWORD}                  {return Keyword();}
-<YYINITIAL>{PREPROC}                  {return Preprocessor();}
 <YYINITIAL>{STRING}                   {return String();}
 <YYINITIAL>{CHARACTER}                {return Character();}
 <YYINITIAL>{NUMBER}                   {return Number();}
@@ -57,4 +55,4 @@ IDENTIFIER                =[a-zA-Z][_$a-zA-Z0-9]*
 
 {WS}			                            {;}
 \n                                    {return NewLine();}
-.                                     {return ERROR; }
+.                                     {return Error(); }

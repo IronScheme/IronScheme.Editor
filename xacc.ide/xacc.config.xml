@@ -58,6 +58,7 @@
 		    <option 
 			    name					=	"Defines" 
 			    description		=	"Define conditional compilation symbol(s)" 
+          argseperator  = ";"
 			    form					=	"define" />
 
 		    <option 
@@ -144,12 +145,6 @@
 			    form					=	"optimize" 
 			    argtype				=	"bool" />
 
-		    <option 
-			    name					=	"Incremental" 
-			    description		=	"Enable incremental compilation" 
-			    form					=	"incremental" 
-			    argtype				=	"bool" />
-    			
 	    </category>
     	
 	    <category

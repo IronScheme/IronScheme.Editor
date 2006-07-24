@@ -324,7 +324,12 @@ namespace Xacc.ComponentModel
     [MenuItem("Build", Index = 20, State = ApplicationState.Project, Image = "Project.Build.png", AllowToolBar = true)]
     void Build()
     {
-      Current.Build();
+      ConsoleLogger l = new ConsoleLogger();
+      BuildLogger bl = new BuildLogger();
+      buildengine.RegisterLogger(l);
+      buildengine.RegisterLogger(bl);
+      bool res = Current.Build();
+      buildengine.UnregisterAllLoggers();
     }
 
     [MenuItem("Build All", Index = 21, State = ApplicationState.Project, Image = "Project.Build.png", AllowToolBar = true)]
@@ -377,16 +382,16 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Build Order", Index = 1000, State = ApplicationState.Project)]
-    void ShowBuildOrderDialog()
-    {
-      ProjectBuildOrderForm bof = new ProjectBuildOrderForm();
-      if (DialogResult.OK == bof.ShowDialog(ServiceHost.Window.MainForm))
-      {
-        projects.Clear();
-        projects.AddRange(bof.listBox1.Items);
-      }
-    }
+    //[MenuItem("Build Order", Index = 1000, State = ApplicationState.Project)]
+    //void ShowBuildOrderDialog()
+    //{
+    //  ProjectBuildOrderForm bof = new ProjectBuildOrderForm();
+    //  if (DialogResult.OK == bof.ShowDialog(ServiceHost.Window.MainForm))
+    //  {
+    //    projects.Clear();
+    //    projects.AddRange(bof.listBox1.Items);
+    //  }
+    //}
 
     [MenuItem("Properties", Index = 1001, State = ApplicationState.Project, Image = "Project.Properties.png", AllowToolBar = true)]
     void Properties()
@@ -440,6 +445,64 @@ namespace Xacc.ComponentModel
       Opened +=new EventHandler(ProjectManagerEvent);
       Closed +=new EventHandler(ProjectManagerEvent);
 		}
+
+    class BuildLogger : Microsoft.Build.Framework.ILogger
+    {
+      public void Initialize(Microsoft.Build.Framework.IEventSource eventSource)
+      {
+        eventSource.ErrorRaised += new Microsoft.Build.Framework.BuildErrorEventHandler(eventSource_ErrorRaised);
+        eventSource.WarningRaised += new Microsoft.Build.Framework.BuildWarningEventHandler(eventSource_WarningRaised);
+        eventSource.ProjectFinished += new Microsoft.Build.Framework.ProjectFinishedEventHandler(eventSource_ProjectFinished);
+      }
+
+      void eventSource_ProjectFinished(object sender, Microsoft.Build.Framework.ProjectFinishedEventArgs e)
+      {
+        ServiceHost.Error.OutputErrors(ServiceHost.Project.Current, new ActionResult(ActionResultType.Info, 0, 0, e.Message + " - success: " + e.Succeeded, e.ProjectFile, null));
+      }
+
+      void eventSource_WarningRaised(object sender, Microsoft.Build.Framework.BuildWarningEventArgs e)
+      {
+        ServiceHost.Error.OutputErrors(ServiceHost.Project.Current, new ActionResult(ActionResultType.Warning, e.LineNumber, e.ColumnNumber, e.Message, e.File, e.Code));
+      }
+
+      void eventSource_ErrorRaised(object sender, Microsoft.Build.Framework.BuildErrorEventArgs e)
+      {
+        ServiceHost.Error.OutputErrors(ServiceHost.Project.Current, new ActionResult(ActionResultType.Error, e.LineNumber, e.ColumnNumber, e.Message, e.File, e.Code));
+      }
+
+      string param;
+
+      public string Parameters
+      {
+        get
+        {
+          return param;
+        }
+        set
+        {
+          param = value;
+        }
+      }
+
+      public void Shutdown()
+      {
+       
+      }
+
+      Microsoft.Build.Framework.LoggerVerbosity verb = Microsoft.Build.Framework.LoggerVerbosity.Normal;
+
+      public Microsoft.Build.Framework.LoggerVerbosity Verbosity
+      {
+        get
+        {
+          return verb;
+        }
+        set
+        {
+          verb = value;
+        }
+      }
+    }
 
     bool ProjectNameExists(string name)
     {
@@ -527,7 +590,7 @@ namespace Xacc.ComponentModel
 			ofd.CheckFileExists = true;
 			ofd.CheckPathExists = true;
 			ofd.AddExtension = true;
-			ofd.Filter = "Xacc Project files|*.xacc;*.sln;*.proj;*.csproj";
+			ofd.Filter = "MSBuild Project files|*.sln;*.*proj;";
 			ofd.Multiselect = false;
 			ofd.RestoreDirectory = true;
 			if (DialogResult.OK == ofd.ShowDialog(ServiceHost.Window.MainForm))
@@ -548,7 +611,7 @@ namespace Xacc.ComponentModel
     {
       Project proj = Activator.CreateInstance(prjtype) as Project;
       proj.RootDirectory = rootdir;
-      proj.Location = rootdir + Path.DirectorySeparatorChar + name + ".xacc";
+      proj.Location = rootdir + Path.DirectorySeparatorChar + name + ".proj";
       proj.ProjectName = name;
 			
       proj.ProjectCreated();
@@ -605,110 +668,34 @@ namespace Xacc.ComponentModel
 
       string ext = Path.GetExtension(prjfile);
 
-      if (ext == ".sln" || ext == ".csproj")
+      if (ext == ".sln" || ext.EndsWith("proj"))
       {
-        BuildProject bp = new BuildProject();
+        Project bp = new Project();
 
         bp.Load(prjfile);
+        bp.ProjectCreated();
+        Add(bp);
+        bp.OnOpened();
 
-        return new Project[] { new MsBuildProject(bp) };
+        if (Opened != null)
+        {
+          Opened(bp, EventArgs.Empty);
+        }
+        ProjectTab.Show();
+
+        return new Project[] { bp };
       }
       else
       {
-        XmlSerializer ser = new XmlSerializer(Configuration.Projects.SerializerType, new Type[] { typeof(RegexOptions) });
-
-        using (Stream s = File.OpenRead(prjfile))
-        {
-          Configuration.Projects pp = ser.Deserialize(s) as Configuration.Projects;
-
-          if (pp != null)
-          {
-            foreach (Project prj in pp.projects)
-            {
-              if (projects.Count == 0)
-              {
-                prj.Location = prjfile;
-              }
-              else
-              {
-                prj.Location = OpenProjects[0].Location;
-              }
-
-              prj.RootDirectory = Path.GetDirectoryName(prj.Location);
-
-              Environment.CurrentDirectory = Path.GetDirectoryName(prjfile);
-
-              current = prj;
-
-              if (prj.Startup)
-              {
-                if (startupproject == null)
-                {
-                  startupproject = prj;
-                }
-                else
-                {
-                  prj.Startup = false;
-                }
-              }
-
-              prj.ProjectCreated();
-
-              Add(prj);
-
-              foreach (Action a in prj.Actions)
-              {
-                CustomAction ca = a as CustomAction;
-
-                if (ca != null)
-                {
-                  if (ca.Input != null)
-                  {
-                    foreach (string filename in ca.Input)
-                    {
-                      prj.AddFile(filename, ca);
-                    }
-                  }
-                  foreach (Type st in ca.ActionTypes)
-                  {
-                    OptionAction oa = ca.GetAction(st) as OptionAction;
-                    string[] vals = oa.GetOption();
-                    if (vals != null)
-                    {
-                      foreach (string v in vals)
-                      {
-                        prj.AddFile(v, oa);
-                      }
-                    }
-                  }
-                }
-              }
-
-              prj.OnOpened();
-
-              if (Opened != null)
-              {
-                Opened(prj, EventArgs.Empty);
-              }
-            }
-
-            ProjectTab.Show();
-
-            return OpenProjects;
-          }
-          else
-          {
-            return null;
-          }
-        }
+        return null;
       }
 		}
 
 		public Project Create(Type prjtype, string name, string rootdir)
 		{
-			Project proj = Activator.CreateInstance(prjtype) as Project;
+			Project proj = new Project();
 			proj.RootDirectory = rootdir;
-			proj.Location = rootdir + Path.DirectorySeparatorChar + name + ".xacc";
+			proj.Location = rootdir + Path.DirectorySeparatorChar + name + ".proj";
 			proj.ProjectName = name;
 			
       proj.ProjectCreated();

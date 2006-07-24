@@ -30,7 +30,6 @@ using System.Drawing;
 using Xacc.ComponentModel;
 using System.Windows.Forms;
 using System.Reflection;
-using Xacc.Controls;
 
 using SR = System.Resources;
 #endregion

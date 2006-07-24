@@ -91,137 +91,12 @@ namespace Xacc.Build
   /// </summary>
 	public delegate void ProjectEventHandler(object prj, ProjectEventArgs e);
 
-  class MsBuildProject : Project
-  {
-    [Name("Compile")]
-    class Compile : CustomAction
-    {
-      public Compile()
-      {
-        AddOptionAction(new Reference(this));
-        AddOptionAction(new Resource(this));
-      }
-    }
-
-    [Name("Reference")]
-    class Reference : OptionAction
-    {
-      public Reference(Compile ca)
-        : base(ca, null)
-      {
-      }
-    }
-
-    [Name("Embedded Resource")]
-    class Resource : OptionAction
-    {
-      public Resource(Compile ca)
-        : base(ca, null)
-      {
-      }
-    }
-
-    readonly BuildProject prj;
-    public MsBuildProject(BuildProject prj)
-    {
-      this.prj = prj;
-      AddActionType(typeof(Compile));
-      ProjectName = prj.GetEvaluatedProperty("ProjectName");
-      Environment.CurrentDirectory = RootDirectory = prj.GetEvaluatedProperty("ProjectDir");
-
-      Trace.WriteLine("Items");
-
-      foreach (BuildItemGroup big in prj.ItemGroups)
-      {
-        //if (!big.IsImported)
-        {
-          Trace.WriteLine("(" + big.Condition + ")" + "================================");
-          foreach (BuildItem bi in big)
-          {
-            //if (!bi.IsImported)
-            {
-              Trace.WriteLine("\t" + bi.Name + "(" + bi.Condition + "): " + bi.Include);
-            }
-          }
-          Trace.WriteLine("");
-        }
-      }
-
-      Trace.WriteLine("");
-
-      Trace.WriteLine("Properties");
-
-      foreach (BuildPropertyGroup big in prj.PropertyGroups)
-      {
-        //if (!big.IsImported)
-        {
-          Trace.WriteLine("(" + big.Condition + ")" + "================================");
-          foreach (BuildProperty bi in big)
-          {
-            //if (!bi.IsImported)
-            {
-              Trace.WriteLine("\t" + bi.Name + "(" + bi.Condition + "): " + bi.Value);
-            }
-          }
-          Trace.WriteLine("");
-        }
-      }
-
-      Trace.WriteLine("");
-
-      Trace.WriteLine("Targets");
-
-      foreach (Target t in prj.Targets)
-      {
-        //if (!t.IsImported)
-        {
-          Trace.WriteLine(t.Name + " (" + t.Condition + ") deps: " + t.DependsOnTargets);
-          
-          foreach (BuildTask bt in t)
-          {
-            Trace.WriteLine("\t"+bt.Name + " (" + bt.Condition + "): " + bt.Type);
-
-            foreach (string tt in bt.GetParameterNames())
-            {
-              Trace.WriteLine("\t\t" + tt + " = " + bt.GetParameterValue(tt));
-            }
-          }
-
-          Trace.WriteLine("");
-        }
-      }
-
-      Compile c = new Compile();
-
-      foreach (BuildItem bi in prj.GetEvaluatedItemsByName("Compile"))
-      {
-        AddFile(bi.Include, c);
-      }
-      foreach (BuildItem bi in prj.GetEvaluatedItemsByName("EmbeddedResource"))
-      {
-        AddFile(bi.Include);
-      }
-
-      foreach (BuildItem bi in prj.GetEvaluatedItemsByName("Reference"))
-      {
-        AddFile(bi.Include);
-      }
-
-      foreach (BuildItem bi in prj.GetEvaluatedItemsByName("None"))
-      {
-        AddFile(bi.Include, Action.None);
-      }
-    }
-  }
-
   /// <summary>
   /// Base class for all Projects
   /// </summary>
-  [System.Xml.Serialization.XmlTypeAttribute(Namespace="xacc:build")]
-	[Image("Project.Type.png")]
-	public abstract class Project
+  [Image("Project.Type.png")]
+	public class Project : BuildProject
 	{
-
     /// <summary>
     /// Gets the string representation of the project
     /// </summary>
@@ -233,15 +108,16 @@ namespace Xacc.Build
 
     #region Fields & Properties
 
-		string name, location, rootdir;
-
 		readonly Hashtable sources = new Hashtable();
     readonly TreeNode rootnode = new TreeNode();
+
+    [Obsolete]
     readonly Hashtable optionnodes = new Hashtable();
+
+    [Obsolete]
     readonly Hashtable actiontypes = new Hashtable();
 
 		static readonly BinaryFormatter FORMATTER = new BinaryFormatter();
-    static XmlSerializer ser;
 
     /// <summary>
     /// Event for when project is closed
@@ -262,7 +138,6 @@ namespace Xacc.Build
     Action[] actions = {};
     FileSystemWatcher fsw = new FileSystemWatcher();
 
-    [XmlIgnore]
     internal ICodeModule[] References
     {
       get {return data.references;}
@@ -274,7 +149,6 @@ namespace Xacc.Build
     /// <summary>
     /// Gets or sets whether project is the startup project
     /// </summary>
-    [XmlAttribute("startup")]
     public bool Startup
     {
       get {return startup;}
@@ -294,7 +168,7 @@ namespace Xacc.Build
     }
 
     //readonly 
-      ObjectTree projectautotree = new ObjectTree();
+    ObjectTree projectautotree = new ObjectTree();
 
     internal ObjectTree ProjectAutoCompleteTree
     {
@@ -397,7 +271,6 @@ namespace Xacc.Build
     /// <summary>
     /// Gets the CodelModel for the project
     /// </summary>
-    [XmlIgnore]
     public ICodeModule CodeModel
     {
       get {return data.model;}
@@ -414,7 +287,6 @@ namespace Xacc.Build
     /// <summary>
     /// Gets the default extension of the project
     /// </summary>
-    [XmlIgnore]
     public string DefaultExtension
     {
       get
@@ -430,11 +302,10 @@ namespace Xacc.Build
     /// <summary>
     /// Gets or sets the path of the project filename
     /// </summary>
-    [XmlIgnore]
     public string Location
     {
-      get	{ return location;}
-      set { location = Normalize(Path.GetFullPath(value));	}
+      get	{ return Normalize(GetEvaluatedProperty("MSBuildProjectFullPath"));}
+      set { string location = Normalize(Path.GetFullPath(value));	}
     }
 
     internal string DataLocation
@@ -450,16 +321,27 @@ namespace Xacc.Build
       }
     }
 
+    public string OutputPath
+    {
+      get { return GetEvaluatedProperty("OutputPath"); }
+    }
+
     internal string OutputLocation
     {
       get 
       {
-        string l = RootDirectory;
+        if (OutputPath == null)
+        {
+          return ".";
+        }
+
+        string l = Path.Combine(RootDirectory, OutputPath);
+
         if (!Directory.Exists(l))
         {
           Directory.CreateDirectory(l);
         }
-        return ".";
+        return OutputPath;
       }
     }
 
@@ -467,24 +349,79 @@ namespace Xacc.Build
     /// <summary>
     /// Gets or sets the root directopry of the project
     /// </summary>
-    [XmlIgnore]
     public string RootDirectory
     {
-      get	{	return rootdir;}
+      get	{	return Normalize(GetEvaluatedProperty("MSBuildProjectDirectory"));}
       set 
       { 
-        rootdir = Normalize(Path.GetFullPath(value));	
+        string root = Normalize(Path.GetFullPath(value));	
         //fsw.EnableRaisingEvents = false;
-        fsw.Path = rootdir;
+        fsw.Path = root;
         //fsw.EnableRaisingEvents = true;
 
       }
     }
 
+    /*
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C197EFF6-AD4E-4E44-8601-D101E0736144}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SampleApp</RootNamespace>
+    <AssemblyName>SampleApp</AssemblyName>
+     */
+
+    public string Configuration
+    {
+      get { return GetEvaluatedProperty("Configuration"); }
+    }
+
+    public string Platform
+    {
+      get { return GetEvaluatedProperty("Platform"); }
+    }
+
+    public string ProductVersion
+    {
+      get { return GetEvaluatedProperty("ProductVersion"); }
+    }
+
+    public string SchemaVersion
+    {
+      get { return GetEvaluatedProperty("SchemaVersion"); }
+    }
+
+    public string ProjectGuid
+    {
+      get { return GetEvaluatedProperty("ProjectGuid"); }
+    }
+
+    public string OutputType
+    {
+      get { return GetEvaluatedProperty("OutputType"); }
+    }
+
+    public string AppDesignerFolder
+    {
+      get { return GetEvaluatedProperty("AppDesignerFolder"); }
+    }
+
+    public string RootNamespace
+    {
+      get { return GetEvaluatedProperty("RootNamespace"); }
+    }
+
+    public string AssemblyName
+    {
+      get { return GetEvaluatedProperty("AssemblyName"); }
+    }
+
     /// <summary>
     /// Gets a list of input files
     /// </summary>
-    [XmlIgnore]
     public string[] Sources
     {
       get	{	return new ArrayList(sources.Keys).ToArray(typeof(string)) as string[];}
@@ -493,13 +430,24 @@ namespace Xacc.Build
     /// <summary>
     /// Gets or sets the project name
     /// </summary>
-    [XmlAttribute("name")]
     public string ProjectName
     {
-      get {return name;}
-      set {CodeModel.Name = name = rootnode.Text = value;}
+      get {return GetEvaluatedProperty("ProjectName");}
+      set 
+      {
+        CodeModel.Name = rootnode.Text = value;
+      }
     }
 
+    public string MSBuildProjectDefaultTargets
+    {
+      get { return GetEvaluatedProperty("MSBuildProjectDefaultTargets"); }
+    }
+
+    public string MSBuildExtensionsPath
+    {
+      get { return GetEvaluatedProperty("MSBuildExtensionsPath"); }
+    }
 	
     #endregion
 
@@ -508,7 +456,7 @@ namespace Xacc.Build
     /// <summary>
     /// Gets or sets the array of Action for this project
     /// </summary>
-    [XmlIgnore]
+    [Obsolete]
     public Action[] Actions
     {
       get {return actions;}
@@ -525,8 +473,10 @@ namespace Xacc.Build
       }
     }
 
+    [Obsolete]
     Type[] types;
 
+    [Obsolete]
     internal Type[] ActionTypes
     {
       get 
@@ -546,6 +496,7 @@ namespace Xacc.Build
       }
     }
 
+    [Obsolete]
     Type[] GetOptionActionTypes()
     {
       ArrayList l = new ArrayList();
@@ -564,6 +515,7 @@ namespace Xacc.Build
     /// Add an action type to the project
     /// </summary>
     /// <param name="actiontype">the type of the Action</param>
+    [Obsolete]
     protected void AddActionType(Type actiontype)
     {
       string[] extt = InputExtensionAttribute.GetExtensions(actiontype);
@@ -597,6 +549,7 @@ namespace Xacc.Build
       }
     }
 
+    [Obsolete]
     Action this[int index]
     {
       get {return actions[index] as Action;}
@@ -608,6 +561,7 @@ namespace Xacc.Build
     /// </summary>
     /// <param name="filename">the filename</param>
     /// <returns>the associate Action</returns>
+    [Obsolete]
     public Action GetAction(string filename)
     {
       filename = Normalize(Path.GetFullPath(filename));
@@ -619,6 +573,7 @@ namespace Xacc.Build
       return sources[filename] as Action;
     }
 
+    [Obsolete]
     internal Action SuggestAction(Type t)
     {
       if (t == null)
@@ -659,6 +614,7 @@ namespace Xacc.Build
       return Activator.CreateInstance(t) as Action;
     }
 
+    [Obsolete]
     Action SuggestAction(string ext)
     {
       ArrayList t = actiontypes[ext] as ArrayList;
@@ -685,12 +641,10 @@ namespace Xacc.Build
       get {return invisible;}
     }
 
-    BuildProject bp = new BuildProject();
-
     /// <summary>
     /// Creates an instance of Project
     /// </summary>
-		protected Project()
+		public Project()
 		{
       invisible = GetType() == typeof(ScriptingService.ScriptProject);
 
@@ -764,7 +718,7 @@ namespace Xacc.Build
     #endregion
     
     #region Serialization
-    
+
     internal void DeserializeProjectData()
     {
       string filename = DataLocation + "\\" + ProjectName + ".projectdata";
@@ -836,96 +790,9 @@ namespace Xacc.Build
     /// </summary>
     public void Save()
     {
-      Save(ServiceHost.Project.OpenProjects);
+      Save(Location);
+      // save other data
     }
-
-    internal void Save(Project[] all)
-    {
-      if (Location == null)
-      {
-        return;
-      }
-
-      foreach (Project p in all)
-      {
-        p.fsw.EnableRaisingEvents = false;
-      }
-
-      Configuration.Projects pp = Activator.CreateInstance(Configuration.Projects.SerializerType) as Configuration.Projects;
-
-      pp.projects = all;
-
-      ArrayList acts = new ArrayList();
-
-      if (actions != null)
-      {
-
-        foreach (Action a in actions)
-        {
-          CustomAction ca = a as CustomAction;
-          if (ca != null && (ca.Input.Length > 0 || ca.Output != null))
-          {
-            acts.Add(a);
-          }
-        }
-      }
-
-      actions = acts.ToArray(typeof(Action)) as Action[];
-
-      try
-      {
-        string bakfile = Location + ".bak";
-        using (Stream s = File.Create(bakfile))
-        {
-          if (ser == null)
-          {
-            ser = new XmlSerializer(Configuration.Projects.SerializerType, new Type[] {typeof(RegexOptions)});
-          }
-          ser.Serialize(s, pp);
-        }
-
-        using (TextReader r = File.OpenText(bakfile))
-        {
-          using (TextWriter w = File.CreateText(Location))
-          {
-            string line = null;
-            
-            //clean up 'redundant' text
-            while ((line = r.ReadLine()) != null)
-            {
-              if (line.IndexOf("xsi:nil=\"true\"") < 0)
-              {
-                w.WriteLine(line.Replace("xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" ", 
-                   string.Empty).Replace("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" ", 
-                   string.Empty).Replace("startup=\"false\" ", string.Empty));
-              }
-            }
-          }
-        }
-
-        File.Delete(bakfile);
-
-        foreach (Project p in all)
-        {
-          p.SerializeProjectData();
-        }
-
-        if (Saved != null)
-        {
-          Saved(this, null);
-        }
-      }
-      catch (Exception ex)
-      {
-        Trace.WriteLine(ex, "Project::Save");
-      }
-
-      foreach (Project p in all)
-      {
-        p.fsw.EnableRaisingEvents = true;
-      }
-    }
-
 
     #endregion
 
@@ -1160,8 +1027,20 @@ namespace Xacc.Build
     /// </summary>
     internal void OnOpened()
     {
+      Environment.CurrentDirectory = RootDirectory;
       DeserializeProjectData();
-      fsw.EnableRaisingEvents = true;
+
+      foreach (BuildItem bi in EvaluatedItemsIgnoringCondition)
+      {
+        if (!bi.IsImported)
+        {
+          AddFile(bi.Include);
+        }
+      }
+
+
+
+      //fsw.EnableRaisingEvents = true;
       if (Opened != null)
       {
         Opened(this, null);
@@ -1173,10 +1052,10 @@ namespace Xacc.Build
     /// </summary>
     internal void ProjectCreated()
     {
-      foreach (Type t in GetOptionActionTypes())
-      {
-        optionnodes.Add(t, t);
-      }
+      //foreach (Type t in GetOptionActionTypes())
+      //{
+      //  optionnodes.Add(t, t);
+      //}
       rootnode.Text = ProjectName;
     }
     #endregion
@@ -1205,14 +1084,14 @@ namespace Xacc.Build
     /// Builds the project
     /// </summary>
     /// <returns>true if success</returns>
-    public bool Build()
-    {
-      ServiceHost.Error.ClearErrors(this);
+    //public bool Build()
+    //{
+    //  ServiceHost.Error.ClearErrors(this);
 
-      ServiceHost.Error.OutputErrors(this, new ActionResult(ActionResultType.Ok,0, 
-        ProjectName + " : Build succeeded", GetRelativeFilename(Location)));
-      return true;
-    }
+    //  ServiceHost.Error.OutputErrors(this, new ActionResult(ActionResultType.Ok,0, 
+    //    ProjectName + " : Build succeeded", GetRelativeFilename(Location)));
+    //  return true;
+    //}
 		
 
     #endregion
@@ -1226,7 +1105,7 @@ namespace Xacc.Build
     /// <returns>the relative path</returns>
     public string GetRelativeFilename(string filename)
     {
-      return Normalize(Path.GetFullPath(filename)).Replace(rootdir, string.Empty).TrimStart(Path.DirectorySeparatorChar);
+      return Normalize(Path.GetFullPath(filename)).Replace(RootDirectory, string.Empty).TrimStart(Path.DirectorySeparatorChar);
     }
 
     static string Normalize(string filename)
@@ -1255,7 +1134,7 @@ namespace Xacc.Build
 
       relfilename = GetRelativeFilename(relfilename);
       relfilename = Normalize(relfilename);
-      string filename = rootdir + Path.DirectorySeparatorChar + relfilename;
+      string filename = Path.Combine(RootDirectory, relfilename);
 
       IFileManagerService fms = ServiceHost.File;
       Control c = fms[filename];
@@ -1412,7 +1291,7 @@ namespace Xacc.Build
         TreeNode root = rootnode;
 				
         string[] reldirs = (Path.GetDirectoryName(filename) 
-          + Path.DirectorySeparatorChar).Replace(rootdir, string.Empty).Trim(Path.DirectorySeparatorChar)
+          + Path.DirectorySeparatorChar).Replace(RootDirectory, string.Empty).Trim(Path.DirectorySeparatorChar)
           .Split(Path.DirectorySeparatorChar);
 
         for (int j = 0; j < reldirs.Length; j++)
@@ -1701,8 +1580,8 @@ namespace Xacc.Build
               return;
             }
 
-            outfile = rootdir + Path.DirectorySeparatorChar + outfile;
-
+            outfile = Path.Combine(RootDirectory, outfile);
+            
             if (Path.GetExtension(outfile) == ".exe")
             {
 

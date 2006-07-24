@@ -167,6 +167,7 @@ namespace Xacc.ComponentModel
       new Languages.Changelog();
       new Languages.CSLexLang();
       new Languages.YaccLang();
+      new Languages.XmlLanguage();
       new LSharp.Parser();
       new CSharp.Parser();
     }

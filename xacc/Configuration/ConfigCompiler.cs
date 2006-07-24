@@ -174,8 +174,8 @@ namespace Xacc.Configuration
         string args = Compiler.DefaultArgs;
 
         args += string.Format(" {0} {1} {4} {3} {2}",
-          Compiler.MakeOut(OUTASS), Compiler.MakeDebug(dbg), TMPFILE, 
-          Compiler.MakeReferences("xacc.dll", "Microsoft.Build.Utilities.dll", "Microsoft.Build.Framework.dll"),
+          Compiler.MakeOut(OUTASS), Compiler.MakeDebug(dbg), TMPFILE,
+          Compiler.MakeReferences("xacc.dll", "Microsoft.Build.Utilities.dll", "Microsoft.Build.Framework.dll", "Microsoft.Build.Engine.dll"),
           Compiler.MakeTarget("library"));
 
         Trace.WriteLine("C# config compiler", "stdin  : {0} {1}",cmd, args);

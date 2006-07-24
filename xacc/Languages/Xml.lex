@@ -1,3 +1,4 @@
+#pragma warning disable 162
 using Xacc.ComponentModel;
 using System.Drawing;
 
