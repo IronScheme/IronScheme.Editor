@@ -1282,15 +1282,15 @@ namespace Xacc.Languages
 
       string[] vals = null;
 
-      CustomAction a = proj.GetAction(filename) as CustomAction;
-      if (a != null)
-      {
-        Option o = a.GetOption("Reference");
-        if (o != null)
-        {
-          vals = a.GetOptionValue(o) as string[];
-        }
-      }
+      //CustomAction a = proj.GetAction(filename) as CustomAction;
+      //if (a != null)
+      //{
+      //  Option o = a.GetOption("Reference");
+      //  if (o != null)
+      //  {
+      //    vals = a.GetOptionValue(o) as string[];
+      //  }
+      //}
 
       if (vals == null)
       {

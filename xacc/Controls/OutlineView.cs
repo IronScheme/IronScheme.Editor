@@ -44,12 +44,85 @@ namespace Xacc.Controls
 		public OutlineView()
 		{
       Dock = DockStyle.Fill;
-      BorderStyle = BorderStyle.None;
       ShowRootLines = false;
+      Sorted = true;
 
 			PathSeparator = Path.DirectorySeparatorChar.ToString();
 			Font = SystemInformation.MenuFont;
+
+      TreeViewNodeSorter = new TreeViewComparer();
 		}
+
+    class TreeViewComparer : IComparer
+    {
+      public int Compare(object x, object y)
+      {
+        TreeNode a = x as TreeNode;
+        TreeNode b = y as TreeNode;
+
+        if (a == null)
+        {
+          return 1;
+        }
+        if (b == null)
+        {
+          return -1;
+        }
+        string loca = a.Tag as string;
+        string locb = b.Tag as string;
+
+        if (a.Text == "Properties")
+        {
+          return -1;
+        }
+        if (b.Text == "Properties")
+        {
+          return 1;
+        }
+
+        if (a.Text == "References")
+        {
+          return -1;
+        }
+        if (b.Text == "References")
+        {
+          return 1;
+        }
+
+        if (loca == null)
+        {
+          return -1;
+        }
+        if (locb == null)
+        {
+          return 1;
+        }
+
+        if (Directory.Exists(loca))
+        {
+          if (Directory.Exists(locb))
+          {
+            return loca.CompareTo(locb);
+          }
+          else
+          {
+            return -1;
+          }
+        }
+        else
+        {
+          if (Directory.Exists(locb))
+          {
+            return -1;
+          }
+          else
+          {
+            return loca.CompareTo(locb);
+          }
+        }
+
+      }
+    }
 
 		protected override void OnBeforeExpand(TreeViewCancelEventArgs e)
 		{
@@ -143,62 +216,17 @@ namespace Xacc.Controls
           Project proj = ServiceHost.Project.Current;
           IImageListProviderService ilp = ServiceHost.ImageListProvider;
 
-          foreach (Type at in proj.ActionTypes)
+          foreach (string action in proj.Actions)
           {
-            int i = ilp[at];
-            if (i == 0)
+            ToolStripMenuItem am = new ToolStripMenuItem(action, null, new EventHandler(ChangeAction));
+
+            string dd = proj.GetAction(tag as string);
+            if (dd == action)
             {
-              ilp.Add(at, Drawing.Utils.MakeTreeImage(at));
+              am.Checked = true;
             }
-            string name = NameAttribute.GetName(at);
-            ToolStripMenuItem am = new ToolStripMenuItem(name, null, new EventHandler(ChangeAction));
 
-            Action defact = proj.SuggestAction(at);
-
-            if (defact != null)
-            {
-              CustomAction ca = defact as CustomAction;
-              if (ca != null)
-              {
-                if (ca.ActionTypes.Length > 0)
-                {
-                  ToolStripMenuItem sub = new ToolStripMenuItem("Default", null, new EventHandler(ChangeAction));
-                  sub.Tag = at;
-                  am.DropDownItems.Add(sub);
-
-                  Action dd = proj.GetAction(tag as string);
-                  if (dd != null && dd.GetType() == at)
-                  {
-                    sub.Checked = true;
-                  }
-                  foreach (Type sat in ca.ActionTypes)
-                  {
-                    i = ilp[sat];
-                    if (i == 0)
-                    {
-                      ilp.Add(sat, Drawing.Utils.MakeTreeImage(sat));
-                    }
-
-                    sub = new ToolStripMenuItem(NameAttribute.GetName(sat),  null,new EventHandler(ChangeAction));
-                    sub.Tag = sat;
-                    am.DropDownItems.Add( sub);
-                    if (dd != null && dd.GetType() == sat)
-                    {
-                      sub.Checked = true;
-                    }
-                  }
-                }
-                else
-                {
-                  Action dd = proj.GetAction(tag as string);
-                  if (dd != null && dd.GetType() == at)
-                  {
-                    am.Checked = true;
-                  }
-                }
-              }
-            }
-            am.Tag = at;
+            am.Tag = action;
             pmi.DropDownItems.Add( am);
           }
 
@@ -219,7 +247,7 @@ namespace Xacc.Controls
 		void ChangeAction(object sender, EventArgs e)
 		{
 			string file = SelectedNode.Tag as string;
-      Type t = (sender as ToolStripMenuItem).Tag as Type;
+      string action = (sender as ToolStripMenuItem).Tag as string;
 
       Project proj = ServiceHost.Project.Current;
 
@@ -229,8 +257,6 @@ namespace Xacc.Controls
       {
         SelectedNode.Remove();
       }
-
-      Action action = proj.SuggestAction(t);
 
 			proj.AddFile(file, action, true);
 		}

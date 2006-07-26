@@ -89,10 +89,22 @@ namespace Xacc.Diagnostics
           // get the caller
           StackTrace st = new StackTrace(false);
           StackFrame sf = st.GetFrame(2);
-          string msg = string.Format("{0,-15}:{1,-60}:{2}", category, 
-            sf.GetMethod(), string.Format(format, args).Replace("\n", "\\n").Replace("\t","\\t"));
-          TRACE[pos++%TRACELENGTH] = msg;
-          System.Diagnostics.Trace.WriteLine(msg);
+
+          try
+          {
+            string msg = string.Format("{0,-15}:{1,-60}:{2}", category,
+              sf.GetMethod(), string.Format(format, args).Replace("\n", "\\n").Replace("\t", "\\t"));
+            TRACE[pos++ % TRACELENGTH] = msg;
+            System.Diagnostics.Trace.WriteLine(msg);
+          }
+          catch
+          {
+            // get the caller
+            string msg = string.Format("{0,-15}:{1,-60}:{2}", category,
+              sf.GetMethod(), string.Format(format.Replace("{", "{{").Replace("}", "}}"), args).Replace("\n", "\\n").Replace("\t", "\\t"));
+            TRACE[pos++ % TRACELENGTH] = msg;
+            System.Diagnostics.Trace.WriteLine(msg);
+          }
         }
       }
       else

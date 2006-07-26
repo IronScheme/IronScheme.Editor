@@ -107,6 +107,10 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
+    <ProjectReference Include="..\antlr.runtime\antlr.runtime.csproj">
+      <Project>{CB7CC882-ED47-46C0-AAAE-7A437F22F1C6}</Project>
+      <Name>antlr.runtime</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LSharp\LSharp.csproj">
       <Name>LSharp</Name>
       <Project>{419E259F-E9C0-4E01-BA19-709FE84DEAD5}</Project>
@@ -358,6 +362,7 @@
     <Compile Include="Drawing\Utils.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Languages\Antlr.cs" />
     <Compile Include="Languages\Changelog.lex.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -479,7 +484,6 @@
     <EmbeddedResource Include="Resources\CodeValueType.png" />
     <EmbeddedResource Include="Resources\Command.png" />
     <EmbeddedResource Include="Resources\console.png" />
-    <EmbeddedResource Include="Resources\dcc32.png" />
     <EmbeddedResource Include="Resources\Debug.Continue.png" />
     <EmbeddedResource Include="Resources\Debug.Exit.png" />
     <EmbeddedResource Include="Resources\Debug.Start.png" />
@@ -507,17 +511,10 @@
     <EmbeddedResource Include="Resources\File.Open.png" />
     <EmbeddedResource Include="Resources\File.Save.png" />
     <EmbeddedResource Include="Resources\File.SaveAs.png" />
-    <EmbeddedResource Include="Resources\File.Type.C#.png" />
-    <EmbeddedResource Include="Resources\File.Type.C.png" />
-    <EmbeddedResource Include="Resources\File.Type.H.png" />
-    <EmbeddedResource Include="Resources\File.Type.IL.png" />
-    <EmbeddedResource Include="Resources\File.Type.NA.png" />
-    <EmbeddedResource Include="Resources\File.Type.Nemerle.png" />
-    <EmbeddedResource Include="Resources\File.Type.None.png" />
-    <EmbeddedResource Include="Resources\File.Type.Reference.png" />
-    <EmbeddedResource Include="Resources\File.Type.Resource.png" />
-    <EmbeddedResource Include="Resources\File.Type.Xacc.png" />
-    <EmbeddedResource Include="Resources\File.Type.Xml.png" />
+    <EmbeddedResource Include="Resources\Compile.png" />
+    <EmbeddedResource Include="Resources\None.png" />
+    <EmbeddedResource Include="Resources\Reference.png" />
+    <EmbeddedResource Include="Resources\EmbeddedResource.png" />
     <EmbeddedResource Include="Resources\Folder.Closed.png" />
     <EmbeddedResource Include="Resources\Folder.Open.png" />
     <EmbeddedResource Include="Resources\gcc.png" />
@@ -526,7 +523,6 @@
     <EmbeddedResource Include="Resources\Help.Info.png" />
     <EmbeddedResource Include="Resources\Help.SubmitBug.png" />
     <EmbeddedResource Include="Resources\ms.png" />
-    <EmbeddedResource Include="Resources\na.png" />
     <EmbeddedResource Include="Resources\nemerle-icon.png" />
     <EmbeddedResource Include="Resources\profile.ls" />
     <EmbeddedResource Include="Resources\Project.Add.png" />
@@ -535,9 +531,6 @@
     <EmbeddedResource Include="Resources\Project.Open.png" />
     <EmbeddedResource Include="Resources\Project.Properties.png" />
     <EmbeddedResource Include="Resources\Project.Run.png" />
-    <EmbeddedResource Include="Resources\Project.Type.C#.png" />
-    <EmbeddedResource Include="Resources\Project.Type.C.png" />
-    <EmbeddedResource Include="Resources\Project.Type.IL.png" />
     <EmbeddedResource Include="Resources\Project.Type.png" />
     <EmbeddedResource Include="Resources\resfile.png" />
     <EmbeddedResource Include="Resources\resultstrip.png" />
@@ -562,6 +555,9 @@
     <None Include="Languages\Yacc.lex" />
     <None Include="xacc.key" />
     <EmbeddedResource Include="Resources\Edit.SelectAll.png" />
+    <EmbeddedResource Include="Resources\Compile.Generated.png" />
+    <EmbeddedResource Include="Resources\Folder.Properties.png" />
+    <EmbeddedResource Include="Resources\Folder.References.png" />
     <Content Include="Resources\header.bmp" />
     <Content Include="Resources\installer.bmp" />
   </ItemGroup>

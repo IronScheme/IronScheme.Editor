@@ -157,7 +157,6 @@ $(SolutionDir)Tools\cs_lex $(ProjectDir)Mercury.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)PowerShell.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Css.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)IL.lex
-$(SolutionDir)Tools\cs_lex $(ProjectDir)Xml.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)HLSL.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)JavaScript.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Boo.lex

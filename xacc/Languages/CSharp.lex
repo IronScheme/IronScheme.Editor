@@ -122,6 +122,7 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 
 <YYINITIAL>{at_identifier}   { return Identifier(IDENTIFIER); }
 
+<YYINITIAL>"global::"           {return Keyword(-1);}
 <YYINITIAL>"abstract"        {return Keyword(ABSTRACT);}
 <YYINITIAL>"as"              {return Keyword(AS);}
 <YYINITIAL>"base"            {return Keyword(BASE);}

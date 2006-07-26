@@ -93,7 +93,7 @@ namespace Xacc.ComponentModel
   /// <summary>
   /// Add image association to .NET objects/types
   /// </summary>
-	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, Inherited=true, AllowMultiple=false)]
+	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Enum, Inherited=true, AllowMultiple=false)]
 	public class ImageAttribute : Attribute
 	{
 		string path;

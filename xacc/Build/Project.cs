@@ -95,7 +95,7 @@ namespace Xacc.Build
   /// Base class for all Projects
   /// </summary>
   [Image("Project.Type.png")]
-	public class Project : BuildProject
+	public class Project
 	{
     /// <summary>
     /// Gets the string representation of the project
@@ -108,16 +108,14 @@ namespace Xacc.Build
 
     #region Fields & Properties
 
+    readonly BuildProject prj = new BuildProject();
+
 		readonly Hashtable sources = new Hashtable();
     readonly TreeNode rootnode = new TreeNode();
+    TreeNode referencesnode;
+    TreeNode propertiesnode;
 
-    [Obsolete]
-    readonly Hashtable optionnodes = new Hashtable();
-
-    [Obsolete]
-    readonly Hashtable actiontypes = new Hashtable();
-
-		static readonly BinaryFormatter FORMATTER = new BinaryFormatter();
+ 		static readonly BinaryFormatter FORMATTER = new BinaryFormatter();
 
     /// <summary>
     /// Event for when project is closed
@@ -134,8 +132,8 @@ namespace Xacc.Build
     /// </summary>
 		public event ProjectEventHandler Saved;
 
-    NullAction nullaction = new NullAction();
-    Action[] actions = {};
+    string[] actions = {"Compile","EmbeddedResource","Content","None"};
+ 
     FileSystemWatcher fsw = new FileSystemWatcher();
 
     internal ICodeModule[] References
@@ -304,7 +302,7 @@ namespace Xacc.Build
     /// </summary>
     public string Location
     {
-      get	{ return Normalize(GetEvaluatedProperty("MSBuildProjectFullPath"));}
+      get	{ return Normalize(prj.GetEvaluatedProperty("MSBuildProjectFullPath"));}
       set { string location = Normalize(Path.GetFullPath(value));	}
     }
 
@@ -323,7 +321,7 @@ namespace Xacc.Build
 
     public string OutputPath
     {
-      get { return GetEvaluatedProperty("OutputPath"); }
+      get { return prj.GetEvaluatedProperty("OutputPath"); }
     }
 
     internal string OutputLocation
@@ -351,7 +349,7 @@ namespace Xacc.Build
     /// </summary>
     public string RootDirectory
     {
-      get	{	return Normalize(GetEvaluatedProperty("MSBuildProjectDirectory"));}
+      get	{	return Normalize(prj.GetEvaluatedProperty("MSBuildProjectDirectory"));}
       set 
       { 
         string root = Normalize(Path.GetFullPath(value));	
@@ -376,47 +374,47 @@ namespace Xacc.Build
 
     public string Configuration
     {
-      get { return GetEvaluatedProperty("Configuration"); }
+      get { return prj.GetEvaluatedProperty("Configuration"); }
     }
 
     public string Platform
     {
-      get { return GetEvaluatedProperty("Platform"); }
+      get { return prj.GetEvaluatedProperty("Platform"); }
     }
 
     public string ProductVersion
     {
-      get { return GetEvaluatedProperty("ProductVersion"); }
+      get { return prj.GetEvaluatedProperty("ProductVersion"); }
     }
 
     public string SchemaVersion
     {
-      get { return GetEvaluatedProperty("SchemaVersion"); }
+      get { return prj.GetEvaluatedProperty("SchemaVersion"); }
     }
 
     public string ProjectGuid
     {
-      get { return GetEvaluatedProperty("ProjectGuid"); }
+      get { return prj.GetEvaluatedProperty("ProjectGuid"); }
     }
 
     public string OutputType
     {
-      get { return GetEvaluatedProperty("OutputType"); }
+      get { return prj.GetEvaluatedProperty("OutputType"); }
     }
 
     public string AppDesignerFolder
     {
-      get { return GetEvaluatedProperty("AppDesignerFolder"); }
+      get { return prj.GetEvaluatedProperty("AppDesignerFolder"); }
     }
 
     public string RootNamespace
     {
-      get { return GetEvaluatedProperty("RootNamespace"); }
+      get { return prj.GetEvaluatedProperty("RootNamespace"); }
     }
 
     public string AssemblyName
     {
-      get { return GetEvaluatedProperty("AssemblyName"); }
+      get { return prj.GetEvaluatedProperty("AssemblyName"); }
     }
 
     /// <summary>
@@ -432,7 +430,7 @@ namespace Xacc.Build
     /// </summary>
     public string ProjectName
     {
-      get {return GetEvaluatedProperty("ProjectName");}
+      get {return prj.GetEvaluatedProperty("ProjectName");}
       set 
       {
         CodeModel.Name = rootnode.Text = value;
@@ -441,12 +439,12 @@ namespace Xacc.Build
 
     public string MSBuildProjectDefaultTargets
     {
-      get { return GetEvaluatedProperty("MSBuildProjectDefaultTargets"); }
+      get { return prj.GetEvaluatedProperty("MSBuildProjectDefaultTargets"); }
     }
 
     public string MSBuildExtensionsPath
     {
-      get { return GetEvaluatedProperty("MSBuildExtensionsPath"); }
+      get { return prj.GetEvaluatedProperty("MSBuildExtensionsPath"); }
     }
 	
     #endregion
@@ -456,173 +454,9 @@ namespace Xacc.Build
     /// <summary>
     /// Gets or sets the array of Action for this project
     /// </summary>
-    [Obsolete]
-    public Action[] Actions
+    public string[] Actions
     {
       get {return actions;}
-      set 
-      {
-        if (value == null)
-        {
-          actions = new Action[0];
-        }
-        else
-        {
-          actions = value;
-        }
-      }
-    }
-
-    [Obsolete]
-    Type[] types;
-
-    [Obsolete]
-    internal Type[] ActionTypes
-    {
-      get 
-      {
-        if (types == null)
-        {
-          ArrayList alltypes = new ArrayList();
-        
-          foreach (ArrayList l in actiontypes.Values)
-          {
-            alltypes.AddRange(l);
-          }
-
-          types = new Set(alltypes).ToArray(typeof(Type)) as Type[];
-        }
-        return types;
-      }
-    }
-
-    [Obsolete]
-    Type[] GetOptionActionTypes()
-    {
-      ArrayList l = new ArrayList();
-      Type[] types = ActionTypes;
-      foreach (Type t in types)
-      {
-        if (typeof(OptionAction).IsAssignableFrom(t))
-        {
-          l.Add(t);
-        }
-      }
-      return l.ToArray(typeof(Type)) as Type[];
-    }
-
-    /// <summary>
-    /// Add an action type to the project
-    /// </summary>
-    /// <param name="actiontype">the type of the Action</param>
-    [Obsolete]
-    protected void AddActionType(Type actiontype)
-    {
-      string[] extt = InputExtensionAttribute.GetExtensions(actiontype);
-      if (extt.Length == 0)
-      {
-        string ext = "*";
-        ArrayList exts = actiontypes[ext] as ArrayList;
-        if (exts == null)
-        {
-          actiontypes[ext] = (exts = new ArrayList());
-        }
-        if (!exts.Contains(actiontype))
-        {
-          exts.Add(actiontype);
-        }
-      }
-      else
-      {
-        foreach (string ext in extt)
-        {
-          ArrayList exts = actiontypes[ext] as ArrayList;
-          if (exts == null)
-          {
-            actiontypes[ext] = (exts = new ArrayList());
-          }
-          if (!exts.Contains(actiontype))
-          {
-            exts.Add(actiontype);
-          }
-        }
-      }
-    }
-
-    [Obsolete]
-    Action this[int index]
-    {
-      get {return actions[index] as Action;}
-      set { actions[index] = value; }
-    }
-
-    /// <summary>
-    /// Gets the Action associated with a filename in the project
-    /// </summary>
-    /// <param name="filename">the filename</param>
-    /// <returns>the associate Action</returns>
-    [Obsolete]
-    public Action GetAction(string filename)
-    {
-      filename = Normalize(Path.GetFullPath(filename));
-      if (!sources.ContainsKey(filename))
-      {
-        return null;
-      }
-
-      return sources[filename] as Action;
-    }
-
-    [Obsolete]
-    internal Action SuggestAction(Type t)
-    {
-      if (t == null)
-      {
-        return Action.None;
-      }
-      Debug.Assert(actions != null);
-      foreach (Action a in actions)
-      {
-        CustomAction ca = a as CustomAction;
-
-        if (t == a.GetType())
-        {
-          if (ca != null)
-          {
-            if (ca.MultipleInput || ca.Input.Length == 0)
-            {
-              return a;
-            }
-          }
-          else
-          {
-            return a;
-          }
-        }
-
-        if (ca != null)
-        {
-          foreach (Type st in ca.ActionTypes)
-          {
-            if (st == t)
-            {
-              return ca.GetAction(t);
-            }
-          }
-        }
-      }
-      return Activator.CreateInstance(t) as Action;
-    }
-
-    [Obsolete]
-    Action SuggestAction(string ext)
-    {
-      ArrayList t = actiontypes[ext] as ArrayList;
-      if (t == null || t.Count == 0)
-      {
-        return nullaction;
-      }
-      return SuggestAction(t[0] as Type);
     }
 
 
@@ -672,7 +506,7 @@ namespace Xacc.Build
 
         rootnode.Tag = this;
 
-        AddActionType(typeof(NullAction));
+        //AddActionType(typeof(NullAction));
 
         fsw.IncludeSubdirectories = true;
         fsw.NotifyFilter = NotifyFilters.LastWrite;
@@ -790,7 +624,7 @@ namespace Xacc.Build
     /// </summary>
     public void Save()
     {
-      Save(Location);
+      prj.Save(Location);
       // save other data
     }
 
@@ -1022,24 +856,41 @@ namespace Xacc.Build
 
     }
 
+    public void Load(string filename)
+    {
+      prj.Load(filename);
+    }
+
     /// <summary>
     /// Fires when project is opened
     /// </summary>
     internal void OnOpened()
     {
+      sources.Clear();
+      rootnode.Nodes.Clear();
       Environment.CurrentDirectory = RootDirectory;
       DeserializeProjectData();
 
-      foreach (BuildItem bi in EvaluatedItemsIgnoringCondition)
+      rootnode.TreeView.BeginUpdate();
+
+      if (AppDesignerFolder != null)
+      {
+        propertiesnode = new TreeNode(GetRelativeFilename(AppDesignerFolder));
+        propertiesnode.SelectedImageIndex = propertiesnode.ImageIndex = ServiceHost.ImageListProvider[typeof(PropertiesFolder)];
+        rootnode.Nodes.Add(propertiesnode);
+      }
+
+      foreach (BuildItem bi in prj.EvaluatedItemsIgnoringCondition)
       {
         if (!bi.IsImported)
         {
-          AddFile(bi.Include);
+           AddFileLoad(bi);
         }
       }
 
-
-
+      rootnode.TreeView.EndUpdate();
+      rootnode.Expand();
+      
       //fsw.EnableRaisingEvents = true;
       if (Opened != null)
       {
@@ -1084,14 +935,10 @@ namespace Xacc.Build
     /// Builds the project
     /// </summary>
     /// <returns>true if success</returns>
-    //public bool Build()
-    //{
-    //  ServiceHost.Error.ClearErrors(this);
-
-    //  ServiceHost.Error.OutputErrors(this, new ActionResult(ActionResultType.Ok,0, 
-    //    ProjectName + " : Build succeeded", GetRelativeFilename(Location)));
-    //  return true;
-    //}
+    public bool Build()
+    {
+      return prj.Build();
+    }
 		
 
     #endregion
@@ -1118,6 +965,22 @@ namespace Xacc.Build
         }
       }
       return filename;
+    }
+
+    public string GetAction(string filename)
+    {
+      BuildItem bi = GetBuildItem(filename);
+      if (bi != null)
+      {
+        return bi.Name;
+      }
+      return null;
+    }
+
+    BuildItem GetBuildItem(string filename)
+    {
+      filename = Normalize(Path.GetFullPath(filename));
+      return sources[filename] as BuildItem;
     }
 
     /// <summary>
@@ -1172,40 +1035,473 @@ namespace Xacc.Build
     /// Adds a file to the project
     /// </summary>
     /// <param name="filename">the filename</param>
-		public void AddFile(string filename)
-		{
-			string ext = Path.GetExtension(filename).TrimStart('.');
-      AddFile(filename, SuggestAction(ext));
-		}
-
-    /// <summary>
-    /// Adds a file to the project
-    /// </summary>
-    /// <param name="filename">the filename</param>
     /// <param name="action">the Action to associate the file with</param>
-		public void AddFile(string filename, Action action)
+		public void AddFile(string filename, string action)
 		{
 			AddFile(filename, action, false);
 		}
 
+    public static string[] WellKnownItemTypes
+    {
+      get
+      {
+        return Enum.GetNames(typeof(BuildItemType));
+      }
+    }
+
+    public static string[] GetWellKnownMetadata(string itemtype)
+    {
+      try
+      {
+        BuildItemType bit = (BuildItemType)BITC.ConvertFromString(itemtype);
+        return GetWellKnownMetadata(bit);
+      }
+      catch
+      {
+        return EMPTY;
+      }
+    }
+
+    static Type GetWellKnownMetadataType(string itemtype)
+    {
+      try
+      {
+        BuildItemType bit = (BuildItemType)BITC.ConvertFromString(itemtype);
+        return GetWellKnownMetadataType(bit);
+      }
+      catch
+      {
+        return null;
+      }
+    }
+
+    static readonly TypeConverter BITC = TypeDescriptor.GetConverter(typeof(BuildItemType));
+    static readonly string[] EMPTY = { };
+
+    static string[] GetWellKnownMetadata(BuildItemType t)
+    {
+      return Enum.GetNames(GetWellKnownMetadataType(t));
+    }
+
+    static Type GetWellKnownMetadataType(BuildItemType t)
+    {
+      switch (t)
+      {
+        case BuildItemType.BaseApplicationManifest:
+          return typeof(BaseApplicationManifestType);
+        case BuildItemType.Folder:
+          return typeof(FolderType);
+        case BuildItemType.Import:
+          return typeof(ImportType);
+        case BuildItemType.Service:
+          return typeof(ServiceType);
+        case BuildItemType.WebReferences:
+          return typeof(WebReferencesType);
+        case BuildItemType.BootstrapperFile:
+          return typeof(BootstrapperFileType);
+        case BuildItemType.COMFileReference:
+          return typeof(COMFileReferenceType);
+        case BuildItemType.Compile:
+          return typeof(CompileType);
+        case BuildItemType.COMReference:
+          return typeof(COMReferenceType);
+        case BuildItemType.Content:
+          return typeof(ContentType);
+        case BuildItemType.EmbeddedResource:
+          return typeof(EmbeddedResourceType);
+        case BuildItemType.NativeReference:
+          return typeof(NativeReferenceType);
+        case BuildItemType.None:
+          return typeof(NoneType);
+        case BuildItemType.ProjectReference:
+          return typeof(ProjectReferenceType);
+        case BuildItemType.PublishFile:
+          return typeof(PublishFileType);
+        case BuildItemType.Reference:
+          return typeof(ReferenceType);
+        case BuildItemType.WebReferenceUrl:
+          return typeof(WebReferenceUrlType);
+        default:
+          return null;
+      }
+    }
+
+
+
+    enum BuildItemType
+    {
+      BaseApplicationManifest, //simpletype
+      BootstrapperFile,
+      COMFileReference,
+      COMReference,
+      Compile,
+      Content,
+      EmbeddedResource,
+      Folder, //simpletype
+      Import, //simpletype
+      NativeReference,
+      None,
+      ProjectReference,
+      PublishFile,
+      Reference,
+      Service, //simpletype
+      WebReferenceUrl,
+      WebReferences //simpletype
+    }
+
+    /*
+Item Metadata   Description  
+%(FullPath)     Contains the full path of the item.
+%(RootDir)      Contains the root directory of the item.
+%(Filename)     Contains the file name of the item, without the extension. 
+%(Extension)    Contains the file name extension of the item. 
+%(RelativeDir)  Contains the directory path relative to the current working directory.
+%(Directory)    Contains the directory of the item, without the root directory. 
+%(RecursiveDir) If the Include attribute contains the wildcard **, this metadata specifies the directory that replaced the wildcard to find the item. 
+%(Identity)     The item specified in the Include attribute.
+%(ModifiedTime) Contains the timestamp from the last time the item was modified. 
+%(CreatedTime)  Contains the timestamp from when the item was created. 
+%(AccessedTime) Contains the timestamp from the last time the time was accessed.
+     */
+
+    [Image("Folder.png")]
+    enum FolderType { }
+
+    [Image("Import.png")]
+    enum ImportType { }
+
+    [Image("WebReference.png")]
+    enum WebReferencesType { }
+
+    [Image("Service.png")]
+    enum ServiceType { }
+
+    [Image("BaseApplicationManifest.png")]
+    enum BaseApplicationManifestType { }
+
+    [Image("BootstrapperFile.png")]
+    enum BootstrapperFileType
+    {
+      Install,
+      ProductName,
+      Visible
+    }
+
+    [Image("COMFileReference.png")]
+    enum COMFileReferenceType
+    {
+      WrapperTool
+    }
+
+    [Image("Compile.Generated.png")]
+    class CompileGenerated
+    {
+    }
+
+    [Image("Compile.png")]
+    enum CompileType
+    {
+      AutoGen,
+      CopyToOutputDirectory,
+      DependentUpon,
+      DesignTime,
+      DesignTimeSharedInput,
+      Link,
+      SubType,
+      Visible
+    }
+
+    [Image("COMReference.png")]
+    enum COMReferenceType
+    {
+      Guid,
+      Isolated,
+      Lcid,
+      Name,
+      VersionMajor,
+      VersionMinor,
+      WrapperTool
+    }
+
+    [Image("Content.png")]
+    enum ContentType
+    {
+      CopyToOutputDirectory,
+      CustomToolNamespace,
+      DependentUpon,
+      Generator,
+      Group,
+      IsAssembly,
+      LastGenOutput,
+      Link,
+      PublishState,
+      SubType,
+      Visible
+    }
+
+    [Image("EmbeddedResource.png")]
+    enum EmbeddedResourceType
+    {
+      CopyToOutputDirectory,
+      CustomToolNamespace,
+      DependentUpon,
+      Generator,
+      LastGenOutput,
+      Link,
+      LogicalName,
+      SubType,
+      Visible
+    }
+
+    [Image("NativeReference.png")]
+    enum NativeReferenceType
+    {
+      HintPath,
+      Name
+    }
+
+    [Image("None.png")]
+    enum NoneType
+    {
+      CopyToOutputDirectory,
+      CustomToolNamespace,
+      DependentUpon,
+      Generator,
+      LastGenOutput,
+      Link,
+      Visible
+    }
+
+    [Image("ProjectReference.png")]
+    enum ProjectReferenceType
+    {
+      Name,
+      Package,
+      Project
+    }
+
+    [Image("PublishFile.png")]
+    enum PublishFileType
+    {
+      Group,
+      IsAssembly,
+      PublishState,
+      Visible
+    }
+
+    [Image("Reference.png")]
+    enum ReferenceType
+    {
+      Aliases,
+      FusionName,
+      HintPath,
+      Name,
+      Private,
+      SpecificVersion
+    }
+
+    [Image("WebReferenceUrl.png")]
+    enum WebReferenceUrlType
+    {
+      CachedAppSettingsObjectName,
+      CachedDynamicPropName,
+      CachedSettingsPropName,
+      RelPath,
+      ServiceLocationURL,
+      UpdateFromURL,
+      UrlBehavior
+    }
+
+
+    enum BuildPropertyType
+    {
+      AllowUnsafeBlocks,
+      AppDesignerFolder,
+      ApplicationIcon,
+      ApplicationRevision,
+      ApplicationVersion,
+      AspNetConfiguration,
+      AssemblyKeyContainerName,
+      AssemblyKeyProviderName,
+      AssemblyName,
+      AssemblyOriginatorKeyFile,
+      AssemblyOriginatorKeyFileType,
+      AssemblyOriginatorKeyMode,
+      AssemblyType,
+      AutorunEnabled,
+      BaseAddress,
+      BootstrapperComponentsLocation,
+      BootstrapperComponentsUrl,
+      BootstrapperEnabled,
+      CheckForOverflowUnderflow,
+      CodeAnalysisInputAssembly,
+      CodeAnalysisLogFile,
+      CodeAnalysisModuleSuppressionsFile,
+      CodeAnalysisProjectFile,
+      CodeAnalysisRuleAssemblies,
+      CodeAnalysisRules,
+      CodeAnalysisUseTypeNameInSuppression,
+      CodePage,
+      Configuration,
+      ConfigurationName,
+      ConfigurationOverrideFile,
+      CreateWebPageOnPublish,
+      CurrentSolutionConfigurationContents,
+      DebugSecurityZoneURL,
+      DebugSymbols,
+      DebugType,
+      DefaultClientScript,
+      DefaultHTMLPageLayout,
+      DefaultTargetSchema,
+      DefineConstants,
+      DefineDebug,
+      DefineTrace,
+      DelaySign,
+      DeployDirSuffix,
+      DisableLangXtns,
+      DisallowUrlActivation,
+      DocumentationFile,
+      EnableASPDebugging,
+      EnableASPXDebugging,
+      EnableSQLServerDebugging,
+      EnableSecurityDebugging,
+      EnableUnmanagedDebugging,
+      ErrorReport,
+      ExcludedPermissions,
+      FallbackCulture,
+      FileAlignment,
+      FileUpgradeFlags,
+      FormFactorID,
+      GenerateManifests,
+      GenerateSerializationAssemblies,
+      Install,
+      InstallFrom,
+      InstallUrl,
+      IsWebBootstrapper,
+      JCPA,
+      LangVersion,
+      ManifestCertificateThumbprint,
+      ManifestKeyFile,
+      MapFileExtensions,
+      MinimumRequiredVersion,
+      MyType,
+      NoConfig,
+      NoStandardLibraries,
+      NoStdLib,
+      NoWarn,
+      OSVersion,
+      OpenBrowserOnPublish,
+      Optimize,
+      OptionCompare,
+      OptionExplicit,
+      OptionStrict,
+      OutputPath,
+      OutputType,
+      Platform,
+      PlatformFamilyName,
+      PlatformID,
+      PlatformName,
+      PlatformTarget,
+      PostBuildEvent,
+      PreBuildEvent,
+      ProductName,
+      ProductVersion,
+      ProjectGuid,
+      ProjectType,
+      ProjectTypeGuids,
+      PublishUrl,
+      PublisherName,
+      RecursePath,
+      ReferencePath,
+      RegisterForComInterop,
+      RemoteDebugEnabled,
+      RemoteDebugMachine,
+      RemoveIntegerChecks,
+      ResponseFile,
+      RootNamespace,
+      RunCodeAnalysis,
+      RunPostBuildEvent,
+      SchemaVersion,
+      SecureScoping,
+      SignAssembly,
+      SignManifests,
+      SolutionDir,
+      SolutionExt,
+      SolutionFileName,
+      SolutionName,
+      SolutionPath,
+      StartAction,
+      StartArguments,
+      StartPage,
+      StartProgram,
+      StartURL,
+      StartWithIE,
+      StartWorkingDirectory,
+      StartupObject,
+      SupportUrl,
+      TargetCulture,
+      TargetFrameworkVersion,
+      TargetZone,
+      TreatWarningsAsErrors,
+      TrustUrlParameters,
+      TypeComplianceDiagnostics,
+      UTF8OutPut,
+      UpdateEnabled,
+      UpdateInterval,
+      UpdateIntervalUnits,
+      UpdateMode,
+      UpdatePeriodically,
+      UpdateRequired,
+      UpdateUrl,
+      UseVSHostingProcess,
+      VSTO_TrustAssembliesLocation,
+      WarningLevel,
+      WarningsAsErrors,
+      WebPage,
+      Win32ResourceFile
+    }
+    
     /// <summary>
     /// Adds a file to the project
     /// </summary>
     /// <param name="filename">the filename</param>
     /// <param name="action">the Action to associate the file with</param>
     /// <param name="select">whether the file should be made active</param>
-    public void AddFile(string filename, Action action, bool select)
+    public void AddFile(string filename, string action, bool select)
+    {
+      AddFile(filename, action, select, null);
+    }
+
+    void AddFileLoad(BuildItem bi)
+    {
+      AddFile(bi.Include, bi.Name, false, bi);
+    }
+
+    [Image("Folder.References.png")]
+    class ReferencesFolder
+    {
+    }
+
+    [Image("Folder.Properties.png")]
+    class PropertiesFolder
+    {
+    }
+
+    Hashtable deps = new Hashtable();
+    Hashtable sourcenodes = new Hashtable();
+
+
+    void AddFile(string filename, string action, bool select, BuildItem bi)
     {
       int i = filename.LastIndexOf("*.");
       if (i >= 0)
       {
-        CustomAction ca = action as CustomAction;
-        ca.Input = null;
         string pattern = filename.Substring(i);
         foreach (string file in Directory.GetFiles(i == 0 ? "." : filename.Substring(0, i), pattern))
         {
-          AddFile(file, SuggestAction(action.GetType()));
+          AddFile(file, action);
         }
+        return;
       }
       else
       {
@@ -1216,100 +1512,98 @@ namespace Xacc.Build
 
         if (sources.ContainsKey(filename))
         {
-          if (!(action is OptionAction))
-          {
-            MessageBox.Show(ServiceHost.Window.MainForm, "Project already contains file: " + filename, 
-              "Error!", 0,MessageBoxIcon.Error);
-          }
+          MessageBox.Show(ServiceHost.Window.MainForm, "Project already contains file: " + filename,
+            "Error!", 0, MessageBoxIcon.Error);
           return;
         }
 
-        if (action != null)
+        if (bi == null)
         {
-          if (action is CustomAction)
-          {
-            CustomAction pa = action as CustomAction;
-            if (pa.Input != null)
-            {
-              if (Array.IndexOf(pa.Input, GetRelativeFilename(filename)) < 0)
-              {
-                ArrayList l = new ArrayList(pa.Input);
-                l.Add(GetRelativeFilename(filename));
-                pa.Input = l.ToArray(typeof(string)) as string[];
-              }
-            }
-            else
-            {
-              pa.Input = new string[] { GetRelativeFilename(filename) };
-            }
-          }
-          if (action is OptionAction)
-          {
-            OptionAction oa = action as OptionAction;
-            string[] vals = oa.GetOption();
-            if (vals == null || vals.Length == 0)
-            {
-              oa.SetOption(oldfilename);
-              rootnode.Nodes.Insert(0, oa.OptionNode);
-            }
-            else
-            {
-              if (Array.IndexOf(vals, oldfilename) < 0)
-              {
-                ArrayList l = new ArrayList(vals);
-                l.Add(oldfilename);
-                oa.SetOption(l.ToArray(typeof(string)) as string[]);
-              }
-              else
-              {
-                // just reset the dam thing!
-                if (!rootnode.Nodes.Contains(oa.OptionNode))
-                {
-                  rootnode.Nodes.Insert(0, oa.OptionNode);
-                }
-                oa.SetOption(vals);
-              }
-            }
-          }
-        }
-
-        sources.Add(filename, action);
-
-        if (Array.IndexOf(actions, action) < 0)
-        {
-          Action[] a = new Action[actions.Length + 1];
-          Array.Copy(actions,a, actions.Length);
-          a[actions.Length] = action;
-          actions = a;
-        }
-
-        if (action is OptionAction)
-        {
-          return; // bye bye!
+          bi = prj.AddNewItem(action, GetRelativeFilename(filename));
         }
 
         TreeNode root = rootnode;
-				
-        string[] reldirs = (Path.GetDirectoryName(filename) 
-          + Path.DirectorySeparatorChar).Replace(RootDirectory, string.Empty).Trim(Path.DirectorySeparatorChar)
-          .Split(Path.DirectorySeparatorChar);
-
-        for (int j = 0; j < reldirs.Length; j++)
+        
+        if (action == "Compile")
         {
-          if (reldirs[j] != string.Empty)
+          if (bi.HasMetadata("DependentUpon"))
           {
-            TreeNode sub = FindNode(reldirs[j], root);
-            if (sub == null)
+            string du = bi.GetMetadata("DependentUpon");
+            string path = Path.GetDirectoryName(Path.Combine(RootDirectory, bi.Include) );
+            du = Normalize(Path.Combine(path, du));
+
+            if (sources.ContainsKey(du))
             {
-              root.Nodes.Add( sub = new TreeNode(reldirs[j],1,1) );
+              root = sourcenodes[du] as TreeNode;
+              action = "CompileGenerated";
             }
-            root = sub;
+            else
+            {
+              ArrayList sd = deps[du] as ArrayList;
+              if (sd == null)
+              {
+                deps[du] = (sd = new ArrayList());
+              }
+
+              sd.Add(bi);
+              return;
+            }
+          }
+        }
+
+        sources.Add(filename, bi);
+
+        if (action != "CompileGenerated")
+        {
+          string[] reldirs = (Path.GetDirectoryName(filename)
+            + Path.DirectorySeparatorChar).Replace(RootDirectory, string.Empty).Trim(Path.DirectorySeparatorChar)
+            .Split(Path.DirectorySeparatorChar);
+
+          for (int j = 0; j < reldirs.Length; j++)
+          {
+            if (reldirs[j] != string.Empty)
+            {
+              TreeNode sub = FindNode(reldirs[j], root);
+              if (sub == null)
+              {
+                root.Nodes.Add(sub = new TreeNode(reldirs[j], 1, 1));
+              }
+              root = sub;
+            }
+          }
+
+          if (action.EndsWith("Reference"))
+          {
+            if (referencesnode == null)
+            {
+              referencesnode = new TreeNode("References");
+              referencesnode.SelectedImageIndex = referencesnode.ImageIndex = ServiceHost.ImageListProvider[typeof(ReferencesFolder)];
+              rootnode.Nodes.Add(referencesnode);
+            }
+
+            root = referencesnode;
           }
         }
         
-        root = root.Nodes.Add(Path.GetFileName(filename));
-        root.Tag = filename;
+        TreeNode nnode = new TreeNode(Path.GetFileName(filename));
+        nnode.Tag = filename;
+        root.Nodes.Add(nnode);
 
+        sourcenodes[filename] = nnode;
+
+        if (deps.ContainsKey(filename))
+        {
+          ArrayList l = deps[filename] as ArrayList;
+          deps.Remove(filename);
+
+          foreach (BuildItem sbi in l)
+          {
+            AddFileLoad(sbi);
+          }
+        }
+
+        root = nnode;
+        
         if (select)
         {
           root.TreeView.SelectedNode = root;
@@ -1319,13 +1613,17 @@ namespace Xacc.Build
 
         if (action != null)
         {
-          root.SelectedImageIndex = root.ImageIndex = action.ImageIndex;
+          int ii = ServiceHost.ImageListProvider[action == "CompileGenerated" ? typeof(CompileGenerated) :GetWellKnownMetadataType(action)];
+          root.SelectedImageIndex = root.ImageIndex = ii;
         }
 
         OnFileAdded(filename, root);
 
-        root.Expand();
-        root.EnsureVisible();
+        if (select)
+        {
+          root.Expand();
+          root.EnsureVisible();
+        }
       }
     }
 
@@ -1350,37 +1648,16 @@ namespace Xacc.Build
 			filename = Path.GetFullPath(filename);
       filename = Normalize(filename);
       string relfile = GetRelativeFilename(filename);
-      CustomAction ca = sources[filename] as CustomAction;
-      if (ca != null)
-      {
-        ArrayList l = new ArrayList(ca.Input);
-        
-        l.Remove(relfile);
-        ca.Input = l.ToArray(typeof(string)) as string[];
-      }
-      OptionAction oa = sources[filename] as OptionAction;
-      if (oa != null)
-      {
-        string[] v = oa.GetOption();
+      BuildItem bi = GetBuildItem(filename);
 
-        if (v == null || v.Length == 0)
-        {
-
-        }
-        else
-        {
-          ArrayList l = new ArrayList(v);
-        
-          l.Remove(relfile);
-          oa.SetOption(l.ToArray(typeof(string)) as string[]);
-        }
-      }
+      prj.RemoveItem(bi);
 
       if (data.pairings.ContainsKey(relfile))
       {
         data.pairings.Remove(relfile);
       }
 
+      sourcenodes.Remove(filename);
       sources.Remove(filename);
       OnFileRemoved(filename, null);
 		}
@@ -1420,19 +1697,9 @@ namespace Xacc.Build
     {
       NewFileWizard wiz = new NewFileWizard();
 	
-      Hashtable lnames = new Hashtable();
-
-      foreach (Type l in ActionTypes)
+      foreach (string lname in actions)
       {
-        lnames.Add(l.Name, l);
-      }
-
-      ArrayList ll = new ArrayList(lnames.Keys);
-      ll.Sort();
-
-      foreach (string lname in ll)
-      {
-        wiz.prjtype.Items.Add(lnames[lname]);
+        wiz.prjtype.Items.Add(lname);
       }
 
       RESTART:
@@ -1440,7 +1707,7 @@ namespace Xacc.Build
         if (wiz.ShowDialog(ServiceHost.Window.MainForm) == DialogResult.OK)
         {
           Type t = wiz.prjtype.SelectedItem as Type;
-          Action a = SuggestAction(t);
+
           string fn = wiz.name.Text;
           string path = wiz.loc.Text.Trim();
 
@@ -1451,14 +1718,6 @@ namespace Xacc.Build
 
           string fullpath = path + Path.DirectorySeparatorChar + fn;
 
-          if (Path.GetExtension(fullpath) == string.Empty)
-          {
-            CustomAction ca = a as CustomAction;
-            if (ca != null)
-            {
-              fullpath += ("." + ca.InputExtension[0]);
-            }
-          }
 
           bool overwrite = true;
 
@@ -1487,7 +1746,7 @@ namespace Xacc.Build
               w.Flush();
             }
 
-            AddFile(fullpath, a);
+            AddFile(fullpath, "None");
 
             ServiceHost.File.Open(fullpath);
           }
@@ -1511,42 +1770,42 @@ namespace Xacc.Build
       string defext = DefaultExtension;
       Hashtable actions = new Hashtable();
 
-      int count = 0;
+      //int count = 0;
 
-      ab.Append("All supported files|");
+      //ab.Append("All supported files|");
 
-      foreach (Type act in ActionTypes)
-      {
-        string[] extss = Xacc.Build.InputExtensionAttribute.GetExtensions(act);
+      //foreach (Type act in ActionTypes)
+      //{
+      //  string[] extss = Xacc.Build.InputExtensionAttribute.GetExtensions(act);
 
-        if (extss.Length > 0)
-        {
-          if (extss[0] != "*")
-          {
-            ex.AppendFormat("*.{0}", extss[0]);
-            ab.AppendFormat("*.{0};", extss[0]);
-          }
+      //  if (extss.Length > 0)
+      //  {
+      //    if (extss[0] != "*")
+      //    {
+      //      ex.AppendFormat("*.{0}", extss[0]);
+      //      ab.AppendFormat("*.{0};", extss[0]);
+      //    }
 
-          for(int i = 1; i < extss.Length; i++)
-          {
-            if (extss[i] != "*")
-            {
-              ex.AppendFormat(";*.{0}", extss[i]);
-              ab.AppendFormat("*.{0};", extss[i]);
-            }
-          }
+      //    for(int i = 1; i < extss.Length; i++)
+      //    {
+      //      if (extss[i] != "*")
+      //      {
+      //        ex.AppendFormat(";*.{0}", extss[i]);
+      //        ab.AppendFormat("*.{0};", extss[i]);
+      //      }
+      //    }
 
-          if (ex.Length > 0)
-          {
-            count++;
-            sb.AppendFormat("{0} ({1})|{1}|", NameAttribute.GetName(act), ex);
-            ex.Length = 0;
-          }
-        }
-      }
+      //    if (ex.Length > 0)
+      //    {
+      //      count++;
+      //      sb.AppendFormat("{0} ({1})|{1}|", NameAttribute.GetName(act), ex);
+      //      ex.Length = 0;
+      //    }
+      //  }
+      //}
       
-      ab.Length--;
-      ab.Append("|");
+      //ab.Length--;
+      //ab.Append("|");
       sb.Append("Text files (*.txt)|*.txt|");
       sb.Append("All files (*.*)|*.*");
 
@@ -1556,77 +1815,77 @@ namespace Xacc.Build
       {
         foreach (string file in ofd.FileNames)
         {
-          AddFile(file);
+          AddFile(file, "None");
         }
       }
     }
 
     internal void RunProject(object sender, EventArgs e)
     {
-      foreach (Action a in Actions)
+      foreach (string a in Actions)
       {
-        ProcessAction pa = a as ProcessAction;
-        if (pa != null)
-        {
-          Option o = pa.OutputOption;
-          if (o != null)
-          {
-            string outfile = pa.GetOptionValue(o) as string;
+        //ProcessAction pa = a as ProcessAction;
+        //if (pa != null)
+        //{
+        //  Option o = pa.OutputOption;
+        //  if (o != null)
+        //  {
+        //    string outfile = pa.GetOptionValue(o) as string;
 
-            if (outfile == null || outfile == string.Empty)
-            {
-              MessageBox.Show(ServiceHost.Window.MainForm, "No output specified.\nPlease specify an output file in the project properties",
-                "Error", 0, MessageBoxIcon.Error);
-              return;
-            }
+        //    if (outfile == null || outfile == string.Empty)
+        //    {
+        //      MessageBox.Show(ServiceHost.Window.MainForm, "No output specified.\nPlease specify an output file in the project properties",
+        //        "Error", 0, MessageBoxIcon.Error);
+        //      return;
+        //    }
 
-            outfile = Path.Combine(RootDirectory, outfile);
+        //    outfile = Path.Combine(RootDirectory, outfile);
             
-            if (Path.GetExtension(outfile) == ".exe")
-            {
+        //    if (Path.GetExtension(outfile) == ".exe")
+        //    {
 
-              bool rebuild = false;
+        //      bool rebuild = false;
 
-              if (File.Exists(outfile))
-              {
-                DateTime build = File.GetLastWriteTime(outfile);
-                foreach (string file in Sources)
-                {
-                  if (File.Exists(file))
-                  {
-                    if (File.GetLastWriteTime(file) > build || ServiceHost.File.IsDirty(file))
-                    {
-                      rebuild = true;
-                      break;
-                    }
-                  }
-                }
-              }
-              else
-              {
-                rebuild = true;
-              }
+        //      if (File.Exists(outfile))
+        //      {
+        //        DateTime build = File.GetLastWriteTime(outfile);
+        //        foreach (string file in Sources)
+        //        {
+        //          if (File.Exists(file))
+        //          {
+        //            if (File.GetLastWriteTime(file) > build || ServiceHost.File.IsDirty(file))
+        //            {
+        //              rebuild = true;
+        //              break;
+        //            }
+        //          }
+        //        }
+        //      }
+        //      else
+        //      {
+        //        rebuild = true;
+        //      }
 
-              if (rebuild && !Build())
-              {
-                MessageBox.Show(ServiceHost.Window.MainForm, string.Format("Build Failed: Unable to run: {0}",
-                  outfile), "Error", 0, MessageBoxIcon.Error);
-                return;
-              }
+        //      if (rebuild && !Build())
+        //      {
+        //        MessageBox.Show(ServiceHost.Window.MainForm, string.Format("Build Failed: Unable to run: {0}",
+        //          outfile), "Error", 0, MessageBoxIcon.Error);
+        //        return;
+        //      }
 
-              try
-              {
-                Process.Start(outfile);
-              }
-              catch (Exception ex)
-              {
-                MessageBox.Show(ServiceHost.Window.MainForm, string.Format("Error running: {0}\nError: {1}",
-                  outfile, ex.GetBaseException().Message), "Error", 0, MessageBoxIcon.Error);
-              }
-              return;		
-            }
-          }
-        }
+        //      try
+        //      {
+        //        Process.Start(outfile);
+        //      }
+        //      catch (Exception ex)
+        //      {
+        //        MessageBox.Show(ServiceHost.Window.MainForm, string.Format("Error running: {0}\nError: {1}",
+        //          outfile, ex.GetBaseException().Message), "Error", 0, MessageBoxIcon.Error);
+        //      }
+        //      return;		
+        //    }
+        //  }
+        //}
       }
     }
 

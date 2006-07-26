@@ -199,7 +199,7 @@ member_name
   
 type_list_opt
   :  %prec SHIFT
-  | '<' type_list '>'
+  | '<' type_list '>'                     {  MakePair(@1,@3); }
   ;  
 
 type_list
@@ -209,7 +209,7 @@ type_list
   
 type_arg_list_opt
   :
-  | '<' type_arg_list '>'
+  | '<' type_arg_list '>'                  {  MakePair(@1,@3); }
   ;  
   
 type_arg_list
@@ -555,7 +555,7 @@ empty_statement
   : ';'
   ;
 labeled_statement
-  : IDENTIFIER ':' statement
+  : IDENTIFIER ':' statement                             { OverrideToken(@1, TokenClass.Other); }
   ;
 declaration_statement
   : local_variable_declaration ';'
@@ -700,7 +700,7 @@ continue_statement
   : CONTINUE ';'
   ;
 goto_statement
-  : GOTO IDENTIFIER ';'
+  : GOTO IDENTIFIER ';'                                         { OverrideToken(@2, TokenClass.Other); }
   | GOTO CASE constant_expression ';'
   | GOTO DEFAULT ';'
   ;
@@ -1038,11 +1038,11 @@ get_accessor_declaration_opt
   | get_accessor_declaration
   ;
 get_accessor_declaration
-  : attributes_opt GET 
+  : attributes_opt modifiers_opt GET 
     accessor_body
   ;
 set_accessor_declaration
-  : attributes_opt SET 
+  : attributes_opt modifiers_opt SET 
     accessor_body
   ;
 accessor_body

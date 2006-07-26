@@ -702,38 +702,38 @@ namespace Xacc.ComponentModel
         string defext = p.DefaultExtension;
         Hashtable actions = new Hashtable();
 
-        foreach (Type act in p.ActionTypes)
-        {
-          string[] extss = Xacc.Build.InputExtensionAttribute.GetExtensions(act);
+      //  foreach (Type act in p.ActionTypes)
+      //  {
+      //    string[] extss = Xacc.Build.InputExtensionAttribute.GetExtensions(act);
 
-          if (extss.Length > 0)
-          {
-            if (extss[0] != "*")
-            {
-              ex.AppendFormat("*.{0}", extss[0]);
-              ab.AppendFormat("*.{0};", extss[0]);
-            }
+      //    if (extss.Length > 0)
+      //    {
+      //      if (extss[0] != "*")
+      //      {
+      //        ex.AppendFormat("*.{0}", extss[0]);
+      //        ab.AppendFormat("*.{0};", extss[0]);
+      //      }
 
-            for(int i = 1; i < extss.Length; i++)
-            {
-              if (extss[i] != "*")
-              {
-                ex.AppendFormat(";*.{0}", extss[i]);
-                ab.AppendFormat("*.{0};", extss[i]);
-              }
-            }
+      //      for(int i = 1; i < extss.Length; i++)
+      //      {
+      //        if (extss[i] != "*")
+      //        {
+      //          ex.AppendFormat(";*.{0}", extss[i]);
+      //          ab.AppendFormat("*.{0};", extss[i]);
+      //        }
+      //      }
 
-            if (ex.Length > 0)
-            {
-              sb.AppendFormat("{0} ({1})|{1}|", NameAttribute.GetName(act), ex);
-              ex.Length = 0;
-            }
-          }
-        }
+      //      if (ex.Length > 0)
+      //      {
+      //        sb.AppendFormat("{0} ({1})|{1}|", NameAttribute.GetName(act), ex);
+      //        ex.Length = 0;
+      //      }
+      //    }
+      //  }
       }
       
-      ab.Length--;
-      ab.Append("|");
+      //ab.Length--;
+      //ab.Append("|");
 
       sb.Append("All files (*.*)|*.*");
 

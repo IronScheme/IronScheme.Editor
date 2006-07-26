@@ -5675,16 +5675,16 @@ namespace Xacc.Controls
         string[] vals = new string[0];
         if (owner.ProjectHint != null)
         {
-          Build.CustomAction a = owner.ProjectHint.GetAction(FileName) as Build.CustomAction;
-          if (a != null)
-          {
-            Build.Option o = a.GetOption("Defines");
-            if (o != null)
-            {
-              vals = new string[] { a.GetOptionValue(o) as string };
-              Trace.WriteLine(string.Format("Preprocessor defines: {0}", string.Join(";", vals)));
-            }
-          }
+          //Build.CustomAction a = owner.ProjectHint.GetAction(FileName) as Build.CustomAction;
+          //if (a != null)
+          //{
+          //  Build.Option o = a.GetOption("Defines");
+          //  if (o != null)
+          //  {
+          //    vals = new string[] { a.GetOptionValue(o) as string };
+          //    Trace.WriteLine(string.Format("Preprocessor defines: {0}", string.Join(";", vals)));
+          //  }
+          //}
         }
         string filename = owner.ProjectHint == null ? FileName : owner.ProjectHint.GetRelativeFilename(FileName);
         hp.Start();

@@ -308,80 +308,80 @@ namespace Xacc.ComponentModel
     {
       this.proj = prj;
       int checkcount = prj.Actions.Length;
-      foreach (Action a in prj.Actions)
+      foreach (string a in prj.Actions)
       {
-        checkcount--;
-        ProcessAction pa = a as ProcessAction;
-        if (pa != null)
-        {
-          Option o = pa.OutputOption;
-          if (o == null)
-          {
-            if (checkcount == 0)
-            {
-              MessageBox.Show(ServiceHost.Window.MainForm, "Project does not have an output option.",
-                "Error", 0, MessageBoxIcon.Error);
-              return;
-            }
-          }
-          else
-          {
-            string outfile = pa.GetOptionValue(o) as string;
+        //checkcount--;
+        //ProcessAction pa = a as ProcessAction;
+        //if (pa != null)
+        //{
+        //  Option o = pa.OutputOption;
+        //  if (o == null)
+        //  {
+        //    if (checkcount == 0)
+        //    {
+        //      MessageBox.Show(ServiceHost.Window.MainForm, "Project does not have an output option.",
+        //        "Error", 0, MessageBoxIcon.Error);
+        //      return;
+        //    }
+        //  }
+        //  else
+        //  {
+        //    string outfile = pa.GetOptionValue(o) as string;
 
-            if (outfile == null || outfile == string.Empty)
-            {
-              MessageBox.Show(ServiceHost.Window.MainForm, "No output specified.\nPlease specify an output file in the project properties.",
-                "Error", 0, MessageBoxIcon.Error);
-              return;
-            }
+        //    if (outfile == null || outfile == string.Empty)
+        //    {
+        //      MessageBox.Show(ServiceHost.Window.MainForm, "No output specified.\nPlease specify an output file in the project properties.",
+        //        "Error", 0, MessageBoxIcon.Error);
+        //      return;
+        //    }
 
-            outfile = prj.RootDirectory + Path.DirectorySeparatorChar + outfile;
+        //    outfile = prj.RootDirectory + Path.DirectorySeparatorChar + outfile;
 
-            if (Path.GetExtension(outfile) == ".exe")
-            {
-              bool rebuild = false;
+        //    if (Path.GetExtension(outfile) == ".exe")
+        //    {
+        //      bool rebuild = false;
 
-              if (File.Exists(outfile))
-              {
-                DateTime build = File.GetLastWriteTime(outfile);
-                foreach (string file in prj.Sources)
-                {
-                  if (File.Exists(file)) //little bug i need to sort
-                  {
-                    if (File.GetLastWriteTime(file) > build || ServiceHost.File.IsDirty(file))
-                    {
-                      rebuild = true;
-                      break;
-                    }
-                  }
-                }
-              }
-              else
-              {
-                rebuild = true;
-              }
+        //      if (File.Exists(outfile))
+        //      {
+        //        DateTime build = File.GetLastWriteTime(outfile);
+        //        foreach (string file in prj.Sources)
+        //        {
+        //          if (File.Exists(file)) //little bug i need to sort
+        //          {
+        //            if (File.GetLastWriteTime(file) > build || ServiceHost.File.IsDirty(file))
+        //            {
+        //              rebuild = true;
+        //              break;
+        //            }
+        //          }
+        //        }
+        //      }
+        //      else
+        //      {
+        //        rebuild = true;
+        //      }
 
-              if (rebuild && !prj.Build())
-              {
-                MessageBox.Show(ServiceHost.Window.MainForm, string.Format("Build Failed: Unable to debug: {0}",
-                  outfile), "Error", 0, MessageBoxIcon.Error);
-                return;
-              }
+        //      if (rebuild && !prj.Build())
+        //      {
+        //        MessageBox.Show(ServiceHost.Window.MainForm, string.Format("Build Failed: Unable to debug: {0}",
+        //          outfile), "Error", 0, MessageBoxIcon.Error);
+        //        return;
+        //      }
 
-              try
-              {
-                Start(outfile);
-              }
-              catch (Exception ex)
-              {
-                MessageBox.Show(ServiceHost.Window.MainForm, string.Format("Error debugging: {0}\nError: {1}",
-                  outfile, ex.GetBaseException().Message), "Error", 0, MessageBoxIcon.Error);
-              }
+        //      try
+        //      {
+        //        Start(outfile);
+        //      }
+        //      catch (Exception ex)
+        //      {
+        //        MessageBox.Show(ServiceHost.Window.MainForm, string.Format("Error debugging: {0}\nError: {1}",
+        //          outfile, ex.GetBaseException().Message), "Error", 0, MessageBoxIcon.Error);
+        //      }
 
-              return;						
-            }
-          }
-        }
+        //      return;						
+        //    }
+        //  }
+        //}
       }
     }
 

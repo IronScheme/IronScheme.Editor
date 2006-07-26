@@ -80,62 +80,62 @@ namespace Xacc.Controls
 
       Text = "Project Properties: " + name;
 
-      foreach (Action ba in proj.Actions)
+      foreach (string ba in proj.Actions)
       {
-        if (ba is NullAction)
-        {
-          continue;
-        }
+        //if (ba is NullAction)
+        //{
+        //  continue;
+        //}
 
-        CustomAction ca = ba as CustomAction;
-        if (ca != null && ca.Options.Length > 0)
-        {
-          TabControl tcc = new TabControl();
-          tcc.Multiline = true;
-          tcc.SizeMode = TabSizeMode.FillToRight;
-          tcc.Dock = DockStyle.Fill;
+        //CustomAction ca = ba as CustomAction;
+        //if (ca != null && ca.Options.Length > 0)
+        //{
+        //  TabControl tcc = new TabControl();
+        //  tcc.Multiline = true;
+        //  tcc.SizeMode = TabSizeMode.FillToRight;
+        //  tcc.Dock = DockStyle.Fill;
 
-          name = NameAttribute.GetName(ba.GetType());
+        //  name = NameAttribute.GetName(ba.GetType());
 
-          TabPage tpp = new TabPage(name);
-          tpp.BackColor = Color.FromArgb(252,252,254);
+        //  TabPage tpp = new TabPage(name);
+        //  tpp.BackColor = Color.FromArgb(252,252,254);
 
-          if (ips != null)
-          {
-            tpp.ImageIndex = ips[ba];
-          }
+        //  if (ips != null)
+        //  {
+        //    tpp.ImageIndex = ips[ba];
+        //  }
 
-          tc.TabPages.Add(tpp);
+        //  tc.TabPages.Add(tpp);
 
-          Hashtable cats = new Hashtable();
+        //  Hashtable cats = new Hashtable();
 
-          tpp.Controls.Add(tcc);
+        //  tpp.Controls.Add(tcc);
 
-          foreach (Option o in ca.Options)
-          {
-            if (!cats.ContainsKey(o.Category))
-            {
-              TabPage tp = new TabPage(o.Category);
-              tp.BackColor = Color.FromArgb(252,252,254);
-              cats.Add(o.Category, tp);
-            }
-          }
+        //  foreach (Option o in ca.Options)
+        //  {
+        //    if (!cats.ContainsKey(o.Category))
+        //    {
+        //      TabPage tp = new TabPage(o.Category);
+        //      tp.BackColor = Color.FromArgb(252,252,254);
+        //      cats.Add(o.Category, tp);
+        //    }
+        //  }
 
-          foreach (Option o in ca.Options)
-          {
-            TabPage tp = cats[o.Category] as TabPage;
+        //  foreach (Option o in ca.Options)
+        //  {
+        //    TabPage tp = cats[o.Category] as TabPage;
 				
-            tp.Controls.Add( new OptionPanel(o, ca));
-          }
+        //    tp.Controls.Add( new OptionPanel(o, ca));
+        //  }
 
-          ArrayList keys = new ArrayList(cats.Keys);
-          keys.Sort();
+        //  ArrayList keys = new ArrayList(cats.Keys);
+        //  keys.Sort();
 
-          foreach (string k in keys)
-          {
-            tcc.TabPages.Add(cats[k] as TabPage);
-          }
-        }
+        //  foreach (string k in keys)
+        //  {
+        //    tcc.TabPages.Add(cats[k] as TabPage);
+        //  }
+        //}
       }
     }
 
