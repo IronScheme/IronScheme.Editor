@@ -155,7 +155,8 @@ class TypeRef : CodeTypeRef
 %nonassoc ELSE
 
 %right SHIFT
-%nonassoc '>' '<'
+%left '>' 
+%left '<'
 %left REDUCE
 
 
@@ -304,6 +305,7 @@ primary_expression_no_parenthesis
   | element_access
   | this_access
   | base_access
+  | anon_delegate_expression
   | new_expression
   | typeof_expression
   | sizeof_expression
@@ -353,6 +355,9 @@ post_increment_expression
   ;
 post_decrement_expression
   : postfix_expression MINUSMINUS
+  ;
+anon_delegate_expression
+  : DELEGATE '(' formal_parameter_list_opt ')' method_body         { MakePair(@2,@4);}
   ;
 new_expression
   : object_creation_expression
@@ -539,8 +544,7 @@ embedded_statement
   | fixed_statement
   ;
 block
-  : '{'                                               
-  statement_list_opt '}'                              { MakePair(@1,@3);}
+  : '{' statement_list_opt '}'                              { MakePair(@1,@3);}
   ;
 statement_list_opt
   : /* Nothing */
@@ -592,6 +596,7 @@ constant_declarator
   ;
 expression_statement
   : statement_expression ';'
+  | error ';'
   ;
 statement_expression
   : invocation_expression

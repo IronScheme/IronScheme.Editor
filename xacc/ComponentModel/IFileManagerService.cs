@@ -737,7 +737,7 @@ namespace Xacc.ComponentModel
 
       sb.Append("All files (*.*)|*.*");
 
-      ofd.Filter = ab.ToString() + sb.ToString();
+      ofd.Filter = sb.ToString();
 
       if (ofd.ShowDialog(ServiceHost.Window.MainForm) == DialogResult.OK)
       {

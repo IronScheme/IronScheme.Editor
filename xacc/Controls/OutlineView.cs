@@ -44,7 +44,6 @@ namespace Xacc.Controls
 		public OutlineView()
 		{
       Dock = DockStyle.Fill;
-      ShowRootLines = false;
       Sorted = true;
 
 			PathSeparator = Path.DirectorySeparatorChar.ToString();
@@ -91,6 +90,10 @@ namespace Xacc.Controls
 
         if (loca == null)
         {
+          if (locb == null)
+          {
+            return a.Text.CompareTo(b.Text);
+          }
           return -1;
         }
         if (locb == null)
@@ -138,10 +141,6 @@ namespace Xacc.Controls
 			if (e.Node.ImageIndex == 2)
 			{
 				e.Node.ImageIndex = e.Node.SelectedImageIndex = 1;
-			}
-			else if (e.Node == Nodes[0])
-			{
-				e.Cancel = true;
 			}
 			base.OnBeforeCollapse (e);
 		}

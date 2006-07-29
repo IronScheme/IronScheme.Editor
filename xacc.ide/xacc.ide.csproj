@@ -94,6 +94,7 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System">
@@ -124,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="xacc.imports" />
     <None Include="command.ls" />
     <None Include="profile.ls" />
     <None Include="xacc.ide.nsi" />
@@ -163,6 +165,7 @@ xcopy /y $(ProjectDir)ReadMe.txt $(TargetDir)
 xcopy /y $(ProjectDir)xacc.config.xsl $(TargetDir)
 xcopy /y $(ProjectDir)xacc.ide.nsi $(TargetDir)
 xcopy /y $(ProjectDir)*.ls $(TargetDir)
+xcopy /y $(ProjectDir)*.imports $(TargetDir)
 xcopy /y $(SolutionDir)LSharp.Compiler\$(OutDir)lsc.exe $(TargetDir)
 rem "C:\Program Files\NSIS\makensis" /V2 $(TargetDir)xacc.ide.nsi</PostBuildEvent>
   </PropertyGroup>

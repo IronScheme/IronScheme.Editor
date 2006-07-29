@@ -135,6 +135,7 @@
     <Compile Include="Build\Project.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Build\ProjectTask.cs" />
     <Compile Include="CodeModel\ICodeModel.cs">
       <SubType>Code</SubType>
     </Compile>

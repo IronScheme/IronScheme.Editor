@@ -259,7 +259,7 @@ namespace Xacc.ComponentModel
       Current.ExistingFile(null, EventArgs.Empty);
     }
 
-    [MenuItem("Add new project...", Index = 14, State = ApplicationState.Project)]
+    //[MenuItem("Add new project...", Index = 14, State = ApplicationState.Project)]
     void AddNewProject()
     {
       Wizard wiz = new Wizard();
@@ -294,7 +294,7 @@ namespace Xacc.ComponentModel
       ofd.CheckFileExists = true;
       ofd.CheckPathExists = true;
       ofd.AddExtension = true;
-      ofd.Filter = "Xacc Project files|*.xacc";
+      ofd.Filter = "MSBuild Project files|*.*proj";
       ofd.Multiselect = false;
       ofd.RestoreDirectory = true;
       if (DialogResult.OK == ofd.ShowDialog(ServiceHost.Window.MainForm))
@@ -324,15 +324,18 @@ namespace Xacc.ComponentModel
     [MenuItem("Build", Index = 20, State = ApplicationState.Project, Image = "Project.Build.png", AllowToolBar = true)]
     void Build()
     {
-      ConsoleLogger l = new ConsoleLogger();
-      BuildLogger bl = new BuildLogger();
-      buildengine.RegisterLogger(l);
-      buildengine.RegisterLogger(bl);
-      bool res = Current.Build();
-      buildengine.UnregisterAllLoggers();
+      //System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
+      //{
+        ConsoleLogger l = new ConsoleLogger();
+        BuildLogger bl = new BuildLogger();
+        buildengine.RegisterLogger(l);
+        buildengine.RegisterLogger(bl);
+        bool res = Current.Build();
+        buildengine.UnregisterAllLoggers();
+      //});
     }
 
-    [MenuItem("Build All", Index = 21, State = ApplicationState.Project, Image = "Project.Build.png", AllowToolBar = true)]
+    //[MenuItem("Build All", Index = 21, State = ApplicationState.Project, Image = "Project.Build.png", AllowToolBar = true)]
     void BuildAll()
     {
       foreach (Project p in OpenProjects)
@@ -558,7 +561,7 @@ namespace Xacc.ComponentModel
 			public readonly static IComparer Default = new TypeComparer();
 		}
 
-    [MenuItem("Create...", Index = 0, Image = "Project.New.png", AllowToolBar = true)]
+    //[MenuItem("Create...", Index = 0, Image = "Project.New.png", AllowToolBar = true)]
 		void Create()
 		{
 			//show wizard thingy
@@ -644,15 +647,14 @@ namespace Xacc.ComponentModel
 
 		public Project[] Open(string prjfile)
 		{
-
-      //bp.Save(prjfile + ".proj");
-
       prjfile = Path.GetFullPath(prjfile);
 
       if (!File.Exists(prjfile))
       {
         return null;
       }
+
+      Environment.CurrentDirectory = Path.GetDirectoryName(prjfile);
 
       foreach (MRUFile mru in recentfiles)
       {
@@ -668,7 +670,36 @@ namespace Xacc.ComponentModel
 
       string ext = Path.GetExtension(prjfile);
 
-      if (ext == ".sln" || ext.EndsWith("proj"))
+      if (ext == ".xaccproj")
+      {
+        solution = new Microsoft.Build.BuildEngine.Project();
+        solution.Load(prjfile);
+
+        ArrayList projects = new ArrayList();
+
+        foreach (BuildItem prj in solution.GetEvaluatedItemsByName("Content"))
+        {
+          Environment.CurrentDirectory = Path.GetDirectoryName(prjfile);
+
+          Project bp = new Project();
+
+          bp.Load(prj.Include);
+          bp.ProjectCreated();
+          Add(bp);
+          bp.OnOpened();
+
+          projects.Add(bp);
+
+          if (Opened != null)
+          {
+            Opened(bp, EventArgs.Empty);
+          }
+        }
+
+        ProjectTab.Show();
+        return projects.ToArray(typeof(Project)) as Project[];
+      }
+      else if (ext.EndsWith("proj"))
       {
         Project bp = new Project();
 
@@ -685,11 +716,62 @@ namespace Xacc.ComponentModel
 
         return new Project[] { bp };
       }
+      else if (ext == ".sln")
+      {
+        solution = new Microsoft.Build.BuildEngine.Project();
+        
+
+        using (TextReader r = File.OpenText(prjfile))
+        {
+          string all = r.ReadToEnd();
+
+          foreach (Match m in SLNPARSE.Matches(all))
+          {
+            string name = m.Groups["name"].Value;
+            string location = m.Groups["location"].Value;
+
+            solution.AddNewItem("Content", location);
+          }
+        }
+
+        solution.AddNewImport(Path.Combine(Application.StartupPath, "xacc.imports"), "");
+
+        solution.Save(Path.ChangeExtension(prjfile, ".xaccproj"));
+
+        ArrayList projects = new ArrayList();
+
+        foreach (BuildItem prj in solution.GetEvaluatedItemsByName("Content"))
+        {
+          Environment.CurrentDirectory = Path.GetDirectoryName(prjfile);
+
+          Project bp = new Project();
+
+          bp.Load(prj.Include);
+          bp.ProjectCreated();
+          Add(bp);
+          bp.OnOpened();
+
+          projects.Add(bp);
+
+          if (Opened != null)
+          {
+            Opened(bp, EventArgs.Empty);
+          }
+        }
+        ProjectTab.Show();
+
+        return projects.ToArray(typeof(Project)) as Project[];
+      }
       else
       {
         return null;
       }
 		}
+
+    static Regex SLNPARSE = new Regex(@"Project\([^\)]+\)\s=\s""(?<name>[^""]+)"",\s""(?<location>[^""]+)"",\s""(?<guid>[^""]+)""",
+      RegexOptions.Compiled);
+
+    BuildProject solution;
 
 		public Project Create(Type prjtype, string name, string rootdir)
 		{

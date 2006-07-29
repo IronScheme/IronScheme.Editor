@@ -132,7 +132,7 @@ namespace Xacc.Build
     /// </summary>
 		public event ProjectEventHandler Saved;
 
-    string[] actions = {"Compile","EmbeddedResource","Content","None"};
+    readonly Hashtable actions = new Hashtable();
  
     FileSystemWatcher fsw = new FileSystemWatcher();
 
@@ -361,12 +361,12 @@ namespace Xacc.Build
     }
 
     /*
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+$    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+$    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C197EFF6-AD4E-4E44-8601-D101E0736144}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+$    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SampleApp</RootNamespace>
     <AssemblyName>SampleApp</AssemblyName>
@@ -430,19 +430,19 @@ namespace Xacc.Build
     /// </summary>
     public string ProjectName
     {
-      get {return prj.GetEvaluatedProperty("ProjectName");}
+      get { return prj.GetEvaluatedProperty("MSBuildProjectName"); }
       set 
       {
         CodeModel.Name = rootnode.Text = value;
       }
     }
 
-    public string MSBuildProjectDefaultTargets
+    public string ProjectDefaultTargets
     {
       get { return prj.GetEvaluatedProperty("MSBuildProjectDefaultTargets"); }
     }
 
-    public string MSBuildExtensionsPath
+    public string ExtensionsPath
     {
       get { return prj.GetEvaluatedProperty("MSBuildExtensionsPath"); }
     }
@@ -456,7 +456,18 @@ namespace Xacc.Build
     /// </summary>
     public string[] Actions
     {
-      get {return actions;}
+      get 
+      {
+        ArrayList actions = new ArrayList();
+        foreach (string k in this.actions.Keys)
+        {
+          if (!(bool)this.actions[k])
+          {
+            actions.Add(k);
+          }
+        }
+        return actions.ToArray(typeof(string)) as string[];
+      }
     }
 
 
@@ -480,6 +491,26 @@ namespace Xacc.Build
     /// </summary>
 		public Project()
 		{
+      //new string[] { "Compile", "EmbeddedResource", "Content", "None" }
+      actions.Add("Compile", false);
+      actions.Add("Content", false);
+      actions.Add("EmbeddedResource", false);
+      actions.Add("None", false);
+      
+      actions.Add("Reference", true);
+      actions.Add("ProjectReference", true);
+      actions.Add("COMReference", true);
+      actions.Add("COMFileReference", true);
+      actions.Add("NativeReference", true);
+      actions.Add("WebReferences", true);
+      actions.Add("WebReferenceUrl", true);
+      actions.Add("PublishFile", true);
+      actions.Add("Folder", true);
+      actions.Add("Import", true);
+      actions.Add("Service", true);
+      actions.Add("BootstrapperFile", true);
+      actions.Add("BaseApplicationManifest", true);
+      
       invisible = GetType() == typeof(ScriptingService.ScriptProject);
 
       if (invisible)
@@ -873,7 +904,7 @@ namespace Xacc.Build
 
       rootnode.TreeView.BeginUpdate();
 
-      if (AppDesignerFolder != null)
+      if (AppDesignerFolder != null && Directory.Exists(AppDesignerFolder))
       {
         propertiesnode = new TreeNode(GetRelativeFilename(AppDesignerFolder));
         propertiesnode.SelectedImageIndex = propertiesnode.ImageIndex = ServiceHost.ImageListProvider[typeof(PropertiesFolder)];
@@ -1272,7 +1303,7 @@ Item Metadata   Description
       Visible
     }
 
-    [Image("ProjectReference.png")]
+    [Image("Project.Type.png")]
     enum ProjectReferenceType
     {
       Name,
@@ -1512,8 +1543,20 @@ Item Metadata   Description
 
         if (sources.ContainsKey(filename))
         {
-          MessageBox.Show(ServiceHost.Window.MainForm, "Project already contains file: " + filename,
-            "Error!", 0, MessageBoxIcon.Error);
+          if (bi != null && bi.Name == "Folder")
+          {
+          }
+          else
+          {
+            MessageBox.Show(ServiceHost.Window.MainForm, "Project already contains file: " + filename,
+              "Error!", 0, MessageBoxIcon.Error);
+          }
+          return;
+        }
+
+        if (action == "BootstrapperFile")
+        {
+          // dunno how to handle :(
           return;
         }
 
@@ -1522,8 +1565,13 @@ Item Metadata   Description
           bi = prj.AddNewItem(action, GetRelativeFilename(filename));
         }
 
+        if (!actions.ContainsKey(action))
+        {
+          actions.Add(action, false);
+        }
+
         TreeNode root = rootnode;
-        
+
         if (action == "Compile")
         {
           if (bi.HasMetadata("DependentUpon"))
@@ -1559,16 +1607,23 @@ Item Metadata   Description
             + Path.DirectorySeparatorChar).Replace(RootDirectory, string.Empty).Trim(Path.DirectorySeparatorChar)
             .Split(Path.DirectorySeparatorChar);
 
-          for (int j = 0; j < reldirs.Length; j++)
+          if (reldirs.Length > 0 && reldirs[0].EndsWith(":"))
           {
-            if (reldirs[j] != string.Empty)
+            //shortcut
+          }
+          else
+          {
+            for (int j = 0; j < reldirs.Length; j++)
             {
-              TreeNode sub = FindNode(reldirs[j], root);
-              if (sub == null)
+              if (reldirs[j] != string.Empty)
               {
-                root.Nodes.Add(sub = new TreeNode(reldirs[j], 1, 1));
+                TreeNode sub = FindNode(reldirs[j], root);
+                if (sub == null)
+                {
+                  root.Nodes.Add(sub = new TreeNode(reldirs[j], 1, 1));
+                }
+                root = sub;
               }
-              root = sub;
             }
           }
 
@@ -1584,8 +1639,20 @@ Item Metadata   Description
             root = referencesnode;
           }
         }
+
+        string fn = Path.GetFileName(filename);
+
+        if (string.IsNullOrEmpty(fn))
+        {
+          return;
+        }
         
-        TreeNode nnode = new TreeNode(Path.GetFileName(filename));
+        TreeNode nnode = new TreeNode(fn);
+
+        if (action == "ProjectReference" && bi.HasMetadata("Name"))
+        {
+          nnode.Text = bi.GetMetadata("Name");
+        }
         nnode.Tag = filename;
         root.Nodes.Add(nnode);
 

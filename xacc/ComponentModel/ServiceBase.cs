@@ -499,6 +499,8 @@ namespace Xacc.ComponentModel
         ToolStripMenuItem smi = new ToolStripMenuItem(file);
         pmi.DropDownItems.Add(smi);
 
+        smi.Enabled = pmi.Enabled;
+
         if (file == v)
         {
           smi.Checked = true;

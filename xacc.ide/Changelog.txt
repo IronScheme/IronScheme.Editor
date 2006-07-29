@@ -1,3 +1,21 @@
+0.2.0.51 - July 29, 2006 
+
+- Bugfixes
+- Improvements to C# parser
+- Improvements to project manager
+- Seemless VS Solution import and build :) (take xacc.ide on the road!)
+- Disabled project creation (needs redesigning)
+- Started integration with antlr
+- Forgot to mention: Total Commander users use 'xacc.ide.exe -listermode %1' as
+  replacement for Lister, this will open xacc.ide maximized and load files into 
+  the running application instance.
+
+0.2.0.50 - July 26, 2006 
+
+- Many bugfixes
+- Improvements
+- Basic load and build support for MSBuild projects
+
 0.2.0.35 - July 3, 2006 
 
 - Many bugfixes
