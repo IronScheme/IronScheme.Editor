@@ -3,7 +3,7 @@
 - Bugfixes
 - Improvements to C# parser
 - Improvements to project manager
-- Seemless VS Solution import and build :) (take xacc.ide on the road!)
+- Seamless VS Solution import and build :) (take xacc.ide on the road!)
 - Disabled project creation (needs redesigning)
 - Started integration with antlr
 - Forgot to mention: Total Commander users use 'xacc.ide.exe -listermode %1' as

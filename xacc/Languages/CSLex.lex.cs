@@ -512,12 +512,10 @@ sealed class CSLexLexer : LexerBase {
              {return Comment();}
 						break;
 					case 33: 
-               {return Type();}
+                 {return Type();}
 						break;
 					case 29: 
-                                            {
-                                        return (Yytoken)Color.DeepPink;
-                                      }
+                                            { return Other(); }
 						break;
 					case 26: 
           { ENTER(CODEBLOCK); return Operator(); }
@@ -639,7 +637,7 @@ sealed class CSLexLexer : LexerBase {
           { EXIT(); return Operator(); }
 						break;
 					case 40: 
-                 {return String();}
+                   {return String();}
 						break;
 					case 13: 
                {EXIT(); return Keyword();}

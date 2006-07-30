@@ -204,6 +204,10 @@ namespace Xacc.ComponentModel
 
     Type conv;
 
+    /// <summary>
+    /// Gets or sets the converter.
+    /// </summary>
+    /// <value>The converter.</value>
     public Type Converter
     {
       get { return conv; }

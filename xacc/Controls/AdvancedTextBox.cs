@@ -234,6 +234,10 @@ namespace Xacc.Controls
 
     }
 
+    /// <summary>
+    /// Gets or sets the editor language.
+    /// </summary>
+    /// <value>The editor language.</value>
     [TypeConverter(typeof(LanguageTypeConvertor))]
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public string EditorLanguage
@@ -821,6 +825,12 @@ namespace Xacc.Controls
  
 		#region Control override behaviour
 
+    /// <summary>
+    /// Gets or sets the font of the text displayed by the control.
+    /// </summary>
+    /// <value></value>
+    /// <returns>The <see cref="T:System.Drawing.Font"></see> to apply to the text displayed by the control. The default is the value of the <see cref="P:System.Windows.Forms.Control.DefaultFont"></see> property.</returns>
+    /// <PermissionSet><IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/><IPermission class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/></PermissionSet>
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public override Font Font
     {
@@ -835,6 +845,10 @@ namespace Xacc.Controls
     }
 
 
+    /// <summary>
+    /// Raises the <see cref="E:System.Windows.Forms.Control.ParentChanged"></see> event.
+    /// </summary>
+    /// <param name="e">An <see cref="T:System.EventArgs"></see> that contains the event data.</param>
     protected override void OnParentChanged(EventArgs e)
     {
       if (!SettingsService.idemode)
@@ -1328,6 +1342,10 @@ namespace Xacc.Controls
 			base.OnGotFocus (e);
 		}
 
+    /// <summary>
+    /// Raises the <see cref="E:System.Windows.Forms.Control.LostFocus"></see> event.
+    /// </summary>
+    /// <param name="e">An <see cref="T:System.EventArgs"></see> that contains the event data.</param>
     protected override void OnLostFocus(EventArgs e)
     {
       caret.Enabled = false;
@@ -1339,6 +1357,9 @@ namespace Xacc.Controls
       base.OnLostFocus (e);
     }
 
+    /// <summary>
+    /// Raises the <see cref="M:System.Windows.Forms.Control.CreateControl"></see> event.
+    /// </summary>
     protected override void OnCreateControl()
     {
       if (!SettingsService.idemode)
@@ -1570,6 +1591,10 @@ namespace Xacc.Controls
       SystemBrushesControlText = SystemBrushes.ControlText,
       SystemBrushesHighlight = SystemBrushes.Highlight;
 
+    /// <summary>
+    /// Raises the <see cref="E:System.Windows.Forms.Control.BackColorChanged"></see> event.
+    /// </summary>
+    /// <param name="e">An <see cref="T:System.EventArgs"></see> that contains the event data.</param>
     protected override void OnBackColorChanged(EventArgs e)
     {
       base.OnBackColorChanged (e);
@@ -4678,6 +4703,10 @@ namespace Xacc.Controls
 
       float fontdescent = 0;
 
+      /// <summary>
+      /// Gets the font descent.
+      /// </summary>
+      /// <value>The font descent.</value>
       public float FontDescent
       {
         get {return fontdescent;}

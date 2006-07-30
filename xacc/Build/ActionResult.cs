@@ -58,6 +58,10 @@ namespace Xacc.Build
       get { return msg.Trim(); }
     }
 
+    /// <summary>
+    /// Gets the error code.
+    /// </summary>
+    /// <value>The error code.</value>
     public string ErrorCode
     {
       get { return code; }
@@ -104,6 +108,7 @@ namespace Xacc.Build
     /// <param name="column">column</param>
     /// <param name="message">the message</param>
     /// <param name="filename">the filename</param>
+    /// <param name="code">The code.</param>
     public ActionResult(ActionResultType type, int line, int column, string message, string filename, string code)
     {
       this.code = code;

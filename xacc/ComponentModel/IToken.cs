@@ -80,6 +80,10 @@ namespace Xacc.ComponentModel
     /// </summary>
 		int		    Length		{get;}
 
+    /// <summary>
+    /// Gets or sets the text.
+    /// </summary>
+    /// <value>The text.</value>
     string Text { get;set;}
 
     /// <summary>

@@ -81,6 +81,11 @@ namespace Xacc.ComponentModel
     /// <returns>true if registered</returns>
 		bool						IsRegistered					(Language lang);
 
+    /// <summary>
+    /// Gets the language.
+    /// </summary>
+    /// <param name="name">The name.</param>
+    /// <returns></returns>
     Language GetLanguage(string name);
 
     /// <summary>

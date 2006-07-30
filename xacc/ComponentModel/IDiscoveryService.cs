@@ -38,6 +38,10 @@ namespace Xacc.ComponentModel
   [Name("Discovery")]
   public interface IDiscoveryService : IService
   {
+    /// <summary>
+    /// Gets the runtime.
+    /// </summary>
+    /// <value>The runtime.</value>
     Runtime.CLR Runtime {get;}
     /// <summary>
     /// The current runtime

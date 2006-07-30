@@ -237,6 +237,10 @@ namespace Xacc.ComponentModel
 
 
 
+    /// <summary>
+    /// Gets this instance.
+    /// </summary>
+    /// <returns></returns>
     public static T Get<T>() where T:class, IService
     {
       return services[typeof(T)] as T;

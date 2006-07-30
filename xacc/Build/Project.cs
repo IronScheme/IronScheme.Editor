@@ -319,6 +319,10 @@ namespace Xacc.Build
       }
     }
 
+    /// <summary>
+    /// Gets the output path.
+    /// </summary>
+    /// <value>The output path.</value>
     public string OutputPath
     {
       get { return prj.GetEvaluatedProperty("OutputPath"); }
@@ -372,46 +376,92 @@ $    <OutputType>WinExe</OutputType>
     <AssemblyName>SampleApp</AssemblyName>
      */
 
+    /// <summary>
+    /// Gets or sets the solution dir.
+    /// </summary>
+    /// <value>The solution dir.</value>
+    public string SolutionDir
+    {
+      get { return prj.GetEvaluatedProperty("SolutionDir"); }
+      set { prj.SetProperty("SolutionDir", value); }
+    }
+
+    /// <summary>
+    /// Gets the configuration.
+    /// </summary>
+    /// <value>The configuration.</value>
     public string Configuration
     {
       get { return prj.GetEvaluatedProperty("Configuration"); }
     }
 
+    /// <summary>
+    /// Gets the platform.
+    /// </summary>
+    /// <value>The platform.</value>
     public string Platform
     {
       get { return prj.GetEvaluatedProperty("Platform"); }
     }
 
+    /// <summary>
+    /// Gets the product version.
+    /// </summary>
+    /// <value>The product version.</value>
     public string ProductVersion
     {
       get { return prj.GetEvaluatedProperty("ProductVersion"); }
     }
 
+    /// <summary>
+    /// Gets the schema version.
+    /// </summary>
+    /// <value>The schema version.</value>
     public string SchemaVersion
     {
       get { return prj.GetEvaluatedProperty("SchemaVersion"); }
     }
 
+    /// <summary>
+    /// Gets the project GUID.
+    /// </summary>
+    /// <value>The project GUID.</value>
     public string ProjectGuid
     {
       get { return prj.GetEvaluatedProperty("ProjectGuid"); }
     }
 
+    /// <summary>
+    /// Gets the type of the output.
+    /// </summary>
+    /// <value>The type of the output.</value>
     public string OutputType
     {
       get { return prj.GetEvaluatedProperty("OutputType"); }
     }
 
+    /// <summary>
+    /// Gets the app designer folder.
+    /// </summary>
+    /// <value>The app designer folder.</value>
     public string AppDesignerFolder
     {
       get { return prj.GetEvaluatedProperty("AppDesignerFolder"); }
     }
 
+    /// <summary>
+    /// Gets the root namespace.
+    /// </summary>
+    /// <value>The root namespace.</value>
     public string RootNamespace
     {
       get { return prj.GetEvaluatedProperty("RootNamespace"); }
     }
 
+    /// <summary>
+    /// Gets the name of the assembly.
+    /// </summary>
+    /// <value>The name of the assembly.</value>
     public string AssemblyName
     {
       get { return prj.GetEvaluatedProperty("AssemblyName"); }
@@ -437,11 +487,19 @@ $    <OutputType>WinExe</OutputType>
       }
     }
 
+    /// <summary>
+    /// Gets the project default targets.
+    /// </summary>
+    /// <value>The project default targets.</value>
     public string ProjectDefaultTargets
     {
       get { return prj.GetEvaluatedProperty("MSBuildProjectDefaultTargets"); }
     }
 
+    /// <summary>
+    /// Gets the extensions path.
+    /// </summary>
+    /// <value>The extensions path.</value>
     public string ExtensionsPath
     {
       get { return prj.GetEvaluatedProperty("MSBuildExtensionsPath"); }
@@ -657,6 +715,7 @@ $    <OutputType>WinExe</OutputType>
     {
       prj.Save(Location);
       // save other data
+      SerializeProjectData();
     }
 
     #endregion
@@ -887,6 +946,10 @@ $    <OutputType>WinExe</OutputType>
 
     }
 
+    /// <summary>
+    /// Loads the specified filename.
+    /// </summary>
+    /// <param name="filename">The filename.</param>
     public void Load(string filename)
     {
       prj.Load(filename);
@@ -957,11 +1020,6 @@ $    <OutputType>WinExe</OutputType>
 			}
 		}
 
-    void BuildThreaded(object state)
-    {
-      Build();
-    }
-
     /// <summary>
     /// Builds the project
     /// </summary>
@@ -970,6 +1028,25 @@ $    <OutputType>WinExe</OutputType>
     {
       return prj.Build();
     }
+
+    /// <summary>
+    /// Rebuilds this project.
+    /// </summary>
+    /// <returns></returns>
+    public bool Rebuild()
+    {
+      return prj.Build("Rebuild");
+    }
+
+    /// <summary>
+    /// Cleans this project.
+    /// </summary>
+    /// <returns></returns>
+    public bool Clean()
+    {
+      return prj.Build("Clean");
+    }
+
 		
 
     #endregion
@@ -998,6 +1075,11 @@ $    <OutputType>WinExe</OutputType>
       return filename;
     }
 
+    /// <summary>
+    /// Gets the action.
+    /// </summary>
+    /// <param name="filename">The filename.</param>
+    /// <returns></returns>
     public string GetAction(string filename)
     {
       BuildItem bi = GetBuildItem(filename);
@@ -1053,6 +1135,10 @@ $    <OutputType>WinExe</OutputType>
       return c;
     }
 
+    /// <summary>
+    /// Closes the file.
+    /// </summary>
+    /// <param name="filename">The filename.</param>
     public void CloseFile(string filename)
     {
       filename = GetRelativeFilename(filename);
@@ -1072,6 +1158,10 @@ $    <OutputType>WinExe</OutputType>
 			AddFile(filename, action, false);
 		}
 
+    /// <summary>
+    /// Gets the well known item types.
+    /// </summary>
+    /// <value>The well known item types.</value>
     public static string[] WellKnownItemTypes
     {
       get
@@ -1080,6 +1170,11 @@ $    <OutputType>WinExe</OutputType>
       }
     }
 
+    /// <summary>
+    /// Gets the well known metadata.
+    /// </summary>
+    /// <param name="itemtype">The itemtype.</param>
+    /// <returns></returns>
     public static string[] GetWellKnownMetadata(string itemtype)
     {
       try
@@ -1093,7 +1188,7 @@ $    <OutputType>WinExe</OutputType>
       }
     }
 
-    static Type GetWellKnownMetadataType(string itemtype)
+    internal static Type GetWellKnownMetadataType(string itemtype)
     {
       try
       {
@@ -1303,7 +1398,7 @@ Item Metadata   Description
       Visible
     }
 
-    [Image("Project.Type.png")]
+    [Image("ProjectReference.png")]
     enum ProjectReferenceType
     {
       Name,
@@ -1554,15 +1649,21 @@ Item Metadata   Description
           return;
         }
 
-        if (action == "BootstrapperFile")
+        if (bi.HasMetadata("Visible") && bi.GetMetadata("Visible") == "false")
         {
-          // dunno how to handle :(
+          return;
+        }
+
+        if (action == "BootstrapperFile" || action == "BootstrapperPackage")
+        {
+          // dunno how to handle :(, marked invisible
           return;
         }
 
         if (bi == null)
         {
           bi = prj.AddNewItem(action, GetRelativeFilename(filename));
+          prj.MarkProjectAsDirty();
         }
 
         if (!actions.ContainsKey(action))
@@ -1572,62 +1673,61 @@ Item Metadata   Description
 
         TreeNode root = rootnode;
 
-        if (action == "Compile")
+        if (bi.HasMetadata("DependentUpon"))
         {
-          if (bi.HasMetadata("DependentUpon"))
+          string du = bi.GetMetadata("DependentUpon");
+          string path = Path.GetDirectoryName(Path.Combine(RootDirectory, bi.Include));
+          du = Normalize(Path.Combine(path, du));
+
+          if (sources.ContainsKey(du))
           {
-            string du = bi.GetMetadata("DependentUpon");
-            string path = Path.GetDirectoryName(Path.Combine(RootDirectory, bi.Include) );
-            du = Normalize(Path.Combine(path, du));
-
-            if (sources.ContainsKey(du))
+            root = sourcenodes[du] as TreeNode;
+            action += "Generated";
+          }
+          else
+          {
+            ArrayList sd = deps[du] as ArrayList;
+            if (sd == null)
             {
-              root = sourcenodes[du] as TreeNode;
-              action = "CompileGenerated";
+              deps[du] = (sd = new ArrayList());
             }
-            else
-            {
-              ArrayList sd = deps[du] as ArrayList;
-              if (sd == null)
-              {
-                deps[du] = (sd = new ArrayList());
-              }
 
-              sd.Add(bi);
-              return;
-            }
+            sd.Add(bi);
+            return;
           }
         }
 
         sources.Add(filename, bi);
 
-        if (action != "CompileGenerated")
+        if (!action.EndsWith("Generated"))
         {
-          string[] reldirs = (Path.GetDirectoryName(filename)
-            + Path.DirectorySeparatorChar).Replace(RootDirectory, string.Empty).Trim(Path.DirectorySeparatorChar)
-            .Split(Path.DirectorySeparatorChar);
+          if (!action.EndsWith("Reference"))
+          {
+            string[] reldirs = (Path.GetDirectoryName(filename)
+              + Path.DirectorySeparatorChar).Replace(RootDirectory, string.Empty).Trim(Path.DirectorySeparatorChar)
+              .Split(Path.DirectorySeparatorChar);
 
-          if (reldirs.Length > 0 && reldirs[0].EndsWith(":"))
-          {
-            //shortcut
-          }
-          else
-          {
-            for (int j = 0; j < reldirs.Length; j++)
+            if (reldirs.Length > 0 && reldirs[0].EndsWith(":"))
             {
-              if (reldirs[j] != string.Empty)
+              //shortcut
+            }
+            else
+            {
+              for (int j = 0; j < reldirs.Length; j++)
               {
-                TreeNode sub = FindNode(reldirs[j], root);
-                if (sub == null)
+                if (reldirs[j] != string.Empty)
                 {
-                  root.Nodes.Add(sub = new TreeNode(reldirs[j], 1, 1));
+                  TreeNode sub = FindNode(reldirs[j], root);
+                  if (sub == null)
+                  {
+                    root.Nodes.Add(sub = new TreeNode(reldirs[j], 1, 1));
+                  }
+                  root = sub;
                 }
-                root = sub;
               }
             }
           }
-
-          if (action.EndsWith("Reference"))
+          else
           {
             if (referencesnode == null)
             {
@@ -1653,7 +1753,7 @@ Item Metadata   Description
         {
           nnode.Text = bi.GetMetadata("Name");
         }
-        nnode.Tag = filename;
+        nnode.Tag = bi;
         root.Nodes.Add(nnode);
 
         sourcenodes[filename] = nnode;
@@ -1680,7 +1780,7 @@ Item Metadata   Description
 
         if (action != null)
         {
-          int ii = ServiceHost.ImageListProvider[action == "CompileGenerated" ? typeof(CompileGenerated) :GetWellKnownMetadataType(action)];
+          int ii = ServiceHost.ImageListProvider[action == "CompileGenerated" ? typeof(CompileGenerated) : GetWellKnownMetadataType(bi.Name)];
           root.SelectedImageIndex = root.ImageIndex = ii;
         }
 
@@ -1753,11 +1853,6 @@ Item Metadata   Description
     {
       ProcessActionDialog pad = new ProcessActionDialog(this);
       pad.ShowDialog(ServiceHost.Window.MainForm);
-    }
-
-    internal void BuildProject(object sender, EventArgs e)
-    {
-      System.Threading.ThreadPool.QueueUserWorkItem( new System.Threading.WaitCallback(BuildThreaded));
     }
 
     internal void NewFile(object sender, EventArgs e)

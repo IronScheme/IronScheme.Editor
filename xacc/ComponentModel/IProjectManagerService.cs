@@ -324,14 +324,48 @@ namespace Xacc.ComponentModel
     [MenuItem("Build", Index = 20, State = ApplicationState.Project, Image = "Project.Build.png", AllowToolBar = true)]
     void Build()
     {
+      // MSBuild complains about MTA... weird shit
       //System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
       //{
         ConsoleLogger l = new ConsoleLogger();
+        l.Verbosity = Microsoft.Build.Framework.LoggerVerbosity.Minimal;
         BuildLogger bl = new BuildLogger();
         buildengine.RegisterLogger(l);
         buildengine.RegisterLogger(bl);
         bool res = Current.Build();
         buildengine.UnregisterAllLoggers();
+      //});
+    }
+
+    [MenuItem("Rebuild", Index = 21, State = ApplicationState.Project, Image = "Project.Build.png", AllowToolBar = true)]
+    void Rebuild()
+    {
+      // MSBuild complains about MTA... weird shit
+      //System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
+      //{
+      ConsoleLogger l = new ConsoleLogger();
+      l.Verbosity = Microsoft.Build.Framework.LoggerVerbosity.Minimal;
+      BuildLogger bl = new BuildLogger();
+      buildengine.RegisterLogger(l);
+      buildengine.RegisterLogger(bl);
+      bool res = Current.Rebuild();
+      buildengine.UnregisterAllLoggers();
+      //});
+    }
+
+    [MenuItem("Clean", Index = 22, State = ApplicationState.Project, Image = "Project.Build.png", AllowToolBar = true)]
+    void Clean()
+    {
+      // MSBuild complains about MTA... weird shit
+      //System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
+      //{
+      ConsoleLogger l = new ConsoleLogger();
+      l.Verbosity = Microsoft.Build.Framework.LoggerVerbosity.Minimal;
+      BuildLogger bl = new BuildLogger();
+      buildengine.RegisterLogger(l);
+      buildengine.RegisterLogger(bl);
+      bool res = Current.Clean();
+      buildengine.UnregisterAllLoggers();
       //});
     }
 
@@ -347,7 +381,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Run", Index = 22, State = ApplicationState.Project, Image = "Project.Run.png", AllowToolBar = true)]
+    //[MenuItem("Run", Index = 25, State = ApplicationState.Project, Image = "Project.Run.png", AllowToolBar = true)]
     void Run()
     {
       if (StartupProject != null)
@@ -634,13 +668,13 @@ namespace Xacc.ComponentModel
     [MenuItem("Close all", Index = 25, State = ApplicationState.Project)]
     public void	CloseAll()
     {
-      if (current != null)
+      if (solution != null)
       {
-        current.Save();
+        //solution.Save(
       }
-      else if (projects.Count > 0)
+      foreach (Project p in OpenProjects)
       {
-        OpenProjects[0].Save();
+        p.Save();
       }
       Close(OpenProjects);
     }
@@ -675,6 +709,7 @@ namespace Xacc.ComponentModel
         solution = new Microsoft.Build.BuildEngine.Project();
         solution.Load(prjfile);
 
+
         ArrayList projects = new ArrayList();
 
         foreach (BuildItem prj in solution.GetEvaluatedItemsByName("Content"))
@@ -684,6 +719,8 @@ namespace Xacc.ComponentModel
           Project bp = new Project();
 
           bp.Load(prj.Include);
+
+          bp.SolutionDir = Path.GetDirectoryName(prjfile) + Path.DirectorySeparatorChar;
           bp.ProjectCreated();
           Add(bp);
           bp.OnOpened();
@@ -719,7 +756,8 @@ namespace Xacc.ComponentModel
       else if (ext == ".sln")
       {
         solution = new Microsoft.Build.BuildEngine.Project();
-        
+
+        solution.SetProperty("SolutionDir", Path.GetDirectoryName(prjfile));
 
         using (TextReader r = File.OpenText(prjfile))
         {
@@ -748,6 +786,9 @@ namespace Xacc.ComponentModel
 
           bp.Load(prj.Include);
           bp.ProjectCreated();
+
+          bp.SolutionDir = Path.GetDirectoryName(prjfile) + Path.DirectorySeparatorChar;
+
           Add(bp);
           bp.OnOpened();
 
@@ -822,10 +863,10 @@ namespace Xacc.ComponentModel
       System.Windows.Forms.TreeView t = sender as System.Windows.Forms.TreeView;
       if (t.SelectedNode != null)
       {
-        string file = t.SelectedNode.Tag as string;
+        BuildItem file = t.SelectedNode.Tag as BuildItem;
         if (file != null)
         {
-          ServiceHost.File.BringToFront( current.OpenFile(file));
+          ServiceHost.File.BringToFront( current.OpenFile(Path.Combine(current.RootDirectory, file.Include)));
           return;
         }
       }

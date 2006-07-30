@@ -32,6 +32,13 @@ namespace Xacc.ComponentModel
   /// </summary>
 	public struct ColorInfo
 	{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:ColorInfo"/> class.
+    /// </summary>
+    /// <param name="forecolor">The forecolor.</param>
+    /// <param name="backcolor">The backcolor.</param>
+    /// <param name="bordercolor">The bordercolor.</param>
+    /// <param name="style">The style.</param>
     public ColorInfo(Color forecolor, Color backcolor, Color bordercolor, FontStyle style)
     {
       this.BorderColor = bordercolor.Name == "0" ? Color.Empty : bordercolor;
@@ -40,6 +47,12 @@ namespace Xacc.ComponentModel
       this.Style = style;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:ColorInfo"/> class.
+    /// </summary>
+    /// <param name="forecolor">The forecolor.</param>
+    /// <param name="backcolor">The backcolor.</param>
+    /// <param name="style">The style.</param>
     public ColorInfo(Color forecolor, Color backcolor, FontStyle style)
     {
       this.BorderColor = Color.Empty;
@@ -62,7 +75,9 @@ namespace Xacc.ComponentModel
     /// </summary>
 		public Color				BackColor;
 
-
+    /// <summary>
+    /// The border color to use
+    /// </summary>
     public Color BorderColor;
 	
     /// <summary>

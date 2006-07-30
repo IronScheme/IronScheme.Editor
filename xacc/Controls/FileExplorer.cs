@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Xacc.Controls
 {
-  public partial class FileExplorer : UserControl
+  partial class FileExplorer : UserControl
   {
     public FileExplorer()
     {

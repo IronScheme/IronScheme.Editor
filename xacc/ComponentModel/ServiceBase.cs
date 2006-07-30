@@ -102,6 +102,11 @@ namespace Xacc.ComponentModel
         RealTrace.WriteLine(ctr.Name, value.ToString());
       }
 
+      /// <summary>
+      /// Asserts the specified condition.
+      /// </summary>
+      /// <param name="condition">if set to <c>true</c> [condition].</param>
+      /// <param name="message">The message.</param>
       [Conditional("TRACE")]
       public void Assert(bool condition, string message)
       {

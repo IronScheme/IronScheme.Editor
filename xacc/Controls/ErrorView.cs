@@ -181,6 +181,11 @@ namespace Xacc.Controls
       if (SelectedItems.Count == 1)
       {
         ActionResult ar = (ActionResult) SelectedItems[0].Tag;
+
+        if (!File.Exists(ar.Location.Filename))
+        {
+          return;
+        }
         
         AdvancedTextBox atb = (ServiceHost.Project.Current == null ?
           ServiceHost.File.Open(ar.Location.Filename)

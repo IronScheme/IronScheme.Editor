@@ -62,8 +62,7 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>TRACE;VS;AUTOCOMPLETE</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>bin\Release\xacc.xml</DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
@@ -559,8 +558,10 @@
     <EmbeddedResource Include="Resources\Compile.Generated.png" />
     <EmbeddedResource Include="Resources\Folder.Properties.png" />
     <EmbeddedResource Include="Resources\Folder.References.png" />
+    <EmbeddedResource Include="Resources\Content.png" />
     <Content Include="Resources\header.bmp" />
     <Content Include="Resources\installer.bmp" />
+    <EmbeddedResource Include="Resources\ProjectReference.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

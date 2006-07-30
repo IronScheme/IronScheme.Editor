@@ -321,7 +321,8 @@ namespace Xacc.ComponentModel
           }
           else
           {
-            namemap.Add(name, 0);	
+            namemap.Add(name, 0);
+            Trace.WriteLine("Image not found: {0}", name);
           }
         }
         return (int) namemap[name];

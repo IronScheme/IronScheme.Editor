@@ -31,8 +31,12 @@ using Xacc.ComponentModel;
 using System.Windows.Forms;
 using System.Reflection;
 using Xacc.Controls;
+
+
+using Microsoft.Build.BuildEngine;
 using Xacc.Build;
 
+using Project = Xacc.Build.Project;
 
 using SR = System.Resources;
 #endregion
@@ -67,8 +71,11 @@ namespace Xacc.Controls
         {
           return -1;
         }
-        string loca = a.Tag as string;
-        string locb = b.Tag as string;
+        BuildItem locabi = a.Tag as BuildItem;
+        BuildItem locbbi = b.Tag as BuildItem;
+
+        string loca = locabi != null ? locabi.Include : null;
+        string locb = locbbi != null ? locbbi.Include : null;
 
         if (a.Text == "Properties")
         {
@@ -198,38 +205,39 @@ namespace Xacc.Controls
             }
           }
         }
-        else if (tag is string)
+        else if (tag is BuildItem)
         {
           ToolStripMenuItem pmi = new ToolStripMenuItem("Remove", null,
             new EventHandler(RemoveFile));
 
+
+          IImageListProviderService ims = ServiceHost.ImageListProvider;
+
+          cm.ImageList = ims.ImageList;
+
           _RemoveFile rf = new _RemoveFile();
           rf.value = tag;
-          pmi.Tag = rf;
+          pmi.ImageIndex = ims[rf];
           cm.Items.Add(pmi);
 
           cm.Items.Add(new ToolStripSeparator());
 
           pmi = new ToolStripMenuItem("Action");
+          cm.Items.Add(pmi);
 
           Project proj = ServiceHost.Project.Current;
-          IImageListProviderService ilp = ServiceHost.ImageListProvider;
 
           foreach (string action in proj.Actions)
           {
             ToolStripMenuItem am = new ToolStripMenuItem(action, null, new EventHandler(ChangeAction));
+            pmi.DropDownItems.Add(am);
 
-            string dd = proj.GetAction(tag as string);
+            string dd = (tag as BuildItem).Name;
             if (dd == action)
             {
               am.Checked = true;
             }
-
-            am.Tag = action;
-            pmi.DropDownItems.Add( am);
           }
-
-          cm.Items.Add(pmi);
         }
 
         cm.Show(this, new Point(e.X, e.Y));
@@ -245,24 +253,24 @@ namespace Xacc.Controls
 
 		void ChangeAction(object sender, EventArgs e)
 		{
-			string file = SelectedNode.Tag as string;
-      string action = (sender as ToolStripMenuItem).Tag as string;
+      BuildItem file = SelectedNode.Tag as BuildItem;
+      string action = (sender as ToolStripMenuItem).Text as string;
 
       Project proj = ServiceHost.Project.Current;
 
-			proj.RemoveFile(file);
+			proj.RemoveFile(file.Include);
 
       if (SelectedNode.Nodes.Count == 0)
       {
         SelectedNode.Remove();
       }
 
-			proj.AddFile(file, action, true);
+			proj.AddFile(file.Include, action, true);
 		}
 
 		void RemoveFile(object sender, EventArgs e)
 		{
-			string file = (SelectedNode.Tag) as string;
+      BuildItem file = (SelectedNode.Tag) as BuildItem;
 
 			if (file != null)
 			{
@@ -271,7 +279,7 @@ namespace Xacc.Controls
 				{
           Project proj = ServiceHost.Project.Current;
 					SelectedNode.Remove();
-					proj.RemoveFile(file);
+					proj.RemoveFile(file.Include);
 				}
 			}
 		}

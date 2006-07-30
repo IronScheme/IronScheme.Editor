@@ -28,7 +28,16 @@ namespace Xacc.ComponentModel
 	/// </summary>
 	public interface IStatusBarService : IService
 	{
+    /// <summary>
+    /// Gets the status bar.
+    /// </summary>
+    /// <value>The status bar.</value>
     StatusStrip StatusBar {get;}
+
+    /// <summary>
+    /// Gets or sets the progress.
+    /// </summary>
+    /// <value>The progress.</value>
     float Progress { get; set;}
 	}
 

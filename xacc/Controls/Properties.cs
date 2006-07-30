@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Xacc.Controls
 {
-  public partial class Properties : UserControl
+  partial class Properties : UserControl
   {
     public Properties()
     {
