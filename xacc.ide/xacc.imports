@@ -4,15 +4,15 @@
   </PropertyGroup>
  
   <Target Name="Build">
-    <MSBuild Projects="@(Content)" Properties="SolutionDir=$(SolutionDir)"/>
+    <MSBuild Projects="@(BuildProject)" Properties="SolutionDir=$(SolutionDir)"/>
   </Target>
   
   <Target Name="Clean">
-    <MSBuild Projects="@(Content)" Targets="Clean" Properties="SolutionDir=$(SolutionDir)"/>
+    <MSBuild Projects="@(BuildProject)" Targets="Clean" Properties="SolutionDir=$(SolutionDir)"/>
   </Target>
 
   <Target Name="Rebuild">
-    <MSBuild Projects="@(Content)" Targets="Rebuild" Properties="SolutionDir=$(SolutionDir)"/>
+    <MSBuild Projects="@(BuildProject)" Targets="Rebuild" Properties="SolutionDir=$(SolutionDir)"/>
   </Target>
 
 </Project>

@@ -48,6 +48,8 @@ using SR = System.Resources;
 using Microsoft.Build.BuildEngine;
 using BuildProject = Microsoft.Build.BuildEngine.Project;
 
+using Microsoft.Build.Framework;
+
 #endregion
 
 namespace Xacc.Build
@@ -1026,7 +1028,8 @@ $    <OutputType>WinExe</OutputType>
     /// <returns>true if success</returns>
     public bool Build()
     {
-      return prj.Build();
+      output.Clear();
+      return prj.Build(null, output);
     }
 
     /// <summary>
@@ -1035,7 +1038,7 @@ $    <OutputType>WinExe</OutputType>
     /// <returns></returns>
     public bool Rebuild()
     {
-      return prj.Build("Rebuild");
+      return prj.Build(new string[] { "Rebuild" }, output);
     }
 
     /// <summary>
@@ -1044,9 +1047,10 @@ $    <OutputType>WinExe</OutputType>
     /// <returns></returns>
     public bool Clean()
     {
-      return prj.Build("Clean");
+      return prj.Build(new string[] { "Clean" }, output);
     }
 
+    readonly Hashtable output = new Hashtable();
 		
 
     #endregion
@@ -1641,6 +1645,10 @@ Item Metadata   Description
           if (bi != null && bi.Name == "Folder")
           {
           }
+          else if (Array.IndexOf(Actions, action) < 0)
+          {
+            //not user added, VS garbage
+          }
           else
           {
             MessageBox.Show(ServiceHost.Window.MainForm, "Project already contains file: " + filename,
@@ -1654,7 +1662,7 @@ Item Metadata   Description
           return;
         }
 
-        if (action == "BootstrapperFile" || action == "BootstrapperPackage")
+        if (action == "BootstrapperFile" || action == "BootstrapperPackage" || action == "Service")
         {
           // dunno how to handle :(, marked invisible
           return;
@@ -1984,70 +1992,22 @@ Item Metadata   Description
 
     internal void RunProject(object sender, EventArgs e)
     {
-      foreach (string a in Actions)
+      if (Build())
       {
-        //ProcessAction pa = a as ProcessAction;
-        //if (pa != null)
-        //{
-        //  Option o = pa.OutputOption;
-        //  if (o != null)
-        //  {
-        //    string outfile = pa.GetOptionValue(o) as string;
+        foreach (ITaskItem item in output["Build"] as ITaskItem[])
+        {
+          string name = item.ItemSpec;
+          if (File.Exists(name))
+          {
+            if (Path.GetExtension(name) == ".exe")
+            {
+              //run process
+              System.Threading.ThreadPool.QueueUserWorkItem(delegate(object s) { Process.Start(name); });
+              return;
+            }
+          }
+        }
 
-        //    if (outfile == null || outfile == string.Empty)
-        //    {
-        //      MessageBox.Show(ServiceHost.Window.MainForm, "No output specified.\nPlease specify an output file in the project properties",
-        //        "Error", 0, MessageBoxIcon.Error);
-        //      return;
-        //    }
-
-        //    outfile = Path.Combine(RootDirectory, outfile);
-            
-        //    if (Path.GetExtension(outfile) == ".exe")
-        //    {
-
-        //      bool rebuild = false;
-
-        //      if (File.Exists(outfile))
-        //      {
-        //        DateTime build = File.GetLastWriteTime(outfile);
-        //        foreach (string file in Sources)
-        //        {
-        //          if (File.Exists(file))
-        //          {
-        //            if (File.GetLastWriteTime(file) > build || ServiceHost.File.IsDirty(file))
-        //            {
-        //              rebuild = true;
-        //              break;
-        //            }
-        //          }
-        //        }
-        //      }
-        //      else
-        //      {
-        //        rebuild = true;
-        //      }
-
-        //      if (rebuild && !Build())
-        //      {
-        //        MessageBox.Show(ServiceHost.Window.MainForm, string.Format("Build Failed: Unable to run: {0}",
-        //          outfile), "Error", 0, MessageBoxIcon.Error);
-        //        return;
-        //      }
-
-        //      try
-        //      {
-        //        Process.Start(outfile);
-        //      }
-        //      catch (Exception ex)
-        //      {
-        //        MessageBox.Show(ServiceHost.Window.MainForm, string.Format("Error running: {0}\nError: {1}",
-        //          outfile, ex.GetBaseException().Message), "Error", 0, MessageBoxIcon.Error);
-        //      }
-        //      return;		
-        //    }
-        //  }
-        //}
       }
     }
 

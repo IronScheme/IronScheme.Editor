@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="http://schemas.microsoft.com/developer/msbuild/2003" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" elementFormDefault="qualified">
+  <!-- =================== INCLUDE COMMON SCHEMA =========================== -->
+  <xs:include schemaLocation="C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\MSBuild\Microsoft.Build.CommonTypes.xsd" />
+  <!-- ======================== ITEMS =====================================-->
+  <!-- Possible Types include SimpleItemType (no meta-data subelements), GenericItemType (any meta-data), or something more specific.-->
+  <xs:element name="BuildProject" substitutionGroup="msb:Item">
+    <xs:annotation>
+      <xs:documentation>
+        <!-- _locID_text="Reference" _locComment="" -->Reference to an assembly
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="msb:SimpleItemType">
+          <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:choice>
+              <xs:element name="Name">
+                <xs:annotation>
+                  <xs:documentation>
+                    <!-- _locID_text="Reference_Name" _locComment="" -->Friendly display name (optional)
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Startup" type="msb:boolean">
+                <xs:annotation>
+                  <xs:documentation>
+                    <!-- _locID_text="Reference_FusionName" _locComment="" -->Fusion name of the assembly (optional)
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Order" type="xs:int">
+                <xs:annotation>
+                  <xs:documentation>
+                    <!-- _locID_text="Reference_FusionName" _locComment="" -->Fusion name of the assembly (optional)
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:choice>
+          </xs:sequence>
+          <!-- redefine Include just to give a specific description -->
+          <xs:attribute name="Include" type="xs:string" use="required">
+            <xs:annotation>
+              <xs:documentation>
+                <!-- _locID_text="Reference_Include" _locComment="" -->Assembly name or filename
+              </xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

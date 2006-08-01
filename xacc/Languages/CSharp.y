@@ -149,14 +149,13 @@ class TypeRef : CodeTypeRef
 %type <list> variable_declarators constant_declarators
 %type <paramattr> parameter_modifier_opt
 
-%type <text> member_name qualifier2 type_name2
+%type <text> member_name
 
 %nonassoc IFREDUCE
 %nonassoc ELSE
 
 %right SHIFT
-%left '>' 
-%left '<'
+%nonassoc '<' '>'
 %left REDUCE
 
 
@@ -191,15 +190,15 @@ namespace_name
   ;
   
 type_name
-  : qualified_identifier   type_list_opt                            { $$ = new TypeRef($1); OverrideToken(@1, TokenClass.Type);}
+  : qualified_identifier                         { $$ = new TypeRef($1); OverrideToken(@1, TokenClass.Type);}
   ;
   
 member_name
-  : IDENTIFIER                             { $$ = $1; @@ = @1; }
+  : IDENTIFIER type_list_opt                    { $$ = $1; @@ = @1; }
   ;
   
 type_list_opt
-  :  %prec SHIFT
+  : //%prec SHIFT
   | '<' type_list '>'                     {  MakePair(@1,@3); }
   ;  
 
@@ -220,9 +219,14 @@ type_arg_list
 
 /***** C.2.2 Types *****/
 
+nullable_opt
+  : 
+  | '?'
+  ;
+
 
 type
-  : non_array_type                                          { $$ = new TypeRef($1, false);}
+  : non_array_type  nullable_opt                            { $$ = new TypeRef($1, false);}
   | array_type                                              { $$ = new TypeRef($1, true); }
   ;
 non_array_type
@@ -307,6 +311,7 @@ primary_expression_no_parenthesis
   | base_access
   | anon_delegate_expression
   | new_expression
+  | default_expression
   | typeof_expression
   | sizeof_expression
   | checked_expression
@@ -316,13 +321,15 @@ parenthesized_expression
   : '(' expression ')'                                              { MakePair(@1,@3); $$ = $2; @@ = @2;}
   ;
 member_access
-  : primary_expression '.' IDENTIFIER type_list_opt                           { /* if (IsType($1))
-                                                                      {  
-                                                                        OverrideToken(@1, TokenClass.Type); 
-                                                                      }; instance class members */ }
-  | primitive_type '.' IDENTIFIER  type_list_opt                                 {   }
-  | class_type '.' IDENTIFIER  type_list_opt                                     {  /* static class members */ }
+  : primary_expression '.' IDENTIFIER                               { /* instance class members */ }
+  | primitive_type '.' IDENTIFIER                                   {   }
+  | class_type '.' IDENTIFIER                                       {  /* static class members */ }
   ;
+
+default_expression
+  : DEFAULT '(' type ')'                                            { MakePair(@2,@4); }
+  ;  
+  
 invocation_expression
   : primary_expression_no_parenthesis '(' argument_list_opt ')'     { MakePair(@2,@4); @@ = @1;}
   | qualified_identifier '(' argument_list_opt ')'                  { MakePair(@2,@4); @@ = @1; }
@@ -403,7 +410,7 @@ postfix_expression
   ;
   
 unary_expression_not_plusminus
-  : postfix_expression
+  : postfix_expression 
   | '!' unary_expression
   | '~' unary_expression
   | cast_expression
@@ -450,7 +457,7 @@ type_qual
   | '*'
   ;
 multiplicative_expression
-  : unary_expression %prec REDUCE
+  : unary_expression
   | multiplicative_expression '*' unary_expression  
   | multiplicative_expression '/' unary_expression
   | multiplicative_expression '%' unary_expression
@@ -468,7 +475,7 @@ shift_expression
 
 relational_expression
   : shift_expression
-  | relational_expression '<' shift_expression %prec REDUCE
+  | relational_expression '<' shift_expression 
   | relational_expression '>' shift_expression
   | relational_expression LEQ shift_expression
   | relational_expression GEQ shift_expression
@@ -585,7 +592,7 @@ stackalloc_initializer
   : STACKALLOC type  '[' expression ']'                      {  OverrideToken(@2, TokenClass.Type); MakePair(@3,@5);}
   ; 
 local_constant_declaration
-  : CONST type constant_declarators                          
+  : CONST primitive_type constant_declarators                          
   ;
 constant_declarators
   : constant_declarator                                        { $$ = new ArrayList(); $$.Add($1); }
@@ -596,7 +603,6 @@ constant_declarator
   ;
 expression_statement
   : statement_expression ';'
-  | error ';'
   ;
 statement_expression
   : invocation_expression
@@ -793,25 +799,14 @@ comma_opt
   | ';'
   ;
   
-type_name2
-  : IDENTIFIER type_list_opt                                                  { $$ = $1; @@ = @1;}
-  | qualifier2 IDENTIFIER type_list_opt                                       { $$ = $1 + $2; @@ = @2;}
-  ;  
-
-qualifier2
-  : IDENTIFIER type_list_opt '.'                                              { $$ = $1 + ".";}
-  | qualifier2 IDENTIFIER type_list_opt '.'                                    { $$ = $1 + $2 + ".";}
-  ;
-
-  
 qualified_identifier
-  : IDENTIFIER                                                   
-  | qualifier IDENTIFIER                                        { $$ = $1 + $2; @@ = @2;}
+  : member_name                                                  
+  | qualifier member_name                                       { $$ = $1 + $2; @@ = @2;}
   ;
 
 qualifier
-  : IDENTIFIER '.'                                                  { $$ = $1 + "."; }
-  | qualifier IDENTIFIER '.'                                        { $$ = $1 + $2 + "."; }
+  : member_name '.'                                                  { $$ = $1 + "."; }
+  | qualifier member_name '.'                                        { $$ = $1 + $2 + "."; }
   ;
   
 namespace_body
@@ -929,8 +924,8 @@ class_base
   | ':' class_type ',' interface_type_list                    { AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace)); }
   ;
 interface_type_list
-  : type_name2                                                { OverrideToken(@1, TokenClass.Type); }
-  | interface_type_list ',' type_name2                          { OverrideToken(@3, TokenClass.Type); }
+  : type_name                                                { OverrideToken(@1, TokenClass.Type); }
+  | interface_type_list ',' type_name                          { OverrideToken(@3, TokenClass.Type); }
   ;
 class_body
   : '{' class_member_declarations_opt '}'                     { $$ = $2; { MakePair(@1,@3);}}
@@ -984,7 +979,7 @@ field_declaration
                                                               }
   ;
 method_declaration
-  : method_header { SuppressErrors = true; } method_body                                 { $$ = $1; SuppressErrors = false; }
+  : method_header { SuppressErrors = false; } method_body                                 { $$ = $1; SuppressErrors = false; }
   ;
 /* Inline return_type to avoid conflict with field_declaration */
 method_header
@@ -1309,9 +1304,9 @@ enum_member_declaration
 
 /***** C.2.11 Delegates *****/
 delegate_declaration        
-  : attributes_opt modifiers_opt DELEGATE return_type member_name 
-    '(' formal_parameter_list_opt ')' ';'               { $$ = new CodeDelegate($5,$4,$7); $$.Location = @5;
-                                                          MakePair(@6,@8);
+  : attributes_opt modifiers_opt DELEGATE return_type member_name type_arg_list_opt
+    '(' formal_parameter_list_opt ')' ';'               { $$ = new CodeDelegate($5,$4,$8); $$.Location = @5;
+                                                          MakePair(@7,@9);
                                                           OverrideToken(@5, TokenClass.Type);}
   ;
 

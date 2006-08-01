@@ -541,6 +541,12 @@
     <EmbeddedResource Include="Resources\Window.Next.png" />
     <EmbeddedResource Include="Resources\Window.Previous.png" />
     <EmbeddedResource Include="Resources\xacc.config.xml" />
+    <None Include="Build\Project.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Build\Project.xsx">
+      <DependentUpon>Project.xsd</DependentUpon>
+    </None>
     <None Include="Configuration\Config.xsx">
       <DependentUpon>Config.xsd</DependentUpon>
     </None>

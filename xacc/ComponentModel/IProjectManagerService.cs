@@ -142,6 +142,18 @@ namespace Xacc.ComponentModel
     /// Fires when a project is closed
     /// </summary>
     event EventHandler Closed;
+
+    /// <summary>
+    /// Gets or sets the logger verbosity.
+    /// </summary>
+    /// <value>The logger verbosity.</value>
+    Microsoft.Build.Framework.LoggerVerbosity LoggerVerbosity { get;set;}
+
+    /// <summary>
+    /// Gets the recent projects.
+    /// </summary>
+    /// <value>The recent projects.</value>
+    string[] RecentProjects { get;}
 	}
 
   [Menu("Project")]
@@ -321,6 +333,25 @@ namespace Xacc.ComponentModel
       startupproject = Current;
     }
 
+    IDictionary SolutionProperties
+    {
+      get
+      {
+        Hashtable props = new Hashtable();
+        if (solution != null)
+        {
+          foreach (BuildProperty bp in solution.EvaluatedProperties)
+          {
+            if (!bp.IsImported)
+            {
+              props.Add(bp.Name, bp.Value);
+            }
+          }
+        }
+        return props;
+      }
+    }
+
     [MenuItem("Build", Index = 20, State = ApplicationState.Project, Image = "Project.Build.png", AllowToolBar = true)]
     void Build()
     {
@@ -328,7 +359,7 @@ namespace Xacc.ComponentModel
       //System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
       //{
         ConsoleLogger l = new ConsoleLogger();
-        l.Verbosity = Microsoft.Build.Framework.LoggerVerbosity.Minimal;
+        l.Verbosity = verbosity;
         BuildLogger bl = new BuildLogger();
         buildengine.RegisterLogger(l);
         buildengine.RegisterLogger(bl);
@@ -344,7 +375,7 @@ namespace Xacc.ComponentModel
       //System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
       //{
       ConsoleLogger l = new ConsoleLogger();
-      l.Verbosity = Microsoft.Build.Framework.LoggerVerbosity.Minimal;
+      l.Verbosity = verbosity;
       BuildLogger bl = new BuildLogger();
       buildengine.RegisterLogger(l);
       buildengine.RegisterLogger(bl);
@@ -360,7 +391,7 @@ namespace Xacc.ComponentModel
       //System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
       //{
       ConsoleLogger l = new ConsoleLogger();
-      l.Verbosity = Microsoft.Build.Framework.LoggerVerbosity.Minimal;
+      l.Verbosity = verbosity;
       BuildLogger bl = new BuildLogger();
       buildengine.RegisterLogger(l);
       buildengine.RegisterLogger(bl);
@@ -381,7 +412,15 @@ namespace Xacc.ComponentModel
       }
     }
 
-    //[MenuItem("Run", Index = 25, State = ApplicationState.Project, Image = "Project.Run.png", AllowToolBar = true)]
+    Microsoft.Build.Framework.LoggerVerbosity verbosity = Microsoft.Build.Framework.LoggerVerbosity.Minimal;
+
+    public Microsoft.Build.Framework.LoggerVerbosity LoggerVerbosity
+    {
+      get { return verbosity; }
+      set { verbosity = value; }
+    }
+
+    [MenuItem("Run", Index = 25, State = ApplicationState.Project, Image = "Project.Run.png", AllowToolBar = true)]
     void Run()
     {
       if (StartupProject != null)
@@ -766,6 +805,10 @@ namespace Xacc.ComponentModel
           foreach (Match m in SLNPARSE.Matches(all))
           {
             string name = m.Groups["name"].Value;
+            if (name == "Solution Items")
+            {
+              continue;
+            }
             string location = m.Groups["location"].Value;
 
             solution.AddNewItem("Content", location);
