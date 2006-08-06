@@ -299,7 +299,9 @@ namespace Xacc.ComponentModel
 			AddTopLevel("&Edit");
 			AddTopLevel("&View");
 			AddTopLevel("&Project");
+      AddTopLevel("&Build");
       AddTopLevel("&Debug");
+
       AddTopLevel("&Script");
       AddTopLevel("&Tools");
 			AddTopLevel("&Window");
@@ -348,7 +350,18 @@ namespace Xacc.ComponentModel
 
     public ToolStripMenuItem this[string name]
 		{
-			get	{return menus[MnemonicEscape(name)];}
+			get	
+      {
+        string escname = MnemonicEscape(name);
+        if (menus.ContainsKey(escname))
+        {
+          return menus[escname];
+        }
+        else
+        {
+          return null;
+        }
+      }
 		}
 
     void toplevel_Popup(object sender, EventArgs e)

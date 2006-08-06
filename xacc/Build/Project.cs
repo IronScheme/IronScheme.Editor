@@ -1867,7 +1867,7 @@ Item Metadata   Description
     {
       NewFileWizard wiz = new NewFileWizard();
 	
-      foreach (string lname in actions)
+      foreach (string lname in Actions)
       {
         wiz.prjtype.Items.Add(lname);
       }

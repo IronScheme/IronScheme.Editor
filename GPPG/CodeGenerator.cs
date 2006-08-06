@@ -214,6 +214,20 @@ namespace gpcc
         Console.Write("}");
       }
 
+      if (state.conflictTable.Count > 0)
+      {
+        Console.Write(",new int[]{");
+        bool first = true;
+        foreach (KeyValuePair<Terminal, ParserAction> transition in state.conflictTable)
+        {
+          if (!first)
+            Console.Write(",");
+          Console.Write("{0},{1}", transition.Key.num, transition.Value.ToNum());
+          first = false;
+        }
+        Console.Write("}");
+      }
+
       Console.WriteLine("));");
     }
 

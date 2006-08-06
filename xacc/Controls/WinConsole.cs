@@ -95,9 +95,7 @@ namespace Xacc.Controls
       InitializeComponent();
       SetStyle(ControlStyles.Selectable, false);
 			UpdateStyles();
-#if USEBZIP2
-			Font = new Font(ComponentModel.ServiceHost.Font.InstalledFonts[0], 8);
-#endif
+
       Console.SetOut(new MessageWriter("OUT", new MessageWriter.MessageWriterHandler(Messg), this));
 			Console.SetError(new MessageWriter("ERROR", new MessageWriter.MessageWriterHandler(Messg), this));
 #if TRACE
@@ -136,6 +134,10 @@ namespace Xacc.Controls
     {
       try
       {
+        if (text.StartsWith("MSBUILD : warning MSB4056:"))
+        {
+          return;
+        }
         Control sender = GetFocus(TopLevelControl);
         Select();
 

@@ -12,6 +12,7 @@ namespace gppg
   {
     public int num;
     public Dictionary<int, int> parser_table;  // Terminal -> ParseAction
+    public Dictionary<int, int> conflict_table = new Dictionary<int,int>(3);  // Terminal -> ParseAction
     public Dictionary<int, int> Goto;          // NonTerminal -> State;
     public int defaultAction = 0;			   // ParseAction
 
@@ -22,6 +23,13 @@ namespace gppg
       Goto = new Dictionary<int, int>(gotos.Length/2);
       for (int i = 0 ; i < gotos.Length ; i += 2)
         Goto.Add(gotos[i], gotos[i + 1]);
+    }
+
+    public State(int[] actions, int[] gotos, int[] conflicts)
+      : this(actions, gotos)
+    {
+      for (int i = 0; i < conflicts.Length; i += 2)
+        conflict_table.Add(conflicts[i], conflicts[i + 1]);
     }
 
     public State(int[] actions)
@@ -42,6 +50,13 @@ namespace gppg
       Goto = new Dictionary<int, int>(gotos.Length/2);
       for (int i = 0 ; i < gotos.Length ; i += 2)
         Goto.Add(gotos[i], gotos[i + 1]);
+    }
+
+    public State(int defaultAction, int[] gotos, int[] conflicts)
+      : this(defaultAction, gotos)
+    {
+      for (int i = 0; i < conflicts.Length; i += 2)
+        conflict_table.Add(conflicts[i], conflicts[i + 1]);
     }
   }
 }

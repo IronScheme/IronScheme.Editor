@@ -129,9 +129,16 @@ namespace gpcc
                   Console.Error.WriteLine("Reduce/Reduce conflict, state {0}: {1} vs {2} on {3}",
                     state.num, item.production.num, ((Reduce)other).item.production.num, t);
 
-                  // choose in favour of production listed first in the grammar
+                  // choose in favour of production listed first in the grammar// (changed to handle conflict parsing)
                   if (((Reduce)other).item.production.num > item.production.num)
+                  {
                     state.parseTable[t] = new Reduce(item);
+                    //state.conflictTable[t] = (Reduce)other;
+                  }
+                  else
+                  {
+                    //state.conflictTable[t] = new Reduce(item);
+                  }
                 }
                 else
                 {

@@ -43,6 +43,8 @@ using Microsoft.Build.BuildEngine;
 using BuildProject = Microsoft.Build.BuildEngine.Project;
 using Project = Xacc.Build.Project;
 
+using Microsoft.Build.Framework;
+
 using SR = System.Resources;
 #endregion
 
@@ -143,11 +145,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     event EventHandler Closed;
 
-    /// <summary>
-    /// Gets or sets the logger verbosity.
-    /// </summary>
-    /// <value>The logger verbosity.</value>
-    Microsoft.Build.Framework.LoggerVerbosity LoggerVerbosity { get;set;}
+
 
     /// <summary>
     /// Gets the recent projects.
@@ -156,10 +154,63 @@ namespace Xacc.ComponentModel
     string[] RecentProjects { get;}
 	}
 
+  class BuildLogger : ILogger
+  {
+    public void Initialize(IEventSource eventSource)
+    {
+      eventSource.ErrorRaised += new BuildErrorEventHandler(eventSource_ErrorRaised);
+      eventSource.WarningRaised += new BuildWarningEventHandler(eventSource_WarningRaised);
+      eventSource.ProjectFinished += new ProjectFinishedEventHandler(eventSource_ProjectFinished);
+    }
+
+    void eventSource_ProjectFinished(object sender, ProjectFinishedEventArgs e)
+    {
+      ServiceHost.Error.OutputErrors(ServiceHost.Project, 
+        new ActionResult(ActionResultType.Info, 0, 0, e.Message + " - success: " + e.Succeeded, e.ProjectFile, null));
+    }
+
+    void eventSource_WarningRaised(object sender, BuildWarningEventArgs e)
+    {
+      if (e.Code == "MSB4056")
+      {
+        return;
+      }
+      ServiceHost.Error.OutputErrors(ServiceHost.Project, 
+        new ActionResult(ActionResultType.Warning, e.LineNumber, e.ColumnNumber, e.Message, e.File, e.Code));
+    }
+
+    void eventSource_ErrorRaised(object sender, BuildErrorEventArgs e)
+    {
+      ServiceHost.Error.OutputErrors(ServiceHost.Project, 
+        new ActionResult(ActionResultType.Error, e.LineNumber, e.ColumnNumber, e.Message, e.File, e.Code));
+    }
+
+    string param;
+
+    public string Parameters
+    {
+      get{return param;}
+      set{param = value;}
+    }
+
+    public void Shutdown()
+    {
+    }
+
+    LoggerVerbosity verb = LoggerVerbosity.Normal;
+
+    public LoggerVerbosity Verbosity
+    {
+      get{return verb;}
+      set{verb = value;}
+    }
+  }
+
+
   [Menu("Project")]
 	sealed class ProjectManager : ServiceBase, IProjectManagerService
 	{
-		readonly ArrayList projects = new ArrayList();
+		internal readonly ArrayList projects = new ArrayList();
 		readonly Hashtable projtypes = new Hashtable();
     readonly IDockContent tp = Runtime.DockFactory.Content();
     readonly OutlineView outlineview = new OutlineView();
@@ -333,25 +384,6 @@ namespace Xacc.ComponentModel
       startupproject = Current;
     }
 
-    IDictionary SolutionProperties
-    {
-      get
-      {
-        Hashtable props = new Hashtable();
-        if (solution != null)
-        {
-          foreach (BuildProperty bp in solution.EvaluatedProperties)
-          {
-            if (!bp.IsImported)
-            {
-              props.Add(bp.Name, bp.Value);
-            }
-          }
-        }
-        return props;
-      }
-    }
-
     [MenuItem("Build", Index = 20, State = ApplicationState.Project, Image = "Project.Build.png", AllowToolBar = true)]
     void Build()
     {
@@ -359,7 +391,7 @@ namespace Xacc.ComponentModel
       //System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
       //{
         ConsoleLogger l = new ConsoleLogger();
-        l.Verbosity = verbosity;
+        l.Verbosity = ServiceHost.Build.LoggerVerbosity;
         BuildLogger bl = new BuildLogger();
         buildengine.RegisterLogger(l);
         buildengine.RegisterLogger(bl);
@@ -375,7 +407,7 @@ namespace Xacc.ComponentModel
       //System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
       //{
       ConsoleLogger l = new ConsoleLogger();
-      l.Verbosity = verbosity;
+      l.Verbosity = ServiceHost.Build.LoggerVerbosity;
       BuildLogger bl = new BuildLogger();
       buildengine.RegisterLogger(l);
       buildengine.RegisterLogger(bl);
@@ -391,7 +423,7 @@ namespace Xacc.ComponentModel
       //System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
       //{
       ConsoleLogger l = new ConsoleLogger();
-      l.Verbosity = verbosity;
+      l.Verbosity = ServiceHost.Build.LoggerVerbosity;
       BuildLogger bl = new BuildLogger();
       buildengine.RegisterLogger(l);
       buildengine.RegisterLogger(bl);
@@ -400,25 +432,7 @@ namespace Xacc.ComponentModel
       //});
     }
 
-    //[MenuItem("Build All", Index = 21, State = ApplicationState.Project, Image = "Project.Build.png", AllowToolBar = true)]
-    void BuildAll()
-    {
-      foreach (Project p in OpenProjects)
-      {
-        if (!p.Build())
-        {
-          return;
-        }
-      }
-    }
 
-    Microsoft.Build.Framework.LoggerVerbosity verbosity = Microsoft.Build.Framework.LoggerVerbosity.Minimal;
-
-    public Microsoft.Build.Framework.LoggerVerbosity LoggerVerbosity
-    {
-      get { return verbosity; }
-      set { verbosity = value; }
-    }
 
     [MenuItem("Run", Index = 25, State = ApplicationState.Project, Image = "Project.Run.png", AllowToolBar = true)]
     void Run()
@@ -457,17 +471,6 @@ namespace Xacc.ComponentModel
         Open(value);
       }
     }
-
-    //[MenuItem("Build Order", Index = 1000, State = ApplicationState.Project)]
-    //void ShowBuildOrderDialog()
-    //{
-    //  ProjectBuildOrderForm bof = new ProjectBuildOrderForm();
-    //  if (DialogResult.OK == bof.ShowDialog(ServiceHost.Window.MainForm))
-    //  {
-    //    projects.Clear();
-    //    projects.AddRange(bof.listBox1.Items);
-    //  }
-    //}
 
     [MenuItem("Properties", Index = 1001, State = ApplicationState.Project, Image = "Project.Properties.png", AllowToolBar = true)]
     void Properties()
@@ -522,64 +525,7 @@ namespace Xacc.ComponentModel
       Closed +=new EventHandler(ProjectManagerEvent);
 		}
 
-    class BuildLogger : Microsoft.Build.Framework.ILogger
-    {
-      public void Initialize(Microsoft.Build.Framework.IEventSource eventSource)
-      {
-        eventSource.ErrorRaised += new Microsoft.Build.Framework.BuildErrorEventHandler(eventSource_ErrorRaised);
-        eventSource.WarningRaised += new Microsoft.Build.Framework.BuildWarningEventHandler(eventSource_WarningRaised);
-        eventSource.ProjectFinished += new Microsoft.Build.Framework.ProjectFinishedEventHandler(eventSource_ProjectFinished);
-      }
-
-      void eventSource_ProjectFinished(object sender, Microsoft.Build.Framework.ProjectFinishedEventArgs e)
-      {
-        ServiceHost.Error.OutputErrors(ServiceHost.Project.Current, new ActionResult(ActionResultType.Info, 0, 0, e.Message + " - success: " + e.Succeeded, e.ProjectFile, null));
-      }
-
-      void eventSource_WarningRaised(object sender, Microsoft.Build.Framework.BuildWarningEventArgs e)
-      {
-        ServiceHost.Error.OutputErrors(ServiceHost.Project.Current, new ActionResult(ActionResultType.Warning, e.LineNumber, e.ColumnNumber, e.Message, e.File, e.Code));
-      }
-
-      void eventSource_ErrorRaised(object sender, Microsoft.Build.Framework.BuildErrorEventArgs e)
-      {
-        ServiceHost.Error.OutputErrors(ServiceHost.Project.Current, new ActionResult(ActionResultType.Error, e.LineNumber, e.ColumnNumber, e.Message, e.File, e.Code));
-      }
-
-      string param;
-
-      public string Parameters
-      {
-        get
-        {
-          return param;
-        }
-        set
-        {
-          param = value;
-        }
-      }
-
-      public void Shutdown()
-      {
-       
-      }
-
-      Microsoft.Build.Framework.LoggerVerbosity verb = Microsoft.Build.Framework.LoggerVerbosity.Normal;
-
-      public Microsoft.Build.Framework.LoggerVerbosity Verbosity
-      {
-        get
-        {
-          return verb;
-        }
-        set
-        {
-          verb = value;
-        }
-      }
-    }
-
+ 
     bool ProjectNameExists(string name)
     {
       foreach (Project p in projects)
@@ -707,10 +653,10 @@ namespace Xacc.ComponentModel
     [MenuItem("Close all", Index = 25, State = ApplicationState.Project)]
     public void	CloseAll()
     {
-      if (solution != null)
-      {
-        //solution.Save(
-      }
+      //if (solution != null)
+      //{
+      //  //solution.Save(
+      //}
       foreach (Project p in OpenProjects)
       {
         p.Save();
@@ -745,13 +691,14 @@ namespace Xacc.ComponentModel
 
       if (ext == ".xaccproj")
       {
-        solution = new Microsoft.Build.BuildEngine.Project();
-        solution.Load(prjfile);
+        BuildService bm = ServiceHost.Build as BuildService;
+        bm.solution = new Microsoft.Build.BuildEngine.Project();
+        bm.solution.Load(prjfile);
 
 
         ArrayList projects = new ArrayList();
 
-        foreach (BuildItem prj in solution.GetEvaluatedItemsByName("Content"))
+        foreach (BuildItem prj in bm.solution.GetEvaluatedItemsByName("BuildProject"))
         {
           Environment.CurrentDirectory = Path.GetDirectoryName(prjfile);
 
@@ -794,9 +741,10 @@ namespace Xacc.ComponentModel
       }
       else if (ext == ".sln")
       {
-        solution = new Microsoft.Build.BuildEngine.Project();
+        BuildService bm = ServiceHost.Build as BuildService;
+        bm.solution = new Microsoft.Build.BuildEngine.Project();
 
-        solution.SetProperty("SolutionDir", Path.GetDirectoryName(prjfile));
+        bm.solution.SetProperty("SolutionDir", Path.GetDirectoryName(prjfile));
 
         using (TextReader r = File.OpenText(prjfile))
         {
@@ -811,17 +759,17 @@ namespace Xacc.ComponentModel
             }
             string location = m.Groups["location"].Value;
 
-            solution.AddNewItem("Content", location);
+            bm.solution.AddNewItem("BuildProject", location);
           }
         }
 
-        solution.AddNewImport(Path.Combine(Application.StartupPath, "xacc.imports"), "");
+        bm.solution.AddNewImport(Path.Combine(Application.StartupPath, "xacc.imports"), "");
 
-        solution.Save(Path.ChangeExtension(prjfile, ".xaccproj"));
+        bm.solution.Save(Path.ChangeExtension(prjfile, ".xaccproj"));
 
         ArrayList projects = new ArrayList();
 
-        foreach (BuildItem prj in solution.GetEvaluatedItemsByName("Content"))
+        foreach (BuildItem prj in bm.solution.GetEvaluatedItemsByName("BuildProject"))
         {
           Environment.CurrentDirectory = Path.GetDirectoryName(prjfile);
 
@@ -855,7 +803,7 @@ namespace Xacc.ComponentModel
     static Regex SLNPARSE = new Regex(@"Project\([^\)]+\)\s=\s""(?<name>[^""]+)"",\s""(?<location>[^""]+)"",\s""(?<guid>[^""]+)""",
       RegexOptions.Compiled);
 
-    BuildProject solution;
+    //BuildProject solution;
 
 		public Project Create(Type prjtype, string name, string rootdir)
 		{

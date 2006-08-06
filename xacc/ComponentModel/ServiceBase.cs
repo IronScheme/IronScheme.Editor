@@ -27,6 +27,8 @@ using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using System.Diagnostics;
 
+using System.Text.RegularExpressions;
+
 using RealTrace = Xacc.Diagnostics.Trace;
 using ToolStripMenuItem = Xacc.Controls.ToolStripMenuItem;
 
@@ -270,6 +272,36 @@ namespace Xacc.ComponentModel
 
     #region ISupportInitialize Members
 
+    readonly static Regex PPTEXT = new Regex(@"\{(?<name>[^\}\s]+)\}", RegexOptions.Compiled | RegexOptions.ExplicitCapture);
+
+    string GetText(string input, out bool haderror)
+    {
+      haderror = false;
+      Hashtable map = new Hashtable();
+      foreach (Match m in PPTEXT.Matches(input))
+      {
+        string name = m.Groups["name"].Value;
+
+        string value = GetType().GetProperty(name, 
+          BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public).GetValue(this, null) as string;
+
+        if (value == null)
+        {
+          value = "<null>";
+          haderror = true;
+        }
+
+        map.Add("{" + name + "}", value);
+      }
+
+      foreach (string k in map.Keys)
+      {
+        input = input.Replace(k, map[k] as string);
+      }
+
+      return input;
+    }
+
     void ISupportInitialize.BeginInit()
     {
       const BindingFlags BF = BindingFlags.Public | BindingFlags.DeclaredOnly 
@@ -453,6 +485,17 @@ namespace Xacc.ComponentModel
           }
           else
           {
+            string miatext = mia.Text;
+            top.DropDownOpening += delegate(object sender, EventArgs e)
+            {
+              bool haderror;
+              string t =  GetText(miatext, out haderror);
+              if (haderror)
+              {
+                pmi.Enabled = false;
+              }
+              pmi.Text = t;
+            };
             top.DropDownItems.Add(pmi);
           }
 

@@ -169,7 +169,7 @@ namespace Xacc.Languages.CSLex
         }
       }
 
-      public IToken yywrap()
+      public virtual IToken yywrap()
       {
         IToken t = lex();
         if (t == null || t.Equals(Yytoken.EOF))
@@ -664,8 +664,11 @@ namespace Xacc.Languages.CSLex
 
       public override void yyerror(string format, params object[] args)
       {
-        yylval.Location.Error = true;
-        ServiceHost.Error.OutputErrors(this, new Xacc.Build.ActionResult(format, yylval.Location));
+        if (yylval.Location != null)
+        {
+          yylval.Location.Error = true;
+          ServiceHost.Error.OutputErrors(this, new Xacc.Build.ActionResult(format, yylval.Location));
+        }
       }
     }
 

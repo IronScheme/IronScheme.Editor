@@ -18,6 +18,7 @@ namespace gppg
     public IScanner<ValueType> scanner;
 
     protected ValueType yyval;
+    ValueType yylval;
 
     private int next;
     private State current_state;
@@ -48,6 +49,50 @@ namespace gppg
     {
       System.Diagnostics.Trace.Write(string.Format(format, args));
     }
+
+    int yylex()
+    {
+      if (tokenstream.Count <= tokenpos)
+      {
+        int next = scanner.yylex();
+        yylval = scanner.yylval;
+        tokenstream.Add(yylval);
+        tokenpos++;
+        return next;
+      }
+      yylval = tokenstream[tokenpos++];
+      return yylval.Type;
+    }
+
+    int tokenpos = 0;
+
+    readonly List<ValueType> tokenstream = new List<ValueType>();
+    readonly Dictionary<int, int> reducehandles = new Dictionary<int, int>();
+
+    readonly Stack<ParserState> parserstates = new Stack<ParserState>();
+
+    class ParserState
+    {
+      public ParserStack<State> state_stack;
+      public ParserStack<ValueType> value_stack;
+      public int tokenpos;
+
+      public ParserState(ShiftReduceParser<ValueType> parser)
+      {
+        tokenpos = parser.tokenpos - 1;
+        state_stack = parser.state_stack.Clone();
+        value_stack = parser.value_stack.Clone();
+      }
+
+      public void Restore(ShiftReduceParser<ValueType> parser)
+      {
+        parser.tokenpos = tokenpos;
+        parser.state_stack = state_stack;
+        parser.value_stack = value_stack;
+
+        parser.current_state = parser.state_stack.Top();
+      }
+    }
     
     public override bool Parse()
     {
@@ -55,6 +100,13 @@ namespace gppg
       {
         scanner = Lexer;
       }
+      tokenstream.Clear();
+      reducehandles.Clear();
+      parserstates.Clear();
+      state_stack.Clear();
+      value_stack.Clear();
+      tokenpos = 0;
+
       Xacc.ComponentModel.ServiceHost.Error.ClearErrors(Lexer);
       Initialize();	// allow derived classes to instantiate rules, states and nonTerminals
 
@@ -76,13 +128,26 @@ namespace gppg
           if (next == 0)
           {
             Write("Reading a token: ");
-            next = scanner.yylex();
+            next = yylex();
           }
 
           WriteLine("Next token is {0}", TerminalToString(next));
+          int tryaction;
 
-          if (current_state.parser_table.ContainsKey(next))
-            action = current_state.parser_table[next];
+          //handle reduce            
+          if (!reducehandles.ContainsKey(tokenpos) &&
+            current_state.conflict_table.TryGetValue(next, out tryaction))
+          {
+            action = tryaction;
+            ParserState ps = new ParserState(this);
+            reducehandles[tokenpos] = action;
+            parserstates.Push(ps);
+          }
+          else
+          if (current_state.parser_table.TryGetValue(next, out tryaction))
+          {
+            action = tryaction;
+          }
           else if (next == eofToken)
           {
             ReportError();
@@ -102,8 +167,19 @@ namespace gppg
             return true;
         }
         else if (action == 0)   // error
+        {
+          if (parserstates.Count > 0)
+          {
+            ParserState ps = parserstates.Pop();
+            ps.Restore(this);
+            next = 0;
+          }
+          else
           if (!ErrorRecovery())
+          {
             return false;
+          }
+        }
       }
     }
 
@@ -113,16 +189,20 @@ namespace gppg
       Write("Shifting token {0}, ", TerminalToString(next));
       current_state = states[state_nr];
 
-      value_stack.Push(scanner.yylval);
+      value_stack.Push(yylval);
       state_stack.Push(current_state);
 
       if (recovering)
       {
         if (next != errToken)
+        {
           tokensSinceLastError++;
+        }
 
         if (tokensSinceLastError > 5)
+        {
           recovering = false;
+        }
       }
 
       if (next != errToken)
@@ -175,15 +255,18 @@ namespace gppg
 
       current_state = state_stack.Top();
 
-      if (current_state.Goto.ContainsKey(rule.lhs))
+      int trylhs;
+      if (current_state.Goto.TryGetValue(rule.lhs, out trylhs))
       {
-        current_state = states[current_state.Goto[rule.lhs]];
+        current_state = states[trylhs];
       }
+
       // isnt this an error on the 'else'?
       state_stack.Push(current_state);
       value_stack.Push(yyval);
     }
 
+    #region Debug
 #if DEBUG
 
     protected string[] stringstates, stringrules;
@@ -261,21 +344,24 @@ namespace gppg
     }
 
 #endif
-
+    #endregion
 
     protected abstract void DoAction(int action_nr);
-
-
+    
     public bool ErrorRecovery()
     {
       if (!recovering) // if not recovering from previous error
+      {
         ReportError();
+      }
 
       recovering = true;
       tokensSinceLastError = 0;
 
       if (!FindErrorRecoveryState())
+      {
         return false;
+      }
 
       ShiftErrorToken();
 
@@ -295,9 +381,13 @@ namespace gppg
         foreach (int terminal in current_state.parser_table.Keys)
         {
           if (first)
+          {
             errorMsg.Append(", expecting ");
+          }
           else
+          {
             errorMsg.Append(", or ");
+          }
 
           errorMsg.Append(TerminalToString(terminal));
           first = false;
@@ -332,10 +422,13 @@ namespace gppg
     {
       while (true)    // pop states until one found that accepts error token
       {
+        int tryaction;
         if (current_state.parser_table != null &&
-          current_state.parser_table.ContainsKey(errToken) &&
-          current_state.parser_table[errToken] > 0) // shift
+          current_state.parser_table.TryGetValue(errToken, out tryaction) &&
+          tryaction > 0) // shift
+        {
           return true;
+        }
 
         WriteLine("Error: popping state {0}", state_stack.Top().num);
 
@@ -350,7 +443,9 @@ namespace gppg
           return false;
         }
         else
+        {
           current_state = state_stack.Top();
+        }
       }
     }
 
@@ -368,7 +463,7 @@ namespace gppg
           if (next == 0)
           {
             Write("Reading a token: ");
-            next = scanner.yylex();
+            next = yylex();
           }
 
           WriteLine("Next token is {0}", TerminalToString(next));
@@ -376,8 +471,16 @@ namespace gppg
           if (next == errToken)
             return false;
 
-          if (current_state.parser_table.ContainsKey(next))
-            action = current_state.parser_table[next];
+          if (next == eofToken)
+          {
+            return true;
+          }
+
+          int tryaction;
+          if (current_state.parser_table.TryGetValue(next, out tryaction))
+          {
+            action = tryaction;
+          }
 
           if (action != 0)
             return true;

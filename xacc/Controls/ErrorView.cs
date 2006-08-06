@@ -151,10 +151,10 @@ namespace Xacc.Controls
             switch (ar.Type)
             {
               case ActionResultType.Info:
-                lvi.StateImageIndex = 0; //blue
+                lvi.StateImageIndex = 1; //green
                 break;
               case ActionResultType.Ok:
-                lvi.StateImageIndex = 1; //green
+                lvi.StateImageIndex = 0; //blue
                 break;
               case ActionResultType.Warning:
                 lvi.StateImageIndex = 2; //orange

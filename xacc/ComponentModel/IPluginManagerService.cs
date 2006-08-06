@@ -124,10 +124,11 @@ namespace Xacc.ComponentModel
         new FileManager();
         new EditService();
         new ProjectManager();
+        new BuildService();
         new DebugService();
         new ToolsService();
-
         new HelpService();
+
         new ScriptingService();
         new FontManager();
         new StandardConsole();

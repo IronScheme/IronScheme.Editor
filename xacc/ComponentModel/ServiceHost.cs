@@ -121,7 +121,7 @@ namespace Xacc.ComponentModel
 
     static internal string GetPropertyName(Type svctype)
     {
-      return propmap[svctype];
+      return propmap.ContainsKey(svctype) ? propmap[svctype] : null;
     }
 
     static internal readonly ServiceHost INSTANCE = new ServiceHost();
@@ -316,6 +316,14 @@ namespace Xacc.ComponentModel
     public static IViewService View
     {
       get { return Get<IViewService>();}
+    }
+
+    /// <summary>
+    /// Gets the IBuildService
+    /// </summary>
+    public static IBuildService Build
+    {
+      get { return Get<IBuildService>(); }
     }
 
     /// <summary>

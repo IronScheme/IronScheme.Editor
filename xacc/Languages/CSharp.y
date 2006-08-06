@@ -149,13 +149,13 @@ class TypeRef : CodeTypeRef
 %type <list> variable_declarators constant_declarators
 %type <paramattr> parameter_modifier_opt
 
-%type <text> member_name
+%type <text> member_name gen_qualified_identifier norm_qualified_identifier gen_qualifier norm_qualifier
 
 %nonassoc IFREDUCE
 %nonassoc ELSE
 
 %right SHIFT
-%nonassoc '<' '>'
+%nonassoc '<' '>' 
 %left REDUCE
 
 
@@ -436,13 +436,12 @@ unary_expression
  * semantically restricted to an identifier, optionally follwed by qualifiers
  */
 cast_expression
-  : '(' expression ')' unary_expression_not_plusminus               { OverrideToken(@2, TokenClass.Type); MakePair(@1,@3);}
-  | '(' multiplicative_expression '*' ')' unary_expression          { MakePair(@1,@4);}
-  | '(' qualified_identifier rank_specifier type_quals_opt ')' 
-      unary_expression                                              { OverrideToken(@2, TokenClass.Type); MakePair(@1,@5); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}
-  | '(' primitive_type type_quals_opt ')' unary_expression          { MakePair(@1,@4); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}
-  | '(' class_type type_quals_opt ')' unary_expression              { MakePair(@1,@4); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}
-  | '(' VOID type_quals_opt ')' unary_expression                    { MakePair(@1,@4);} 
+  : '(' expression ')' unary_expression_not_plusminus                               { OverrideToken(@2, TokenClass.Type); MakePair(@1,@3);}
+  | '(' multiplicative_expression '*' ')' unary_expression                          { MakePair(@1,@4);}
+  | '(' qualified_identifier rank_specifier type_quals_opt ')' unary_expression     { OverrideToken(@2, TokenClass.Type); MakePair(@1,@5); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}
+  | '(' primitive_type type_quals_opt ')' unary_expression                          { MakePair(@1,@4); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}
+  | '(' class_type type_quals_opt ')' unary_expression                              { MakePair(@1,@4); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}
+  | '(' VOID type_quals_opt ')' unary_expression                                    { MakePair(@1,@4);} 
   ;
 type_quals_opt
   : /* Nothing */
@@ -470,7 +469,7 @@ additive_expression
 shift_expression
   : additive_expression 
   | shift_expression LTLT additive_expression
-/*  | shift_expression GTGT additive_expression */
+  | shift_expression GTGT additive_expression 
   ;
 
 relational_expression
@@ -800,13 +799,32 @@ comma_opt
   ;
   
 qualified_identifier
-  : member_name                                                  
-  | qualifier member_name                                       { $$ = $1 + $2; @@ = @2;}
+  : gen_qualified_identifier
+  ;
+  
+qualifier
+  : norm_qualifier
+  ;  
+  
+norm_qualified_identifier
+  : IDENTIFIER                                                  
+  | norm_qualifier IDENTIFIER                                       { $$ = $1 + $2; @@ = @2;}
   ;
 
-qualifier
+norm_qualifier
+  : IDENTIFIER '.'                                                  { $$ = $1 + "."; }
+  | norm_qualifier IDENTIFIER '.'                                        { $$ = $1 + $2 + "."; }
+  ;
+  
+  
+gen_qualified_identifier
+  : member_name                                                  
+  | gen_qualifier member_name                                       { $$ = $1 + $2; @@ = @2;}
+  ;
+
+gen_qualifier
   : member_name '.'                                                  { $$ = $1 + "."; }
-  | qualifier member_name '.'                                        { $$ = $1 + $2 + "."; }
+  | gen_qualifier member_name '.'                                        { $$ = $1 + $2 + "."; }
   ;
   
 namespace_body

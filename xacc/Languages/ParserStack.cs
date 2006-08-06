@@ -1,7 +1,7 @@
 // Gardens Point Parser Generator (Runtime component)
 // Copyright (c) Wayne Kelly, QUT 2005
 // (see accompanying GPPGcopyright.rtf)
-
+using System;
 
 namespace gppg
 {
@@ -21,7 +21,7 @@ namespace gppg
       if (top >= array.Length)
       {
         T[] newarray = new T[array.Length * 2];
-        System.Array.Copy(array, newarray, top);
+        Array.Copy(array, newarray, top);
         array = newarray;
       }
       array[top++] = value;
@@ -40,6 +40,21 @@ namespace gppg
     public bool IsEmpty()
     {
       return top == 0;
+    }
+
+    public ParserStack<T> Clone()
+    {
+      ParserStack<T> c = new ParserStack<T>(array.Length);
+      Array.Copy(array, c.array, array.Length);
+      c.top = top;
+
+      return c;
+    }
+
+    public void Clear()
+    {
+      Array.Clear(array, 0, top);
+      top = 0;
     }
   }
 }
