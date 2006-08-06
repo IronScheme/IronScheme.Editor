@@ -1,3 +1,9 @@
+0.2.0.55 - August 6, 2006 
+
+- Much better VS2005 solution support
+- Improved parser to handle shift/reduce conflicts in the automation
+- C# parser should handle most, if not all, .NET 2 cases
+
 0.2.0.51 - July 29, 2006 
 
 - Bugfixes

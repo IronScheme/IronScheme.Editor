@@ -30,7 +30,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("2003-2006 llewellyn@pritchard.org")]
 [assembly: AssemblyTrademark("GNU LGPL")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("0.2.0.51")]
+[assembly: AssemblyVersion("0.2.0.55")]
 // this is only used for when I prep a signed binary, IOW built by me, and no, 
 // u dont get the key. make your own!
 
