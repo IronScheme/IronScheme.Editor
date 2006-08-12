@@ -64,7 +64,8 @@ OPERATOR                  ="{"|"}"|";"|"&&"|"||"|"|"|"&"|"+"|"-"|"*"|"/"|"%"|"++
 LINE_COMMENT              ="#"[^\n]*
 IDENTIFIER                =([-a-zA-Z_\\][-a-zA-Z_-\\0-9:]*)
 
-VARIABLE                  ="$"({IDENTIFIER}|"?")
+SPEC_VAR                  ="$"([$?^]|"Args"|"Error"|"ExecutionContext"|"foreach"|"HOME"|"Input"|"Match"|"MyInvocation"|"PSHome"|"Host"|"LastExitCode"|"true"|"false"|"null"|"this"|"OFS"|"ShellID"|"StackTrace")
+VARIABLE                  ="$"({IDENTIFIER})
 
 %state VERBSTR
 
@@ -76,13 +77,14 @@ VARIABLE                  ="$"({IDENTIFIER}|"?")
 <VERBSTR>({reg_string_char})*"`"    { return String(); }
 
 <YYINITIAL>{KEYWORD}                  {return Keyword();}
-<YYINITIAL>{OTHER}                    {return Type();}
+<YYINITIAL>{OTHER}                    {return Operator();}
 <YYINITIAL>{STRING}                   {return String();}
 <YYINITIAL>{string_literal}              {return String();}
 <YYINITIAL>{NUMBER}                   {return Number();}
 <YYINITIAL>{OPERATOR}                 {return Operator();}
 <YYINITIAL>{IDENTIFIER}               {return Identifier();}
-<YYINITIAL>{VARIABLE}                 {return Other();}
+<YYINITIAL>{SPEC_VAR}                 {return Other();}
+<YYINITIAL>{VARIABLE}                 {return Type();}
 <YYINITIAL>{LINE_COMMENT}             {return Comment();}
 
 {WS}			                            {;}

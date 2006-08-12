@@ -4307,7 +4307,7 @@ namespace Xacc.Controls
         const float first = 0;
 
         tabs = new float[120];
-        DrawInfo.fontwidth = fontwidth = g.MeasureString("M", font, MAX24BIT, sf).Width;
+        DrawInfo.fontwidth = fontwidth = g.MeasureString("//////////", font, MAX24BIT, sf).Width/10;
 
         float tabsizef = fontwidth * tabsize;
 
@@ -6742,10 +6742,11 @@ namespace Xacc.Controls
         this.owner = owner;
 				sf = StringFormat.GenericTypographic.Clone() as StringFormat;
 				sf.FormatFlags = StringFormatFlags.NoWrap |
-					StringFormatFlags.MeasureTrailingSpaces;
-					//| StringFormatFlags.FitBlackBox //important for measurestring
+					StringFormatFlags.MeasureTrailingSpaces |
+					StringFormatFlags.FitBlackBox //important for measurestring
 					//| StringFormatFlags.NoClip;
-					//| StringFormatFlags.NoFontFallback;
+					//| StringFormatFlags.NoFontFallback
+          ;
 
 				//sf.Trimming = StringTrimming.EllipsisCharacter;
 				

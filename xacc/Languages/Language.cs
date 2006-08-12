@@ -282,6 +282,7 @@ namespace Xacc.Languages
     /// <summary>
     /// Resets the error state when parsing
     /// </summary>
+    [Obsolete]
     protected void ResetError()
     {
       yyerrflag = 0;
@@ -400,7 +401,7 @@ namespace Xacc.Languages
     }
 
     /// <summary>
-    /// Fires when parsing has completed, regarless of the result
+    /// Fires when parsing has completed, regardless of the result
     /// </summary>
     protected virtual void Postparse()
     {
@@ -492,13 +493,15 @@ namespace Xacc.Languages
       int tokenpos;
       TokenLine tl;
       IToken current;
-      int line = 1;
+      protected int line = 1;
+      protected readonly float maxlines;
       internal readonly string filename;
       protected readonly Language lang;
       protected bool updatelocations = true;
 
       public TokenEnumeratorBase(DoubleLinkedList<TokenLine> lines, string filename, Language lang)
       {
+        this.maxlines = lines.Count + 1;
         this.lang = lang;
         this.lines = lines;
         this.filename = filename;
@@ -595,6 +598,8 @@ namespace Xacc.Languages
 
     sealed class ParseTokenEnumerator : TokenEnumeratorBase
     {
+      readonly IStatusBarService sb = ServiceHost.StatusBar;
+
       public ParseTokenEnumerator(DoubleLinkedList<TokenLine> lines, string filename, Language lang)
         : base (lines, filename, lang) 
       {
@@ -603,6 +608,7 @@ namespace Xacc.Languages
 
       protected override bool IsValid(IToken token)
       {
+        sb.Progress = line / maxlines;
         return token.Class >= 0 && token.Type >= 0 && !token.Location.Disabled;
       }
     }

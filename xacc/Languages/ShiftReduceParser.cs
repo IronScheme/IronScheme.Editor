@@ -60,7 +60,8 @@ namespace gppg
         tokenpos++;
         return next;
       }
-      yylval = tokenstream[tokenpos++];
+      scanner.yylval = yylval = tokenstream[tokenpos++];
+
       return yylval.Type;
     }
 
@@ -70,6 +71,8 @@ namespace gppg
     readonly Dictionary<int, int> reducehandles = new Dictionary<int, int>();
 
     readonly Stack<ParserState> parserstates = new Stack<ParserState>();
+
+    readonly Stack<State> reducestack = new Stack<State>();
 
     class ParserState
     {
@@ -90,6 +93,7 @@ namespace gppg
         parser.state_stack = state_stack;
         parser.value_stack = value_stack;
 
+        parser.next = 0;
         parser.current_state = parser.state_stack.Top();
       }
     }
@@ -105,6 +109,7 @@ namespace gppg
       parserstates.Clear();
       state_stack.Clear();
       value_stack.Clear();
+      reducestack.Clear();
       tokenpos = 0;
 
       Xacc.ComponentModel.ServiceHost.Error.ClearErrors(Lexer);
@@ -134,19 +139,30 @@ namespace gppg
           WriteLine("Next token is {0}", TerminalToString(next));
           int tryaction;
 
-          //handle reduce            
-          if (!reducehandles.ContainsKey(tokenpos) &&
-            current_state.conflict_table.TryGetValue(next, out tryaction))
+          //handle reduce   
+
+
+
+          //else
+          if (!reducehandles.ContainsKey(tokenpos) && 
+            current_state.parser_table.TryGetValue(next, out tryaction))
           {
+            //
             action = tryaction;
-            ParserState ps = new ParserState(this);
-            reducehandles[tokenpos] = action;
-            parserstates.Push(ps);
+
+            if (current_state.conflict_table.TryGetValue(next, out tryaction))
+            {
+              //action = tryaction;
+              ParserState ps = new ParserState(this);
+              reducehandles[tokenpos] = action;
+              parserstates.Push(ps);
+              reducestack.Push(current_state);
+            }
           }
-          else
-          if (current_state.parser_table.TryGetValue(next, out tryaction))
+          else if (current_state.conflict_table.TryGetValue(next, out tryaction))
           {
             action = tryaction;
+            reducehandles.Remove(tokenpos);
           }
           else if (next == eofToken)
           {
@@ -163,6 +179,12 @@ namespace gppg
         {
           Reduce(-action);
 
+          if (next == 0 && reducestack.Count > 0 && lastreducestate == reducestack.Peek())
+          {
+            parserstates.Pop();
+            reducestack.Pop();
+          }
+
           if (action == -1)	// accept
             return true;
         }
@@ -170,9 +192,9 @@ namespace gppg
         {
           if (parserstates.Count > 0)
           {
+            reducestack.Pop();
             ParserState ps = parserstates.Pop();
             ps.Restore(this);
-            next = 0;
           }
           else
           if (!ErrorRecovery())
@@ -210,6 +232,8 @@ namespace gppg
     }
 
     int rhslen;
+
+    State lastreducestate;
 
     protected void Reduce(int rule_nr)
     {
@@ -253,7 +277,7 @@ namespace gppg
 
       DisplayStack();
 
-      current_state = state_stack.Top();
+      lastreducestate = current_state = state_stack.Top();
 
       int trylhs;
       if (current_state.Goto.TryGetValue(rule.lhs, out trylhs))
@@ -268,6 +292,8 @@ namespace gppg
 
     #region Debug
 #if DEBUG
+
+    public string Next {get {return TerminalToString(next); } }
 
     protected string[] stringstates, stringrules;
 
@@ -396,10 +422,11 @@ namespace gppg
 
       if (SuppressErrors || SuppressAllErrors)
       {
-        Trace.WriteLine(errorMsg + " @ " + scanner.yylval.Location, "Parser         ");
+        Trace.WriteLine(errorMsg + " @ " + yylval.Location, "Parser         ");
       }
       else
       {
+        Trace.WriteLine(errorMsg + " @ " + yylval.Location, "Parser         ");
         scanner.yyerror(errorMsg.ToString());
       }
     }
@@ -430,20 +457,26 @@ namespace gppg
           return true;
         }
 
-        WriteLine("Error: popping state {0}", state_stack.Top().num);
+        if (!state_stack.IsEmpty())
+        {
+          WriteLine("Error: popping state {0}", state_stack.Top().num);
 
-        state_stack.Pop();
-        value_stack.Pop();
+          state_stack.Pop();
+          value_stack.Pop();
 
-        DisplayStack();
+          DisplayStack();
+        }
 
         if (state_stack.IsEmpty())
         {
+
           Write("Aborting: didn't find a state that accepts error token");
           return false;
         }
         else
         {
+
+
           current_state = state_stack.Top();
         }
       }

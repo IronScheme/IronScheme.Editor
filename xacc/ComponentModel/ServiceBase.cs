@@ -466,8 +466,21 @@ namespace Xacc.ComponentModel
 
           ToolStripMenuItem top = toplevel;
 
+          string miaText = mia.Text;
+
+          //if (miaText.IndexOf(':') > 0)
+          //{
+          //  string[] quals = miaText.Split(':');
+
+          //  if (quals.Length > 0)
+          //  {
+          //    top = ServiceHost.Menu[quals[0]];
+          //    miaText = miaText.Replace(quals[0] + ":", string.Empty);
+          //  }
+          //}
+
           // check text
-          string[] tokens = mia.Text.Split('\\');
+          string[] tokens = miaText.Split('\\');
           if (tokens.Length > 1)
           {
 
@@ -485,7 +498,7 @@ namespace Xacc.ComponentModel
           }
           else
           {
-            string miatext = mia.Text;
+            string miatext = miaText;
             top.DropDownOpening += delegate(object sender, EventArgs e)
             {
               bool haderror;

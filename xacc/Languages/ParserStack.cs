@@ -29,12 +29,19 @@ namespace gppg
 
     public T Pop()
     {
-      return array[--top];
+      T res = array[--top];
+      array[top] = default(T);
+      return res;
     }
 
     public T Top()
     {
-      return array[top - 1];
+      return Top(0);
+    }
+
+    public T Top(int i)
+    {
+      return array[top - 1 - i];
     }
 
     public bool IsEmpty()

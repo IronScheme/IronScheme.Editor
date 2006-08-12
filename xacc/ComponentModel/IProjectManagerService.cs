@@ -166,7 +166,7 @@ namespace Xacc.ComponentModel
     void eventSource_ProjectFinished(object sender, ProjectFinishedEventArgs e)
     {
       ServiceHost.Error.OutputErrors(ServiceHost.Project, 
-        new ActionResult(ActionResultType.Info, 0, 0, e.Message + " - success: " + e.Succeeded, e.ProjectFile, null));
+        new ActionResult(e.Succeeded ? ActionResultType.Info : ActionResultType.Error, 0, 0, e.Message, e.ProjectFile, null));
     }
 
     void eventSource_WarningRaised(object sender, BuildWarningEventArgs e)
@@ -322,8 +322,7 @@ namespace Xacc.ComponentModel
       Current.ExistingFile(null, EventArgs.Empty);
     }
 
-    //[MenuItem("Add new project...", Index = 14, State = ApplicationState.Project)]
-    void AddNewProject()
+    internal void AddNewProject()
     {
       Wizard wiz = new Wizard();
 
@@ -350,7 +349,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Add existing project...", Index = 15, State = ApplicationState.Project)]
+    //[MenuItem("Add existing project...", Index = 15, State = ApplicationState.Project)]
     void AddExistingProject()
     {
       OpenFileDialog ofd = new OpenFileDialog();
@@ -390,6 +389,8 @@ namespace Xacc.ComponentModel
       // MSBuild complains about MTA... weird shit
       //System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
       //{
+      (ServiceHost.File as FileManager).SaveDirtyFiles();
+
         ConsoleLogger l = new ConsoleLogger();
         l.Verbosity = ServiceHost.Build.LoggerVerbosity;
         BuildLogger bl = new BuildLogger();
@@ -406,6 +407,7 @@ namespace Xacc.ComponentModel
       // MSBuild complains about MTA... weird shit
       //System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
       //{
+      (ServiceHost.File as FileManager).SaveDirtyFiles();
       ConsoleLogger l = new ConsoleLogger();
       l.Verbosity = ServiceHost.Build.LoggerVerbosity;
       BuildLogger bl = new BuildLogger();
@@ -422,6 +424,7 @@ namespace Xacc.ComponentModel
       // MSBuild complains about MTA... weird shit
       //System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
       //{
+      (ServiceHost.File as FileManager).SaveDirtyFiles();
       ConsoleLogger l = new ConsoleLogger();
       l.Verbosity = ServiceHost.Build.LoggerVerbosity;
       BuildLogger bl = new BuildLogger();
@@ -445,30 +448,6 @@ namespace Xacc.ComponentModel
       {
         MessageBox.Show(ServiceHost.Window.MainForm, "No startup project has been selected", "Error", MessageBoxButtons.OK,
           MessageBoxIcon.Error);
-      }
-    }
-
-    class RecentProjectsConvertor : TypeConverter
-    {
-      public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
-      {
-        return true;
-      }
-
-      public override TypeConverter.StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
-      {
-        return new StandardValuesCollection((ServiceHost.Project as ProjectManager).RecentProjects);
-      }
-    }
-
-
-    [MenuItem("Recent Projects", Index = 900, Converter = typeof(RecentProjectsConvertor))]
-    string RecentProject
-    {
-      get { return string.Empty; }
-      set
-      {
-        Open(value);
       }
     }
 
@@ -580,8 +559,8 @@ namespace Xacc.ComponentModel
 			public readonly static IComparer Default = new TypeComparer();
 		}
 
-    //[MenuItem("Create...", Index = 0, Image = "Project.New.png", AllowToolBar = true)]
-		void Create()
+    
+		internal void Create()
 		{
 			//show wizard thingy
 			Wizard wiz = new Wizard();
@@ -605,23 +584,7 @@ namespace Xacc.ComponentModel
 			}
 		}
 
-    [MenuItem("Open...", Index = 1, Image = "Project.Open.png", AllowToolBar = true)]
-		void Open()
-		{
-			OpenFileDialog ofd = new OpenFileDialog();
-			ofd.CheckFileExists = true;
-			ofd.CheckPathExists = true;
-			ofd.AddExtension = true;
-			ofd.Filter = "MSBuild Project files|*.sln;*.*proj;";
-			ofd.Multiselect = false;
-			ofd.RestoreDirectory = true;
-			if (DialogResult.OK == ofd.ShowDialog(ServiceHost.Window.MainForm))
-			{
-        CloseAll();
-        Application.DoEvents();
-				Open(ofd.FileName);
-			}
-		}
+
 
 		public Project[] OpenProjects
 		{

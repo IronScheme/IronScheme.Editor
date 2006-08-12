@@ -90,10 +90,12 @@ namespace gpcc
       Console.WriteLine("public abstract class LexerBase<T> : Xacc.Languages.CSLex.Language<T>.LexerBase where T : struct, Xacc.ComponentModel.IToken");
       Console.WriteLine("{");
       foreach (Terminal terminal in grammar.terminals.Values)
+      {
         if (terminal.symbolic)
         {
           Console.WriteLine("public const int {0}={1};", terminal.ToString(), terminal.num);
         }
+      }
       Console.WriteLine("}");
     }
 

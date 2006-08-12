@@ -916,13 +916,17 @@ gen_clause
 gen_class_type
   : STRUCT
   | CLASS
-  | class_type
+  | NEW '(' ')'
+  | type_name
   ;
   
 gen_class_base
-  : ':' gen_class_type                             
-  | ':' interface_type_list                              
-  | ':' gen_class_type ',' interface_type_list               
+  : ':' gen_type_list                             
+  ;
+  
+gen_type_list
+  : gen_class_type
+  | gen_type_list ',' gen_class_type 
   ;
   
 /***** C.2.6 Classes *****/
@@ -997,7 +1001,7 @@ field_declaration
                                                               }
   ;
 method_declaration
-  : method_header { SuppressErrors = false; } method_body                                 { $$ = $1; SuppressErrors = false; }
+  : method_header gen_clause_opt  method_body
   ;
 /* Inline return_type to avoid conflict with field_declaration */
 method_header
@@ -1248,10 +1252,10 @@ interface_member_declaration
 /* inline return_type to avoid conflict with interface_property_declaration */
 interface_method_declaration
   : attributes_opt new_opt type member_name 
-    '(' formal_parameter_list_opt ')' interface_empty_body      { $$ = new CodeMethod($4,$3,$6); $$.Location = @4;
+    '(' formal_parameter_list_opt ')' gen_clause_opt interface_empty_body      { $$ = new CodeMethod($4,$3,$6); $$.Location = @4;
                                                                   MakePair(@5,@7);  OverrideToken(@3, TokenClass.Type);}
   | attributes_opt new_opt VOID member_name 
-    '(' formal_parameter_list_opt ')' interface_empty_body      { $$ = new CodeMethod($4, new TypeRef(typeof(void)), $6); 
+    '(' formal_parameter_list_opt ')' gen_clause_opt interface_empty_body      { $$ = new CodeMethod($4, new TypeRef(typeof(void)), $6); 
                                                                   $$.Location = @4; MakePair(@5,@7); }
   ;
 new_opt

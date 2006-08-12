@@ -46,6 +46,8 @@ namespace Xacc.ComponentModel
     readonly StatusStrip status = new StatusStrip();
     readonly ToolStripProgressBar progress = new ToolStripProgressBar();
 
+    const float MAX = 20f;
+
     public StatusStrip StatusBar 
     {
       get { return status; }
@@ -60,21 +62,39 @@ namespace Xacc.ComponentModel
       progress.AutoSize = false;
       progress.Style = ProgressBarStyle.Continuous;
       progress.Width = 200;
-      progress.Maximum = 5000;
+      progress.Maximum = (int)MAX;
       progress.Minimum = 0;
       status.Items.Add(progress);
     }
+
+    int current = 0;
 
     public float Progress
     {
       get
       {
-        return progress.Value / (float)progress.Maximum;
+        return progress.Value / MAX;
       }
       set
       {
-        progress.Value = (int)(value * progress.Maximum);
+        int current = (int)(value * MAX);
+        if (current != this.current)
+        {
+          SetValue(this.current = current);
+        }
       }
+    }
+
+    delegate void SV(int v);
+
+    void SetValue(int value)
+    {
+      if (InvokeRequired)
+      {
+        BeginInvoke(new SV(SetValue), new object[] { value });
+        return;
+      }
+      progress.Value = current;
     }
   }
 }

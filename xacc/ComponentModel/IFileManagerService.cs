@@ -534,20 +534,44 @@ namespace Xacc.ComponentModel
       }
     }
 
+    class RecentProjectsConvertor : TypeConverter
+    {
+      public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+      {
+        return true;
+      }
+
+      public override TypeConverter.StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+      {
+        return new StandardValuesCollection((ServiceHost.Project as ProjectManager).RecentProjects);
+      }
+    }
+
+
+    [MenuItem("Recent Projects", Index = 901, Converter = typeof(RecentProjectsConvertor))]
+    string RecentProject
+    {
+      get { return string.Empty; }
+      set
+      {
+        ServiceHost.Project.Open(value);
+      }
+    }
+
     [MenuItem("Exit", Index = 1000, Image = "File.Exit.png")]
 		void Exit()
 		{
 			ServiceHost.Window.MainForm.Close();
 		}
 
-    [MenuItem("New", Index = 0, Image = "File.New.png")]
+    [MenuItem("New\\Blank file", Index = 0, Image = "File.New.png")]
     void NewTextFile()
     {
       Open("untitled.txt");
     }
 
 
-    [MenuItem("New file...", Index = 1, Image = "File.New.png", AllowToolBar = true)]
+    [MenuItem("New\\File...", Index = 1, Image = "File.New.png", AllowToolBar = true)]
 		void NewFile()
 		{
       NewFileWizard nfw = new NewFileWizard();
@@ -630,6 +654,13 @@ namespace Xacc.ComponentModel
       nfw.Dispose();
 		}
 
+    [MenuItem("New\\Project...", Index = 2, Image = "Project.New.png", AllowToolBar = true)]
+    void NewProject()
+    {
+      (ServiceHost.Project as ProjectManager).Create();
+    }
+
+
     public void BringToFront(Control c)
     {
       AdvancedTextBox atb = c as AdvancedTextBox;
@@ -640,7 +671,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Open file...", Index = 2, Image = "File.Open.png", AllowToolBar = true)]
+    [MenuItem("Open\\File...", Index = 2, Image = "File.Open.png", AllowToolBar = true)]
     void OpenFile()
     {
       OpenFileDialog ofd = new OpenFileDialog();
@@ -658,82 +689,43 @@ namespace Xacc.ComponentModel
 
       IProjectManagerService pms = ServiceHost.Project;
 
-      if (pms.Current == null)
+      foreach (string ext in controlmap.Keys)
       {
-        foreach (string ext in controlmap.Keys)
-        {
-          ab.AppendFormat("*.{0};", ext);
-          sb.AppendFormat("{0} ({1})|{1}|", (controlmap[ext] as Type).Name, "*." + ext);
-        }
+        ab.AppendFormat("*.{0};", ext);
+        sb.AppendFormat("{0} ({1})|{1}|", (controlmap[ext] as Type).Name, "*." + ext);
+      }
 
-        foreach (Languages.Language l in ServiceHost.Language.Languages)
-        {
-          string[] exts = l.Extensions;
+      foreach (Languages.Language l in ServiceHost.Language.Languages)
+      {
+        string[] exts = l.Extensions;
 
-          if (exts.Length > 0)
+        if (exts.Length > 0)
+        {
+          if (exts[0] != "*")
           {
-            if (exts[0] != "*")
-            {
-              ex.AppendFormat("*.{0}", exts[0]);
-              ab.AppendFormat("*.{0};", exts[0]);
-            }
-
-            for(int i = 1; i < exts.Length; i++)
-            {
-              if (exts[i] != "*")
-              {
-                ex.AppendFormat("*.{0}", exts[i]);
-                ab.AppendFormat("*.{0};", exts[i]);
-              }
-            }
+            ex.AppendFormat("*.{0}", exts[0]);
+            ab.AppendFormat("*.{0};", exts[0]);
           }
 
-          if (ex.Length > 0)
+          for (int i = 1; i < exts.Length; i++)
           {
-            sb.AppendFormat("{0} ({1})|{1}|", l.Name, ex);
-            ex.Length = 0;
+            if (exts[i] != "*")
+            {
+              ex.AppendFormat("*.{0}", exts[i]);
+              ab.AppendFormat("*.{0};", exts[i]);
+            }
           }
         }
+
+        if (ex.Length > 0)
+        {
+          sb.AppendFormat("{0} ({1})|{1}|", l.Name, ex);
+          ex.Length = 0;
+        }
       }
-      else
-      {
-        Build.Project p = pms.Current;
 
-        string defext = p.DefaultExtension;
-        Hashtable actions = new Hashtable();
-
-      //  foreach (Type act in p.ActionTypes)
-      //  {
-      //    string[] extss = Xacc.Build.InputExtensionAttribute.GetExtensions(act);
-
-      //    if (extss.Length > 0)
-      //    {
-      //      if (extss[0] != "*")
-      //      {
-      //        ex.AppendFormat("*.{0}", extss[0]);
-      //        ab.AppendFormat("*.{0};", extss[0]);
-      //      }
-
-      //      for(int i = 1; i < extss.Length; i++)
-      //      {
-      //        if (extss[i] != "*")
-      //        {
-      //          ex.AppendFormat(";*.{0}", extss[i]);
-      //          ab.AppendFormat("*.{0};", extss[i]);
-      //        }
-      //      }
-
-      //      if (ex.Length > 0)
-      //      {
-      //        sb.AppendFormat("{0} ({1})|{1}|", NameAttribute.GetName(act), ex);
-      //        ex.Length = 0;
-      //      }
-      //    }
-      //  }
-      }
-      
-      //ab.Length--;
-      //ab.Append("|");
+      ab.Length--;
+      ab.Append("|");
 
       sb.Append("All files (*.*)|*.*");
 
@@ -742,6 +734,27 @@ namespace Xacc.ComponentModel
       if (ofd.ShowDialog(ServiceHost.Window.MainForm) == DialogResult.OK)
       {
         Open(ofd.FileName);
+      }
+    }
+
+    [MenuItem("Open\\Project...", Index = 3, Image = "Project.Open.png", AllowToolBar = true)]
+    void Open()
+    {
+      OpenFileDialog ofd = new OpenFileDialog();
+      ofd.CheckFileExists = true;
+      ofd.CheckPathExists = true;
+      ofd.AddExtension = true;
+      ofd.Filter = "MSBuild Project files|*.sln;*.*proj;";
+      ofd.Multiselect = false;
+      ofd.RestoreDirectory = true;
+
+      ProjectManager pm = ServiceHost.Project as ProjectManager;
+
+      if (DialogResult.OK == ofd.ShowDialog(ServiceHost.Window.MainForm))
+      {
+        pm.CloseAll();
+        Application.DoEvents();
+        pm.Open(ofd.FileName);
       }
     }
 
@@ -916,6 +929,19 @@ namespace Xacc.ComponentModel
 				return open.ToArray(typeof(string)) as string[];
 			}
 		}
+
+    public void SaveDirtyFiles()
+    {
+      foreach (string df in DirtyFiles)
+      {
+        IFile f = this[df] as IFile;
+
+        if (f != null)
+        {
+          f.Save(df);
+        }
+      }
+    }
 
 		public string[] DirtyFiles
 		{
