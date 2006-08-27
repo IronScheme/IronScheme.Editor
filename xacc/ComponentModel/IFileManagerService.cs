@@ -24,6 +24,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Collections;
+ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Drawing;
@@ -43,6 +44,59 @@ using ToolStripMenuItem = Xacc.Controls.ToolStripMenuItem;
 
 namespace Xacc.ComponentModel
 {
+  public class Document
+  {
+    IDocument control;
+    List<IDocument> views = new List<IDocument>();
+
+    public Document()
+    {
+      AddView(control = CreateControl());
+    }
+
+    public Document(IDocument mainview)
+    {
+      AddView(control = mainview);
+    }
+
+
+    public virtual IDocument CreateControl()
+    {
+      return new AdvancedTextBox();
+    }
+
+    internal void SwitchView(IDocument newview)
+    {
+      IDocument oldview = control;
+      control = newview;
+      SwitchView(newview, oldview);
+    }
+
+    protected virtual void SwitchView(IDocument newview, IDocument oldview)
+    {
+      
+    }
+
+    protected void AddView(IDocument view)
+    {
+      views.Add(view);
+    }
+
+    internal Control ActiveControl
+    {
+      get { return control as Control; }
+    }
+
+    public IDocument ActiveView
+    {
+      get { return control; }
+    }
+
+    public IDocument[] Views 
+    {
+      get { return views.ToArray(); }
+    }
+  }
   /// <summary>
   /// Base interface for documents
   /// </summary>
@@ -68,6 +122,7 @@ namespace Xacc.ComponentModel
     /// Gets the current document info
     /// </summary>
     string Info {get;}
+
   }
 
   /// <summary>
@@ -137,6 +192,8 @@ namespace Xacc.ComponentModel
     /// Gets the currently displayed file
     /// </summary>
     Control					CurrentControl				{get;}
+
+    Document CurrentDocument { get;}
 
 
     /// <summary>
@@ -220,6 +277,10 @@ namespace Xacc.ComponentModel
     event	FileManagerEventHandler					Closed;
 
 
+    /// <summary>
+    /// Gets the file tab.
+    /// </summary>
+    /// <value>The file tab.</value>
     IDockContent FileTab { get;}
 	}
 
@@ -284,7 +345,7 @@ namespace Xacc.ComponentModel
   [Menu("File")]
 	sealed class FileManager : ServiceBase, IFileManagerService
 	{
-		readonly internal Hashtable buffers = new Hashtable();
+    readonly internal Dictionary<string, Document> buffers = new Dictionary<string, Document>();
     readonly Hashtable controlmap = new Hashtable();
 		ArrayList recentfiles = new ArrayList();
 
@@ -346,14 +407,21 @@ namespace Xacc.ComponentModel
       }
     }
 
-    IDocument GetControl(string ext)
+    Document GetDocument(string ext)
     {
       Type ct = controlmap[ext] as Type;
       if (ct == null)
       {
-        return new AdvancedTextBox();
+        return new Document();
       }
-      return Activator.CreateInstance(ct) as Control as IDocument;
+      if (ct.IsSubclassOf(typeof(Document)))
+      {
+        return Activator.CreateInstance(ct) as Document;
+      }
+      else
+      {
+        return new Document(Activator.CreateInstance(ct) as Control as IDocument);
+      }
     }
 
 		public event	FileManagerEventHandler	Opening;
@@ -481,7 +549,7 @@ namespace Xacc.ComponentModel
         ServiceHost.Window.Document.ActiveContentChanged +=new EventHandler(this.tc_SelectedIndexChanged);
       }
 
-      Register(typeof(Grid), "gls");
+      Register(typeof(GridDocument), "gls");
       Register(typeof(AssemblyBrowser), "dll", "exe");
 
 #if TRACE
@@ -496,8 +564,8 @@ namespace Xacc.ComponentModel
 
     internal void HackCurrent(AdvancedTextBox c)
     {
-      buffers[c.Name] = c;
-      current = c.Name;
+      //buffers[c.Name] = c;
+      //current = c.Name;
     }
 
     internal void ToggleCurrent(AdvancedTextBox c)
@@ -507,7 +575,26 @@ namespace Xacc.ComponentModel
 
     public Control CurrentControl
     {
-      get { return this[current]; }
+      get 
+      {
+        if (current == null || CurrentDocument == null)
+        {
+          return null;
+        }
+        return CurrentDocument.ActiveControl; 
+      }
+    }
+
+    public Document CurrentDocument
+    {
+      get
+      {
+        if (current == null)
+        {
+          return null;
+        }
+        return buffers[current];
+      }
     }
 
     class RecentFilesConvertor : TypeConverter
@@ -657,7 +744,8 @@ namespace Xacc.ComponentModel
     [MenuItem("New\\Project...", Index = 2, Image = "Project.New.png", AllowToolBar = true)]
     void NewProject()
     {
-      (ServiceHost.Project as ProjectManager).Create();
+      //(ServiceHost.Project as ProjectManager).Create();
+      MessageBox.Show(ServiceHost.Window.MainForm, "Coming soon!");
     }
 
 
@@ -1058,8 +1146,8 @@ namespace Xacc.ComponentModel
 
         tp.TabPageContextMenuStrip = contextmenu;
             
-        IDocument doc = GetControl(ext); 
-        Control c = doc as Control;
+        Document doc = GetDocument(ext); 
+        Control c = doc.ActiveView as Control;
 
         tp.Controls.Add(c);
         c.Dock = DockStyle.Fill;
@@ -1081,9 +1169,9 @@ namespace Xacc.ComponentModel
         DONE: ;
         }
             
-        buffers.Add(filename, c);
+        buffers.Add(filename, doc);
         current = filename;
-        doc.Open(filename);
+        doc.ActiveView.Open(filename);
 
         if (ms != null)
         {
@@ -1214,7 +1302,7 @@ namespace Xacc.ComponentModel
           }
         }
       }
-     (this[current] as IFile).Save(filename);
+      (this[current] as IFile).Save(filename);
 			if (Saved != null)
 			{
 				FileEventArgs fe = new FileEventArgs(filename);
@@ -1296,7 +1384,14 @@ namespace Xacc.ComponentModel
           return null;
         }
         filename = Normalize(filename);
-        return buffers[filename] as Control;
+        if (buffers.ContainsKey(filename))
+        {
+          return buffers[filename].ActiveView as Control;
+        }
+        else
+        {
+          return null;
+        }
       }
 		}
 

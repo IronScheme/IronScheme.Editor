@@ -1,3 +1,10 @@
+0.2.0.57 - August 12, 2006 
+
+- Allows builds to be cancelled
+- Moved some menus
+- C# 2.0 parser completed
+- Updated to NSIS 2.19
+
 0.2.0.55 - August 6, 2006 
 
 - Much better VS2005 solution support

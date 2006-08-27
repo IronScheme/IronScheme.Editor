@@ -156,11 +156,22 @@ namespace Xacc.ComponentModel
 
   class BuildLogger : ILogger
   {
+    public bool cancel = false;
     public void Initialize(IEventSource eventSource)
     {
       eventSource.ErrorRaised += new BuildErrorEventHandler(eventSource_ErrorRaised);
       eventSource.WarningRaised += new BuildWarningEventHandler(eventSource_WarningRaised);
       eventSource.ProjectFinished += new ProjectFinishedEventHandler(eventSource_ProjectFinished);
+      eventSource.AnyEventRaised += new AnyEventHandler(eventSource_AnyEventRaised);
+    }
+
+    void eventSource_AnyEventRaised(object sender, BuildEventArgs e)
+    {
+      if (cancel)
+      {
+
+        System.Threading.Thread.CurrentThread.Abort();
+      }
     }
 
     void eventSource_ProjectFinished(object sender, ProjectFinishedEventArgs e)
@@ -171,10 +182,6 @@ namespace Xacc.ComponentModel
 
     void eventSource_WarningRaised(object sender, BuildWarningEventArgs e)
     {
-      if (e.Code == "MSB4056")
-      {
-        return;
-      }
       ServiceHost.Error.OutputErrors(ServiceHost.Project, 
         new ActionResult(ActionResultType.Warning, e.LineNumber, e.ColumnNumber, e.Message, e.File, e.Code));
     }

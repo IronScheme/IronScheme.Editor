@@ -131,6 +131,8 @@ namespace Xacc.ComponentModel
     /// IScroll control active
     /// </summary>
     Scroll        = 512,
+
+    Build         = 1024,
   }
 
   /// <summary>

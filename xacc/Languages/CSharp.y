@@ -10,9 +10,6 @@ public override string[] Extensions {get {return new string[]{"cs"}; }}
 public override string Name {get {return "C#"; }}
 LexerBase lexer = new CSharpLexer();
 protected override LexerBase Lexer {get {return lexer; }}
-#if !DEBUG
-protected override bool SuppressAllErrors {get {return true;} }
-#endif
 
 [Serializable]
 class TypeRef : CodeTypeRef
@@ -113,7 +110,7 @@ class TypeRef : CodeTypeRef
 %token  STRUCT SWITCH THIS THROW TRUE
 %token  TRY TYPEOF UINT ULONG UNCHECKED
 %token  UNSAFE USHORT USING VIRTUAL VOID
-%token  VOLATILE WHILE WHERE
+%token  VOLATILE WHILE WHERE ARGLIST
 
 /* The ones that seem to be context sensitive */
 
@@ -198,10 +195,11 @@ member_name
   ;
   
 type_list_opt
-  : //%prec SHIFT
+  : 
   | '<' type_list '>'                     {  MakePair(@1,@3); }
-  ;  
-
+  | '<' type_list '<' type_list GTGT
+  ; 
+  
 type_list
   : type
   | type_list ',' type
@@ -471,6 +469,7 @@ shift_expression
   | shift_expression LTLT additive_expression
   | shift_expression GTGT additive_expression 
   ;
+ 
 
 relational_expression
   : shift_expression
@@ -591,7 +590,7 @@ stackalloc_initializer
   : STACKALLOC type  '[' expression ']'                      {  OverrideToken(@2, TokenClass.Type); MakePair(@3,@5);}
   ; 
 local_constant_declaration
-  : CONST primitive_type constant_declarators                          
+  : CONST type constant_declarators                          
   ;
 constant_declarators
   : constant_declarator                                        { $$ = new ArrayList(); $$.Add($1); }
@@ -1001,7 +1000,7 @@ field_declaration
                                                               }
   ;
 method_declaration
-  : method_header gen_clause_opt  method_body
+  : method_header gen_clause_opt  method_body                 { $$ = $1; }
   ;
 /* Inline return_type to avoid conflict with field_declaration */
 method_header
@@ -1013,8 +1012,15 @@ method_header
   ;
 formal_parameter_list_opt
   : /* Nothing */                                             
-  | formal_parameter_list
+  | formal_parameter_list arglist_opt                         { $$ = $1; }
+  | ARGLIST
   ;
+
+arglist_opt
+  :
+  | ',' ARGLIST
+  ;
+  
 return_type
   : type                                                      { OverrideToken(@1, TokenClass.Type); }
   | VOID                                                      { $$ = new TypeRef(typeof(void)); }
@@ -1092,15 +1098,10 @@ event_declaration
                                                                 $$ = cf;  }
   ;
 event_accessor_declarations
-  : add_accessor_declaration remove_accessor_declaration
-  | remove_accessor_declaration add_accessor_declaration
+  : event_accessor_declaration event_accessor_declaration
   ;
-add_accessor_declaration
-  : attributes_opt ADD 
-    block 
-  ;
-remove_accessor_declaration
-  : attributes_opt REMOVE 
+event_accessor_declaration
+  : attributes_opt IDENTIFIER
     block 
   ;
 indexer_declaration
@@ -1112,7 +1113,7 @@ indexer_declarator
   | type qualified_this '[' formal_parameter_list ']'             {  OverrideToken(@1, TokenClass.Type); MakePair(@3,@5);}
   ;
 qualified_this
-  : qualifier THIS
+  : gen_qualifier THIS
   ;
 /* Widen operator_declaration to make modifiers optional */
 operator_declaration
@@ -1365,6 +1366,8 @@ attribute_arguments
 
 %%
 
+bool gtmode = false;
+
 string[] defaultrefs = {"mscorlib.dll", "System.dll", "System.Xml.dll", "System.Drawing.dll", "System.Windows.Forms.dll"};
 
 protected override string[] DefaultReferences
@@ -1416,8 +1419,6 @@ protected override void Preprocess(IEnumerator tokens)
   while (tokens.MoveNext())
   {
     ValueType t = (ValueType)tokens.Current;
-    
-  RETRY:
     
     switch (t.text.Trim())
     {

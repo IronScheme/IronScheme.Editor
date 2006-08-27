@@ -158,12 +158,13 @@ namespace Xacc.Configuration
       }
 
 #if !DEBUG
+
       Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
       AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
       try
       {
 #endif
-        System.Threading.Thread.CurrentThread.CurrentCulture =
+      System.Threading.Thread.CurrentThread.CurrentCulture =
           System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.InvariantCulture;
 
         if (args.listermode)
@@ -395,7 +396,11 @@ namespace Xacc.Configuration
     {
       if (!e.IsTerminating)
       {
-        HandleException(e.ExceptionObject as Exception, false);
+        Exception ex = e.ExceptionObject as Exception;
+        if (ex.Message != "Safe handle has been closed")
+        {
+          HandleException(ex, false);
+        }
       }
     }
 

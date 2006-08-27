@@ -134,10 +134,6 @@ namespace Xacc.Controls
     {
       try
       {
-        if (text.StartsWith("MSBUILD : warning MSB4056:"))
-        {
-          return;
-        }
         Control sender = GetFocus(TopLevelControl);
         Select();
 

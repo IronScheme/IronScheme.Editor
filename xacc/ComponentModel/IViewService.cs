@@ -57,6 +57,78 @@ namespace Xacc.ComponentModel
       set { ServiceHost.ToolBar.ToolBarVisible = value;}
     }
 
+    class ViewConverter : System.ComponentModel.TypeConverter
+    {
+      public override bool GetStandardValuesSupported(System.ComponentModel.ITypeDescriptorContext context)
+      {
+        return true;
+      }
+
+      public override System.ComponentModel.TypeConverter.StandardValuesCollection GetStandardValues(System.ComponentModel.ITypeDescriptorContext context)
+      {
+        Document c = ServiceHost.File.CurrentDocument as Document;
+        ArrayList vals = new ArrayList();
+        if (c != null && c.Views != null)
+        {
+          foreach (IDocument v in c.Views)
+          {
+            NameAttribute na = Attribute.GetCustomAttribute(v.GetType(), typeof(NameAttribute)) as NameAttribute;
+            if (na != null)
+            {
+              vals.Add(na.Name);
+            }
+            else
+            {
+              vals.Add( c.GetType().Name);
+            }
+          }
+        }
+        return new StandardValuesCollection(vals);
+      }
+    }
+
+    [MenuItem("Switch View", Index = 5, Converter = typeof(ViewConverter), State = ApplicationState.File)]
+    public string CurrentView
+    {
+      get
+      {
+        Control c = ServiceHost.File.CurrentControl;
+        if (c != null)
+        {
+          NameAttribute na = Attribute.GetCustomAttribute(c.GetType(), typeof(NameAttribute)) as NameAttribute;
+          if (na != null)
+          {
+            return na.Name;
+          }
+          return c.GetType().Name;
+        }
+        return null;
+      }
+      set
+      {
+        Document c = ServiceHost.File.CurrentDocument;
+        if (c != null && c.Views != null && c.Views.Length > 1)
+        {
+          foreach (Control v in c.Views)
+          {
+            NameAttribute na = Attribute.GetCustomAttribute(v.GetType(), typeof(NameAttribute)) as NameAttribute;
+            if ((na != null && na.Name == value) || (v.GetType().Name == value))
+            {
+              IDockContent dc = c.ActiveView.Tag as IDockContent;
+              dc.Controls.Remove(c.ActiveView as Control);
+              v.Dock = DockStyle.Fill;
+              v.Tag = dc;
+              dc.Controls.Add(v);
+              c.SwitchView(v as IDocument);
+
+#warning BUG: fix activation of control some how, been issue for too long
+              return;
+            }
+          }
+        }
+      }
+    }
+
     [MenuItem("Project Explorer", Index = 10, Image="Project.Type.png")]
     bool ShowProjectExplorer
     {

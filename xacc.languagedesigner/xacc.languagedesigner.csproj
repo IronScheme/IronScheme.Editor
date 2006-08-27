@@ -29,11 +29,11 @@
     </SccAuxPath>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <ManifestCertificateThumbprint>F10F77F83DC130118997179EED09DFB5D8335706</ManifestCertificateThumbprint>
     <ManifestKeyFile>xacc.languagedesigner_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
     <PublishUrl>http://localhost/xacc.languagedesigner/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>

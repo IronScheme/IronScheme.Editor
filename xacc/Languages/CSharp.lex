@@ -27,7 +27,7 @@ new_line               =\n
 
 preprocessor           =^({white_space})*#({white_space})*
 
-attr                   =\[({white_space})*(assembly|return|param)({white_space})*:
+attr                   =\[({white_space})*(assembly|return|param|module)({white_space})*:
 
 dec_digit              =[0-9]
 hex_digit              =[0-9A-Fa-f]
@@ -122,7 +122,8 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 
 <YYINITIAL>{at_identifier}   { return Identifier(IDENTIFIER); }
 
-<YYINITIAL>"global::"           {return Keyword(-1);}
+<YYINITIAL>"__arglist"       {return Keyword(ARGLIST);}
+<YYINITIAL>"global::"        {return Keyword(-1);}
 <YYINITIAL>"abstract"        {return Keyword(ABSTRACT);}
 <YYINITIAL>"as"              {return Keyword(AS);}
 <YYINITIAL>"base"            {return Keyword(BASE);}
@@ -226,6 +227,7 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <YYINITIAL>"^="    { return Operator(XOREQ); }
 <YYINITIAL>"&="    { return Operator(ANDEQ); }
 <YYINITIAL>"|="    { return Operator(OREQ); }
+<YYINITIAL>">>"    { return Operator(GTGT); }
 <YYINITIAL>"<<"    { return Operator(LTLT); }
 <YYINITIAL>">>="   { return Operator(GTGTEQ); }
 <YYINITIAL>"<<="   { return Operator(LTLTEQ); }

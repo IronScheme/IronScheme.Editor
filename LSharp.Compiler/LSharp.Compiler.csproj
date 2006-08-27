@@ -29,11 +29,11 @@
     </SccAuxPath>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <ManifestCertificateThumbprint>6DFF6C22F266AECF5609ED8A1664381D5DD92DC7</ManifestCertificateThumbprint>
     <ManifestKeyFile>LSharp.Compiler_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
     <PublishUrl>http://localhost/lsc/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>

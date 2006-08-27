@@ -110,7 +110,7 @@ namespace Xacc.Timers
     {
       running = false;
       enabled = false;
-      Thread.Sleep(50);
+      //Thread.Sleep(50);
       loop.Abort();
     }
   }

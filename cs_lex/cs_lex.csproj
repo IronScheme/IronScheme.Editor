@@ -31,7 +31,7 @@
     </SccAuxPath>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <ManifestCertificateThumbprint>688FEC0DE31D813A5BEFEB9495BA7706B37A68EB</ManifestCertificateThumbprint>
     <ManifestKeyFile>cs_lex_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>false</GenerateManifests>

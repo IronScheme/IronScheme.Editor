@@ -242,10 +242,11 @@ namespace Xacc.Languages
       }
     }
 
+
     /// <summary>
-    /// 
+    /// Comments the lines.
     /// </summary>
-    /// <param name="lines"></param>
+    /// <param name="lines">The lines.</param>
     /// <returns></returns>
     protected internal virtual string[] CommentLines(string[] lines)
     {
@@ -253,9 +254,9 @@ namespace Xacc.Languages
     }
 
     /// <summary>
-    /// 
+    /// Uns the comment lines.
     /// </summary>
-    /// <param name="lines"></param>
+    /// <param name="lines">The lines.</param>
     /// <returns></returns>
     protected internal virtual string[] UnCommentLines(string[] lines)
     {
@@ -1196,6 +1197,9 @@ namespace Xacc.Languages
     /// <summary>
     /// Gets whether project tree is used for AutoComplete
     /// </summary>
+    /// <value>
+    /// 	<c>true</c> if [use project tree for auto complete]; otherwise, <c>false</c>.
+    /// </value>
     protected virtual bool UseProjectTreeForAutoComplete
     {
       get {return true;}
@@ -1413,38 +1417,44 @@ namespace Xacc.Languages
     /// <summary>
     /// Gets the current filename
     /// </summary>
+    /// <value>The current filename.</value>
     protected string CurrentFilename
     {
       get {return currfilename; }
     }
 
+    readonly object PARSERLOCK = new object();
+
     /// <summary>
     /// Internal use
     /// </summary>
-    /// <param name="lines"></param>
+    /// <param name="lines">The lines.</param>
     /// <returns></returns>
     protected int Parse(IEnumerator lines)
     {
-      string filename = currfilename = (lines as TokenEnumeratorBase).filename;
-      codemodel = null;
-      codemodel = new CodeFile(filename);
-      ServiceHost.Error.ClearErrors(this);
-      //scopetree.Clear();
-      parsedtypes.Clear();
-      scopestack.Clear();
-      imports.Clear();
-      imports.Add(string.Empty);
-      aliases.Clear();
-      braces.Clear();
-      scopestack.Push( new Location(0));
-      Preparse( filename );
-      this.lines = lines;
-      int res = yyparse(lines);
-      lasttoken = LastToken;
-      this.lines = null;
-      Postparse();
+      //lock (PARSERLOCK)
+      {
+        string filename = currfilename = (lines as TokenEnumeratorBase).filename;
+        codemodel = null;
+        codemodel = new CodeFile(filename);
+        ServiceHost.Error.ClearErrors(this);
+        //scopetree.Clear();
+        parsedtypes.Clear();
+        scopestack.Clear();
+        imports.Clear();
+        imports.Add(string.Empty);
+        aliases.Clear();
+        braces.Clear();
+        scopestack.Push(new Location(0));
+        Preparse(filename);
+        this.lines = lines;
+        int res = yyparse(lines);
+        lasttoken = LastToken;
+        this.lines = null;
+        Postparse();
 
-      return res;
+        return res;
+      }
     }
 
     internal interface IParserCallback
@@ -1460,8 +1470,8 @@ namespace Xacc.Languages
     /// <summary>
     /// Internal use
     /// </summary>
-    /// <param name="mlines"></param>
-    /// <param name="filename"></param>
+    /// <param name="mlines">The mlines.</param>
+    /// <param name="filename">The filename.</param>
     /// <returns></returns>
     internal virtual int Parse(DoubleLinkedList<TokenLine> mlines, string filename)
     {
@@ -1471,9 +1481,9 @@ namespace Xacc.Languages
     /// <summary>
     /// Internal use
     /// </summary>
-    /// <param name="mlines"></param>
-    /// <param name="filename"></param>
-    /// <param name="cb"></param>
+    /// <param name="mlines">The mlines.</param>
+    /// <param name="filename">The filename.</param>
+    /// <param name="cb">The cb.</param>
     /// <returns></returns>
     internal int Parse(DoubleLinkedList<TokenLine> mlines, string filename, IParserCallback cb)
     {
@@ -1523,10 +1533,7 @@ namespace Xacc.Languages
           {
             DoubleLinkedList<TokenLine>.IPosition pos = mlines.PositionOf(prevline);
 
-            if (pos == null)
-            {
-              Debugger.Break();
-            }
+            Debug.Assert(pos != null);
 
             pos = pos.Next;
 

@@ -42,9 +42,50 @@ using LSharp;
 
 namespace Xacc.Controls
 {
+  class GridDocument : Document
+  {
+    public GridDocument()
+      : base(new Grid())
+    {
+      AdvancedTextBox atb = new AdvancedTextBox();
+      atb.EditorLanguage = "LSharp";
+      AddView(atb);
+    }
+
+    protected override void SwitchView(IDocument newview, IDocument oldview)
+    {
+      if (newview is AdvancedTextBox)
+      {
+        AdvancedTextBox atb = newview as AdvancedTextBox;
+        Grid g = oldview as Grid;
+
+        StringWriter w = new StringWriter();
+
+        g.Save(w);
+
+        StringReader r = new StringReader(w.ToString());
+
+        atb.Buffer.Load(r);
+      }
+      else
+      {
+        AdvancedTextBox atb = oldview as AdvancedTextBox;
+        Grid g = newview as Grid;
+
+        StringWriter w = new StringWriter();
+
+        atb.Buffer.Save(w);
+
+        StringReader r = new StringReader(w.ToString());
+
+        g.Open(r);
+      }
+    }
+  }
 	/// <summary>
 	/// Summary description for Grid.
 	/// </summary>
+  [Name("Grid")]
   class Grid : Control, IServiceProvider, IWindowsFormsEditorService, IEdit, IFile, INavigate, IHasUndo
   {
     #region Fields
@@ -806,6 +847,7 @@ namespace Xacc.Controls
       environment.SymbolAssigned +=new EnvironmentEventHandler(environment_SymbolAssigned);
       environment.SymbolChanged +=new EnvironmentEventHandler(environment_SymbolChanged);
       environment.SymbolRemoved +=new EnvironmentEventHandler(environment_SymbolRemoved);
+
    }
 
 		#endregion
@@ -1336,21 +1378,26 @@ namespace Xacc.Controls
 
         Hashtable attrmap = (ServiceHost.Menu as MenuService).GetAttributeMap(mi);
 
-        foreach (ToolStripMenuItem m in mi.DropDownItems)
+        foreach (ToolStripItem m in mi.DropDownItems)
         {
           ToolStripMenuItem pmi = m as ToolStripMenuItem;
           if (pmi != null)
           {
             MenuItemAttribute mia = attrmap[pmi] as MenuItemAttribute;
-            if (mia == null) 
+            if (mia == null)
             {
             }
             else
               if ((mia.State & (ApplicationState.Edit)) != 0)
-            {
-              contextmenu.Items.Add(m);
-            }
+              {
+                contextmenu.Items.Add(pmi.Clone());
+              }
           }
+          else
+          {
+            contextmenu.Items.Add("-");
+          }
+
         }
 
         ContextMenuStrip = contextmenu;
@@ -1596,12 +1643,8 @@ namespace Xacc.Controls
 
 		#region Load/Save
 
-		public void Save(string filename)
-		{
-      SuspendLayout();
-			Stream s = File.Create(filename);
-      TextWriter w = new StreamWriter(s);
-
+    public void Save(TextWriter w)
+    {
       w.WriteLine("(=");
 
       ArrayList keys = new ArrayList(cellstore.Keys);
@@ -1622,12 +1665,39 @@ namespace Xacc.Controls
       }
 
       w.WriteLine(")");
+    }
+
+		public void Save(string filename)
+		{
+      SuspendLayout();
+			Stream s = File.Create(filename);
+      TextWriter w = new StreamWriter(s);
+
+      Save(w);
 
       lastsavelevel = undo.CurrentLevel;
 
       w.Flush();
       w.Close();
 		}
+
+    public void Open(TextReader r)
+    {
+      string t = r.ReadToEnd();
+
+      recording = false;
+      object res = LSharp.Runtime.EvalString(t, environment);
+      recording = true;
+
+      selrange = new Range("a1..a1");
+
+      foreach (Cell c in cellstore.Keys)
+      {
+        UpdateFar(c);
+      }
+      ResumeLayout();
+      Invalidate();
+    }
 
 		public void Open(string filename)
 		{
@@ -1643,22 +1713,10 @@ namespace Xacc.Controls
 
         TextReader r = new StreamReader(s);
 
-        string t = r.ReadToEnd();
+        Open(r);
+
         s.Close();
         s = null;
-
-        recording = false;
-        object res = LSharp.Runtime.EvalString(t, environment);
-        recording = true;
-
-        selrange = new Range("a1..a1");
-
-				foreach (Cell c in cellstore.Keys)
-				{
-					UpdateFar(c);
-				}
-        ResumeLayout();
-				Invalidate();
 			}
 			catch (Exception ex)
 			{
@@ -1815,7 +1873,7 @@ namespace Xacc.Controls
 		protected void OnCellEdit(ref object obj)
 		{
 			//check object type etc
-			if (obj == null)
+			 if (obj == null)
 			{
 				//popup lame object creation dialog ..... maybe.....
 				isediting = true;
@@ -1908,6 +1966,7 @@ namespace Xacc.Controls
 			this.Size = new System.Drawing.Size(448, 416);
 		}
     #endregion
+
 
   }
 }

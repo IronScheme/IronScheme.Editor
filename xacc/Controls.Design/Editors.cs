@@ -182,7 +182,7 @@ namespace Xacc.Controls.Design
 
       // HACK HACK HACK HACK
       FileManager fm = ServiceHost.File as FileManager;
-      fm.buffers.Add("$hack$", atb);
+      //fm.buffers.Add("$hack$", atb);
       string ob = fm.current;
       fm.current = "$hack$";
       ApplicationState os = ServiceHost.State;

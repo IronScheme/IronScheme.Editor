@@ -94,10 +94,7 @@ namespace Xacc.Algorithms
         lastend = m.Index + m.Length;
       }
       
-      //if (lastend < name.Length)
-      {
-        tokens.Add(name.Substring(lastend));
-      }
+      tokens.Add(name.Substring(lastend));
 
       return tokens.ToArray();
     }

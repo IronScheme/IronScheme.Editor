@@ -69,6 +69,7 @@ namespace Xacc.Controls
 	/// A damn fine control.
 	/// </summary>
 	[ToolboxBitmap(typeof(Resources.Fake), "CodeValueType.bmp")]
+  [Name("Code Editor")]
 	public sealed class AdvancedTextBox : Control, IEdit, IFile, IEditSpecial, IEditAdvanced, INavigate, IScroll
 	{
 		#region Fields
@@ -872,7 +873,6 @@ namespace Xacc.Controls
       }
       base.OnParentChanged (e);
     }
-
 
 
 		/// <summary>
