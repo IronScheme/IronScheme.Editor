@@ -46,11 +46,9 @@ namespace Xacc.CodeModel
   {
     int start, end;
 
-#if NULL
-    int flags = 0;
-#endif
     internal LocationCallback callback;
 
+    
     // Layout (x2) |------- 18 bit line ------|---- 12 bit col ----|-2 bit flags-|
     // lines about 600k max
     // col about 1024

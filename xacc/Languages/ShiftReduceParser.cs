@@ -93,6 +93,8 @@ namespace gppg
         parser.state_stack = state_stack;
         parser.value_stack = value_stack;
 
+        parser.PopTill(parser.tokenstream[tokenpos].Location);
+
         parser.next = 0;
         parser.current_state = parser.state_stack.Top();
       }

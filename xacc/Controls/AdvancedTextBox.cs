@@ -5780,6 +5780,12 @@ namespace Xacc.Controls
       }
 
       delegate void VOIDPROJECT(Build.Project p);
+      
+      
+      void Language.IParserCallback.Invoke(System.Collections.Generic.Stack<CodeModel.Location> locstack)
+      {
+
+      }
 
       void Language.IParserCallback.Invoke(CodeModel.Location loc)
       {

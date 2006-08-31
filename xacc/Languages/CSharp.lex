@@ -17,7 +17,7 @@ int docintag = 0;
 %}
 
 doc_comment            ="///"
-line_comment           =("//"[^/\n].*)|"//"
+line_comment           =("//"[^/\n].*)|"//"|("////".*)
 
 comment_start          ="/*"
 comment_end            ="*"+"/"

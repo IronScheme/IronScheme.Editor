@@ -950,7 +950,7 @@ namespace Xacc.ComponentModel
     [MenuItem("Save", Index = 10, State = ApplicationState.File, Image = "File.Save.png", AllowToolBar = true)]
 		void SaveFile()
 		{
-			if (current != null && buffers[current] is IFile)
+			if (current != null && buffers[current].ActiveView is IFile)
 			{
 				Save(current);
 			}
@@ -993,7 +993,7 @@ namespace Xacc.ComponentModel
 				{
 					if (current != null && buffers[current] is IFile)
 					{
-						IFile atb = buffers[current] as IFile;
+						IFile atb = buffers[current].ActiveView as IFile;
 						atb.Save(sfd.FileName);
 
 						Close(current);

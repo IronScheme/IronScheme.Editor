@@ -34,6 +34,7 @@ using Xacc.Controls;
 using Xacc.Collections;
 using Xacc.CodeModel;
 using Xacc.Build;
+using System.Collections.Generic;
 
 using SR = System.Resources;
 using TokenLine = Xacc.Controls.AdvancedTextBox.TextBuffer.TokenLine;
@@ -206,6 +207,16 @@ namespace Xacc.Languages
 
     Hashtable parsedtypes = new Hashtable();
 
+    Stack<Location> locstack = new Stack<Location>();
+
+    protected void PopTill(Location loc)
+    {
+      while (locstack.Peek() > loc)
+      {
+        locstack.Pop();
+      }
+    }
+
     protected bool IsType(object type)
     {
       if (type is string)
@@ -236,10 +247,12 @@ namespace Xacc.Languages
         }
       };
 
-      if (cb != null)
-      {
-        cb.Invoke(loc);
-      }
+      locstack.Push(loc);
+
+      //if (cb != null)
+      //{
+      //  cb.Invoke(loc);
+      //}
     }
 
 
@@ -294,6 +307,7 @@ namespace Xacc.Languages
     /// </summary>
     /// <param name="s">the message</param>
     /// <param name="loc">the location</param>
+    [Obsolete]
     protected void yywarn(string s, Location loc)
     {
       if (!SuppressErrors)
@@ -319,6 +333,7 @@ namespace Xacc.Languages
     /// </summary>
     /// <param name="s">the message</param>
     /// <param name="loc">the location</param>
+    [Obsolete]
     protected void yyerror(string s, Location loc)
     {
       if (!SuppressErrors)
@@ -344,6 +359,7 @@ namespace Xacc.Languages
     /// </summary>
     /// <param name="v">the expected char</param>
     /// <param name="loc">the location</param>
+    [Obsolete]
     protected void yyexpect(char v, Location loc)
     {
       if (!SuppressErrors)
@@ -369,6 +385,7 @@ namespace Xacc.Languages
     /// </summary>
     /// <param name="v">the expected string</param>
     /// <param name="loc">the location</param>
+    [Obsolete]
     protected void yyexpect(string v, Location loc)
     {
       if (!SuppressErrors)
@@ -1439,6 +1456,7 @@ namespace Xacc.Languages
         codemodel = new CodeFile(filename);
         ServiceHost.Error.ClearErrors(this);
         //scopetree.Clear();
+        locstack.Clear();
         parsedtypes.Clear();
         scopestack.Clear();
         imports.Clear();
@@ -1453,6 +1471,13 @@ namespace Xacc.Languages
         this.lines = null;
         Postparse();
 
+        while (locstack.Count > 0)
+        {
+          cb.Invoke(locstack.Pop());
+        }
+
+        //cb.Invoke(locstack);
+        
         return res;
       }
     }
@@ -1460,6 +1485,7 @@ namespace Xacc.Languages
     internal interface IParserCallback
     {
       void Invoke(Location loc);
+      void Invoke(Stack<Location> locstack);
     }
 
     /// <summary>
