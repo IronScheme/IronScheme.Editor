@@ -259,3376 +259,1518 @@ class TypeRef : CodeTypeRef
     this.errToken = (int)Tokens.error;
     this.eofToken = (int)Tokens.EOF;
 
-    stringstates=new string[947];
-    stringrules=new string[564];
     states=new State[947];
-stringstates[0] = @"1 $accept: . compilation_unit EOF ";
     AddState(0,new State(new int[]{208,935,91,-318,127,-318,175,-318,136,-318,158,-318,171,-318,176,-318,181,-318,183,-318,184,-318,185,-318,186,-318,190,-318,194,-318,206,-318,209,-318,211,-318,146,-318,196,-318,170,-318,155,-318,151,-318,128,-318},new int[]{-1,1,-200,3,-202,932,-205,945,-206,934,-207,944}));
-stringstates[1] = @"1 $accept: compilation_unit . EOF ";
     AddState(1,new State(new int[]{128,2}));
-stringstates[2] = @"1 $accept: compilation_unit EOF .		[]";
     AddState(2,new State(-1));
-stringstates[3] = @"316 compilation_unit: using_directives_opt . attributes_opt 
-317 compilation_unit: using_directives_opt . namespace_member_declarations ";
     AddState(3,new State(new int[]{91,538,127,930,175,-320,136,-320,158,-320,171,-320,176,-320,181,-320,183,-320,184,-320,185,-320,186,-320,190,-320,194,-320,206,-320,209,-320,211,-320,146,-320,196,-320,170,-320,155,-320,151,-320,128,-320},new int[]{-201,4,-2,946,-203,535,-250,536,-251,553,-24,931,-23,16,-40,929,-35,903,-36,904,-37,905,-38,906,-39,907}));
-stringstates[4] = @"316 compilation_unit: using_directives_opt attributes_opt .		[EOF, ]
-324 namespace_declaration: attributes_opt . NAMESPACE qualified_identifier namespace_body comma_opt 
-383 class_declaration: attributes_opt . modifiers_opt CLASS IDENTIFIER type_arg_list_opt class_base_opt gen_clause_opt class_body comma_opt 
-489 struct_declaration: attributes_opt . modifiers_opt STRUCT member_name struct_interfaces_opt struct_body comma_opt 
-513 interface_declaration: attributes_opt . modifiers_opt INTERFACE member_name interface_base_opt interface_body comma_opt 
-539 enum_declaration: attributes_opt . modifiers_opt ENUM IDENTIFIER enum_base_opt enum_body comma_opt 
-551 delegate_declaration: attributes_opt . modifiers_opt DELEGATE return_type member_name type_arg_list_opt '(' formal_parameter_list_opt ')' ';' ";
     AddState(4,new State(new int[]{175,5,136,628,158,629,171,630,176,631,181,632,183,633,184,634,185,635,186,636,190,637,194,638,206,639,209,640,211,641,128,-316,146,-355,196,-355,170,-355,155,-355,151,-355},new int[]{-208,18,-209,626,-210,642}));
-stringstates[5] = @"324 namespace_declaration: attributes_opt NAMESPACE . qualified_identifier namespace_body comma_opt ";
     AddState(5,new State(new int[]{130,185},new int[]{-29,6,-74,182,-73,183,-76,209}));
-stringstates[6] = @"324 namespace_declaration: attributes_opt NAMESPACE qualified_identifier . namespace_body comma_opt ";
     AddState(6,new State(new int[]{123,10},new int[]{-3,7}));
-stringstates[7] = @"324 namespace_declaration: attributes_opt NAMESPACE qualified_identifier namespace_body . comma_opt ";
     AddState(7,new State(new int[]{59,9,91,-325,127,-325,175,-325,136,-325,158,-325,171,-325,176,-325,181,-325,183,-325,184,-325,185,-325,186,-325,190,-325,194,-325,206,-325,209,-325,211,-325,146,-325,196,-325,170,-325,155,-325,151,-325,128,-325,125,-325},new int[]{-204,8}));
-stringstates[8] = @"324 namespace_declaration: attributes_opt NAMESPACE qualified_identifier namespace_body comma_opt .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
     AddState(8,new State(-324));
-stringstates[9] = @"326 comma_opt: ';' .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(9,new State(-326));
-stringstates[10] = @"337 namespace_body: '{' . using_directives_opt namespace_member_declarations_opt '}' ";
     AddState(10,new State(new int[]{208,935,91,-318,127,-318,125,-318,175,-318,136,-318,158,-318,171,-318,176,-318,181,-318,183,-318,184,-318,185,-318,186,-318,190,-318,194,-318,206,-318,209,-318,211,-318,146,-318,196,-318,170,-318,155,-318,151,-318},new int[]{-200,11,-202,932,-205,945,-206,934,-207,944}));
-stringstates[11] = @"337 namespace_body: '{' using_directives_opt . namespace_member_declarations_opt '}' ";
     AddState(11,new State(new int[]{91,538,127,930,125,-322,175,-320,136,-320,158,-320,171,-320,176,-320,181,-320,183,-320,184,-320,185,-320,186,-320,190,-320,194,-320,206,-320,209,-320,211,-320,146,-320,196,-320,170,-320,155,-320,151,-320},new int[]{-4,12,-2,14,-24,931,-23,16,-201,17,-203,535,-250,536,-251,553,-40,929,-35,903,-36,904,-37,905,-38,906,-39,907}));
-stringstates[12] = @"337 namespace_body: '{' using_directives_opt namespace_member_declarations_opt . '}' ";
     AddState(12,new State(new int[]{125,13}));
-stringstates[13] = @"337 namespace_body: '{' using_directives_opt namespace_member_declarations_opt '}' .		[';', '[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
     AddState(13,new State(-337));
-stringstates[14] = @"323 namespace_member_declarations_opt: namespace_member_declarations .		['}', ]
-346 namespace_member_declarations: namespace_member_declarations . namespace_member_declaration ";
     AddState(14,new State(new int[]{91,538,127,930,125,-323,175,-320,136,-320,158,-320,171,-320,176,-320,181,-320,183,-320,184,-320,185,-320,186,-320,190,-320,194,-320,206,-320,209,-320,211,-320,146,-320,196,-320,170,-320,155,-320,151,-320},new int[]{-24,15,-23,16,-201,17,-203,535,-250,536,-251,553,-40,929,-35,903,-36,904,-37,905,-38,906,-39,907}));
-stringstates[15] = @"346 namespace_member_declarations: namespace_member_declarations namespace_member_declaration .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
     AddState(15,new State(-346));
-stringstates[16] = @"347 namespace_member_declaration: namespace_declaration .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
     AddState(16,new State(-347));
-stringstates[17] = @"324 namespace_declaration: attributes_opt . NAMESPACE qualified_identifier namespace_body comma_opt 
-383 class_declaration: attributes_opt . modifiers_opt CLASS IDENTIFIER type_arg_list_opt class_base_opt gen_clause_opt class_body comma_opt 
-489 struct_declaration: attributes_opt . modifiers_opt STRUCT member_name struct_interfaces_opt struct_body comma_opt 
-513 interface_declaration: attributes_opt . modifiers_opt INTERFACE member_name interface_base_opt interface_body comma_opt 
-539 enum_declaration: attributes_opt . modifiers_opt ENUM IDENTIFIER enum_base_opt enum_body comma_opt 
-551 delegate_declaration: attributes_opt . modifiers_opt DELEGATE return_type member_name type_arg_list_opt '(' formal_parameter_list_opt ')' ';' ";
     AddState(17,new State(new int[]{175,5,136,628,158,629,171,630,176,631,181,632,183,633,184,634,185,635,186,636,190,637,194,638,206,639,209,640,211,641,146,-355,196,-355,170,-355,155,-355,151,-355},new int[]{-208,18,-209,626,-210,642}));
-stringstates[18] = @"383 class_declaration: attributes_opt modifiers_opt . CLASS IDENTIFIER type_arg_list_opt class_base_opt gen_clause_opt class_body comma_opt 
-489 struct_declaration: attributes_opt modifiers_opt . STRUCT member_name struct_interfaces_opt struct_body comma_opt 
-513 interface_declaration: attributes_opt modifiers_opt . INTERFACE member_name interface_base_opt interface_body comma_opt 
-539 enum_declaration: attributes_opt modifiers_opt . ENUM IDENTIFIER enum_base_opt enum_body comma_opt 
-551 delegate_declaration: attributes_opt modifiers_opt . DELEGATE return_type member_name type_arg_list_opt '(' formal_parameter_list_opt ')' ';' ";
     AddState(18,new State(new int[]{146,19,196,738,170,751,155,831,151,851}));
-stringstates[19] = @"383 class_declaration: attributes_opt modifiers_opt CLASS . IDENTIFIER type_arg_list_opt class_base_opt gen_clause_opt class_body comma_opt ";
     AddState(19,new State(new int[]{130,20}));
-stringstates[20] = @"383 class_declaration: attributes_opt modifiers_opt CLASS IDENTIFIER . type_arg_list_opt class_base_opt gen_clause_opt class_body comma_opt ";
     AddState(20,new State(new int[]{60,652,58,-21,123,-21,213,-21},new int[]{-81,21}));
-stringstates[21] = @"383 class_declaration: attributes_opt modifiers_opt CLASS IDENTIFIER type_arg_list_opt . class_base_opt gen_clause_opt class_body comma_opt ";
     AddState(21,new State(new int[]{58,924,123,-384,213,-384},new int[]{-216,22,-217,923}));
-stringstates[22] = @"383 class_declaration: attributes_opt modifiers_opt CLASS IDENTIFIER type_arg_list_opt class_base_opt . gen_clause_opt class_body comma_opt ";
     AddState(22,new State(-373,new int[]{-211,23}));
-stringstates[23] = @"383 class_declaration: attributes_opt modifiers_opt CLASS IDENTIFIER type_arg_list_opt class_base_opt gen_clause_opt . class_body comma_opt 
-374 gen_clause_opt: gen_clause_opt . gen_clause ";
     AddState(23,new State(new int[]{123,27,213,774},new int[]{-7,24,-212,26}));
-stringstates[24] = @"383 class_declaration: attributes_opt modifiers_opt CLASS IDENTIFIER type_arg_list_opt class_base_opt gen_clause_opt class_body . comma_opt ";
     AddState(24,new State(new int[]{59,9,91,-325,127,-325,175,-325,136,-325,158,-325,171,-325,176,-325,181,-325,183,-325,184,-325,185,-325,186,-325,190,-325,194,-325,206,-325,209,-325,211,-325,146,-325,196,-325,170,-325,155,-325,151,-325,128,-325,125,-325,147,-325,210,-325,156,-325,126,-325,189,-325,141,-325,191,-325,207,-325,169,-325,203,-325,174,-325,204,-325,144,-325,162,-325,153,-325,149,-325,139,-325,178,-325,195,-325,130,-325,167,-325,157,-325},new int[]{-204,25}));
-stringstates[25] = @"383 class_declaration: attributes_opt modifiers_opt CLASS IDENTIFIER type_arg_list_opt class_base_opt gen_clause_opt class_body comma_opt .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(25,new State(-383));
-stringstates[26] = @"374 gen_clause_opt: gen_clause_opt gen_clause .		['{', WHERE, ';', ]";
     AddState(26,new State(-374));
-stringstates[27] = @"391 class_body: '{' . class_member_declarations_opt '}' ";
     AddState(27,new State(new int[]{91,538,127,921,125,-392,136,-320,158,-320,171,-320,176,-320,181,-320,183,-320,184,-320,185,-320,186,-320,190,-320,194,-320,206,-320,209,-320,211,-320,147,-320,210,-320,156,-320,126,-320,146,-320,196,-320,170,-320,155,-320,151,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320,167,-320,157,-320},new int[]{-6,28,-8,30,-41,922,-19,32,-201,33,-203,535,-250,536,-251,553,-20,912,-42,913,-53,894,-43,914,-45,915,-46,916,-47,917,-48,918,-49,919,-40,920,-35,903,-36,904,-37,905,-38,906,-39,907}));
-stringstates[28] = @"391 class_body: '{' class_member_declarations_opt . '}' ";
     AddState(28,new State(new int[]{125,29}));
-stringstates[29] = @"391 class_body: '{' class_member_declarations_opt '}' .		[';', '[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(29,new State(-391));
-stringstates[30] = @"393 class_member_declarations_opt: class_member_declarations .		['}', ]
-395 class_member_declarations: class_member_declarations . class_member_declaration ";
     AddState(30,new State(new int[]{91,538,127,921,125,-393,136,-320,158,-320,171,-320,176,-320,181,-320,183,-320,184,-320,185,-320,186,-320,190,-320,194,-320,206,-320,209,-320,211,-320,147,-320,210,-320,156,-320,126,-320,146,-320,196,-320,170,-320,155,-320,151,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320,167,-320,157,-320},new int[]{-41,31,-19,32,-201,33,-203,535,-250,536,-251,553,-20,912,-42,913,-53,894,-43,914,-45,915,-46,916,-47,917,-48,918,-49,919,-40,920,-35,903,-36,904,-37,905,-38,906,-39,907}));
-stringstates[31] = @"395 class_member_declarations: class_member_declarations class_member_declaration .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(31,new State(-395));
-stringstates[32] = @"396 class_member_declaration: constant_declaration .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(32,new State(-396));
-stringstates[33] = @"407 constant_declaration: attributes_opt . modifiers_opt CONST type constant_declarators ';' 
-408 field_declaration: attributes_opt . modifiers_opt type variable_declarators ';' 
-410 method_header: attributes_opt . modifiers_opt type qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')' 
-411 method_header: attributes_opt . modifiers_opt VOID qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')' 
-430 property_declaration: attributes_opt . modifiers_opt type qualified_identifier '{' accessor_declarations '}' 
-441 event_declaration: attributes_opt . modifiers_opt EVENT type variable_declarators ';' 
-442 event_declaration: attributes_opt . modifiers_opt EVENT type qualified_identifier '{' event_accessor_declarations '}' 
-445 indexer_declaration: attributes_opt . modifiers_opt indexer_declarator '{' accessor_declarations '}' 
-449 operator_declaration: attributes_opt . modifiers_opt operator_declarator operator_body 
-478 constructor_declaration: attributes_opt . modifiers_opt constructor_declarator constructor_body 
-484 destructor_declaration: attributes_opt . modifiers_opt '~' IDENTIFIER '(' ')' block 
-383 class_declaration: attributes_opt . modifiers_opt CLASS IDENTIFIER type_arg_list_opt class_base_opt gen_clause_opt class_body comma_opt 
-489 struct_declaration: attributes_opt . modifiers_opt STRUCT member_name struct_interfaces_opt struct_body comma_opt 
-513 interface_declaration: attributes_opt . modifiers_opt INTERFACE member_name interface_base_opt interface_body comma_opt 
-539 enum_declaration: attributes_opt . modifiers_opt ENUM IDENTIFIER enum_base_opt enum_body comma_opt 
-551 delegate_declaration: attributes_opt . modifiers_opt DELEGATE return_type member_name type_arg_list_opt '(' formal_parameter_list_opt ')' ';' ";
     AddState(33,new State(new int[]{136,628,158,629,171,630,176,631,181,632,183,633,184,634,185,635,186,636,190,637,194,638,206,639,209,640,211,641,147,-355,210,-355,156,-355,126,-355,146,-355,196,-355,170,-355,155,-355,151,-355,189,-355,141,-355,191,-355,207,-355,169,-355,203,-355,174,-355,204,-355,144,-355,162,-355,153,-355,149,-355,139,-355,178,-355,195,-355,130,-355,167,-355,157,-355},new int[]{-208,34,-209,626,-210,642}));
-stringstates[34] = @"407 constant_declaration: attributes_opt modifiers_opt . CONST type constant_declarators ';' 
-408 field_declaration: attributes_opt modifiers_opt . type variable_declarators ';' 
-410 method_header: attributes_opt modifiers_opt . type qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')' 
-411 method_header: attributes_opt modifiers_opt . VOID qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')' 
-430 property_declaration: attributes_opt modifiers_opt . type qualified_identifier '{' accessor_declarations '}' 
-441 event_declaration: attributes_opt modifiers_opt . EVENT type variable_declarators ';' 
-442 event_declaration: attributes_opt modifiers_opt . EVENT type qualified_identifier '{' event_accessor_declarations '}' 
-445 indexer_declaration: attributes_opt modifiers_opt . indexer_declarator '{' accessor_declarations '}' 
-449 operator_declaration: attributes_opt modifiers_opt . operator_declarator operator_body 
-478 constructor_declaration: attributes_opt modifiers_opt . constructor_declarator constructor_body 
-484 destructor_declaration: attributes_opt modifiers_opt . '~' IDENTIFIER '(' ')' block 
-383 class_declaration: attributes_opt modifiers_opt . CLASS IDENTIFIER type_arg_list_opt class_base_opt gen_clause_opt class_body comma_opt 
-489 struct_declaration: attributes_opt modifiers_opt . STRUCT member_name struct_interfaces_opt struct_body comma_opt 
-513 interface_declaration: attributes_opt modifiers_opt . INTERFACE member_name interface_base_opt interface_body comma_opt 
-539 enum_declaration: attributes_opt modifiers_opt . ENUM IDENTIFIER enum_base_opt enum_body comma_opt 
-551 delegate_declaration: attributes_opt modifiers_opt . DELEGATE return_type member_name type_arg_list_opt '(' formal_parameter_list_opt ')' ';' ";
     AddState(34,new State(new int[]{147,35,210,702,156,708,126,733,146,19,196,738,170,751,155,831,151,851,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,861,167,878,157,885},new int[]{-56,606,-228,721,-230,725,-28,729,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214,-232,876,-233,877}));
-stringstates[35] = @"407 constant_declaration: attributes_opt modifiers_opt CONST . type constant_declarators ';' ";
     AddState(35,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,36,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[36] = @"407 constant_declaration: attributes_opt modifiers_opt CONST type . constant_declarators ';' 
-52 pointer_type: type . '*' ";
     AddState(36,new State(new int[]{42,195,130,41},new int[]{-71,37,-32,329}));
-stringstates[37] = @"407 constant_declaration: attributes_opt modifiers_opt CONST type constant_declarators . ';' 
-233 constant_declarators: constant_declarators . ',' constant_declarator ";
     AddState(37,new State(new int[]{59,38,44,39}));
-stringstates[38] = @"407 constant_declaration: attributes_opt modifiers_opt CONST type constant_declarators ';' .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(38,new State(-407));
-stringstates[39] = @"233 constant_declarators: constant_declarators ',' . constant_declarator ";
     AddState(39,new State(new int[]{130,41},new int[]{-32,40}));
-stringstates[40] = @"233 constant_declarators: constant_declarators ',' constant_declarator .		[';', ',', ]";
     AddState(40,new State(-233));
-stringstates[41] = @"234 constant_declarator: IDENTIFIER . '=' constant_expression ";
     AddState(41,new State(new int[]{61,42}));
-stringstates[42] = @"234 constant_declarator: IDENTIFIER '=' . constant_expression ";
     AddState(42,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-140,43,-88,44,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[43] = @"234 constant_declarator: IDENTIFIER '=' constant_expression .		[';', ',', ]";
     AddState(43,new State(-234));
-stringstates[44] = @"195 constant_expression: expression .		[';', ',', ':', '}', ]";
     AddState(44,new State(-195));
-stringstates[45] = @"193 expression: conditional_expression .		[';', ',', ']', ')', '}', ':', ]";
     AddState(45,new State(-193));
-stringstates[46] = @"178 conditional_expression: conditional_or_expression .		[';', ',', ']', ')', '}', ':', ]
-177 conditional_or_expression: conditional_or_expression . OROR conditional_and_expression 
-179 conditional_expression: conditional_or_expression . '?' expression ':' expression 
-180 conditional_expression: conditional_or_expression . QQ expression ";
     AddState(46,new State(new int[]{246,47,63,600,233,604,59,-178,44,-178,93,-178,41,-178,125,-178,58,-178}));
-stringstates[47] = @"177 conditional_or_expression: conditional_or_expression OROR . conditional_and_expression ";
     AddState(47,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-135,48,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,567,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[48] = @"177 conditional_or_expression: conditional_or_expression OROR conditional_and_expression .		[OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-175 conditional_and_expression: conditional_and_expression . ANDAND inclusive_or_expression ";
     AddState(48,new State(new int[]{245,49,246,-177,63,-177,233,-177,59,-177,44,-177,93,-177,41,-177,125,-177,58,-177}));
-stringstates[49] = @"175 conditional_and_expression: conditional_and_expression ANDAND . inclusive_or_expression ";
     AddState(49,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-134,50,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,567,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[50] = @"175 conditional_and_expression: conditional_and_expression ANDAND inclusive_or_expression .		[ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-173 inclusive_or_expression: inclusive_or_expression . '|' exclusive_or_expression ";
     AddState(50,new State(new int[]{124,51,245,-175,246,-175,63,-175,233,-175,59,-175,44,-175,93,-175,41,-175,125,-175,58,-175}));
-stringstates[51] = @"173 inclusive_or_expression: inclusive_or_expression '|' . exclusive_or_expression ";
     AddState(51,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-133,52,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,567,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[52] = @"173 inclusive_or_expression: inclusive_or_expression '|' exclusive_or_expression .		['|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-171 exclusive_or_expression: exclusive_or_expression . '^' and_expression ";
     AddState(52,new State(new int[]{94,53,124,-173,245,-173,246,-173,63,-173,233,-173,59,-173,44,-173,93,-173,41,-173,125,-173,58,-173}));
-stringstates[53] = @"171 exclusive_or_expression: exclusive_or_expression '^' . and_expression ";
     AddState(53,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-132,54,-131,85,-130,109,-129,145,-128,112,-124,113,-119,567,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[54] = @"171 exclusive_or_expression: exclusive_or_expression '^' and_expression .		['^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-169 and_expression: and_expression . '&' equality_expression ";
     AddState(54,new State(new int[]{38,55,94,-171,124,-171,245,-171,246,-171,63,-171,233,-171,59,-171,44,-171,93,-171,41,-171,125,-171,58,-171}));
-stringstates[55] = @"169 and_expression: and_expression '&' . equality_expression ";
     AddState(55,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-131,56,-130,109,-129,145,-128,112,-124,113,-119,567,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[56] = @"169 and_expression: and_expression '&' equality_expression .		['&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-166 equality_expression: equality_expression . EQEQ relational_expression 
-167 equality_expression: equality_expression . NOTEQ relational_expression ";
     AddState(56,new State(new int[]{241,57,242,86,38,-169,94,-169,124,-169,245,-169,246,-169,63,-169,233,-169,59,-169,44,-169,93,-169,41,-169,125,-169,58,-169}));
-stringstates[57] = @"166 equality_expression: equality_expression EQEQ . relational_expression ";
     AddState(57,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-130,58,-129,145,-128,112,-124,113,-119,567,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[58] = @"166 equality_expression: equality_expression EQEQ relational_expression .		[EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-159 relational_expression: relational_expression . '<' shift_expression 
-160 relational_expression: relational_expression . '>' shift_expression 
-161 relational_expression: relational_expression . LEQ shift_expression 
-162 relational_expression: relational_expression . GEQ shift_expression 
-163 relational_expression: relational_expression . IS type 
-164 relational_expression: relational_expression . AS type ";
     AddState(58,new State(new int[]{60,59,62,88,243,110,244,568,172,570,137,572,241,-166,242,-166,38,-166,94,-166,124,-166,245,-166,246,-166,63,-166,233,-166,59,-166,44,-166,93,-166,41,-166,125,-166,58,-166}));
-stringstates[59] = @"159 relational_expression: relational_expression '<' . shift_expression ";
     AddState(59,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-129,60,-128,112,-124,113,-119,567,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[60] = @"159 relational_expression: relational_expression '<' shift_expression .		['<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-156 shift_expression: shift_expression . LTLT additive_expression 
-157 shift_expression: shift_expression . GTGT additive_expression ";
     AddState(60,new State(new int[]{239,61,235,90,60,-159,62,-159,243,-159,244,-159,172,-159,137,-159,241,-159,242,-159,38,-159,94,-159,124,-159,245,-159,246,-159,63,-159,233,-159,59,-159,44,-159,93,-159,41,-159,125,-159,58,-159}));
-stringstates[61] = @"156 shift_expression: shift_expression LTLT . additive_expression ";
     AddState(61,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-128,62,-124,113,-119,567,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[62] = @"156 shift_expression: shift_expression LTLT additive_expression .		[LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-153 additive_expression: additive_expression . '+' multiplicative_expression 
-154 additive_expression: additive_expression . '-' multiplicative_expression ";
     AddState(62,new State(new int[]{43,63,45,92,239,-156,235,-156,60,-156,62,-156,243,-156,244,-156,172,-156,137,-156,241,-156,242,-156,38,-156,94,-156,124,-156,245,-156,246,-156,63,-156,233,-156,59,-156,44,-156,93,-156,41,-156,125,-156,58,-156}));
-stringstates[63] = @"153 additive_expression: additive_expression '+' . multiplicative_expression ";
     AddState(63,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-124,64,-119,567,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[64] = @"153 additive_expression: additive_expression '+' multiplicative_expression .		['+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-149 multiplicative_expression: multiplicative_expression . '*' unary_expression 
-150 multiplicative_expression: multiplicative_expression . '/' unary_expression 
-151 multiplicative_expression: multiplicative_expression . '%' unary_expression ";
     AddState(64,new State(new int[]{42,65,47,94,37,114,43,-153,45,-153,239,-153,235,-153,60,-153,62,-153,243,-153,244,-153,172,-153,137,-153,241,-153,242,-153,38,-153,94,-153,124,-153,245,-153,246,-153,63,-153,233,-153,59,-153,44,-153,93,-153,41,-153,125,-153,58,-153}));
-stringstates[65] = @"149 multiplicative_expression: multiplicative_expression '*' . unary_expression ";
     AddState(65,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-119,66,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[66] = @"149 multiplicative_expression: multiplicative_expression '*' unary_expression .		['*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(66,new State(-149));
-stringstates[67] = @"129 unary_expression: unary_expression_not_plusminus .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(67,new State(-129));
-stringstates[68] = @"123 unary_expression_not_plusminus: postfix_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-101 post_increment_expression: postfix_expression . PLUSPLUS 
-102 post_decrement_expression: postfix_expression . MINUSMINUS 
-115 pointer_member_access: postfix_expression . ARROW IDENTIFIER ";
     AddState(68,new State(new int[]{247,69,248,70,249,71,61,-123,228,-123,229,-123,230,-123,231,-123,232,-123,236,-123,237,-123,238,-123,240,-123,234,-123,42,-123,47,-123,37,-123,43,-123,45,-123,239,-123,235,-123,60,-123,62,-123,243,-123,244,-123,172,-123,137,-123,241,-123,242,-123,38,-123,94,-123,124,-123,245,-123,246,-123,63,-123,233,-123,59,-123,44,-123,93,-123,41,-123,125,-123,58,-123}));
-stringstates[69] = @"101 post_increment_expression: postfix_expression PLUSPLUS .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(69,new State(-101));
-stringstates[70] = @"102 post_decrement_expression: postfix_expression MINUSMINUS .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(70,new State(-102));
-stringstates[71] = @"115 pointer_member_access: postfix_expression ARROW . IDENTIFIER ";
     AddState(71,new State(new int[]{130,72}));
-stringstates[72] = @"115 pointer_member_access: postfix_expression ARROW IDENTIFIER .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(72,new State(-115));
-stringstates[73] = @"118 postfix_expression: primary_expression .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-84 member_access: primary_expression . '.' IDENTIFIER 
-92 element_access: primary_expression . '[' expression_list ']' ";
     AddState(73,new State(new int[]{46,74,91,76,247,-118,248,-118,249,-118,61,-118,228,-118,229,-118,230,-118,231,-118,232,-118,236,-118,237,-118,238,-118,240,-118,234,-118,42,-118,47,-118,37,-118,43,-118,45,-118,239,-118,235,-118,60,-118,62,-118,243,-118,244,-118,172,-118,137,-118,241,-118,242,-118,38,-118,94,-118,124,-118,245,-118,246,-118,63,-118,233,-118,59,-118,44,-118,93,-118,41,-118,125,-118,58,-118}));
-stringstates[74] = @"84 member_access: primary_expression '.' . IDENTIFIER ";
     AddState(74,new State(new int[]{130,75}));
-stringstates[75] = @"84 member_access: primary_expression '.' IDENTIFIER .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(75,new State(-84));
-stringstates[76] = @"92 element_access: primary_expression '[' . expression_list ']' ";
     AddState(76,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-108,77,-88,181,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[77] = @"92 element_access: primary_expression '[' expression_list . ']' 
-97 expression_list: expression_list . ',' expression ";
     AddState(77,new State(new int[]{93,78,44,79}));
-stringstates[78] = @"92 element_access: primary_expression '[' expression_list ']' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(78,new State(-92));
-stringstates[79] = @"97 expression_list: expression_list ',' . expression ";
     AddState(79,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-88,80,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[80] = @"97 expression_list: expression_list ',' expression .		[']', ',', ')', ]";
     AddState(80,new State(-97));
-stringstates[81] = @"176 conditional_or_expression: conditional_and_expression .		[OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-175 conditional_and_expression: conditional_and_expression . ANDAND inclusive_or_expression ";
     AddState(81,new State(new int[]{245,49,246,-176,63,-176,233,-176,59,-176,44,-176,93,-176,41,-176,125,-176,58,-176}));
-stringstates[82] = @"174 conditional_and_expression: inclusive_or_expression .		[ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-173 inclusive_or_expression: inclusive_or_expression . '|' exclusive_or_expression ";
     AddState(82,new State(new int[]{124,51,245,-174,246,-174,63,-174,233,-174,59,-174,44,-174,93,-174,41,-174,125,-174,58,-174}));
-stringstates[83] = @"172 inclusive_or_expression: exclusive_or_expression .		['|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-171 exclusive_or_expression: exclusive_or_expression . '^' and_expression ";
     AddState(83,new State(new int[]{94,53,124,-172,245,-172,246,-172,63,-172,233,-172,59,-172,44,-172,93,-172,41,-172,125,-172,58,-172}));
-stringstates[84] = @"170 exclusive_or_expression: and_expression .		['^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-169 and_expression: and_expression . '&' equality_expression ";
     AddState(84,new State(new int[]{38,55,94,-170,124,-170,245,-170,246,-170,63,-170,233,-170,59,-170,44,-170,93,-170,41,-170,125,-170,58,-170}));
-stringstates[85] = @"168 and_expression: equality_expression .		['&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-166 equality_expression: equality_expression . EQEQ relational_expression 
-167 equality_expression: equality_expression . NOTEQ relational_expression ";
     AddState(85,new State(new int[]{241,57,242,86,38,-168,94,-168,124,-168,245,-168,246,-168,63,-168,233,-168,59,-168,44,-168,93,-168,41,-168,125,-168,58,-168}));
-stringstates[86] = @"167 equality_expression: equality_expression NOTEQ . relational_expression ";
     AddState(86,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-130,87,-129,145,-128,112,-124,113,-119,567,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[87] = @"167 equality_expression: equality_expression NOTEQ relational_expression .		[EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-159 relational_expression: relational_expression . '<' shift_expression 
-160 relational_expression: relational_expression . '>' shift_expression 
-161 relational_expression: relational_expression . LEQ shift_expression 
-162 relational_expression: relational_expression . GEQ shift_expression 
-163 relational_expression: relational_expression . IS type 
-164 relational_expression: relational_expression . AS type ";
     AddState(87,new State(new int[]{60,59,62,88,243,110,244,568,172,570,137,572,241,-167,242,-167,38,-167,94,-167,124,-167,245,-167,246,-167,63,-167,233,-167,59,-167,44,-167,93,-167,41,-167,125,-167,58,-167}));
-stringstates[88] = @"160 relational_expression: relational_expression '>' . shift_expression ";
     AddState(88,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-129,89,-128,112,-124,113,-119,567,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[89] = @"160 relational_expression: relational_expression '>' shift_expression .		['<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-156 shift_expression: shift_expression . LTLT additive_expression 
-157 shift_expression: shift_expression . GTGT additive_expression ";
     AddState(89,new State(new int[]{239,61,235,90,60,-160,62,-160,243,-160,244,-160,172,-160,137,-160,241,-160,242,-160,38,-160,94,-160,124,-160,245,-160,246,-160,63,-160,233,-160,59,-160,44,-160,93,-160,41,-160,125,-160,58,-160}));
-stringstates[90] = @"157 shift_expression: shift_expression GTGT . additive_expression ";
     AddState(90,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-128,91,-124,113,-119,567,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[91] = @"157 shift_expression: shift_expression GTGT additive_expression .		[LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-153 additive_expression: additive_expression . '+' multiplicative_expression 
-154 additive_expression: additive_expression . '-' multiplicative_expression ";
     AddState(91,new State(new int[]{43,63,45,92,239,-157,235,-157,60,-157,62,-157,243,-157,244,-157,172,-157,137,-157,241,-157,242,-157,38,-157,94,-157,124,-157,245,-157,246,-157,63,-157,233,-157,59,-157,44,-157,93,-157,41,-157,125,-157,58,-157}));
-stringstates[92] = @"154 additive_expression: additive_expression '-' . multiplicative_expression ";
     AddState(92,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-124,93,-119,567,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[93] = @"154 additive_expression: additive_expression '-' multiplicative_expression .		['+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-149 multiplicative_expression: multiplicative_expression . '*' unary_expression 
-150 multiplicative_expression: multiplicative_expression . '/' unary_expression 
-151 multiplicative_expression: multiplicative_expression . '%' unary_expression ";
     AddState(93,new State(new int[]{42,65,47,94,37,114,43,-154,45,-154,239,-154,235,-154,60,-154,62,-154,243,-154,244,-154,172,-154,137,-154,241,-154,242,-154,38,-154,94,-154,124,-154,245,-154,246,-154,63,-154,233,-154,59,-154,44,-154,93,-154,41,-154,125,-154,58,-154}));
-stringstates[94] = @"150 multiplicative_expression: multiplicative_expression '/' . unary_expression ";
     AddState(94,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-119,95,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[95] = @"150 multiplicative_expression: multiplicative_expression '/' unary_expression .		['*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(95,new State(-150));
-stringstates[96] = @"66 primary_expression: parenthesized_expression .		['.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(96,new State(-66));
-stringstates[97] = @"83 parenthesized_expression: '(' . expression ')' 
-136 cast_expression: '(' . expression ')' unary_expression_not_plusminus 
-137 cast_expression: '(' . multiplicative_expression '*' ')' unary_expression 
-138 cast_expression: '(' . qualified_identifier rank_specifier type_quals_opt ')' unary_expression 
-139 cast_expression: '(' . primitive_type type_quals_opt ')' unary_expression 
-140 cast_expression: '(' . class_type type_quals_opt ')' unary_expression 
-141 cast_expression: '(' . VOID type_quals_opt ')' unary_expression ";
     AddState(97,new State(new int[]{210,596,40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-88,98,-124,574,-29,578,-60,588,-61,592,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-62,154,-64,155,-63,165,-96,175,-97,176,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[98] = @"83 parenthesized_expression: '(' expression . ')' 
-136 cast_expression: '(' expression . ')' unary_expression_not_plusminus ";
     AddState(98,new State(new int[]{41,99}));
-stringstates[99] = @"83 parenthesized_expression: '(' expression ')' .		['.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-136 cast_expression: '(' expression ')' . unary_expression_not_plusminus ";
     AddState(99,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,46,-83,91,-83,247,-83,248,-83,249,-83,61,-83,228,-83,229,-83,230,-83,231,-83,232,-83,236,-83,237,-83,238,-83,240,-83,234,-83,42,-83,47,-83,37,-83,43,-83,45,-83,239,-83,235,-83,60,-83,62,-83,243,-83,244,-83,172,-83,137,-83,241,-83,242,-83,38,-83,94,-83,124,-83,245,-83,246,-83,63,-83,233,-83,59,-83,44,-83,93,-83,41,-83,125,-83,58,-83},new int[]{-120,100,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287}));
-stringstates[100] = @"136 cast_expression: '(' expression ')' unary_expression_not_plusminus .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(100,new State(-136));
-stringstates[101] = @"67 primary_expression: primary_expression_no_parenthesis .		['.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-88 invocation_expression: primary_expression_no_parenthesis . '(' argument_list_opt ')' ";
     AddState(101,new State(new int[]{40,102,46,-67,91,-67,247,-67,248,-67,249,-67,61,-67,228,-67,229,-67,230,-67,231,-67,232,-67,236,-67,237,-67,238,-67,240,-67,234,-67,42,-67,47,-67,37,-67,43,-67,45,-67,239,-67,235,-67,60,-67,62,-67,243,-67,244,-67,172,-67,137,-67,241,-67,242,-67,38,-67,94,-67,124,-67,245,-67,246,-67,63,-67,233,-67,59,-67,44,-67,93,-67,41,-67,125,-67,58,-67}));
-stringstates[102] = @"88 invocation_expression: primary_expression_no_parenthesis '(' . argument_list_opt ')' ";
     AddState(102,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,187,319,180,322,41,-90},new int[]{-107,103,-89,105,-90,318,-88,108,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[103] = @"88 invocation_expression: primary_expression_no_parenthesis '(' argument_list_opt . ')' ";
     AddState(103,new State(new int[]{41,104}));
-stringstates[104] = @"88 invocation_expression: primary_expression_no_parenthesis '(' argument_list_opt ')' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(104,new State(-88));
-stringstates[105] = @"91 argument_list_opt: argument_list .		[')', ]
-62 argument_list: argument_list . ',' argument ";
     AddState(105,new State(new int[]{44,106,41,-91}));
-stringstates[106] = @"62 argument_list: argument_list ',' . argument ";
     AddState(106,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,187,319,180,322},new int[]{-90,107,-88,108,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[107] = @"62 argument_list: argument_list ',' argument .		[',', ')', ]";
     AddState(107,new State(-62));
-stringstates[108] = @"63 argument: expression .		[',', ')', ]";
     AddState(108,new State(-63));
-stringstates[109] = @"165 equality_expression: relational_expression .		[EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-159 relational_expression: relational_expression . '<' shift_expression 
-160 relational_expression: relational_expression . '>' shift_expression 
-161 relational_expression: relational_expression . LEQ shift_expression 
-162 relational_expression: relational_expression . GEQ shift_expression 
-163 relational_expression: relational_expression . IS type 
-164 relational_expression: relational_expression . AS type ";
     AddState(109,new State(new int[]{60,59,62,88,243,110,244,568,172,570,137,572,241,-165,242,-165,38,-165,94,-165,124,-165,245,-165,246,-165,63,-165,233,-165,59,-165,44,-165,93,-165,41,-165,125,-165,58,-165}));
-stringstates[110] = @"161 relational_expression: relational_expression LEQ . shift_expression ";
     AddState(110,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-129,111,-128,112,-124,113,-119,567,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[111] = @"161 relational_expression: relational_expression LEQ shift_expression .		['<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-156 shift_expression: shift_expression . LTLT additive_expression 
-157 shift_expression: shift_expression . GTGT additive_expression ";
     AddState(111,new State(new int[]{239,61,235,90,60,-161,62,-161,243,-161,244,-161,172,-161,137,-161,241,-161,242,-161,38,-161,94,-161,124,-161,245,-161,246,-161,63,-161,233,-161,59,-161,44,-161,93,-161,41,-161,125,-161,58,-161}));
-stringstates[112] = @"155 shift_expression: additive_expression .		[LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-153 additive_expression: additive_expression . '+' multiplicative_expression 
-154 additive_expression: additive_expression . '-' multiplicative_expression ";
     AddState(112,new State(new int[]{43,63,45,92,239,-155,235,-155,60,-155,62,-155,243,-155,244,-155,172,-155,137,-155,241,-155,242,-155,38,-155,94,-155,124,-155,245,-155,246,-155,63,-155,233,-155,59,-155,44,-155,93,-155,41,-155,125,-155,58,-155}));
-stringstates[113] = @"152 additive_expression: multiplicative_expression .		['+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-149 multiplicative_expression: multiplicative_expression . '*' unary_expression 
-150 multiplicative_expression: multiplicative_expression . '/' unary_expression 
-151 multiplicative_expression: multiplicative_expression . '%' unary_expression ";
     AddState(113,new State(new int[]{42,65,47,94,37,114,43,-152,45,-152,239,-152,235,-152,60,-152,62,-152,243,-152,244,-152,172,-152,137,-152,241,-152,242,-152,38,-152,94,-152,124,-152,245,-152,246,-152,63,-152,233,-152,59,-152,44,-152,93,-152,41,-152,125,-152,58,-152}));
-stringstates[114] = @"151 multiplicative_expression: multiplicative_expression '%' . unary_expression ";
     AddState(114,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-119,115,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[115] = @"151 multiplicative_expression: multiplicative_expression '%' unary_expression .		['*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(115,new State(-151));
-stringstates[116] = @"69 primary_expression_no_parenthesis: literal .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(116,new State(-69));
-stringstates[117] = @"2 literal: boolean_literal .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(117,new State(-2));
-stringstates[118] = @"11 boolean_literal: TRUE .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(118,new State(-11));
-stringstates[119] = @"12 boolean_literal: FALSE .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(119,new State(-12));
-stringstates[120] = @"3 literal: INTEGER_LITERAL .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(120,new State(-3));
-stringstates[121] = @"4 literal: REAL_LITERAL .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(121,new State(-4));
-stringstates[122] = @"5 literal: CHARACTER_LITERAL .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(122,new State(-5));
-stringstates[123] = @"6 literal: STRING_LITERAL .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(123,new State(-6));
-stringstates[124] = @"7 literal: NULL_LITERAL .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(124,new State(-7));
-stringstates[125] = @"8 literal: mllit .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-10 mllit: mllit . MLSTRING_LITERAL ";
     AddState(125,new State(new int[]{135,126,40,-8,46,-8,91,-8,247,-8,248,-8,249,-8,61,-8,228,-8,229,-8,230,-8,231,-8,232,-8,236,-8,237,-8,238,-8,240,-8,234,-8,42,-8,47,-8,37,-8,43,-8,45,-8,239,-8,235,-8,60,-8,62,-8,243,-8,244,-8,172,-8,137,-8,241,-8,242,-8,38,-8,94,-8,124,-8,245,-8,246,-8,63,-8,233,-8,59,-8,44,-8,93,-8,41,-8,125,-8,58,-8}));
-stringstates[126] = @"10 mllit: mllit MLSTRING_LITERAL .		[MLSTRING_LITERAL, '(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(126,new State(-10));
-stringstates[127] = @"9 mllit: MLSTRING_LITERAL .		[MLSTRING_LITERAL, '(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(127,new State(-9));
-stringstates[128] = @"70 primary_expression_no_parenthesis: array_creation_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(128,new State(-70));
-stringstates[129] = @"107 array_creation_expression: NEW . non_array_type '[' expression_list ']' rank_specifiers_opt array_initializer_opt 
-108 array_creation_expression: NEW . array_type array_initializer 
-105 object_creation_expression: NEW . type '(' argument_list_opt ')' 
-106 object_creation_expression: NEW . error ";
     AddState(129,new State(new int[]{127,566,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-58,130,-65,560,-56,562,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-66,214,-29,207,-74,182,-73,183,-76,209}));
-stringstates[130] = @"107 array_creation_expression: NEW non_array_type . '[' expression_list ']' rank_specifiers_opt array_initializer_opt 
-27 type: non_array_type . nullable_opt ";
     AddState(130,new State(new int[]{91,131,63,198,40,-25,42,-25},new int[]{-83,197}));
-stringstates[131] = @"107 array_creation_expression: NEW non_array_type '[' . expression_list ']' rank_specifiers_opt array_initializer_opt ";
     AddState(131,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-108,132,-88,181,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[132] = @"107 array_creation_expression: NEW non_array_type '[' expression_list . ']' rank_specifiers_opt array_initializer_opt 
-97 expression_list: expression_list . ',' expression ";
     AddState(132,new State(new int[]{93,133,44,79}));
-stringstates[133] = @"107 array_creation_expression: NEW non_array_type '[' expression_list ']' . rank_specifiers_opt array_initializer_opt ";
     AddState(133,new State(new int[]{129,201,123,-57,40,-57,46,-57,91,-57,247,-57,248,-57,249,-57,61,-57,228,-57,229,-57,230,-57,231,-57,232,-57,236,-57,237,-57,238,-57,240,-57,234,-57,42,-57,47,-57,37,-57,43,-57,45,-57,239,-57,235,-57,60,-57,62,-57,243,-57,244,-57,172,-57,137,-57,241,-57,242,-57,38,-57,94,-57,124,-57,245,-57,246,-57,63,-57,233,-57,59,-57,44,-57,93,-57,41,-57,125,-57,58,-57},new int[]{-86,134,-85,558}));
-stringstates[134] = @"107 array_creation_expression: NEW non_array_type '[' expression_list ']' rank_specifiers_opt . array_initializer_opt ";
     AddState(134,new State(new int[]{123,137,40,-109,46,-109,91,-109,247,-109,248,-109,249,-109,61,-109,228,-109,229,-109,230,-109,231,-109,232,-109,236,-109,237,-109,238,-109,240,-109,234,-109,42,-109,47,-109,37,-109,43,-109,45,-109,239,-109,235,-109,60,-109,62,-109,243,-109,244,-109,172,-109,137,-109,241,-109,242,-109,38,-109,94,-109,124,-109,245,-109,246,-109,63,-109,233,-109,59,-109,44,-109,93,-109,41,-109,125,-109,58,-109},new int[]{-115,135,-116,136}));
-stringstates[135] = @"107 array_creation_expression: NEW non_array_type '[' expression_list ']' rank_specifiers_opt array_initializer_opt .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(135,new State(-107));
-stringstates[136] = @"110 array_initializer_opt: array_initializer .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(136,new State(-110));
-stringstates[137] = @"507 array_initializer: '{' . variable_initializer_list_opt '}' 
-508 array_initializer: '{' . variable_initializer_list ',' '}' ";
     AddState(137,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,123,137,193,306,125,-509},new int[]{-240,138,-241,140,-163,557,-88,144,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303,-116,304,-164,305}));
-stringstates[138] = @"507 array_initializer: '{' variable_initializer_list_opt . '}' ";
     AddState(138,new State(new int[]{125,139}));
-stringstates[139] = @"507 array_initializer: '{' variable_initializer_list_opt '}' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(139,new State(-507));
-stringstates[140] = @"508 array_initializer: '{' variable_initializer_list . ',' '}' 
-510 variable_initializer_list_opt: variable_initializer_list .		['}', ]
-512 variable_initializer_list: variable_initializer_list . ',' variable_initializer ";
     AddState(140,new State(new int[]{44,141,125,-510}));
-stringstates[141] = @"508 array_initializer: '{' variable_initializer_list ',' . '}' 
-512 variable_initializer_list: variable_initializer_list ',' . variable_initializer ";
     AddState(141,new State(new int[]{125,142,40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,123,137,193,306},new int[]{-163,143,-88,144,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303,-116,304,-164,305}));
-stringstates[142] = @"508 array_initializer: '{' variable_initializer_list ',' '}' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(142,new State(-508));
-stringstates[143] = @"512 variable_initializer_list: variable_initializer_list ',' variable_initializer .		[',', '}', ]";
     AddState(143,new State(-512));
-stringstates[144] = @"227 variable_initializer: expression .		[',', '}', ';', ')', ]";
     AddState(144,new State(-227));
-stringstates[145] = @"158 relational_expression: shift_expression .		['<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-156 shift_expression: shift_expression . LTLT additive_expression 
-157 shift_expression: shift_expression . GTGT additive_expression ";
     AddState(145,new State(new int[]{239,61,235,90,60,-158,62,-158,243,-158,244,-158,172,-158,137,-158,241,-158,242,-158,38,-158,94,-158,124,-158,245,-158,246,-158,63,-158,233,-158,59,-158,44,-158,93,-158,41,-158,125,-158,58,-158}));
-stringstates[146] = @"148 multiplicative_expression: unary_expression .		['*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-181 assignment: unary_expression . assignment_operator expression ";
     AddState(146,new State(new int[]{61,345,228,346,229,347,230,348,231,349,232,350,236,351,237,352,238,353,240,354,234,355,42,-148,47,-148,37,-148,43,-148,45,-148,239,-148,235,-148,60,-148,62,-148,243,-148,244,-148,172,-148,137,-148,241,-148,242,-148,38,-148,94,-148,124,-148,245,-148,246,-148,63,-148,233,-148,59,-148,44,-148,93,-148,41,-148,125,-148,58,-148},new int[]{-139,147}));
-stringstates[147] = @"181 assignment: unary_expression assignment_operator . expression ";
     AddState(147,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-88,148,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[148] = @"181 assignment: unary_expression assignment_operator expression .		[';', ',', ']', ')', '}', ':', ]";
     AddState(148,new State(-181));
-stringstates[149] = @"71 primary_expression_no_parenthesis: member_access .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(149,new State(-71));
-stringstates[150] = @"68 primary_expression: error .		['.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(150,new State(-68));
-stringstates[151] = @"85 member_access: primitive_type . '.' IDENTIFIER ";
     AddState(151,new State(new int[]{46,152}));
-stringstates[152] = @"85 member_access: primitive_type '.' . IDENTIFIER ";
     AddState(152,new State(new int[]{130,153}));
-stringstates[153] = @"85 member_access: primitive_type '.' IDENTIFIER .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(153,new State(-85));
-stringstates[154] = @"34 primitive_type: numeric_type .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', ]";
     AddState(154,new State(-34));
-stringstates[155] = @"36 numeric_type: integral_type .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', ]";
     AddState(155,new State(-36));
-stringstates[156] = @"39 integral_type: SBYTE .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', '{', ]";
     AddState(156,new State(-39));
-stringstates[157] = @"40 integral_type: BYTE .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', '{', ]";
     AddState(157,new State(-40));
-stringstates[158] = @"41 integral_type: SHORT .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', '{', ]";
     AddState(158,new State(-41));
-stringstates[159] = @"42 integral_type: USHORT .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', '{', ]";
     AddState(159,new State(-42));
-stringstates[160] = @"43 integral_type: INT .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', '{', ]";
     AddState(160,new State(-43));
-stringstates[161] = @"44 integral_type: UINT .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', '{', ]";
     AddState(161,new State(-44));
-stringstates[162] = @"45 integral_type: LONG .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', '{', ]";
     AddState(162,new State(-45));
-stringstates[163] = @"46 integral_type: ULONG .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', '{', ]";
     AddState(163,new State(-46));
-stringstates[164] = @"47 integral_type: CHAR .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', '{', ]";
     AddState(164,new State(-47));
-stringstates[165] = @"37 numeric_type: floating_point_type .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', ]";
     AddState(165,new State(-37));
-stringstates[166] = @"48 floating_point_type: FLOAT .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', ]";
     AddState(166,new State(-48));
-stringstates[167] = @"49 floating_point_type: DOUBLE .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', ]";
     AddState(167,new State(-49));
-stringstates[168] = @"38 numeric_type: DECIMAL .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', ]";
     AddState(168,new State(-38));
-stringstates[169] = @"35 primitive_type: BOOL .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', ]";
     AddState(169,new State(-35));
-stringstates[170] = @"86 member_access: class_type . '.' IDENTIFIER ";
     AddState(170,new State(new int[]{46,171}));
-stringstates[171] = @"86 member_access: class_type '.' . IDENTIFIER ";
     AddState(171,new State(new int[]{130,172}));
-stringstates[172] = @"86 member_access: class_type '.' IDENTIFIER .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(172,new State(-86));
-stringstates[173] = @"50 class_type: OBJECT .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', '{', WHERE, ]";
     AddState(173,new State(-50));
-stringstates[174] = @"51 class_type: KW_STRING .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '.', ')', '[', '(', '>', '<', ',', GTGT, LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', '{', WHERE, ]";
     AddState(174,new State(-51));
-stringstates[175] = @"72 primary_expression_no_parenthesis: invocation_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(175,new State(-72));
-stringstates[176] = @"73 primary_expression_no_parenthesis: element_access .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(176,new State(-73));
-stringstates[177] = @"93 element_access: qualified_identifier . '[' expression_list ']' 
-89 invocation_expression: qualified_identifier . '(' argument_list_opt ')' 
-119 postfix_expression: qualified_identifier .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(177,new State(new int[]{91,178,40,315,247,-119,248,-119,249,-119,61,-119,228,-119,229,-119,230,-119,231,-119,232,-119,236,-119,237,-119,238,-119,240,-119,234,-119,42,-119,47,-119,37,-119,43,-119,45,-119,239,-119,235,-119,60,-119,62,-119,243,-119,244,-119,172,-119,137,-119,241,-119,242,-119,38,-119,94,-119,124,-119,245,-119,246,-119,63,-119,233,-119,59,-119,44,-119,93,-119,41,-119,125,-119,58,-119}));
-stringstates[178] = @"93 element_access: qualified_identifier '[' . expression_list ']' ";
     AddState(178,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-108,179,-88,181,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[179] = @"93 element_access: qualified_identifier '[' expression_list . ']' 
-97 expression_list: expression_list . ',' expression ";
     AddState(179,new State(new int[]{93,180,44,79}));
-stringstates[180] = @"93 element_access: qualified_identifier '[' expression_list ']' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(180,new State(-93));
-stringstates[181] = @"96 expression_list: expression .		[']', ',', ')', ]";
     AddState(181,new State(-96));
-stringstates[182] = @"327 qualified_identifier: gen_qualified_identifier .		['{', RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '[', '(', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ',', ']', ')', '}', ':', WHERE, ]";
     AddState(182,new State(-327));
-stringstates[183] = @"333 gen_qualified_identifier: member_name .		['{', RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '[', '(', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ',', ']', ')', '}', ':', WHERE, ]
-335 gen_qualifier: member_name . '.' ";
     AddState(183,new State(new int[]{46,184,123,-333,129,-333,63,-333,42,-333,198,-333,179,-333,130,-333,91,-333,40,-333,247,-333,248,-333,249,-333,61,-333,228,-333,229,-333,230,-333,231,-333,232,-333,236,-333,237,-333,238,-333,240,-333,234,-333,47,-333,37,-333,43,-333,45,-333,239,-333,235,-333,60,-333,62,-333,243,-333,244,-333,172,-333,137,-333,241,-333,242,-333,38,-333,94,-333,124,-333,245,-333,246,-333,233,-333,59,-333,44,-333,93,-333,41,-333,125,-333,58,-333,213,-333}));
-stringstates[184] = @"335 gen_qualifier: member_name '.' .		[IDENTIFIER, THIS, ]";
     AddState(184,new State(-335));
-stringstates[185] = @"15 member_name: IDENTIFIER . type_list_opt ";
     AddState(185,new State(new int[]{60,187,46,-16,123,-16,129,-16,63,-16,42,-16,130,-16,91,-16,40,-16,247,-16,248,-16,249,-16,61,-16,228,-16,229,-16,230,-16,231,-16,232,-16,236,-16,237,-16,238,-16,240,-16,234,-16,47,-16,37,-16,43,-16,45,-16,239,-16,235,-16,62,-16,243,-16,244,-16,172,-16,137,-16,241,-16,242,-16,38,-16,94,-16,124,-16,245,-16,246,-16,233,-16,59,-16,44,-16,93,-16,41,-16,125,-16,58,-16,198,-16,179,-16,213,-16},new int[]{-79,186},new int[]{60,-16}));
-stringstates[186] = @"15 member_name: IDENTIFIER type_list_opt .		['.', '{', RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '[', '(', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ',', ']', ')', '}', ':', WHERE, ]";
     AddState(186,new State(-15));
-stringstates[187] = @"17 type_list_opt: '<' . type_list '>' 
-18 type_list_opt: '<' . type_list '<' type_list GTGT ";
     AddState(187,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-80,188,-56,215,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[188] = @"17 type_list_opt: '<' type_list . '>' 
-18 type_list_opt: '<' type_list . '<' type_list GTGT 
-20 type_list: type_list . ',' type ";
     AddState(188,new State(new int[]{62,189,60,190,44,193}));
-stringstates[189] = @"17 type_list_opt: '<' type_list '>' .		['.', '{', RANK_SPECIFIER, '?', '*', IDENTIFIER, '[', '(', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ',', ']', ')', '}', ':', THIS, OPERATOR, WHERE, ]";
     AddState(189,new State(-17));
-stringstates[190] = @"18 type_list_opt: '<' type_list '<' . type_list GTGT ";
     AddState(190,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-80,191,-56,215,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[191] = @"18 type_list_opt: '<' type_list '<' type_list . GTGT 
-20 type_list: type_list . ',' type ";
     AddState(191,new State(new int[]{235,192,44,193}));
-stringstates[192] = @"18 type_list_opt: '<' type_list '<' type_list GTGT .		['.', '{', RANK_SPECIFIER, '?', '*', IDENTIFIER, '[', '(', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ',', ']', ')', '}', ':', THIS, OPERATOR, WHERE, ]";
     AddState(192,new State(-18));
-stringstates[193] = @"20 type_list: type_list ',' . type ";
     AddState(193,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,194,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[194] = @"20 type_list: type_list ',' type .		['>', '<', ',', GTGT, ]
-52 pointer_type: type . '*' ";
     AddState(194,new State(new int[]{42,195,62,-20,60,-20,44,-20,235,-20}));
-stringstates[195] = @"52 pointer_type: type '*' .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '[', '(', '>', '<', ',', GTGT, ')', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', ]";
     AddState(195,new State(-52));
-stringstates[196] = @"27 type: non_array_type . nullable_opt ";
     AddState(196,new State(new int[]{63,198,42,-25,198,-25,179,-25,130,-25,62,-25,60,-25,44,-25,235,-25,41,-25,91,-25,243,-25,244,-25,172,-25,137,-25,241,-25,242,-25,38,-25,94,-25,124,-25,245,-25,246,-25,233,-25,59,-25,93,-25,125,-25,58,-25,40,-25},new int[]{-83,197},new int[]{63,-25}));
-stringstates[197] = @"27 type: non_array_type nullable_opt .		['*', THIS, OPERATOR, IDENTIFIER, '(', '>', '<', ',', GTGT, ')', '[', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
     AddState(197,new State(-27));
-stringstates[198] = @"26 nullable_opt: '?' .		['(', '*', THIS, OPERATOR, IDENTIFIER, '>', '<', ',', GTGT, ')', '[', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
     AddState(198,new State(-26));
-stringstates[199] = @"29 non_array_type: simple_type .		['?', '*', THIS, OPERATOR, IDENTIFIER, '[', '(', '>', '<', ',', GTGT, ')', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', ]
-55 array_type: simple_type . rank_specifier ";
     AddState(199,new State(new int[]{129,201,63,-29,42,-29,198,-29,179,-29,130,-29,91,-29,40,-29,62,-29,60,-29,44,-29,235,-29,41,-29,243,-29,244,-29,172,-29,137,-29,241,-29,242,-29,38,-29,94,-29,124,-29,245,-29,246,-29,233,-29,59,-29,93,-29,125,-29,58,-29},new int[]{-85,200}));
-stringstates[200] = @"55 array_type: simple_type rank_specifier .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '{', '(', '>', '<', ',', GTGT, ')', '[', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
     AddState(200,new State(-55));
-stringstates[201] = @"59 rank_specifier: RANK_SPECIFIER .		[RANK_SPECIFIER, '{', '(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', THIS, OPERATOR, IDENTIFIER, ]";
     AddState(201,new State(-59));
-stringstates[202] = @"31 simple_type: primitive_type .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '[', '(', '>', '<', ',', GTGT, ')', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', ]";
     AddState(202,new State(-31));
-stringstates[203] = @"32 simple_type: class_type .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '[', '(', '>', '<', ',', GTGT, ')', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', ]";
     AddState(203,new State(-32));
-stringstates[204] = @"33 simple_type: pointer_type .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '[', '(', '>', '<', ',', GTGT, ')', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', ]";
     AddState(204,new State(-33));
-stringstates[205] = @"28 type: array_type .		['*', THIS, OPERATOR, IDENTIFIER, '>', '<', ',', GTGT, ')', '[', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', '(', ]
-54 array_type: array_type . rank_specifier ";
     AddState(205,new State(new int[]{129,201,42,-28,198,-28,179,-28,130,-28,62,-28,60,-28,44,-28,235,-28,41,-28,91,-28,243,-28,244,-28,172,-28,137,-28,241,-28,242,-28,38,-28,94,-28,124,-28,245,-28,246,-28,63,-28,233,-28,59,-28,93,-28,125,-28,58,-28,40,-28},new int[]{-85,206}));
-stringstates[206] = @"54 array_type: array_type rank_specifier .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '{', '(', '>', '<', ',', GTGT, ')', '[', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
     AddState(206,new State(-54));
-stringstates[207] = @"56 array_type: qualified_identifier . rank_specifier 
-14 type_name: qualified_identifier .		['?', '*', THIS, OPERATOR, IDENTIFIER, '[', '(', '>', '<', ',', GTGT, ')', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', ]";
     AddState(207,new State(new int[]{129,201,63,-14,42,-14,198,-14,179,-14,130,-14,91,-14,40,-14,62,-14,60,-14,44,-14,235,-14,41,-14,243,-14,244,-14,172,-14,137,-14,241,-14,242,-14,38,-14,94,-14,124,-14,245,-14,246,-14,233,-14,59,-14,93,-14,125,-14,58,-14},new int[]{-85,208}));
-stringstates[208] = @"56 array_type: qualified_identifier rank_specifier .		[RANK_SPECIFIER, '*', THIS, OPERATOR, IDENTIFIER, '{', '(', '>', '<', ',', GTGT, ')', '[', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ']', '}', ':', ]";
     AddState(208,new State(-56));
-stringstates[209] = @"334 gen_qualified_identifier: gen_qualifier . member_name 
-336 gen_qualifier: gen_qualifier . member_name '.' ";
     AddState(209,new State(new int[]{130,185},new int[]{-73,210}));
-stringstates[210] = @"334 gen_qualified_identifier: gen_qualifier member_name .		['{', RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '[', '(', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ',', ']', ')', '}', ':', WHERE, ]
-336 gen_qualifier: gen_qualifier member_name . '.' ";
     AddState(210,new State(new int[]{46,211,123,-334,129,-334,63,-334,42,-334,198,-334,179,-334,130,-334,91,-334,40,-334,247,-334,248,-334,249,-334,61,-334,228,-334,229,-334,230,-334,231,-334,232,-334,236,-334,237,-334,238,-334,240,-334,234,-334,47,-334,37,-334,43,-334,45,-334,239,-334,235,-334,60,-334,62,-334,243,-334,244,-334,172,-334,137,-334,241,-334,242,-334,38,-334,94,-334,124,-334,245,-334,246,-334,233,-334,59,-334,44,-334,93,-334,41,-334,125,-334,58,-334,213,-334}));
-stringstates[211] = @"336 gen_qualifier: gen_qualifier member_name '.' .		[IDENTIFIER, THIS, ]";
     AddState(211,new State(-336));
-stringstates[212] = @"53 pointer_type: VOID . '*' ";
     AddState(212,new State(new int[]{42,213}));
-stringstates[213] = @"53 pointer_type: VOID '*' .		[RANK_SPECIFIER, '?', '*', THIS, OPERATOR, IDENTIFIER, '[', '(', '>', '<', ',', GTGT, ')', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', ]";
     AddState(213,new State(-53));
-stringstates[214] = @"30 non_array_type: type_name .		['?', '*', THIS, OPERATOR, IDENTIFIER, '[', '(', '>', '<', ',', GTGT, ')', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, QQ, ';', ']', '}', ':', ]";
     AddState(214,new State(-30));
-stringstates[215] = @"19 type_list: type .		['>', '<', ',', GTGT, ]
-52 pointer_type: type . '*' ";
     AddState(215,new State(new int[]{42,195,62,-19,60,-19,44,-19,235,-19}));
-stringstates[216] = @"74 primary_expression_no_parenthesis: this_access .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(216,new State(-74));
-stringstates[217] = @"98 this_access: THIS .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(217,new State(-98));
-stringstates[218] = @"75 primary_expression_no_parenthesis: base_access .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(218,new State(-75));
-stringstates[219] = @"99 base_access: BASE . '.' IDENTIFIER 
-100 base_access: BASE . '[' expression_list ']' ";
     AddState(219,new State(new int[]{46,220,91,222}));
-stringstates[220] = @"99 base_access: BASE '.' . IDENTIFIER ";
     AddState(220,new State(new int[]{130,221}));
-stringstates[221] = @"99 base_access: BASE '.' IDENTIFIER .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(221,new State(-99));
-stringstates[222] = @"100 base_access: BASE '[' . expression_list ']' ";
     AddState(222,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-108,223,-88,181,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[223] = @"100 base_access: BASE '[' expression_list . ']' 
-97 expression_list: expression_list . ',' expression ";
     AddState(223,new State(new int[]{93,224,44,79}));
-stringstates[224] = @"100 base_access: BASE '[' expression_list ']' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(224,new State(-100));
-stringstates[225] = @"76 primary_expression_no_parenthesis: anon_delegate_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(225,new State(-76));
-stringstates[226] = @"103 anon_delegate_expression: DELEGATE . '(' formal_parameter_list_opt ')' method_body ";
     AddState(226,new State(new int[]{40,227}));
-stringstates[227] = @"103 anon_delegate_expression: DELEGATE '(' . formal_parameter_list_opt ')' method_body ";
     AddState(227,new State(new int[]{91,538,214,556,41,-412,182,-320,187,-320,180,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320,210,-320},new int[]{-11,228,-12,520,-50,555,-51,525,-201,526,-203,535,-250,536,-251,553,-52,554}));
-stringstates[228] = @"103 anon_delegate_expression: DELEGATE '(' formal_parameter_list_opt . ')' method_body ";
     AddState(228,new State(new int[]{41,229}));
-stringstates[229] = @"103 anon_delegate_expression: DELEGATE '(' formal_parameter_list_opt ')' . method_body ";
     AddState(229,new State(new int[]{123,232,59,519},new int[]{-113,230,-146,231}));
-stringstates[230] = @"103 anon_delegate_expression: DELEGATE '(' formal_parameter_list_opt ')' method_body .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(230,new State(-103));
-stringstates[231] = @"419 method_body: block .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(231,new State(-419));
-stringstates[232] = @"213 block: '{' . statement_list_opt '}' ";
     AddState(232,new State(new int[]{130,238,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,210,212,147,326,123,232,59,333,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,40,97,127,150,198,217,138,219,151,226,150,254,202,259,192,266,145,339,205,341,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,166,362,197,370,212,384,152,390,163,399,164,410,140,420,148,423,165,426,188,435,199,440,201,444,173,469,208,475,206,481,161,484,125,-214},new int[]{-159,233,-160,235,-142,510,-143,237,-144,241,-161,242,-56,244,-58,196,-59,199,-60,312,-62,154,-64,155,-63,165,-61,313,-84,204,-65,205,-29,314,-74,182,-73,183,-76,209,-66,214,-162,324,-145,330,-146,331,-147,332,-148,334,-165,335,-96,337,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-91,73,-92,96,-97,176,-98,216,-99,218,-100,225,-101,251,-114,338,-102,253,-103,258,-104,265,-105,270,-106,275,-138,343,-119,344,-120,67,-111,68,-110,356,-112,357,-117,282,-121,287,-122,358,-123,359,-118,300,-149,360,-166,361,-167,369,-150,382,-174,383,-175,389,-176,398,-177,409,-151,418,-186,419,-187,422,-188,425,-189,434,-190,439,-152,443,-153,466,-154,467,-155,468,-156,474,-157,480,-158,483}));
-stringstates[233] = @"213 block: '{' statement_list_opt . '}' ";
     AddState(233,new State(new int[]{125,234}));
-stringstates[234] = @"213 block: '{' statement_list_opt '}' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, CASE, ELSE, CATCH, FINALLY, ABSTRACT, EXTERN, INTERNAL, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, VIRTUAL, VOLATILE, GET, SET, EVENT, CLASS, STRUCT, INTERFACE, ENUM, IMPLICIT, EXPLICIT, ]";
     AddState(234,new State(-213));
-stringstates[235] = @"215 statement_list_opt: statement_list .		['}', ]
-217 statement_list: statement_list . statement ";
     AddState(235,new State(new int[]{130,238,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,210,212,147,326,123,232,59,333,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,40,97,127,150,198,217,138,219,151,226,150,254,202,259,192,266,145,339,205,341,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,166,362,197,370,212,384,152,390,163,399,164,410,140,420,148,423,165,426,188,435,199,440,201,444,173,469,208,475,206,481,161,484,125,-215},new int[]{-142,236,-143,237,-144,241,-161,242,-56,244,-58,196,-59,199,-60,312,-62,154,-64,155,-63,165,-61,313,-84,204,-65,205,-29,314,-74,182,-73,183,-76,209,-66,214,-162,324,-145,330,-146,331,-147,332,-148,334,-165,335,-96,337,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-91,73,-92,96,-97,176,-98,216,-99,218,-100,225,-101,251,-114,338,-102,253,-103,258,-104,265,-105,270,-106,275,-138,343,-119,344,-120,67,-111,68,-110,356,-112,357,-117,282,-121,287,-122,358,-123,359,-118,300,-149,360,-166,361,-167,369,-150,382,-174,383,-175,389,-176,398,-177,409,-151,418,-186,419,-187,422,-188,425,-189,434,-190,439,-152,443,-153,466,-154,467,-155,468,-156,474,-157,480,-158,483}));
-stringstates[236] = @"217 statement_list: statement_list statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ]";
     AddState(236,new State(-217));
-stringstates[237] = @"197 statement: labeled_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ]";
     AddState(237,new State(-197));
-stringstates[238] = @"219 labeled_statement: IDENTIFIER . ':' statement 
-15 member_name: IDENTIFIER . type_list_opt ";
     AddState(238,new State(new int[]{58,239,60,187,46,-16,40,-16,91,-16,129,-16,63,-16,42,-16,130,-16,247,-16,248,-16,249,-16,61,-16,228,-16,229,-16,230,-16,231,-16,232,-16,236,-16,237,-16,238,-16,240,-16,234,-16},new int[]{-79,186}));
-stringstates[239] = @"219 labeled_statement: IDENTIFIER ':' . statement ";
     AddState(239,new State(new int[]{130,238,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,210,212,147,326,123,232,59,333,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,40,97,127,150,198,217,138,219,151,226,150,254,202,259,192,266,145,339,205,341,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,166,362,197,370,212,384,152,390,163,399,164,410,140,420,148,423,165,426,188,435,199,440,201,444,173,469,208,475,206,481,161,484},new int[]{-142,240,-143,237,-144,241,-161,242,-56,244,-58,196,-59,199,-60,312,-62,154,-64,155,-63,165,-61,313,-84,204,-65,205,-29,314,-74,182,-73,183,-76,209,-66,214,-162,324,-145,330,-146,331,-147,332,-148,334,-165,335,-96,337,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-91,73,-92,96,-97,176,-98,216,-99,218,-100,225,-101,251,-114,338,-102,253,-103,258,-104,265,-105,270,-106,275,-138,343,-119,344,-120,67,-111,68,-110,356,-112,357,-117,282,-121,287,-122,358,-123,359,-118,300,-149,360,-166,361,-167,369,-150,382,-174,383,-175,389,-176,398,-177,409,-151,418,-186,419,-187,422,-188,425,-189,434,-190,439,-152,443,-153,466,-154,467,-155,468,-156,474,-157,480,-158,483}));
-stringstates[240] = @"219 labeled_statement: IDENTIFIER ':' statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ]";
     AddState(240,new State(-219));
-stringstates[241] = @"198 statement: declaration_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ]";
     AddState(241,new State(-198));
-stringstates[242] = @"220 declaration_statement: local_variable_declaration . ';' ";
     AddState(242,new State(new int[]{59,243}));
-stringstates[243] = @"220 declaration_statement: local_variable_declaration ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ]";
     AddState(243,new State(-220));
-stringstates[244] = @"222 local_variable_declaration: type . variable_declarators 
-52 pointer_type: type . '*' ";
     AddState(244,new State(new int[]{42,195,130,248},new int[]{-70,245,-33,311}));
-stringstates[245] = @"222 local_variable_declaration: type variable_declarators .		[';', ')', ]
-224 variable_declarators: variable_declarators . ',' variable_declarator ";
     AddState(245,new State(new int[]{44,246,59,-222,41,-222}));
-stringstates[246] = @"224 variable_declarators: variable_declarators ',' . variable_declarator ";
     AddState(246,new State(new int[]{130,248},new int[]{-33,247}));
-stringstates[247] = @"224 variable_declarators: variable_declarators ',' variable_declarator .		[',', ';', ')', ]";
     AddState(247,new State(-224));
-stringstates[248] = @"225 variable_declarator: IDENTIFIER .		[',', ';', ')', ]
-226 variable_declarator: IDENTIFIER . '=' variable_initializer ";
     AddState(248,new State(new int[]{61,249,44,-225,59,-225,41,-225}));
-stringstates[249] = @"226 variable_declarator: IDENTIFIER '=' . variable_initializer ";
     AddState(249,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,123,137,193,306},new int[]{-163,250,-88,144,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303,-116,304,-164,305}));
-stringstates[250] = @"226 variable_declarator: IDENTIFIER '=' variable_initializer .		[',', ';', ')', ]";
     AddState(250,new State(-226));
-stringstates[251] = @"77 primary_expression_no_parenthesis: new_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(251,new State(-77));
-stringstates[252] = @"104 new_expression: object_creation_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(252,new State(-104));
-stringstates[253] = @"78 primary_expression_no_parenthesis: default_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(253,new State(-78));
-stringstates[254] = @"87 default_expression: DEFAULT . '(' type ')' ";
     AddState(254,new State(new int[]{40,255}));
-stringstates[255] = @"87 default_expression: DEFAULT '(' . type ')' ";
     AddState(255,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,256,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[256] = @"87 default_expression: DEFAULT '(' type . ')' 
-52 pointer_type: type . '*' ";
     AddState(256,new State(new int[]{41,257,42,195}));
-stringstates[257] = @"87 default_expression: DEFAULT '(' type ')' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(257,new State(-87));
-stringstates[258] = @"79 primary_expression_no_parenthesis: typeof_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(258,new State(-79));
-stringstates[259] = @"111 typeof_expression: TYPEOF . '(' type ')' 
-112 typeof_expression: TYPEOF . '(' VOID ')' ";
     AddState(259,new State(new int[]{40,260}));
-stringstates[260] = @"111 typeof_expression: TYPEOF '(' . type ')' 
-112 typeof_expression: TYPEOF '(' . VOID ')' ";
     AddState(260,new State(new int[]{210,263,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185},new int[]{-56,261,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[261] = @"111 typeof_expression: TYPEOF '(' type . ')' 
-52 pointer_type: type . '*' ";
     AddState(261,new State(new int[]{41,262,42,195}));
-stringstates[262] = @"111 typeof_expression: TYPEOF '(' type ')' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(262,new State(-111));
-stringstates[263] = @"112 typeof_expression: TYPEOF '(' VOID . ')' 
-53 pointer_type: VOID . '*' ";
     AddState(263,new State(new int[]{41,264,42,213}));
-stringstates[264] = @"112 typeof_expression: TYPEOF '(' VOID ')' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(264,new State(-112));
-stringstates[265] = @"80 primary_expression_no_parenthesis: sizeof_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(265,new State(-80));
-stringstates[266] = @"117 sizeof_expression: SIZEOF . '(' type ')' ";
     AddState(266,new State(new int[]{40,267}));
-stringstates[267] = @"117 sizeof_expression: SIZEOF '(' . type ')' ";
     AddState(267,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,268,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[268] = @"117 sizeof_expression: SIZEOF '(' type . ')' 
-52 pointer_type: type . '*' ";
     AddState(268,new State(new int[]{41,269,42,195}));
-stringstates[269] = @"117 sizeof_expression: SIZEOF '(' type ')' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(269,new State(-117));
-stringstates[270] = @"81 primary_expression_no_parenthesis: checked_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(270,new State(-81));
-stringstates[271] = @"113 checked_expression: CHECKED . '(' expression ')' ";
     AddState(271,new State(new int[]{40,272}));
-stringstates[272] = @"113 checked_expression: CHECKED '(' . expression ')' ";
     AddState(272,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-88,273,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[273] = @"113 checked_expression: CHECKED '(' expression . ')' ";
     AddState(273,new State(new int[]{41,274}));
-stringstates[274] = @"113 checked_expression: CHECKED '(' expression ')' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(274,new State(-113));
-stringstates[275] = @"82 primary_expression_no_parenthesis: unchecked_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(275,new State(-82));
-stringstates[276] = @"114 unchecked_expression: UNCHECKED . '(' expression ')' ";
     AddState(276,new State(new int[]{40,277}));
-stringstates[277] = @"114 unchecked_expression: UNCHECKED '(' . expression ')' ";
     AddState(277,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-88,278,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[278] = @"114 unchecked_expression: UNCHECKED '(' expression . ')' ";
     AddState(278,new State(new int[]{41,279}));
-stringstates[279] = @"114 unchecked_expression: UNCHECKED '(' expression ')' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(279,new State(-114));
-stringstates[280] = @"120 postfix_expression: post_increment_expression .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(280,new State(-120));
-stringstates[281] = @"121 postfix_expression: post_decrement_expression .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(281,new State(-121));
-stringstates[282] = @"122 postfix_expression: pointer_member_access .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(282,new State(-122));
-stringstates[283] = @"124 unary_expression_not_plusminus: '!' . unary_expression ";
     AddState(283,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-119,284,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[284] = @"124 unary_expression_not_plusminus: '!' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(284,new State(-124));
-stringstates[285] = @"125 unary_expression_not_plusminus: '~' . unary_expression ";
     AddState(285,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-119,286,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[286] = @"125 unary_expression_not_plusminus: '~' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(286,new State(-125));
-stringstates[287] = @"126 unary_expression_not_plusminus: cast_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(287,new State(-126));
-stringstates[288] = @"130 unary_expression: '+' . unary_expression ";
     AddState(288,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-119,289,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[289] = @"130 unary_expression: '+' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(289,new State(-130));
-stringstates[290] = @"131 unary_expression: '-' . unary_expression ";
     AddState(290,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-119,291,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[291] = @"131 unary_expression: '-' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(291,new State(-131));
-stringstates[292] = @"132 unary_expression: '*' . unary_expression ";
     AddState(292,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-119,293,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[293] = @"132 unary_expression: '*' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(293,new State(-132));
-stringstates[294] = @"133 unary_expression: pre_increment_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(294,new State(-133));
-stringstates[295] = @"127 pre_increment_expression: PLUSPLUS . unary_expression ";
     AddState(295,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-119,296,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[296] = @"127 pre_increment_expression: PLUSPLUS unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(296,new State(-127));
-stringstates[297] = @"134 unary_expression: pre_decrement_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(297,new State(-134));
-stringstates[298] = @"128 pre_decrement_expression: MINUSMINUS . unary_expression ";
     AddState(298,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-119,299,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[299] = @"128 pre_decrement_expression: MINUSMINUS unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(299,new State(-128));
-stringstates[300] = @"135 unary_expression: addressof_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(300,new State(-135));
-stringstates[301] = @"116 addressof_expression: '&' . unary_expression ";
     AddState(301,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-119,302,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[302] = @"116 addressof_expression: '&' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(302,new State(-116));
-stringstates[303] = @"194 expression: assignment .		[';', ',', ']', ')', '}', ':', ]";
     AddState(303,new State(-194));
-stringstates[304] = @"228 variable_initializer: array_initializer .		[',', '}', ';', ')', ]";
     AddState(304,new State(-228));
-stringstates[305] = @"229 variable_initializer: stackalloc_initializer .		[',', '}', ';', ')', ]";
     AddState(305,new State(-229));
-stringstates[306] = @"230 stackalloc_initializer: STACKALLOC . type '[' expression ']' ";
     AddState(306,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,307,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[307] = @"230 stackalloc_initializer: STACKALLOC type . '[' expression ']' 
-52 pointer_type: type . '*' ";
     AddState(307,new State(new int[]{91,308,42,195}));
-stringstates[308] = @"230 stackalloc_initializer: STACKALLOC type '[' . expression ']' ";
     AddState(308,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-88,309,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[309] = @"230 stackalloc_initializer: STACKALLOC type '[' expression . ']' ";
     AddState(309,new State(new int[]{93,310}));
-stringstates[310] = @"230 stackalloc_initializer: STACKALLOC type '[' expression ']' .		[',', '}', ';', ')', ]";
     AddState(310,new State(-230));
-stringstates[311] = @"223 variable_declarators: variable_declarator .		[',', ';', ')', ]";
     AddState(311,new State(-223));
-stringstates[312] = @"31 simple_type: primitive_type .		[RANK_SPECIFIER, '?', '*', IDENTIFIER, ]
-85 member_access: primitive_type . '.' IDENTIFIER ";
     AddState(312,new State(new int[]{46,152,129,-31,63,-31,42,-31,130,-31}));
-stringstates[313] = @"32 simple_type: class_type .		[RANK_SPECIFIER, '?', '*', IDENTIFIER, ]
-86 member_access: class_type . '.' IDENTIFIER ";
     AddState(313,new State(new int[]{46,171,129,-32,63,-32,42,-32,130,-32}));
-stringstates[314] = @"56 array_type: qualified_identifier . rank_specifier 
-14 type_name: qualified_identifier .		['?', '*', IDENTIFIER, ]
-89 invocation_expression: qualified_identifier . '(' argument_list_opt ')' 
-93 element_access: qualified_identifier . '[' expression_list ']' 
-119 postfix_expression: qualified_identifier .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ')', ]";
     AddState(314,new State(new int[]{40,315,91,178,129,201,63,-14,42,-14,130,-14,247,-119,248,-119,249,-119,61,-119,228,-119,229,-119,230,-119,231,-119,232,-119,236,-119,237,-119,238,-119,240,-119,234,-119,47,-119,37,-119,43,-119,45,-119,239,-119,235,-119,60,-119,62,-119,243,-119,244,-119,172,-119,137,-119,241,-119,242,-119,38,-119,94,-119,124,-119,245,-119,246,-119,233,-119,41,-119},new int[]{-85,208}));
-stringstates[315] = @"89 invocation_expression: qualified_identifier '(' . argument_list_opt ')' ";
     AddState(315,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,187,319,180,322,41,-90},new int[]{-107,316,-89,105,-90,318,-88,108,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[316] = @"89 invocation_expression: qualified_identifier '(' argument_list_opt . ')' ";
     AddState(316,new State(new int[]{41,317}));
-stringstates[317] = @"89 invocation_expression: qualified_identifier '(' argument_list_opt ')' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(317,new State(-89));
-stringstates[318] = @"61 argument_list: argument .		[',', ')', ]";
     AddState(318,new State(-61));
-stringstates[319] = @"64 argument: REF . variable_reference ";
     AddState(319,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-87,320,-88,321,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[320] = @"64 argument: REF variable_reference .		[',', ')', ]";
     AddState(320,new State(-64));
-stringstates[321] = @"60 variable_reference: expression .		[',', ')', ]";
     AddState(321,new State(-60));
-stringstates[322] = @"65 argument: OUT . variable_reference ";
     AddState(322,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-87,323,-88,321,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[323] = @"65 argument: OUT variable_reference .		[',', ')', ]";
     AddState(323,new State(-65));
-stringstates[324] = @"221 declaration_statement: local_constant_declaration . ';' ";
     AddState(324,new State(new int[]{59,325}));
-stringstates[325] = @"221 declaration_statement: local_constant_declaration ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ]";
     AddState(325,new State(-221));
-stringstates[326] = @"231 local_constant_declaration: CONST . type constant_declarators ";
     AddState(326,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,327,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[327] = @"231 local_constant_declaration: CONST type . constant_declarators 
-52 pointer_type: type . '*' ";
     AddState(327,new State(new int[]{42,195,130,41},new int[]{-71,328,-32,329}));
-stringstates[328] = @"231 local_constant_declaration: CONST type constant_declarators .		[';', ]
-233 constant_declarators: constant_declarators . ',' constant_declarator ";
     AddState(328,new State(new int[]{44,39,59,-231}));
-stringstates[329] = @"232 constant_declarators: constant_declarator .		[';', ',', ]";
     AddState(329,new State(-232));
-stringstates[330] = @"199 statement: embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ]";
     AddState(330,new State(-199));
-stringstates[331] = @"200 embedded_statement: block .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(331,new State(-200));
-stringstates[332] = @"201 embedded_statement: empty_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(332,new State(-201));
-stringstates[333] = @"218 empty_statement: ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(333,new State(-218));
-stringstates[334] = @"202 embedded_statement: expression_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(334,new State(-202));
-stringstates[335] = @"235 expression_statement: statement_expression . ';' ";
     AddState(335,new State(new int[]{59,336}));
-stringstates[336] = @"235 expression_statement: statement_expression ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(336,new State(-235));
-stringstates[337] = @"236 statement_expression: invocation_expression .		[';', ',', ')', ]
-72 primary_expression_no_parenthesis: invocation_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, ]";
     AddState(337,new State(new int[]{59,-236,44,-236,41,-236,40,-72,46,-72,91,-72,247,-72,248,-72,249,-72,61,-72,228,-72,229,-72,230,-72,231,-72,232,-72,236,-72,237,-72,238,-72,240,-72,234,-72}));
-stringstates[338] = @"104 new_expression: object_creation_expression .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, ]
-237 statement_expression: object_creation_expression .		[';', ',', ')', ]";
     AddState(338,new State(new int[]{40,-104,46,-104,91,-104,247,-104,248,-104,249,-104,61,-104,228,-104,229,-104,230,-104,231,-104,232,-104,236,-104,237,-104,238,-104,240,-104,234,-104,59,-237,44,-237,41,-237}));
-stringstates[339] = @"113 checked_expression: CHECKED . '(' expression ')' 
-305 checked_statement: CHECKED . block ";
     AddState(339,new State(new int[]{40,272,123,232},new int[]{-146,340}));
-stringstates[340] = @"305 checked_statement: CHECKED block .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(340,new State(-305));
-stringstates[341] = @"114 unchecked_expression: UNCHECKED . '(' expression ')' 
-306 unchecked_statement: UNCHECKED . block ";
     AddState(341,new State(new int[]{40,277,123,232},new int[]{-146,342}));
-stringstates[342] = @"306 unchecked_statement: UNCHECKED block .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(342,new State(-306));
-stringstates[343] = @"238 statement_expression: assignment .		[';', ',', ')', ]";
     AddState(343,new State(-238));
-stringstates[344] = @"181 assignment: unary_expression . assignment_operator expression ";
     AddState(344,new State(new int[]{61,345,228,346,229,347,230,348,231,349,232,350,236,351,237,352,238,353,240,354,234,355},new int[]{-139,147}));
-stringstates[345] = @"182 assignment_operator: '=' .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, error, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(345,new State(-182));
-stringstates[346] = @"183 assignment_operator: PLUSEQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, error, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(346,new State(-183));
-stringstates[347] = @"184 assignment_operator: MINUSEQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, error, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(347,new State(-184));
-stringstates[348] = @"185 assignment_operator: STAREQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, error, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(348,new State(-185));
-stringstates[349] = @"186 assignment_operator: DIVEQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, error, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(349,new State(-186));
-stringstates[350] = @"187 assignment_operator: MODEQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, error, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(350,new State(-187));
-stringstates[351] = @"188 assignment_operator: XOREQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, error, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(351,new State(-188));
-stringstates[352] = @"189 assignment_operator: ANDEQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, error, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(352,new State(-189));
-stringstates[353] = @"190 assignment_operator: OREQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, error, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(353,new State(-190));
-stringstates[354] = @"191 assignment_operator: LTLTEQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, error, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(354,new State(-191));
-stringstates[355] = @"192 assignment_operator: GTGTEQ .		['(', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, error, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', ]";
     AddState(355,new State(-192));
-stringstates[356] = @"120 postfix_expression: post_increment_expression .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, ]
-239 statement_expression: post_increment_expression .		[';', ',', ')', ]";
     AddState(356,new State(new int[]{247,-120,248,-120,249,-120,61,-120,228,-120,229,-120,230,-120,231,-120,232,-120,236,-120,237,-120,238,-120,240,-120,234,-120,59,-239,44,-239,41,-239}));
-stringstates[357] = @"121 postfix_expression: post_decrement_expression .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, ]
-240 statement_expression: post_decrement_expression .		[';', ',', ')', ]";
     AddState(357,new State(new int[]{247,-121,248,-121,249,-121,61,-121,228,-121,229,-121,230,-121,231,-121,232,-121,236,-121,237,-121,238,-121,240,-121,234,-121,59,-240,44,-240,41,-240}));
-stringstates[358] = @"133 unary_expression: pre_increment_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, ]
-241 statement_expression: pre_increment_expression .		[';', ',', ')', ]";
     AddState(358,new State(new int[]{61,-133,228,-133,229,-133,230,-133,231,-133,232,-133,236,-133,237,-133,238,-133,240,-133,234,-133,59,-241,44,-241,41,-241}));
-stringstates[359] = @"134 unary_expression: pre_decrement_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, ]
-242 statement_expression: pre_decrement_expression .		[';', ',', ')', ]";
     AddState(359,new State(new int[]{61,-134,228,-134,229,-134,230,-134,231,-134,232,-134,236,-134,237,-134,238,-134,240,-134,234,-134,59,-242,44,-242,41,-242}));
-stringstates[360] = @"203 embedded_statement: selection_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(360,new State(-203));
-stringstates[361] = @"243 selection_statement: if_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(361,new State(-243));
-stringstates[362] = @"245 if_statement: IF . '(' boolean_expression ')' embedded_statement 
-246 if_statement: IF . '(' boolean_expression ')' embedded_statement ELSE embedded_statement ";
     AddState(362,new State(new int[]{40,363}));
-stringstates[363] = @"245 if_statement: IF '(' . boolean_expression ')' embedded_statement 
-246 if_statement: IF '(' . boolean_expression ')' embedded_statement ELSE embedded_statement ";
     AddState(363,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-141,364,-88,397,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[364] = @"245 if_statement: IF '(' boolean_expression . ')' embedded_statement 
-246 if_statement: IF '(' boolean_expression . ')' embedded_statement ELSE embedded_statement ";
     AddState(364,new State(new int[]{41,365}));
-stringstates[365] = @"245 if_statement: IF '(' boolean_expression ')' . embedded_statement 
-246 if_statement: IF '(' boolean_expression ')' . embedded_statement ELSE embedded_statement ";
     AddState(365,new State(new int[]{123,232,59,333,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,40,97,130,185,127,150,198,217,138,219,151,226,150,254,202,259,192,266,145,339,205,341,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,166,362,197,370,212,384,152,390,163,399,164,410,140,420,148,423,165,426,188,435,199,440,201,444,173,469,208,475,206,481,161,484},new int[]{-145,366,-146,331,-147,332,-148,334,-165,335,-96,337,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-91,73,-92,96,-29,177,-74,182,-73,183,-76,209,-97,176,-98,216,-99,218,-100,225,-101,251,-114,338,-102,253,-103,258,-104,265,-105,270,-106,275,-60,151,-62,154,-64,155,-63,165,-61,170,-138,343,-119,344,-120,67,-111,68,-110,356,-112,357,-117,282,-121,287,-122,358,-123,359,-118,300,-149,360,-166,361,-167,369,-150,382,-174,383,-175,389,-176,398,-177,409,-151,418,-186,419,-187,422,-188,425,-189,434,-190,439,-152,443,-153,466,-154,467,-155,468,-156,474,-157,480,-158,483}));
-stringstates[366] = @"245 if_statement: IF '(' boolean_expression ')' embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]
-246 if_statement: IF '(' boolean_expression ')' embedded_statement . ELSE embedded_statement ";
     AddState(366,new State(new int[]{154,367,130,-245,189,-245,141,-245,191,-245,207,-245,169,-245,203,-245,174,-245,204,-245,144,-245,162,-245,153,-245,149,-245,139,-245,178,-245,195,-245,210,-245,147,-245,123,-245,59,-245,200,-245,159,-245,131,-245,132,-245,133,-245,134,-245,177,-245,135,-245,176,-245,40,-245,127,-245,198,-245,138,-245,151,-245,150,-245,202,-245,192,-245,145,-245,205,-245,33,-245,126,-245,43,-245,45,-245,42,-245,247,-245,248,-245,38,-245,166,-245,197,-245,212,-245,152,-245,163,-245,164,-245,140,-245,148,-245,165,-245,188,-245,199,-245,201,-245,173,-245,208,-245,206,-245,161,-245,125,-245,142,-245}));
-stringstates[367] = @"246 if_statement: IF '(' boolean_expression ')' embedded_statement ELSE . embedded_statement ";
     AddState(367,new State(new int[]{123,232,59,333,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,40,97,130,185,127,150,198,217,138,219,151,226,150,254,202,259,192,266,145,339,205,341,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,166,362,197,370,212,384,152,390,163,399,164,410,140,420,148,423,165,426,188,435,199,440,201,444,173,469,208,475,206,481,161,484},new int[]{-145,368,-146,331,-147,332,-148,334,-165,335,-96,337,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-91,73,-92,96,-29,177,-74,182,-73,183,-76,209,-97,176,-98,216,-99,218,-100,225,-101,251,-114,338,-102,253,-103,258,-104,265,-105,270,-106,275,-60,151,-62,154,-64,155,-63,165,-61,170,-138,343,-119,344,-120,67,-111,68,-110,356,-112,357,-117,282,-121,287,-122,358,-123,359,-118,300,-149,360,-166,361,-167,369,-150,382,-174,383,-175,389,-176,398,-177,409,-151,418,-186,419,-187,422,-188,425,-189,434,-190,439,-152,443,-153,466,-154,467,-155,468,-156,474,-157,480,-158,483}));
-stringstates[368] = @"246 if_statement: IF '(' boolean_expression ')' embedded_statement ELSE embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(368,new State(-246));
-stringstates[369] = @"244 selection_statement: switch_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(369,new State(-244));
-stringstates[370] = @"247 switch_statement: SWITCH . '(' expression ')' switch_block ";
     AddState(370,new State(new int[]{40,371}));
-stringstates[371] = @"247 switch_statement: SWITCH '(' . expression ')' switch_block ";
     AddState(371,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-88,372,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[372] = @"247 switch_statement: SWITCH '(' expression . ')' switch_block ";
     AddState(372,new State(new int[]{41,373}));
-stringstates[373] = @"247 switch_statement: SWITCH '(' expression ')' . switch_block ";
     AddState(373,new State(new int[]{123,375},new int[]{-168,374}));
-stringstates[374] = @"247 switch_statement: SWITCH '(' expression ')' switch_block .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(374,new State(-247));
-stringstates[375] = @"248 switch_block: '{' . switch_sections_opt '}' ";
     AddState(375,new State(new int[]{142,513,150,517,125,-249},new int[]{-169,376,-170,378,-171,518,-172,380,-173,516}));
-stringstates[376] = @"248 switch_block: '{' switch_sections_opt . '}' ";
     AddState(376,new State(new int[]{125,377}));
-stringstates[377] = @"248 switch_block: '{' switch_sections_opt '}' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(377,new State(-248));
-stringstates[378] = @"250 switch_sections_opt: switch_sections .		['}', ]
-252 switch_sections: switch_sections . switch_section ";
     AddState(378,new State(new int[]{142,513,150,517,125,-250},new int[]{-171,379,-172,380,-173,516}));
-stringstates[379] = @"252 switch_sections: switch_sections switch_section .		[CASE, DEFAULT, '}', ]";
     AddState(379,new State(-252));
-stringstates[380] = @"253 switch_section: switch_labels . statement_list 
-255 switch_labels: switch_labels . switch_label ";
     AddState(380,new State(new int[]{130,238,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,210,212,147,326,123,232,59,333,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,40,97,127,150,198,217,138,219,151,226,150,511,202,259,192,266,145,339,205,341,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,166,362,197,370,212,384,152,390,163,399,164,410,140,420,148,423,165,426,188,435,199,440,201,444,173,469,208,475,206,481,161,484,142,513},new int[]{-160,381,-173,509,-142,510,-143,237,-144,241,-161,242,-56,244,-58,196,-59,199,-60,312,-62,154,-64,155,-63,165,-61,313,-84,204,-65,205,-29,314,-74,182,-73,183,-76,209,-66,214,-162,324,-145,330,-146,331,-147,332,-148,334,-165,335,-96,337,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-91,73,-92,96,-97,176,-98,216,-99,218,-100,225,-101,251,-114,338,-102,253,-103,258,-104,265,-105,270,-106,275,-138,343,-119,344,-120,67,-111,68,-110,356,-112,357,-117,282,-121,287,-122,358,-123,359,-118,300,-149,360,-166,361,-167,369,-150,382,-174,383,-175,389,-176,398,-177,409,-151,418,-186,419,-187,422,-188,425,-189,434,-190,439,-152,443,-153,466,-154,467,-155,468,-156,474,-157,480,-158,483}));
-stringstates[381] = @"253 switch_section: switch_labels statement_list .		[CASE, DEFAULT, '}', ]
-217 statement_list: statement_list . statement ";
     AddState(381,new State(new int[]{130,238,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,210,212,147,326,123,232,59,333,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,40,97,127,150,198,217,138,219,151,226,150,254,202,259,192,266,145,339,205,341,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,166,362,197,370,212,384,152,390,163,399,164,410,140,420,148,423,165,426,188,435,199,440,201,444,173,469,208,475,206,481,161,484,142,-253,125,-253},new int[]{-142,236,-143,237,-144,241,-161,242,-56,244,-58,196,-59,199,-60,312,-62,154,-64,155,-63,165,-61,313,-84,204,-65,205,-29,314,-74,182,-73,183,-76,209,-66,214,-162,324,-145,330,-146,331,-147,332,-148,334,-165,335,-96,337,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-91,73,-92,96,-97,176,-98,216,-99,218,-100,225,-101,251,-114,338,-102,253,-103,258,-104,265,-105,270,-106,275,-138,343,-119,344,-120,67,-111,68,-110,356,-112,357,-117,282,-121,287,-122,358,-123,359,-118,300,-149,360,-166,361,-167,369,-150,382,-174,383,-175,389,-176,398,-177,409,-151,418,-186,419,-187,422,-188,425,-189,434,-190,439,-152,443,-153,466,-154,467,-155,468,-156,474,-157,480,-158,483},new int[]{150,-253}));
-stringstates[382] = @"204 embedded_statement: iteration_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(382,new State(-204));
-stringstates[383] = @"258 iteration_statement: while_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(383,new State(-258));
-stringstates[384] = @"263 while_statement: WHILE . '(' boolean_expression ')' embedded_statement ";
     AddState(384,new State(new int[]{40,385}));
-stringstates[385] = @"263 while_statement: WHILE '(' . boolean_expression ')' embedded_statement ";
     AddState(385,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-141,386,-88,397,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[386] = @"263 while_statement: WHILE '(' boolean_expression . ')' embedded_statement ";
     AddState(386,new State(new int[]{41,387}));
-stringstates[387] = @"263 while_statement: WHILE '(' boolean_expression ')' . embedded_statement ";
     AddState(387,new State(new int[]{123,232,59,333,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,40,97,130,185,127,150,198,217,138,219,151,226,150,254,202,259,192,266,145,339,205,341,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,166,362,197,370,212,384,152,390,163,399,164,410,140,420,148,423,165,426,188,435,199,440,201,444,173,469,208,475,206,481,161,484},new int[]{-145,388,-146,331,-147,332,-148,334,-165,335,-96,337,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-91,73,-92,96,-29,177,-74,182,-73,183,-76,209,-97,176,-98,216,-99,218,-100,225,-101,251,-114,338,-102,253,-103,258,-104,265,-105,270,-106,275,-60,151,-62,154,-64,155,-63,165,-61,170,-138,343,-119,344,-120,67,-111,68,-110,356,-112,357,-117,282,-121,287,-122,358,-123,359,-118,300,-149,360,-166,361,-167,369,-150,382,-174,383,-175,389,-176,398,-177,409,-151,418,-186,419,-187,422,-188,425,-189,434,-190,439,-152,443,-153,466,-154,467,-155,468,-156,474,-157,480,-158,483}));
-stringstates[388] = @"263 while_statement: WHILE '(' boolean_expression ')' embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(388,new State(-263));
-stringstates[389] = @"259 iteration_statement: do_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(389,new State(-259));
-stringstates[390] = @"264 do_statement: DO . embedded_statement WHILE '(' boolean_expression ')' ';' ";
     AddState(390,new State(new int[]{123,232,59,333,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,40,97,130,185,127,150,198,217,138,219,151,226,150,254,202,259,192,266,145,339,205,341,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,166,362,197,370,212,384,152,390,163,399,164,410,140,420,148,423,165,426,188,435,199,440,201,444,173,469,208,475,206,481,161,484},new int[]{-145,391,-146,331,-147,332,-148,334,-165,335,-96,337,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-91,73,-92,96,-29,177,-74,182,-73,183,-76,209,-97,176,-98,216,-99,218,-100,225,-101,251,-114,338,-102,253,-103,258,-104,265,-105,270,-106,275,-60,151,-62,154,-64,155,-63,165,-61,170,-138,343,-119,344,-120,67,-111,68,-110,356,-112,357,-117,282,-121,287,-122,358,-123,359,-118,300,-149,360,-166,361,-167,369,-150,382,-174,383,-175,389,-176,398,-177,409,-151,418,-186,419,-187,422,-188,425,-189,434,-190,439,-152,443,-153,466,-154,467,-155,468,-156,474,-157,480,-158,483}));
-stringstates[391] = @"264 do_statement: DO embedded_statement . WHILE '(' boolean_expression ')' ';' ";
     AddState(391,new State(new int[]{212,392}));
-stringstates[392] = @"264 do_statement: DO embedded_statement WHILE . '(' boolean_expression ')' ';' ";
     AddState(392,new State(new int[]{40,393}));
-stringstates[393] = @"264 do_statement: DO embedded_statement WHILE '(' . boolean_expression ')' ';' ";
     AddState(393,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-141,394,-88,397,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[394] = @"264 do_statement: DO embedded_statement WHILE '(' boolean_expression . ')' ';' ";
     AddState(394,new State(new int[]{41,395}));
-stringstates[395] = @"264 do_statement: DO embedded_statement WHILE '(' boolean_expression ')' . ';' ";
     AddState(395,new State(new int[]{59,396}));
-stringstates[396] = @"264 do_statement: DO embedded_statement WHILE '(' boolean_expression ')' ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(396,new State(-264));
-stringstates[397] = @"196 boolean_expression: expression .		[')', ';', ]";
     AddState(397,new State(-196));
-stringstates[398] = @"260 iteration_statement: for_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(398,new State(-260));
-stringstates[399] = @"266 for_statement: FOR . '(' for_initializer_opt ';' for_condition_opt ';' for_iterator_opt ')' @1 embedded_statement ";
     AddState(399,new State(new int[]{40,400}));
-stringstates[400] = @"266 for_statement: FOR '(' . for_initializer_opt ';' for_condition_opt ';' for_iterator_opt ')' @1 embedded_statement ";
     AddState(400,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,40,97,127,150,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,59,-267},new int[]{-178,401,-182,506,-161,507,-56,244,-58,196,-59,199,-60,312,-62,154,-64,155,-63,165,-61,313,-84,204,-65,205,-29,314,-74,182,-73,183,-76,209,-66,214,-185,508,-165,503,-96,337,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-91,73,-92,96,-97,176,-98,216,-99,218,-100,225,-101,251,-114,338,-102,253,-103,258,-104,265,-105,270,-106,275,-138,343,-119,344,-120,67,-111,68,-110,356,-112,357,-117,282,-121,287,-122,358,-123,359,-118,300}));
-stringstates[401] = @"266 for_statement: FOR '(' for_initializer_opt . ';' for_condition_opt ';' for_iterator_opt ')' @1 embedded_statement ";
     AddState(401,new State(new int[]{59,402}));
-stringstates[402] = @"266 for_statement: FOR '(' for_initializer_opt ';' . for_condition_opt ';' for_iterator_opt ')' @1 embedded_statement ";
     AddState(402,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,59,-269},new int[]{-179,403,-183,504,-141,505,-88,397,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[403] = @"266 for_statement: FOR '(' for_initializer_opt ';' for_condition_opt . ';' for_iterator_opt ')' @1 embedded_statement ";
     AddState(403,new State(new int[]{59,404}));
-stringstates[404] = @"266 for_statement: FOR '(' for_initializer_opt ';' for_condition_opt ';' . for_iterator_opt ')' @1 embedded_statement ";
     AddState(404,new State(new int[]{200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,40,97,130,185,127,150,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,41,-271},new int[]{-180,405,-184,499,-185,500,-165,503,-96,337,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-91,73,-92,96,-29,177,-74,182,-73,183,-76,209,-97,176,-98,216,-99,218,-100,225,-101,251,-114,338,-102,253,-103,258,-104,265,-105,270,-106,275,-60,151,-62,154,-64,155,-63,165,-61,170,-138,343,-119,344,-120,67,-111,68,-110,356,-112,357,-117,282,-121,287,-122,358,-123,359,-118,300}));
-stringstates[405] = @"266 for_statement: FOR '(' for_initializer_opt ';' for_condition_opt ';' for_iterator_opt . ')' @1 embedded_statement ";
     AddState(405,new State(new int[]{41,406}));
-stringstates[406] = @"266 for_statement: FOR '(' for_initializer_opt ';' for_condition_opt ';' for_iterator_opt ')' . @1 embedded_statement ";
     AddState(406,new State(-265,new int[]{-181,407}));
-stringstates[407] = @"266 for_statement: FOR '(' for_initializer_opt ';' for_condition_opt ';' for_iterator_opt ')' @1 . embedded_statement ";
     AddState(407,new State(new int[]{123,232,59,333,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,40,97,130,185,127,150,198,217,138,219,151,226,150,254,202,259,192,266,145,339,205,341,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,166,362,197,370,212,384,152,390,163,399,164,410,140,420,148,423,165,426,188,435,199,440,201,444,173,469,208,475,206,481,161,484},new int[]{-145,408,-146,331,-147,332,-148,334,-165,335,-96,337,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-91,73,-92,96,-29,177,-74,182,-73,183,-76,209,-97,176,-98,216,-99,218,-100,225,-101,251,-114,338,-102,253,-103,258,-104,265,-105,270,-106,275,-60,151,-62,154,-64,155,-63,165,-61,170,-138,343,-119,344,-120,67,-111,68,-110,356,-112,357,-117,282,-121,287,-122,358,-123,359,-118,300,-149,360,-166,361,-167,369,-150,382,-174,383,-175,389,-176,398,-177,409,-151,418,-186,419,-187,422,-188,425,-189,434,-190,439,-152,443,-153,466,-154,467,-155,468,-156,474,-157,480,-158,483}));
-stringstates[408] = @"266 for_statement: FOR '(' for_initializer_opt ';' for_condition_opt ';' for_iterator_opt ')' @1 embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(408,new State(-266));
-stringstates[409] = @"261 iteration_statement: foreach_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(409,new State(-261));
-stringstates[410] = @"279 foreach_statement: FOREACH . '(' type IDENTIFIER IN expression ')' embedded_statement ";
     AddState(410,new State(new int[]{40,411}));
-stringstates[411] = @"279 foreach_statement: FOREACH '(' . type IDENTIFIER IN expression ')' embedded_statement ";
     AddState(411,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,412,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[412] = @"279 foreach_statement: FOREACH '(' type . IDENTIFIER IN expression ')' embedded_statement 
-52 pointer_type: type . '*' ";
     AddState(412,new State(new int[]{130,413,42,195}));
-stringstates[413] = @"279 foreach_statement: FOREACH '(' type IDENTIFIER . IN expression ')' embedded_statement ";
     AddState(413,new State(new int[]{168,414}));
-stringstates[414] = @"279 foreach_statement: FOREACH '(' type IDENTIFIER IN . expression ')' embedded_statement ";
     AddState(414,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-88,415,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[415] = @"279 foreach_statement: FOREACH '(' type IDENTIFIER IN expression . ')' embedded_statement ";
     AddState(415,new State(new int[]{41,416}));
-stringstates[416] = @"279 foreach_statement: FOREACH '(' type IDENTIFIER IN expression ')' . embedded_statement ";
     AddState(416,new State(new int[]{123,232,59,333,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,40,97,130,185,127,150,198,217,138,219,151,226,150,254,202,259,192,266,145,339,205,341,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,166,362,197,370,212,384,152,390,163,399,164,410,140,420,148,423,165,426,188,435,199,440,201,444,173,469,208,475,206,481,161,484},new int[]{-145,417,-146,331,-147,332,-148,334,-165,335,-96,337,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-91,73,-92,96,-29,177,-74,182,-73,183,-76,209,-97,176,-98,216,-99,218,-100,225,-101,251,-114,338,-102,253,-103,258,-104,265,-105,270,-106,275,-60,151,-62,154,-64,155,-63,165,-61,170,-138,343,-119,344,-120,67,-111,68,-110,356,-112,357,-117,282,-121,287,-122,358,-123,359,-118,300,-149,360,-166,361,-167,369,-150,382,-174,383,-175,389,-176,398,-177,409,-151,418,-186,419,-187,422,-188,425,-189,434,-190,439,-152,443,-153,466,-154,467,-155,468,-156,474,-157,480,-158,483}));
-stringstates[417] = @"279 foreach_statement: FOREACH '(' type IDENTIFIER IN expression ')' embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(417,new State(-279));
-stringstates[418] = @"205 embedded_statement: jump_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(418,new State(-205));
-stringstates[419] = @"280 jump_statement: break_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(419,new State(-280));
-stringstates[420] = @"285 break_statement: BREAK . ';' ";
     AddState(420,new State(new int[]{59,421}));
-stringstates[421] = @"285 break_statement: BREAK ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(421,new State(-285));
-stringstates[422] = @"281 jump_statement: continue_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(422,new State(-281));
-stringstates[423] = @"286 continue_statement: CONTINUE . ';' ";
     AddState(423,new State(new int[]{59,424}));
-stringstates[424] = @"286 continue_statement: CONTINUE ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(424,new State(-286));
-stringstates[425] = @"282 jump_statement: goto_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(425,new State(-282));
-stringstates[426] = @"287 goto_statement: GOTO . IDENTIFIER ';' 
-288 goto_statement: GOTO . CASE constant_expression ';' 
-289 goto_statement: GOTO . DEFAULT ';' ";
     AddState(426,new State(new int[]{130,427,142,429,150,432}));
-stringstates[427] = @"287 goto_statement: GOTO IDENTIFIER . ';' ";
     AddState(427,new State(new int[]{59,428}));
-stringstates[428] = @"287 goto_statement: GOTO IDENTIFIER ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(428,new State(-287));
-stringstates[429] = @"288 goto_statement: GOTO CASE . constant_expression ';' ";
     AddState(429,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-140,430,-88,44,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[430] = @"288 goto_statement: GOTO CASE constant_expression . ';' ";
     AddState(430,new State(new int[]{59,431}));
-stringstates[431] = @"288 goto_statement: GOTO CASE constant_expression ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(431,new State(-288));
-stringstates[432] = @"289 goto_statement: GOTO DEFAULT . ';' ";
     AddState(432,new State(new int[]{59,433}));
-stringstates[433] = @"289 goto_statement: GOTO DEFAULT ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(433,new State(-289));
-stringstates[434] = @"283 jump_statement: return_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(434,new State(-283));
-stringstates[435] = @"290 return_statement: RETURN . expression_opt ';' ";
     AddState(435,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,59,-291},new int[]{-191,436,-88,438,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[436] = @"290 return_statement: RETURN expression_opt . ';' ";
     AddState(436,new State(new int[]{59,437}));
-stringstates[437] = @"290 return_statement: RETURN expression_opt ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(437,new State(-290));
-stringstates[438] = @"292 expression_opt: expression .		[';', ]";
     AddState(438,new State(-292));
-stringstates[439] = @"284 jump_statement: throw_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(439,new State(-284));
-stringstates[440] = @"293 throw_statement: THROW . expression_opt ';' ";
     AddState(440,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,59,-291},new int[]{-191,441,-88,438,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[441] = @"293 throw_statement: THROW expression_opt . ';' ";
     AddState(441,new State(new int[]{59,442}));
-stringstates[442] = @"293 throw_statement: THROW expression_opt ';' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(442,new State(-293));
-stringstates[443] = @"206 embedded_statement: try_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(443,new State(-206));
-stringstates[444] = @"294 try_statement: TRY . block catch_clauses 
-295 try_statement: TRY . block finally_clause 
-296 try_statement: TRY . block catch_clauses finally_clause ";
     AddState(444,new State(new int[]{123,232},new int[]{-146,445}));
-stringstates[445] = @"294 try_statement: TRY block . catch_clauses 
-295 try_statement: TRY block . finally_clause 
-296 try_statement: TRY block . catch_clauses finally_clause ";
     AddState(445,new State(new int[]{143,451,160,449},new int[]{-192,446,-193,464,-194,465}));
-stringstates[446] = @"294 try_statement: TRY block catch_clauses .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]
-296 try_statement: TRY block catch_clauses . finally_clause 
-298 catch_clauses: catch_clauses . catch_clause ";
     AddState(446,new State(new int[]{160,449,143,451,130,-294,189,-294,141,-294,191,-294,207,-294,169,-294,203,-294,174,-294,204,-294,144,-294,162,-294,153,-294,149,-294,139,-294,178,-294,195,-294,210,-294,147,-294,123,-294,59,-294,200,-294,159,-294,131,-294,132,-294,133,-294,134,-294,177,-294,135,-294,176,-294,40,-294,127,-294,198,-294,138,-294,151,-294,150,-294,202,-294,192,-294,145,-294,205,-294,33,-294,126,-294,43,-294,45,-294,42,-294,247,-294,248,-294,38,-294,166,-294,197,-294,212,-294,152,-294,163,-294,164,-294,140,-294,148,-294,165,-294,188,-294,199,-294,201,-294,173,-294,208,-294,206,-294,161,-294,125,-294,142,-294,154,-294},new int[]{-193,447,-194,448}));
-stringstates[447] = @"296 try_statement: TRY block catch_clauses finally_clause .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(447,new State(-296));
-stringstates[448] = @"298 catch_clauses: catch_clauses catch_clause .		[FINALLY, CATCH, IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(448,new State(-298));
-stringstates[449] = @"304 finally_clause: FINALLY . block ";
     AddState(449,new State(new int[]{123,232},new int[]{-146,450}));
-stringstates[450] = @"304 finally_clause: FINALLY block .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(450,new State(-304));
-stringstates[451] = @"299 catch_clause: CATCH . '(' class_type identifier_opt ')' block 
-300 catch_clause: CATCH . '(' type_name identifier_opt ')' block 
-301 catch_clause: CATCH . block ";
     AddState(451,new State(new int[]{40,452,123,232},new int[]{-146,463}));
-stringstates[452] = @"299 catch_clause: CATCH '(' . class_type identifier_opt ')' block 
-300 catch_clause: CATCH '(' . type_name identifier_opt ')' block ";
     AddState(452,new State(new int[]{178,173,195,174,130,185},new int[]{-61,453,-66,458,-29,462,-74,182,-73,183,-76,209}));
-stringstates[453] = @"299 catch_clause: CATCH '(' class_type . identifier_opt ')' block ";
     AddState(453,new State(new int[]{130,457,41,-302},new int[]{-195,454}));
-stringstates[454] = @"299 catch_clause: CATCH '(' class_type identifier_opt . ')' block ";
     AddState(454,new State(new int[]{41,455}));
-stringstates[455] = @"299 catch_clause: CATCH '(' class_type identifier_opt ')' . block ";
     AddState(455,new State(new int[]{123,232},new int[]{-146,456}));
-stringstates[456] = @"299 catch_clause: CATCH '(' class_type identifier_opt ')' block .		[FINALLY, CATCH, IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(456,new State(-299));
-stringstates[457] = @"303 identifier_opt: IDENTIFIER .		[')', ]";
     AddState(457,new State(-303));
-stringstates[458] = @"300 catch_clause: CATCH '(' type_name . identifier_opt ')' block ";
     AddState(458,new State(new int[]{130,457,41,-302},new int[]{-195,459}));
-stringstates[459] = @"300 catch_clause: CATCH '(' type_name identifier_opt . ')' block ";
     AddState(459,new State(new int[]{41,460}));
-stringstates[460] = @"300 catch_clause: CATCH '(' type_name identifier_opt ')' . block ";
     AddState(460,new State(new int[]{123,232},new int[]{-146,461}));
-stringstates[461] = @"300 catch_clause: CATCH '(' type_name identifier_opt ')' block .		[FINALLY, CATCH, IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(461,new State(-300));
-stringstates[462] = @"14 type_name: qualified_identifier .		[IDENTIFIER, ')', '(', ']', ',', '{', WHERE, ';', ]";
     AddState(462,new State(-14));
-stringstates[463] = @"301 catch_clause: CATCH block .		[FINALLY, CATCH, IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(463,new State(-301));
-stringstates[464] = @"295 try_statement: TRY block finally_clause .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(464,new State(-295));
-stringstates[465] = @"297 catch_clauses: catch_clause .		[FINALLY, CATCH, IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(465,new State(-297));
-stringstates[466] = @"207 embedded_statement: checked_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(466,new State(-207));
-stringstates[467] = @"208 embedded_statement: unchecked_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(467,new State(-208));
-stringstates[468] = @"209 embedded_statement: lock_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(468,new State(-209));
-stringstates[469] = @"307 lock_statement: LOCK . '(' expression ')' embedded_statement ";
     AddState(469,new State(new int[]{40,470}));
-stringstates[470] = @"307 lock_statement: LOCK '(' . expression ')' embedded_statement ";
     AddState(470,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-88,471,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[471] = @"307 lock_statement: LOCK '(' expression . ')' embedded_statement ";
     AddState(471,new State(new int[]{41,472}));
-stringstates[472] = @"307 lock_statement: LOCK '(' expression ')' . embedded_statement ";
     AddState(472,new State(new int[]{123,232,59,333,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,40,97,130,185,127,150,198,217,138,219,151,226,150,254,202,259,192,266,145,339,205,341,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,166,362,197,370,212,384,152,390,163,399,164,410,140,420,148,423,165,426,188,435,199,440,201,444,173,469,208,475,206,481,161,484},new int[]{-145,473,-146,331,-147,332,-148,334,-165,335,-96,337,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-91,73,-92,96,-29,177,-74,182,-73,183,-76,209,-97,176,-98,216,-99,218,-100,225,-101,251,-114,338,-102,253,-103,258,-104,265,-105,270,-106,275,-60,151,-62,154,-64,155,-63,165,-61,170,-138,343,-119,344,-120,67,-111,68,-110,356,-112,357,-117,282,-121,287,-122,358,-123,359,-118,300,-149,360,-166,361,-167,369,-150,382,-174,383,-175,389,-176,398,-177,409,-151,418,-186,419,-187,422,-188,425,-189,434,-190,439,-152,443,-153,466,-154,467,-155,468,-156,474,-157,480,-158,483}));
-stringstates[473] = @"307 lock_statement: LOCK '(' expression ')' embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(473,new State(-307));
-stringstates[474] = @"210 embedded_statement: using_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(474,new State(-210));
-stringstates[475] = @"308 using_statement: USING . '(' resource_acquisition ')' embedded_statement ";
     AddState(475,new State(new int[]{40,476}));
-stringstates[476] = @"308 using_statement: USING '(' . resource_acquisition ')' embedded_statement ";
     AddState(476,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212,40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-196,477,-161,497,-56,244,-58,196,-59,199,-60,312,-62,154,-64,155,-63,165,-61,313,-84,204,-65,205,-29,314,-74,182,-73,183,-76,209,-66,214,-88,498,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-96,175,-97,176,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[477] = @"308 using_statement: USING '(' resource_acquisition . ')' embedded_statement ";
     AddState(477,new State(new int[]{41,478}));
-stringstates[478] = @"308 using_statement: USING '(' resource_acquisition ')' . embedded_statement ";
     AddState(478,new State(new int[]{123,232,59,333,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,40,97,130,185,127,150,198,217,138,219,151,226,150,254,202,259,192,266,145,339,205,341,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,166,362,197,370,212,384,152,390,163,399,164,410,140,420,148,423,165,426,188,435,199,440,201,444,173,469,208,475,206,481,161,484},new int[]{-145,479,-146,331,-147,332,-148,334,-165,335,-96,337,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-91,73,-92,96,-29,177,-74,182,-73,183,-76,209,-97,176,-98,216,-99,218,-100,225,-101,251,-114,338,-102,253,-103,258,-104,265,-105,270,-106,275,-60,151,-62,154,-64,155,-63,165,-61,170,-138,343,-119,344,-120,67,-111,68,-110,356,-112,357,-117,282,-121,287,-122,358,-123,359,-118,300,-149,360,-166,361,-167,369,-150,382,-174,383,-175,389,-176,398,-177,409,-151,418,-186,419,-187,422,-188,425,-189,434,-190,439,-152,443,-153,466,-154,467,-155,468,-156,474,-157,480,-158,483}));
-stringstates[479] = @"308 using_statement: USING '(' resource_acquisition ')' embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(479,new State(-308));
-stringstates[480] = @"211 embedded_statement: unsafe_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(480,new State(-211));
-stringstates[481] = @"262 unsafe_statement: UNSAFE . block ";
     AddState(481,new State(new int[]{123,232},new int[]{-146,482}));
-stringstates[482] = @"262 unsafe_statement: UNSAFE block .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(482,new State(-262));
-stringstates[483] = @"212 embedded_statement: fixed_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(483,new State(-212));
-stringstates[484] = @"312 fixed_statement: FIXED . '(' type fixed_pointer_declarators ')' @2 embedded_statement ";
     AddState(484,new State(new int[]{40,485}));
-stringstates[485] = @"312 fixed_statement: FIXED '(' . type fixed_pointer_declarators ')' @2 embedded_statement ";
     AddState(485,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,486,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[486] = @"312 fixed_statement: FIXED '(' type . fixed_pointer_declarators ')' @2 embedded_statement 
-52 pointer_type: type . '*' ";
     AddState(486,new State(new int[]{42,195,130,493},new int[]{-197,487,-199,496}));
-stringstates[487] = @"312 fixed_statement: FIXED '(' type fixed_pointer_declarators . ')' @2 embedded_statement 
-314 fixed_pointer_declarators: fixed_pointer_declarators . ',' fixed_pointer_declarator ";
     AddState(487,new State(new int[]{41,488,44,491}));
-stringstates[488] = @"312 fixed_statement: FIXED '(' type fixed_pointer_declarators ')' . @2 embedded_statement ";
     AddState(488,new State(-311,new int[]{-198,489}));
-stringstates[489] = @"312 fixed_statement: FIXED '(' type fixed_pointer_declarators ')' @2 . embedded_statement ";
     AddState(489,new State(new int[]{123,232,59,333,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,40,97,130,185,127,150,198,217,138,219,151,226,150,254,202,259,192,266,145,339,205,341,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,166,362,197,370,212,384,152,390,163,399,164,410,140,420,148,423,165,426,188,435,199,440,201,444,173,469,208,475,206,481,161,484},new int[]{-145,490,-146,331,-147,332,-148,334,-165,335,-96,337,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-91,73,-92,96,-29,177,-74,182,-73,183,-76,209,-97,176,-98,216,-99,218,-100,225,-101,251,-114,338,-102,253,-103,258,-104,265,-105,270,-106,275,-60,151,-62,154,-64,155,-63,165,-61,170,-138,343,-119,344,-120,67,-111,68,-110,356,-112,357,-117,282,-121,287,-122,358,-123,359,-118,300,-149,360,-166,361,-167,369,-150,382,-174,383,-175,389,-176,398,-177,409,-151,418,-186,419,-187,422,-188,425,-189,434,-190,439,-152,443,-153,466,-154,467,-155,468,-156,474,-157,480,-158,483}));
-stringstates[490] = @"312 fixed_statement: FIXED '(' type fixed_pointer_declarators ')' @2 embedded_statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ELSE, ]";
     AddState(490,new State(-312));
-stringstates[491] = @"314 fixed_pointer_declarators: fixed_pointer_declarators ',' . fixed_pointer_declarator ";
     AddState(491,new State(new int[]{130,493},new int[]{-199,492}));
-stringstates[492] = @"314 fixed_pointer_declarators: fixed_pointer_declarators ',' fixed_pointer_declarator .		[')', ',', ]";
     AddState(492,new State(-314));
-stringstates[493] = @"315 fixed_pointer_declarator: IDENTIFIER . '=' expression ";
     AddState(493,new State(new int[]{61,494}));
-stringstates[494] = @"315 fixed_pointer_declarator: IDENTIFIER '=' . expression ";
     AddState(494,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-88,495,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[495] = @"315 fixed_pointer_declarator: IDENTIFIER '=' expression .		[')', ',', ]";
     AddState(495,new State(-315));
-stringstates[496] = @"313 fixed_pointer_declarators: fixed_pointer_declarator .		[')', ',', ]";
     AddState(496,new State(-313));
-stringstates[497] = @"309 resource_acquisition: local_variable_declaration .		[')', ]";
     AddState(497,new State(-309));
-stringstates[498] = @"310 resource_acquisition: expression .		[')', ]";
     AddState(498,new State(-310));
-stringstates[499] = @"272 for_iterator_opt: for_iterator .		[')', ]";
     AddState(499,new State(-272));
-stringstates[500] = @"276 for_iterator: statement_expression_list .		[')', ]
-278 statement_expression_list: statement_expression_list . ',' statement_expression ";
     AddState(500,new State(new int[]{44,501,41,-276}));
-stringstates[501] = @"278 statement_expression_list: statement_expression_list ',' . statement_expression ";
     AddState(501,new State(new int[]{200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,40,97,130,185,127,150,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-165,502,-96,337,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-91,73,-92,96,-29,177,-74,182,-73,183,-76,209,-97,176,-98,216,-99,218,-100,225,-101,251,-114,338,-102,253,-103,258,-104,265,-105,270,-106,275,-60,151,-62,154,-64,155,-63,165,-61,170,-138,343,-119,344,-120,67,-111,68,-110,356,-112,357,-117,282,-121,287,-122,358,-123,359,-118,300}));
-stringstates[502] = @"278 statement_expression_list: statement_expression_list ',' statement_expression .		[',', ';', ')', ]";
     AddState(502,new State(-278));
-stringstates[503] = @"277 statement_expression_list: statement_expression .		[',', ';', ')', ]";
     AddState(503,new State(-277));
-stringstates[504] = @"270 for_condition_opt: for_condition .		[';', ]";
     AddState(504,new State(-270));
-stringstates[505] = @"275 for_condition: boolean_expression .		[';', ]";
     AddState(505,new State(-275));
-stringstates[506] = @"268 for_initializer_opt: for_initializer .		[';', ]";
     AddState(506,new State(-268));
-stringstates[507] = @"273 for_initializer: local_variable_declaration .		[';', ]";
     AddState(507,new State(-273));
-stringstates[508] = @"274 for_initializer: statement_expression_list .		[';', ]
-278 statement_expression_list: statement_expression_list . ',' statement_expression ";
     AddState(508,new State(new int[]{44,501,59,-274}));
-stringstates[509] = @"255 switch_labels: switch_labels switch_label .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, CASE, ]";
     AddState(509,new State(-255));
-stringstates[510] = @"216 statement_list: statement .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, '}', CASE, ]";
     AddState(510,new State(-216));
-stringstates[511] = @"87 default_expression: DEFAULT . '(' type ')' 
-257 switch_label: DEFAULT . ':' ";
     AddState(511,new State(new int[]{40,255,58,512}));
-stringstates[512] = @"257 switch_label: DEFAULT ':' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, CASE, ]";
     AddState(512,new State(-257));
-stringstates[513] = @"256 switch_label: CASE . constant_expression ':' ";
     AddState(513,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-140,514,-88,44,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[514] = @"256 switch_label: CASE constant_expression . ':' ";
     AddState(514,new State(new int[]{58,515}));
-stringstates[515] = @"256 switch_label: CASE constant_expression ':' .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, CASE, ]";
     AddState(515,new State(-256));
-stringstates[516] = @"254 switch_labels: switch_label .		[IDENTIFIER, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, VOID, CONST, '{', ';', TRUE, FALSE, INTEGER_LITERAL, REAL_LITERAL, CHARACTER_LITERAL, STRING_LITERAL, NULL_LITERAL, MLSTRING_LITERAL, NEW, '(', error, THIS, BASE, DELEGATE, DEFAULT, TYPEOF, SIZEOF, CHECKED, UNCHECKED, '!', '~', '+', '-', '*', PLUSPLUS, MINUSMINUS, '&', IF, SWITCH, WHILE, DO, FOR, FOREACH, BREAK, CONTINUE, GOTO, RETURN, THROW, TRY, LOCK, USING, UNSAFE, FIXED, CASE, ]";
     AddState(516,new State(-254));
-stringstates[517] = @"257 switch_label: DEFAULT . ':' ";
     AddState(517,new State(new int[]{58,512}));
-stringstates[518] = @"251 switch_sections: switch_section .		[CASE, DEFAULT, '}', ]";
     AddState(518,new State(-251));
-stringstates[519] = @"420 method_body: ';' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(519,new State(-420));
-stringstates[520] = @"413 formal_parameter_list_opt: formal_parameter_list . arglist_opt 
-422 formal_parameter_list: formal_parameter_list . ',' formal_parameter ";
     AddState(520,new State(new int[]{44,522,41,-415},new int[]{-219,521}));
-stringstates[521] = @"413 formal_parameter_list_opt: formal_parameter_list arglist_opt .		[')', ]";
     AddState(521,new State(-413));
-stringstates[522] = @"422 formal_parameter_list: formal_parameter_list ',' . formal_parameter 
-416 arglist_opt: ',' . ARGLIST ";
     AddState(522,new State(new int[]{214,524,91,538,182,-320,187,-320,180,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320,210,-320},new int[]{-50,523,-51,525,-201,526,-203,535,-250,536,-251,553,-52,554}));
-stringstates[523] = @"422 formal_parameter_list: formal_parameter_list ',' formal_parameter .		[',', ')', ']', ]";
     AddState(523,new State(-422));
-stringstates[524] = @"416 arglist_opt: ',' ARGLIST .		[')', ]";
     AddState(524,new State(-416));
-stringstates[525] = @"423 formal_parameter: fixed_parameter .		[',', ')', ']', ]";
     AddState(525,new State(-423));
-stringstates[526] = @"425 fixed_parameter: attributes_opt . parameter_modifier_opt type IDENTIFIER 
-429 parameter_array: attributes_opt . PARAMS type IDENTIFIER ";
     AddState(526,new State(new int[]{182,530,187,533,180,534,189,-426,141,-426,191,-426,207,-426,169,-426,203,-426,174,-426,204,-426,144,-426,162,-426,153,-426,149,-426,139,-426,178,-426,195,-426,130,-426,210,-426},new int[]{-72,527}));
-stringstates[527] = @"425 fixed_parameter: attributes_opt parameter_modifier_opt . type IDENTIFIER ";
     AddState(527,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,528,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[528] = @"425 fixed_parameter: attributes_opt parameter_modifier_opt type . IDENTIFIER 
-52 pointer_type: type . '*' ";
     AddState(528,new State(new int[]{130,529,42,195}));
-stringstates[529] = @"425 fixed_parameter: attributes_opt parameter_modifier_opt type IDENTIFIER .		[',', ')', ']', ]";
     AddState(529,new State(-425));
-stringstates[530] = @"429 parameter_array: attributes_opt PARAMS . type IDENTIFIER ";
     AddState(530,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,531,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[531] = @"429 parameter_array: attributes_opt PARAMS type . IDENTIFIER 
-52 pointer_type: type . '*' ";
     AddState(531,new State(new int[]{130,532,42,195}));
-stringstates[532] = @"429 parameter_array: attributes_opt PARAMS type IDENTIFIER .		[',', ')', ']', ]";
     AddState(532,new State(-429));
-stringstates[533] = @"427 parameter_modifier_opt: REF .		[SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, VOID, ]";
     AddState(533,new State(-427));
-stringstates[534] = @"428 parameter_modifier_opt: OUT .		[SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, VOID, ]";
     AddState(534,new State(-428));
-stringstates[535] = @"321 attributes_opt: attributes .		[NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, PARAMS, REF, OUT, GET, SET, ]";
     AddState(535,new State(-321));
-stringstates[536] = @"552 attributes: attribute_sections .		[NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, PARAMS, REF, OUT, GET, SET, ]
-554 attribute_sections: attribute_sections . attribute_section ";
     AddState(536,new State(new int[]{91,538,175,-552,136,-552,158,-552,171,-552,176,-552,181,-552,183,-552,184,-552,185,-552,186,-552,190,-552,194,-552,206,-552,209,-552,211,-552,146,-552,196,-552,170,-552,155,-552,151,-552,128,-552,147,-552,210,-552,156,-552,126,-552,189,-552,141,-552,191,-552,207,-552,169,-552,203,-552,174,-552,204,-552,144,-552,162,-552,153,-552,149,-552,139,-552,178,-552,195,-552,130,-552,167,-552,157,-552,182,-552,187,-552,180,-552,224,-552,225,-552},new int[]{-251,537}));
-stringstates[537] = @"554 attribute_sections: attribute_sections attribute_section .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, PARAMS, REF, OUT, GET, SET, ]";
     AddState(537,new State(-554));
-stringstates[538] = @"555 attribute_section: '[' . attribute_list ']' 
-556 attribute_section: '[' . attribute_list ',' ']' ";
     AddState(538,new State(new int[]{130,185},new int[]{-252,539,-253,552,-254,544,-66,551,-29,462,-74,182,-73,183,-76,209}));
-stringstates[539] = @"555 attribute_section: '[' attribute_list . ']' 
-556 attribute_section: '[' attribute_list . ',' ']' 
-558 attribute_list: attribute_list . ',' attribute ";
     AddState(539,new State(new int[]{93,540,44,541}));
-stringstates[540] = @"555 attribute_section: '[' attribute_list ']' .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, PARAMS, REF, OUT, GET, SET, ]";
     AddState(540,new State(-555));
-stringstates[541] = @"556 attribute_section: '[' attribute_list ',' . ']' 
-558 attribute_list: attribute_list ',' . attribute ";
     AddState(541,new State(new int[]{93,542,130,185},new int[]{-253,543,-254,544,-66,551,-29,462,-74,182,-73,183,-76,209}));
-stringstates[542] = @"556 attribute_section: '[' attribute_list ',' ']' .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, PARAMS, REF, OUT, GET, SET, ]";
     AddState(542,new State(-556));
-stringstates[543] = @"558 attribute_list: attribute_list ',' attribute .		[']', ',', ]";
     AddState(543,new State(-558));
-stringstates[544] = @"559 attribute: attribute_name . attribute_arguments_opt ";
     AddState(544,new State(new int[]{40,547,93,-560,44,-560},new int[]{-255,545,-256,546}));
-stringstates[545] = @"559 attribute: attribute_name attribute_arguments_opt .		[']', ',', ]";
     AddState(545,new State(-559));
-stringstates[546] = @"561 attribute_arguments_opt: attribute_arguments .		[']', ',', ]";
     AddState(546,new State(-561));
-stringstates[547] = @"563 attribute_arguments: '(' . expression_list_opt ')' ";
     AddState(547,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,41,-94},new int[]{-109,548,-108,550,-88,181,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[548] = @"563 attribute_arguments: '(' expression_list_opt . ')' ";
     AddState(548,new State(new int[]{41,549}));
-stringstates[549] = @"563 attribute_arguments: '(' expression_list_opt ')' .		[']', ',', ]";
     AddState(549,new State(-563));
-stringstates[550] = @"95 expression_list_opt: expression_list .		[')', ]
-97 expression_list: expression_list . ',' expression ";
     AddState(550,new State(new int[]{44,79,41,-95}));
-stringstates[551] = @"562 attribute_name: type_name .		['(', ']', ',', ]";
     AddState(551,new State(-562));
-stringstates[552] = @"557 attribute_list: attribute .		[']', ',', ]";
     AddState(552,new State(-557));
-stringstates[553] = @"553 attribute_sections: attribute_section .		['[', NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, PARAMS, REF, OUT, GET, SET, ]";
     AddState(553,new State(-553));
-stringstates[554] = @"424 formal_parameter: parameter_array .		[',', ')', ']', ]";
     AddState(554,new State(-424));
-stringstates[555] = @"421 formal_parameter_list: formal_parameter .		[',', ')', ']', ]";
     AddState(555,new State(-421));
-stringstates[556] = @"414 formal_parameter_list_opt: ARGLIST .		[')', ]";
     AddState(556,new State(-414));
-stringstates[557] = @"511 variable_initializer_list: variable_initializer .		[',', '}', ]";
     AddState(557,new State(-511));
-stringstates[558] = @"58 rank_specifiers_opt: rank_specifier . rank_specifiers_opt ";
     AddState(558,new State(new int[]{129,201,123,-57,40,-57,46,-57,91,-57,247,-57,248,-57,249,-57,61,-57,228,-57,229,-57,230,-57,231,-57,232,-57,236,-57,237,-57,238,-57,240,-57,234,-57,42,-57,47,-57,37,-57,43,-57,45,-57,239,-57,235,-57,60,-57,62,-57,243,-57,244,-57,172,-57,137,-57,241,-57,242,-57,38,-57,94,-57,124,-57,245,-57,246,-57,63,-57,233,-57,59,-57,44,-57,93,-57,41,-57,125,-57,58,-57},new int[]{-86,559,-85,558}));
-stringstates[559] = @"58 rank_specifiers_opt: rank_specifier rank_specifiers_opt .		['{', '(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(559,new State(-58));
-stringstates[560] = @"108 array_creation_expression: NEW array_type . array_initializer 
-28 type: array_type .		['(', '*', ]
-54 array_type: array_type . rank_specifier ";
     AddState(560,new State(new int[]{123,137,129,201,40,-28,42,-28},new int[]{-116,561,-85,206}));
-stringstates[561] = @"108 array_creation_expression: NEW array_type array_initializer .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(561,new State(-108));
-stringstates[562] = @"105 object_creation_expression: NEW type . '(' argument_list_opt ')' 
-52 pointer_type: type . '*' ";
     AddState(562,new State(new int[]{40,563,42,195}));
-stringstates[563] = @"105 object_creation_expression: NEW type '(' . argument_list_opt ')' ";
     AddState(563,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,187,319,180,322,41,-90},new int[]{-107,564,-89,105,-90,318,-88,108,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[564] = @"105 object_creation_expression: NEW type '(' argument_list_opt . ')' ";
     AddState(564,new State(new int[]{41,565}));
-stringstates[565] = @"105 object_creation_expression: NEW type '(' argument_list_opt ')' .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(565,new State(-105));
-stringstates[566] = @"106 object_creation_expression: NEW error .		['(', '.', '[', PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(566,new State(-106));
-stringstates[567] = @"148 multiplicative_expression: unary_expression .		['*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(567,new State(-148));
-stringstates[568] = @"162 relational_expression: relational_expression GEQ . shift_expression ";
     AddState(568,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-129,569,-128,112,-124,113,-119,567,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[569] = @"162 relational_expression: relational_expression GEQ shift_expression .		['<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-156 shift_expression: shift_expression . LTLT additive_expression 
-157 shift_expression: shift_expression . GTGT additive_expression ";
     AddState(569,new State(new int[]{239,61,235,90,60,-162,62,-162,243,-162,244,-162,172,-162,137,-162,241,-162,242,-162,38,-162,94,-162,124,-162,245,-162,246,-162,63,-162,233,-162,59,-162,44,-162,93,-162,41,-162,125,-162,58,-162}));
-stringstates[570] = @"163 relational_expression: relational_expression IS . type ";
     AddState(570,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,571,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[571] = @"163 relational_expression: relational_expression IS type .		['<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-52 pointer_type: type . '*' ";
     AddState(571,new State(new int[]{42,195,60,-163,62,-163,243,-163,244,-163,172,-163,137,-163,241,-163,242,-163,38,-163,94,-163,124,-163,245,-163,246,-163,63,-163,233,-163,59,-163,44,-163,93,-163,41,-163,125,-163,58,-163}));
-stringstates[572] = @"164 relational_expression: relational_expression AS . type ";
     AddState(572,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,573,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[573] = @"164 relational_expression: relational_expression AS type .		['<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]
-52 pointer_type: type . '*' ";
     AddState(573,new State(new int[]{42,195,60,-164,62,-164,243,-164,244,-164,172,-164,137,-164,241,-164,242,-164,38,-164,94,-164,124,-164,245,-164,246,-164,63,-164,233,-164,59,-164,44,-164,93,-164,41,-164,125,-164,58,-164}));
-stringstates[574] = @"137 cast_expression: '(' multiplicative_expression . '*' ')' unary_expression 
-152 additive_expression: multiplicative_expression .		['+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ')', ]
-149 multiplicative_expression: multiplicative_expression . '*' unary_expression 
-150 multiplicative_expression: multiplicative_expression . '/' unary_expression 
-151 multiplicative_expression: multiplicative_expression . '%' unary_expression ";
     AddState(574,new State(new int[]{42,575,47,94,37,114,43,-152,45,-152,239,-152,235,-152,60,-152,62,-152,243,-152,244,-152,172,-152,137,-152,241,-152,242,-152,38,-152,94,-152,124,-152,245,-152,246,-152,63,-152,233,-152,41,-152}));
-stringstates[575] = @"137 cast_expression: '(' multiplicative_expression '*' . ')' unary_expression 
-149 multiplicative_expression: multiplicative_expression '*' . unary_expression ";
     AddState(575,new State(new int[]{41,576,40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-119,66,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[576] = @"137 cast_expression: '(' multiplicative_expression '*' ')' . unary_expression ";
     AddState(576,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-119,577,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[577] = @"137 cast_expression: '(' multiplicative_expression '*' ')' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(577,new State(-137));
-stringstates[578] = @"138 cast_expression: '(' qualified_identifier . rank_specifier type_quals_opt ')' unary_expression 
-93 element_access: qualified_identifier . '[' expression_list ']' 
-89 invocation_expression: qualified_identifier . '(' argument_list_opt ')' 
-119 postfix_expression: qualified_identifier .		[PLUSPLUS, MINUSMINUS, ARROW, '=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ')', ]";
     AddState(578,new State(new int[]{91,178,40,315,129,201,247,-119,248,-119,249,-119,61,-119,228,-119,229,-119,230,-119,231,-119,232,-119,236,-119,237,-119,238,-119,240,-119,234,-119,42,-119,47,-119,37,-119,43,-119,45,-119,239,-119,235,-119,60,-119,62,-119,243,-119,244,-119,172,-119,137,-119,241,-119,242,-119,38,-119,94,-119,124,-119,245,-119,246,-119,63,-119,233,-119,41,-119},new int[]{-85,579}));
-stringstates[579] = @"138 cast_expression: '(' qualified_identifier rank_specifier . type_quals_opt ')' unary_expression ";
     AddState(579,new State(new int[]{129,201,42,586,41,-142},new int[]{-125,580,-126,583,-127,587,-85,585}));
-stringstates[580] = @"138 cast_expression: '(' qualified_identifier rank_specifier type_quals_opt . ')' unary_expression ";
     AddState(580,new State(new int[]{41,581}));
-stringstates[581] = @"138 cast_expression: '(' qualified_identifier rank_specifier type_quals_opt ')' . unary_expression ";
     AddState(581,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-119,582,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[582] = @"138 cast_expression: '(' qualified_identifier rank_specifier type_quals_opt ')' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(582,new State(-138));
-stringstates[583] = @"143 type_quals_opt: type_quals .		[')', ]
-145 type_quals: type_quals . type_qual ";
     AddState(583,new State(new int[]{129,201,42,586,41,-143},new int[]{-127,584,-85,585}));
-stringstates[584] = @"145 type_quals: type_quals type_qual .		[RANK_SPECIFIER, '*', ')', ]";
     AddState(584,new State(-145));
-stringstates[585] = @"146 type_qual: rank_specifier .		[RANK_SPECIFIER, '*', ')', ]";
     AddState(585,new State(-146));
-stringstates[586] = @"147 type_qual: '*' .		[RANK_SPECIFIER, '*', ')', ]";
     AddState(586,new State(-147));
-stringstates[587] = @"144 type_quals: type_qual .		[RANK_SPECIFIER, '*', ')', ]";
     AddState(587,new State(-144));
-stringstates[588] = @"139 cast_expression: '(' primitive_type . type_quals_opt ')' unary_expression 
-85 member_access: primitive_type . '.' IDENTIFIER ";
     AddState(588,new State(new int[]{46,152,129,201,42,586,41,-142},new int[]{-125,589,-126,583,-127,587,-85,585}));
-stringstates[589] = @"139 cast_expression: '(' primitive_type type_quals_opt . ')' unary_expression ";
     AddState(589,new State(new int[]{41,590}));
-stringstates[590] = @"139 cast_expression: '(' primitive_type type_quals_opt ')' . unary_expression ";
     AddState(590,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-119,591,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[591] = @"139 cast_expression: '(' primitive_type type_quals_opt ')' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(591,new State(-139));
-stringstates[592] = @"140 cast_expression: '(' class_type . type_quals_opt ')' unary_expression 
-86 member_access: class_type . '.' IDENTIFIER ";
     AddState(592,new State(new int[]{46,171,129,201,42,586,41,-142},new int[]{-125,593,-126,583,-127,587,-85,585}));
-stringstates[593] = @"140 cast_expression: '(' class_type type_quals_opt . ')' unary_expression ";
     AddState(593,new State(new int[]{41,594}));
-stringstates[594] = @"140 cast_expression: '(' class_type type_quals_opt ')' . unary_expression ";
     AddState(594,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-119,595,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[595] = @"140 cast_expression: '(' class_type type_quals_opt ')' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(595,new State(-140));
-stringstates[596] = @"141 cast_expression: '(' VOID . type_quals_opt ')' unary_expression ";
     AddState(596,new State(new int[]{129,201,42,586,41,-142},new int[]{-125,597,-126,583,-127,587,-85,585}));
-stringstates[597] = @"141 cast_expression: '(' VOID type_quals_opt . ')' unary_expression ";
     AddState(597,new State(new int[]{41,598}));
-stringstates[598] = @"141 cast_expression: '(' VOID type_quals_opt ')' . unary_expression ";
     AddState(598,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-119,599,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300}));
-stringstates[599] = @"141 cast_expression: '(' VOID type_quals_opt ')' unary_expression .		['=', PLUSEQ, MINUSEQ, STAREQ, DIVEQ, MODEQ, XOREQ, ANDEQ, OREQ, LTLTEQ, GTGTEQ, '*', '/', '%', '+', '-', LTLT, GTGT, '<', '>', LEQ, GEQ, IS, AS, EQEQ, NOTEQ, '&', '^', '|', ANDAND, OROR, '?', QQ, ';', ',', ']', ')', '}', ':', ]";
     AddState(599,new State(-141));
-stringstates[600] = @"179 conditional_expression: conditional_or_expression '?' . expression ':' expression ";
     AddState(600,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-88,601,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[601] = @"179 conditional_expression: conditional_or_expression '?' expression . ':' expression ";
     AddState(601,new State(new int[]{58,602}));
-stringstates[602] = @"179 conditional_expression: conditional_or_expression '?' expression ':' . expression ";
     AddState(602,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-88,603,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[603] = @"179 conditional_expression: conditional_or_expression '?' expression ':' expression .		[';', ',', ']', ')', '}', ':', ]";
     AddState(603,new State(-179));
-stringstates[604] = @"180 conditional_expression: conditional_or_expression QQ . expression ";
     AddState(604,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-88,605,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[605] = @"180 conditional_expression: conditional_or_expression QQ expression .		[';', ',', ']', ')', '}', ':', ]";
     AddState(605,new State(-180));
-stringstates[606] = @"408 field_declaration: attributes_opt modifiers_opt type . variable_declarators ';' 
-410 method_header: attributes_opt modifiers_opt type . qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')' 
-430 property_declaration: attributes_opt modifiers_opt type . qualified_identifier '{' accessor_declarations '}' 
-52 pointer_type: type . '*' 
-446 indexer_declarator: type . THIS '[' formal_parameter_list ']' 
-447 indexer_declarator: type . qualified_this '[' formal_parameter_list ']' 
-452 overloadable_operator_declarator: type . OPERATOR overloadable_operator '(' type IDENTIFIER ')' 
-453 overloadable_operator_declarator: type . OPERATOR overloadable_operator '(' type IDENTIFIER ',' type IDENTIFIER ')' ";
     AddState(606,new State(new int[]{42,195,198,658,179,667,130,699},new int[]{-70,607,-29,609,-229,663,-33,311,-74,182,-73,183,-76,700}));
-stringstates[607] = @"408 field_declaration: attributes_opt modifiers_opt type variable_declarators . ';' 
-224 variable_declarators: variable_declarators . ',' variable_declarator ";
     AddState(607,new State(new int[]{59,608,44,246}));
-stringstates[608] = @"408 field_declaration: attributes_opt modifiers_opt type variable_declarators ';' .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(608,new State(-408));
-stringstates[609] = @"410 method_header: attributes_opt modifiers_opt type qualified_identifier . type_arg_list_opt '(' formal_parameter_list_opt ')' 
-430 property_declaration: attributes_opt modifiers_opt type qualified_identifier . '{' accessor_declarations '}' ";
     AddState(609,new State(new int[]{123,614,60,652,40,-21},new int[]{-81,610}));
-stringstates[610] = @"410 method_header: attributes_opt modifiers_opt type qualified_identifier type_arg_list_opt . '(' formal_parameter_list_opt ')' ";
     AddState(610,new State(new int[]{40,611}));
-stringstates[611] = @"410 method_header: attributes_opt modifiers_opt type qualified_identifier type_arg_list_opt '(' . formal_parameter_list_opt ')' ";
     AddState(611,new State(new int[]{91,538,214,556,41,-412,182,-320,187,-320,180,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320,210,-320},new int[]{-11,612,-12,520,-50,555,-51,525,-201,526,-203,535,-250,536,-251,553,-52,554}));
-stringstates[612] = @"410 method_header: attributes_opt modifiers_opt type qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt . ')' ";
     AddState(612,new State(new int[]{41,613}));
-stringstates[613] = @"410 method_header: attributes_opt modifiers_opt type qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')' .		['{', ';', WHERE, ]";
     AddState(613,new State(-410));
-stringstates[614] = @"430 property_declaration: attributes_opt modifiers_opt type qualified_identifier '{' . accessor_declarations '}' ";
     AddState(614,new State(new int[]{91,538,136,-320,158,-320,171,-320,176,-320,181,-320,183,-320,184,-320,185,-320,186,-320,190,-320,194,-320,206,-320,209,-320,211,-320,224,-320,225,-320},new int[]{-220,615,-221,617,-201,643,-203,535,-250,536,-251,553,-223,647}));
-stringstates[615] = @"430 property_declaration: attributes_opt modifiers_opt type qualified_identifier '{' accessor_declarations . '}' ";
     AddState(615,new State(new int[]{125,616}));
-stringstates[616] = @"430 property_declaration: attributes_opt modifiers_opt type qualified_identifier '{' accessor_declarations '}' .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(616,new State(-430));
-stringstates[617] = @"431 accessor_declarations: get_accessor_declaration . set_accessor_declaration_opt ";
     AddState(617,new State(new int[]{91,538,125,-433,136,-320,158,-320,171,-320,176,-320,181,-320,183,-320,184,-320,185,-320,186,-320,190,-320,194,-320,206,-320,209,-320,211,-320,225,-320},new int[]{-222,618,-223,619,-201,620,-203,535,-250,536,-251,553}));
-stringstates[618] = @"431 accessor_declarations: get_accessor_declaration set_accessor_declaration_opt .		['}', ]";
     AddState(618,new State(-431));
-stringstates[619] = @"434 set_accessor_declaration_opt: set_accessor_declaration .		['}', ]";
     AddState(619,new State(-434));
-stringstates[620] = @"438 set_accessor_declaration: attributes_opt . modifiers_opt SET accessor_body ";
     AddState(620,new State(new int[]{136,628,158,629,171,630,176,631,181,632,183,633,184,634,185,635,186,636,190,637,194,638,206,639,209,640,211,641,225,-355},new int[]{-208,621,-209,626,-210,642}));
-stringstates[621] = @"438 set_accessor_declaration: attributes_opt modifiers_opt . SET accessor_body ";
     AddState(621,new State(new int[]{225,622}));
-stringstates[622] = @"438 set_accessor_declaration: attributes_opt modifiers_opt SET . accessor_body ";
     AddState(622,new State(new int[]{123,232,59,625},new int[]{-225,623,-146,624}));
-stringstates[623] = @"438 set_accessor_declaration: attributes_opt modifiers_opt SET accessor_body .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, GET, '}', ]";
     AddState(623,new State(-438));
-stringstates[624] = @"439 accessor_body: block .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, GET, '}', SET, ]";
     AddState(624,new State(-439));
-stringstates[625] = @"440 accessor_body: ';' .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, GET, '}', SET, ]";
     AddState(625,new State(-440));
-stringstates[626] = @"356 modifiers_opt: modifiers .		[CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, SET, GET, ]
-358 modifiers: modifiers . modifier ";
     AddState(626,new State(new int[]{136,628,158,629,171,630,176,631,181,632,183,633,184,634,185,635,186,636,190,637,194,638,206,639,209,640,211,641,146,-356,196,-356,170,-356,155,-356,151,-356,147,-356,210,-356,156,-356,126,-356,189,-356,141,-356,191,-356,207,-356,169,-356,203,-356,174,-356,204,-356,144,-356,162,-356,153,-356,149,-356,139,-356,178,-356,195,-356,130,-356,167,-356,157,-356,225,-356,224,-356},new int[]{-210,627}));
-stringstates[627] = @"358 modifiers: modifiers modifier .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, SET, GET, ]";
     AddState(627,new State(-358));
-stringstates[628] = @"359 modifier: ABSTRACT .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, SET, GET, ]";
     AddState(628,new State(-359));
-stringstates[629] = @"360 modifier: EXTERN .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, SET, GET, ]";
     AddState(629,new State(-360));
-stringstates[630] = @"361 modifier: INTERNAL .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, SET, GET, ]";
     AddState(630,new State(-361));
-stringstates[631] = @"362 modifier: NEW .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, SET, GET, ]";
     AddState(631,new State(-362));
-stringstates[632] = @"363 modifier: OVERRIDE .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, SET, GET, ]";
     AddState(632,new State(-363));
-stringstates[633] = @"364 modifier: PRIVATE .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, SET, GET, ]";
     AddState(633,new State(-364));
-stringstates[634] = @"365 modifier: PROTECTED .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, SET, GET, ]";
     AddState(634,new State(-365));
-stringstates[635] = @"366 modifier: PUBLIC .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, SET, GET, ]";
     AddState(635,new State(-366));
-stringstates[636] = @"367 modifier: READONLY .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, SET, GET, ]";
     AddState(636,new State(-367));
-stringstates[637] = @"368 modifier: SEALED .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, SET, GET, ]";
     AddState(637,new State(-368));
-stringstates[638] = @"369 modifier: STATIC .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, SET, GET, ]";
     AddState(638,new State(-369));
-stringstates[639] = @"370 modifier: UNSAFE .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, SET, GET, ]";
     AddState(639,new State(-370));
-stringstates[640] = @"371 modifier: VIRTUAL .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, SET, GET, ]";
     AddState(640,new State(-371));
-stringstates[641] = @"372 modifier: VOLATILE .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, SET, GET, ]";
     AddState(641,new State(-372));
-stringstates[642] = @"357 modifiers: modifier .		[ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, SET, GET, ]";
     AddState(642,new State(-357));
-stringstates[643] = @"437 get_accessor_declaration: attributes_opt . modifiers_opt GET accessor_body 
-438 set_accessor_declaration: attributes_opt . modifiers_opt SET accessor_body ";
     AddState(643,new State(new int[]{136,628,158,629,171,630,176,631,181,632,183,633,184,634,185,635,186,636,190,637,194,638,206,639,209,640,211,641,224,-355,225,-355},new int[]{-208,644,-209,626,-210,642}));
-stringstates[644] = @"437 get_accessor_declaration: attributes_opt modifiers_opt . GET accessor_body 
-438 set_accessor_declaration: attributes_opt modifiers_opt . SET accessor_body ";
     AddState(644,new State(new int[]{224,645,225,622}));
-stringstates[645] = @"437 get_accessor_declaration: attributes_opt modifiers_opt GET . accessor_body ";
     AddState(645,new State(new int[]{123,232,59,625},new int[]{-225,646,-146,624}));
-stringstates[646] = @"437 get_accessor_declaration: attributes_opt modifiers_opt GET accessor_body .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, SET, '}', ]";
     AddState(646,new State(-437));
-stringstates[647] = @"432 accessor_declarations: set_accessor_declaration . get_accessor_declaration_opt ";
     AddState(647,new State(new int[]{91,538,125,-435,136,-320,158,-320,171,-320,176,-320,181,-320,183,-320,184,-320,185,-320,186,-320,190,-320,194,-320,206,-320,209,-320,211,-320,224,-320},new int[]{-224,648,-221,649,-201,650,-203,535,-250,536,-251,553}));
-stringstates[648] = @"432 accessor_declarations: set_accessor_declaration get_accessor_declaration_opt .		['}', ]";
     AddState(648,new State(-432));
-stringstates[649] = @"436 get_accessor_declaration_opt: get_accessor_declaration .		['}', ]";
     AddState(649,new State(-436));
-stringstates[650] = @"437 get_accessor_declaration: attributes_opt . modifiers_opt GET accessor_body ";
     AddState(650,new State(new int[]{136,628,158,629,171,630,176,631,181,632,183,633,184,634,185,635,186,636,190,637,194,638,206,639,209,640,211,641,224,-355},new int[]{-208,651,-209,626,-210,642}));
-stringstates[651] = @"437 get_accessor_declaration: attributes_opt modifiers_opt . GET accessor_body ";
     AddState(651,new State(new int[]{224,645}));
-stringstates[652] = @"22 type_arg_list_opt: '<' . type_arg_list '>' ";
     AddState(652,new State(new int[]{130,657},new int[]{-82,653}));
-stringstates[653] = @"22 type_arg_list_opt: '<' type_arg_list . '>' 
-24 type_arg_list: type_arg_list . ',' IDENTIFIER ";
     AddState(653,new State(new int[]{62,654,44,655}));
-stringstates[654] = @"22 type_arg_list_opt: '<' type_arg_list '>' .		[':', '{', WHERE, '(', ]";
     AddState(654,new State(-22));
-stringstates[655] = @"24 type_arg_list: type_arg_list ',' . IDENTIFIER ";
     AddState(655,new State(new int[]{130,656}));
-stringstates[656] = @"24 type_arg_list: type_arg_list ',' IDENTIFIER .		['>', ',', ]";
     AddState(656,new State(-24));
-stringstates[657] = @"23 type_arg_list: IDENTIFIER .		['>', ',', ]";
     AddState(657,new State(-23));
-stringstates[658] = @"446 indexer_declarator: type THIS . '[' formal_parameter_list ']' ";
     AddState(658,new State(new int[]{91,659}));
-stringstates[659] = @"446 indexer_declarator: type THIS '[' . formal_parameter_list ']' ";
     AddState(659,new State(new int[]{91,538,182,-320,187,-320,180,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320,210,-320},new int[]{-12,660,-50,555,-51,525,-201,526,-203,535,-250,536,-251,553,-52,554}));
-stringstates[660] = @"446 indexer_declarator: type THIS '[' formal_parameter_list . ']' 
-422 formal_parameter_list: formal_parameter_list . ',' formal_parameter ";
     AddState(660,new State(new int[]{93,661,44,662}));
-stringstates[661] = @"446 indexer_declarator: type THIS '[' formal_parameter_list ']' .		['{', ]";
     AddState(661,new State(-446));
-stringstates[662] = @"422 formal_parameter_list: formal_parameter_list ',' . formal_parameter ";
     AddState(662,new State(new int[]{91,538,182,-320,187,-320,180,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320,210,-320},new int[]{-50,523,-51,525,-201,526,-203,535,-250,536,-251,553,-52,554}));
-stringstates[663] = @"447 indexer_declarator: type qualified_this . '[' formal_parameter_list ']' ";
     AddState(663,new State(new int[]{91,664}));
-stringstates[664] = @"447 indexer_declarator: type qualified_this '[' . formal_parameter_list ']' ";
     AddState(664,new State(new int[]{91,538,182,-320,187,-320,180,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320,210,-320},new int[]{-12,665,-50,555,-51,525,-201,526,-203,535,-250,536,-251,553,-52,554}));
-stringstates[665] = @"447 indexer_declarator: type qualified_this '[' formal_parameter_list . ']' 
-422 formal_parameter_list: formal_parameter_list . ',' formal_parameter ";
     AddState(665,new State(new int[]{93,666,44,662}));
-stringstates[666] = @"447 indexer_declarator: type qualified_this '[' formal_parameter_list ']' .		['{', ]";
     AddState(666,new State(-447));
-stringstates[667] = @"452 overloadable_operator_declarator: type OPERATOR . overloadable_operator '(' type IDENTIFIER ')' 
-453 overloadable_operator_declarator: type OPERATOR . overloadable_operator '(' type IDENTIFIER ',' type IDENTIFIER ')' ";
     AddState(667,new State(new int[]{43,677,45,678,33,679,126,680,247,681,248,682,200,683,159,684,42,685,47,686,37,687,38,688,124,689,94,690,239,691,235,692,241,693,242,694,62,695,60,696,244,697,243,698},new int[]{-234,668}));
-stringstates[668] = @"452 overloadable_operator_declarator: type OPERATOR overloadable_operator . '(' type IDENTIFIER ')' 
-453 overloadable_operator_declarator: type OPERATOR overloadable_operator . '(' type IDENTIFIER ',' type IDENTIFIER ')' ";
     AddState(668,new State(new int[]{40,669}));
-stringstates[669] = @"452 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' . type IDENTIFIER ')' 
-453 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' . type IDENTIFIER ',' type IDENTIFIER ')' ";
     AddState(669,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,670,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[670] = @"452 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type . IDENTIFIER ')' 
-453 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type . IDENTIFIER ',' type IDENTIFIER ')' 
-52 pointer_type: type . '*' ";
     AddState(670,new State(new int[]{130,671,42,195}));
-stringstates[671] = @"452 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type IDENTIFIER . ')' 
-453 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type IDENTIFIER . ',' type IDENTIFIER ')' ";
     AddState(671,new State(new int[]{41,672,44,673}));
-stringstates[672] = @"452 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type IDENTIFIER ')' .		['{', ';', ]";
     AddState(672,new State(-452));
-stringstates[673] = @"453 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type IDENTIFIER ',' . type IDENTIFIER ')' ";
     AddState(673,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,674,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[674] = @"453 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type IDENTIFIER ',' type . IDENTIFIER ')' 
-52 pointer_type: type . '*' ";
     AddState(674,new State(new int[]{130,675,42,195}));
-stringstates[675] = @"453 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type IDENTIFIER ',' type IDENTIFIER . ')' ";
     AddState(675,new State(new int[]{41,676}));
-stringstates[676] = @"453 overloadable_operator_declarator: type OPERATOR overloadable_operator '(' type IDENTIFIER ',' type IDENTIFIER ')' .		['{', ';', ]";
     AddState(676,new State(-453));
-stringstates[677] = @"454 overloadable_operator: '+' .		['(', ]";
     AddState(677,new State(-454));
-stringstates[678] = @"455 overloadable_operator: '-' .		['(', ]";
     AddState(678,new State(-455));
-stringstates[679] = @"456 overloadable_operator: '!' .		['(', ]";
     AddState(679,new State(-456));
-stringstates[680] = @"457 overloadable_operator: '~' .		['(', ]";
     AddState(680,new State(-457));
-stringstates[681] = @"458 overloadable_operator: PLUSPLUS .		['(', ]";
     AddState(681,new State(-458));
-stringstates[682] = @"459 overloadable_operator: MINUSMINUS .		['(', ]";
     AddState(682,new State(-459));
-stringstates[683] = @"460 overloadable_operator: TRUE .		['(', ]";
     AddState(683,new State(-460));
-stringstates[684] = @"461 overloadable_operator: FALSE .		['(', ]";
     AddState(684,new State(-461));
-stringstates[685] = @"462 overloadable_operator: '*' .		['(', ]";
     AddState(685,new State(-462));
-stringstates[686] = @"463 overloadable_operator: '/' .		['(', ]";
     AddState(686,new State(-463));
-stringstates[687] = @"464 overloadable_operator: '%' .		['(', ]";
     AddState(687,new State(-464));
-stringstates[688] = @"465 overloadable_operator: '&' .		['(', ]";
     AddState(688,new State(-465));
-stringstates[689] = @"466 overloadable_operator: '|' .		['(', ]";
     AddState(689,new State(-466));
-stringstates[690] = @"467 overloadable_operator: '^' .		['(', ]";
     AddState(690,new State(-467));
-stringstates[691] = @"468 overloadable_operator: LTLT .		['(', ]";
     AddState(691,new State(-468));
-stringstates[692] = @"469 overloadable_operator: GTGT .		['(', ]";
     AddState(692,new State(-469));
-stringstates[693] = @"470 overloadable_operator: EQEQ .		['(', ]";
     AddState(693,new State(-470));
-stringstates[694] = @"471 overloadable_operator: NOTEQ .		['(', ]";
     AddState(694,new State(-471));
-stringstates[695] = @"472 overloadable_operator: '>' .		['(', ]";
     AddState(695,new State(-472));
-stringstates[696] = @"473 overloadable_operator: '<' .		['(', ]";
     AddState(696,new State(-473));
-stringstates[697] = @"474 overloadable_operator: GEQ .		['(', ]";
     AddState(697,new State(-474));
-stringstates[698] = @"475 overloadable_operator: LEQ .		['(', ]";
     AddState(698,new State(-475));
-stringstates[699] = @"225 variable_declarator: IDENTIFIER .		[';', ',', ]
-226 variable_declarator: IDENTIFIER . '=' variable_initializer 
-15 member_name: IDENTIFIER . type_list_opt ";
     AddState(699,new State(new int[]{61,249,60,187,59,-225,44,-225,46,-16,123,-16,40,-16},new int[]{-79,186},new int[]{60,-16}));
-stringstates[700] = @"334 gen_qualified_identifier: gen_qualifier . member_name 
-336 gen_qualifier: gen_qualifier . member_name '.' 
-448 qualified_this: gen_qualifier . THIS ";
     AddState(700,new State(new int[]{198,701,130,185},new int[]{-73,210}));
-stringstates[701] = @"448 qualified_this: gen_qualifier THIS .		['[', ]";
     AddState(701,new State(-448));
-stringstates[702] = @"411 method_header: attributes_opt modifiers_opt VOID . qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')' 
-53 pointer_type: VOID . '*' ";
     AddState(702,new State(new int[]{42,213,130,185},new int[]{-29,703,-74,182,-73,183,-76,209}));
-stringstates[703] = @"411 method_header: attributes_opt modifiers_opt VOID qualified_identifier . type_arg_list_opt '(' formal_parameter_list_opt ')' ";
     AddState(703,new State(new int[]{60,652,40,-21},new int[]{-81,704}));
-stringstates[704] = @"411 method_header: attributes_opt modifiers_opt VOID qualified_identifier type_arg_list_opt . '(' formal_parameter_list_opt ')' ";
     AddState(704,new State(new int[]{40,705}));
-stringstates[705] = @"411 method_header: attributes_opt modifiers_opt VOID qualified_identifier type_arg_list_opt '(' . formal_parameter_list_opt ')' ";
     AddState(705,new State(new int[]{91,538,214,556,41,-412,182,-320,187,-320,180,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320,210,-320},new int[]{-11,706,-12,520,-50,555,-51,525,-201,526,-203,535,-250,536,-251,553,-52,554}));
-stringstates[706] = @"411 method_header: attributes_opt modifiers_opt VOID qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt . ')' ";
     AddState(706,new State(new int[]{41,707}));
-stringstates[707] = @"411 method_header: attributes_opt modifiers_opt VOID qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')' .		['{', ';', WHERE, ]";
     AddState(707,new State(-411));
-stringstates[708] = @"441 event_declaration: attributes_opt modifiers_opt EVENT . type variable_declarators ';' 
-442 event_declaration: attributes_opt modifiers_opt EVENT . type qualified_identifier '{' event_accessor_declarations '}' ";
     AddState(708,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,709,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[709] = @"441 event_declaration: attributes_opt modifiers_opt EVENT type . variable_declarators ';' 
-442 event_declaration: attributes_opt modifiers_opt EVENT type . qualified_identifier '{' event_accessor_declarations '}' 
-52 pointer_type: type . '*' ";
     AddState(709,new State(new int[]{42,195,130,699},new int[]{-70,710,-29,712,-33,311,-74,182,-73,183,-76,209}));
-stringstates[710] = @"441 event_declaration: attributes_opt modifiers_opt EVENT type variable_declarators . ';' 
-224 variable_declarators: variable_declarators . ',' variable_declarator ";
     AddState(710,new State(new int[]{59,711,44,246}));
-stringstates[711] = @"441 event_declaration: attributes_opt modifiers_opt EVENT type variable_declarators ';' .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(711,new State(-441));
-stringstates[712] = @"442 event_declaration: attributes_opt modifiers_opt EVENT type qualified_identifier . '{' event_accessor_declarations '}' ";
     AddState(712,new State(new int[]{123,713}));
-stringstates[713] = @"442 event_declaration: attributes_opt modifiers_opt EVENT type qualified_identifier '{' . event_accessor_declarations '}' ";
     AddState(713,new State(new int[]{91,538,130,-320},new int[]{-226,714,-227,716,-201,718,-203,535,-250,536,-251,553}));
-stringstates[714] = @"442 event_declaration: attributes_opt modifiers_opt EVENT type qualified_identifier '{' event_accessor_declarations . '}' ";
     AddState(714,new State(new int[]{125,715}));
-stringstates[715] = @"442 event_declaration: attributes_opt modifiers_opt EVENT type qualified_identifier '{' event_accessor_declarations '}' .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(715,new State(-442));
-stringstates[716] = @"443 event_accessor_declarations: event_accessor_declaration . event_accessor_declaration ";
     AddState(716,new State(new int[]{91,538,130,-320},new int[]{-227,717,-201,718,-203,535,-250,536,-251,553}));
-stringstates[717] = @"443 event_accessor_declarations: event_accessor_declaration event_accessor_declaration .		['}', ]";
     AddState(717,new State(-443));
-stringstates[718] = @"444 event_accessor_declaration: attributes_opt . IDENTIFIER block ";
     AddState(718,new State(new int[]{130,719}));
-stringstates[719] = @"444 event_accessor_declaration: attributes_opt IDENTIFIER . block ";
     AddState(719,new State(new int[]{123,232},new int[]{-146,720}));
-stringstates[720] = @"444 event_accessor_declaration: attributes_opt IDENTIFIER block .		['[', IDENTIFIER, '}', ]";
     AddState(720,new State(-444));
-stringstates[721] = @"445 indexer_declaration: attributes_opt modifiers_opt indexer_declarator . '{' accessor_declarations '}' ";
     AddState(721,new State(new int[]{123,722}));
-stringstates[722] = @"445 indexer_declaration: attributes_opt modifiers_opt indexer_declarator '{' . accessor_declarations '}' ";
     AddState(722,new State(new int[]{91,538,136,-320,158,-320,171,-320,176,-320,181,-320,183,-320,184,-320,185,-320,186,-320,190,-320,194,-320,206,-320,209,-320,211,-320,224,-320,225,-320},new int[]{-220,723,-221,617,-201,643,-203,535,-250,536,-251,553,-223,647}));
-stringstates[723] = @"445 indexer_declaration: attributes_opt modifiers_opt indexer_declarator '{' accessor_declarations . '}' ";
     AddState(723,new State(new int[]{125,724}));
-stringstates[724] = @"445 indexer_declaration: attributes_opt modifiers_opt indexer_declarator '{' accessor_declarations '}' .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(724,new State(-445));
-stringstates[725] = @"449 operator_declaration: attributes_opt modifiers_opt operator_declarator . operator_body ";
     AddState(725,new State(new int[]{123,232,59,728},new int[]{-231,726,-146,727}));
-stringstates[726] = @"449 operator_declaration: attributes_opt modifiers_opt operator_declarator operator_body .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(726,new State(-449));
-stringstates[727] = @"485 operator_body: block .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(727,new State(-485));
-stringstates[728] = @"486 operator_body: ';' .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(728,new State(-486));
-stringstates[729] = @"478 constructor_declaration: attributes_opt modifiers_opt constructor_declarator . constructor_body ";
     AddState(729,new State(new int[]{123,232,59,732},new int[]{-235,730,-146,731}));
-stringstates[730] = @"478 constructor_declaration: attributes_opt modifiers_opt constructor_declarator constructor_body .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(730,new State(-478));
-stringstates[731] = @"487 constructor_body: block .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(731,new State(-487));
-stringstates[732] = @"488 constructor_body: ';' .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(732,new State(-488));
-stringstates[733] = @"484 destructor_declaration: attributes_opt modifiers_opt '~' . IDENTIFIER '(' ')' block ";
     AddState(733,new State(new int[]{130,734}));
-stringstates[734] = @"484 destructor_declaration: attributes_opt modifiers_opt '~' IDENTIFIER . '(' ')' block ";
     AddState(734,new State(new int[]{40,735}));
-stringstates[735] = @"484 destructor_declaration: attributes_opt modifiers_opt '~' IDENTIFIER '(' . ')' block ";
     AddState(735,new State(new int[]{41,736}));
-stringstates[736] = @"484 destructor_declaration: attributes_opt modifiers_opt '~' IDENTIFIER '(' ')' . block ";
     AddState(736,new State(new int[]{123,232},new int[]{-146,737}));
-stringstates[737] = @"484 destructor_declaration: attributes_opt modifiers_opt '~' IDENTIFIER '(' ')' block .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(737,new State(-484));
-stringstates[738] = @"489 struct_declaration: attributes_opt modifiers_opt STRUCT . member_name struct_interfaces_opt struct_body comma_opt ";
     AddState(738,new State(new int[]{130,185},new int[]{-73,739}));
-stringstates[739] = @"489 struct_declaration: attributes_opt modifiers_opt STRUCT member_name . struct_interfaces_opt struct_body comma_opt ";
     AddState(739,new State(new int[]{58,910,123,-490},new int[]{-238,740,-239,909}));
-stringstates[740] = @"489 struct_declaration: attributes_opt modifiers_opt STRUCT member_name struct_interfaces_opt . struct_body comma_opt ";
     AddState(740,new State(new int[]{123,743},new int[]{-9,741}));
-stringstates[741] = @"489 struct_declaration: attributes_opt modifiers_opt STRUCT member_name struct_interfaces_opt struct_body . comma_opt ";
     AddState(741,new State(new int[]{59,9,91,-325,127,-325,175,-325,136,-325,158,-325,171,-325,176,-325,181,-325,183,-325,184,-325,185,-325,186,-325,190,-325,194,-325,206,-325,209,-325,211,-325,146,-325,196,-325,170,-325,155,-325,151,-325,128,-325,125,-325,147,-325,210,-325,156,-325,126,-325,189,-325,141,-325,191,-325,207,-325,169,-325,203,-325,174,-325,204,-325,144,-325,162,-325,153,-325,149,-325,139,-325,178,-325,195,-325,130,-325,167,-325,157,-325},new int[]{-204,742}));
-stringstates[742] = @"489 struct_declaration: attributes_opt modifiers_opt STRUCT member_name struct_interfaces_opt struct_body comma_opt .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(742,new State(-489));
-stringstates[743] = @"493 struct_body: '{' . struct_member_declarations_opt '}' ";
     AddState(743,new State(new int[]{91,538,125,-494,136,-320,158,-320,171,-320,176,-320,181,-320,183,-320,184,-320,185,-320,186,-320,190,-320,194,-320,206,-320,209,-320,211,-320,147,-320,210,-320,156,-320,146,-320,196,-320,170,-320,155,-320,151,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320,167,-320,157,-320},new int[]{-13,744,-14,746,-25,908,-19,748,-201,749,-203,535,-250,536,-251,553,-20,892,-42,893,-53,894,-43,897,-45,898,-46,899,-47,900,-48,901,-40,902,-35,903,-36,904,-37,905,-38,906,-39,907}));
-stringstates[744] = @"493 struct_body: '{' struct_member_declarations_opt . '}' ";
     AddState(744,new State(new int[]{125,745}));
-stringstates[745] = @"493 struct_body: '{' struct_member_declarations_opt '}' .		[';', '[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(745,new State(-493));
-stringstates[746] = @"495 struct_member_declarations_opt: struct_member_declarations .		['}', ]
-497 struct_member_declarations: struct_member_declarations . struct_member_declaration ";
     AddState(746,new State(new int[]{91,538,125,-495,136,-320,158,-320,171,-320,176,-320,181,-320,183,-320,184,-320,185,-320,186,-320,190,-320,194,-320,206,-320,209,-320,211,-320,147,-320,210,-320,156,-320,146,-320,196,-320,170,-320,155,-320,151,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320,167,-320,157,-320},new int[]{-25,747,-19,748,-201,749,-203,535,-250,536,-251,553,-20,892,-42,893,-53,894,-43,897,-45,898,-46,899,-47,900,-48,901,-40,902,-35,903,-36,904,-37,905,-38,906,-39,907}));
-stringstates[747] = @"497 struct_member_declarations: struct_member_declarations struct_member_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(747,new State(-497));
-stringstates[748] = @"498 struct_member_declaration: constant_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(748,new State(-498));
-stringstates[749] = @"407 constant_declaration: attributes_opt . modifiers_opt CONST type constant_declarators ';' 
-408 field_declaration: attributes_opt . modifiers_opt type variable_declarators ';' 
-410 method_header: attributes_opt . modifiers_opt type qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')' 
-411 method_header: attributes_opt . modifiers_opt VOID qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')' 
-430 property_declaration: attributes_opt . modifiers_opt type qualified_identifier '{' accessor_declarations '}' 
-441 event_declaration: attributes_opt . modifiers_opt EVENT type variable_declarators ';' 
-442 event_declaration: attributes_opt . modifiers_opt EVENT type qualified_identifier '{' event_accessor_declarations '}' 
-445 indexer_declaration: attributes_opt . modifiers_opt indexer_declarator '{' accessor_declarations '}' 
-449 operator_declaration: attributes_opt . modifiers_opt operator_declarator operator_body 
-478 constructor_declaration: attributes_opt . modifiers_opt constructor_declarator constructor_body 
-383 class_declaration: attributes_opt . modifiers_opt CLASS IDENTIFIER type_arg_list_opt class_base_opt gen_clause_opt class_body comma_opt 
-489 struct_declaration: attributes_opt . modifiers_opt STRUCT member_name struct_interfaces_opt struct_body comma_opt 
-513 interface_declaration: attributes_opt . modifiers_opt INTERFACE member_name interface_base_opt interface_body comma_opt 
-539 enum_declaration: attributes_opt . modifiers_opt ENUM IDENTIFIER enum_base_opt enum_body comma_opt 
-551 delegate_declaration: attributes_opt . modifiers_opt DELEGATE return_type member_name type_arg_list_opt '(' formal_parameter_list_opt ')' ';' ";
     AddState(749,new State(new int[]{136,628,158,629,171,630,176,631,181,632,183,633,184,634,185,635,186,636,190,637,194,638,206,639,209,640,211,641,147,-355,210,-355,156,-355,146,-355,196,-355,170,-355,155,-355,151,-355,189,-355,141,-355,191,-355,207,-355,169,-355,203,-355,174,-355,204,-355,144,-355,162,-355,153,-355,149,-355,139,-355,178,-355,195,-355,130,-355,167,-355,157,-355},new int[]{-208,750,-209,626,-210,642}));
-stringstates[750] = @"407 constant_declaration: attributes_opt modifiers_opt . CONST type constant_declarators ';' 
-408 field_declaration: attributes_opt modifiers_opt . type variable_declarators ';' 
-410 method_header: attributes_opt modifiers_opt . type qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')' 
-411 method_header: attributes_opt modifiers_opt . VOID qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')' 
-430 property_declaration: attributes_opt modifiers_opt . type qualified_identifier '{' accessor_declarations '}' 
-441 event_declaration: attributes_opt modifiers_opt . EVENT type variable_declarators ';' 
-442 event_declaration: attributes_opt modifiers_opt . EVENT type qualified_identifier '{' event_accessor_declarations '}' 
-445 indexer_declaration: attributes_opt modifiers_opt . indexer_declarator '{' accessor_declarations '}' 
-449 operator_declaration: attributes_opt modifiers_opt . operator_declarator operator_body 
-478 constructor_declaration: attributes_opt modifiers_opt . constructor_declarator constructor_body 
-383 class_declaration: attributes_opt modifiers_opt . CLASS IDENTIFIER type_arg_list_opt class_base_opt gen_clause_opt class_body comma_opt 
-489 struct_declaration: attributes_opt modifiers_opt . STRUCT member_name struct_interfaces_opt struct_body comma_opt 
-513 interface_declaration: attributes_opt modifiers_opt . INTERFACE member_name interface_base_opt interface_body comma_opt 
-539 enum_declaration: attributes_opt modifiers_opt . ENUM IDENTIFIER enum_base_opt enum_body comma_opt 
-551 delegate_declaration: attributes_opt modifiers_opt . DELEGATE return_type member_name type_arg_list_opt '(' formal_parameter_list_opt ')' ';' ";
     AddState(750,new State(new int[]{147,35,210,702,156,708,146,19,196,738,170,751,155,831,151,851,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,861,167,878,157,885},new int[]{-56,606,-228,721,-230,725,-28,729,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214,-232,876,-233,877}));
-stringstates[751] = @"513 interface_declaration: attributes_opt modifiers_opt INTERFACE . member_name interface_base_opt interface_body comma_opt ";
     AddState(751,new State(new int[]{130,185},new int[]{-73,752}));
-stringstates[752] = @"513 interface_declaration: attributes_opt modifiers_opt INTERFACE member_name . interface_base_opt interface_body comma_opt ";
     AddState(752,new State(new int[]{58,826,123,-514},new int[]{-242,753,-243,825}));
-stringstates[753] = @"513 interface_declaration: attributes_opt modifiers_opt INTERFACE member_name interface_base_opt . interface_body comma_opt ";
     AddState(753,new State(new int[]{123,756},new int[]{-5,754}));
-stringstates[754] = @"513 interface_declaration: attributes_opt modifiers_opt INTERFACE member_name interface_base_opt interface_body . comma_opt ";
     AddState(754,new State(new int[]{59,9,91,-325,127,-325,175,-325,136,-325,158,-325,171,-325,176,-325,181,-325,183,-325,184,-325,185,-325,186,-325,190,-325,194,-325,206,-325,209,-325,211,-325,146,-325,196,-325,170,-325,155,-325,151,-325,128,-325,125,-325,147,-325,210,-325,156,-325,126,-325,189,-325,141,-325,191,-325,207,-325,169,-325,203,-325,174,-325,204,-325,144,-325,162,-325,153,-325,149,-325,139,-325,178,-325,195,-325,130,-325,167,-325,157,-325},new int[]{-204,755}));
-stringstates[755] = @"513 interface_declaration: attributes_opt modifiers_opt INTERFACE member_name interface_base_opt interface_body comma_opt .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(755,new State(-513));
-stringstates[756] = @"517 interface_body: '{' . interface_member_declarations_opt '}' ";
     AddState(756,new State(new int[]{91,538,125,-518,176,-320,210,-320,156,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320},new int[]{-10,757,-15,759,-26,824,-54,761,-201,762,-203,535,-250,536,-251,553,-55,821,-244,822,-21,823}));
-stringstates[757] = @"517 interface_body: '{' interface_member_declarations_opt . '}' ";
     AddState(757,new State(new int[]{125,758}));
-stringstates[758] = @"517 interface_body: '{' interface_member_declarations_opt '}' .		[';', '[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(758,new State(-517));
-stringstates[759] = @"519 interface_member_declarations_opt: interface_member_declarations .		['}', ]
-521 interface_member_declarations: interface_member_declarations . interface_member_declaration ";
     AddState(759,new State(new int[]{91,538,125,-519,176,-320,210,-320,156,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320},new int[]{-26,760,-54,761,-201,762,-203,535,-250,536,-251,553,-55,821,-244,822,-21,823}));
-stringstates[760] = @"521 interface_member_declarations: interface_member_declarations interface_member_declaration .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
     AddState(760,new State(-521));
-stringstates[761] = @"522 interface_member_declaration: interface_method_declaration .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
     AddState(761,new State(-522));
-stringstates[762] = @"526 interface_method_declaration: attributes_opt . new_opt type member_name '(' formal_parameter_list_opt ')' gen_clause_opt interface_empty_body 
-527 interface_method_declaration: attributes_opt . new_opt VOID member_name '(' formal_parameter_list_opt ')' gen_clause_opt interface_empty_body 
-530 interface_property_declaration: attributes_opt . new_opt type member_name '{' interface_accessors '}' 
-536 interface_event_declaration: attributes_opt . new_opt EVENT type member_name interface_empty_body 
-531 interface_indexer_declaration: attributes_opt . new_opt type THIS '[' formal_parameter_list ']' '{' interface_accessors '}' ";
     AddState(762,new State(new int[]{176,820,210,-528,156,-528,189,-528,141,-528,191,-528,207,-528,169,-528,203,-528,174,-528,204,-528,144,-528,162,-528,153,-528,149,-528,139,-528,178,-528,195,-528,130,-528},new int[]{-245,763}));
-stringstates[763] = @"526 interface_method_declaration: attributes_opt new_opt . type member_name '(' formal_parameter_list_opt ')' gen_clause_opt interface_empty_body 
-527 interface_method_declaration: attributes_opt new_opt . VOID member_name '(' formal_parameter_list_opt ')' gen_clause_opt interface_empty_body 
-530 interface_property_declaration: attributes_opt new_opt . type member_name '{' interface_accessors '}' 
-536 interface_event_declaration: attributes_opt new_opt . EVENT type member_name interface_empty_body 
-531 interface_indexer_declaration: attributes_opt new_opt . type THIS '[' formal_parameter_list ']' '{' interface_accessors '}' ";
     AddState(763,new State(new int[]{210,809,156,816,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185},new int[]{-56,764,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[764] = @"526 interface_method_declaration: attributes_opt new_opt type . member_name '(' formal_parameter_list_opt ')' gen_clause_opt interface_empty_body 
-530 interface_property_declaration: attributes_opt new_opt type . member_name '{' interface_accessors '}' 
-531 interface_indexer_declaration: attributes_opt new_opt type . THIS '[' formal_parameter_list ']' '{' interface_accessors '}' 
-52 pointer_type: type . '*' ";
     AddState(764,new State(new int[]{198,802,42,195,130,185},new int[]{-73,765}));
-stringstates[765] = @"526 interface_method_declaration: attributes_opt new_opt type member_name . '(' formal_parameter_list_opt ')' gen_clause_opt interface_empty_body 
-530 interface_property_declaration: attributes_opt new_opt type member_name . '{' interface_accessors '}' ";
     AddState(765,new State(new int[]{40,766,123,788}));
-stringstates[766] = @"526 interface_method_declaration: attributes_opt new_opt type member_name '(' . formal_parameter_list_opt ')' gen_clause_opt interface_empty_body ";
     AddState(766,new State(new int[]{91,538,214,556,41,-412,182,-320,187,-320,180,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320,210,-320},new int[]{-11,767,-12,520,-50,555,-51,525,-201,526,-203,535,-250,536,-251,553,-52,554}));
-stringstates[767] = @"526 interface_method_declaration: attributes_opt new_opt type member_name '(' formal_parameter_list_opt . ')' gen_clause_opt interface_empty_body ";
     AddState(767,new State(new int[]{41,768}));
-stringstates[768] = @"526 interface_method_declaration: attributes_opt new_opt type member_name '(' formal_parameter_list_opt ')' . gen_clause_opt interface_empty_body ";
     AddState(768,new State(-373,new int[]{-211,769}));
-stringstates[769] = @"526 interface_method_declaration: attributes_opt new_opt type member_name '(' formal_parameter_list_opt ')' gen_clause_opt . interface_empty_body 
-374 gen_clause_opt: gen_clause_opt . gen_clause ";
     AddState(769,new State(new int[]{59,771,123,772,213,774},new int[]{-246,770,-212,26}));
-stringstates[770] = @"526 interface_method_declaration: attributes_opt new_opt type member_name '(' formal_parameter_list_opt ')' gen_clause_opt interface_empty_body .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
     AddState(770,new State(-526));
-stringstates[771] = @"537 interface_empty_body: ';' .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', SET, GET, ]";
     AddState(771,new State(-537));
-stringstates[772] = @"538 interface_empty_body: '{' . '}' ";
     AddState(772,new State(new int[]{125,773}));
-stringstates[773] = @"538 interface_empty_body: '{' '}' .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', SET, GET, ]";
     AddState(773,new State(-538));
-stringstates[774] = @"375 gen_clause: WHERE . IDENTIFIER gen_class_base ";
     AddState(774,new State(new int[]{130,775}));
-stringstates[775] = @"375 gen_clause: WHERE IDENTIFIER . gen_class_base ";
     AddState(775,new State(new int[]{58,777},new int[]{-213,776}));
-stringstates[776] = @"375 gen_clause: WHERE IDENTIFIER gen_class_base .		['{', WHERE, ';', ]";
     AddState(776,new State(-375));
-stringstates[777] = @"380 gen_class_base: ':' . gen_type_list ";
     AddState(777,new State(new int[]{196,781,146,782,176,783,130,185},new int[]{-215,778,-214,787,-66,786,-29,462,-74,182,-73,183,-76,209}));
-stringstates[778] = @"380 gen_class_base: ':' gen_type_list .		['{', WHERE, ';', ]
-382 gen_type_list: gen_type_list . ',' gen_class_type ";
     AddState(778,new State(new int[]{44,779,123,-380,213,-380,59,-380}));
-stringstates[779] = @"382 gen_type_list: gen_type_list ',' . gen_class_type ";
     AddState(779,new State(new int[]{196,781,146,782,176,783,130,185},new int[]{-214,780,-66,786,-29,462,-74,182,-73,183,-76,209}));
-stringstates[780] = @"382 gen_type_list: gen_type_list ',' gen_class_type .		[',', '{', WHERE, ';', ]";
     AddState(780,new State(-382));
-stringstates[781] = @"376 gen_class_type: STRUCT .		[',', '{', WHERE, ';', ]";
     AddState(781,new State(-376));
-stringstates[782] = @"377 gen_class_type: CLASS .		[',', '{', WHERE, ';', ]";
     AddState(782,new State(-377));
-stringstates[783] = @"378 gen_class_type: NEW . '(' ')' ";
     AddState(783,new State(new int[]{40,784}));
-stringstates[784] = @"378 gen_class_type: NEW '(' . ')' ";
     AddState(784,new State(new int[]{41,785}));
-stringstates[785] = @"378 gen_class_type: NEW '(' ')' .		[',', '{', WHERE, ';', ]";
     AddState(785,new State(-378));
-stringstates[786] = @"379 gen_class_type: type_name .		[',', '{', WHERE, ';', ]";
     AddState(786,new State(-379));
-stringstates[787] = @"381 gen_type_list: gen_class_type .		[',', '{', WHERE, ';', ]";
     AddState(787,new State(-381));
-stringstates[788] = @"530 interface_property_declaration: attributes_opt new_opt type member_name '{' . interface_accessors '}' ";
     AddState(788,new State(new int[]{91,538,224,-320,225,-320},new int[]{-247,789,-201,791,-203,535,-250,536,-251,553}));
-stringstates[789] = @"530 interface_property_declaration: attributes_opt new_opt type member_name '{' interface_accessors . '}' ";
     AddState(789,new State(new int[]{125,790}));
-stringstates[790] = @"530 interface_property_declaration: attributes_opt new_opt type member_name '{' interface_accessors '}' .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
     AddState(790,new State(-530));
-stringstates[791] = @"532 interface_accessors: attributes_opt . GET interface_empty_body 
-533 interface_accessors: attributes_opt . SET interface_empty_body 
-534 interface_accessors: attributes_opt . GET interface_empty_body attributes_opt SET interface_empty_body 
-535 interface_accessors: attributes_opt . SET interface_empty_body attributes_opt GET interface_empty_body ";
     AddState(791,new State(new int[]{224,792,225,797}));
-stringstates[792] = @"532 interface_accessors: attributes_opt GET . interface_empty_body 
-534 interface_accessors: attributes_opt GET . interface_empty_body attributes_opt SET interface_empty_body ";
     AddState(792,new State(new int[]{59,771,123,772},new int[]{-246,793}));
-stringstates[793] = @"532 interface_accessors: attributes_opt GET interface_empty_body .		['}', ]
-534 interface_accessors: attributes_opt GET interface_empty_body . attributes_opt SET interface_empty_body ";
     AddState(793,new State(new int[]{91,538,125,-532,225,-320},new int[]{-201,794,-203,535,-250,536,-251,553}));
-stringstates[794] = @"534 interface_accessors: attributes_opt GET interface_empty_body attributes_opt . SET interface_empty_body ";
     AddState(794,new State(new int[]{225,795}));
-stringstates[795] = @"534 interface_accessors: attributes_opt GET interface_empty_body attributes_opt SET . interface_empty_body ";
     AddState(795,new State(new int[]{59,771,123,772},new int[]{-246,796}));
-stringstates[796] = @"534 interface_accessors: attributes_opt GET interface_empty_body attributes_opt SET interface_empty_body .		['}', ]";
     AddState(796,new State(-534));
-stringstates[797] = @"533 interface_accessors: attributes_opt SET . interface_empty_body 
-535 interface_accessors: attributes_opt SET . interface_empty_body attributes_opt GET interface_empty_body ";
     AddState(797,new State(new int[]{59,771,123,772},new int[]{-246,798}));
-stringstates[798] = @"533 interface_accessors: attributes_opt SET interface_empty_body .		['}', ]
-535 interface_accessors: attributes_opt SET interface_empty_body . attributes_opt GET interface_empty_body ";
     AddState(798,new State(new int[]{91,538,125,-533,224,-320},new int[]{-201,799,-203,535,-250,536,-251,553}));
-stringstates[799] = @"535 interface_accessors: attributes_opt SET interface_empty_body attributes_opt . GET interface_empty_body ";
     AddState(799,new State(new int[]{224,800}));
-stringstates[800] = @"535 interface_accessors: attributes_opt SET interface_empty_body attributes_opt GET . interface_empty_body ";
     AddState(800,new State(new int[]{59,771,123,772},new int[]{-246,801}));
-stringstates[801] = @"535 interface_accessors: attributes_opt SET interface_empty_body attributes_opt GET interface_empty_body .		['}', ]";
     AddState(801,new State(-535));
-stringstates[802] = @"531 interface_indexer_declaration: attributes_opt new_opt type THIS . '[' formal_parameter_list ']' '{' interface_accessors '}' ";
     AddState(802,new State(new int[]{91,803}));
-stringstates[803] = @"531 interface_indexer_declaration: attributes_opt new_opt type THIS '[' . formal_parameter_list ']' '{' interface_accessors '}' ";
     AddState(803,new State(new int[]{91,538,182,-320,187,-320,180,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320,210,-320},new int[]{-12,804,-50,555,-51,525,-201,526,-203,535,-250,536,-251,553,-52,554}));
-stringstates[804] = @"531 interface_indexer_declaration: attributes_opt new_opt type THIS '[' formal_parameter_list . ']' '{' interface_accessors '}' 
-422 formal_parameter_list: formal_parameter_list . ',' formal_parameter ";
     AddState(804,new State(new int[]{93,805,44,662}));
-stringstates[805] = @"531 interface_indexer_declaration: attributes_opt new_opt type THIS '[' formal_parameter_list ']' . '{' interface_accessors '}' ";
     AddState(805,new State(new int[]{123,806}));
-stringstates[806] = @"531 interface_indexer_declaration: attributes_opt new_opt type THIS '[' formal_parameter_list ']' '{' . interface_accessors '}' ";
     AddState(806,new State(new int[]{91,538,224,-320,225,-320},new int[]{-247,807,-201,791,-203,535,-250,536,-251,553}));
-stringstates[807] = @"531 interface_indexer_declaration: attributes_opt new_opt type THIS '[' formal_parameter_list ']' '{' interface_accessors . '}' ";
     AddState(807,new State(new int[]{125,808}));
-stringstates[808] = @"531 interface_indexer_declaration: attributes_opt new_opt type THIS '[' formal_parameter_list ']' '{' interface_accessors '}' .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
     AddState(808,new State(-531));
-stringstates[809] = @"527 interface_method_declaration: attributes_opt new_opt VOID . member_name '(' formal_parameter_list_opt ')' gen_clause_opt interface_empty_body 
-53 pointer_type: VOID . '*' ";
     AddState(809,new State(new int[]{42,213,130,185},new int[]{-73,810}));
-stringstates[810] = @"527 interface_method_declaration: attributes_opt new_opt VOID member_name . '(' formal_parameter_list_opt ')' gen_clause_opt interface_empty_body ";
     AddState(810,new State(new int[]{40,811}));
-stringstates[811] = @"527 interface_method_declaration: attributes_opt new_opt VOID member_name '(' . formal_parameter_list_opt ')' gen_clause_opt interface_empty_body ";
     AddState(811,new State(new int[]{91,538,214,556,41,-412,182,-320,187,-320,180,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320,210,-320},new int[]{-11,812,-12,520,-50,555,-51,525,-201,526,-203,535,-250,536,-251,553,-52,554}));
-stringstates[812] = @"527 interface_method_declaration: attributes_opt new_opt VOID member_name '(' formal_parameter_list_opt . ')' gen_clause_opt interface_empty_body ";
     AddState(812,new State(new int[]{41,813}));
-stringstates[813] = @"527 interface_method_declaration: attributes_opt new_opt VOID member_name '(' formal_parameter_list_opt ')' . gen_clause_opt interface_empty_body ";
     AddState(813,new State(-373,new int[]{-211,814}));
-stringstates[814] = @"527 interface_method_declaration: attributes_opt new_opt VOID member_name '(' formal_parameter_list_opt ')' gen_clause_opt . interface_empty_body 
-374 gen_clause_opt: gen_clause_opt . gen_clause ";
     AddState(814,new State(new int[]{59,771,123,772,213,774},new int[]{-246,815,-212,26}));
-stringstates[815] = @"527 interface_method_declaration: attributes_opt new_opt VOID member_name '(' formal_parameter_list_opt ')' gen_clause_opt interface_empty_body .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
     AddState(815,new State(-527));
-stringstates[816] = @"536 interface_event_declaration: attributes_opt new_opt EVENT . type member_name interface_empty_body ";
     AddState(816,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,817,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[817] = @"536 interface_event_declaration: attributes_opt new_opt EVENT type . member_name interface_empty_body 
-52 pointer_type: type . '*' ";
     AddState(817,new State(new int[]{42,195,130,185},new int[]{-73,818}));
-stringstates[818] = @"536 interface_event_declaration: attributes_opt new_opt EVENT type member_name . interface_empty_body ";
     AddState(818,new State(new int[]{59,771,123,772},new int[]{-246,819}));
-stringstates[819] = @"536 interface_event_declaration: attributes_opt new_opt EVENT type member_name interface_empty_body .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
     AddState(819,new State(-536));
-stringstates[820] = @"529 new_opt: NEW .		[VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, ]";
     AddState(820,new State(-529));
-stringstates[821] = @"523 interface_member_declaration: interface_property_declaration .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
     AddState(821,new State(-523));
-stringstates[822] = @"524 interface_member_declaration: interface_event_declaration .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
     AddState(822,new State(-524));
-stringstates[823] = @"525 interface_member_declaration: interface_indexer_declaration .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
     AddState(823,new State(-525));
-stringstates[824] = @"520 interface_member_declarations: interface_member_declaration .		['[', NEW, VOID, EVENT, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, '}', ]";
     AddState(824,new State(-520));
-stringstates[825] = @"515 interface_base_opt: interface_base .		['{', ]";
     AddState(825,new State(-515));
-stringstates[826] = @"516 interface_base: ':' . interface_type_list ";
     AddState(826,new State(new int[]{130,185},new int[]{-218,827,-66,830,-29,462,-74,182,-73,183,-76,209}));
-stringstates[827] = @"516 interface_base: ':' interface_type_list .		['{', ]
-390 interface_type_list: interface_type_list . ',' type_name ";
     AddState(827,new State(new int[]{44,828,123,-516}));
-stringstates[828] = @"390 interface_type_list: interface_type_list ',' . type_name ";
     AddState(828,new State(new int[]{130,185},new int[]{-66,829,-29,462,-74,182,-73,183,-76,209}));
-stringstates[829] = @"390 interface_type_list: interface_type_list ',' type_name .		[',', '{', WHERE, ]";
     AddState(829,new State(-390));
-stringstates[830] = @"389 interface_type_list: type_name .		[',', '{', WHERE, ]";
     AddState(830,new State(-389));
-stringstates[831] = @"539 enum_declaration: attributes_opt modifiers_opt ENUM . IDENTIFIER enum_base_opt enum_body comma_opt ";
     AddState(831,new State(new int[]{130,832}));
-stringstates[832] = @"539 enum_declaration: attributes_opt modifiers_opt ENUM IDENTIFIER . enum_base_opt enum_body comma_opt ";
     AddState(832,new State(new int[]{58,849,123,-540},new int[]{-248,833,-249,848}));
-stringstates[833] = @"539 enum_declaration: attributes_opt modifiers_opt ENUM IDENTIFIER enum_base_opt . enum_body comma_opt ";
     AddState(833,new State(new int[]{123,836},new int[]{-16,834}));
-stringstates[834] = @"539 enum_declaration: attributes_opt modifiers_opt ENUM IDENTIFIER enum_base_opt enum_body . comma_opt ";
     AddState(834,new State(new int[]{59,9,91,-325,127,-325,175,-325,136,-325,158,-325,171,-325,176,-325,181,-325,183,-325,184,-325,185,-325,186,-325,190,-325,194,-325,206,-325,209,-325,211,-325,146,-325,196,-325,170,-325,155,-325,151,-325,128,-325,125,-325,147,-325,210,-325,156,-325,126,-325,189,-325,141,-325,191,-325,207,-325,169,-325,203,-325,174,-325,204,-325,144,-325,162,-325,153,-325,149,-325,139,-325,178,-325,195,-325,130,-325,167,-325,157,-325},new int[]{-204,835}));
-stringstates[835] = @"539 enum_declaration: attributes_opt modifiers_opt ENUM IDENTIFIER enum_base_opt enum_body comma_opt .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(835,new State(-539));
-stringstates[836] = @"543 enum_body: '{' . enum_member_declarations_opt '}' 
-544 enum_body: '{' . enum_member_declarations ',' '}' ";
     AddState(836,new State(new int[]{91,538,125,-545,130,-320},new int[]{-17,837,-18,839,-27,847,-201,843,-203,535,-250,536,-251,553}));
-stringstates[837] = @"543 enum_body: '{' enum_member_declarations_opt . '}' ";
     AddState(837,new State(new int[]{125,838}));
-stringstates[838] = @"543 enum_body: '{' enum_member_declarations_opt '}' .		[';', '[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(838,new State(-543));
-stringstates[839] = @"544 enum_body: '{' enum_member_declarations . ',' '}' 
-546 enum_member_declarations_opt: enum_member_declarations .		['}', ]
-548 enum_member_declarations: enum_member_declarations . ',' enum_member_declaration ";
     AddState(839,new State(new int[]{44,840,125,-546}));
-stringstates[840] = @"544 enum_body: '{' enum_member_declarations ',' . '}' 
-548 enum_member_declarations: enum_member_declarations ',' . enum_member_declaration ";
     AddState(840,new State(new int[]{125,841,91,538,130,-320},new int[]{-27,842,-201,843,-203,535,-250,536,-251,553}));
-stringstates[841] = @"544 enum_body: '{' enum_member_declarations ',' '}' .		[';', '[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(841,new State(-544));
-stringstates[842] = @"548 enum_member_declarations: enum_member_declarations ',' enum_member_declaration .		[',', '}', ]";
     AddState(842,new State(-548));
-stringstates[843] = @"549 enum_member_declaration: attributes_opt . IDENTIFIER 
-550 enum_member_declaration: attributes_opt . IDENTIFIER '=' constant_expression ";
     AddState(843,new State(new int[]{130,844}));
-stringstates[844] = @"549 enum_member_declaration: attributes_opt IDENTIFIER .		[',', '}', ]
-550 enum_member_declaration: attributes_opt IDENTIFIER . '=' constant_expression ";
     AddState(844,new State(new int[]{61,845,44,-549,125,-549}));
-stringstates[845] = @"550 enum_member_declaration: attributes_opt IDENTIFIER '=' . constant_expression ";
     AddState(845,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301},new int[]{-140,846,-88,44,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[846] = @"550 enum_member_declaration: attributes_opt IDENTIFIER '=' constant_expression .		[',', '}', ]";
     AddState(846,new State(-550));
-stringstates[847] = @"547 enum_member_declarations: enum_member_declaration .		[',', '}', ]";
     AddState(847,new State(-547));
-stringstates[848] = @"541 enum_base_opt: enum_base .		['{', ]";
     AddState(848,new State(-541));
-stringstates[849] = @"542 enum_base: ':' . integral_type ";
     AddState(849,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164},new int[]{-64,850}));
-stringstates[850] = @"542 enum_base: ':' integral_type .		['{', ]";
     AddState(850,new State(-542));
-stringstates[851] = @"551 delegate_declaration: attributes_opt modifiers_opt DELEGATE . return_type member_name type_arg_list_opt '(' formal_parameter_list_opt ')' ';' ";
     AddState(851,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,860},new int[]{-57,852,-56,859,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[852] = @"551 delegate_declaration: attributes_opt modifiers_opt DELEGATE return_type . member_name type_arg_list_opt '(' formal_parameter_list_opt ')' ';' ";
     AddState(852,new State(new int[]{130,185},new int[]{-73,853}));
-stringstates[853] = @"551 delegate_declaration: attributes_opt modifiers_opt DELEGATE return_type member_name . type_arg_list_opt '(' formal_parameter_list_opt ')' ';' ";
     AddState(853,new State(new int[]{60,652,40,-21},new int[]{-81,854}));
-stringstates[854] = @"551 delegate_declaration: attributes_opt modifiers_opt DELEGATE return_type member_name type_arg_list_opt . '(' formal_parameter_list_opt ')' ';' ";
     AddState(854,new State(new int[]{40,855}));
-stringstates[855] = @"551 delegate_declaration: attributes_opt modifiers_opt DELEGATE return_type member_name type_arg_list_opt '(' . formal_parameter_list_opt ')' ';' ";
     AddState(855,new State(new int[]{91,538,214,556,41,-412,182,-320,187,-320,180,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320,210,-320},new int[]{-11,856,-12,520,-50,555,-51,525,-201,526,-203,535,-250,536,-251,553,-52,554}));
-stringstates[856] = @"551 delegate_declaration: attributes_opt modifiers_opt DELEGATE return_type member_name type_arg_list_opt '(' formal_parameter_list_opt . ')' ';' ";
     AddState(856,new State(new int[]{41,857}));
-stringstates[857] = @"551 delegate_declaration: attributes_opt modifiers_opt DELEGATE return_type member_name type_arg_list_opt '(' formal_parameter_list_opt ')' . ';' ";
     AddState(857,new State(new int[]{59,858}));
-stringstates[858] = @"551 delegate_declaration: attributes_opt modifiers_opt DELEGATE return_type member_name type_arg_list_opt '(' formal_parameter_list_opt ')' ';' .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(858,new State(-551));
-stringstates[859] = @"417 return_type: type .		[IDENTIFIER, ]
-52 pointer_type: type . '*' ";
     AddState(859,new State(new int[]{42,195,130,-417}));
-stringstates[860] = @"53 pointer_type: VOID . '*' 
-418 return_type: VOID .		[IDENTIFIER, ]";
     AddState(860,new State(new int[]{42,213,130,-418}));
-stringstates[861] = @"15 member_name: IDENTIFIER . type_list_opt 
-479 constructor_declarator: IDENTIFIER . '(' formal_parameter_list_opt ')' constructor_initializer_opt ";
     AddState(861,new State(new int[]{40,862,60,187,46,-16,129,-16,63,-16,42,-16,198,-16,179,-16,130,-16},new int[]{-79,186}));
-stringstates[862] = @"479 constructor_declarator: IDENTIFIER '(' . formal_parameter_list_opt ')' constructor_initializer_opt ";
     AddState(862,new State(new int[]{91,538,214,556,41,-412,182,-320,187,-320,180,-320,189,-320,141,-320,191,-320,207,-320,169,-320,203,-320,174,-320,204,-320,144,-320,162,-320,153,-320,149,-320,139,-320,178,-320,195,-320,130,-320,210,-320},new int[]{-11,863,-12,520,-50,555,-51,525,-201,526,-203,535,-250,536,-251,553,-52,554}));
-stringstates[863] = @"479 constructor_declarator: IDENTIFIER '(' formal_parameter_list_opt . ')' constructor_initializer_opt ";
     AddState(863,new State(new int[]{41,864}));
-stringstates[864] = @"479 constructor_declarator: IDENTIFIER '(' formal_parameter_list_opt ')' . constructor_initializer_opt ";
     AddState(864,new State(new int[]{58,867,123,-480,59,-480},new int[]{-236,865,-237,866}));
-stringstates[865] = @"479 constructor_declarator: IDENTIFIER '(' formal_parameter_list_opt ')' constructor_initializer_opt .		['{', ';', ]";
     AddState(865,new State(-479));
-stringstates[866] = @"481 constructor_initializer_opt: constructor_initializer .		['{', ';', ]";
     AddState(866,new State(-481));
-stringstates[867] = @"482 constructor_initializer: ':' . BASE '(' argument_list_opt ')' 
-483 constructor_initializer: ':' . THIS '(' argument_list_opt ')' ";
     AddState(867,new State(new int[]{138,868,198,872}));
-stringstates[868] = @"482 constructor_initializer: ':' BASE . '(' argument_list_opt ')' ";
     AddState(868,new State(new int[]{40,869}));
-stringstates[869] = @"482 constructor_initializer: ':' BASE '(' . argument_list_opt ')' ";
     AddState(869,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,187,319,180,322,41,-90},new int[]{-107,870,-89,105,-90,318,-88,108,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[870] = @"482 constructor_initializer: ':' BASE '(' argument_list_opt . ')' ";
     AddState(870,new State(new int[]{41,871}));
-stringstates[871] = @"482 constructor_initializer: ':' BASE '(' argument_list_opt ')' .		['{', ';', ]";
     AddState(871,new State(-482));
-stringstates[872] = @"483 constructor_initializer: ':' THIS . '(' argument_list_opt ')' ";
     AddState(872,new State(new int[]{40,873}));
-stringstates[873] = @"483 constructor_initializer: ':' THIS '(' . argument_list_opt ')' ";
     AddState(873,new State(new int[]{40,97,200,118,159,119,131,120,132,121,133,122,134,123,177,124,135,127,176,129,127,150,189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,198,217,138,219,151,226,150,254,202,259,192,266,145,271,205,276,33,283,126,285,43,288,45,290,42,292,247,295,248,298,38,301,187,319,180,322,41,-90},new int[]{-107,874,-89,105,-90,318,-88,108,-137,45,-136,46,-135,81,-134,82,-133,83,-132,84,-131,85,-130,109,-129,145,-128,112,-124,113,-119,146,-120,67,-111,68,-91,73,-92,96,-93,101,-67,116,-69,117,-68,125,-94,128,-95,149,-60,151,-62,154,-64,155,-63,165,-61,170,-96,175,-97,176,-29,177,-74,182,-73,183,-76,209,-98,216,-99,218,-100,225,-101,251,-114,252,-102,253,-103,258,-104,265,-105,270,-106,275,-110,280,-112,281,-117,282,-121,287,-122,294,-123,297,-118,300,-138,303}));
-stringstates[874] = @"483 constructor_initializer: ':' THIS '(' argument_list_opt . ')' ";
     AddState(874,new State(new int[]{41,875}));
-stringstates[875] = @"483 constructor_initializer: ':' THIS '(' argument_list_opt ')' .		['{', ';', ]";
     AddState(875,new State(-483));
-stringstates[876] = @"450 operator_declarator: overloadable_operator_declarator .		['{', ';', ]";
     AddState(876,new State(-450));
-stringstates[877] = @"451 operator_declarator: conversion_operator_declarator .		['{', ';', ]";
     AddState(877,new State(-451));
-stringstates[878] = @"476 conversion_operator_declarator: IMPLICIT . OPERATOR type '(' type IDENTIFIER ')' ";
     AddState(878,new State(new int[]{179,879}));
-stringstates[879] = @"476 conversion_operator_declarator: IMPLICIT OPERATOR . type '(' type IDENTIFIER ')' ";
     AddState(879,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,880,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[880] = @"476 conversion_operator_declarator: IMPLICIT OPERATOR type . '(' type IDENTIFIER ')' 
-52 pointer_type: type . '*' ";
     AddState(880,new State(new int[]{40,881,42,195}));
-stringstates[881] = @"476 conversion_operator_declarator: IMPLICIT OPERATOR type '(' . type IDENTIFIER ')' ";
     AddState(881,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,882,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[882] = @"476 conversion_operator_declarator: IMPLICIT OPERATOR type '(' type . IDENTIFIER ')' 
-52 pointer_type: type . '*' ";
     AddState(882,new State(new int[]{130,883,42,195}));
-stringstates[883] = @"476 conversion_operator_declarator: IMPLICIT OPERATOR type '(' type IDENTIFIER . ')' ";
     AddState(883,new State(new int[]{41,884}));
-stringstates[884] = @"476 conversion_operator_declarator: IMPLICIT OPERATOR type '(' type IDENTIFIER ')' .		['{', ';', ]";
     AddState(884,new State(-476));
-stringstates[885] = @"477 conversion_operator_declarator: EXPLICIT . OPERATOR type '(' type IDENTIFIER ')' ";
     AddState(885,new State(new int[]{179,886}));
-stringstates[886] = @"477 conversion_operator_declarator: EXPLICIT OPERATOR . type '(' type IDENTIFIER ')' ";
     AddState(886,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,887,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[887] = @"477 conversion_operator_declarator: EXPLICIT OPERATOR type . '(' type IDENTIFIER ')' 
-52 pointer_type: type . '*' ";
     AddState(887,new State(new int[]{40,888,42,195}));
-stringstates[888] = @"477 conversion_operator_declarator: EXPLICIT OPERATOR type '(' . type IDENTIFIER ')' ";
     AddState(888,new State(new int[]{189,156,141,157,191,158,207,159,169,160,203,161,174,162,204,163,144,164,162,166,153,167,149,168,139,169,178,173,195,174,130,185,210,212},new int[]{-56,889,-58,196,-59,199,-60,202,-62,154,-64,155,-63,165,-61,203,-84,204,-65,205,-29,207,-74,182,-73,183,-76,209,-66,214}));
-stringstates[889] = @"477 conversion_operator_declarator: EXPLICIT OPERATOR type '(' type . IDENTIFIER ')' 
-52 pointer_type: type . '*' ";
     AddState(889,new State(new int[]{130,890,42,195}));
-stringstates[890] = @"477 conversion_operator_declarator: EXPLICIT OPERATOR type '(' type IDENTIFIER . ')' ";
     AddState(890,new State(new int[]{41,891}));
-stringstates[891] = @"477 conversion_operator_declarator: EXPLICIT OPERATOR type '(' type IDENTIFIER ')' .		['{', ';', ]";
     AddState(891,new State(-477));
-stringstates[892] = @"499 struct_member_declaration: field_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(892,new State(-499));
-stringstates[893] = @"500 struct_member_declaration: method_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(893,new State(-500));
-stringstates[894] = @"409 method_declaration: method_header . gen_clause_opt method_body ";
     AddState(894,new State(-373,new int[]{-211,895}));
-stringstates[895] = @"409 method_declaration: method_header gen_clause_opt . method_body 
-374 gen_clause_opt: gen_clause_opt . gen_clause ";
     AddState(895,new State(new int[]{123,232,59,519,213,774},new int[]{-113,896,-212,26,-146,231}));
-stringstates[896] = @"409 method_declaration: method_header gen_clause_opt method_body .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(896,new State(-409));
-stringstates[897] = @"501 struct_member_declaration: property_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(897,new State(-501));
-stringstates[898] = @"502 struct_member_declaration: event_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(898,new State(-502));
-stringstates[899] = @"503 struct_member_declaration: indexer_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(899,new State(-503));
-stringstates[900] = @"504 struct_member_declaration: operator_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(900,new State(-504));
-stringstates[901] = @"505 struct_member_declaration: constructor_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(901,new State(-505));
-stringstates[902] = @"506 struct_member_declaration: type_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(902,new State(-506));
-stringstates[903] = @"350 type_declaration: class_declaration .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(903,new State(-350));
-stringstates[904] = @"351 type_declaration: struct_declaration .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(904,new State(-351));
-stringstates[905] = @"352 type_declaration: interface_declaration .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(905,new State(-352));
-stringstates[906] = @"353 type_declaration: enum_declaration .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(906,new State(-353));
-stringstates[907] = @"354 type_declaration: delegate_declaration .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', CONST, VOID, EVENT, '~', SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, ]";
     AddState(907,new State(-354));
-stringstates[908] = @"496 struct_member_declarations: struct_member_declaration .		['[', ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(908,new State(-496));
-stringstates[909] = @"491 struct_interfaces_opt: struct_interfaces .		['{', ]";
     AddState(909,new State(-491));
-stringstates[910] = @"492 struct_interfaces: ':' . interface_type_list ";
     AddState(910,new State(new int[]{130,185},new int[]{-218,911,-66,830,-29,462,-74,182,-73,183,-76,209}));
-stringstates[911] = @"492 struct_interfaces: ':' interface_type_list .		['{', ]
-390 interface_type_list: interface_type_list . ',' type_name ";
     AddState(911,new State(new int[]{44,828,123,-492}));
-stringstates[912] = @"397 class_member_declaration: field_declaration .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(912,new State(-397));
-stringstates[913] = @"398 class_member_declaration: method_declaration .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(913,new State(-398));
-stringstates[914] = @"399 class_member_declaration: property_declaration .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(914,new State(-399));
-stringstates[915] = @"400 class_member_declaration: event_declaration .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(915,new State(-400));
-stringstates[916] = @"401 class_member_declaration: indexer_declaration .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(916,new State(-401));
-stringstates[917] = @"402 class_member_declaration: operator_declaration .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(917,new State(-402));
-stringstates[918] = @"403 class_member_declaration: constructor_declaration .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(918,new State(-403));
-stringstates[919] = @"404 class_member_declaration: destructor_declaration .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(919,new State(-404));
-stringstates[920] = @"405 class_member_declaration: type_declaration .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(920,new State(-405));
-stringstates[921] = @"406 class_member_declaration: error .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(921,new State(-406));
-stringstates[922] = @"394 class_member_declarations: class_member_declaration .		['[', error, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CONST, VOID, EVENT, '~', CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, SBYTE, BYTE, SHORT, USHORT, INT, UINT, LONG, ULONG, CHAR, FLOAT, DOUBLE, DECIMAL, BOOL, OBJECT, KW_STRING, IDENTIFIER, IMPLICIT, EXPLICIT, '}', ]";
     AddState(922,new State(-394));
-stringstates[923] = @"385 class_base_opt: class_base .		['{', WHERE, ]";
     AddState(923,new State(-385));
-stringstates[924] = @"386 class_base: ':' . class_type 
-387 class_base: ':' . interface_type_list 
-388 class_base: ':' . class_type ',' interface_type_list ";
     AddState(924,new State(new int[]{178,173,195,174,130,185},new int[]{-61,925,-218,928,-66,830,-29,462,-74,182,-73,183,-76,209}));
-stringstates[925] = @"386 class_base: ':' class_type .		['{', WHERE, ]
-388 class_base: ':' class_type . ',' interface_type_list ";
     AddState(925,new State(new int[]{44,926,123,-386,213,-386}));
-stringstates[926] = @"388 class_base: ':' class_type ',' . interface_type_list ";
     AddState(926,new State(new int[]{130,185},new int[]{-218,927,-66,830,-29,462,-74,182,-73,183,-76,209}));
-stringstates[927] = @"388 class_base: ':' class_type ',' interface_type_list .		['{', WHERE, ]
-390 interface_type_list: interface_type_list . ',' type_name ";
     AddState(927,new State(new int[]{44,828,123,-388,213,-388}));
-stringstates[928] = @"387 class_base: ':' interface_type_list .		['{', WHERE, ]
-390 interface_type_list: interface_type_list . ',' type_name ";
     AddState(928,new State(new int[]{44,828,123,-387,213,-387}));
-stringstates[929] = @"348 namespace_member_declaration: type_declaration .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
     AddState(929,new State(-348));
-stringstates[930] = @"349 namespace_member_declaration: error .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
     AddState(930,new State(-349));
-stringstates[931] = @"345 namespace_member_declarations: namespace_member_declaration .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
     AddState(931,new State(-345));
-stringstates[932] = @"319 using_directives_opt: using_directives .		['[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]
-339 using_directives: using_directives . using_directive ";
     AddState(932,new State(new int[]{208,935,91,-319,127,-319,175,-319,136,-319,158,-319,171,-319,176,-319,181,-319,183,-319,184,-319,185,-319,186,-319,190,-319,194,-319,206,-319,209,-319,211,-319,146,-319,196,-319,170,-319,155,-319,151,-319,128,-319,125,-319},new int[]{-205,933,-206,934,-207,944}));
-stringstates[933] = @"339 using_directives: using_directives using_directive .		[USING, '[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
     AddState(933,new State(-339));
-stringstates[934] = @"340 using_directive: using_alias_directive .		[USING, '[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
     AddState(934,new State(-340));
-stringstates[935] = @"342 using_alias_directive: USING . IDENTIFIER '=' qualified_identifier ';' 
-343 using_namespace_directive: USING . namespace_name ';' 
-344 using_namespace_directive: USING . error ";
     AddState(935,new State(new int[]{130,936,127,942},new int[]{-31,940,-29,943,-74,182,-73,183,-76,209}));
-stringstates[936] = @"342 using_alias_directive: USING IDENTIFIER . '=' qualified_identifier ';' 
-15 member_name: IDENTIFIER . type_list_opt ";
     AddState(936,new State(new int[]{61,937,60,187,46,-16,59,-16},new int[]{-79,186}));
-stringstates[937] = @"342 using_alias_directive: USING IDENTIFIER '=' . qualified_identifier ';' ";
     AddState(937,new State(new int[]{130,185},new int[]{-29,938,-74,182,-73,183,-76,209}));
-stringstates[938] = @"342 using_alias_directive: USING IDENTIFIER '=' qualified_identifier . ';' ";
     AddState(938,new State(new int[]{59,939}));
-stringstates[939] = @"342 using_alias_directive: USING IDENTIFIER '=' qualified_identifier ';' .		[USING, '[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
     AddState(939,new State(-342));
-stringstates[940] = @"343 using_namespace_directive: USING namespace_name . ';' ";
     AddState(940,new State(new int[]{59,941}));
-stringstates[941] = @"343 using_namespace_directive: USING namespace_name ';' .		[USING, '[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
     AddState(941,new State(-343));
-stringstates[942] = @"344 using_namespace_directive: USING error .		[USING, '[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
     AddState(942,new State(-344));
-stringstates[943] = @"13 namespace_name: qualified_identifier .		[';', ]";
     AddState(943,new State(-13));
-stringstates[944] = @"341 using_directive: using_namespace_directive .		[USING, '[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
     AddState(944,new State(-341));
-stringstates[945] = @"338 using_directives: using_directive .		[USING, '[', error, NAMESPACE, ABSTRACT, EXTERN, INTERNAL, NEW, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, READONLY, SEALED, STATIC, UNSAFE, VIRTUAL, VOLATILE, CLASS, STRUCT, INTERFACE, ENUM, DELEGATE, EOF, '}', ]";
     AddState(945,new State(-338));
-stringstates[946] = @"317 compilation_unit: using_directives_opt namespace_member_declarations .		[EOF, ]
-346 namespace_member_declarations: namespace_member_declarations . namespace_member_declaration ";
     AddState(946,new State(new int[]{91,538,127,930,128,-317,175,-320,136,-320,158,-320,171,-320,176,-320,181,-320,183,-320,184,-320,185,-320,186,-320,190,-320,194,-320,206,-320,209,-320,211,-320,146,-320,196,-320,170,-320,155,-320,151,-320},new int[]{-24,15,-23,16,-201,17,-203,535,-250,536,-251,553,-40,929,-35,903,-36,904,-37,905,-38,906,-39,907}));
 
     rules=new Rule[564];
-stringrules[1] = @"$accept -> compilation_unit EOF ";
     rules[1]=new Rule(-78, new int[]{-1,128});
-stringrules[2] = @"literal -> boolean_literal ";
     rules[2]=new Rule(-67, new int[]{-69});
-stringrules[3] = @"literal -> INTEGER_LITERAL ";
     rules[3]=new Rule(-67, new int[]{131});
-stringrules[4] = @"literal -> REAL_LITERAL ";
     rules[4]=new Rule(-67, new int[]{132});
-stringrules[5] = @"literal -> CHARACTER_LITERAL ";
     rules[5]=new Rule(-67, new int[]{133});
-stringrules[6] = @"literal -> STRING_LITERAL ";
     rules[6]=new Rule(-67, new int[]{134});
-stringrules[7] = @"literal -> NULL_LITERAL ";
     rules[7]=new Rule(-67, new int[]{177});
-stringrules[8] = @"literal -> mllit ";
     rules[8]=new Rule(-67, new int[]{-68});
-stringrules[9] = @"mllit -> MLSTRING_LITERAL ";
     rules[9]=new Rule(-68, new int[]{135});
-stringrules[10] = @"mllit -> mllit MLSTRING_LITERAL ";
     rules[10]=new Rule(-68, new int[]{-68,135});
-stringrules[11] = @"boolean_literal -> TRUE ";
     rules[11]=new Rule(-69, new int[]{200});
-stringrules[12] = @"boolean_literal -> FALSE ";
     rules[12]=new Rule(-69, new int[]{159});
-stringrules[13] = @"namespace_name -> qualified_identifier ";
     rules[13]=new Rule(-31, new int[]{-29});
-stringrules[14] = @"type_name -> qualified_identifier ";
     rules[14]=new Rule(-66, new int[]{-29});
-stringrules[15] = @"member_name -> IDENTIFIER type_list_opt ";
     rules[15]=new Rule(-73, new int[]{130,-79});
-stringrules[16] = @"type_list_opt -> ";
     rules[16]=new Rule(-79, new int[]{});
-stringrules[17] = @"type_list_opt -> '<' type_list '>' ";
     rules[17]=new Rule(-79, new int[]{60,-80,62});
-stringrules[18] = @"type_list_opt -> '<' type_list '<' type_list GTGT ";
     rules[18]=new Rule(-79, new int[]{60,-80,60,-80,235});
-stringrules[19] = @"type_list -> type ";
     rules[19]=new Rule(-80, new int[]{-56});
-stringrules[20] = @"type_list -> type_list ',' type ";
     rules[20]=new Rule(-80, new int[]{-80,44,-56});
-stringrules[21] = @"type_arg_list_opt -> ";
     rules[21]=new Rule(-81, new int[]{});
-stringrules[22] = @"type_arg_list_opt -> '<' type_arg_list '>' ";
     rules[22]=new Rule(-81, new int[]{60,-82,62});
-stringrules[23] = @"type_arg_list -> IDENTIFIER ";
     rules[23]=new Rule(-82, new int[]{130});
-stringrules[24] = @"type_arg_list -> type_arg_list ',' IDENTIFIER ";
     rules[24]=new Rule(-82, new int[]{-82,44,130});
-stringrules[25] = @"nullable_opt -> ";
     rules[25]=new Rule(-83, new int[]{});
-stringrules[26] = @"nullable_opt -> '?' ";
     rules[26]=new Rule(-83, new int[]{63});
-stringrules[27] = @"type -> non_array_type nullable_opt ";
     rules[27]=new Rule(-56, new int[]{-58,-83});
-stringrules[28] = @"type -> array_type ";
     rules[28]=new Rule(-56, new int[]{-65});
-stringrules[29] = @"non_array_type -> simple_type ";
     rules[29]=new Rule(-58, new int[]{-59});
-stringrules[30] = @"non_array_type -> type_name ";
     rules[30]=new Rule(-58, new int[]{-66});
-stringrules[31] = @"simple_type -> primitive_type ";
     rules[31]=new Rule(-59, new int[]{-60});
-stringrules[32] = @"simple_type -> class_type ";
     rules[32]=new Rule(-59, new int[]{-61});
-stringrules[33] = @"simple_type -> pointer_type ";
     rules[33]=new Rule(-59, new int[]{-84});
-stringrules[34] = @"primitive_type -> numeric_type ";
     rules[34]=new Rule(-60, new int[]{-62});
-stringrules[35] = @"primitive_type -> BOOL ";
     rules[35]=new Rule(-60, new int[]{139});
-stringrules[36] = @"numeric_type -> integral_type ";
     rules[36]=new Rule(-62, new int[]{-64});
-stringrules[37] = @"numeric_type -> floating_point_type ";
     rules[37]=new Rule(-62, new int[]{-63});
-stringrules[38] = @"numeric_type -> DECIMAL ";
     rules[38]=new Rule(-62, new int[]{149});
-stringrules[39] = @"integral_type -> SBYTE ";
     rules[39]=new Rule(-64, new int[]{189});
-stringrules[40] = @"integral_type -> BYTE ";
     rules[40]=new Rule(-64, new int[]{141});
-stringrules[41] = @"integral_type -> SHORT ";
     rules[41]=new Rule(-64, new int[]{191});
-stringrules[42] = @"integral_type -> USHORT ";
     rules[42]=new Rule(-64, new int[]{207});
-stringrules[43] = @"integral_type -> INT ";
     rules[43]=new Rule(-64, new int[]{169});
-stringrules[44] = @"integral_type -> UINT ";
     rules[44]=new Rule(-64, new int[]{203});
-stringrules[45] = @"integral_type -> LONG ";
     rules[45]=new Rule(-64, new int[]{174});
-stringrules[46] = @"integral_type -> ULONG ";
     rules[46]=new Rule(-64, new int[]{204});
-stringrules[47] = @"integral_type -> CHAR ";
     rules[47]=new Rule(-64, new int[]{144});
-stringrules[48] = @"floating_point_type -> FLOAT ";
     rules[48]=new Rule(-63, new int[]{162});
-stringrules[49] = @"floating_point_type -> DOUBLE ";
     rules[49]=new Rule(-63, new int[]{153});
-stringrules[50] = @"class_type -> OBJECT ";
     rules[50]=new Rule(-61, new int[]{178});
-stringrules[51] = @"class_type -> KW_STRING ";
     rules[51]=new Rule(-61, new int[]{195});
-stringrules[52] = @"pointer_type -> type '*' ";
     rules[52]=new Rule(-84, new int[]{-56,42});
-stringrules[53] = @"pointer_type -> VOID '*' ";
     rules[53]=new Rule(-84, new int[]{210,42});
-stringrules[54] = @"array_type -> array_type rank_specifier ";
     rules[54]=new Rule(-65, new int[]{-65,-85});
-stringrules[55] = @"array_type -> simple_type rank_specifier ";
     rules[55]=new Rule(-65, new int[]{-59,-85});
-stringrules[56] = @"array_type -> qualified_identifier rank_specifier ";
     rules[56]=new Rule(-65, new int[]{-29,-85});
-stringrules[57] = @"rank_specifiers_opt -> ";
     rules[57]=new Rule(-86, new int[]{});
-stringrules[58] = @"rank_specifiers_opt -> rank_specifier rank_specifiers_opt ";
     rules[58]=new Rule(-86, new int[]{-85,-86});
-stringrules[59] = @"rank_specifier -> RANK_SPECIFIER ";
     rules[59]=new Rule(-85, new int[]{129});
-stringrules[60] = @"variable_reference -> expression ";
     rules[60]=new Rule(-87, new int[]{-88});
-stringrules[61] = @"argument_list -> argument ";
     rules[61]=new Rule(-89, new int[]{-90});
-stringrules[62] = @"argument_list -> argument_list ',' argument ";
     rules[62]=new Rule(-89, new int[]{-89,44,-90});
-stringrules[63] = @"argument -> expression ";
     rules[63]=new Rule(-90, new int[]{-88});
-stringrules[64] = @"argument -> REF variable_reference ";
     rules[64]=new Rule(-90, new int[]{187,-87});
-stringrules[65] = @"argument -> OUT variable_reference ";
     rules[65]=new Rule(-90, new int[]{180,-87});
-stringrules[66] = @"primary_expression -> parenthesized_expression ";
     rules[66]=new Rule(-91, new int[]{-92});
-stringrules[67] = @"primary_expression -> primary_expression_no_parenthesis ";
     rules[67]=new Rule(-91, new int[]{-93});
-stringrules[68] = @"primary_expression -> error ";
     rules[68]=new Rule(-91, new int[]{127});
-stringrules[69] = @"primary_expression_no_parenthesis -> literal ";
     rules[69]=new Rule(-93, new int[]{-67});
-stringrules[70] = @"primary_expression_no_parenthesis -> array_creation_expression ";
     rules[70]=new Rule(-93, new int[]{-94});
-stringrules[71] = @"primary_expression_no_parenthesis -> member_access ";
     rules[71]=new Rule(-93, new int[]{-95});
-stringrules[72] = @"primary_expression_no_parenthesis -> invocation_expression ";
     rules[72]=new Rule(-93, new int[]{-96});
-stringrules[73] = @"primary_expression_no_parenthesis -> element_access ";
     rules[73]=new Rule(-93, new int[]{-97});
-stringrules[74] = @"primary_expression_no_parenthesis -> this_access ";
     rules[74]=new Rule(-93, new int[]{-98});
-stringrules[75] = @"primary_expression_no_parenthesis -> base_access ";
     rules[75]=new Rule(-93, new int[]{-99});
-stringrules[76] = @"primary_expression_no_parenthesis -> anon_delegate_expression ";
     rules[76]=new Rule(-93, new int[]{-100});
-stringrules[77] = @"primary_expression_no_parenthesis -> new_expression ";
     rules[77]=new Rule(-93, new int[]{-101});
-stringrules[78] = @"primary_expression_no_parenthesis -> default_expression ";
     rules[78]=new Rule(-93, new int[]{-102});
-stringrules[79] = @"primary_expression_no_parenthesis -> typeof_expression ";
     rules[79]=new Rule(-93, new int[]{-103});
-stringrules[80] = @"primary_expression_no_parenthesis -> sizeof_expression ";
     rules[80]=new Rule(-93, new int[]{-104});
-stringrules[81] = @"primary_expression_no_parenthesis -> checked_expression ";
     rules[81]=new Rule(-93, new int[]{-105});
-stringrules[82] = @"primary_expression_no_parenthesis -> unchecked_expression ";
     rules[82]=new Rule(-93, new int[]{-106});
-stringrules[83] = @"parenthesized_expression -> '(' expression ')' ";
     rules[83]=new Rule(-92, new int[]{40,-88,41});
-stringrules[84] = @"member_access -> primary_expression '.' IDENTIFIER ";
     rules[84]=new Rule(-95, new int[]{-91,46,130});
-stringrules[85] = @"member_access -> primitive_type '.' IDENTIFIER ";
     rules[85]=new Rule(-95, new int[]{-60,46,130});
-stringrules[86] = @"member_access -> class_type '.' IDENTIFIER ";
     rules[86]=new Rule(-95, new int[]{-61,46,130});
-stringrules[87] = @"default_expression -> DEFAULT '(' type ')' ";
     rules[87]=new Rule(-102, new int[]{150,40,-56,41});
-stringrules[88] = @"invocation_expression -> primary_expression_no_parenthesis '(' argument_list_opt ')' ";
     rules[88]=new Rule(-96, new int[]{-93,40,-107,41});
-stringrules[89] = @"invocation_expression -> qualified_identifier '(' argument_list_opt ')' ";
     rules[89]=new Rule(-96, new int[]{-29,40,-107,41});
-stringrules[90] = @"argument_list_opt -> ";
     rules[90]=new Rule(-107, new int[]{});
-stringrules[91] = @"argument_list_opt -> argument_list ";
     rules[91]=new Rule(-107, new int[]{-89});
-stringrules[92] = @"element_access -> primary_expression '[' expression_list ']' ";
     rules[92]=new Rule(-97, new int[]{-91,91,-108,93});
-stringrules[93] = @"element_access -> qualified_identifier '[' expression_list ']' ";
     rules[93]=new Rule(-97, new int[]{-29,91,-108,93});
-stringrules[94] = @"expression_list_opt -> ";
     rules[94]=new Rule(-109, new int[]{});
-stringrules[95] = @"expression_list_opt -> expression_list ";
     rules[95]=new Rule(-109, new int[]{-108});
-stringrules[96] = @"expression_list -> expression ";
     rules[96]=new Rule(-108, new int[]{-88});
-stringrules[97] = @"expression_list -> expression_list ',' expression ";
     rules[97]=new Rule(-108, new int[]{-108,44,-88});
-stringrules[98] = @"this_access -> THIS ";
     rules[98]=new Rule(-98, new int[]{198});
-stringrules[99] = @"base_access -> BASE '.' IDENTIFIER ";
     rules[99]=new Rule(-99, new int[]{138,46,130});
-stringrules[100] = @"base_access -> BASE '[' expression_list ']' ";
     rules[100]=new Rule(-99, new int[]{138,91,-108,93});
-stringrules[101] = @"post_increment_expression -> postfix_expression PLUSPLUS ";
     rules[101]=new Rule(-110, new int[]{-111,247});
-stringrules[102] = @"post_decrement_expression -> postfix_expression MINUSMINUS ";
     rules[102]=new Rule(-112, new int[]{-111,248});
-stringrules[103] = @"anon_delegate_expression -> DELEGATE '(' formal_parameter_list_opt ')' method_body ";
     rules[103]=new Rule(-100, new int[]{151,40,-11,41,-113});
-stringrules[104] = @"new_expression -> object_creation_expression ";
     rules[104]=new Rule(-101, new int[]{-114});
-stringrules[105] = @"object_creation_expression -> NEW type '(' argument_list_opt ')' ";
     rules[105]=new Rule(-114, new int[]{176,-56,40,-107,41});
-stringrules[106] = @"object_creation_expression -> NEW error ";
     rules[106]=new Rule(-114, new int[]{176,127});
-stringrules[107] = @"array_creation_expression -> NEW non_array_type '[' expression_list ']' rank_specifiers_opt array_initializer_opt ";
     rules[107]=new Rule(-94, new int[]{176,-58,91,-108,93,-86,-115});
-stringrules[108] = @"array_creation_expression -> NEW array_type array_initializer ";
     rules[108]=new Rule(-94, new int[]{176,-65,-116});
-stringrules[109] = @"array_initializer_opt -> ";
     rules[109]=new Rule(-115, new int[]{});
-stringrules[110] = @"array_initializer_opt -> array_initializer ";
     rules[110]=new Rule(-115, new int[]{-116});
-stringrules[111] = @"typeof_expression -> TYPEOF '(' type ')' ";
     rules[111]=new Rule(-103, new int[]{202,40,-56,41});
-stringrules[112] = @"typeof_expression -> TYPEOF '(' VOID ')' ";
     rules[112]=new Rule(-103, new int[]{202,40,210,41});
-stringrules[113] = @"checked_expression -> CHECKED '(' expression ')' ";
     rules[113]=new Rule(-105, new int[]{145,40,-88,41});
-stringrules[114] = @"unchecked_expression -> UNCHECKED '(' expression ')' ";
     rules[114]=new Rule(-106, new int[]{205,40,-88,41});
-stringrules[115] = @"pointer_member_access -> postfix_expression ARROW IDENTIFIER ";
     rules[115]=new Rule(-117, new int[]{-111,249,130});
-stringrules[116] = @"addressof_expression -> '&' unary_expression ";
     rules[116]=new Rule(-118, new int[]{38,-119});
-stringrules[117] = @"sizeof_expression -> SIZEOF '(' type ')' ";
     rules[117]=new Rule(-104, new int[]{192,40,-56,41});
-stringrules[118] = @"postfix_expression -> primary_expression ";
     rules[118]=new Rule(-111, new int[]{-91});
-stringrules[119] = @"postfix_expression -> qualified_identifier ";
     rules[119]=new Rule(-111, new int[]{-29});
-stringrules[120] = @"postfix_expression -> post_increment_expression ";
     rules[120]=new Rule(-111, new int[]{-110});
-stringrules[121] = @"postfix_expression -> post_decrement_expression ";
     rules[121]=new Rule(-111, new int[]{-112});
-stringrules[122] = @"postfix_expression -> pointer_member_access ";
     rules[122]=new Rule(-111, new int[]{-117});
-stringrules[123] = @"unary_expression_not_plusminus -> postfix_expression ";
     rules[123]=new Rule(-120, new int[]{-111});
-stringrules[124] = @"unary_expression_not_plusminus -> '!' unary_expression ";
     rules[124]=new Rule(-120, new int[]{33,-119});
-stringrules[125] = @"unary_expression_not_plusminus -> '~' unary_expression ";
     rules[125]=new Rule(-120, new int[]{126,-119});
-stringrules[126] = @"unary_expression_not_plusminus -> cast_expression ";
     rules[126]=new Rule(-120, new int[]{-121});
-stringrules[127] = @"pre_increment_expression -> PLUSPLUS unary_expression ";
     rules[127]=new Rule(-122, new int[]{247,-119});
-stringrules[128] = @"pre_decrement_expression -> MINUSMINUS unary_expression ";
     rules[128]=new Rule(-123, new int[]{248,-119});
-stringrules[129] = @"unary_expression -> unary_expression_not_plusminus ";
     rules[129]=new Rule(-119, new int[]{-120});
-stringrules[130] = @"unary_expression -> '+' unary_expression ";
     rules[130]=new Rule(-119, new int[]{43,-119});
-stringrules[131] = @"unary_expression -> '-' unary_expression ";
     rules[131]=new Rule(-119, new int[]{45,-119});
-stringrules[132] = @"unary_expression -> '*' unary_expression ";
     rules[132]=new Rule(-119, new int[]{42,-119});
-stringrules[133] = @"unary_expression -> pre_increment_expression ";
     rules[133]=new Rule(-119, new int[]{-122});
-stringrules[134] = @"unary_expression -> pre_decrement_expression ";
     rules[134]=new Rule(-119, new int[]{-123});
-stringrules[135] = @"unary_expression -> addressof_expression ";
     rules[135]=new Rule(-119, new int[]{-118});
-stringrules[136] = @"cast_expression -> '(' expression ')' unary_expression_not_plusminus ";
     rules[136]=new Rule(-121, new int[]{40,-88,41,-120});
-stringrules[137] = @"cast_expression -> '(' multiplicative_expression '*' ')' unary_expression ";
     rules[137]=new Rule(-121, new int[]{40,-124,42,41,-119});
-stringrules[138] = @"cast_expression -> '(' qualified_identifier rank_specifier type_quals_opt ')' unary_expression ";
     rules[138]=new Rule(-121, new int[]{40,-29,-85,-125,41,-119});
-stringrules[139] = @"cast_expression -> '(' primitive_type type_quals_opt ')' unary_expression ";
     rules[139]=new Rule(-121, new int[]{40,-60,-125,41,-119});
-stringrules[140] = @"cast_expression -> '(' class_type type_quals_opt ')' unary_expression ";
     rules[140]=new Rule(-121, new int[]{40,-61,-125,41,-119});
-stringrules[141] = @"cast_expression -> '(' VOID type_quals_opt ')' unary_expression ";
     rules[141]=new Rule(-121, new int[]{40,210,-125,41,-119});
-stringrules[142] = @"type_quals_opt -> ";
     rules[142]=new Rule(-125, new int[]{});
-stringrules[143] = @"type_quals_opt -> type_quals ";
     rules[143]=new Rule(-125, new int[]{-126});
-stringrules[144] = @"type_quals -> type_qual ";
     rules[144]=new Rule(-126, new int[]{-127});
-stringrules[145] = @"type_quals -> type_quals type_qual ";
     rules[145]=new Rule(-126, new int[]{-126,-127});
-stringrules[146] = @"type_qual -> rank_specifier ";
     rules[146]=new Rule(-127, new int[]{-85});
-stringrules[147] = @"type_qual -> '*' ";
     rules[147]=new Rule(-127, new int[]{42});
-stringrules[148] = @"multiplicative_expression -> unary_expression ";
     rules[148]=new Rule(-124, new int[]{-119});
-stringrules[149] = @"multiplicative_expression -> multiplicative_expression '*' unary_expression ";
     rules[149]=new Rule(-124, new int[]{-124,42,-119});
-stringrules[150] = @"multiplicative_expression -> multiplicative_expression '/' unary_expression ";
     rules[150]=new Rule(-124, new int[]{-124,47,-119});
-stringrules[151] = @"multiplicative_expression -> multiplicative_expression '%' unary_expression ";
     rules[151]=new Rule(-124, new int[]{-124,37,-119});
-stringrules[152] = @"additive_expression -> multiplicative_expression ";
     rules[152]=new Rule(-128, new int[]{-124});
-stringrules[153] = @"additive_expression -> additive_expression '+' multiplicative_expression ";
     rules[153]=new Rule(-128, new int[]{-128,43,-124});
-stringrules[154] = @"additive_expression -> additive_expression '-' multiplicative_expression ";
     rules[154]=new Rule(-128, new int[]{-128,45,-124});
-stringrules[155] = @"shift_expression -> additive_expression ";
     rules[155]=new Rule(-129, new int[]{-128});
-stringrules[156] = @"shift_expression -> shift_expression LTLT additive_expression ";
     rules[156]=new Rule(-129, new int[]{-129,239,-128});
-stringrules[157] = @"shift_expression -> shift_expression GTGT additive_expression ";
     rules[157]=new Rule(-129, new int[]{-129,235,-128});
-stringrules[158] = @"relational_expression -> shift_expression ";
     rules[158]=new Rule(-130, new int[]{-129});
-stringrules[159] = @"relational_expression -> relational_expression '<' shift_expression ";
     rules[159]=new Rule(-130, new int[]{-130,60,-129});
-stringrules[160] = @"relational_expression -> relational_expression '>' shift_expression ";
     rules[160]=new Rule(-130, new int[]{-130,62,-129});
-stringrules[161] = @"relational_expression -> relational_expression LEQ shift_expression ";
     rules[161]=new Rule(-130, new int[]{-130,243,-129});
-stringrules[162] = @"relational_expression -> relational_expression GEQ shift_expression ";
     rules[162]=new Rule(-130, new int[]{-130,244,-129});
-stringrules[163] = @"relational_expression -> relational_expression IS type ";
     rules[163]=new Rule(-130, new int[]{-130,172,-56});
-stringrules[164] = @"relational_expression -> relational_expression AS type ";
     rules[164]=new Rule(-130, new int[]{-130,137,-56});
-stringrules[165] = @"equality_expression -> relational_expression ";
     rules[165]=new Rule(-131, new int[]{-130});
-stringrules[166] = @"equality_expression -> equality_expression EQEQ relational_expression ";
     rules[166]=new Rule(-131, new int[]{-131,241,-130});
-stringrules[167] = @"equality_expression -> equality_expression NOTEQ relational_expression ";
     rules[167]=new Rule(-131, new int[]{-131,242,-130});
-stringrules[168] = @"and_expression -> equality_expression ";
     rules[168]=new Rule(-132, new int[]{-131});
-stringrules[169] = @"and_expression -> and_expression '&' equality_expression ";
     rules[169]=new Rule(-132, new int[]{-132,38,-131});
-stringrules[170] = @"exclusive_or_expression -> and_expression ";
     rules[170]=new Rule(-133, new int[]{-132});
-stringrules[171] = @"exclusive_or_expression -> exclusive_or_expression '^' and_expression ";
     rules[171]=new Rule(-133, new int[]{-133,94,-132});
-stringrules[172] = @"inclusive_or_expression -> exclusive_or_expression ";
     rules[172]=new Rule(-134, new int[]{-133});
-stringrules[173] = @"inclusive_or_expression -> inclusive_or_expression '|' exclusive_or_expression ";
     rules[173]=new Rule(-134, new int[]{-134,124,-133});
-stringrules[174] = @"conditional_and_expression -> inclusive_or_expression ";
     rules[174]=new Rule(-135, new int[]{-134});
-stringrules[175] = @"conditional_and_expression -> conditional_and_expression ANDAND inclusive_or_expression ";
     rules[175]=new Rule(-135, new int[]{-135,245,-134});
-stringrules[176] = @"conditional_or_expression -> conditional_and_expression ";
     rules[176]=new Rule(-136, new int[]{-135});
-stringrules[177] = @"conditional_or_expression -> conditional_or_expression OROR conditional_and_expression ";
     rules[177]=new Rule(-136, new int[]{-136,246,-135});
-stringrules[178] = @"conditional_expression -> conditional_or_expression ";
     rules[178]=new Rule(-137, new int[]{-136});
-stringrules[179] = @"conditional_expression -> conditional_or_expression '?' expression ':' expression ";
     rules[179]=new Rule(-137, new int[]{-136,63,-88,58,-88});
-stringrules[180] = @"conditional_expression -> conditional_or_expression QQ expression ";
     rules[180]=new Rule(-137, new int[]{-136,233,-88});
-stringrules[181] = @"assignment -> unary_expression assignment_operator expression ";
     rules[181]=new Rule(-138, new int[]{-119,-139,-88});
-stringrules[182] = @"assignment_operator -> '=' ";
     rules[182]=new Rule(-139, new int[]{61});
-stringrules[183] = @"assignment_operator -> PLUSEQ ";
     rules[183]=new Rule(-139, new int[]{228});
-stringrules[184] = @"assignment_operator -> MINUSEQ ";
     rules[184]=new Rule(-139, new int[]{229});
-stringrules[185] = @"assignment_operator -> STAREQ ";
     rules[185]=new Rule(-139, new int[]{230});
-stringrules[186] = @"assignment_operator -> DIVEQ ";
     rules[186]=new Rule(-139, new int[]{231});
-stringrules[187] = @"assignment_operator -> MODEQ ";
     rules[187]=new Rule(-139, new int[]{232});
-stringrules[188] = @"assignment_operator -> XOREQ ";
     rules[188]=new Rule(-139, new int[]{236});
-stringrules[189] = @"assignment_operator -> ANDEQ ";
     rules[189]=new Rule(-139, new int[]{237});
-stringrules[190] = @"assignment_operator -> OREQ ";
     rules[190]=new Rule(-139, new int[]{238});
-stringrules[191] = @"assignment_operator -> LTLTEQ ";
     rules[191]=new Rule(-139, new int[]{240});
-stringrules[192] = @"assignment_operator -> GTGTEQ ";
     rules[192]=new Rule(-139, new int[]{234});
-stringrules[193] = @"expression -> conditional_expression ";
     rules[193]=new Rule(-88, new int[]{-137});
-stringrules[194] = @"expression -> assignment ";
     rules[194]=new Rule(-88, new int[]{-138});
-stringrules[195] = @"constant_expression -> expression ";
     rules[195]=new Rule(-140, new int[]{-88});
-stringrules[196] = @"boolean_expression -> expression ";
     rules[196]=new Rule(-141, new int[]{-88});
-stringrules[197] = @"statement -> labeled_statement ";
     rules[197]=new Rule(-142, new int[]{-143});
-stringrules[198] = @"statement -> declaration_statement ";
     rules[198]=new Rule(-142, new int[]{-144});
-stringrules[199] = @"statement -> embedded_statement ";
     rules[199]=new Rule(-142, new int[]{-145});
-stringrules[200] = @"embedded_statement -> block ";
     rules[200]=new Rule(-145, new int[]{-146});
-stringrules[201] = @"embedded_statement -> empty_statement ";
     rules[201]=new Rule(-145, new int[]{-147});
-stringrules[202] = @"embedded_statement -> expression_statement ";
     rules[202]=new Rule(-145, new int[]{-148});
-stringrules[203] = @"embedded_statement -> selection_statement ";
     rules[203]=new Rule(-145, new int[]{-149});
-stringrules[204] = @"embedded_statement -> iteration_statement ";
     rules[204]=new Rule(-145, new int[]{-150});
-stringrules[205] = @"embedded_statement -> jump_statement ";
     rules[205]=new Rule(-145, new int[]{-151});
-stringrules[206] = @"embedded_statement -> try_statement ";
     rules[206]=new Rule(-145, new int[]{-152});
-stringrules[207] = @"embedded_statement -> checked_statement ";
     rules[207]=new Rule(-145, new int[]{-153});
-stringrules[208] = @"embedded_statement -> unchecked_statement ";
     rules[208]=new Rule(-145, new int[]{-154});
-stringrules[209] = @"embedded_statement -> lock_statement ";
     rules[209]=new Rule(-145, new int[]{-155});
-stringrules[210] = @"embedded_statement -> using_statement ";
     rules[210]=new Rule(-145, new int[]{-156});
-stringrules[211] = @"embedded_statement -> unsafe_statement ";
     rules[211]=new Rule(-145, new int[]{-157});
-stringrules[212] = @"embedded_statement -> fixed_statement ";
     rules[212]=new Rule(-145, new int[]{-158});
-stringrules[213] = @"block -> '{' statement_list_opt '}' ";
     rules[213]=new Rule(-146, new int[]{123,-159,125});
-stringrules[214] = @"statement_list_opt -> ";
     rules[214]=new Rule(-159, new int[]{});
-stringrules[215] = @"statement_list_opt -> statement_list ";
     rules[215]=new Rule(-159, new int[]{-160});
-stringrules[216] = @"statement_list -> statement ";
     rules[216]=new Rule(-160, new int[]{-142});
-stringrules[217] = @"statement_list -> statement_list statement ";
     rules[217]=new Rule(-160, new int[]{-160,-142});
-stringrules[218] = @"empty_statement -> ';' ";
     rules[218]=new Rule(-147, new int[]{59});
-stringrules[219] = @"labeled_statement -> IDENTIFIER ':' statement ";
     rules[219]=new Rule(-143, new int[]{130,58,-142});
-stringrules[220] = @"declaration_statement -> local_variable_declaration ';' ";
     rules[220]=new Rule(-144, new int[]{-161,59});
-stringrules[221] = @"declaration_statement -> local_constant_declaration ';' ";
     rules[221]=new Rule(-144, new int[]{-162,59});
-stringrules[222] = @"local_variable_declaration -> type variable_declarators ";
     rules[222]=new Rule(-161, new int[]{-56,-70});
-stringrules[223] = @"variable_declarators -> variable_declarator ";
     rules[223]=new Rule(-70, new int[]{-33});
-stringrules[224] = @"variable_declarators -> variable_declarators ',' variable_declarator ";
     rules[224]=new Rule(-70, new int[]{-70,44,-33});
-stringrules[225] = @"variable_declarator -> IDENTIFIER ";
     rules[225]=new Rule(-33, new int[]{130});
-stringrules[226] = @"variable_declarator -> IDENTIFIER '=' variable_initializer ";
     rules[226]=new Rule(-33, new int[]{130,61,-163});
-stringrules[227] = @"variable_initializer -> expression ";
     rules[227]=new Rule(-163, new int[]{-88});
-stringrules[228] = @"variable_initializer -> array_initializer ";
     rules[228]=new Rule(-163, new int[]{-116});
-stringrules[229] = @"variable_initializer -> stackalloc_initializer ";
     rules[229]=new Rule(-163, new int[]{-164});
-stringrules[230] = @"stackalloc_initializer -> STACKALLOC type '[' expression ']' ";
     rules[230]=new Rule(-164, new int[]{193,-56,91,-88,93});
-stringrules[231] = @"local_constant_declaration -> CONST type constant_declarators ";
     rules[231]=new Rule(-162, new int[]{147,-56,-71});
-stringrules[232] = @"constant_declarators -> constant_declarator ";
     rules[232]=new Rule(-71, new int[]{-32});
-stringrules[233] = @"constant_declarators -> constant_declarators ',' constant_declarator ";
     rules[233]=new Rule(-71, new int[]{-71,44,-32});
-stringrules[234] = @"constant_declarator -> IDENTIFIER '=' constant_expression ";
     rules[234]=new Rule(-32, new int[]{130,61,-140});
-stringrules[235] = @"expression_statement -> statement_expression ';' ";
     rules[235]=new Rule(-148, new int[]{-165,59});
-stringrules[236] = @"statement_expression -> invocation_expression ";
     rules[236]=new Rule(-165, new int[]{-96});
-stringrules[237] = @"statement_expression -> object_creation_expression ";
     rules[237]=new Rule(-165, new int[]{-114});
-stringrules[238] = @"statement_expression -> assignment ";
     rules[238]=new Rule(-165, new int[]{-138});
-stringrules[239] = @"statement_expression -> post_increment_expression ";
     rules[239]=new Rule(-165, new int[]{-110});
-stringrules[240] = @"statement_expression -> post_decrement_expression ";
     rules[240]=new Rule(-165, new int[]{-112});
-stringrules[241] = @"statement_expression -> pre_increment_expression ";
     rules[241]=new Rule(-165, new int[]{-122});
-stringrules[242] = @"statement_expression -> pre_decrement_expression ";
     rules[242]=new Rule(-165, new int[]{-123});
-stringrules[243] = @"selection_statement -> if_statement ";
     rules[243]=new Rule(-149, new int[]{-166});
-stringrules[244] = @"selection_statement -> switch_statement ";
     rules[244]=new Rule(-149, new int[]{-167});
-stringrules[245] = @"if_statement -> IF '(' boolean_expression ')' embedded_statement ";
     rules[245]=new Rule(-166, new int[]{166,40,-141,41,-145});
-stringrules[246] = @"if_statement -> IF '(' boolean_expression ')' embedded_statement ELSE embedded_statement ";
     rules[246]=new Rule(-166, new int[]{166,40,-141,41,-145,154,-145});
-stringrules[247] = @"switch_statement -> SWITCH '(' expression ')' switch_block ";
     rules[247]=new Rule(-167, new int[]{197,40,-88,41,-168});
-stringrules[248] = @"switch_block -> '{' switch_sections_opt '}' ";
     rules[248]=new Rule(-168, new int[]{123,-169,125});
-stringrules[249] = @"switch_sections_opt -> ";
     rules[249]=new Rule(-169, new int[]{});
-stringrules[250] = @"switch_sections_opt -> switch_sections ";
     rules[250]=new Rule(-169, new int[]{-170});
-stringrules[251] = @"switch_sections -> switch_section ";
     rules[251]=new Rule(-170, new int[]{-171});
-stringrules[252] = @"switch_sections -> switch_sections switch_section ";
     rules[252]=new Rule(-170, new int[]{-170,-171});
-stringrules[253] = @"switch_section -> switch_labels statement_list ";
     rules[253]=new Rule(-171, new int[]{-172,-160});
-stringrules[254] = @"switch_labels -> switch_label ";
     rules[254]=new Rule(-172, new int[]{-173});
-stringrules[255] = @"switch_labels -> switch_labels switch_label ";
     rules[255]=new Rule(-172, new int[]{-172,-173});
-stringrules[256] = @"switch_label -> CASE constant_expression ':' ";
     rules[256]=new Rule(-173, new int[]{142,-140,58});
-stringrules[257] = @"switch_label -> DEFAULT ':' ";
     rules[257]=new Rule(-173, new int[]{150,58});
-stringrules[258] = @"iteration_statement -> while_statement ";
     rules[258]=new Rule(-150, new int[]{-174});
-stringrules[259] = @"iteration_statement -> do_statement ";
     rules[259]=new Rule(-150, new int[]{-175});
-stringrules[260] = @"iteration_statement -> for_statement ";
     rules[260]=new Rule(-150, new int[]{-176});
-stringrules[261] = @"iteration_statement -> foreach_statement ";
     rules[261]=new Rule(-150, new int[]{-177});
-stringrules[262] = @"unsafe_statement -> UNSAFE block ";
     rules[262]=new Rule(-157, new int[]{206,-146});
-stringrules[263] = @"while_statement -> WHILE '(' boolean_expression ')' embedded_statement ";
     rules[263]=new Rule(-174, new int[]{212,40,-141,41,-145});
-stringrules[264] = @"do_statement -> DO embedded_statement WHILE '(' boolean_expression ')' ';' ";
     rules[264]=new Rule(-175, new int[]{152,-145,212,40,-141,41,59});
-stringrules[265] = @"@1 -> ";
     rules[265]=new Rule(-181, new int[]{});
-stringrules[266] = @"for_statement -> FOR '(' for_initializer_opt ';' for_condition_opt ';' for_iterator_opt ')' @1 embedded_statement ";
     rules[266]=new Rule(-176, new int[]{163,40,-178,59,-179,59,-180,41,-181,-145});
-stringrules[267] = @"for_initializer_opt -> ";
     rules[267]=new Rule(-178, new int[]{});
-stringrules[268] = @"for_initializer_opt -> for_initializer ";
     rules[268]=new Rule(-178, new int[]{-182});
-stringrules[269] = @"for_condition_opt -> ";
     rules[269]=new Rule(-179, new int[]{});
-stringrules[270] = @"for_condition_opt -> for_condition ";
     rules[270]=new Rule(-179, new int[]{-183});
-stringrules[271] = @"for_iterator_opt -> ";
     rules[271]=new Rule(-180, new int[]{});
-stringrules[272] = @"for_iterator_opt -> for_iterator ";
     rules[272]=new Rule(-180, new int[]{-184});
-stringrules[273] = @"for_initializer -> local_variable_declaration ";
     rules[273]=new Rule(-182, new int[]{-161});
-stringrules[274] = @"for_initializer -> statement_expression_list ";
     rules[274]=new Rule(-182, new int[]{-185});
-stringrules[275] = @"for_condition -> boolean_expression ";
     rules[275]=new Rule(-183, new int[]{-141});
-stringrules[276] = @"for_iterator -> statement_expression_list ";
     rules[276]=new Rule(-184, new int[]{-185});
-stringrules[277] = @"statement_expression_list -> statement_expression ";
     rules[277]=new Rule(-185, new int[]{-165});
-stringrules[278] = @"statement_expression_list -> statement_expression_list ',' statement_expression ";
     rules[278]=new Rule(-185, new int[]{-185,44,-165});
-stringrules[279] = @"foreach_statement -> FOREACH '(' type IDENTIFIER IN expression ')' embedded_statement ";
     rules[279]=new Rule(-177, new int[]{164,40,-56,130,168,-88,41,-145});
-stringrules[280] = @"jump_statement -> break_statement ";
     rules[280]=new Rule(-151, new int[]{-186});
-stringrules[281] = @"jump_statement -> continue_statement ";
     rules[281]=new Rule(-151, new int[]{-187});
-stringrules[282] = @"jump_statement -> goto_statement ";
     rules[282]=new Rule(-151, new int[]{-188});
-stringrules[283] = @"jump_statement -> return_statement ";
     rules[283]=new Rule(-151, new int[]{-189});
-stringrules[284] = @"jump_statement -> throw_statement ";
     rules[284]=new Rule(-151, new int[]{-190});
-stringrules[285] = @"break_statement -> BREAK ';' ";
     rules[285]=new Rule(-186, new int[]{140,59});
-stringrules[286] = @"continue_statement -> CONTINUE ';' ";
     rules[286]=new Rule(-187, new int[]{148,59});
-stringrules[287] = @"goto_statement -> GOTO IDENTIFIER ';' ";
     rules[287]=new Rule(-188, new int[]{165,130,59});
-stringrules[288] = @"goto_statement -> GOTO CASE constant_expression ';' ";
     rules[288]=new Rule(-188, new int[]{165,142,-140,59});
-stringrules[289] = @"goto_statement -> GOTO DEFAULT ';' ";
     rules[289]=new Rule(-188, new int[]{165,150,59});
-stringrules[290] = @"return_statement -> RETURN expression_opt ';' ";
     rules[290]=new Rule(-189, new int[]{188,-191,59});
-stringrules[291] = @"expression_opt -> ";
     rules[291]=new Rule(-191, new int[]{});
-stringrules[292] = @"expression_opt -> expression ";
     rules[292]=new Rule(-191, new int[]{-88});
-stringrules[293] = @"throw_statement -> THROW expression_opt ';' ";
     rules[293]=new Rule(-190, new int[]{199,-191,59});
-stringrules[294] = @"try_statement -> TRY block catch_clauses ";
     rules[294]=new Rule(-152, new int[]{201,-146,-192});
-stringrules[295] = @"try_statement -> TRY block finally_clause ";
     rules[295]=new Rule(-152, new int[]{201,-146,-193});
-stringrules[296] = @"try_statement -> TRY block catch_clauses finally_clause ";
     rules[296]=new Rule(-152, new int[]{201,-146,-192,-193});
-stringrules[297] = @"catch_clauses -> catch_clause ";
     rules[297]=new Rule(-192, new int[]{-194});
-stringrules[298] = @"catch_clauses -> catch_clauses catch_clause ";
     rules[298]=new Rule(-192, new int[]{-192,-194});
-stringrules[299] = @"catch_clause -> CATCH '(' class_type identifier_opt ')' block ";
     rules[299]=new Rule(-194, new int[]{143,40,-61,-195,41,-146});
-stringrules[300] = @"catch_clause -> CATCH '(' type_name identifier_opt ')' block ";
     rules[300]=new Rule(-194, new int[]{143,40,-66,-195,41,-146});
-stringrules[301] = @"catch_clause -> CATCH block ";
     rules[301]=new Rule(-194, new int[]{143,-146});
-stringrules[302] = @"identifier_opt -> ";
     rules[302]=new Rule(-195, new int[]{});
-stringrules[303] = @"identifier_opt -> IDENTIFIER ";
     rules[303]=new Rule(-195, new int[]{130});
-stringrules[304] = @"finally_clause -> FINALLY block ";
     rules[304]=new Rule(-193, new int[]{160,-146});
-stringrules[305] = @"checked_statement -> CHECKED block ";
     rules[305]=new Rule(-153, new int[]{145,-146});
-stringrules[306] = @"unchecked_statement -> UNCHECKED block ";
     rules[306]=new Rule(-154, new int[]{205,-146});
-stringrules[307] = @"lock_statement -> LOCK '(' expression ')' embedded_statement ";
     rules[307]=new Rule(-155, new int[]{173,40,-88,41,-145});
-stringrules[308] = @"using_statement -> USING '(' resource_acquisition ')' embedded_statement ";
     rules[308]=new Rule(-156, new int[]{208,40,-196,41,-145});
-stringrules[309] = @"resource_acquisition -> local_variable_declaration ";
     rules[309]=new Rule(-196, new int[]{-161});
-stringrules[310] = @"resource_acquisition -> expression ";
     rules[310]=new Rule(-196, new int[]{-88});
-stringrules[311] = @"@2 -> ";
     rules[311]=new Rule(-198, new int[]{});
-stringrules[312] = @"fixed_statement -> FIXED '(' type fixed_pointer_declarators ')' @2 embedded_statement ";
     rules[312]=new Rule(-158, new int[]{161,40,-56,-197,41,-198,-145});
-stringrules[313] = @"fixed_pointer_declarators -> fixed_pointer_declarator ";
     rules[313]=new Rule(-197, new int[]{-199});
-stringrules[314] = @"fixed_pointer_declarators -> fixed_pointer_declarators ',' fixed_pointer_declarator ";
     rules[314]=new Rule(-197, new int[]{-197,44,-199});
-stringrules[315] = @"fixed_pointer_declarator -> IDENTIFIER '=' expression ";
     rules[315]=new Rule(-199, new int[]{130,61,-88});
-stringrules[316] = @"compilation_unit -> using_directives_opt attributes_opt ";
     rules[316]=new Rule(-1, new int[]{-200,-201});
-stringrules[317] = @"compilation_unit -> using_directives_opt namespace_member_declarations ";
     rules[317]=new Rule(-1, new int[]{-200,-2});
-stringrules[318] = @"using_directives_opt -> ";
     rules[318]=new Rule(-200, new int[]{});
-stringrules[319] = @"using_directives_opt -> using_directives ";
     rules[319]=new Rule(-200, new int[]{-202});
-stringrules[320] = @"attributes_opt -> ";
     rules[320]=new Rule(-201, new int[]{});
-stringrules[321] = @"attributes_opt -> attributes ";
     rules[321]=new Rule(-201, new int[]{-203});
-stringrules[322] = @"namespace_member_declarations_opt -> ";
     rules[322]=new Rule(-4, new int[]{});
-stringrules[323] = @"namespace_member_declarations_opt -> namespace_member_declarations ";
     rules[323]=new Rule(-4, new int[]{-2});
-stringrules[324] = @"namespace_declaration -> attributes_opt NAMESPACE qualified_identifier namespace_body comma_opt ";
     rules[324]=new Rule(-23, new int[]{-201,175,-29,-3,-204});
-stringrules[325] = @"comma_opt -> ";
     rules[325]=new Rule(-204, new int[]{});
-stringrules[326] = @"comma_opt -> ';' ";
     rules[326]=new Rule(-204, new int[]{59});
-stringrules[327] = @"qualified_identifier -> gen_qualified_identifier ";
     rules[327]=new Rule(-29, new int[]{-74});
-stringrules[328] = @"qualifier -> norm_qualifier ";
     rules[328]=new Rule(-30, new int[]{-77});
-stringrules[329] = @"norm_qualified_identifier -> IDENTIFIER ";
     rules[329]=new Rule(-75, new int[]{130});
-stringrules[330] = @"norm_qualified_identifier -> norm_qualifier IDENTIFIER ";
     rules[330]=new Rule(-75, new int[]{-77,130});
-stringrules[331] = @"norm_qualifier -> IDENTIFIER '.' ";
     rules[331]=new Rule(-77, new int[]{130,46});
-stringrules[332] = @"norm_qualifier -> norm_qualifier IDENTIFIER '.' ";
     rules[332]=new Rule(-77, new int[]{-77,130,46});
-stringrules[333] = @"gen_qualified_identifier -> member_name ";
     rules[333]=new Rule(-74, new int[]{-73});
-stringrules[334] = @"gen_qualified_identifier -> gen_qualifier member_name ";
     rules[334]=new Rule(-74, new int[]{-76,-73});
-stringrules[335] = @"gen_qualifier -> member_name '.' ";
     rules[335]=new Rule(-76, new int[]{-73,46});
-stringrules[336] = @"gen_qualifier -> gen_qualifier member_name '.' ";
     rules[336]=new Rule(-76, new int[]{-76,-73,46});
-stringrules[337] = @"namespace_body -> '{' using_directives_opt namespace_member_declarations_opt '}' ";
     rules[337]=new Rule(-3, new int[]{123,-200,-4,125});
-stringrules[338] = @"using_directives -> using_directive ";
     rules[338]=new Rule(-202, new int[]{-205});
-stringrules[339] = @"using_directives -> using_directives using_directive ";
     rules[339]=new Rule(-202, new int[]{-202,-205});
-stringrules[340] = @"using_directive -> using_alias_directive ";
     rules[340]=new Rule(-205, new int[]{-206});
-stringrules[341] = @"using_directive -> using_namespace_directive ";
     rules[341]=new Rule(-205, new int[]{-207});
-stringrules[342] = @"using_alias_directive -> USING IDENTIFIER '=' qualified_identifier ';' ";
     rules[342]=new Rule(-206, new int[]{208,130,61,-29,59});
-stringrules[343] = @"using_namespace_directive -> USING namespace_name ';' ";
     rules[343]=new Rule(-207, new int[]{208,-31,59});
-stringrules[344] = @"using_namespace_directive -> USING error ";
     rules[344]=new Rule(-207, new int[]{208,127});
-stringrules[345] = @"namespace_member_declarations -> namespace_member_declaration ";
     rules[345]=new Rule(-2, new int[]{-24});
-stringrules[346] = @"namespace_member_declarations -> namespace_member_declarations namespace_member_declaration ";
     rules[346]=new Rule(-2, new int[]{-2,-24});
-stringrules[347] = @"namespace_member_declaration -> namespace_declaration ";
     rules[347]=new Rule(-24, new int[]{-23});
-stringrules[348] = @"namespace_member_declaration -> type_declaration ";
     rules[348]=new Rule(-24, new int[]{-40});
-stringrules[349] = @"namespace_member_declaration -> error ";
     rules[349]=new Rule(-24, new int[]{127});
-stringrules[350] = @"type_declaration -> class_declaration ";
     rules[350]=new Rule(-40, new int[]{-35});
-stringrules[351] = @"type_declaration -> struct_declaration ";
     rules[351]=new Rule(-40, new int[]{-36});
-stringrules[352] = @"type_declaration -> interface_declaration ";
     rules[352]=new Rule(-40, new int[]{-37});
-stringrules[353] = @"type_declaration -> enum_declaration ";
     rules[353]=new Rule(-40, new int[]{-38});
-stringrules[354] = @"type_declaration -> delegate_declaration ";
     rules[354]=new Rule(-40, new int[]{-39});
-stringrules[355] = @"modifiers_opt -> ";
     rules[355]=new Rule(-208, new int[]{});
-stringrules[356] = @"modifiers_opt -> modifiers ";
     rules[356]=new Rule(-208, new int[]{-209});
-stringrules[357] = @"modifiers -> modifier ";
     rules[357]=new Rule(-209, new int[]{-210});
-stringrules[358] = @"modifiers -> modifiers modifier ";
     rules[358]=new Rule(-209, new int[]{-209,-210});
-stringrules[359] = @"modifier -> ABSTRACT ";
     rules[359]=new Rule(-210, new int[]{136});
-stringrules[360] = @"modifier -> EXTERN ";
     rules[360]=new Rule(-210, new int[]{158});
-stringrules[361] = @"modifier -> INTERNAL ";
     rules[361]=new Rule(-210, new int[]{171});
-stringrules[362] = @"modifier -> NEW ";
     rules[362]=new Rule(-210, new int[]{176});
-stringrules[363] = @"modifier -> OVERRIDE ";
     rules[363]=new Rule(-210, new int[]{181});
-stringrules[364] = @"modifier -> PRIVATE ";
     rules[364]=new Rule(-210, new int[]{183});
-stringrules[365] = @"modifier -> PROTECTED ";
     rules[365]=new Rule(-210, new int[]{184});
-stringrules[366] = @"modifier -> PUBLIC ";
     rules[366]=new Rule(-210, new int[]{185});
-stringrules[367] = @"modifier -> READONLY ";
     rules[367]=new Rule(-210, new int[]{186});
-stringrules[368] = @"modifier -> SEALED ";
     rules[368]=new Rule(-210, new int[]{190});
-stringrules[369] = @"modifier -> STATIC ";
     rules[369]=new Rule(-210, new int[]{194});
-stringrules[370] = @"modifier -> UNSAFE ";
     rules[370]=new Rule(-210, new int[]{206});
-stringrules[371] = @"modifier -> VIRTUAL ";
     rules[371]=new Rule(-210, new int[]{209});
-stringrules[372] = @"modifier -> VOLATILE ";
     rules[372]=new Rule(-210, new int[]{211});
-stringrules[373] = @"gen_clause_opt -> ";
     rules[373]=new Rule(-211, new int[]{});
-stringrules[374] = @"gen_clause_opt -> gen_clause_opt gen_clause ";
     rules[374]=new Rule(-211, new int[]{-211,-212});
-stringrules[375] = @"gen_clause -> WHERE IDENTIFIER gen_class_base ";
     rules[375]=new Rule(-212, new int[]{213,130,-213});
-stringrules[376] = @"gen_class_type -> STRUCT ";
     rules[376]=new Rule(-214, new int[]{196});
-stringrules[377] = @"gen_class_type -> CLASS ";
     rules[377]=new Rule(-214, new int[]{146});
-stringrules[378] = @"gen_class_type -> NEW '(' ')' ";
     rules[378]=new Rule(-214, new int[]{176,40,41});
-stringrules[379] = @"gen_class_type -> type_name ";
     rules[379]=new Rule(-214, new int[]{-66});
-stringrules[380] = @"gen_class_base -> ':' gen_type_list ";
     rules[380]=new Rule(-213, new int[]{58,-215});
-stringrules[381] = @"gen_type_list -> gen_class_type ";
     rules[381]=new Rule(-215, new int[]{-214});
-stringrules[382] = @"gen_type_list -> gen_type_list ',' gen_class_type ";
     rules[382]=new Rule(-215, new int[]{-215,44,-214});
-stringrules[383] = @"class_declaration -> attributes_opt modifiers_opt CLASS IDENTIFIER type_arg_list_opt class_base_opt gen_clause_opt class_body comma_opt ";
     rules[383]=new Rule(-35, new int[]{-201,-208,146,130,-81,-216,-211,-7,-204});
-stringrules[384] = @"class_base_opt -> ";
     rules[384]=new Rule(-216, new int[]{});
-stringrules[385] = @"class_base_opt -> class_base ";
     rules[385]=new Rule(-216, new int[]{-217});
-stringrules[386] = @"class_base -> ':' class_type ";
     rules[386]=new Rule(-217, new int[]{58,-61});
-stringrules[387] = @"class_base -> ':' interface_type_list ";
     rules[387]=new Rule(-217, new int[]{58,-218});
-stringrules[388] = @"class_base -> ':' class_type ',' interface_type_list ";
     rules[388]=new Rule(-217, new int[]{58,-61,44,-218});
-stringrules[389] = @"interface_type_list -> type_name ";
     rules[389]=new Rule(-218, new int[]{-66});
-stringrules[390] = @"interface_type_list -> interface_type_list ',' type_name ";
     rules[390]=new Rule(-218, new int[]{-218,44,-66});
-stringrules[391] = @"class_body -> '{' class_member_declarations_opt '}' ";
     rules[391]=new Rule(-7, new int[]{123,-6,125});
-stringrules[392] = @"class_member_declarations_opt -> ";
     rules[392]=new Rule(-6, new int[]{});
-stringrules[393] = @"class_member_declarations_opt -> class_member_declarations ";
     rules[393]=new Rule(-6, new int[]{-8});
-stringrules[394] = @"class_member_declarations -> class_member_declaration ";
     rules[394]=new Rule(-8, new int[]{-41});
-stringrules[395] = @"class_member_declarations -> class_member_declarations class_member_declaration ";
     rules[395]=new Rule(-8, new int[]{-8,-41});
-stringrules[396] = @"class_member_declaration -> constant_declaration ";
     rules[396]=new Rule(-41, new int[]{-19});
-stringrules[397] = @"class_member_declaration -> field_declaration ";
     rules[397]=new Rule(-41, new int[]{-20});
-stringrules[398] = @"class_member_declaration -> method_declaration ";
     rules[398]=new Rule(-41, new int[]{-42});
-stringrules[399] = @"class_member_declaration -> property_declaration ";
     rules[399]=new Rule(-41, new int[]{-43});
-stringrules[400] = @"class_member_declaration -> event_declaration ";
     rules[400]=new Rule(-41, new int[]{-45});
-stringrules[401] = @"class_member_declaration -> indexer_declaration ";
     rules[401]=new Rule(-41, new int[]{-46});
-stringrules[402] = @"class_member_declaration -> operator_declaration ";
     rules[402]=new Rule(-41, new int[]{-47});
-stringrules[403] = @"class_member_declaration -> constructor_declaration ";
     rules[403]=new Rule(-41, new int[]{-48});
-stringrules[404] = @"class_member_declaration -> destructor_declaration ";
     rules[404]=new Rule(-41, new int[]{-49});
-stringrules[405] = @"class_member_declaration -> type_declaration ";
     rules[405]=new Rule(-41, new int[]{-40});
-stringrules[406] = @"class_member_declaration -> error ";
     rules[406]=new Rule(-41, new int[]{127});
-stringrules[407] = @"constant_declaration -> attributes_opt modifiers_opt CONST type constant_declarators ';' ";
     rules[407]=new Rule(-19, new int[]{-201,-208,147,-56,-71,59});
-stringrules[408] = @"field_declaration -> attributes_opt modifiers_opt type variable_declarators ';' ";
     rules[408]=new Rule(-20, new int[]{-201,-208,-56,-70,59});
-stringrules[409] = @"method_declaration -> method_header gen_clause_opt method_body ";
     rules[409]=new Rule(-42, new int[]{-53,-211,-113});
-stringrules[410] = @"method_header -> attributes_opt modifiers_opt type qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')' ";
     rules[410]=new Rule(-53, new int[]{-201,-208,-56,-29,-81,40,-11,41});
-stringrules[411] = @"method_header -> attributes_opt modifiers_opt VOID qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')' ";
     rules[411]=new Rule(-53, new int[]{-201,-208,210,-29,-81,40,-11,41});
-stringrules[412] = @"formal_parameter_list_opt -> ";
     rules[412]=new Rule(-11, new int[]{});
-stringrules[413] = @"formal_parameter_list_opt -> formal_parameter_list arglist_opt ";
     rules[413]=new Rule(-11, new int[]{-12,-219});
-stringrules[414] = @"formal_parameter_list_opt -> ARGLIST ";
     rules[414]=new Rule(-11, new int[]{214});
-stringrules[415] = @"arglist_opt -> ";
     rules[415]=new Rule(-219, new int[]{});
-stringrules[416] = @"arglist_opt -> ',' ARGLIST ";
     rules[416]=new Rule(-219, new int[]{44,214});
-stringrules[417] = @"return_type -> type ";
     rules[417]=new Rule(-57, new int[]{-56});
-stringrules[418] = @"return_type -> VOID ";
     rules[418]=new Rule(-57, new int[]{210});
-stringrules[419] = @"method_body -> block ";
     rules[419]=new Rule(-113, new int[]{-146});
-stringrules[420] = @"method_body -> ';' ";
     rules[420]=new Rule(-113, new int[]{59});
-stringrules[421] = @"formal_parameter_list -> formal_parameter ";
     rules[421]=new Rule(-12, new int[]{-50});
-stringrules[422] = @"formal_parameter_list -> formal_parameter_list ',' formal_parameter ";
     rules[422]=new Rule(-12, new int[]{-12,44,-50});
-stringrules[423] = @"formal_parameter -> fixed_parameter ";
     rules[423]=new Rule(-50, new int[]{-51});
-stringrules[424] = @"formal_parameter -> parameter_array ";
     rules[424]=new Rule(-50, new int[]{-52});
-stringrules[425] = @"fixed_parameter -> attributes_opt parameter_modifier_opt type IDENTIFIER ";
     rules[425]=new Rule(-51, new int[]{-201,-72,-56,130});
-stringrules[426] = @"parameter_modifier_opt -> ";
     rules[426]=new Rule(-72, new int[]{});
-stringrules[427] = @"parameter_modifier_opt -> REF ";
     rules[427]=new Rule(-72, new int[]{187});
-stringrules[428] = @"parameter_modifier_opt -> OUT ";
     rules[428]=new Rule(-72, new int[]{180});
-stringrules[429] = @"parameter_array -> attributes_opt PARAMS type IDENTIFIER ";
     rules[429]=new Rule(-52, new int[]{-201,182,-56,130});
-stringrules[430] = @"property_declaration -> attributes_opt modifiers_opt type qualified_identifier '{' accessor_declarations '}' ";
     rules[430]=new Rule(-43, new int[]{-201,-208,-56,-29,123,-220,125});
-stringrules[431] = @"accessor_declarations -> get_accessor_declaration set_accessor_declaration_opt ";
     rules[431]=new Rule(-220, new int[]{-221,-222});
-stringrules[432] = @"accessor_declarations -> set_accessor_declaration get_accessor_declaration_opt ";
     rules[432]=new Rule(-220, new int[]{-223,-224});
-stringrules[433] = @"set_accessor_declaration_opt -> ";
     rules[433]=new Rule(-222, new int[]{});
-stringrules[434] = @"set_accessor_declaration_opt -> set_accessor_declaration ";
     rules[434]=new Rule(-222, new int[]{-223});
-stringrules[435] = @"get_accessor_declaration_opt -> ";
     rules[435]=new Rule(-224, new int[]{});
-stringrules[436] = @"get_accessor_declaration_opt -> get_accessor_declaration ";
     rules[436]=new Rule(-224, new int[]{-221});
-stringrules[437] = @"get_accessor_declaration -> attributes_opt modifiers_opt GET accessor_body ";
     rules[437]=new Rule(-221, new int[]{-201,-208,224,-225});
-stringrules[438] = @"set_accessor_declaration -> attributes_opt modifiers_opt SET accessor_body ";
     rules[438]=new Rule(-223, new int[]{-201,-208,225,-225});
-stringrules[439] = @"accessor_body -> block ";
     rules[439]=new Rule(-225, new int[]{-146});
-stringrules[440] = @"accessor_body -> ';' ";
     rules[440]=new Rule(-225, new int[]{59});
-stringrules[441] = @"event_declaration -> attributes_opt modifiers_opt EVENT type variable_declarators ';' ";
     rules[441]=new Rule(-45, new int[]{-201,-208,156,-56,-70,59});
-stringrules[442] = @"event_declaration -> attributes_opt modifiers_opt EVENT type qualified_identifier '{' event_accessor_declarations '}' ";
     rules[442]=new Rule(-45, new int[]{-201,-208,156,-56,-29,123,-226,125});
-stringrules[443] = @"event_accessor_declarations -> event_accessor_declaration event_accessor_declaration ";
     rules[443]=new Rule(-226, new int[]{-227,-227});
-stringrules[444] = @"event_accessor_declaration -> attributes_opt IDENTIFIER block ";
     rules[444]=new Rule(-227, new int[]{-201,130,-146});
-stringrules[445] = @"indexer_declaration -> attributes_opt modifiers_opt indexer_declarator '{' accessor_declarations '}' ";
     rules[445]=new Rule(-46, new int[]{-201,-208,-228,123,-220,125});
-stringrules[446] = @"indexer_declarator -> type THIS '[' formal_parameter_list ']' ";
     rules[446]=new Rule(-228, new int[]{-56,198,91,-12,93});
-stringrules[447] = @"indexer_declarator -> type qualified_this '[' formal_parameter_list ']' ";
     rules[447]=new Rule(-228, new int[]{-56,-229,91,-12,93});
-stringrules[448] = @"qualified_this -> gen_qualifier THIS ";
     rules[448]=new Rule(-229, new int[]{-76,198});
-stringrules[449] = @"operator_declaration -> attributes_opt modifiers_opt operator_declarator operator_body ";
     rules[449]=new Rule(-47, new int[]{-201,-208,-230,-231});
-stringrules[450] = @"operator_declarator -> overloadable_operator_declarator ";
     rules[450]=new Rule(-230, new int[]{-232});
-stringrules[451] = @"operator_declarator -> conversion_operator_declarator ";
     rules[451]=new Rule(-230, new int[]{-233});
-stringrules[452] = @"overloadable_operator_declarator -> type OPERATOR overloadable_operator '(' type IDENTIFIER ')' ";
     rules[452]=new Rule(-232, new int[]{-56,179,-234,40,-56,130,41});
-stringrules[453] = @"overloadable_operator_declarator -> type OPERATOR overloadable_operator '(' type IDENTIFIER ',' type IDENTIFIER ')' ";
     rules[453]=new Rule(-232, new int[]{-56,179,-234,40,-56,130,44,-56,130,41});
-stringrules[454] = @"overloadable_operator -> '+' ";
     rules[454]=new Rule(-234, new int[]{43});
-stringrules[455] = @"overloadable_operator -> '-' ";
     rules[455]=new Rule(-234, new int[]{45});
-stringrules[456] = @"overloadable_operator -> '!' ";
     rules[456]=new Rule(-234, new int[]{33});
-stringrules[457] = @"overloadable_operator -> '~' ";
     rules[457]=new Rule(-234, new int[]{126});
-stringrules[458] = @"overloadable_operator -> PLUSPLUS ";
     rules[458]=new Rule(-234, new int[]{247});
-stringrules[459] = @"overloadable_operator -> MINUSMINUS ";
     rules[459]=new Rule(-234, new int[]{248});
-stringrules[460] = @"overloadable_operator -> TRUE ";
     rules[460]=new Rule(-234, new int[]{200});
-stringrules[461] = @"overloadable_operator -> FALSE ";
     rules[461]=new Rule(-234, new int[]{159});
-stringrules[462] = @"overloadable_operator -> '*' ";
     rules[462]=new Rule(-234, new int[]{42});
-stringrules[463] = @"overloadable_operator -> '/' ";
     rules[463]=new Rule(-234, new int[]{47});
-stringrules[464] = @"overloadable_operator -> '%' ";
     rules[464]=new Rule(-234, new int[]{37});
-stringrules[465] = @"overloadable_operator -> '&' ";
     rules[465]=new Rule(-234, new int[]{38});
-stringrules[466] = @"overloadable_operator -> '|' ";
     rules[466]=new Rule(-234, new int[]{124});
-stringrules[467] = @"overloadable_operator -> '^' ";
     rules[467]=new Rule(-234, new int[]{94});
-stringrules[468] = @"overloadable_operator -> LTLT ";
     rules[468]=new Rule(-234, new int[]{239});
-stringrules[469] = @"overloadable_operator -> GTGT ";
     rules[469]=new Rule(-234, new int[]{235});
-stringrules[470] = @"overloadable_operator -> EQEQ ";
     rules[470]=new Rule(-234, new int[]{241});
-stringrules[471] = @"overloadable_operator -> NOTEQ ";
     rules[471]=new Rule(-234, new int[]{242});
-stringrules[472] = @"overloadable_operator -> '>' ";
     rules[472]=new Rule(-234, new int[]{62});
-stringrules[473] = @"overloadable_operator -> '<' ";
     rules[473]=new Rule(-234, new int[]{60});
-stringrules[474] = @"overloadable_operator -> GEQ ";
     rules[474]=new Rule(-234, new int[]{244});
-stringrules[475] = @"overloadable_operator -> LEQ ";
     rules[475]=new Rule(-234, new int[]{243});
-stringrules[476] = @"conversion_operator_declarator -> IMPLICIT OPERATOR type '(' type IDENTIFIER ')' ";
     rules[476]=new Rule(-233, new int[]{167,179,-56,40,-56,130,41});
-stringrules[477] = @"conversion_operator_declarator -> EXPLICIT OPERATOR type '(' type IDENTIFIER ')' ";
     rules[477]=new Rule(-233, new int[]{157,179,-56,40,-56,130,41});
-stringrules[478] = @"constructor_declaration -> attributes_opt modifiers_opt constructor_declarator constructor_body ";
     rules[478]=new Rule(-48, new int[]{-201,-208,-28,-235});
-stringrules[479] = @"constructor_declarator -> IDENTIFIER '(' formal_parameter_list_opt ')' constructor_initializer_opt ";
     rules[479]=new Rule(-28, new int[]{130,40,-11,41,-236});
-stringrules[480] = @"constructor_initializer_opt -> ";
     rules[480]=new Rule(-236, new int[]{});
-stringrules[481] = @"constructor_initializer_opt -> constructor_initializer ";
     rules[481]=new Rule(-236, new int[]{-237});
-stringrules[482] = @"constructor_initializer -> ':' BASE '(' argument_list_opt ')' ";
     rules[482]=new Rule(-237, new int[]{58,138,40,-107,41});
-stringrules[483] = @"constructor_initializer -> ':' THIS '(' argument_list_opt ')' ";
     rules[483]=new Rule(-237, new int[]{58,198,40,-107,41});
-stringrules[484] = @"destructor_declaration -> attributes_opt modifiers_opt '~' IDENTIFIER '(' ')' block ";
     rules[484]=new Rule(-49, new int[]{-201,-208,126,130,40,41,-146});
-stringrules[485] = @"operator_body -> block ";
     rules[485]=new Rule(-231, new int[]{-146});
-stringrules[486] = @"operator_body -> ';' ";
     rules[486]=new Rule(-231, new int[]{59});
-stringrules[487] = @"constructor_body -> block ";
     rules[487]=new Rule(-235, new int[]{-146});
-stringrules[488] = @"constructor_body -> ';' ";
     rules[488]=new Rule(-235, new int[]{59});
-stringrules[489] = @"struct_declaration -> attributes_opt modifiers_opt STRUCT member_name struct_interfaces_opt struct_body comma_opt ";
     rules[489]=new Rule(-36, new int[]{-201,-208,196,-73,-238,-9,-204});
-stringrules[490] = @"struct_interfaces_opt -> ";
     rules[490]=new Rule(-238, new int[]{});
-stringrules[491] = @"struct_interfaces_opt -> struct_interfaces ";
     rules[491]=new Rule(-238, new int[]{-239});
-stringrules[492] = @"struct_interfaces -> ':' interface_type_list ";
     rules[492]=new Rule(-239, new int[]{58,-218});
-stringrules[493] = @"struct_body -> '{' struct_member_declarations_opt '}' ";
     rules[493]=new Rule(-9, new int[]{123,-13,125});
-stringrules[494] = @"struct_member_declarations_opt -> ";
     rules[494]=new Rule(-13, new int[]{});
-stringrules[495] = @"struct_member_declarations_opt -> struct_member_declarations ";
     rules[495]=new Rule(-13, new int[]{-14});
-stringrules[496] = @"struct_member_declarations -> struct_member_declaration ";
     rules[496]=new Rule(-14, new int[]{-25});
-stringrules[497] = @"struct_member_declarations -> struct_member_declarations struct_member_declaration ";
     rules[497]=new Rule(-14, new int[]{-14,-25});
-stringrules[498] = @"struct_member_declaration -> constant_declaration ";
     rules[498]=new Rule(-25, new int[]{-19});
-stringrules[499] = @"struct_member_declaration -> field_declaration ";
     rules[499]=new Rule(-25, new int[]{-20});
-stringrules[500] = @"struct_member_declaration -> method_declaration ";
     rules[500]=new Rule(-25, new int[]{-42});
-stringrules[501] = @"struct_member_declaration -> property_declaration ";
     rules[501]=new Rule(-25, new int[]{-43});
-stringrules[502] = @"struct_member_declaration -> event_declaration ";
     rules[502]=new Rule(-25, new int[]{-45});
-stringrules[503] = @"struct_member_declaration -> indexer_declaration ";
     rules[503]=new Rule(-25, new int[]{-46});
-stringrules[504] = @"struct_member_declaration -> operator_declaration ";
     rules[504]=new Rule(-25, new int[]{-47});
-stringrules[505] = @"struct_member_declaration -> constructor_declaration ";
     rules[505]=new Rule(-25, new int[]{-48});
-stringrules[506] = @"struct_member_declaration -> type_declaration ";
     rules[506]=new Rule(-25, new int[]{-40});
-stringrules[507] = @"array_initializer -> '{' variable_initializer_list_opt '}' ";
     rules[507]=new Rule(-116, new int[]{123,-240,125});
-stringrules[508] = @"array_initializer -> '{' variable_initializer_list ',' '}' ";
     rules[508]=new Rule(-116, new int[]{123,-241,44,125});
-stringrules[509] = @"variable_initializer_list_opt -> ";
     rules[509]=new Rule(-240, new int[]{});
-stringrules[510] = @"variable_initializer_list_opt -> variable_initializer_list ";
     rules[510]=new Rule(-240, new int[]{-241});
-stringrules[511] = @"variable_initializer_list -> variable_initializer ";
     rules[511]=new Rule(-241, new int[]{-163});
-stringrules[512] = @"variable_initializer_list -> variable_initializer_list ',' variable_initializer ";
     rules[512]=new Rule(-241, new int[]{-241,44,-163});
-stringrules[513] = @"interface_declaration -> attributes_opt modifiers_opt INTERFACE member_name interface_base_opt interface_body comma_opt ";
     rules[513]=new Rule(-37, new int[]{-201,-208,170,-73,-242,-5,-204});
-stringrules[514] = @"interface_base_opt -> ";
     rules[514]=new Rule(-242, new int[]{});
-stringrules[515] = @"interface_base_opt -> interface_base ";
     rules[515]=new Rule(-242, new int[]{-243});
-stringrules[516] = @"interface_base -> ':' interface_type_list ";
     rules[516]=new Rule(-243, new int[]{58,-218});
-stringrules[517] = @"interface_body -> '{' interface_member_declarations_opt '}' ";
     rules[517]=new Rule(-5, new int[]{123,-10,125});
-stringrules[518] = @"interface_member_declarations_opt -> ";
     rules[518]=new Rule(-10, new int[]{});
-stringrules[519] = @"interface_member_declarations_opt -> interface_member_declarations ";
     rules[519]=new Rule(-10, new int[]{-15});
-stringrules[520] = @"interface_member_declarations -> interface_member_declaration ";
     rules[520]=new Rule(-15, new int[]{-26});
-stringrules[521] = @"interface_member_declarations -> interface_member_declarations interface_member_declaration ";
     rules[521]=new Rule(-15, new int[]{-15,-26});
-stringrules[522] = @"interface_member_declaration -> interface_method_declaration ";
     rules[522]=new Rule(-26, new int[]{-54});
-stringrules[523] = @"interface_member_declaration -> interface_property_declaration ";
     rules[523]=new Rule(-26, new int[]{-55});
-stringrules[524] = @"interface_member_declaration -> interface_event_declaration ";
     rules[524]=new Rule(-26, new int[]{-244});
-stringrules[525] = @"interface_member_declaration -> interface_indexer_declaration ";
     rules[525]=new Rule(-26, new int[]{-21});
-stringrules[526] = @"interface_method_declaration -> attributes_opt new_opt type member_name '(' formal_parameter_list_opt ')' gen_clause_opt interface_empty_body ";
     rules[526]=new Rule(-54, new int[]{-201,-245,-56,-73,40,-11,41,-211,-246});
-stringrules[527] = @"interface_method_declaration -> attributes_opt new_opt VOID member_name '(' formal_parameter_list_opt ')' gen_clause_opt interface_empty_body ";
     rules[527]=new Rule(-54, new int[]{-201,-245,210,-73,40,-11,41,-211,-246});
-stringrules[528] = @"new_opt -> ";
     rules[528]=new Rule(-245, new int[]{});
-stringrules[529] = @"new_opt -> NEW ";
     rules[529]=new Rule(-245, new int[]{176});
-stringrules[530] = @"interface_property_declaration -> attributes_opt new_opt type member_name '{' interface_accessors '}' ";
     rules[530]=new Rule(-55, new int[]{-201,-245,-56,-73,123,-247,125});
-stringrules[531] = @"interface_indexer_declaration -> attributes_opt new_opt type THIS '[' formal_parameter_list ']' '{' interface_accessors '}' ";
     rules[531]=new Rule(-21, new int[]{-201,-245,-56,198,91,-12,93,123,-247,125});
-stringrules[532] = @"interface_accessors -> attributes_opt GET interface_empty_body ";
     rules[532]=new Rule(-247, new int[]{-201,224,-246});
-stringrules[533] = @"interface_accessors -> attributes_opt SET interface_empty_body ";
     rules[533]=new Rule(-247, new int[]{-201,225,-246});
-stringrules[534] = @"interface_accessors -> attributes_opt GET interface_empty_body attributes_opt SET interface_empty_body ";
     rules[534]=new Rule(-247, new int[]{-201,224,-246,-201,225,-246});
-stringrules[535] = @"interface_accessors -> attributes_opt SET interface_empty_body attributes_opt GET interface_empty_body ";
     rules[535]=new Rule(-247, new int[]{-201,225,-246,-201,224,-246});
-stringrules[536] = @"interface_event_declaration -> attributes_opt new_opt EVENT type member_name interface_empty_body ";
     rules[536]=new Rule(-244, new int[]{-201,-245,156,-56,-73,-246});
-stringrules[537] = @"interface_empty_body -> ';' ";
     rules[537]=new Rule(-246, new int[]{59});
-stringrules[538] = @"interface_empty_body -> '{' '}' ";
     rules[538]=new Rule(-246, new int[]{123,125});
-stringrules[539] = @"enum_declaration -> attributes_opt modifiers_opt ENUM IDENTIFIER enum_base_opt enum_body comma_opt ";
     rules[539]=new Rule(-38, new int[]{-201,-208,155,130,-248,-16,-204});
-stringrules[540] = @"enum_base_opt -> ";
     rules[540]=new Rule(-248, new int[]{});
-stringrules[541] = @"enum_base_opt -> enum_base ";
     rules[541]=new Rule(-248, new int[]{-249});
-stringrules[542] = @"enum_base -> ':' integral_type ";
     rules[542]=new Rule(-249, new int[]{58,-64});
-stringrules[543] = @"enum_body -> '{' enum_member_declarations_opt '}' ";
     rules[543]=new Rule(-16, new int[]{123,-17,125});
-stringrules[544] = @"enum_body -> '{' enum_member_declarations ',' '}' ";
     rules[544]=new Rule(-16, new int[]{123,-18,44,125});
-stringrules[545] = @"enum_member_declarations_opt -> ";
     rules[545]=new Rule(-17, new int[]{});
-stringrules[546] = @"enum_member_declarations_opt -> enum_member_declarations ";
     rules[546]=new Rule(-17, new int[]{-18});
-stringrules[547] = @"enum_member_declarations -> enum_member_declaration ";
     rules[547]=new Rule(-18, new int[]{-27});
-stringrules[548] = @"enum_member_declarations -> enum_member_declarations ',' enum_member_declaration ";
     rules[548]=new Rule(-18, new int[]{-18,44,-27});
-stringrules[549] = @"enum_member_declaration -> attributes_opt IDENTIFIER ";
     rules[549]=new Rule(-27, new int[]{-201,130});
-stringrules[550] = @"enum_member_declaration -> attributes_opt IDENTIFIER '=' constant_expression ";
     rules[550]=new Rule(-27, new int[]{-201,130,61,-140});
-stringrules[551] = @"delegate_declaration -> attributes_opt modifiers_opt DELEGATE return_type member_name type_arg_list_opt '(' formal_parameter_list_opt ')' ';' ";
     rules[551]=new Rule(-39, new int[]{-201,-208,151,-57,-73,-81,40,-11,41,59});
-stringrules[552] = @"attributes -> attribute_sections ";
     rules[552]=new Rule(-203, new int[]{-250});
-stringrules[553] = @"attribute_sections -> attribute_section ";
     rules[553]=new Rule(-250, new int[]{-251});
-stringrules[554] = @"attribute_sections -> attribute_sections attribute_section ";
     rules[554]=new Rule(-250, new int[]{-250,-251});
-stringrules[555] = @"attribute_section -> '[' attribute_list ']' ";
     rules[555]=new Rule(-251, new int[]{91,-252,93});
-stringrules[556] = @"attribute_section -> '[' attribute_list ',' ']' ";
     rules[556]=new Rule(-251, new int[]{91,-252,44,93});
-stringrules[557] = @"attribute_list -> attribute ";
     rules[557]=new Rule(-252, new int[]{-253});
-stringrules[558] = @"attribute_list -> attribute_list ',' attribute ";
     rules[558]=new Rule(-252, new int[]{-252,44,-253});
-stringrules[559] = @"attribute -> attribute_name attribute_arguments_opt ";
     rules[559]=new Rule(-253, new int[]{-254,-255});
-stringrules[560] = @"attribute_arguments_opt -> ";
     rules[560]=new Rule(-255, new int[]{});
-stringrules[561] = @"attribute_arguments_opt -> attribute_arguments ";
     rules[561]=new Rule(-255, new int[]{-256});
-stringrules[562] = @"attribute_name -> type_name ";
     rules[562]=new Rule(-254, new int[]{-66});
-stringrules[563] = @"attribute_arguments -> '(' expression_list_opt ')' ";
     rules[563]=new Rule(-256, new int[]{40,-109,41});
 
     nonTerminals = new string[] {"", "compilation_unit", "namespace_member_declarations", 
