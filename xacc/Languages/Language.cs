@@ -211,9 +211,14 @@ namespace Xacc.Languages
 
     protected void PopTill(Location loc)
     {
+      Location a = null;
       while (locstack.Peek() > loc)
       {
-        locstack.Pop();
+        a = locstack.Pop();
+      }
+      if (a != null)
+      {
+        locstack.Push(a);
       }
     }
 
@@ -1449,8 +1454,7 @@ namespace Xacc.Languages
     /// <returns></returns>
     protected int Parse(IEnumerator lines)
     {
-      //lock (PARSERLOCK)
-      {
+
         string filename = currfilename = (lines as TokenEnumeratorBase).filename;
         codemodel = null;
         codemodel = new CodeFile(filename);
@@ -1479,7 +1483,6 @@ namespace Xacc.Languages
         //cb.Invoke(locstack);
         
         return res;
-      }
     }
 
     internal interface IParserCallback
@@ -1513,8 +1516,11 @@ namespace Xacc.Languages
     /// <returns></returns>
     internal int Parse(DoubleLinkedList<TokenLine> mlines, string filename, IParserCallback cb)
     {
-      this.cb = cb;
-      return Parse(new ParseTokenEnumerator(mlines, filename, this));
+      lock (this)
+      {
+        this.cb = cb;
+        return Parse(new ParseTokenEnumerator(mlines, filename, this));
+      }
     }
 
     #endregion

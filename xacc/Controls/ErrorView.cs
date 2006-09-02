@@ -197,8 +197,8 @@ namespace Xacc.Controls
           {
             atb.Buffer.SelectLocation(ar.Location);
             atb.ScrollToCaret();
-            ServiceHost.File.BringToFront(atb);
           }
+          ServiceHost.File.BringToFront(atb);
         }
       }
     }

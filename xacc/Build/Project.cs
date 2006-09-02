@@ -112,6 +112,11 @@ namespace Xacc.Build
 
     readonly BuildProject prj = new BuildProject();
 
+    internal BuildProject MSBuildProject
+    {
+      get { return prj; }
+    }
+
 		readonly Hashtable sources = new Hashtable();
     readonly TreeNode rootnode = new TreeNode();
     TreeNode referencesnode;
@@ -395,6 +400,7 @@ $    <OutputType>WinExe</OutputType>
     public string Configuration
     {
       get { return prj.GetEvaluatedProperty("Configuration"); }
+      set { prj.SetProperty("Configuration", value); }
     }
 
     /// <summary>
@@ -1028,8 +1034,9 @@ $    <OutputType>WinExe</OutputType>
     /// <returns>true if success</returns>
     public bool Build()
     {
+      (ServiceHost.Build as BuildService).BuildInternal(prj);
       output.Clear();
-      return prj.Build(null, output);
+      return true;
     }
 
     /// <summary>
@@ -1038,7 +1045,9 @@ $    <OutputType>WinExe</OutputType>
     /// <returns></returns>
     public bool Rebuild()
     {
-      return prj.Build(new string[] { "Rebuild" }, output);
+      (ServiceHost.Build as BuildService).BuildInternal(prj, "Rebuild");
+      output.Clear();
+      return true;
     }
 
     /// <summary>
@@ -1047,7 +1056,9 @@ $    <OutputType>WinExe</OutputType>
     /// <returns></returns>
     public bool Clean()
     {
-      return prj.Build(new string[] { "Clean" }, output);
+      (ServiceHost.Build as BuildService).BuildInternal(prj, "Clean");
+      output.Clear();
+      return true;
     }
 
     readonly Hashtable output = new Hashtable();
@@ -1662,7 +1673,7 @@ Item Metadata   Description
           return;
         }
 
-        if (action == "BootstrapperFile" || action == "BootstrapperPackage" || action == "Service")
+        if (action == "BootstrapperFile" || action == "BootstrapperPackage" || action == "Service" || action == "Import")
         {
           // dunno how to handle :(, marked invisible
           return;

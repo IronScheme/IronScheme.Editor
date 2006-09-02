@@ -459,8 +459,8 @@ namespace Xacc.ComponentModel
 		{
       filename = Normalize(filename);
 			return (filename != null && buffers.ContainsKey(filename)
-				&& (buffers[filename] is IFile)
-				&& (buffers[filename] as IFile).IsDirty);
+				&& (this[filename] is IFile)
+        && (this[filename] as IFile).IsDirty);
 		}
 #if TRACE
 
@@ -815,9 +815,9 @@ namespace Xacc.ComponentModel
       ab.Length--;
       ab.Append("|");
 
-      sb.Append("All files (*.*)|*.*");
+      ab.AppendFormat("{0}All files (*.*)|*.*", sb);
 
-      ofd.Filter = sb.ToString();
+      ofd.Filter = ab.ToString();
 
       if (ofd.ShowDialog(ServiceHost.Window.MainForm) == DialogResult.OK)
       {
@@ -950,7 +950,7 @@ namespace Xacc.ComponentModel
     [MenuItem("Save", Index = 10, State = ApplicationState.File, Image = "File.Save.png", AllowToolBar = true)]
 		void SaveFile()
 		{
-			if (current != null && buffers[current].ActiveView is IFile)
+			if (current != null && this[current] is IFile)
 			{
 				Save(current);
 			}
@@ -991,9 +991,9 @@ namespace Xacc.ComponentModel
 
 				if (sfd.ShowDialog(ServiceHost.Window.MainForm) == DialogResult.OK)
 				{
-					if (current != null && buffers[current] is IFile)
+					if (current != null && this[current] is IFile)
 					{
-						IFile atb = buffers[current].ActiveView as IFile;
+            IFile atb = this[current] as IFile;
 						atb.Save(sfd.FileName);
 
 						Close(current);

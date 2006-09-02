@@ -393,53 +393,22 @@ namespace Xacc.ComponentModel
     [MenuItem("Build", Index = 20, State = ApplicationState.Project, Image = "Project.Build.png", AllowToolBar = true)]
     void Build()
     {
-      // MSBuild complains about MTA... weird shit
-      //System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
-      //{
       (ServiceHost.File as FileManager).SaveDirtyFiles();
-
-        ConsoleLogger l = new ConsoleLogger();
-        l.Verbosity = ServiceHost.Build.LoggerVerbosity;
-        BuildLogger bl = new BuildLogger();
-        buildengine.RegisterLogger(l);
-        buildengine.RegisterLogger(bl);
-        bool res = Current.Build();
-        buildengine.UnregisterAllLoggers();
-      //});
+      bool res = Current.Build();
     }
 
     [MenuItem("Rebuild", Index = 21, State = ApplicationState.Project, Image = "Project.Build.png", AllowToolBar = true)]
     void Rebuild()
     {
-      // MSBuild complains about MTA... weird shit
-      //System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
-      //{
       (ServiceHost.File as FileManager).SaveDirtyFiles();
-      ConsoleLogger l = new ConsoleLogger();
-      l.Verbosity = ServiceHost.Build.LoggerVerbosity;
-      BuildLogger bl = new BuildLogger();
-      buildengine.RegisterLogger(l);
-      buildengine.RegisterLogger(bl);
       bool res = Current.Rebuild();
-      buildengine.UnregisterAllLoggers();
-      //});
     }
 
     [MenuItem("Clean", Index = 22, State = ApplicationState.Project, Image = "Project.Build.png", AllowToolBar = true)]
     void Clean()
     {
-      // MSBuild complains about MTA... weird shit
-      //System.Threading.ThreadPool.QueueUserWorkItem(delegate(object state)
-      //{
       (ServiceHost.File as FileManager).SaveDirtyFiles();
-      ConsoleLogger l = new ConsoleLogger();
-      l.Verbosity = ServiceHost.Build.LoggerVerbosity;
-      BuildLogger bl = new BuildLogger();
-      buildengine.RegisterLogger(l);
-      buildengine.RegisterLogger(bl);
       bool res = Current.Clean();
-      buildengine.UnregisterAllLoggers();
-      //});
     }
 
 
@@ -535,6 +504,10 @@ namespace Xacc.ComponentModel
       {
         prj.Location = current.Location;
       }
+      else
+      {
+        current = prj;
+      }
 		}
 
     public void Remove(Project prj)
@@ -542,7 +515,7 @@ namespace Xacc.ComponentModel
       projects.Remove(prj);
       if (prj == current)
       {
-        current = null;
+        current = projects.Count > 0 ? projects[0] as Project : null;
       }
       if (prj == startupproject)
       {
@@ -665,6 +638,8 @@ namespace Xacc.ComponentModel
         bm.solution = new Microsoft.Build.BuildEngine.Project();
         bm.solution.Load(prjfile);
 
+        bm.solution.GlobalProperties["SolutionDir"] = new BuildProperty("SolutionDir", Path.GetDirectoryName(prjfile) + Path.DirectorySeparatorChar);
+
 
         ArrayList projects = new ArrayList();
 
@@ -714,7 +689,7 @@ namespace Xacc.ComponentModel
         BuildService bm = ServiceHost.Build as BuildService;
         bm.solution = new Microsoft.Build.BuildEngine.Project();
 
-        bm.solution.SetProperty("SolutionDir", Path.GetDirectoryName(prjfile));
+        bm.solution.GlobalProperties["SolutionDir"] = new BuildProperty("SolutionDir", Path.GetDirectoryName(prjfile) + Path.DirectorySeparatorChar);
 
         using (TextReader r = File.OpenText(prjfile))
         {
@@ -760,6 +735,7 @@ namespace Xacc.ComponentModel
             Opened(bp, EventArgs.Empty);
           }
         }
+        ServiceHost.State |= ApplicationState.Project;
         ProjectTab.Show();
 
         return projects.ToArray(typeof(Project)) as Project[];
