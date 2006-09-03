@@ -513,6 +513,12 @@ namespace Xacc.ComponentModel
     public void Remove(Project prj)
     {
       projects.Remove(prj);
+
+      BuildProject sol = (ServiceHost.Build as BuildService).solution;
+      if (sol != null && prj.SolBuildItem != null)
+      {
+        sol.RemoveItem(prj.SolBuildItem);
+      }
       if (prj == current)
       {
         current = projects.Count > 0 ? projects[0] as Project : null;
@@ -596,10 +602,12 @@ namespace Xacc.ComponentModel
     [MenuItem("Close all", Index = 25, State = ApplicationState.Project)]
     public void	CloseAll()
     {
-      //if (solution != null)
-      //{
-      //  //solution.Save(
-      //}
+      BuildProject solution = (ServiceHost.Build as BuildService).solution;
+      if (solution != null)
+      {
+        solution.Save(solution.FullFileName);
+        (ServiceHost.Build as BuildService).solution = null;
+      }
       foreach (Project p in OpenProjects)
       {
         p.Save();
@@ -649,9 +657,11 @@ namespace Xacc.ComponentModel
 
           Project bp = new Project();
 
+          bp.SolBuildItem = prj;
+
           bp.Load(prj.Include);
 
-          bp.SolutionDir = Path.GetDirectoryName(prjfile) + Path.DirectorySeparatorChar;
+          //bp.SolutionDir = Path.GetDirectoryName(prjfile) + Path.DirectorySeparatorChar;
           bp.ProjectCreated();
           Add(bp);
           bp.OnOpened();
@@ -672,6 +682,9 @@ namespace Xacc.ComponentModel
         Project bp = new Project();
 
         bp.Load(prjfile);
+
+        bp.MSBuildProject.GlobalProperties["SolutionDir"] = new BuildProperty("SolutionDir", Path.GetDirectoryName(prjfile) + Path.DirectorySeparatorChar);
+
         bp.ProjectCreated();
         Add(bp);
         bp.OnOpened();
@@ -721,9 +734,10 @@ namespace Xacc.ComponentModel
           Project bp = new Project();
 
           bp.Load(prj.Include);
+          bp.SolBuildItem = prj;
           bp.ProjectCreated();
 
-          bp.SolutionDir = Path.GetDirectoryName(prjfile) + Path.DirectorySeparatorChar;
+          //bp.SolutionDir = Path.GetDirectoryName(prjfile) + Path.DirectorySeparatorChar;
 
           Add(bp);
           bp.OnOpened();

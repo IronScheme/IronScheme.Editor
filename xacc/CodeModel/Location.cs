@@ -394,9 +394,9 @@ namespace Xacc.CodeModel
       {
         return a;
       }
-
-      Location c = new Location(a.LineNumber, a.Column, b.LineNumber - a.LineNumber + b.LineCount, b.EndColumn);
-      c.filename = a.filename == null ? b.filename : a.filename;
+      int al = a.LineNumber;
+      Location c = new Location(al, a.Column, b.LineNumber - al + b.LineCount, b.EndColumn);
+      c.filename = a.filename ?? b.filename;
       c.Error = a.Error | b.Error;
       c.Warning = a.Warning | b.Warning;
       return c;

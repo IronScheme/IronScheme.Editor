@@ -333,6 +333,7 @@ namespace Xacc.Configuration
         if (!fms.CloseAll())
         {
           e.Cancel = true;
+          return;
         }
 			}
 

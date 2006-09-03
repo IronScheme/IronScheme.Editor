@@ -252,11 +252,7 @@ namespace gppg
       {
         yyval = new ValueType();
       }
-      if (rhslen > 1)
-      {
-        yyval.Location = value_stack.array[value_stack.top - rhslen].Location
-          + value_stack.array[value_stack.top - 1].Location;
-      }
+
 
 #if !DEBUG
       try
@@ -270,6 +266,12 @@ namespace gppg
 #else
       DoAction(rule_nr);
 #endif
+
+      if (rhslen > 1 && yyval.Location == null)
+      {
+        yyval.Location = value_stack.array[value_stack.top - rhslen].Location
+          + value_stack.array[value_stack.top - 1].Location;
+      }
 
       for (int i = 0; i < rhslen; i++)
       {

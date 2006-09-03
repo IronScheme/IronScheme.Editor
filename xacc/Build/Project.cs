@@ -110,6 +110,8 @@ namespace Xacc.Build
 
     #region Fields & Properties
 
+    internal BuildItem SolBuildItem;
+
     readonly BuildProject prj = new BuildProject();
 
     internal BuildProject MSBuildProject
@@ -390,7 +392,6 @@ $    <OutputType>WinExe</OutputType>
     public string SolutionDir
     {
       get { return prj.GetEvaluatedProperty("SolutionDir"); }
-      set { prj.SetProperty("SolutionDir", value); }
     }
 
     /// <summary>
