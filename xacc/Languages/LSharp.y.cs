@@ -116,8 +116,7 @@ public const int STRING=94;
 public const int INTEGER=95;
 }
 public struct ValueType : Xacc.ComponentModel.IToken
-#line 105 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{
+{
   public CodeElementList  list {get {return value as CodeElementList; } set {this.value = value;}}
   public CodeElement      elem {get {return value as CodeElement; } set {this.value = value;}}
   
@@ -147,10 +146,8 @@ public static implicit operator ValueType(Xacc.Languages.CSLex.Yytoken y)
 
 public static readonly ValueType EOF = new ValueType();
 }
-#line default
 public partial class Parser: ShiftReduceParser<ValueType>
 {
-#line 4 "D:\dev\XACC\xacc\Languages\LSharp.y"
 
 
 public override string[] Extensions {get {return new string[]{"ls","lsp"}; }}
@@ -249,7 +246,6 @@ class Literal : CodeElement
   }
 }
 
-#line default
   protected override void Initialize()
   {
     this.errToken = (int)Tokens.error;
@@ -661,204 +657,124 @@ class Literal : CodeElement
     switch (action)
     {
       case 2: // file -> lists 
-#line 130 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ CodeModel.Add( new File(CurrentFilename, value_stack.array[value_stack.top-1].list)); }
-#line hidden
+{ CodeModel.Add( new File(CurrentFilename, value_stack.array[value_stack.top-1].list)); }
         break;
       case 3: // lists -> 
-#line 134 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ yyval.list = new CodeElementList(); }
-#line hidden
+{ yyval.list = new CodeElementList(); }
         break;
       case 4: // lists -> lists expr 
-#line 135 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ yyval.list = value_stack.array[value_stack.top-2].list; yyval.list.Add(value_stack.array[value_stack.top-1].elem); }
-#line hidden
+{ yyval.list = value_stack.array[value_stack.top-2].list; yyval.list.Add(value_stack.array[value_stack.top-1].elem); }
         break;
       case 5: // list -> LBRACE specialform RBRACE 
-#line 139 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); }
-#line hidden
+{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); }
         break;
       case 6: // list -> LBRACE macros RBRACE 
-#line 140 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); }
-#line hidden
+{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); }
         break;
       case 7: // list -> LBRACE functions RBRACE 
-#line 141 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); }
-#line hidden
+{ MakePair(@value_stack.array[value_stack.top-3].Location,@value_stack.array[value_stack.top-1].Location); }
         break;
       case 8: // list -> LBRACE IDENTIFIER exprlist RBRACE 
-#line 142 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location); OverrideToken(@value_stack.array[value_stack.top-3].Location, IsType(value_stack.array[value_stack.top-3].text) ? TokenClass.Type : TokenClass.Identifier); }
-#line hidden
+{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location); OverrideToken(@value_stack.array[value_stack.top-3].Location, IsType(value_stack.array[value_stack.top-3].text) ? TokenClass.Type : TokenClass.Identifier); }
         break;
       case 9: // list -> LBRACE literal exprlist RBRACE 
-#line 143 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location); }
-#line hidden
+{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location); }
         break;
       case 10: // list -> LBRACE list exprlist RBRACE 
-#line 144 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location); }
-#line hidden
+{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location); }
         break;
       case 11: // list -> LBRACE specexpr exprlist RBRACE 
-#line 145 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location); }
-#line hidden
+{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location); }
         break;
       case 12: // macros -> DEFUN IDENTIFIER args exprlist 
-#line 149 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type); }
-#line hidden
+{ OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type); }
         break;
       case 13: // macros -> DEFMACRO IDENTIFIER args exprlist 
-#line 150 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type); }
-#line hidden
+{ OverrideToken(@value_stack.array[value_stack.top-3].Location, TokenClass.Type); }
         break;
       case 73: // stringlist -> 
-#line 216 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 74: // stringlist -> stringlist STRING 
-#line 217 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 96: // setvaluexpr -> 
-#line 247 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 97: // setvaluexpr -> setvaluexpr IDENTIFIER expr 
-#line 248 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 98: // setvaluexpr -> setvaluexpr UNQUOTE expr expr 
-#line 249 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 99: // args -> LBRACE arglist argtail RBRACE 
-#line 253 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location); }
-#line hidden
+{ MakePair(@value_stack.array[value_stack.top-4].Location,@value_stack.array[value_stack.top-1].Location); }
         break;
       case 101: // argtail -> ARGREST IDENTIFIER 
-#line 258 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 102: // arglist -> 
-#line 262 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 103: // arglist -> arglist IDENTIFIER 
-#line 263 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 104: // condexprlist -> 
-#line 267 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 105: // condexprlist -> condexprlist expr expr 
-#line 268 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 106: // exprlist -> 
-#line 272 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ yyval.list = new CodeElementList(); }
-#line hidden
+{ yyval.list = new CodeElementList(); }
         break;
       case 107: // exprlist -> exprlist expr 
-#line 273 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ yyval.list= value_stack.array[value_stack.top-2].list; yyval.list.Add(value_stack.array[value_stack.top-1].elem);}
-#line hidden
+{ yyval.list= value_stack.array[value_stack.top-2].list; yyval.list.Add(value_stack.array[value_stack.top-1].elem);}
         break;
       case 108: // expropt -> 
-#line 277 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 109: // expropt -> expr 
-#line 278 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 110: // specexpr -> QUOTE expr 
-#line 282 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 111: // specexpr -> BACKQUOTE expr 
-#line 283 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 112: // specexpr -> SPLICE expr 
-#line 284 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 113: // specexpr -> UNQUOTE expr 
-#line 285 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 114: // expr -> listcontent 
-#line 289 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 115: // expr -> list 
-#line 290 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 116: // expr -> specexpr 
-#line 291 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 117: // expr -> error 
-#line 292 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 118: // listcontent -> IDENTIFIER 
-#line 296 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ yyval.elem = new Identifier(value_stack.array[value_stack.top-1].text); }
-#line hidden
+{ yyval.elem = new Identifier(value_stack.array[value_stack.top-1].text); }
         break;
       case 119: // listcontent -> literal 
-#line 297 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{;}
-#line hidden
+{;}
         break;
       case 120: // literal -> STRING 
-#line 301 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ yyval.elem = new Literal(value_stack.array[value_stack.top-1].text);}
-#line hidden
+{ yyval.elem = new Literal(value_stack.array[value_stack.top-1].text);}
         break;
       case 121: // literal -> INTEGER 
-#line 302 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ yyval.elem = new Literal(value_stack.array[value_stack.top-1].text);}
-#line hidden
+{ yyval.elem = new Literal(value_stack.array[value_stack.top-1].text);}
         break;
       case 122: // literal -> LITERAL 
-#line 303 "D:\dev\XACC\xacc\Languages\LSharp.y"
-			{ yyval.elem = new Literal(value_stack.array[value_stack.top-1].text);}
-#line hidden
+{ yyval.elem = new Literal(value_stack.array[value_stack.top-1].text);}
         break;
     }
   }
@@ -871,7 +787,6 @@ class Literal : CodeElement
       return CharToString((char)terminal);
   }
 
-#line 309 "D:\dev\XACC\xacc\Languages\LSharp.y"
 
 
 void CreateFunctions(ICodeNamespace env, params string[] names)
@@ -968,6 +883,5 @@ protected internal override string[] UnCommentLines(string[] lines)
 
 
     
-#line default
 }
 }

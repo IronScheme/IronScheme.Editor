@@ -4717,16 +4717,16 @@ namespace Xacc.Controls
       /// </summary>
       public Font Font
       {
-        get {return font;}
-        set 
+        get { return font; }
+        set
         {
-          lock(this)
+          lock (this)
           {
             //this best is not to mess with the font.OK it is necessary
             //font needs to be rounded to a factor of 0.75pt
-            float ph = (float) System.Math.Round(value.SizeInPoints/0.75, 0) * 0.75f;
+            float ph = (float)System.Math.Round(value.SizeInPoints / 0.75, 0) * 0.75f;
             Font font = null;
-            
+
             //if (ph != value.SizeInPoints)
             //{
             //  font = new Font(value.FontFamily, ph);
@@ -4737,33 +4737,35 @@ namespace Xacc.Controls
             }
 
             float width;
-            if (IsMonospaced(font, out width))
-            {
-              float iwidth = (float) System.Math.Round(width, 0);
-              float adjustment = iwidth/width;
-
-              //ph *= adjustment; // this just rounds up font to have exactly integer width
-
-              if (ph != font.SizeInPoints)
-              {
-                //font = new Font(font.FontFamily, ph);
-              }
-
-              // this will be the prefered value from the font, best to use it
-              fontheight = font.Height;
-              this.font = font;
-              fontdescent = font.FontFamily.GetCellDescent(0)/(float)font.FontFamily.GetEmHeight(0) 
-                * fontheight;
-              AdjustTabs();
-              
-            }
-            else
+            if (!IsMonospaced(font, out width))
             {
               Trace.WriteLine("Font '{0}' is not monospaced", value);
+              font = new Font(FontFamily.GenericMonospace, value.SizeInPoints);
+              Trace.WriteLine("Using system default monospace Font '{0}'", font);
             }
+            float iwidth = (float)System.Math.Round(width, 0);
+            float adjustment = iwidth / width;
+
+            //ph *= adjustment; // this just rounds up font to have exactly integer width
+
+            if (ph != font.SizeInPoints)
+            {
+              //font = new Font(font.FontFamily, ph);
+            }
+
+            // this will be the prefered value from the font, best to use it
+            fontheight = font.Height;
+            this.font = font;
+            fontdescent = font.FontFamily.GetCellDescent(0) / (float)font.FontFamily.GetEmHeight(0)
+              * fontheight;
+            AdjustTabs();
+
+
+
           }
         }
       }
+
 
       /// <summary>
       /// The pixel height of the font.

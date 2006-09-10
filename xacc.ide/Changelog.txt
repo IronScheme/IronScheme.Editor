@@ -1,3 +1,11 @@
+0.2.0.62 - September 10, 2006 
+
+- Now converts VS2003 projects to MSBuild
+- Quite a few C# parser fixes
+- xacc.ide can now be correctly used with file association
+- Internal changes and fixes
+- Updated to NSIS 2.20
+
 0.2.0.57 - August 12, 2006 
 
 - Allows builds to be cancelled

@@ -195,8 +195,18 @@ confuse a user.")]
   /// The default input argument
   /// </summary>
   [AttributeUsage(AttributeTargets.Field, AllowMultiple=false, Inherited=false)]
-  public class DefaultArgAttribute : ArgItemAttribute
+  public sealed class DefaultArgAttribute : ArgItemAttribute
   {
+    bool allowname = false;
+
+    /// <summary>
+    /// Specifies to accept name too.
+    /// </summary>
+    public bool AllowName
+    {
+      get { return allowname; }
+      set { allowname = value; }
+    }
   }
 
 
@@ -676,7 +686,9 @@ confuse a user.")]
         {
           argz.Add(MAGIC, ai);
         }
-        else
+        
+        //be very careful with the next line!
+        if (!(ai.Options is DefaultArgAttribute) || ((DefaultArgAttribute)ai.Options).AllowName) 
         {
           argz.Add(n, ai);
           if (allowshortcut)

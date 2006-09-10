@@ -282,7 +282,10 @@ namespace gpcc
         {
           Console.WriteLine("      case {0}: // {1}", production.num, production.ToString());
           production.semanticAction.GenerateCode(this);
-          Console.WriteLine("#line hidden");
+          if (GPCG.LINES)
+          {
+            Console.WriteLine("#line hidden");
+          }
           Console.WriteLine("        break;");
         }
       }
@@ -318,7 +321,10 @@ namespace gpcc
             break;
           Console.WriteLine("{0}", line);
         }
-        Console.WriteLine("#line default");
+        if (GPCG.LINES)
+        {
+          Console.WriteLine("#line default");
+        }
       }
     }
   }

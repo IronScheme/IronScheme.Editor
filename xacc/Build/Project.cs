@@ -961,7 +961,34 @@ $    <OutputType>WinExe</OutputType>
     /// <param name="filename">The filename.</param>
     public void Load(string filename)
     {
-      prj.Load(filename);
+      try
+      {
+        prj.Load(filename);
+      }
+      catch (Microsoft.Build.BuildEngine.InvalidProjectFileException)
+      {
+        File.Move(filename, filename + ".old");
+        Microsoft.Build.Conversion.ProjectFileConverter pfc = new Microsoft.Build.Conversion.ProjectFileConverter();
+        pfc.NewProjectFile = filename;
+        pfc.OldProjectFile = filename + ".old";
+
+        pfc.Convert(Microsoft.Build.BuildEngine.Engine.GlobalEngine.BinPath);
+
+        if (File.Exists(filename + ".user"))
+        {
+          File.Move(filename + ".user", filename + ".user.old");
+          pfc.NewProjectFile = filename + ".user";
+          pfc.OldProjectFile = filename + ".user.old";
+
+          pfc.IsUserFile = true;
+
+          pfc.Convert(Microsoft.Build.BuildEngine.Engine.GlobalEngine.BinPath);
+        }
+
+
+        Load(filename);
+        
+      }
     }
 
     /// <summary>

@@ -140,13 +140,13 @@ class TypeRef : CodeTypeRef
 %type <elem> class_member_declaration method_declaration property_declaration type2
 %type <elem> event_declaration indexer_declaration operator_declaration constructor_declaration destructor_declaration
 %type <elem> formal_parameter fixed_parameter parameter_array method_header interface_method_declaration interface_property_declaration
-%type <typeref> type return_type non_array_type simple_type primitive_type class_type numeric_type floating_point_type
+%type <typeref> type return_type non_array_type simple_type primitive_type class_type numeric_type floating_point_type type_opt
 %type <typeref> integral_type array_type type_name
 %type <primval> literal mllit boolean_literal
 %type <list> variable_declarators constant_declarators
 %type <paramattr> parameter_modifier_opt
 
-%type <text> member_name gen_qualified_identifier norm_qualified_identifier gen_qualifier norm_qualifier
+%type <text> member_name gen_qualified_identifier norm_qualified_identifier gen_qualifier norm_qualifier member_name2 gen_qualified_identifier2
 
 %nonassoc IFREDUCE
 %nonassoc ELSE
@@ -194,6 +194,11 @@ member_name
   : IDENTIFIER type_list_opt                    { $$ = $1; @@ = @1; }
   ;
   
+type_opt
+  :
+  | type
+  ;  
+  
 type_list_opt
   : 
   | '<' type_list '>'                     {  MakePair(@1,@3); }
@@ -201,8 +206,8 @@ type_list_opt
   ; 
   
 type_list
-  : type
-  | type_list ',' type
+  : type_opt
+  | type_list ',' type_opt
   ;
   
 type_arg_list_opt
@@ -815,7 +820,7 @@ norm_qualifier
   | norm_qualifier IDENTIFIER '.'                                        { $$ = $1 + $2 + "."; }
   ;
   
-  
+ 
 gen_qualified_identifier
   : member_name                                                  
   | gen_qualifier member_name                                       { $$ = $1 + $2; @@ = @2;}

@@ -74,7 +74,7 @@ namespace Xacc.Configuration
     /// <summary>
     /// List of files to open
     /// </summary>
-    [Utils.DefaultArg]
+    [Utils.DefaultArg(AllowName=true)]
     public string[] open;
   }
 

@@ -11,8 +11,20 @@ namespace gpcc
 {
   class GPCG
   {
-    public static bool LINES = true;
-    public static bool REPORT = true;
+    public static bool LINES =
+#if DEBUG
+ true
+#else
+      false
+#endif
+;
+    public static bool REPORT = 
+#if DEBUG
+      true
+#else
+      false
+#endif
+      ;
 
     private static int Main(string[] args)
     {
