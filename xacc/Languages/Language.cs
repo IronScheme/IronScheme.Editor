@@ -218,6 +218,7 @@ namespace Xacc.Languages
       }
       if (a != null)
       {
+        a.callback = null;
         locstack.Push(a);
       }
     }
