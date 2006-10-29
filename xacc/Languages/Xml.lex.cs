@@ -9,11 +9,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "XML"; } }
 	  public override string[] Extensions {get { return new string[]{"xml","html","xsl"}; } }
-	  LexerBase lexer = new XmlLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new XmlLexer(); } 
 	  public override bool MatchLine(string startline)
     {
       return startline.StartsWith("<");
@@ -42,10 +38,10 @@ sealed class XmlLexer : LexerBase {
 	const int mlstr = 9;
 	const int intag = 2;
 	const int scriptstart = 7;
-	static readonly int[] yy_state_dtrans = {
+	readonly int[] yy_state_dtrans = {
 		0, 		69, 		71, 		72, 		73, 		74, 		76, 		84, 		87, 		88, 		89
 	};
-	static readonly int[] yy_acpt = {
+	readonly int[] yy_acpt = {
 0,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
@@ -53,16 +49,16 @@ sealed class XmlLexer : LexerBase {
 4,4,4,4,0,4,4,4,4,0,4,4,0,4,4,0,
 4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,4,4,4,4	};
-	static readonly int[] yy_cmap = unpackFromString(
+	readonly int[] yy_cmap = unpackFromString(
 1,65538,
 "9:9,1,2,9:2,7,9:18,1,4,21,19,9,8,29,22,9:5,5,19,18,20:11,31,3,16,6,17,9,13," +
 "30,11,12,30:15,14,30:6,10,9,15,9,19,9,30:2,24,30:5,26,30:6,27,30,25,23,28,3" +
 "0:6,9:65413,0:2")[0];
 
-	static readonly int[] yy_rmap = {
+	readonly int[] yy_rmap = {
 0,1,2,1,3,1,4,1,1,1,1,1,5,6,1,1,7,1,1,1,8,8,1,1,9,10,11,1,12,1,1,13,1,1,1,14,15,1,16,1,17,18,1,19,20,21,22,22,23,22,24,25,17,26,27,1,28,1,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,34,36,56,57,58,18,59,60,61,62,63};
 
-	static readonly int[,] yy_nxt = {
+	readonly int[,] yy_nxt = {
 {1,2,3,4,5,5,5,-1,5,5,5,6,6,6,6,5,5,5,5,6,5,5,5,6,6,6,6,6,6,46,6,5},
 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
 {-1,2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},

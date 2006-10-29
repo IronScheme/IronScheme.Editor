@@ -9,11 +9,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "PowerShell"; } }
 	  public override string[] Extensions {get { return new string[]{"ps1","msh"}; } }
-	  LexerBase lexer = new PowerShellLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new PowerShellLexer(); }
   }
 }
 //NOTE: comments are not allowed except in code blocks

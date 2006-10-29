@@ -8,11 +8,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "Plain Text"; } }
 	  public override string[] Extensions {get { return new string[]{"*"}; } }
-	  LexerBase lexer = new PlainTextLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new PlainTextLexer(); } 
   }
 }
 
@@ -26,20 +22,20 @@ sealed class PlainTextLexer : LexerBase {
 	}
 
 	const int YYINITIAL = 0;
-	static readonly int[] yy_state_dtrans = {
+	readonly int[] yy_state_dtrans = {
 		0
 	};
-	static readonly int[] yy_acpt = {
+	readonly int[] yy_acpt = {
 0,
 4,4,4,4,4	};
-	static readonly int[] yy_cmap = unpackFromString(
+	readonly int[] yy_cmap = unpackFromString(
 1,65538,
 "1:9,2,3,1:21,2,4,1:6,4:2,1:2,4,1,4,1:16,4,1:65472,0:2")[0];
 
-	static readonly int[] yy_rmap = {
+	readonly int[] yy_rmap = {
 0,1,2,3,1,1};
 
-	static readonly int[,] yy_nxt = {
+	readonly int[,] yy_nxt = {
 {1,2,3,4,5},
 {-1,-1,-1,-1,-1},
 {-1,2,-1,-1,-1},

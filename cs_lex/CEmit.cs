@@ -400,7 +400,7 @@ namespace CS_Lex
         /*++index;*/
       }
 
-      m_outstream.WriteLine("\tstatic readonly int[] yy_state_dtrans = {");
+      m_outstream.WriteLine("\treadonly int[] yy_state_dtrans = {");
       for (index = 0; index < m_spec.m_state_dtrans.Length; ++index)
       {
         m_outstream.Write("\t\t" + m_spec.m_state_dtrans[index]);
@@ -713,7 +713,7 @@ namespace CS_Lex
       }
       #endif
 
-      m_outstream.WriteLine("\tstatic readonly int[] yy_acpt = {");
+      m_outstream.WriteLine("\treadonly int[] yy_acpt = {");
       size = m_spec.m_accept_vector.Count;
       for (elem = 0; elem < size; ++elem)
       {
@@ -763,13 +763,13 @@ namespace CS_Lex
       int[] yy_cmap = new int[m_spec.m_ccls_map.Length];
       for (i = 0; i < m_spec.m_ccls_map.Length; ++i)
         yy_cmap[i] = m_spec.m_col_map[m_spec.m_ccls_map[i]];
-      m_outstream.WriteLine("\tstatic readonly int[] yy_cmap = unpackFromString(");
+      m_outstream.WriteLine("\treadonly int[] yy_cmap = unpackFromString(");
       emit_table_as_string(new int[][] { yy_cmap });
       m_outstream.WriteLine(")[0];");
       m_outstream.WriteLine();
 
       // CSA: modified yy_rmap to use string packing 9-Aug-1999
-      m_outstream.WriteLine("\tstatic readonly int[] yy_rmap = {");
+      m_outstream.WriteLine("\treadonly int[] yy_rmap = {");
       emit_table(m_spec.m_row_map );
       m_outstream.WriteLine("};");
       m_outstream.WriteLine();
@@ -786,7 +786,7 @@ namespace CS_Lex
         yy_nxt[elem] = dtrans.m_dtrans;
       }
       m_outstream.WriteLine
-        ("\tstatic readonly int[,] yy_nxt = {");
+        ("\treadonly int[,] yy_nxt = {");
       emit_table(yy_nxt);
       m_outstream.WriteLine("};");
       m_outstream.WriteLine();

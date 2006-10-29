@@ -8,11 +8,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "Cpp"; } }
 	  public override string[] Extensions {get { return new string[]{"c","cc","cpp","h","hh","hpp"}; } }
-	  LexerBase lexer = new CppLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new CppLexer(); }
   }
 }
 //NOTE: comments are not allowed except in code blocks

@@ -239,7 +239,10 @@ namespace  CS_Lex
 
         string outfile = arg[0] + ".cs";
 
-        if (File.Exists(outfile) && new FileInfo(outfile).Length > 0)
+        if (File.GetLastWriteTime(typeof(CS_Lex).Assembly.Location) > File.GetLastWriteTime(outfile))
+        {
+        }
+        else if (File.Exists(outfile) && new FileInfo(outfile).Length > 0)
         {
           if (File.GetLastWriteTime(arg[0]) < File.GetLastWriteTime(outfile))
           {

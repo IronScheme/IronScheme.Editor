@@ -1603,6 +1603,9 @@ namespace Xacc.Controls
     }
 
 
+    static readonly SettingsService settings = ServiceHost.Settings as SettingsService;
+
+
  		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.Control.OnPaint(System.Windows.Forms.PaintEventArgs)"]/*'/>
     protected sealed override void OnPaint(PaintEventArgs e)
@@ -1681,7 +1684,7 @@ namespace Xacc.Controls
 
       Brush bgbrush = this.bgbrush;
 
-      g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+      g.TextRenderingHint = settings.ClearType ? TextRenderingHint.ClearTypeGridFit : TextRenderingHint.SystemDefault;
 
       lastrec = e.ClipRectangle;
 

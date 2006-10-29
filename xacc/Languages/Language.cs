@@ -1383,7 +1383,7 @@ namespace Xacc.Languages
       return ((TokenClass) type).ToString();
     }
 
-    static readonly Hashtable typemapping = LanguageService.typemapping;
+    static readonly Dictionary<TokenClass,ColorInfo> typemapping = LanguageService.typemapping;
 
     /// <summary>
     /// Gets color info based on TokenClass

@@ -9,11 +9,8 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "Yacc"; } }
 	  public override string[] Extensions {get { return new string[]{"y"}; } }
-	  LexerBase lexer = new YaccLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new YaccLexer(); } 
+	
   }
 }
 //NOTE: comments are not allowed except in code blocks

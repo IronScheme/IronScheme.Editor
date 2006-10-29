@@ -704,7 +704,7 @@ namespace Xacc.ComponentModel
 
         bm.solution.GlobalProperties["SolutionDir"] = new BuildProperty("SolutionDir", Path.GetDirectoryName(prjfile) + Path.DirectorySeparatorChar);
 
-        using (TextReader r = File.OpenText(prjfile))
+        using (TextReader r = new StreamReader(prjfile, Encoding.Default))
         {
           string all = r.ReadToEnd();
 

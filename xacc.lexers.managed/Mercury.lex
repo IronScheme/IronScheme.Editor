@@ -9,11 +9,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "Mercury"; } }
 	  public override string[] Extensions {get { return new string[]{"m"}; } }
-	  LexerBase lexer = new MercuryLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new MercuryLexer(); }
   }
 }
 //NOTE: comments are not allowed except in code blocks

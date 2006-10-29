@@ -9,11 +9,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "CSS"; } }
 	  public override string[] Extensions {get { return new string[]{"css"}; } }
-	  LexerBase lexer = new CssLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	protected override LexerBase GetLexer() { return new CssLexer(); }
   }
 }
 //NOTE: comments are not allowed except in code blocks

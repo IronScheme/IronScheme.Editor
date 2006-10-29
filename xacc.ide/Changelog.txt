@@ -1,3 +1,12 @@
+0.2.0.64 - October 29, 2006 
+
+- Added ability to turn off ClearType via profile.ls
+- Fixed encoding issue with loading 'sln' files
+- Improved startup time
+- Fixed issue with rerunning profile.ls
+- HLSL now doesnt load the CSS lexer anymore (oops)
+- Updated to NSIS 2.21
+
 0.2.0.62 - September 10, 2006 
 
 - Now converts VS2003 projects to MSBuild

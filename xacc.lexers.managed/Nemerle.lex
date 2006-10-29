@@ -8,11 +8,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "Nemerle"; } }
 	  public override string[] Extensions {get { return new string[]{"n"}; } }
-	  LexerBase lexer = new NemerleLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new NemerleLexer(); }
   }
 }
 //NOTE: comments are not allowed except in code blocks

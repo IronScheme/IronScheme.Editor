@@ -10,12 +10,8 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "XML"; } }
 	  public override string[] Extensions {get { return new string[]{"xml","html","xsl"}; } }
-	  LexerBase lexer = new XmlLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
-	  
+	  protected override LexerBase GetLexer() { return new XmlLexer(); } 
+		  
 	  public override bool MatchLine(string startline)
     {
       return startline.StartsWith("<");

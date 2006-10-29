@@ -8,11 +8,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "Ruby"; } }
 	  public override string[] Extensions {get { return new string[]{"rb"}; } }
-	  LexerBase lexer = new RubyLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new RubyLexer(); }
   }
 }
 //NOTE: comments are not allowed except in code blocks

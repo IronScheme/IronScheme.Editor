@@ -77,8 +77,11 @@ namespace Xacc.Languages.CSLex
 	[CLSCompliant(false)]
 	public abstract class Language<Token> : Languages.Language where Token: struct , IToken
 	{
-    protected abstract LexerBase Lexer {get;}
     //protected abstract Parser Parser {get;}
+
+    protected LexerBase lexer;
+
+    protected abstract LexerBase GetLexer();
 
     readonly ArrayList tokens = new ArrayList();
     readonly Hashtable definedmap = new Hashtable();
@@ -89,6 +92,8 @@ namespace Xacc.Languages.CSLex
       {
         input = input.Substring(0, 4092);
       }
+
+      LexerBase Lexer = lexer ?? (lexer = GetLexer());
       
       tokens.Clear();
       Lexer.Start(input);
@@ -130,7 +135,7 @@ namespace Xacc.Languages.CSLex
 
     protected override int yyparse(IEnumerator lines)
     {
-      Lexer.lines = lines;
+      lexer.lines = lines;
       return Parse() ? 0 : 1;
     }
 

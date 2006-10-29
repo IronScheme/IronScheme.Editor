@@ -24,6 +24,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Drawing;
@@ -119,12 +120,12 @@ namespace Xacc.ComponentModel
 
 	sealed class LanguageService : ServiceBase, ILanguageService
 	{
-		readonly Hashtable extmap = new Hashtable();
-		readonly Hashtable langmap = new Hashtable();
+    readonly Dictionary<string, Language> extmap = new Dictionary<string, Language>();
+    readonly Dictionary<string, Language> langmap = new Dictionary<string, Language>();
 
     public event EventHandler Registered;
 
-    internal static readonly Hashtable typemapping = new Hashtable();
+    internal static readonly Dictionary<TokenClass, ColorInfo> typemapping = new Dictionary<TokenClass, ColorInfo>();
 
     static void AddTokenType(TokenClass c, Color col, Color back, Color border, FontStyle s)
     {

@@ -8,11 +8,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "FSharp"; } }
 	  public override string[] Extensions {get { return new string[]{"fs","fsi"}; } }
-	  LexerBase lexer = new FSharpLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new FSharpLexer(); }
   }
 }
 //NOTE: comments are not allowed except in code blocks

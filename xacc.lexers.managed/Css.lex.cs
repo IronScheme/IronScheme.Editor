@@ -8,11 +8,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "CSS"; } }
 	  public override string[] Extensions {get { return new string[]{"css"}; } }
-	  LexerBase lexer = new CssLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	protected override LexerBase GetLexer() { return new CssLexer(); }
   }
 }
 //NOTE: comments are not allowed except in code blocks
@@ -30,23 +26,23 @@ sealed class CssLexer : LexerBase {
 	const int INDEF = 2;
 	const int INCLASS = 1;
 	const int YYINITIAL = 0;
-	static readonly int[] yy_state_dtrans = {
+	readonly int[] yy_state_dtrans = {
 		0, 		28, 		31, 		33
 	};
-	static readonly int[] yy_acpt = {
+	readonly int[] yy_acpt = {
 0,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 4,4,4,4,4,0,4,4,4,4,4,0,4,4,0,4,
 0,4,0	};
-	static readonly int[] yy_cmap = unpackFromString(
+	readonly int[] yy_cmap = unpackFromString(
 1,65538,
 "4:9,1,14,4,16,15,4:18,1,4:2,12,4:6,3,4:2,9,13,2,9:10,6,10,4:5,11,8:25,4:4,8" +
 ",4,11,8:25,5,4,7,4:65410,0:2")[0];
 
-	static readonly int[] yy_rmap = {
+	readonly int[] yy_rmap = {
 0,1,2,3,1,4,1,1,5,6,7,1,1,8,1,9,1,1,10,11,12,1,13,1,14,15,10,16,17,18,19,20,21,22,23,12};
 
-	static readonly int[,] yy_nxt = {
+	readonly int[,] yy_nxt = {
 {1,2,3,23,23,4,23,23,5,23,23,24,29,32,6,25,6},
 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
 {-1,2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},

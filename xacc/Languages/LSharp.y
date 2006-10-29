@@ -5,8 +5,7 @@
 
 public override string[] Extensions {get {return new string[]{"ls","lsp"}; }}
 public override string Name {get {return "LSharp"; }}
-LexerBase lexer = new LSharpLexer();
-protected override LexerBase Lexer {get {return lexer; }}
+protected override LexerBase GetLexer() { return new LSharpLexer(); } 
 
 [Serializable]
 [Image("bullet.png")]

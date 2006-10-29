@@ -9,11 +9,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "MSIL"; } }
 	  public override string[] Extensions {get { return new string[]{"il"}; } }
-	  LexerBase lexer = new ILLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new ILLexer(); }
   }
 }
 //NOTE: comments are not allowed except in code blocks

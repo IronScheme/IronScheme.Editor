@@ -8,11 +8,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "ChangeLog"; } }
 	  public override string[] Extensions {get { return new string[]{"ChangeLog"}; } }
-	  LexerBase lexer = new ChangelogLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new ChangelogLexer(); }
 	  public override bool Match(string filename)
     {
       return filename.ToLower() == "changelog.txt";
@@ -31,23 +27,23 @@ sealed class ChangelogLexer : LexerBase {
 
 	const int EXPDATE = 1;
 	const int YYINITIAL = 0;
-	static readonly int[] yy_state_dtrans = {
+	readonly int[] yy_state_dtrans = {
 		0, 		21
 	};
-	static readonly int[] yy_acpt = {
+	readonly int[] yy_acpt = {
 0,
 4,4,4,4,4,4,4,4,0,4,4,4,4,0,4,4,
 4,0,4,4,0,4,0,0,4,0,0,0,0,0,0,0,
 0	};
-	static readonly int[] yy_cmap = unpackFromString(
+	readonly int[] yy_cmap = unpackFromString(
 1,130,
 "15:9,2,14,15:2,4,15:18,3,15:12,1,6,15,5:10,13,15:19,9,15:4,7,15:2,8,15:14,1" +
 "1,15:12,10,15:3,12,15:9,0:2")[0];
 
-	static readonly int[] yy_rmap = {
+	readonly int[] yy_rmap = {
 0,1,2,2,1,2,2,3,4,5,6,7,5,8,9,5,10,11,8,4,4,12,13,6,13,14,15,16,17,18,19,20,21,22};
 
-	static readonly int[,] yy_nxt = {
+	readonly int[,] yy_nxt = {
 {1,2,3,11,9,10,15,15,15,15,15,15,15,15,4,15},
 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
 {-1,5,5,5,5,5,5,5,5,5,5,5,5,6,-1,5},

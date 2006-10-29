@@ -8,11 +8,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "NSIS"; } }
 	  public override string[] Extensions {get { return new string[]{"nsi"}; } }
-	  LexerBase lexer = new NSISLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new NSISLexer(); }
   }
 }
 //NOTE: comments are not allowed except in code blocks

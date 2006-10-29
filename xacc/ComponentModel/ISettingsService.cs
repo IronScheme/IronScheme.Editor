@@ -70,6 +70,9 @@ namespace Xacc.ComponentModel
     /// </summary>
     int TabSize           {get;set;}
 
+
+    bool ClearType          { get;set;}
+
     /// <summary>
     /// Gets the commandline arguments.
     /// </summary>
@@ -81,6 +84,7 @@ namespace Xacc.ComponentModel
     Font editorfont, generalfont;
     int tabsize = 2;
     internal IdeArgs args;
+    bool cleartype = true;
 
     public static bool idemode = false;
 
@@ -205,6 +209,24 @@ namespace Xacc.ComponentModel
       set
       {
         tabsize = value;
+      }
+    }
+
+    #endregion
+
+    #region ISettingsService Members
+
+
+
+    public bool ClearType
+    {
+      get
+      {
+        return cleartype;
+      }
+      set
+      {
+        cleartype = value;
       }
     }
 

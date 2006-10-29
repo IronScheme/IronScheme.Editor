@@ -10,11 +10,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "Scala"; } }
 	  public override string[] Extensions {get { return new string[]{"scala"}; } }
-	  LexerBase lexer = new ScalaLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new ScalaLexer(); }
   }
 }
 //NOTE: comments are not allowed except in code blocks

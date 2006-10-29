@@ -104,7 +104,7 @@ namespace gppg
     {
       if (scanner == null)
       {
-        scanner = Lexer;
+        scanner = lexer;
       }
       tokenstream.Clear();
       reducehandles.Clear();
@@ -114,10 +114,10 @@ namespace gppg
       reducestack.Clear();
       tokenpos = 0;
 
-      Xacc.ComponentModel.ServiceHost.Error.ClearErrors(Lexer);
+      Xacc.ComponentModel.ServiceHost.Error.ClearErrors(lexer);
       Initialize();	// allow derived classes to instantiate rules, states and nonTerminals
 
-      Lexer.eofToken = this.eofToken;
+      lexer.eofToken = this.eofToken;
 
       next = 0;
       current_state = states[0];

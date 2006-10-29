@@ -8,11 +8,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "Patch"; } }
 	  public override string[] Extensions {get { return new string[]{"patch", "diff"}; } }
-	  LexerBase lexer = new PatchLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new PatchLexer(); }
   }
 }
 

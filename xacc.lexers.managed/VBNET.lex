@@ -8,11 +8,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "VBNET"; } }
 	  public override string[] Extensions {get { return new string[]{"vb"}; } }
-	  LexerBase lexer = new VBNETLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new VBNETLexer(); }
   }
 }
 //NOTE: comments are not allowed except in code blocks

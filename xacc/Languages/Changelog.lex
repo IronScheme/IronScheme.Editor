@@ -8,11 +8,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "ChangeLog"; } }
 	  public override string[] Extensions {get { return new string[]{"ChangeLog"}; } }
-	  LexerBase lexer = new ChangelogLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new ChangelogLexer(); }
 	  
 	  public override bool Match(string filename)
     {

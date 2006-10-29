@@ -7,11 +7,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "Patch"; } }
 	  public override string[] Extensions {get { return new string[]{"patch", "diff"}; } }
-	  LexerBase lexer = new PatchLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new PatchLexer(); }
   }
 }
 
@@ -25,21 +21,21 @@ sealed class PatchLexer : LexerBase {
 	}
 
 	const int YYINITIAL = 0;
-	static readonly int[] yy_state_dtrans = {
+	readonly int[] yy_state_dtrans = {
 		0
 	};
-	static readonly int[] yy_acpt = {
+	readonly int[] yy_acpt = {
 0,
 4,4,4,4,4,4,4,4,0,4,4,0,4,4,4,4,
 4,4,4	};
-	static readonly int[] yy_cmap = unpackFromString(
+	readonly int[] yy_cmap = unpackFromString(
 1,65538,
 "3:9,1,9,3:21,1,3:10,4,3,5,3:18,2,3:35,6,3,8,3:2,7,3:65430,0:2")[0];
 
-	static readonly int[] yy_rmap = {
+	readonly int[] yy_rmap = {
 0,1,2,3,4,5,1,1,6,7,8,9,10,11,12,13,6,9,14,15};
 
-	static readonly int[,] yy_nxt = {
+	readonly int[,] yy_nxt = {
 {1,2,3,17,4,5,19,17,17,6},
 {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
 {-1,2,-1,-1,-1,-1,-1,-1,-1,-1},

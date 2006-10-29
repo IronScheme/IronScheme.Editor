@@ -578,7 +578,7 @@ namespace Xacc.ComponentModel
 #endif
         bool success = false;
 
-        foreach (Action h in hs)
+        foreach (Action h in new ArrayList(hs))
         {
           success |= h.StartInvoke();
         }

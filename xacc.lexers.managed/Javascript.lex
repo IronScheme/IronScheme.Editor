@@ -9,11 +9,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "JavaScript"; } }
 	  public override string[] Extensions {get { return new string[]{"js"}; } }
-	  LexerBase lexer = new JavaScriptLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new JavaScriptLexer(); }
   }
 }
 //NOTE: comments are not allowed except in code blocks

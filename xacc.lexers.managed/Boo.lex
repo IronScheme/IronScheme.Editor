@@ -9,11 +9,7 @@ namespace Xacc.Languages
   {
 	  public override string Name {get {return "Boo"; } }
 	  public override string[] Extensions {get { return new string[]{"boo"}; } }
-	  LexerBase lexer = new BooLexer();
-	  protected override LexerBase Lexer
-	  {
-		  get {return lexer;}
-	  }
+	  protected override LexerBase GetLexer() { return new BooLexer(); }
   }
 }
 //NOTE: comments are not allowed except in code blocks
