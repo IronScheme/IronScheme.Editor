@@ -21,7 +21,7 @@ namespace WeifenLuo.WinFormsUI
 		{
 			m_dragForm = new DragForm();
 			SetDragForm(Rectangle.Empty);
-			DragForm.BackColor = Color.Blue;
+			DragForm.BackColor = SystemColors.Highlight;
 			DragForm.Opacity = 0.5;
 			DragForm.Show(false);
 		}

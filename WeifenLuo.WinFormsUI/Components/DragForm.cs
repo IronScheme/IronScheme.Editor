@@ -69,5 +69,17 @@ namespace WeifenLuo.WinFormsUI
 			else
 				User32.ShowWindow(Handle, (int)Win32.ShowWindowStyles.SW_SHOWNOACTIVATE);
 		}
+
+    private void InitializeComponent()
+    {
+      this.SuspendLayout();
+      // 
+      // DragForm
+      // 
+      this.ClientSize = new System.Drawing.Size(292, 266);
+      this.Name = "DragForm";
+      this.ResumeLayout(false);
+
+    }
 	}
 }

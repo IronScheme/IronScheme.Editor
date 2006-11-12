@@ -590,6 +590,18 @@ namespace WeifenLuo.WinFormsUI
 			} 
  
 			return rect; 
-		} 
+		}
+
+    private void InitializeComponent()
+    {
+      this.SuspendLayout();
+      // 
+      // DockIndicator
+      // 
+      this.ClientSize = new System.Drawing.Size(300, 300);
+      this.Name = "DockIndicator";
+      this.ResumeLayout(false);
+
+    } 
 	}
 }
