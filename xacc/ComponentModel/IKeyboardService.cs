@@ -331,6 +331,7 @@ namespace Xacc.ComponentModel
   	public KeyboardHandler()
 		{
       ServiceHost.Window.MainForm.KeyDown +=new KeyEventHandler(MainForm_KeyDown);
+      ServiceHost.Window.MainForm.KeyUp += new KeyEventHandler(MainForm_KeyUp);
     }
 
     public bool Register(Closure clos, ICollection keys, bool ignoreshift, ApplicationState state)
@@ -626,8 +627,23 @@ namespace Xacc.ComponentModel
       object[] keys = stack.ToArray();
       Array.Reverse(keys);
 
+      //System.Diagnostics.Trace.Write("KeyDown:\t");
+      //foreach (Keys k in keys)
+      //{
+      //  System.Diagnostics.Trace.Write("(" + k + ") ");
+      //}
+      //System.Diagnostics.Trace.WriteLine("");
+
       e.Handled = MatchStack(keys);
 #warning FIX MULTIPLE KEYSTROKES SOMEHOW
     }
+
+    void MainForm_KeyUp(object sender, KeyEventArgs e)
+    {
+      //System.Diagnostics.Trace.Write("KeyUp:\t");
+      //System.Diagnostics.Trace.Write("(" + e.KeyData + ") ");
+      //System.Diagnostics.Trace.WriteLine("");
+    }
+
   }
 }

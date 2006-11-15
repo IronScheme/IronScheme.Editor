@@ -7515,7 +7515,10 @@ namespace Xacc.Controls
         }
         finally
         {
-          
+          if (reader is StreamReader)
+          {
+            encoding = ((StreamReader)reader).CurrentEncoding;
+          }
         }
       }
 
@@ -7541,7 +7544,7 @@ namespace Xacc.Controls
         {
           encoding = Encoding.Default;
         }
-        StreamReader reader = new StreamReader(stream, encoding);
+        StreamReader reader = new StreamReader(stream, encoding, true);
         try
         {
           Load(reader);
@@ -7559,6 +7562,18 @@ namespace Xacc.Controls
       public void Load(string filename)
       {
 				Load(filename, Encoding.Default);
+      }
+
+      Encoding encoding;
+
+      /// <summary>
+      /// Gets or sets the current encoding.
+      /// </summary>
+      /// <value>The current encoding.</value>
+      public Encoding CurrentEncoding
+      {
+        get { return encoding; }
+        set { encoding = value; }
       }
 
 			/// <summary>
@@ -7580,23 +7595,10 @@ namespace Xacc.Controls
           owner.ShowFoldbar = lang.HasFoldInfo;
         }
 
-        if(encoding == null)
-        {
-          encoding = Encoding.Default;
-        }
-
         if (File.Exists(filename))
         {
           Stream s = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-          StreamReader reader = new StreamReader(s, encoding, true);
-          try
-          {
-            Load(reader);
-          }
-          finally
-          {
-            reader.Close();
-          }
+          Load(s, encoding);
         }
       }
 
@@ -7606,7 +7608,7 @@ namespace Xacc.Controls
 			/// <param name="writer">the text destination</param>
       public void Save(TextWriter writer)
       {
-        if(writer == null)
+         if(writer == null)
         {
           throw new ArgumentNullException("writer");
         }
@@ -7634,7 +7636,7 @@ namespace Xacc.Controls
 			/// <param name="stream">the text destination</param>
 			public void Save(Stream stream)
       {
-				Save(stream ,Encoding.Default);
+				Save(stream , CurrentEncoding ?? Encoding.Default);
       }
 
 			/// <summary>
@@ -7646,7 +7648,7 @@ namespace Xacc.Controls
       {
         if(encoding == null)
         {
-          encoding = Encoding.Default;
+          encoding = CurrentEncoding ?? Encoding.Default;
         }
         StreamWriter writer = new StreamWriter(stream, encoding);
         try
@@ -7665,7 +7667,7 @@ namespace Xacc.Controls
 			/// <param name="filename">the text destination</param>
 			public void Save(string filename)
       {
-				Save(filename, Encoding.Default);
+        Save(filename, CurrentEncoding ?? Encoding.Default);
       }
 
 			/// <summary>
@@ -7677,7 +7679,7 @@ namespace Xacc.Controls
       {
         if(encoding == null)
         {
-          encoding = Encoding.Default;
+          encoding = CurrentEncoding ?? Encoding.Default;
         }
         StreamWriter writer = new StreamWriter(filename, false, encoding);
         try

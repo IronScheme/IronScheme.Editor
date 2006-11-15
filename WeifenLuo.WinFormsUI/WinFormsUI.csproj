@@ -307,6 +307,14 @@
     <Compile Include="Win32\User32.cs">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="Components\DragForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DragForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Docking\DockIndicator.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DockIndicator.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Docking\DockPanel.resx">
       <DependentUpon>DockPanel.cs</DependentUpon>
     </EmbeddedResource>

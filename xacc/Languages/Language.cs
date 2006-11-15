@@ -291,128 +291,12 @@ namespace Xacc.Languages
 
     #endregion
 
-    #region yacc stuff
 
     /// <summary>
     /// Internal use
     /// </summary>
     /// <returns></returns>
     protected abstract int yyparse(IEnumerator lines);
-
-    /// <summary>
-    /// Resets the error state when parsing
-    /// </summary>
-    [Obsolete]
-    protected void ResetError()
-    {
-      yyerrflag = 0;
-    }
-
-    /// <summary>
-    /// Emits a warning message when parsing
-    /// </summary>
-    /// <param name="s">the message</param>
-    /// <param name="loc">the location</param>
-    [Obsolete]
-    protected void yywarn(string s, Location loc)
-    {
-      if (!SuppressErrors)
-      {
-        if (loc == null)
-        {
-          ServiceHost.Error.OutputErrors( this,  new ActionResult(0, s, CurrentFilename));
-        }
-        else
-        {
-          loc.Warning = true;
-          if (cb != null)
-          {
-            cb.Invoke(loc);
-          }
-          ServiceHost.Error.OutputErrors( this, new ActionResult(s, loc));
-        }
-      }
-    }
-
-    /// <summary>
-    /// Emits an error message when parsing
-    /// </summary>
-    /// <param name="s">the message</param>
-    /// <param name="loc">the location</param>
-    [Obsolete]
-    protected void yyerror(string s, Location loc)
-    {
-      if (!SuppressErrors)
-      {
-        if (loc == null)
-        {
-          ServiceHost.Error.OutputErrors( this,  new ActionResult(0, s, CurrentFilename));
-        }
-        else
-        {
-          loc.Error = true;
-          if (cb != null)
-          {
-            cb.Invoke(loc);
-          }
-          ServiceHost.Error.OutputErrors( this,  new ActionResult(s, loc));
-        }
-      }
-    }
-
-    /// <summary>
-    /// Emits a error message when parsing when an unexpected token was encountered
-    /// </summary>
-    /// <param name="v">the expected char</param>
-    /// <param name="loc">the location</param>
-    [Obsolete]
-    protected void yyexpect(char v, Location loc)
-    {
-      if (!SuppressErrors)
-      {
-        if (loc == null)
-        {
-          ServiceHost.Error.OutputErrors( this,  new ActionResult(0, string.Format("Expected '{0}'", v), CurrentFilename));
-        }
-        else
-        {
-          loc.Error = true;
-          if (cb != null)
-          {
-            cb.Invoke(loc);
-          }
-          ServiceHost.Error.OutputErrors( this,  new ActionResult(string.Format("Expected '{0}'", v), loc));
-        }
-      }
-    }
-
-    /// <summary>
-    /// Emits a error message when parsing when an unexpected token was encountered
-    /// </summary>
-    /// <param name="v">the expected string</param>
-    /// <param name="loc">the location</param>
-    [Obsolete]
-    protected void yyexpect(string v, Location loc)
-    {
-      if (!SuppressErrors)
-      {
-        if (loc == null)
-        {
-          ServiceHost.Error.OutputErrors( this,  new ActionResult(0, string.Format("Expected {0}", v), CurrentFilename));
-        }
-        else
-        {
-          loc.Error = true;
-          if (cb != null)
-          {
-            cb.Invoke(loc);
-          }
-          ServiceHost.Error.OutputErrors(  this, new ActionResult(string.Format("Expected {0}", v), loc));
-        }
-      }
-    }
-
-    #endregion
    
     #region Parser events
 

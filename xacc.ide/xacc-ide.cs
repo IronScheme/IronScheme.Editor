@@ -25,11 +25,6 @@ using Xacc.Controls;
 
 #endregion
 
-namespace xacc_ide
-{
-	/// <summary>
-	/// Summary description for Form1.
-	/// </summary>
 	class ide : Form
   {
 		public ide()
@@ -52,4 +47,4 @@ namespace xacc_ide
       }
     }
   }
-}
+

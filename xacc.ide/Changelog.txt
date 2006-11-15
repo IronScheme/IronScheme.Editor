@@ -1,3 +1,7 @@
+0.2.0.66 - October 15, 2006 
+
+- Fixed Unicode/other encodings not saving correctly
+
 0.2.0.64 - October 29, 2006 
 
 - Added ability to turn off ClearType via profile.ls

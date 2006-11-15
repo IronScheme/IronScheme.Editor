@@ -313,7 +313,7 @@ namespace Xacc.Configuration
 
 		static void f_Closing(object sender, CancelEventArgs e)
 		{
-      
+      ToolStripManager.SaveSettings(ServiceHost.Window.MainForm);
 
       IToolsService its = ServiceHost.Tools;
       if (its != null)
@@ -342,7 +342,6 @@ namespace Xacc.Configuration
 
 		static void AppExit(object sender, EventArgs e)
 		{
-      ToolStripManager.SaveSettings(ServiceHost.Window.MainForm);
 			((IDisposable) ServiceHost.INSTANCE).Dispose();
       if (tracelog != null)
       {

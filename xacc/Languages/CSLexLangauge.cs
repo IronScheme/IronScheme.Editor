@@ -24,11 +24,11 @@ namespace Xacc.Languages.CSLex
       location = null;
     }
 
-    public static implicit operator Yytoken(Color color)
-    {
-      TokenClass tokenclass = (TokenClass)((int)TokenClass.Custom | (0xffffff & color.ToArgb()));
-      return new Yytoken(tokenclass);
-    }
+    //public static implicit operator Yytoken(Color color)
+    //{
+    //  TokenClass tokenclass = (TokenClass)((int)TokenClass.Custom | (0xffffff & color.ToArgb()));
+    //  return new Yytoken(tokenclass);
+    //}
 
     public static implicit operator Yytoken(TokenClass tokenclass)
     {
