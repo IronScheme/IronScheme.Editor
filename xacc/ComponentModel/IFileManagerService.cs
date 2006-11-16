@@ -363,8 +363,8 @@ namespace Xacc.ComponentModel
 		{
 			if (disposing)
 			{
-				TextWriter writer = File.CreateText( Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar + 
-          "recent.ini");
+				TextWriter writer = new StreamWriter(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar + 
+          "recent.ini", false, Encoding.Default);
 
 				//reverse the list so it gets loaded in reverse
 				string[] rc = RecentFiles;
@@ -498,7 +498,7 @@ namespace Xacc.ComponentModel
 			string recfn = Application.StartupPath + Path.DirectorySeparatorChar + "recent.ini";
 			if (File.Exists(recfn))
 			{
-				TextReader reader = File.OpenText(recfn);
+				TextReader reader = new StreamReader(recfn, Encoding.Default, true);
 				string rf;
 				//fast CPU hack ;p
 				int priority = 0;

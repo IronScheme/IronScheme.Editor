@@ -1,4 +1,4 @@
-0.2.0.66 - October 15, 2006 
+0.2.0.66 - November 15, 2006 
 
 - Fixed Unicode/other encodings not saving correctly
 

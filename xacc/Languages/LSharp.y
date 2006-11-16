@@ -235,7 +235,7 @@ specialform
     | SETF setvaluexpr
     | THE IDENTIFIER expr
     | TO IDENTIFIER expr exprlist
-    | TRACE IDENTIFIER exprlist
+    | TRACE expr exprlist
     | TRY expr expr expropt
     | WHEN expr exprlist
     | WHILE expr exprlist

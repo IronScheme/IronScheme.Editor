@@ -280,8 +280,8 @@ namespace Xacc.ComponentModel
     {
 			if (disposing)
 			{
-				TextWriter writer = File.CreateText( Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar + 
-          "recentprojects.ini");
+				TextWriter writer = new StreamWriter(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar + 
+          "recentprojects.ini", false, Encoding.Default);
 
 				//reverse the list so it gets loaded in reverse
 				string[] rc = RecentProjects;
@@ -438,7 +438,7 @@ namespace Xacc.ComponentModel
       string recfn = Application.StartupPath + Path.DirectorySeparatorChar + "recentprojects.ini";
       if (File.Exists(recfn))
       {
-        TextReader reader = File.OpenText(recfn);
+        TextReader reader = new StreamReader(recfn, Encoding.Default, true);
         string rf;
         //fast CPU hack ;p
         int priority = 0;
@@ -704,7 +704,7 @@ namespace Xacc.ComponentModel
 
         bm.solution.GlobalProperties["SolutionDir"] = new BuildProperty("SolutionDir", Path.GetDirectoryName(prjfile) + Path.DirectorySeparatorChar);
 
-        using (TextReader r = new StreamReader(prjfile, Encoding.Default))
+        using (TextReader r = new StreamReader(prjfile, Encoding.Default, true))
         {
           string all = r.ReadToEnd();
 

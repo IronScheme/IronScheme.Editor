@@ -357,7 +357,7 @@ class Literal : CodeElement
     AddState(103,new State(new int[]{92,6,94,8,95,9,93,10,3,12,83,24,70,26,32,28,33,30,1,32},new int[]{-5,104,-4,5,-6,7,-3,11,-12,23}));
     AddState(104,new State(-106,new int[]{-2,105}));
     AddState(105,new State(new int[]{92,6,94,8,95,9,93,10,3,12,83,24,70,26,32,28,33,30,1,32,4,-90},new int[]{-5,22,-4,5,-6,7,-3,11,-12,23}));
-    AddState(106,new State(new int[]{92,107}));
+    AddState(106,new State(new int[]{92,6,94,8,95,9,93,10,3,12,83,24,70,26,32,28,33,30,1,32},new int[]{-5,107,-4,5,-6,7,-3,11,-12,23}));
     AddState(107,new State(-106,new int[]{-2,108}));
     AddState(108,new State(new int[]{92,6,94,8,95,9,93,10,3,12,83,24,70,26,32,28,33,30,1,32,4,-91},new int[]{-5,22,-4,5,-6,7,-3,11,-12,23}));
     AddState(109,new State(new int[]{92,6,94,8,95,9,93,10,3,12,83,24,70,26,32,28,33,30,1,32},new int[]{-5,110,-4,5,-6,7,-3,11,-12,23}));
@@ -612,7 +612,7 @@ class Literal : CodeElement
     rules[88]=new Rule(-9, new int[]{84,-17});
     rules[89]=new Rule(-9, new int[]{85,92,-5});
     rules[90]=new Rule(-9, new int[]{86,92,-5,-2});
-    rules[91]=new Rule(-9, new int[]{87,92,-2});
+    rules[91]=new Rule(-9, new int[]{87,-5,-2});
     rules[92]=new Rule(-9, new int[]{88,-5,-5,-14});
     rules[93]=new Rule(-9, new int[]{89,-5,-2});
     rules[94]=new Rule(-9, new int[]{90,-5,-2});

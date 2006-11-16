@@ -45,7 +45,7 @@ namespace Xacc.Languages
   /// <summary>
   /// Base class for all languages
   /// </summary>
-  [Image("File.Type.NA.png")]
+  [Image("None.png")]
   public abstract class Language
   {
     #region Fields

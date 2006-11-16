@@ -152,6 +152,20 @@ namespace WeifenLuo.WinFormsUI
 
 				return;
 			}
+      else if (m.Msg == (int)Win32.Msgs.WM_MBUTTONUP)
+      {
+        base.WndProc(ref m);
+
+        int index = GetHitTest();
+        if (index != -1)
+        {
+          IDockContent content = Tabs[index].Content;
+          try { content.DockHandler.Close();}
+          catch { }
+        }
+
+        return;
+      }
 
 			base.WndProc(ref m);
 			return;
