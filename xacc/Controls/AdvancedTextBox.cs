@@ -6481,7 +6481,7 @@ namespace Xacc.Controls
 
           string l = this[cl];
 
-          if (recording)
+          if (recording && text.Length > 0)
           {
             before = ((IHasUndo)this).GetUndoState();
           }
@@ -6523,9 +6523,9 @@ namespace Xacc.Controls
             CurrentLine = cl;
           }
 
-          LineCharacterIndex = nl.Length - back.Length; 
-  
-          if (recording)
+          LineCharacterIndex = nl.Length - back.Length;
+
+          if (recording && text.Length > 0)
           {
             object after = ((IHasUndo)this).GetUndoState();
             undo.Push( new InsertOperation(before, after, value));

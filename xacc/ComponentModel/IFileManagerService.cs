@@ -193,6 +193,10 @@ namespace Xacc.ComponentModel
     /// </summary>
     Control					CurrentControl				{get;}
 
+    /// <summary>
+    /// Gets the current document.
+    /// </summary>
+    /// <value>The current document.</value>
     Document CurrentDocument { get;}
 
 
@@ -654,7 +658,13 @@ namespace Xacc.ComponentModel
     [MenuItem("New\\Blank file", Index = 0, Image = "File.New.png")]
     void NewTextFile()
     {
-      Open("untitled.txt");
+      string filename = "untitled.txt";
+      int i = 1;
+      while (File.Exists(filename))
+      {
+        filename = "untitled" + i++ + ".txt";
+      }
+      Open(filename);
     }
 
 
@@ -860,6 +870,7 @@ namespace Xacc.ComponentModel
 		{
 			foreach (string file in OpenFiles)
 			{
+        string ffile = file;
 				IFile atb = this[file] as IFile;
 				if (atb != null && atb.IsDirty)
 				{
@@ -869,7 +880,7 @@ namespace Xacc.ComponentModel
 					switch (dr)
 					{
 						case DialogResult.Yes:
-							Save(file);
+							ffile = SaveFileInternal(file);
               closeresult = true;
 							break;
 						case DialogResult.No:
@@ -880,7 +891,7 @@ namespace Xacc.ComponentModel
 							return;
 					}
 				}
-				Close(file);
+				Close(ffile);
 			}
 			GC.Collect();
 		}
@@ -903,7 +914,7 @@ namespace Xacc.ComponentModel
 				switch (dr)
 				{
 					case DialogResult.Yes:
-						Save(current);
+            current = SaveFileInternal(current);
 						break;
 					case DialogResult.No:
 						break;
@@ -911,6 +922,8 @@ namespace Xacc.ComponentModel
 						return;
 				}
 			}
+
+
 			Close(current);
 			GC.Collect();
 		}
@@ -934,7 +947,7 @@ namespace Xacc.ComponentModel
         switch (dr)
         {
           case DialogResult.Yes:
-            Save(current);
+            current = SaveFileInternal(current);
             break;
           case DialogResult.No:
             break;
@@ -943,6 +956,7 @@ namespace Xacc.ComponentModel
             return;
         }
       }
+
       Close(current, false);
       GC.Collect();
     }
@@ -952,56 +966,87 @@ namespace Xacc.ComponentModel
 		{
 			if (current != null && this[current] is IFile)
 			{
-				Save(current);
+        SaveFileInternal(current);
 			}
 		}
+
+    string SaveFileInternal(string filename)
+    {
+      if (Path.GetFileName(filename).ToLower().StartsWith("untitled") && !File.Exists(filename))
+      {
+        return SaveFileAs(true, filename);
+      }
+      else
+      {
+        Save(filename);
+        return filename;
+      }
+    }
 
     [MenuItem("Save file as...", Index = 11, State = ApplicationState.File, Image = "File.SaveAs.png")]
 		void SaveFileAs()
 		{
 			if (current != null)
 			{
-				SaveFileDialog sfd = new SaveFileDialog();
-				sfd.CheckPathExists = true;
-
-				string ext = Path.GetExtension(current).TrimStart('.');
-
-				StringBuilder sb = new StringBuilder();
-				StringBuilder ex = new StringBuilder();
-
-				Languages.Language l = ServiceHost.Language[ext == string.Empty ? "*" : ext];
-        if (l != null)
-        {
-          string[] exts = l.Extensions;
-
-          ex.AppendFormat("*.{0}", exts[0]);
-
-          for(int i = 1; i < exts.Length; i++)
-          {
-            ex.AppendFormat(";*.{0}", exts[i]);
-          }
-
-          sb.AppendFormat("{0} ({1})|{1}|", l.Name, ex);
-        }
-
-				sb.Append("All files (*.*)|*.*");
-
-				sfd.Filter = sb.ToString();
-        sfd.RestoreDirectory = true;
-
-				if (sfd.ShowDialog(ServiceHost.Window.MainForm) == DialogResult.OK)
-				{
-					if (current != null && this[current] is IFile)
-					{
-            IFile atb = this[current] as IFile;
-						atb.Save(sfd.FileName);
-
-						Close(current);
-						Open(sfd.FileName);
-					}
-				}
+        SaveFileAs(true, current);
 			}
 		}
+
+    string SaveFileAs(bool reopen, string filename)
+    {
+      SaveFileDialog sfd = new SaveFileDialog();
+      sfd.CheckPathExists = true;
+
+      string ext = Path.GetExtension(filename).TrimStart('.');
+
+      StringBuilder sb = new StringBuilder();
+      StringBuilder ex = new StringBuilder();
+
+      Languages.Language l = ServiceHost.Language[ext == string.Empty ? "*" : ext];
+      if (l != null)
+      {
+        string[] exts = l.Extensions;
+
+        ex.AppendFormat("*.{0}", exts[0]);
+
+        for (int i = 1; i < exts.Length; i++)
+        {
+          ex.AppendFormat(";*.{0}", exts[i]);
+        }
+
+        sb.AppendFormat("{0} ({1})|{1}|", l.Name, ex);
+      }
+
+      sb.Append("All files (*.*)|*.*");
+
+      sfd.FileName = filename;
+      sfd.Filter = sb.ToString();
+      sfd.RestoreDirectory = true;
+
+      if (sfd.ShowDialog(ServiceHost.Window.MainForm) == DialogResult.OK)
+      {
+        if (filename != null && this[filename] is IFile)
+        {
+          IFile atb = this[filename] as IFile;
+          atb.Save(sfd.FileName);
+
+          //buffers.Remove(filename);
+
+          //string newfilename = Normalize(sfd.FileName);
+
+          //buffers.Add(newfilename, atb);
+
+          Close(filename);
+          if (reopen)
+          {
+            Open(sfd.FileName);
+          }
+
+          return sfd.FileName;
+        }
+      }
+      return null;
+    }
 
     public int OpenFileCount
     {
