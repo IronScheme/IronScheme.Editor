@@ -317,13 +317,13 @@ namespace Xacc.ComponentModel
     }
 
 
-    [MenuItem("Add new file...", Index = 10, State = ApplicationState.Project, Image = "Project.Add.png", AllowToolBar = true)]
+    [MenuItem("Add New File...", Index = 10, State = ApplicationState.Project, Image = "Project.Add.png", AllowToolBar = true)]
     void AddNewFile()
     {
       Current.NewFile(null, EventArgs.Empty);
     }
 
-    [MenuItem("Add existing file...", Index = 11, State = ApplicationState.Project, Image = "File.Open.png", AllowToolBar = true)]
+    [MenuItem("Add Existing File...", Index = 11, State = ApplicationState.Project, Image = "File.Open.png", AllowToolBar = true)]
     void AddExistingFile()
     {
       Current.ExistingFile(null, EventArgs.Empty);
@@ -373,13 +373,13 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Remove project", Index = 16, State = ApplicationState.Project)]
+    [MenuItem("Remove Project", Index = 16, State = ApplicationState.Project)]
     void RemoveProject()
     {
       Close(new Project[] {Current });
     }
     
-    [MenuItem("Set as Startup", Index = 17, State = ApplicationState.Project)]
+    [MenuItem("Set As Startup", Index = 17, State = ApplicationState.Project)]
     void SetAsStartup()
     {
       foreach (Project p in OpenProjects)
@@ -599,12 +599,13 @@ namespace Xacc.ComponentModel
       Remove(proj);
     }
 
-    [MenuItem("Close all", Index = 25, State = ApplicationState.Project)]
+    [MenuItem("Close All", Index = 25, State = ApplicationState.Project)]
     public void	CloseAll()
     {
       BuildProject solution = (ServiceHost.Build as BuildService).solution;
       if (solution != null)
       {
+        ServiceHost.Window.Document.Save(Path.ChangeExtension(solution.FullFileName, ".xaccdata"));
         solution.Save(solution.FullFileName);
         (ServiceHost.Build as BuildService).solution = null;
       }
@@ -613,6 +614,7 @@ namespace Xacc.ComponentModel
         p.Save();
       }
       Close(OpenProjects);
+
     }
 
 		public Project[] Open(string prjfile)
@@ -628,7 +630,7 @@ namespace Xacc.ComponentModel
 
       foreach (MRUFile mru in recentfiles)
       {
-        if (mru.filename == prjfile)
+        if (string.Compare(mru.filename,prjfile, true) == 0)
         {
           mru.Update();
           goto DONE;
@@ -674,7 +676,14 @@ namespace Xacc.ComponentModel
           }
         }
 
-        ProjectTab.Show();
+        if (File.Exists(Path.ChangeExtension(prjfile, ".xaccdata")))
+        {
+          ServiceHost.Window.Document.Load(Path.ChangeExtension(prjfile, ".xaccdata"));
+        }
+        else
+        {
+          ProjectTab.Show();
+        }
         return projects.ToArray(typeof(Project)) as Project[];
       }
       else if (ext.EndsWith("proj"))

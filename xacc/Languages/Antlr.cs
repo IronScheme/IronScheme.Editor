@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Xacc.ComponentModel;
 
+#if ANTRL
+
 namespace Xacc.Languages
 {
   public struct AntlrToken : antlr.IToken
@@ -56,3 +58,5 @@ namespace Xacc.Languages
     }
   }
 }
+
+#endif

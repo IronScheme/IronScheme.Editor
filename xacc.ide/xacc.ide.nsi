@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "xacc.ide"
-!define PRODUCT_VERSION "0.2.0.68"
+!define PRODUCT_VERSION "0.2.0.69"
 !define PRODUCT_PUBLISHER "leppie"
 !define PRODUCT_WEB_SITE "http://blogs.wdevs.com/leppie/"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\xacc.ide.exe"
@@ -199,7 +199,14 @@ SectionIn 1 2 RO
   File "WeifenLuo.WinFormsUI.Docking.dll"
 	File "xacc.runtime.dll"
 	File "LSharp.dll"
-	File "antlr.runtime.dll"
+	;File "antlr.runtime.dll"
+	;File "Core.dll"
+	;File "Gui.Diagram.dll"
+	;File "Translations.dll"
+	;File "vs.dst"
+	File "xacc.nclass.dll"
+	File "Aga.Controls.dll"
+	;File "mdbg.dll"
 	;File "lsc.exe"
 	File "xacc.lexers.managed.dll"
   File "xacc.config.xml"
@@ -240,9 +247,9 @@ SectionEnd
 
 ;Section "Debug support" SEC06
 ;SectionIn 1
-;	SetOutPath "$INSTDIR"
-;  File "xacc.pdb"
-;	File "xacc.ide.pdb"
+;SetOutPath "$INSTDIR"
+;File "xacc.pdb"
+;File "xacc.ide.pdb"
 ;SectionEnd
 
 ;Section "Optimize" SEC07

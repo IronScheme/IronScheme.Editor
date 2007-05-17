@@ -62,7 +62,7 @@ namespace Xacc.ComponentModel
       exf.ShowDialog(ServiceHost.Window.MainForm);
     }
 
-    [MenuItem("Trace log", Index = 11)]
+    [MenuItem("Trace Log", Index = 11)]
     public void TraceLog()
     {
       Form f = new Form();
@@ -76,6 +76,7 @@ namespace Xacc.ComponentModel
       f.Text = "Trace log";
       atb.Dock = DockStyle.Fill;
       f.Controls.Add(atb);
+      f.ShowIcon = false;
 
       f.ShowDialog(ServiceHost.Window.MainForm);
       

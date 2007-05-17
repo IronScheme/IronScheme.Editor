@@ -30,6 +30,10 @@ using System.Windows.Forms;
 
 namespace Xacc.ComponentModel
 {
+  public interface IHasCodeModel
+  {
+    ICodeFile CodeModel { get;}
+  }
   /// <summary>
   /// Provides services for diplaying CodeModel
   /// </summary>

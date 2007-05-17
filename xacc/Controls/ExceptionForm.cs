@@ -153,11 +153,13 @@ namespace Xacc.Controls
       // 
       // groupBox1
       // 
+      this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
       this.groupBox1.Controls.Add(this.messageBox);
       this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
       this.groupBox1.Location = new System.Drawing.Point(8, 0);
       this.groupBox1.Name = "groupBox1";
-      this.groupBox1.Size = new System.Drawing.Size(616, 72);
+      this.groupBox1.Size = new System.Drawing.Size(616, 83);
       this.groupBox1.TabIndex = 0;
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Message";
@@ -165,21 +167,22 @@ namespace Xacc.Controls
       // messageBox
       // 
       this.messageBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-      this.messageBox.Location = new System.Drawing.Point(8, 16);
+      this.messageBox.Location = new System.Drawing.Point(8, 18);
       this.messageBox.Multiline = true;
       this.messageBox.Name = "messageBox";
       this.messageBox.ReadOnly = true;
       this.messageBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-      this.messageBox.Size = new System.Drawing.Size(600, 48);
+      this.messageBox.Size = new System.Drawing.Size(600, 56);
       this.messageBox.TabIndex = 1;
-      this.messageBox.Text = "";
       // 
       // groupBox2
       // 
+      this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
       this.groupBox2.Controls.Add(this.detailsBox);
-      this.groupBox2.Location = new System.Drawing.Point(8, 72);
+      this.groupBox2.Location = new System.Drawing.Point(8, 83);
       this.groupBox2.Name = "groupBox2";
-      this.groupBox2.Size = new System.Drawing.Size(616, 216);
+      this.groupBox2.Size = new System.Drawing.Size(616, 249);
       this.groupBox2.TabIndex = 1;
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Details";
@@ -187,27 +190,28 @@ namespace Xacc.Controls
       // detailsBox
       // 
       this.detailsBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-      this.detailsBox.Location = new System.Drawing.Point(8, 16);
+      this.detailsBox.Location = new System.Drawing.Point(8, 18);
       this.detailsBox.Multiline = true;
       this.detailsBox.Name = "detailsBox";
       this.detailsBox.ReadOnly = true;
       this.detailsBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.detailsBox.Size = new System.Drawing.Size(600, 192);
+      this.detailsBox.Size = new System.Drawing.Size(600, 222);
       this.detailsBox.TabIndex = 0;
-      this.detailsBox.Text = "";
       this.detailsBox.WordWrap = false;
       // 
       // groupBox3
       // 
+      this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
       this.groupBox3.Controls.Add(this.label3);
       this.groupBox3.Controls.Add(this.infoBox);
       this.groupBox3.Controls.Add(this.emailBox);
       this.groupBox3.Controls.Add(this.label2);
       this.groupBox3.Controls.Add(this.nameBox);
       this.groupBox3.Controls.Add(this.label1);
-      this.groupBox3.Location = new System.Drawing.Point(8, 288);
+      this.groupBox3.Location = new System.Drawing.Point(8, 332);
       this.groupBox3.Name = "groupBox3";
-      this.groupBox3.Size = new System.Drawing.Size(616, 264);
+      this.groupBox3.Size = new System.Drawing.Size(616, 305);
       this.groupBox3.TabIndex = 2;
       this.groupBox3.TabStop = false;
       this.groupBox3.Text = "Optional";
@@ -215,124 +219,133 @@ namespace Xacc.Controls
       // label3
       // 
       this.label3.FlatStyle = System.Windows.Forms.FlatStyle.System;
-      this.label3.Location = new System.Drawing.Point(11, 67);
+      this.label3.Location = new System.Drawing.Point(11, 77);
       this.label3.Name = "label3";
-      this.label3.Size = new System.Drawing.Size(589, 16);
+      this.label3.Size = new System.Drawing.Size(599, 19);
       this.label3.TabIndex = 5;
       this.label3.Text = "Please supply any additional information you feel is deemed necessary (info below" +
-        " can be deleted at your discretion)";
+          " can be deleted at your discretion)";
       // 
       // infoBox
       // 
-      this.infoBox.Location = new System.Drawing.Point(8, 88);
+      this.infoBox.Location = new System.Drawing.Point(8, 102);
       this.infoBox.Multiline = true;
       this.infoBox.Name = "infoBox";
       this.infoBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-      this.infoBox.Size = new System.Drawing.Size(600, 168);
+      this.infoBox.Size = new System.Drawing.Size(600, 193);
       this.infoBox.TabIndex = 4;
-      this.infoBox.Text = "";
       this.infoBox.WordWrap = false;
       // 
       // emailBox
       // 
-      this.emailBox.Location = new System.Drawing.Point(80, 40);
+      this.emailBox.Location = new System.Drawing.Point(80, 46);
       this.emailBox.Name = "emailBox";
-      this.emailBox.Size = new System.Drawing.Size(528, 20);
+      this.emailBox.Size = new System.Drawing.Size(528, 22);
       this.emailBox.TabIndex = 3;
-      this.emailBox.Text = "";
       // 
       // label2
       // 
       this.label2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-      this.label2.Location = new System.Drawing.Point(12, 43);
+      this.label2.Location = new System.Drawing.Point(12, 50);
       this.label2.Name = "label2";
-      this.label2.Size = new System.Drawing.Size(48, 16);
+      this.label2.Size = new System.Drawing.Size(48, 18);
       this.label2.TabIndex = 2;
       this.label2.Text = "Email";
       this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
       // 
       // nameBox
       // 
-      this.nameBox.Location = new System.Drawing.Point(80, 16);
+      this.nameBox.Location = new System.Drawing.Point(80, 18);
       this.nameBox.Name = "nameBox";
-      this.nameBox.Size = new System.Drawing.Size(528, 20);
+      this.nameBox.Size = new System.Drawing.Size(528, 22);
       this.nameBox.TabIndex = 1;
-      this.nameBox.Text = "";
       // 
       // label1
       // 
       this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-      this.label1.Location = new System.Drawing.Point(11, 19);
+      this.label1.Location = new System.Drawing.Point(11, 22);
       this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(48, 16);
+      this.label1.Size = new System.Drawing.Size(48, 18);
       this.label1.TabIndex = 0;
       this.label1.Text = "Name";
       this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
       // 
       // reportBut
       // 
+      this.reportBut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
       this.reportBut.FlatStyle = System.Windows.Forms.FlatStyle.System;
-      this.reportBut.Location = new System.Drawing.Point(216, 560);
+      this.reportBut.Location = new System.Drawing.Point(216, 646);
       this.reportBut.Name = "reportBut";
-      this.reportBut.Size = new System.Drawing.Size(96, 23);
+      this.reportBut.Size = new System.Drawing.Size(96, 27);
       this.reportBut.TabIndex = 3;
       this.reportBut.Text = "Report error";
       this.reportBut.Click += new System.EventHandler(this.reportBut_Click);
       // 
       // ignoreBut
       // 
+      this.ignoreBut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
       this.ignoreBut.FlatStyle = System.Windows.Forms.FlatStyle.System;
-      this.ignoreBut.Location = new System.Drawing.Point(320, 560);
+      this.ignoreBut.Location = new System.Drawing.Point(320, 646);
       this.ignoreBut.Name = "ignoreBut";
-      this.ignoreBut.Size = new System.Drawing.Size(96, 23);
+      this.ignoreBut.Size = new System.Drawing.Size(96, 27);
       this.ignoreBut.TabIndex = 4;
       this.ignoreBut.Text = "Ignore";
       this.ignoreBut.Click += new System.EventHandler(this.ignoreBut_Click);
       // 
       // igallwaysBut
       // 
+      this.igallwaysBut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
       this.igallwaysBut.FlatStyle = System.Windows.Forms.FlatStyle.System;
-      this.igallwaysBut.Location = new System.Drawing.Point(424, 560);
+      this.igallwaysBut.Location = new System.Drawing.Point(424, 646);
       this.igallwaysBut.Name = "igallwaysBut";
-      this.igallwaysBut.Size = new System.Drawing.Size(96, 23);
+      this.igallwaysBut.Size = new System.Drawing.Size(96, 27);
       this.igallwaysBut.TabIndex = 5;
       this.igallwaysBut.Text = "Ignore Allways";
       this.igallwaysBut.Click += new System.EventHandler(this.igallwaysBut_Click);
       // 
       // exitBut
       // 
+      this.exitBut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
       this.exitBut.FlatStyle = System.Windows.Forms.FlatStyle.System;
-      this.exitBut.Location = new System.Drawing.Point(528, 560);
+      this.exitBut.Location = new System.Drawing.Point(528, 646);
       this.exitBut.Name = "exitBut";
-      this.exitBut.Size = new System.Drawing.Size(96, 23);
+      this.exitBut.Size = new System.Drawing.Size(96, 27);
       this.exitBut.TabIndex = 6;
       this.exitBut.Text = "Exit";
       this.exitBut.Click += new System.EventHandler(this.exitBut_Click);
       // 
       // checkBut
       // 
+      this.checkBut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
       this.checkBut.FlatStyle = System.Windows.Forms.FlatStyle.System;
-      this.checkBut.Location = new System.Drawing.Point(112, 560);
+      this.checkBut.Location = new System.Drawing.Point(112, 646);
       this.checkBut.Name = "checkBut";
-      this.checkBut.Size = new System.Drawing.Size(96, 23);
+      this.checkBut.Size = new System.Drawing.Size(96, 27);
       this.checkBut.TabIndex = 7;
       this.checkBut.Text = "Check error";
       this.checkBut.Click += new System.EventHandler(this.checkBut_Click);
       // 
       // helpBut
       // 
+      this.helpBut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
       this.helpBut.FlatStyle = System.Windows.Forms.FlatStyle.System;
-      this.helpBut.Location = new System.Drawing.Point(8, 560);
+      this.helpBut.Location = new System.Drawing.Point(8, 646);
       this.helpBut.Name = "helpBut";
-      this.helpBut.Size = new System.Drawing.Size(96, 23);
+      this.helpBut.Size = new System.Drawing.Size(96, 27);
       this.helpBut.TabIndex = 8;
       this.helpBut.Text = "Break";
       this.helpBut.Click += new System.EventHandler(this.helpBut_Click);
       // 
       // ExceptionForm
       // 
-      this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-      this.ClientSize = new System.Drawing.Size(634, 592);
+      this.AutoScaleBaseSize = new System.Drawing.Size(5, 15);
+      this.ClientSize = new System.Drawing.Size(634, 680);
       this.Controls.Add(this.helpBut);
       this.Controls.Add(this.checkBut);
       this.Controls.Add(this.exitBut);
@@ -346,11 +359,15 @@ namespace Xacc.Controls
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "ExceptionForm";
+      this.ShowInTaskbar = false;
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
       this.Text = "Submit error or bug";
       this.groupBox1.ResumeLayout(false);
+      this.groupBox1.PerformLayout();
       this.groupBox2.ResumeLayout(false);
+      this.groupBox2.PerformLayout();
       this.groupBox3.ResumeLayout(false);
+      this.groupBox3.PerformLayout();
       this.ResumeLayout(false);
 
     }

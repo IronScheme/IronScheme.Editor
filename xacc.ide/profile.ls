@@ -98,12 +98,16 @@
 (bindx  File            "File.SaveFile"           "Ctrl+S")
 
 ; view commands
+
+(bindx  Document        "View.NextView"             "Ctrl+Alt+Tab")
+
 (bindx  Normal          "View.ShowToolbar"          "Ctrl+D1")
 (bindx  Normal          "View.ShowProjectExplorer"  "Ctrl+D2")
 (bindx  Normal          "View.ShowOutline"          "Ctrl+D3")
 (bindx  Normal          "View.ShowResults"          "Ctrl+D4")
 (bindx  Normal          "View.ShowConsole"          "Ctrl+D5")
 (bindx  Normal          "View.ShowCommand"          "Ctrl+D6")
+(bindx  Normal          "View.ShowProperties"       "F4")
 
 ; project commands
 (bindx  Project         "Project.AddNewFile"      "Ctrl+Shift+A")

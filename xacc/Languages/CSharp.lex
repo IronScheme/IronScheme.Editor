@@ -27,7 +27,7 @@ new_line               =\n
 
 preprocessor           =^({white_space})*#({white_space})*
 
-attr                   =\[({white_space})*(assembly|return|param|module)({white_space})*:
+attr                   =\[({white_space})*(assembly|return|param|module|method)({white_space})*:
 
 dec_digit              =[0-9]
 hex_digit              =[0-9A-Fa-f]
@@ -54,7 +54,7 @@ character              ={single_char}|{simple_esc_seq}|{hex_esc_seq}|{uni_esc_se
 character_literal      ='({character})'
 
 single_string_char     =[^\\\"\n]
-string_esc_seq         =\\[\"\\0abfnrtv]
+string_esc_seq         =\\[\"\\'0abfnrtv]
 reg_string_char        ={single_string_char}|{string_esc_seq}|{hex_esc_seq}|{uni_esc_seq}
 regular_string         =\"({reg_string_char})*\"
 error_string           =\"({reg_string_char})*
@@ -202,7 +202,21 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <YYINITIAL>"volatile"        {return Keyword(VOLATILE);}
 <YYINITIAL>"while"           {return Keyword(WHILE);}
 <YYINITIAL>"where"           {return Keyword(WHERE);}
-<YYINITIAL>"value"           {return Keyword(IDENTIFIER);}   
+<YYINITIAL>"var"             {return Identifier(IDENTIFIER);}
+
+<YYINITIAL>"select"          {return Identifier(IDENTIFIER);}
+<YYINITIAL>"from"            {return Keyword(FROM);}
+<YYINITIAL>"join"            {return Identifier(IDENTIFIER);}
+<YYINITIAL>"let"             {return Identifier(IDENTIFIER);}
+<YYINITIAL>"group"           {return Identifier(IDENTIFIER);}
+<YYINITIAL>"on"              {return Identifier(IDENTIFIER);}
+<YYINITIAL>"into"            {return Identifier(IDENTIFIER);}
+<YYINITIAL>"orderby"         {return Identifier(IDENTIFIER);}
+<YYINITIAL>"ascending"       {return Identifier(IDENTIFIER);}
+<YYINITIAL>"descending"      {return Identifier(IDENTIFIER);}
+<YYINITIAL>"equals"          {return Identifier(IDENTIFIER);}
+<YYINITIAL>"by"              {return Identifier(IDENTIFIER);}
+
 
 <YYINITIAL>"partial"         {return Keyword();}
 <YYINITIAL>"yield"           {return Keyword();}
@@ -240,6 +254,7 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <YYINITIAL>"++"    { return Operator(PLUSPLUS); }
 <YYINITIAL>"--"    { return Operator(MINUSMINUS); }
 <YYINITIAL>"??"    { return Operator(QQ); }
+<YYINITIAL>"=>"    { return Operator(LAMBDA); }
 
 
 <YYINITIAL>"->"    { return Operator(ARROW); }
@@ -270,8 +285,9 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <YYINITIAL>":"     { return Operator(YYCHAR); }
 <YYINITIAL>","     { return Operator(YYCHAR); }
 
-<YYINITIAL>"get"   { return Keyword(GET); }
-<YYINITIAL>"set"   { return Keyword(SET); }
+<YYINITIAL>"get"   { return Identifier(IDENTIFIER); }
+<YYINITIAL>"set"   { return Identifier(IDENTIFIER); }
+<YYINITIAL>"value" { return Identifier(IDENTIFIER); }
 
 <YYINITIAL>{error_string}           { return Error(STRING_LITERAL); }
 <YYINITIAL>{identifier}             { return Identifier(IDENTIFIER); }

@@ -570,12 +570,12 @@ xyacc\.exe:\s((?<warning>w)|(?<error>e))\s\-\sline\s(?<line>\d+)\sof\s""(?<filen
 
 
   <plugin>xacc.lexers.managed.dll</plugin>
+  <!--<plugin>xacc.nclass.dll</plugin>-->
 	
 	<!-- Add your plugin, make sure file is in xacc.ide install dir	-->
 	
 	<tool name="NDoc" command="D:\incoming\ndoc-nightly\ndoc\src\Gui\bin\Debug\NDocGui.exe"/>
 	<tool name="NUnit" command="${PFILES}\NUnit 2.2.2\bin\nunit-gui.exe"/>
-	<tool name="Language Designer" command="${XACC}\xacc.languagedesigner.exe"/>
 	
 	<language name="Xml">
     <action ref="Tidy"/>

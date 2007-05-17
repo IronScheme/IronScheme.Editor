@@ -1,166 +1,88 @@
-%{
-#include "gram_Sql.h" 
-%}
 
-%option 8bit
-%option noyywrap
-%option nostdinit
-%option never-interactive
-%option case-insensitive
-%option outfile="gram_Sql.c"
+using Xacc.ComponentModel;
+using System.Drawing;
 
+using LexerBase = Xacc.Languages.CSLex.Language<Xacc.Languages.CSLex.Yytoken>.LexerBase;
 
-white_space            [ \t]
-
-dec_digit              [0-9]
-hex_digit              [0-9A-Fa-f]
-int_suffix             [UuLl]|[Uu][Ll]|[Ll][Uu]
-dec_literal            {dec_digit}+{int_suffix}?
-hex_literal            0[xX]{hex_digit}+{int_suffix}?
-integer_literal        {dec_literal}|{hex_literal}
-
-real_suffix            [FfDdMm]
-sign                   [+\-]
-exponent_part          [eE]{sign}?{dec_digit}+
-whole_real1            {dec_digit}+{exponent_part}{real_suffix}?
-whole_real2            {dec_digit}+{real_suffix}
-part_real              {dec_digit}*\.{dec_digit}+{exponent_part}?{real_suffix}?
-real_literal           {whole_real1}|{whole_real2}|{part_real}
-
-single_char            [^\\\']
-simple_esc_seq         \\[\'\"\\0abfnrtv]
-uni_esc_seq1           \\u{hex_digit}{4}
-uni_esc_seq2           \\U{hex_digit}{8}
-uni_esc_seq            {uni_esc_seq1}|{uni_esc_seq2}
-hex_esc_seq            \\x{hex_digit}{1,4}
-character              {single_char}*|{simple_esc_seq}|{hex_esc_seq}|{uni_esc_seq}
-character_literal      \'{character}\'
-
-
-single_string_char     [^\\\"]
-reg_string_char        {single_string_char}|{simple_esc_seq}|{hex_esc_seq}|{uni_esc_seq}
-regular_string         \"{reg_string_char}*\"
-single_verbatim_char   [^\"\n]
-quote_esc_seq          \"\"
-verb_string_char       {single_verbatim_char}|{quote_esc_seq}
-verbatim_string        @\"{verb_string_char}*\"
-string_literal         {regular_string}|{verbatim_string}
-
-verbatim_string_start  \"\"\"
-verbatim_string_cont   {verb_string_char}* 
-verbatim_string_end    \"\"\"
-
-letter_char            [A-Za-z]
-ident_char             {dec_digit}|{letter_char}|"_"|"@"
-identifier             ({letter_char}|"_"){ident_char}*
-at_identifier          \@{identifier}
-ws_identifier          {identifier}({white_space}+{identifier})*
-brace_identifier       \[[^\n\]]+\]
-
-rank_specifier         "["{white_space}*(","{white_space}*)*"]"
-
-
-%x IN_COMMENT
-
-
-%%
-
-{white_space}+    { ; /* ignore */ }
-
-                      /***** Comments *****/
-                      
-"/*"              { ENTER(IN_COMMENT); RETURN4(COMMENT); }
-
-<IN_COMMENT>
+namespace Xacc.Languages
 {
-\n                { RETURN4(NEWLINE); }
-[^*\n]*           { RETURN4(COMMENT); }
-"*"+[^*/\n]*      { RETURN4(COMMENT); }
-"*"+"/"           { EXIT(); RETURN4(COMMENT); }
+  sealed class SqlLang : CSLex.Language<CSLex.Yytoken>
+  {
+	  public override string Name {get {return "Sql"; } }
+	  public override string[] Extensions {get { return new string[]{"sql"}; } }
+	  protected override LexerBase GetLexer() { return new SqlLexer(); }
+  }
 }
-
-                      /***** Keywords *****/
-                      
-"SELECT"      {RETURN4(KW);}
-"FROM"          {RETURN4(KW);}
-"THEN"      {RETURN4(KW);}
-"BEGIN"       {RETURN4(KW);}
-"END"       {RETURN4(KW);}
-"AS"       {RETURN4(KW);}
-"AND"       {RETURN4(KW);}
-"ON"       {RETURN4(KW);}
-"OR"       {RETURN4(KW);}
-"WHERE"       {RETURN4(KW);}
-"ORDER BY"       {RETURN4(KW);}
-"GROUP BY"       {RETURN4(KW);}
-"CASE"       {RETURN4(KW);}
-"INNER"       {RETURN4(KW);}
-"OUTER"       {RETURN4(KW);}
-"CROSS"       {RETURN4(KW);}
-"JOIN"       {RETURN4(KW);}
-"LEFT"       {RETURN4(KW);}
-"RIGHT"       {RETURN4(KW);}
-"RETURN"       {RETURN4(KW);}
-"GO"        {RETURN4(KW);}
-"DECLARE"   {RETURN4(KW);}
-"SET"       {RETURN4(KW);}
-"ELSE"      {RETURN4(KW);}
-"WHEN"      {RETURN4(KW);}
-"CREATE"    {RETURN4(KW);}
-"ALTER"      {RETURN4(KW);}
-"TABLE"      {RETURN4(KW);}
-
-
-                      /***** Types *****/
-"DATETIME"  {RETURN4(KW);}
-"CHAR"      {RETURN4(KW);}
-"VARCHAR"   {RETURN4(KW);}
-"NVARCHAR"  {RETURN4(KW);}
-
-
-                      /***** Functions *****/
-"ISNULL"  {RETURN4(KW);}
-"SUM"     {RETURN4(KW);}
-"DATEADD"     {RETURN4(KW);}
-"CONVERT"     {RETURN4(KW);}
-"LTRIM"     {RETURN4(KW);}
-"RTRIM"     {RETURN4(KW);}
-"CHARINDEX"     {RETURN4(KW);}
-"UPPER"     {RETURN4(KW);}
-"LOWER"     {RETURN4(KW);}
-"MAX"     {RETURN4(KW);}
-"MIN"      {RETURN4(KW);}
-"REPLICATE" {RETURN4(KW);}
-"LEN" {RETURN4(KW);}
-"GETDATE" {RETURN4(KW);}
-
-
-
-                      /***** Literals *****/
-                      
-{integer_literal}     { RETURN4(NUMBER); }
-{real_literal}        { RETURN4(NUMBER); }
-{character_literal}   { RETURN4(STRING); }
-{string_literal}      { RETURN4(STRING); }
-
-{brace_identifier}    { RETURN4(TYPE); }
-{at_identifier}       { RETURN4(OTHER); }
-{identifier}          { RETURN4(IDENTIFIER); }
-
-"("                   { RETURN4(OP); }
-")"                   { RETURN4(OP); }
-"="                   { RETURN4(OP); }
-"<"                   { RETURN4(OP); }
-">"                   { RETURN4(OP); }
-"."                   { RETURN4(OP); }
-"+"                   { RETURN4(OP); }
-"/"                   { RETURN4(OP); }
-"-"                   { RETURN4(OP); }
-"*"                   { RETURN4(OP); }
-","                   { RETURN4(OP); }
-
-\n                       { RETURN4(NEWLINE);}
-.                        { RETURN4(ERROR); }
+//NOTE: comments are not allowed except in code blocks
 %%
+
+%class SqlLexer
+%full
+%ignorecase
+
+dec_digit              =[0-9]
+hex_digit              =[0-9A-Fa-f]
+int_suffix             =[UuLl]|[Uu][Ll]|[Ll][Uu]
+dec_literal            =({dec_digit})+({int_suffix})?
+hex_literal            =0[xX]({hex_digit})+({int_suffix})?
+integer_literal        ={dec_literal}|{hex_literal}
+
+real_suffix            =[FfDdMm]
+sign                   =[-\+]
+exponent_part          =[eE]({sign})?({dec_digit})+
+whole_real1            =({dec_digit})+{exponent_part}({real_suffix})?
+whole_real2            =({dec_digit})+{real_suffix}
+part_real              =({dec_digit})*\.({dec_digit})+({exponent_part})?({real_suffix})?
+real_literal           ={whole_real1}|{whole_real2}|{part_real}
+
+WS		                    =[ \t]+
+KEYWORD                   =("DELETE"|"IN"|"UNIQUE"|"NONCLUSTERED"|"FOR"|"ROWGUIDCOL"|"PRIMARY"|"DEFAULT"|"DATABASE"|"OFF"|"LOG"|"open"|"order by"|"deallocate"|"fetch"|"goto"|"while"|"NOT"|"IF"|"IS"|"COLLATE"|"ADD"|"ALL"|"NOCHECK"|"GROUP BY"|"UNION"|"CHECK"|"INDEX"|"CONSTRAINT"|"CLUSTERED"|"identity"|"null"|"exec"|"use"|"drop"|"exists"|"view"|"primary key"|"references"|"not null"|"foreign key"|"SELECT"|"INSERT"|"INTO"|"VALUES"|"FROM"|"THEN"|"BEGIN"|"END"|"AS"|"AND"|"ON"|"OR"|"WHERE"|"ORDERBY"|"GROUPBY"|"CASE"|"INNER"|"OUTER"|"CROSS"|"JOIN"|"LEFT"|"RIGHT"|"RETURN"|"GO"|"DECLARE"|"SET"|"ELSE"|"WHEN"|"CREATE"|"ALTER"|"TABLE")
+BRACE_KEYWORD             =\[{KEYWORD}\]
+NUMBER                    ={integer_literal}|{real_literal}
+STRING                    =\"([^\"\n])*\"
+MLSTRINGSTART             =N?"'"
+TYPE                      =("DATETIME"|"CHAR"|"VARCHAR"|"NVARCHAR"|"decimal"|"date"|"integer"|"real"|"numeric"|"smallint"|"bigint"|"tinyint"|"bit"|"image"|"money"|"int"|"sysname"|"sql_variant"|"uniqueidentifier")
+BRACE_TYPE                =\[{TYPE}\]
+FUNCTION                  ="newid"|"ISNULL"|"SUM"|"DATEADD"|"CONVERT"|"LTRIM"|"RTRIM"|"CHARINDEX"|"UPPER"|"LOWER"|"MAX"|"MIN"|"REPLICATE"|"LEN"|"GETDATE"|"object_id"|"raiserror"|"quotename"|"OBJECTPROPERTY"|"power"
+OPERATOR                  ="("|")"|"="|"<"|">"|"."|"+"|"/"|"-"|"*"|","|";"|"&"|"|"|"^"
+LINE_COMMENT              =--[^\n]*
+COMMENT_START             ="/*"
+COMMENT_END               ="*/"
+IDENTIFIER                =[@#]*[a-zA-Z][_$a-zA-Z0-9]*
+BRACE_IDENTIFIER          =\[[^\]]+\]
+LABEL                     =[a-zA-Z][_$a-zA-Z0-9]*({WS})?:
+
+%state ML_COMMENT
+%state ML_STRING
+
+%%
+
+<YYINITIAL>{KEYWORD}                  {return Keyword();}
+<YYINITIAL>{BRACE_KEYWORD}            {return Keyword();}
+<YYINITIAL>{FUNCTION}                 {return Keyword();}
+<YYINITIAL>{STRING}                   {return String();}
+<YYINITIAL>{NUMBER}                   {return Number();}
+<YYINITIAL>{OPERATOR}                 {return Operator();}
+<YYINITIAL>{LABEL}                    {return Other();}
+<YYINITIAL>{TYPE}                     {return Type();}
+<YYINITIAL>{IDENTIFIER}               {return Identifier();}
+<YYINITIAL>{BRACE_IDENTIFIER}         {return Identifier();}
+<YYINITIAL>{LINE_COMMENT}             {return Comment();}
+<YYINITIAL>{COMMENT_START}            {ENTER(ML_COMMENT); return Comment();}
+<YYINITIAL>{MLSTRINGSTART}            {ENTER(ML_STRING); return String();}
+
+<ML_COMMENT>{COMMENT_END}             {EXIT(); return Comment();}
+<ML_COMMENT>[^ \t\n\*]+               {return Comment();}
+<ML_COMMENT>"*"                       {return Comment();}
+
+<ML_STRING>"'"                        {EXIT(); return String(); }
+<ML_STRING>[^ \t\n\\']+               {return String();}
+<ML_STRING>\\[']                      {return String();}
+
+{WS}			                            {;}
+\n                                    {return NewLine();}
+.                                     {return Error(); }
+
+
 
  

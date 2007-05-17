@@ -133,6 +133,8 @@ namespace Xacc.ComponentModel
     Scroll        = 512,
 
     Build         = 1024,
+
+    Document      = 2048,
   }
 
   /// <summary>

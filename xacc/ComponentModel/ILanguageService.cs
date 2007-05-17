@@ -176,6 +176,7 @@ namespace Xacc.ComponentModel
       new Languages.XmlLanguage();
       new LSharp.Parser();
       new CSharp.Parser();
+
     }
 
     public Language GetLanguage(string name)

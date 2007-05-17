@@ -1,12 +1,15 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.20404</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{A532434D-67C8-4C19-B8EC-A4AF728382F6}</ProjectGuid>
-    <SccProjectName>Xacc-0.2</SccProjectName>
-    <SccLocalPath>..</SccLocalPath>
-    <SccProvider>MSSCCI:StarTeam</SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
@@ -31,6 +34,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <SignAssembly>true</SignAssembly>
+    <OldToolsVersion>2.0</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -107,9 +111,9 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
-    <ProjectReference Include="..\antlr.runtime\antlr.runtime.csproj">
-      <Project>{CB7CC882-ED47-46C0-AAAE-7A437F22F1C6}</Project>
-      <Name>antlr.runtime</Name>
+    <ProjectReference Include="..\Aga.Controls\Aga.Controls.csproj">
+      <Project>{E73BB233-D88B-44A7-A98F-D71EE158381D}</Project>
+      <Name>Aga.Controls</Name>
     </ProjectReference>
     <ProjectReference Include="..\LSharp\LSharp.csproj">
       <Name>LSharp</Name>
@@ -123,6 +127,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Common\AssemblyInfo.Common.cs">
+      <Link>AssemblyInfo.Common.cs</Link>
+    </Compile>
     <Compile Include="Algorithms\String.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -171,6 +178,11 @@
     </Compile>
     <Compile Include="ComponentModel\ColorInfo.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\DebuggerBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ComponentModel\Mdbg.cs">
     </Compile>
     <Compile Include="ComponentModel\IBuildService.cs" />
     <Compile Include="ComponentModel\IPropertyService.cs" />
@@ -247,6 +259,7 @@
     <Compile Include="ComponentModel\IWindowService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ComponentModel\MenuDescriptor.cs" />
     <Compile Include="ComponentModel\NameAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -280,6 +293,9 @@
     <Compile Include="Controls\AdvancedTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\AdvancedTextBox.TextBuffer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\AssemblyBrowser.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -310,6 +326,9 @@
     <Compile Include="Controls\Grid.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\Office2007ColorTable.cs" />
+    <Compile Include="Controls\Office2007Helpers.cs" />
+    <Compile Include="Controls\Office2007Renderer.cs" />
     <Compile Include="Controls\OutlineView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -351,6 +370,12 @@
     </Compile>
     <Compile Include="Controls\Wizard.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\XmlControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\XmlControl.Designer.cs">
+      <DependentUpon>XmlControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Diagnostics\ErrorReport.cs">
       <SubType>code</SubType>
@@ -404,7 +429,8 @@
       <SubType>Code</SubType>
     </Compile>
     <EmbeddedResource Include="Configuration\Config.xsd">
-      <SubType>Designer</SubType>
+      <SubType>
+      </SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
@@ -464,6 +490,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Wizard.resx">
       <DependentUpon>Wizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\XmlControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>XmlControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\alert.png" />
     <EmbeddedResource Include="Resources\atb.ico" />
@@ -544,7 +574,8 @@
     <EmbeddedResource Include="Resources\Window.Previous.png" />
     <EmbeddedResource Include="Resources\xacc.config.xml" />
     <None Include="Build\Project.xsd">
-      <SubType>Designer</SubType>
+      <SubType>
+      </SubType>
     </None>
     <None Include="Build\Project.xsx">
       <DependentUpon>Project.xsd</DependentUpon>
@@ -571,6 +602,9 @@
     <Content Include="Resources\installer.bmp" />
     <EmbeddedResource Include="Resources\ProjectReference.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>"C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Bin\xsd" /nologo /n:Xacc.Configuration /c /o:$(ProjectDir)Configuration\ $(ProjectDir)Configuration\Config.xsd
@@ -581,8 +615,8 @@ $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\CSharp.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\LSharp.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Yacc.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Xml.lex
-$(SolutionDir)Tools\gppg $(ProjectDir)Languages\LSharp.y &gt; $(ProjectDir)Languages\LSharp.y.cs
-$(SolutionDir)Tools\gppg $(ProjectDir)Languages\CSharp.y &gt; $(ProjectDir)Languages\CSharp.y.cs</PreBuildEvent>
+$(SolutionDir)Tools\gppg $(ProjectDir)Languages\LSharp.y -o $(ProjectDir)Languages\LSharp.y.cs
+$(SolutionDir)Tools\gppg $(ProjectDir)Languages\CSharp.y -o $(ProjectDir)Languages\CSharp.y.cs</PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>

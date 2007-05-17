@@ -18,7 +18,7 @@ namespace gppg
     public IScanner<ValueType> scanner;
 
     protected ValueType yyval;
-    ValueType yylval;
+    protected ValueType yylval;
 
     private int next;
     private State current_state;
@@ -50,8 +50,10 @@ namespace gppg
       System.Diagnostics.Trace.Write(string.Format(format, args));
     }
 
-    int yylex()
+    protected virtual int yylex()
     {
+      lexcount++;
+
       if (tokenstream.Count <= tokenpos)
       {
         int next = scanner.yylex();
@@ -61,7 +63,6 @@ namespace gppg
         return next;
       }
       scanner.yylval = yylval = tokenstream[tokenpos++];
-
       return yylval.Type;
     }
 
@@ -99,6 +100,11 @@ namespace gppg
         parser.current_state = parser.state_stack.Top();
       }
     }
+
+    int saves = 0;
+    int restores = 0;
+    int pinrescue = 0;
+    int lexcount = 0;
     
     public override bool Parse()
     {
@@ -113,9 +119,18 @@ namespace gppg
       value_stack.Clear();
       reducestack.Clear();
       tokenpos = 0;
+      saves = 0;
+      restores = 0;
+      pinrescue = 0;
+      lexcount = 0;
+      lastpin = null;
+      
 
       Xacc.ComponentModel.ServiceHost.Error.ClearErrors(lexer);
-      Initialize();	// allow derived classes to instantiate rules, states and nonTerminals
+      if (states == null)
+      {
+        Initialize();	// allow derived classes to instantiate rules, states and nonTerminals
+      }
 
       lexer.eofToken = this.eofToken;
 
@@ -159,6 +174,8 @@ namespace gppg
               reducehandles[tokenpos] = action;
               parserstates.Push(ps);
               reducestack.Push(current_state);
+
+              saves++;
             }
           }
           else if (current_state.conflict_table.TryGetValue(next, out tryaction))
@@ -192,11 +209,13 @@ namespace gppg
         }
         else if (action == 0)   // error
         {
-          if (parserstates.Count > 0)
+          if (CanRestore(parserstates))
           {
             reducestack.Pop();
             ParserState ps = parserstates.Pop();
             ps.Restore(this);
+
+            restores++;
           }
           else
           if (!ErrorRecovery())
@@ -205,6 +224,43 @@ namespace gppg
           }
         }
       }
+    }
+
+    Xacc.CodeModel.Location lastpin = null;
+
+    private bool CanRestore(Stack<ShiftReduceParser<ValueType>.ParserState> parserstates)
+    {
+      if (parserstates.Count > 0)
+      {
+        ParserState s = parserstates.Peek();
+        Xacc.CodeModel.Location l = tokenstream[s.tokenpos].Location;
+        if (lastpin == null)
+        {
+          return true;
+        }
+        else
+        {
+          if (l > lastpin)
+          {
+            return true;
+          }
+          else
+          {
+            parserstates.Clear();
+            reducestack.Clear();
+            AfterPinRestore();
+            pinrescue++;
+            return false;
+          }
+        }
+
+      }
+      return false;
+    }
+
+    protected Xacc.CodeModel.Location Pin(Xacc.CodeModel.Location loc)
+    {
+      return (lastpin = loc);
     }
 
 
@@ -272,6 +328,16 @@ namespace gppg
         yyval.Location = value_stack.array[value_stack.top - rhslen].Location
           + value_stack.array[value_stack.top - 1].Location;
       }
+#if DEBUG && false
+      if (yyval.Location != null)
+      {
+        Xacc.Controls.AdvancedTextBox atb = Xacc.ComponentModel.ServiceHost.File.CurrentControl as Xacc.Controls.AdvancedTextBox;
+        if (atb != null)
+        {
+          atb.ParseLocation = yyval.Location;
+        }
+      }
+#endif
 
       for (int i = 0; i < rhslen; i++)
       {

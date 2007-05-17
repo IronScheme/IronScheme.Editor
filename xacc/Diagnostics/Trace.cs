@@ -19,7 +19,9 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace Xacc.Diagnostics
 {
@@ -36,11 +38,22 @@ namespace Xacc.Diagnostics
       {
         return string.Join(Environment.NewLine, new string[] 
         {
-          string.Format("xacc.ide: {0}", typeof(Trace).Assembly.GetName().Version),
           string.Format(".NET:     {0}", Environment.Version),
-          string.Format("OS:       {0}", Environment.OSVersion)
+          string.Format("OS:       {0}", Environment.OSVersion),
+          string.Format("Modules:  {0}", GetModules())
         }) + Environment.NewLine;
       }
+    }
+
+    static string GetModules()
+    {
+      List<string> mods = new List<string>();
+      foreach (Assembly ass in AppDomain.CurrentDomain.GetAssemblies())
+      {
+        AssemblyName assname = ass.GetName();
+        mods.Add(string.Format("{0}({1}){2}", assname.Name, assname.Version, ass.GlobalAssemblyCache ? "*" : ""));
+      }
+      return string.Join(",", mods.ToArray());
     }
 
     public static string GetFullTrace()

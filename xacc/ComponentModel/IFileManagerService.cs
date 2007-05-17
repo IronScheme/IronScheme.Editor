@@ -70,6 +70,8 @@ namespace Xacc.ComponentModel
       IDocument oldview = control;
       control = newview;
       SwitchView(newview, oldview);
+
+      (ServiceHost.File as FileManager).RefreshState();
     }
 
     protected virtual void SwitchView(IDocument newview, IDocument oldview)
@@ -79,6 +81,15 @@ namespace Xacc.ComponentModel
 
     protected void AddView(IDocument view)
     {
+      ISelectObject so = view as ISelectObject;
+      if (so != null)
+      {
+        so.SelectObjectChanged += delegate(object sender, EventArgs e)
+        {
+          ServiceHost.Property.Grid.SelectedObject = so.SelectedObject;
+          ServiceHost.Property.Grid.Refresh();
+        };
+      }
       views.Add(view);
     }
 
@@ -95,6 +106,31 @@ namespace Xacc.ComponentModel
     public IDocument[] Views 
     {
       get { return views.ToArray(); }
+    }
+
+    public bool IsDirty
+    {
+      get
+      {
+        bool dirty = false;
+        foreach (IDocument doc in views)
+        {
+          IFile file = doc as IFile;
+          if (file != null)
+          {
+            dirty |= file.IsDirty;
+          }
+        }
+        return dirty;
+      }
+    }
+
+    public void Close()
+    {
+      foreach (IDocument doc in views)
+      {
+        doc.Close();
+      }
     }
   }
   /// <summary>
@@ -154,6 +190,13 @@ namespace Xacc.ComponentModel
     /// <param name="control">the type of the control</param>
     /// <param name="exts">the extentions</param>
     void Register(Type control, params string[] exts);
+
+    /// <summary>
+    /// Registers a control type to file extentions
+    /// </summary>
+    /// <param name="control">the type of the control</param>
+    /// <param name="language">the language to bind to</param>
+    void Register(Type control, Languages.Language language);
 
     /// <summary>
     /// Gets an array of open files
@@ -351,6 +394,7 @@ namespace Xacc.ComponentModel
 	{
     readonly internal Dictionary<string, Document> buffers = new Dictionary<string, Document>();
     readonly Hashtable controlmap = new Hashtable();
+    readonly Hashtable langmap = new Hashtable();
 		ArrayList recentfiles = new ArrayList();
 
     // this is unreliable
@@ -385,24 +429,6 @@ namespace Xacc.ComponentModel
 			base.Dispose (disposing);
 		}
 
-    [Obsolete("???")]
-    void OpenRecent(object sender, EventArgs e)
-		{
-      ToolStripMenuItem mi = sender as ToolStripMenuItem;
-			ArrayList menus = new ArrayList();
-	
-			foreach (string rf in RecentFiles)
-			{
-        ToolStripMenuItem pmi = new ToolStripMenuItem(rf, null, new EventHandler(OpenWindow));
-				string ext = Path.GetExtension(rf).TrimStart('.');
-				pmi.Tag = ServiceHost.Language[ext] == null ? null : ServiceHost.Language[ext].GetType();
-				menus.Add(pmi);
-			}
-
-			mi.DropDownItems.Clear();
-      mi.DropDownItems.AddRange(menus.ToArray(typeof(ToolStripMenuItem)) as ToolStripMenuItem[]);
-		}
-
     public void Register(Type control, params string[] exts)
     {
       foreach (string ext in exts)
@@ -411,12 +437,24 @@ namespace Xacc.ComponentModel
       }
     }
 
-    Document GetDocument(string ext)
+    public void Register(Type control, Xacc.Languages.Language language)
     {
+      langmap[language] = control;
+    }
+
+    Document GetDocument(string filename)
+    {
+      string ext = Path.GetExtension(filename).TrimStart('.');
+
       Type ct = controlmap[ext] as Type;
       if (ct == null)
       {
-        return new Document();
+        Languages.Language l = ServiceHost.Language.Suggest(filename);
+        ct = langmap[l] as Type;
+        if (ct == null)
+        {
+          return new Document();
+        }
       }
       if (ct.IsSubclassOf(typeof(Document)))
       {
@@ -518,7 +556,7 @@ namespace Xacc.ComponentModel
 			}
 
       FileExplorer fe = new FileExplorer();
-      fe.Folder = Application.StartupPath;
+      //fe.Folder = Application.StartupPath;
       fe.Dock = DockStyle.Fill;
 
       filetab.Controls.Add(fe);
@@ -555,6 +593,8 @@ namespace Xacc.ComponentModel
 
       Register(typeof(GridDocument), "gls");
       Register(typeof(AssemblyBrowser), "dll", "exe");
+
+      Register(typeof(XmlDocument), ServiceHost.Language["xml"]);
 
 #if TRACE
 			Opening		+=	new FileManagerEventHandler(TraceOpening);
@@ -601,16 +641,13 @@ namespace Xacc.ComponentModel
       }
     }
 
-    class RecentFilesConvertor : TypeConverter
-    {
-      public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
-      {
-        return true;
-      }
 
-      public override TypeConverter.StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+
+    class RecentFilesConvertor : MenuDescriptor
+    {
+      public override ICollection  GetValues()
       {
-        return new StandardValuesCollection((ServiceHost.File as FileManager).RecentFiles);
+        return (ServiceHost.File as FileManager).RecentFiles;
       }
     }
 
@@ -625,16 +662,11 @@ namespace Xacc.ComponentModel
       }
     }
 
-    class RecentProjectsConvertor : TypeConverter
+    class RecentProjectsConvertor : MenuDescriptor
     {
-      public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+      public override ICollection GetValues()
       {
-        return true;
-      }
-
-      public override TypeConverter.StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
-      {
-        return new StandardValuesCollection((ServiceHost.Project as ProjectManager).RecentProjects);
+        return (ServiceHost.Project as ProjectManager).RecentProjects;
       }
     }
 
@@ -655,7 +687,7 @@ namespace Xacc.ComponentModel
 			ServiceHost.Window.MainForm.Close();
 		}
 
-    [MenuItem("New\\Blank file", Index = 0, Image = "File.New.png")]
+    [MenuItem("New\\Blank File", Index = 0, Image = "File.New.png")]
     void NewTextFile()
     {
       string filename = "untitled.txt";
@@ -801,7 +833,7 @@ namespace Xacc.ComponentModel
         {
           if (exts[0] != "*")
           {
-            ex.AppendFormat("*.{0}", exts[0]);
+            ex.AppendFormat("*.{0};", exts[0]);
             ab.AppendFormat("*.{0};", exts[0]);
           }
 
@@ -809,7 +841,7 @@ namespace Xacc.ComponentModel
           {
             if (exts[i] != "*")
             {
-              ex.AppendFormat("*.{0}", exts[i]);
+              ex.AppendFormat("*.{0};", exts[i]);
               ab.AppendFormat("*.{0};", exts[i]);
             }
           }
@@ -817,7 +849,8 @@ namespace Xacc.ComponentModel
 
         if (ex.Length > 0)
         {
-          sb.AppendFormat("{0} ({1})|{1}|", l.Name, ex);
+          ex.Length--;
+          sb.AppendFormat("{0} ({1})|{1}|", l.Name, ex.ToString());
           ex.Length = 0;
         }
       }
@@ -865,68 +898,84 @@ namespace Xacc.ComponentModel
       return closeresult;
 		}
 
-    [MenuItem("Close all", Index = 21, State = ApplicationState.File)]
+    [MenuItem("Close All", Index = 21, State = ApplicationState.File)]
 		void CloseAllFiles()
 		{
 			foreach (string file in OpenFiles)
 			{
         string ffile = file;
-				IFile atb = this[file] as IFile;
-				if (atb != null && atb.IsDirty)
-				{
-					DialogResult dr = MessageBox.Show(ServiceHost.Window.MainForm, file + " has been modified.\nWould you like to save it?",
-						"Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+        Document doc = buffers[file];
+        if (doc.IsDirty)
+        {
+          foreach (IDocument view in doc.Views)
+          {
+            IFile atb = view as IFile;
+            if (atb != null && atb.IsDirty)
+            {
+              DialogResult dr = MessageBox.Show(ServiceHost.Window.MainForm, file + " has been modified.\nWould you like to save it?",
+                "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
 
-					switch (dr)
-					{
-						case DialogResult.Yes:
-							ffile = SaveFileInternal(file);
-              closeresult = true;
-							break;
-						case DialogResult.No:
-              closeresult = true;
-							break;
-						case DialogResult.Cancel:
-              closeresult = false;
-							return;
-					}
-				}
+              switch (dr)
+              {
+                case DialogResult.Yes:
+                  ffile = SaveFileInternal(file);
+                  closeresult = true;
+                  break;
+                case DialogResult.No:
+                  closeresult = true;
+                  break;
+                case DialogResult.Cancel:
+                  closeresult = false;
+                  return;
+              }
+            }
+          }
+        }
 				Close(ffile);
 			}
 			GC.Collect();
 		}
 
     [MenuItem("Close", Index = 20, State = ApplicationState.File, Image = "File.Close.png", AllowToolBar = true)]
-		void CloseFile()
-		{
+    void CloseFile()
+    {
       string current = this.current;
-			if (current == null)
-			{
-				return;
-			}
-
-			IFile atb = this[current] as IFile;
-			if (atb != null && atb.IsDirty)
-			{
-				DialogResult dr = MessageBox.Show(ServiceHost.Window.MainForm, current + " has been modified.\nWould you like to save it?",
-					"Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
-
-				switch (dr)
-				{
-					case DialogResult.Yes:
-            current = SaveFileInternal(current);
-						break;
-					case DialogResult.No:
-						break;
-					case DialogResult.Cancel:
-						return;
-				}
-			}
+      if (current == null)
+      {
+        return;
+      }
 
 
-			Close(current);
-			GC.Collect();
-		}
+      Document doc = buffers[current];
+      if (doc.IsDirty)
+      {
+        foreach (IDocument view in doc.Views)
+        {
+          IFile atb = view as IFile;
+
+          if (atb != null && atb.IsDirty)
+          {
+            DialogResult dr = MessageBox.Show(ServiceHost.Window.MainForm, current + " has been modified.\nWould you like to save it?",
+              "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+
+            switch (dr)
+            {
+              case DialogResult.Yes:
+                current = SaveFileInternal(current);
+                break;
+              case DialogResult.No:
+                break;
+              case DialogResult.Cancel:
+                return;
+            }
+          }
+        }
+      }
+
+
+      Close(current);
+      GC.Collect();
+    }
 
     void DocClose(object sender, CancelEventArgs e)
     {
@@ -938,28 +987,37 @@ namespace Xacc.ComponentModel
         return;
       }
 
-      IFile atb = this[current] as IFile;
-      if (atb != null && atb.IsDirty)
+      Document doc = buffers[current];
+      if (doc.IsDirty)
       {
-        DialogResult dr = MessageBox.Show(ServiceHost.Window.MainForm, current + " has been modified.\nWould you like to save it?",
-          "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
-
-        switch (dr)
+        foreach (IDocument view in doc.Views)
         {
-          case DialogResult.Yes:
-            current = SaveFileInternal(current);
-            break;
-          case DialogResult.No:
-            break;
-          case DialogResult.Cancel:
-            e.Cancel = true;
-            return;
+          IFile atb = view as IFile;
+
+          if (atb != null && atb.IsDirty)
+          {
+            DialogResult dr = MessageBox.Show(ServiceHost.Window.MainForm, current + " has been modified.\nWould you like to save it?",
+              "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+
+            switch (dr)
+            {
+              case DialogResult.Yes:
+                current = SaveFileInternal(current);
+                break;
+              case DialogResult.No:
+                break;
+              case DialogResult.Cancel:
+                e.Cancel = true;
+                return;
+            }
+          }
         }
       }
 
       Close(current, false);
       GC.Collect();
     }
+
 
     [MenuItem("Save", Index = 10, State = ApplicationState.File, Image = "File.Save.png", AllowToolBar = true)]
 		void SaveFile()
@@ -983,7 +1041,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Save file as...", Index = 11, State = ApplicationState.File, Image = "File.SaveAs.png")]
+    [MenuItem("Save File As...", Index = 11, State = ApplicationState.File, Image = "File.SaveAs.png")]
 		void SaveFileAs()
 		{
 			if (current != null)
@@ -1161,6 +1219,11 @@ namespace Xacc.ComponentModel
 
         IDockContent tp = Runtime.DockFactory.Content();
         tp.Text = Path.GetFileName(filename);
+        if (tp.Text == "command.ls")
+        {
+          tp.Text = "Scratch Pad";
+        }
+
         tp.Tag = filename;
         tp.Closing += new CancelEventHandler(DocClose);
 
@@ -1190,13 +1253,13 @@ namespace Xacc.ComponentModel
         }
 
         tp.TabPageContextMenuStrip = contextmenu;
-            
-        Document doc = GetDocument(ext); 
+
+        Document doc = GetDocument(filename); 
         Control c = doc.ActiveView as Control;
 
         tp.Controls.Add(c);
         c.Dock = DockStyle.Fill;
-        tp.Show(ServiceHost.Window.Document, ds);
+
         c.Tag = tp;
 
         if (Path.GetFileName(filename) != "command.ls")
@@ -1217,6 +1280,7 @@ namespace Xacc.ComponentModel
         buffers.Add(filename, doc);
         current = filename;
         doc.ActiveView.Open(filename);
+        tp.Show(ServiceHost.Window.Document, ds);
 
         if (ms != null)
         {
@@ -1377,21 +1441,25 @@ namespace Xacc.ComponentModel
 
 			if (buffers.ContainsKey(filename) && filename != "$grid$")
 			{
-				IDocument c = this[filename] as IDocument;
+        Document doc = buffers[filename];
 				
         if (closecontainer)
         {
-          IDockContent tp = (c as Control).Tag as IDockContent;
-          if (tp != null)
+          foreach (IDocument c in doc.Views)
           {
-            tp.Closing -=new CancelEventHandler(DocClose);
-            tp.Close();
-            current = null;
+            IDockContent tp = (c as Control).Tag as IDockContent;
+            if (tp != null)
+            {
+              tp.Closing -= new CancelEventHandler(DocClose);
+              tp.Close();
+              current = null;
+            }
+            break;
           }
         }
 
         buffers.Remove(filename);
-        c.Close();
+        doc.Close();
         
 				IMenuService ms = ServiceHost.Menu;
 				if (ms != null)
@@ -1446,6 +1514,7 @@ namespace Xacc.ComponentModel
 
 			if (ms != null)
 			{
+        Trace.WriteLine("State change request: ActiveContent = {0}", ServiceHost.Window.Document.ActiveContent);
 				if (ServiceHost.Window.Document.ActiveContent != null)
 				{
 					string curr = (ServiceHost.Window.Document.ActiveContent as IDockContent).Tag as string;
@@ -1453,6 +1522,14 @@ namespace Xacc.ComponentModel
           {
             current = curr;
             Control c = this[current];
+
+            if (c == null)
+            {
+              ResetState();
+              return;
+            }
+
+            c.Focus();
 
             foreach (ToolStripMenuItem mi in ms["Window"].DropDownItems)
             {
@@ -1497,6 +1574,15 @@ namespace Xacc.ComponentModel
               s &= ~ApplicationState.File;
             }
 
+            if (c is IDocument)
+            {
+              s |= ApplicationState.Document;
+            }
+            else
+            {
+              s &= ~ApplicationState.Document;
+            }
+
             if (c is AdvancedTextBox)
             {
               s |= ApplicationState.Buffer;
@@ -1505,20 +1591,12 @@ namespace Xacc.ComponentModel
             {
               s &= ~ApplicationState.Buffer;
             }
-
             ServiceHost.State = s;
+         
           }
           else
           {
-            if (ServiceHost.State != ApplicationState.Normal)
-            {
-              ServiceHost.State &= ~(ApplicationState.File | ApplicationState.Buffer | 
-                ApplicationState.Edit | ApplicationState.Navigate | ApplicationState.Scroll);
-            }
-            if (current != null && !buffers.ContainsKey(current))
-            {
-              current = null;
-            }
+            ResetState();
           }
 				}
 				else
@@ -1528,7 +1606,7 @@ namespace Xacc.ComponentModel
             if (ServiceHost.State != ApplicationState.Normal)
             {
               //current = null;
-              ServiceHost.State &= ~(ApplicationState.File | ApplicationState.Buffer | 
+              ServiceHost.State &= ~(ApplicationState.File | ApplicationState.Document | ApplicationState.Buffer | 
                 ApplicationState.Edit | ApplicationState.Navigate | ApplicationState.Scroll);
             }
           }
@@ -1539,6 +1617,19 @@ namespace Xacc.ComponentModel
 				}
 			}
 		}
+
+    void ResetState()
+    {
+      if (ServiceHost.State != ApplicationState.Normal)
+      {
+        ServiceHost.State &= ~(ApplicationState.File | ApplicationState.Document | ApplicationState.Buffer |
+          ApplicationState.Edit | ApplicationState.Navigate | ApplicationState.Scroll);
+      }
+      if (current != null && !buffers.ContainsKey(current))
+      {
+        current = null;
+      }
+    }
 
 		void pb_DoubleClick(object sender, EventArgs e)
 		{
@@ -1580,6 +1671,14 @@ namespace Xacc.ComponentModel
     private void pmi_Click2(object sender, EventArgs e)
     {
       PreviousWindow();
+    }
+
+
+
+
+    internal void RefreshState()
+    {
+      tc_SelectedIndexChanged(this, EventArgs.Empty);
     }
   }
 

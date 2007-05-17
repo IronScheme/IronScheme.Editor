@@ -41,6 +41,9 @@ using SR = System.Resources;
 using System.Runtime.InteropServices;
 using Xacc.Build;
 
+using Cordbg = Xacc.ComponentModel.Cordbg;
+
+
 namespace Xacc.ComponentModel
 {
 	/// <summary>
@@ -307,6 +310,11 @@ namespace Xacc.ComponentModel
     public void Start(Project prj)
     {
       this.proj = prj;
+      string file = prj.AssemblyName + ".exe";
+
+      Start(file);
+
+      return;
       int checkcount = prj.Actions.Length;
       foreach (string a in prj.Actions)
       {
@@ -487,18 +495,15 @@ namespace Xacc.ComponentModel
     }
 
 
-    Cordbg dbg = null;
+    DebuggerBase dbg = null;
     string filename;
     ArrayList menus = new ArrayList();
 
     public bool Start(string filename)
     {
-      if (!Cordbg.DebuggerIsAvailable)
-      {
-        return false;
-      }
       //startdebug.Text = "Continue";
       this.filename = filename;
+
       dbg = new Cordbg();
       dbg.DebugProcessExited+=new EventHandler(dbg_DebugProcessExited);
 
@@ -507,8 +512,8 @@ namespace Xacc.ComponentModel
       Console.WriteLine("Debugger started.");
       DebugReady();
 
-      //get back focus
-      ServiceHost.Window.MainForm.Activate();
+      ////get back focus
+      //ServiceHost.Window.MainForm.Activate();
       
       return true;
     }
@@ -564,7 +569,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Toggle all Breakpoint", Index = 22, State = ApplicationState.ProjectBuffer, Image = "Debug.ToggleAllBP.png")]
+    [MenuItem("Toggle all Breakpoints", Index = 22, State = ApplicationState.ProjectBuffer, Image = "Debug.ToggleAllBP.png")]
     void ToggleAllBP()
     {
       Project proj = ServiceHost.Project.Current;
@@ -610,7 +615,7 @@ namespace Xacc.ComponentModel
 
     bool allbp = false;
 
-    [MenuItem("Toggle all Breakpoint state", Index = 23, State = ApplicationState.ProjectBuffer, Image = "Debug.ToggleAllBPState.png")]
+    [MenuItem("Toggle all Breakpoint states", Index = 23, State = ApplicationState.ProjectBuffer, Image = "Debug.ToggleAllBPState.png")]
     void ToggleAllBPState()
     {
       Project proj = ServiceHost.Project.Current;

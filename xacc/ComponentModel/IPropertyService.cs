@@ -17,9 +17,25 @@
 	*		Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA */
 #endregion
 
+#region Includes
 using System;
-using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.ComponentModel;
+using System.Collections;
+using System.Collections.Specialized;
+using System.IO;
+using System.Drawing;
+using Xacc.ComponentModel;
 using System.Windows.Forms;
+using System.Reflection;
+using Xacc.Build;
+using Xacc.Controls;
+
+using SR = System.Resources;
+using Xacc.Runtime;
+#endregion
 
 namespace Xacc.ComponentModel
 {
@@ -28,14 +44,47 @@ namespace Xacc.ComponentModel
 	/// </summary>
 	public interface IPropertyService : IService
 	{
-
+    PropertyGrid Grid { get;}
 	}
 
 	sealed class PropertyService : ServiceBase, IPropertyService
 	{
+    Properties props = new Properties();
+    internal IDockContent tbp;
+
     public PropertyService()
 		{
+      if (SettingsService.idemode)
+      {
+        tbp = Runtime.DockFactory.Content();
+        tbp.Text = "Properties";
+        tbp.Icon = ServiceHost.ImageListProvider.GetIcon("console.png");
+        tbp.Controls.Add(props);
+        tbp.Show(ServiceHost.Window.Document, DockState.DockRightAutoHide);
+        props.Tag = tbp;
+        tbp.Hide();
+        tbp.HideOnClose = true;
 
+        props.propertyGrid1.PropertyValueChanged += new PropertyValueChangedEventHandler(propertyGrid1_PropertyValueChanged);
+      }
     }
+
+    void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+    {
+      ISelectObject so = ServiceHost.File.CurrentDocument.ActiveView as ISelectObject;
+      if (so != null)
+      {
+        (so as Control).Refresh();
+      }
+    }
+
+    #region IPropertyService Members
+
+    public PropertyGrid Grid
+    {
+      get { return props.propertyGrid1; }
+    }
+
+    #endregion
   }
 }

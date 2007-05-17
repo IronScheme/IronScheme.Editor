@@ -57,14 +57,9 @@ namespace Xacc.ComponentModel
       set { ServiceHost.ToolBar.ToolBarVisible = value;}
     }
 
-    class ViewConverter : System.ComponentModel.TypeConverter
+    class ViewConverter : MenuDescriptor
     {
-      public override bool GetStandardValuesSupported(System.ComponentModel.ITypeDescriptorContext context)
-      {
-        return true;
-      }
-
-      public override System.ComponentModel.TypeConverter.StandardValuesCollection GetStandardValues(System.ComponentModel.ITypeDescriptorContext context)
+      public override ICollection GetValues()
       {
         Document c = ServiceHost.File.CurrentDocument as Document;
         ArrayList vals = new ArrayList();
@@ -79,15 +74,53 @@ namespace Xacc.ComponentModel
             }
             else
             {
-              vals.Add( c.GetType().Name);
+              vals.Add( v.GetType().Name);
             }
           }
         }
-        return new StandardValuesCollection(vals);
+        return vals;
       }
     }
 
-    [MenuItem("Switch View", Index = 5, Converter = typeof(ViewConverter), State = ApplicationState.File)]
+    public void NextView()
+    {
+      Document c = ServiceHost.File.CurrentDocument;
+      if (c != null && c.Views != null && c.Views.Length > 1)
+      {
+        Control found = null, newview = null;
+
+        foreach (Control v in c.Views)
+        {
+          if (v == c.ActiveControl)
+          {
+            found = v;
+            continue;
+          }
+          if (found != null)
+          {
+            newview = v;
+            break;
+          }
+        }
+
+        if (found != null)
+        {
+          if (newview == null)
+          {
+            newview = c.Views[0] as Control;
+          }
+          IDockContent dc = found.Tag as IDockContent;
+          dc.Controls.Remove(found);
+          newview.Dock = DockStyle.Fill;
+          newview.Tag = dc;
+          dc.Controls.Add(newview);
+          c.SwitchView(newview as IDocument);
+          return;
+        }
+      }
+    }
+
+    [MenuItem("Switch View", Index = 5, Converter = typeof(ViewConverter), State = ApplicationState.Document)]
     public string CurrentView
     {
       get
@@ -120,8 +153,6 @@ namespace Xacc.ComponentModel
               v.Tag = dc;
               dc.Controls.Add(v);
               c.SwitchView(v as IDocument);
-
-#warning BUG: fix activation of control some how, been issue for too long
               return;
             }
           }
@@ -234,7 +265,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Command window", Index = 22, Image="Project.Run.png")]
+    [MenuItem("Scratch Pad", Index = 22, Image="Project.Run.png")]
     bool ShowCommand
     {
       get 
@@ -251,6 +282,27 @@ namespace Xacc.ComponentModel
         else
         {
           (ServiceHost.Scripting as ScriptingService).tbp.Hide();
+        }
+      }
+    }
+
+    [MenuItem("Properties", Index = 23, Image = "Project.Run.png")]
+    bool ShowProperties
+    {
+      get
+      {
+        IDockContent dc = (ServiceHost.Property as PropertyService).tbp;
+        return dc.DockState != DockState.Hidden;
+      }
+      set
+      {
+        if (!ShowCommand)
+        {
+          (ServiceHost.Property as PropertyService).tbp.Activate();
+        }
+        else
+        {
+          (ServiceHost.Property as PropertyService).tbp.Hide();
         }
       }
     }

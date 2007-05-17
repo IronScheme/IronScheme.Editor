@@ -64,6 +64,7 @@ namespace Xacc.ComponentModel
       progress.Width = 200;
       progress.Maximum = (int)MAX;
       progress.Minimum = 0;
+      status.RenderMode = ToolStripRenderMode.ManagerRenderMode;
       status.Items.Add(progress);
     }
 

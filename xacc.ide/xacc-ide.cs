@@ -34,7 +34,7 @@ using Xacc.Controls;
       this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
       this.ClientSize = new System.Drawing.Size(864, 598);
       this.Name = "ide";
-      this.ResumeLayout(false);
+      
 		}
 
     [STAThread]
@@ -43,6 +43,7 @@ using Xacc.Controls;
       ide f = new ide();
       if (IdeSupport.KickStart(f))
       {
+        f.ResumeLayout(false);
         Application.Run(f);
       }
     }

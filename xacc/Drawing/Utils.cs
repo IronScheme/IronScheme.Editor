@@ -42,7 +42,7 @@ namespace Xacc.Drawing
 
     public static void PaintLineHighlight( Brush b, Pen p, Graphics g, int y, int width, int height, bool fill)
     {
-      PaintLineHighlight( b, p, g, y, width, height, fill, 8);
+      PaintLineHighlight( b, p, g, y, width, height, fill, 5);
     }
 
     public static void PaintLineHighlight( Brush b, Pen p, Graphics g, int y, int width, int height, bool fill, int radius)
@@ -52,7 +52,7 @@ namespace Xacc.Drawing
 
     public static void PaintLineHighlight( Brush b, Pen p, Graphics g, int x, int y, int width, int height, bool fill)
     {
-      PaintLineHighlight( b, p, g, x, y, width, height, fill, 8);
+      PaintLineHighlight( b, p, g, x, y, width, height, fill, 5);
     }
 
     public static void PaintLineHighlight( Brush b, Pen p, Graphics g, int x, int y, int width, int height, bool fill, int radius)

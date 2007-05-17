@@ -84,6 +84,11 @@ namespace Xacc.Configuration
     {
       ServiceHost.File.Open(filename);
     }
+
+    public bool IsShuttingDown
+    {
+      get { return ServiceHost.isshuttingdown; }
+    }
   }
 
 
@@ -99,33 +104,46 @@ namespace Xacc.Configuration
 
     static ST.Mutex real = null;
 
-    static void InvokeClient()
+    static bool InvokeClient()
     {
       IpcClientChannel client = new IpcClientChannel();
       ChannelServices.RegisterChannel(client, false);
 
       RemotingConfiguration.RegisterWellKnownClientType(typeof(ServerService), "ipc://XACCIDE/ss");
 
-      ServerService s = new ServerService();
-      if (args.open != null)
+      try
       {
-        foreach (string fn in args.open)
-        {
-          StringBuilder sb = new StringBuilder(256);
-          int len = kernel32.GetLongPathName(fn, sb, 255);
-          try
-          {
-            s.OpenFile(sb.ToString());
-          }
-          catch (Exception ex)
-          {
-            Trace.WriteLine("Could not load file: " + sb + " Message: " + ex.Message);
-          }
-          
-        }
-      }
 
-      ChannelServices.UnregisterChannel(client);
+        ServerService s = new ServerService();
+        if (s.IsShuttingDown)
+        {
+          return false;
+        }
+        if (args.open != null)
+        {
+          foreach (string fn in args.open)
+          {
+            StringBuilder sb = new StringBuilder(256);
+            int len = kernel32.GetLongPathName(fn, sb, 255);
+            try
+            {
+              s.OpenFile(sb.ToString());
+            }
+            catch (Exception ex)
+            {
+              Trace.WriteLine("Could not load file: " + sb + @" Message:
+" + ex);
+            }
+
+          }
+          return true;
+        }
+        return false;
+      }
+      finally
+      {
+        ChannelServices.UnregisterChannel(client);
+      }
     }
 
 
@@ -152,8 +170,14 @@ namespace Xacc.Configuration
 
         if (m != null)
         {
-          InvokeClient();
-          return false;
+          if (InvokeClient())
+          {
+            return false;
+          }
+          else
+          {
+            real.WaitOne();
+          }
         }
       }
 
@@ -270,7 +294,7 @@ namespace Xacc.Configuration
 
       (ServiceHost.ToolBar as ToolBarService).ValidateToolBarButtons();
 
-      ToolStripManager.LoadSettings(f);
+      //ToolStripManager.LoadSettings(f);
 
       if (args.open != null)
       {
@@ -284,7 +308,8 @@ namespace Xacc.Configuration
           }
           catch (Exception ex)
           {
-            Trace.WriteLine("Could not load file: " + sb + " Message: " + ex.Message);
+            Trace.WriteLine("Could not load file: " + sb + @" Message:
+" + ex);
           }
         }
       }
@@ -297,9 +322,7 @@ namespace Xacc.Configuration
       }
 #endif
       f.WindowState = args.form;
-#if DEBUG
-      f.WindowState = FormWindowState.Maximized;
-#endif
+
       if (args.listermode)
       {
         f.WindowState = FormWindowState.Maximized;

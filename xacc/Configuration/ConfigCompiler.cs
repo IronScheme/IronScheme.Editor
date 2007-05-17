@@ -123,7 +123,7 @@ namespace Xacc.Configuration
           else if (File.GetLastWriteTime(OUTASS) < File.GetLastWriteTime("xacc.ide.exe.config")) { }
           else
           {
-            Trace.WriteLine("Config compiler", "Config not changed - skipping recompiling");
+            Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "Config compiler", "Config not changed - skipping recompiling");
             goto LOADASS;
           }
         }
@@ -148,7 +148,7 @@ namespace Xacc.Configuration
         }
         catch (Exception ex)
         {
-          Trace.WriteLine("Config compiler", "Could not compile - " + ex);
+          Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "Config compiler", "Could not compile - " + ex);
           return false;
         }
       }
@@ -157,7 +157,7 @@ namespace Xacc.Configuration
 
       if (res > 0)
       {
-        Trace.WriteLine("Config compiler", "Could not compile - xml compilation failed");
+        Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "Config compiler", "Could not compile - xml compilation failed");
         return false;
       }
 
@@ -178,7 +178,7 @@ namespace Xacc.Configuration
           Compiler.MakeReferences("xacc.dll", "Microsoft.Build.Utilities.dll", "Microsoft.Build.Framework.dll", "Microsoft.Build.Engine.dll"),
           Compiler.MakeTarget("library"));
 
-        Trace.WriteLine("C# config compiler", "stdin  : {0} {1}",cmd, args);
+        Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "C# config compiler", "stdin  : {0} {1}", cmd, args);
 
         ProcessStartInfo psi = new ProcessStartInfo(cmd, args);
         psi.CreateNoWindow = true;
@@ -190,8 +190,8 @@ namespace Xacc.Configuration
 
         p.WaitForExit();
 
-        Trace.WriteLine("C# config compiler", "stderr : {0}", p.StandardError.ReadToEnd());
-        Trace.WriteLine("C# config compiler", "stdout : {0}", p.StandardOutput.ReadToEnd());
+        Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "C# config compiler", "stderr : {0}", p.StandardError.ReadToEnd());
+        Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "C# config compiler", "stdout : {0}", p.StandardOutput.ReadToEnd());
 
         res = p.ExitCode;
 
@@ -200,7 +200,7 @@ namespace Xacc.Configuration
 
         if (res > 0)
         {
-          Trace.WriteLine("C# config compiler", "Could not compile - C# compilation failed");
+          Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "C# config compiler", "Could not compile - C# compilation failed");
           return false;
         }
 
@@ -217,7 +217,7 @@ namespace Xacc.Configuration
         catch (UnauthorizedAccessException)
         {
           // hmmm ......??
-          Trace.WriteLine("Config compiler", "Error writing " + XSDFILE);
+          Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "Config compiler", "Error writing " + XSDFILE);
         }
 
         if (File.Exists(XSDBUILD))
@@ -227,7 +227,7 @@ namespace Xacc.Configuration
       }
       catch (Exception ex)
       {
-        Trace.WriteLine("Config compiler", "C# process call failed : {0}", ex);
+        Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "Config compiler", "C# process call failed : {0}", ex);
       }
 
 
@@ -242,7 +242,7 @@ namespace Xacc.Configuration
       }
       else
       {
-        Trace.WriteLine("Config compiler", "Could not compile - " + OUTASS + " missing");
+        Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "Config compiler", "Could not compile - " + OUTASS + " missing");
         return false;
       }
       
@@ -633,7 +633,7 @@ class AssemblyLoader : AssemblyPluginProvider
         }
         catch (Exception ex)
         {
-          Trace.WriteLine("C# code generation failed", ex.ToString());
+          Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "C# code generation failed", ex.ToString());
           return 1;
         }
       }
@@ -642,17 +642,17 @@ class AssemblyLoader : AssemblyPluginProvider
 
     static void ser_UnknownElement(object sender, XmlElementEventArgs e)
     {
-      Trace.WriteLine("XML Deserialization", "Unknown Element : {0}", e.Element);
+      Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "XML Deserialization", "Unknown Element : {0}", e.Element);
     }
 
     static void ser_UnknownNode(object sender, XmlNodeEventArgs e)
     {
-      Trace.WriteLine("XML Deserialization", "Unknown Node : {1} : {0}", e.Text, e.Name);
+      Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "XML Deserialization", "Unknown Node : {1} : {0}", e.Text, e.Name);
     }
 
     static void ser_UnreferencedObject(object sender, UnreferencedObjectEventArgs e)
     {
-      Trace.WriteLine("XML Deserialization", "Unreferenced Object : {0}", e.UnreferencedObject);
+      Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "XML Deserialization", "Unreferenced Object : {0}", e.UnreferencedObject);
     }
 	}
 }

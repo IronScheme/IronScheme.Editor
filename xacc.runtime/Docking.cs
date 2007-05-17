@@ -10,7 +10,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 #if WEIFENLUO
-using W = WeifenLuo.WinFormsUI;
+using W = WeifenLuo.WinFormsUI.Docking;
 #endif
 
 namespace Xacc.Runtime
@@ -108,14 +108,16 @@ namespace Xacc.Runtime
   {
     public DockPanel()
     {
-      ActiveAutoHideContent = null;
+      //ActiveAutoHideContent = null;
+
+      DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
       BackColor = Color.FromArgb(245,245,245);
       Dock = DockStyle.Fill;
     }
 
     IDockContent[] IDockPanel.Documents
     {
-      get {return new ArrayList(base.Documents).ToArray(typeof(IDockContent)) as IDockContent[];}
+      get {return new ArrayList(base.DockWindows).ToArray(typeof(IDockContent)) as IDockContent[];}
     }
 
     public void Save(string filename)

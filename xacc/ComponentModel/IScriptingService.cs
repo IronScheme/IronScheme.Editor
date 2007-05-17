@@ -184,7 +184,7 @@ namespace Xacc.ComponentModel
       set {TopLoop.TraceReturn = value;}
     }
 
-    [MenuItem("Edit profile", Index = 20, Image="Script.EditProfile.png")]
+    [MenuItem("Edit Profile", Index = 20, Image="Script.EditProfile.png")]
     void EditProfile()
     {
       IFileManagerService fm = ServiceHost.File;

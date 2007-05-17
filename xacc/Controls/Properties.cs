@@ -13,6 +13,7 @@ namespace Xacc.Controls
     public Properties()
     {
       InitializeComponent();
+      Dock = DockStyle.Fill;
     }
   }
 }

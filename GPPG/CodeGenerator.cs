@@ -238,6 +238,11 @@ namespace gpcc
     {
       IEnumerator<ParserAction> enumerator = state.parseTable.Values.GetEnumerator();
       enumerator.MoveNext();
+      if (enumerator.Current == null)
+      {
+        Console.Error.WriteLine("Token not defined near: " + state);
+        Environment.Exit(1);
+      }
       int defaultAction = enumerator.Current.ToNum();
 
       if (defaultAction > 0)

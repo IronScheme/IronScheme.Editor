@@ -1,12 +1,15 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.20404</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{CA7874FF-BB3B-4F16-B65C-369B8AC22F84}</ProjectGuid>
-    <SccProjectName>Xacc-0.2</SccProjectName>
-    <SccLocalPath>..</SccLocalPath>
-    <SccProvider>MSSCCI:StarTeam</SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
@@ -31,6 +34,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <SignAssembly>true</SignAssembly>
+    <OldToolsVersion>2.0</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -96,6 +100,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Common\AssemblyInfo.Common.cs">
+      <Link>AssemblyInfo.Common.cs</Link>
+    </Compile>
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -122,6 +129,7 @@
     <Compile Include="Scala.lex.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Sql.lex.cs" />
     <Compile Include="VBNET.lex.cs" />
     <None Include="Boo.lex" />
     <None Include="Caml.lex" />
@@ -149,6 +157,9 @@
     <None Include="VBNET.lex" />
     <None Include="xacc.key" />
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>$(SolutionDir)Tools\cs_lex $(ProjectDir)Patch.lex
@@ -166,7 +177,8 @@ $(SolutionDir)Tools\cs_lex $(ProjectDir)IronPython.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Cpp.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Nemerle.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)VBNET.lex
-$(SolutionDir)Tools\cs_lex $(ProjectDir)NSIS.lex</PreBuildEvent>
+$(SolutionDir)Tools\cs_lex $(ProjectDir)NSIS.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Sql.lex</PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>

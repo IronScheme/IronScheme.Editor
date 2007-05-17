@@ -28,7 +28,16 @@ namespace Xacc.ComponentModel
 	/// </summary>
 	public interface IToolBarService : IService
 	{
+    /// <summary>
+    /// Gets or sets a value indicating whether [tool bar visible].
+    /// </summary>
+    /// <value><c>true</c> if [tool bar visible]; otherwise, <c>false</c>.</value>
     bool ToolBarVisible {get;set;}
+
+    /// <summary>
+    /// Gets the tool bar.
+    /// </summary>
+    /// <value>The tool bar.</value>
     ToolStripContainer ToolBar { get;}
 	}
 
@@ -45,6 +54,7 @@ namespace Xacc.ComponentModel
 
 		public ToolBarService()
 		{
+      ToolStripManager.Renderer = new Office2007Renderer.Office2007Renderer();
       ServiceHost.StateChanged += new EventHandler(ServiceHost_StateChanged);
       toolbar.Dock = DockStyle.Fill;
 
@@ -73,17 +83,24 @@ namespace Xacc.ComponentModel
       }
     }
 
+    static string MnemonicEscape(string s)
+    {
+      return s.Replace("&&", "||").Replace("&", string.Empty).Replace("||", "&");
+    }
+
     public bool Add(ToolStripMenuItem parent, MenuItemAttribute mia)
     {
       if (!map.ContainsKey(parent))
       {
         ToolStrip ts = new ToolStrip();
-        ts.Name = parent.Text;
+        ts.Name = MnemonicEscape(parent.Text);
         ts.ImageList = ServiceHost.ImageListProvider.ImageList;
         ts.TabIndex = (map[parent] = toplevel.Count) + 1;
         toplevel.Add(ts);
         ts.Visible = false;
+        ts.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
         toolbar.TopToolStripPanel.Controls.Add(ts);
+        
       }
 
       if (mia != null)

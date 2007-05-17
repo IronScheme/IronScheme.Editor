@@ -967,6 +967,7 @@ $    <OutputType>WinExe</OutputType>
       }
       catch (Microsoft.Build.BuildEngine.InvalidProjectFileException)
       {
+          /*
         File.Move(filename, filename + ".old");
         Microsoft.Build.Conversion.ProjectFileConverter pfc = new Microsoft.Build.Conversion.ProjectFileConverter();
         pfc.NewProjectFile = filename;
@@ -987,7 +988,7 @@ $    <OutputType>WinExe</OutputType>
 
 
         Load(filename);
-        
+        */
       }
     }
 
@@ -1696,7 +1697,7 @@ Item Metadata   Description
           return;
         }
 
-        if (bi.HasMetadata("Visible") && bi.GetMetadata("Visible") == "false")
+        if (bi != null && bi.HasMetadata("Visible") && bi.GetMetadata("Visible") == "false")
         {
           return;
         }
@@ -1955,7 +1956,7 @@ Item Metadata   Description
               w.Flush();
             }
 
-            AddFile(fullpath, "None");
+            AddFile(fullpath, wiz.prjtype.SelectedItem as string);
 
             ServiceHost.File.Open(fullpath);
           }

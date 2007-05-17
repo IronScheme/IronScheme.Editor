@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.Remoting;
 
 using ISite = System.ComponentModel.ISite;
 
@@ -38,7 +39,7 @@ namespace Xacc.ComponentModel
 	}
 
 	/// <summary>
-	/// The interface used for providing services.
+	/// The interface used for providing services. NOTE: this conflicts with the .NET model
 	/// </summary>
 	[Name("Service host","Provides a single store for hosting all services")]
 	public interface IServiceProvider : IService
@@ -55,11 +56,12 @@ namespace Xacc.ComponentModel
 	/// <summary>
 	/// Provides a single store for hosting all services
 	/// </summary>
-	public sealed class ServiceHost : IServiceProvider, IDisposable, ISite
+	public sealed class ServiceHost : MarshalByRefObject, IServiceProvider, IDisposable, ISite
 	{
     readonly static Dictionary<Type, IService> services = new Dictionary<Type, IService>();
     readonly static Dictionary<Type, string> propmap = new Dictionary<Type, string>();
     static ApplicationState state = 0;
+    static internal bool isshuttingdown = false;
 
 
 		/// <summary>
@@ -108,7 +110,9 @@ namespace Xacc.ComponentModel
       {
         if (state != value)
         {
+          ApplicationState oldstate = state;
           state = value;
+          Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "State changed: [{0}] -> [{1}]", oldstate, state);
           if (StateChanged != null)
           {
             StateChanged(null, EventArgs.Empty);
@@ -145,7 +149,7 @@ namespace Xacc.ComponentModel
 			{
 				if (t != typeof(IServiceProvider))
 				{
-					Trace.WriteLine("Loading {0}", serviceType.Name);
+          Trace.WriteLine("Loading {0}", serviceType.Name);
 					services[t] = service;	
 				}
 			}
@@ -154,11 +158,11 @@ namespace Xacc.ComponentModel
 				ServiceBase svb = service as ServiceBase;
 				if (svb == null)
 				{
-					Trace.WriteLine("Loading {0}", serviceType.Name);
+          Trace.WriteLine("Loading {0}", serviceType.Name);
 				}
 				else
 				{
-					Trace.WriteLine("Loading {0}", svb.Name);
+          Trace.WriteLine("Loading {0}", svb.Name);
 				}
 				services.Add(t, service);
 			}
@@ -173,7 +177,7 @@ namespace Xacc.ComponentModel
     {
       public static void WriteLine(string format, params object[] args)
       {
-        Diagnostics.Trace.WriteLine("ServiceHost", format, args);
+        Diagnostics.Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "ServiceHost", format, args);
       }
     }
 
@@ -232,7 +236,12 @@ namespace Xacc.ComponentModel
 		/// </code></example>
     public IService GetService(Type servicetype)
 		{
-			return services[servicetype];
+      IService s = services[servicetype];
+      if (RemotingServices.IsObjectOutOfAppDomain(s))
+      {
+        s = (IService) Activator.GetObject(servicetype, RemotingServices.GetObjectUri(s as MarshalByRefObject)) as IService;
+      }
+      return s;
 		}
 
 
@@ -243,7 +252,12 @@ namespace Xacc.ComponentModel
     /// <returns></returns>
     public static T Get<T>() where T:class, IService
     {
-      return services[typeof(T)] as T;
+      IService s = services[typeof(T)];
+      if (RemotingServices.IsObjectOutOfAppDomain(s))
+      {
+        s = (IService)Activator.GetObject(typeof(T), RemotingServices.GetObjectUri(s as MarshalByRefObject)) as IService;
+      }
+      return s as T;
     }
 
     /// <summary>
@@ -252,6 +266,15 @@ namespace Xacc.ComponentModel
     public static IKeyboardService Keyboard
     {
       get { return Get<IKeyboardService>();}
+    }
+
+    /// <summary>
+    /// Gets the property service.
+    /// </summary>
+    /// <value>The property service.</value>
+    public static IPropertyService Property
+    {
+      get { return Get<IPropertyService>(); }
     }
 
     /// <summary>
@@ -375,15 +398,6 @@ namespace Xacc.ComponentModel
 		}
 
     /// <summary>
-    /// Gets the property.
-    /// </summary>
-    /// <value>The property.</value>
-    public static IPropertyService Property
-    {
-      get { return Get<IPropertyService>(); }
-    }
-
-    /// <summary>
     /// Gets the IToolsService
     /// </summary>
     public static IToolsService Tools
@@ -441,6 +455,7 @@ namespace Xacc.ComponentModel
 
 		void IDisposable.Dispose()
 		{
+      isshuttingdown = true;
 			foreach (IService svc in services.Values)
 			{
 				IDisposable idis = svc as IDisposable;

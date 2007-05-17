@@ -1,10 +1,12 @@
 // Gardens Point Parser Generator
 // Copyright (c) Wayne Kelly, QUT 2005
 // (see accompanying GPPGcopyright.rtf)
-
+//#define DEBUG
 
 using System;
+using System.IO;
 using System.Collections.Generic;
+
 
 
 namespace gpcc
@@ -22,18 +24,41 @@ namespace gpcc
 #if DEBUG
       true
 #else
-      false
+      true
 #endif
       ;
+
+    static TextWriter output;
 
     private static int Main(string[] args)
     {
       try
       {
-        string filename = ProcessOptions(args);
+        string outfile = null;
+        string filename = ProcessOptions(args, ref outfile);
+
+
 
         if (filename == null)
           return 1;
+
+        if (outfile != null)
+        {
+          if (File.Exists(outfile))
+          {
+            if (File.GetLastWriteTime(typeof(GPCG).Assembly.Location) > File.GetLastWriteTime(outfile))
+            {
+            }
+            else if (File.Exists(outfile) && new FileInfo(outfile).Length > 0)
+            {
+              if (File.GetLastWriteTime(filename) < File.GetLastWriteTime(outfile))
+              {
+                return 0;
+              }
+            }
+          }
+          Console.SetOut(output = File.CreateText(outfile));
+        }
 
         Console.Error.WriteLine("gppg {0}", System.IO.Path.GetFileName(filename));
 
@@ -61,6 +86,10 @@ namespace gpcc
       finally
       {
         Console.Out.Flush();
+        if (output != null)
+        {
+          output.Close();
+        }
       }
       return 1;
 
@@ -76,35 +105,48 @@ catch (System.Exception e)
     }
 
 
-    private static string ProcessOptions(string[] args)
+    private static string ProcessOptions(string[] args, ref string outfile)
     {
       string filename = null;
 
+      bool expect = false;
+
       foreach (string arg in args)
       {
-        if (arg[0] == '-' || arg[0] == '/')
-          switch (arg.Substring(1))
-          {
-            case "?":
-            case "h":
-            case "help":
-              DisplayHelp();
-              return null;
-            case "v":
-            case "version":
-              DisplayVersion();
-              return null;
-            case "l":
-            case "no-lines":
-              LINES = false;
-              break;
-            case "r":
-            case "report":
-              REPORT = true;
-              break;
-          }
+        if (expect)
+        {
+          outfile = arg;
+          expect = false;
+        }
         else
-          filename = arg;
+        {
+          if (arg[0] == '-' || arg[0] == '/')
+            switch (arg.Substring(1))
+            {
+              case "?":
+              case "h":
+              case "help":
+                DisplayHelp();
+                return null;
+              case "v":
+              case "version":
+                DisplayVersion();
+                return null;
+              case "l":
+              case "no-lines":
+                LINES = false;
+                break;
+              case "r":
+              case "report":
+                REPORT = true;
+                break;
+              case "o":
+                expect = true;
+                break;
+            }
+          else
+            filename = arg;
+        }
       }
 
       if (filename == null)

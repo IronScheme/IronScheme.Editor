@@ -36,10 +36,8 @@ namespace Xacc.Controls
       this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
       this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
       this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
-      this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-      this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+      this.pictureComboBox1 = new Xacc.Controls.PictureComboBox();
       this.toolStrip1.SuspendLayout();
-      this.toolStrip2.SuspendLayout();
       this.SuspendLayout();
       // 
       // toolStrip1
@@ -108,23 +106,18 @@ namespace Xacc.Controls
       this.propertyGrid1.TabIndex = 2;
       this.propertyGrid1.ToolbarVisible = false;
       // 
-      // toolStrip2
+      // pictureComboBox1
       // 
-      this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-      this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripComboBox1});
-      this.toolStrip2.Location = new System.Drawing.Point(0, 0);
-      this.toolStrip2.Name = "toolStrip2";
-      this.toolStrip2.Size = new System.Drawing.Size(285, 25);
-      this.toolStrip2.Stretch = true;
-      this.toolStrip2.TabIndex = 3;
-      this.toolStrip2.Text = "toolStrip2";
-      // 
-      // toolStripComboBox1
-      // 
-      this.toolStripComboBox1.Name = "toolStripComboBox1";
-      this.toolStripComboBox1.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-      this.toolStripComboBox1.Size = new System.Drawing.Size(279, 25);
+      this.pictureComboBox1.Dock = System.Windows.Forms.DockStyle.Top;
+      this.pictureComboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+      this.pictureComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.pictureComboBox1.FormattingEnabled = true;
+      this.pictureComboBox1.ItemHeight = 19;
+      this.pictureComboBox1.Location = new System.Drawing.Point(0, 0);
+      this.pictureComboBox1.Margin = new System.Windows.Forms.Padding(5);
+      this.pictureComboBox1.Name = "pictureComboBox1";
+      this.pictureComboBox1.Size = new System.Drawing.Size(285, 25);
+      this.pictureComboBox1.TabIndex = 4;
       // 
       // Properties
       // 
@@ -132,13 +125,12 @@ namespace Xacc.Controls
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.Controls.Add(this.propertyGrid1);
       this.Controls.Add(this.toolStrip1);
-      this.Controls.Add(this.toolStrip2);
+      this.Controls.Add(this.pictureComboBox1);
+      this.Margin = new System.Windows.Forms.Padding(5);
       this.Name = "Properties";
       this.Size = new System.Drawing.Size(285, 664);
       this.toolStrip1.ResumeLayout(false);
       this.toolStrip1.PerformLayout();
-      this.toolStrip2.ResumeLayout(false);
-      this.toolStrip2.PerformLayout();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -152,8 +144,7 @@ namespace Xacc.Controls
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     private System.Windows.Forms.ToolStripButton toolStripButton3;
     private System.Windows.Forms.ToolStripButton toolStripButton4;
-    private System.Windows.Forms.PropertyGrid propertyGrid1;
-    private System.Windows.Forms.ToolStrip toolStrip2;
-    private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+    internal System.Windows.Forms.PropertyGrid propertyGrid1;
+    private PictureComboBox pictureComboBox1;
   }
 }

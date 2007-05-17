@@ -4,10 +4,13 @@
 
 
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
 
 
 namespace gppg
 {
+  [DebuggerDisplay("{num}")]
   public class State
   {
     public int num;
@@ -58,5 +61,50 @@ namespace gppg
       for (int i = 0; i < conflicts.Length; i += 2)
         conflict_table.Add(conflicts[i], conflicts[i + 1]);
     }
+#if DEBUG
+    public string DebugInfo
+    {
+      get
+      {
+        StringBuilder sb = new StringBuilder();
+        sb.AppendFormat("Default = {{{0}}}, ", defaultAction);
+        sb.Append("Actions = {");
+        foreach (int i in parser_table.Values)
+        {
+          sb.AppendFormat("{0}:{1}, ", i, parser_table[i]);
+        }
+        if (parser_table.Count > 0)
+        {
+          sb.Length -= 2;
+        }
+        sb.Append("}, ");
+
+        sb.Append("Gotos = {");
+        foreach (int i in Goto.Values)
+        {
+          sb.AppendFormat("{0}:{1}, ", i, Goto[i]);
+        }
+        if (Goto.Count > 0)
+        {
+          sb.Length -= 2;
+        }
+        sb.Append("}, ");
+
+        sb.Append("Conflicts = {");
+        foreach (int i in conflict_table.Values)
+        {
+          sb.AppendFormat("{0}:{1}, ", i, conflict_table[i]);
+        }
+        if (conflict_table.Count > 0)
+        {
+          sb.Length -= 2;
+        }
+
+        sb.Append("}");
+
+        return sb.ToString();
+      }
+    }
+#endif
   }
 }

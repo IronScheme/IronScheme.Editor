@@ -168,6 +168,8 @@ namespace Xacc.ComponentModel
 
     }
 
+    readonly Hashtable outputs = new Hashtable();
+
     internal void BuildInternal(BuildProject project, params string[] targets)
     {
       if (project != null)
@@ -184,9 +186,10 @@ namespace Xacc.ComponentModel
         
         BuildStarted(delegate()
         {
+          outputs.Clear();
           try
           {
-            bool res = project.Build(targets);
+            bool res = project.Build(targets, outputs);
           }
           catch
           {
@@ -253,7 +256,7 @@ namespace Xacc.ComponentModel
       BuildInternal(ServiceHost.Project.Current.MSBuildProject, "Clean");
     }
 
-    [MenuItem("Cancel build", Index = 900, State = ApplicationState.Project | ApplicationState.Build)]
+    [MenuItem("Cancel Build", Index = 900, State = ApplicationState.Project | ApplicationState.Build)]
     void CancelBuild()
     {
       if (buildthread != null)

@@ -118,13 +118,13 @@ namespace Xacc.ComponentModel
 
     readonly static string VIEWFILE = Application.StartupPath + Path.DirectorySeparatorChar + "view.xml";
 
-    //[MenuItem("Save view", Index = 998, State = 0)]
+    [MenuItem("Save view", Index = 998, State = 0)]
     public void SaveView()
     {
       ServiceHost.Window.Document.Save(VIEWFILE);
     }
 
-    //[MenuItem("Load view", Index = 999, State = 0)]
+    [MenuItem("Load view", Index = 999, State = 0)]
     void LoadView()
     {
       if (File.Exists(VIEWFILE))

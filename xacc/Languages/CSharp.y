@@ -109,7 +109,9 @@ class TypeRef : CodeTypeRef
 %token  STRUCT SWITCH THIS THROW TRUE
 %token  TRY TYPEOF UINT ULONG UNCHECKED
 %token  UNSAFE USHORT USING VIRTUAL VOID
-%token  VOLATILE WHILE WHERE ARGLIST
+%token  VOLATILE WHILE WHERE ARGLIST VAR ADD REMOVE
+
+%token SELECT INTO ORDERBY FROM LET JOIN EQUALS ASCENDING DESCENDING GROUP ON BY
 
 /* The ones that seem to be context sensitive */
 
@@ -123,7 +125,7 @@ class TypeRef : CodeTypeRef
 /*** MULTI-CHARACTER OPERATORS ***/
 %token PLUSEQ MINUSEQ STAREQ DIVEQ MODEQ QQ GTGTEQ GTGT
 %token XOREQ  ANDEQ   OREQ LTLT GTGT LTLTEQ EQEQ NOTEQ
-%token LEQ GEQ ANDAND OROR PLUSPLUS MINUSMINUS ARROW
+%token LEQ GEQ ANDAND OROR PLUSPLUS MINUSMINUS ARROW LAMBDA
 
 %start compilation_unit  /* I think */
 
@@ -134,12 +136,12 @@ class TypeRef : CodeTypeRef
 %type <elem> constant_declaration field_declaration interface_indexer_declaration identifier_name
 %type <elem> namespace_declaration namespace_member_declaration struct_member_declaration interface_member_declaration
 %type <elem> enum_member_declaration constructor_declarator 
-%type <text> qualified_identifier qualifier namespace_name constant_declarator variable_declarator type_qualified_identifier
+%type <text> qualified_identifier qualifier namespace_name constant_declarator variable_declarator type_qualified_identifier long_qualified_identifier
 %type <elem> class_declaration struct_declaration interface_declaration enum_declaration delegate_declaration type_declaration
 %type <elem> class_member_declaration method_declaration property_declaration type2
 %type <elem> event_declaration indexer_declaration operator_declaration constructor_declaration destructor_declaration
 %type <elem> formal_parameter fixed_parameter parameter_array method_header interface_method_declaration interface_property_declaration
-%type <typeref> type return_type non_array_type simple_type primitive_type class_type numeric_type floating_point_type type_opt
+%type <typeref> type return_type non_array_type simple_type primitive_type class_type numeric_type floating_point_type type_opt 
 %type <typeref> integral_type array_type type_name
 %type <primval> literal mllit boolean_literal
 %type <list> variable_declarators constant_declarators
@@ -151,7 +153,7 @@ class TypeRef : CodeTypeRef
 %nonassoc ELSE
 
 %right SHIFT
-%nonassoc '<' '>' 
+%nonassoc '<' '>'
 %left REDUCE
 
 
@@ -186,7 +188,7 @@ namespace_name
   ;
   
 type_name
-  : qualified_identifier                         { $$ = new TypeRef($1); OverrideToken(@1, TokenClass.Type);}
+  : qualified_identifier                         { $$ = new TypeRef($1); if (inblock > 0 && $1 == "var") OverrideToken(@1, TokenClass.Keyword); else OverrideToken(@1, TokenClass.Type); }
   ;
   
 member_name
@@ -228,17 +230,28 @@ nullable_opt
 
 
 type
-  : non_array_type  nullable_opt                            { $$ = new TypeRef($1, false);}
+  : non_array_type                              { $$ = new TypeRef($1, false); }
   | array_type                                              { $$ = new TypeRef($1, true); }
   ;
-non_array_type
+  
+nullable_type
+  : type_name '?'  
+  ;
+  
+non_null_type
   : simple_type
   | type_name
+  ;  
+  
+non_array_type
+  : non_null_type
+  | nullable_type
   ;
+  
 simple_type
-  : primitive_type
+  : primitive_type nullable_opt
   | class_type
-  | pointer_type
+ /* | pointer_type */
   ;
 primitive_type
   : numeric_type                                            
@@ -312,6 +325,7 @@ primary_expression_no_parenthesis
   | this_access
   | base_access
   | anon_delegate_expression
+  | anon_object_creation_expression
   | new_expression
   | default_expression
   | typeof_expression
@@ -319,6 +333,32 @@ primary_expression_no_parenthesis
   | checked_expression
   | unchecked_expression
   ;
+
+anon_object_creation_expression
+  : NEW anon_object_init
+  ;
+
+anon_object_init
+  : '{' mem_dec_list_opt '}'                                      { MakePair(@1,@3); }
+  | '{' mem_dec_list ',' '}'                                      { MakePair(@1,@4); }
+  ;  
+  
+mem_dec_list_opt
+  :
+  | mem_dec_list
+  ;
+  
+mem_dec_list
+  : mem_dec
+  | mem_dec_list ',' mem_dec
+  ;
+  
+mem_dec
+  : qualified_identifier
+  | member_access
+  | IDENTIFIER '=' expression
+  ;
+  
 parenthesized_expression
   : '(' expression ')'                                              { MakePair(@1,@3); $$ = $2; @@ = @2;}
   ;
@@ -333,7 +373,7 @@ default_expression
   ;  
   
 invocation_expression
-  : primary_expression_no_parenthesis '(' argument_list_opt ')'     { MakePair(@2,@4); @@ = @1;}
+  : primary_expression_no_parenthesis type_list_opt '(' argument_list_opt ')'     { MakePair(@3,@5); @@ = @1;}
   | qualified_identifier '(' argument_list_opt ')'                  { MakePair(@2,@4); @@ = @1; }
   ;
 argument_list_opt
@@ -366,26 +406,79 @@ post_decrement_expression
   : postfix_expression MINUSMINUS
   ;
 anon_delegate_expression
-  : DELEGATE '(' formal_parameter_list_opt ')' method_body         { MakePair(@2,@4);}
+  : DELEGATE method_body
+  | DELEGATE '(' formal_parameter_list_opt ')' method_body         { MakePair(@2,@4);}
   ;
 new_expression
   : object_creation_expression
   ;
 object_creation_expression
-  : NEW type '(' argument_list_opt ')'                              { OverrideToken(@2, TokenClass.Type); MakePair(@3,@5); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace)); }
+  : NEW type '(' argument_list_opt ')'  object_col_init_opt         { MakePair(@3,@5); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace)); }
+  | NEW type object_col_init_opt                                    { AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace)); }
   | NEW error                                                       { AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace)); }
   ;
+  
+object_col_init_opt
+  :
+  | object_col_init
+  ;
+  
+object_col_init
+  : object_init
+  | col_init
+  ; 
+  
+object_init
+  : '{' mem_init_list_opt '}'                                       { MakePair(@1,@3);}
+  | '{' mem_init_list ',' '}'                                       { MakePair(@1,@4);}
+  ;
+  
+mem_init_list_opt
+  :
+  | mem_init_list
+  ;  
+  
+mem_init_list
+  : mem_init
+  | mem_init_list ',' mem_init
+  ;  
+  
+mem_init  
+  : IDENTIFIER '=' init_value
+  ;
+  
+init_value
+  : expression
+  | object_col_init
+  ;  
+  
+col_init   
+  : '{' elem_init_list '}'                                          { MakePair(@1,@3);}
+  | '{' elem_init_list ',' '}'                                      { MakePair(@1,@4);}
+  ;
+  
+elem_init_list
+  : elem_init
+  | elem_init_list ',' elem_init
+  ;
+  
+elem_init
+  : nonassign_expression
+  | '{' expression_list '}'                                         { MakePair(@1,@3);}
+  ;    
+  
 array_creation_expression
-  : NEW non_array_type '[' expression_list ']' 
-    rank_specifiers_opt array_initializer_opt                       {  OverrideToken(@2, TokenClass.Type); MakePair(@3,@5); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace)); }
-  | NEW array_type array_initializer                                {  OverrideToken(@2, TokenClass.Type); AddAutoComplete(@1, typeof(CodeType),typeof(CodeNamespace)); }
+  : NEW non_array_type '[' expression_list ']'                      {  MakePair(@3,@5); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace)); }
+    rank_specifiers_opt array_initializer_opt                       {  MakePair(@3,@5); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace)); }
+  | NEW array_type array_initializer                                {  AddAutoComplete(@1, typeof(CodeType),typeof(CodeNamespace)); }
+  | NEW rank_specifier array_initializer
   ;
 array_initializer_opt
   : /* Nothing */
   | array_initializer
   ;
 typeof_expression
-  : TYPEOF '(' type ')'                                             { OverrideToken(@3, TokenClass.Type); MakePair(@2,@4); AddAutoComplete(@2, typeof(CodeType),typeof(CodeNamespace)); }
+  : TYPEOF '(' type ')'                                             { MakePair(@2,@4); AddAutoComplete(@2, typeof(CodeType),typeof(CodeNamespace)); }
   | TYPEOF '(' VOID ')'                                             { MakePair(@2,@4);}
   ;
 checked_expression
@@ -401,7 +494,7 @@ addressof_expression
   : '&' unary_expression
   ;
 sizeof_expression
-  : SIZEOF '(' type ')'                                             { OverrideToken(@3, TokenClass.Type); MakePair(@2,@4); AddAutoComplete(@2, typeof(CodeType), typeof(CodeNamespace));}
+  : SIZEOF '(' type ')'                                             { MakePair(@2,@4); AddAutoComplete(@2, typeof(CodeType), typeof(CodeNamespace));}
   ;
 postfix_expression
   : primary_expression
@@ -437,12 +530,16 @@ unary_expression
  * The paremtnesised expression in the first three cases below should be 
  * semantically restricted to an identifier, optionally follwed by qualifiers
  */
+
 cast_expression
-  : '(' expression ')' unary_expression_not_plusminus                               { OverrideToken(@2, TokenClass.Type); MakePair(@1,@3);}
+  : '(' IDENTIFIER '?' ')' unary_expression_not_plusminus                           { OverrideToken(@2, TokenClass.Type); MakePair(@1,@4); }
+  | '(' expression ')' unary_expression_not_plusminus                               { OverrideToken(@2, TokenClass.Type); MakePair(@1,@3); }
   | '(' multiplicative_expression '*' ')' unary_expression                          { MakePair(@1,@4);}
   | '(' qualified_identifier rank_specifier type_quals_opt ')' unary_expression     { OverrideToken(@2, TokenClass.Type); MakePair(@1,@5); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}
   | '(' primitive_type type_quals_opt ')' unary_expression                          { MakePair(@1,@4); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}
   | '(' class_type type_quals_opt ')' unary_expression                              { MakePair(@1,@4); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}
+  | '(' primitive_type '?' ')' unary_expression                                     { MakePair(@1,@4);}
+  | '(' nullable_type ')' unary_expression                                          { MakePair(@1,@3);}
   | '(' VOID type_quals_opt ')' unary_expression                                    { MakePair(@1,@4);} 
   ;
 type_quals_opt
@@ -481,8 +578,8 @@ relational_expression
   | relational_expression '>' shift_expression
   | relational_expression LEQ shift_expression
   | relational_expression GEQ shift_expression
-  | relational_expression IS type                                         {  OverrideToken(@3, TokenClass.Type); }
-  | relational_expression AS type                                         {  OverrideToken(@3, TokenClass.Type); }
+  | relational_expression IS non_null_type /* HACK */                                        
+  | relational_expression AS type                                         
   ;
 equality_expression
   : relational_expression
@@ -511,6 +608,7 @@ conditional_or_expression
   ;
 conditional_expression
   : conditional_or_expression
+  | IDENTIFIER '?' expression ':' expression                            { MakePair(@2,@4);}
   | conditional_or_expression '?' expression ':' expression             { MakePair(@2,@4);}
   | conditional_or_expression QQ expression 
   ;
@@ -522,9 +620,158 @@ assignment_operator
   | XOREQ | ANDEQ | OREQ | LTLTEQ | GTGTEQ
   ;
 expression
-  : conditional_expression 
-  | assignment
+  : assignment
+  | nonassign_expression
   ;
+  
+nonassign_expression
+  : conditional_expression 
+  | lambda_expression
+  | query_expression 
+  ;
+  
+lambda_expression
+  : '(' lambda_paramlist_opt ')' LAMBDA lambda_expression_body                      { MakePair(@1,@3);}
+  | '(' IDENTIFIER ')' LAMBDA lambda_expression_body                                { MakePair(@1,@3);}
+  | impltype_lambda_parameter LAMBDA lambda_expression_body                     
+  | '(' IDENTIFIER ',' impltype_lambda_paramlist ')' LAMBDA lambda_expression_body  { MakePair(@1,@5);}
+  ;
+  
+lambda_paramlist_opt
+  :
+  | lambda_paramlist
+  ;
+  
+lambda_paramlist
+  : expltype_lambda_paramlist
+  ;  
+ 
+expltype_lambda_paramlist 
+  : expltype_lambda_parameter
+  | expltype_lambda_paramlist ',' expltype_lambda_parameter
+  ;
+  
+  
+impltype_lambda_paramlist
+  : impltype_lambda_parameter
+  | impltype_lambda_paramlist ',' impltype_lambda_parameter
+  ;
+  
+expltype_lambda_parameter
+  : type IDENTIFIER
+  ;
+ 
+impltype_lambda_parameter
+  : IDENTIFIER
+  ;
+
+lambda_expression_body
+  : expression
+  | block
+  ;
+ 
+
+query_expression
+  : start_query from_clause query_body end_query
+  ;
+  
+from_clause
+  : FROM type_opt IDENTIFIER IN expression
+  ;
+  
+start_query
+  : {inquery++;} 
+  ;  
+  
+end_query
+  : {if (inquery > 0) inquery--; }
+  ;  
+  
+query_body
+  : query_body_clauses_opt select_or_group_clause query_continuation_opt
+  ;
+  
+query_body_clauses_opt
+  : 
+  | query_body_clauses
+  ;  
+  
+query_body_clauses
+  : query_body_clause
+  | query_body_clauses query_body_clause
+  ;
+  
+query_body_clause
+  : from_clause
+  | let_clause
+  | where_clause
+  | join_clause
+  | join_into_clause
+  | orderby_clause
+  ;
+  
+let_clause
+  : LET IDENTIFIER '=' expression
+  ;
+  
+where_clause
+  : WHERE boolean_expression
+  ;
+  
+join_clause
+  : JOIN type_opt IDENTIFIER IN expression ON expression EQUALS expression 
+  ;
+  
+join_into_clause
+  : JOIN type_opt IDENTIFIER IN expression ON expression EQUALS expression INTO IDENTIFIER
+  ;
+  
+orderby_clause
+  : ORDERBY orderings
+  ;
+  
+orderings
+  : ordering
+  | orderings ',' ordering
+  ;
+  
+ordering
+  : expression ordering_direction_opt
+  ;
+  
+ordering_direction_opt
+  :
+  | ordering_direction
+  ;  
+  
+ordering_direction
+  : ASCENDING
+  | DESCENDING
+  ;
+  
+select_or_group_clause
+  : select_clause
+  | group_clause
+  ;
+  
+select_clause
+  : SELECT expression
+  ;
+  
+group_clause
+  : GROUP expression BY expression
+  ;
+
+query_continuation_opt
+  : 
+  | query_continuation
+  ;
+  
+query_continuation
+  : INTO IDENTIFIER query_body 
+  ;
+
+  
 constant_expression
   : expression
   ;
@@ -553,8 +800,17 @@ embedded_statement
   | fixed_statement
   ;
 block
-  : '{' statement_list_opt '}'                              { MakePair(@1,@3);}
+  : block_start '{' statement_list_opt '}' block_end                  { MakePair(@2,Pin(@4));}
   ;
+
+block_start
+  : { inblock++;}
+  ;
+  
+block_end
+  : { if (inblock > 0) inblock--;}
+  ;    
+  
 statement_list_opt
   : /* Nothing */
   | statement_list
@@ -571,11 +827,11 @@ labeled_statement
   : IDENTIFIER ':' statement                             { OverrideToken(@1, TokenClass.Other); }
   ;
 declaration_statement
-  : local_variable_declaration ';'
-  | local_constant_declaration ';'
+  : local_variable_declaration ';'                                  {Pin(@2);}
+  | local_constant_declaration ';'                                  {Pin(@2);}
   ;
 local_variable_declaration
-  : type variable_declarators                                 {  OverrideToken(@1, TokenClass.Type); }
+  : type variable_declarators                                
   ;
 variable_declarators
   : variable_declarator                                        { $$ = new ArrayList(); $$.Add($1); }
@@ -591,7 +847,7 @@ variable_initializer
   | stackalloc_initializer
   ;
 stackalloc_initializer
-  : STACKALLOC type  '[' expression ']'                      {  OverrideToken(@2, TokenClass.Type); MakePair(@3,@5);}
+  : STACKALLOC type  '[' expression ']'                      { MakePair(@3,@5);}
   ; 
 local_constant_declaration
   : CONST type constant_declarators                          
@@ -604,7 +860,7 @@ constant_declarator
   : IDENTIFIER '=' constant_expression                         { $$ = $1 ;}
   ;
 expression_statement
-  : statement_expression ';'
+  : statement_expression ';'                                   {Pin(@2);}
   ;
 statement_expression
   : invocation_expression
@@ -628,7 +884,7 @@ switch_statement
   : SWITCH '(' expression ')' switch_block                    { MakePair(@2,@4);}
   ;
 switch_block
-  : '{' switch_sections_opt '}'                               { MakePair(@1,@3);}
+  : '{' switch_sections_opt '}'                               { MakePair(@1,Pin(@3));}
   ;
 switch_sections_opt
   : /* Nothing */
@@ -696,8 +952,7 @@ statement_expression_list
   | statement_expression_list ',' statement_expression
   ;
 foreach_statement
-  : FOREACH '(' type IDENTIFIER IN expression ')' embedded_statement  { MakePair(@2,@7); AddAutoComplete(@2, typeof(CodeType), typeof(CodeNamespace));
-                                                                         OverrideToken(@3, TokenClass.Type);}
+  : FOREACH '(' type IDENTIFIER IN expression ')' embedded_statement  { MakePair(@2,@7); AddAutoComplete(@2, typeof(CodeType), typeof(CodeNamespace));}
   ;
 jump_statement
   : break_statement
@@ -707,25 +962,25 @@ jump_statement
   | throw_statement
   ;
 break_statement
-  : BREAK ';'
+  : BREAK ';'                                                   {Pin(@2);}
   ;
 continue_statement
-  : CONTINUE ';'
+  : CONTINUE ';'                                                {Pin(@2);}
   ;
 goto_statement
-  : GOTO IDENTIFIER ';'                                         { OverrideToken(@2, TokenClass.Other); }
-  | GOTO CASE constant_expression ';'
-  | GOTO DEFAULT ';'
+  : GOTO IDENTIFIER ';'                                         { OverrideToken(@2, TokenClass.Other); Pin(@3);}
+  | GOTO CASE constant_expression ';'                           {Pin(@4);}
+  | GOTO DEFAULT ';'                                            {Pin(@3);}
   ;
 return_statement
-  : RETURN expression_opt ';'
+  : RETURN expression_opt ';'                                    {Pin(@3);}
   ;
 expression_opt
   : /* Nothing */
   | expression
   ;
 throw_statement
-  : THROW expression_opt ';'
+  : THROW expression_opt ';'                                    {Pin(@3);}
   ;
 try_statement
   : TRY block catch_clauses
@@ -738,7 +993,7 @@ catch_clauses
   ;
 catch_clause
   : CATCH '(' class_type identifier_opt ')' block                 { MakePair(@2,@5); AddAutoComplete(@2, typeof(CodeType), typeof(CodeNamespace));}
-  | CATCH '(' type_name identifier_opt ')' block                  { OverrideToken(@3, TokenClass.Type); MakePair(@2,@5); AddAutoComplete(@2, typeof(CodeType), typeof(CodeNamespace));}
+  | CATCH '(' type_name identifier_opt ')' block                  { MakePair(@2,@5); AddAutoComplete(@2, typeof(CodeType), typeof(CodeNamespace));}
   | CATCH block
   ;
 identifier_opt
@@ -798,11 +1053,11 @@ namespace_declaration
   ;
 comma_opt
   : /* Nothing */
-  | ';'
+  | ';'                                                              {Pin(@2);}
   ;
   
 qualified_identifier
-  : gen_qualified_identifier
+  : gen_qualified_identifier                                        
   ;
   
 qualifier
@@ -811,7 +1066,7 @@ qualifier
   
 norm_qualified_identifier
   : IDENTIFIER                                                  
-  | norm_qualifier IDENTIFIER                                       { $$ = $1 + $2; @@ = @2;}
+  | norm_qualifier IDENTIFIER                                       { $$ = $1 + $2;}
   ;
 
 norm_qualifier
@@ -819,15 +1074,19 @@ norm_qualifier
   | norm_qualifier IDENTIFIER '.'                                        { $$ = $1 + $2 + "."; }
   ;
   
+long_qualified_identifier
+  : gen_qualifier member_name '.'                                   { $$ = $1 + $2 + "."; }
+  ;  
+  
  
 gen_qualified_identifier
   : member_name                                                  
-  | gen_qualifier member_name                                       { $$ = $1 + $2; @@ = @2;}
+  | gen_qualifier member_name                                       { $$ = $1 + $2;}
   ;
 
 gen_qualifier
   : member_name '.'                                                  { $$ = $1 + "."; }
-  | gen_qualifier member_name '.'                                        { $$ = $1 + $2 + "."; }
+  | long_qualified_identifier                                        
   ;
   
 namespace_body
@@ -854,7 +1113,7 @@ using_alias_directive
 using_namespace_directive
   : USING namespace_name ';'                                        {
                                                                       AddAutoComplete(@1, true, typeof(CodeNamespace)); 
-                                                                      AddImport($2);
+                                                                      AddImport($2);  Pin(@3);
                                                                     }
   | USING error                                                     { AddAutoComplete(@1, true, typeof(CodeNamespace));}
   ;
@@ -865,7 +1124,7 @@ namespace_member_declarations
 namespace_member_declaration
   : namespace_declaration
   | type_declaration
-  | error
+  | error 
   ;
 type_declaration
   : class_declaration
@@ -949,11 +1208,11 @@ class_base
   | ':' class_type ',' interface_type_list                    { AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace)); }
   ;
 interface_type_list
-  : type_name                                                { OverrideToken(@1, TokenClass.Type); }
-  | interface_type_list ',' type_name                          { OverrideToken(@3, TokenClass.Type); }
+  : type_name                                               
+  | interface_type_list ',' type_name                        
   ;
 class_body
-  : '{' class_member_declarations_opt '}'                     { $$ = $2; { MakePair(@1,@3);}}
+  : '{' class_member_declarations_opt '}'                     { $$ = $2; MakePair(@1,Pin(@3));}
   ;
 class_member_declarations_opt
   : /* Nothing */                                             { $$ = new CodeElementList(); }
@@ -974,7 +1233,7 @@ class_member_declaration
   | constructor_declaration
   | destructor_declaration
   | type_declaration
-  | error                                            
+  | error                                     
   ;
 constant_declaration
   : attributes_opt modifiers_opt CONST 
@@ -992,7 +1251,7 @@ constant_declaration
 field_declaration
   : attributes_opt modifiers_opt 
     type variable_declarators ';'                             { 
-                                                                OverrideToken(@3, TokenClass.Type);
+                                                                
                                                                 CodeElementList cel = new CodeElementList();
                                                                 foreach (string s in $4)
                                                                 {
@@ -1009,7 +1268,7 @@ method_declaration
 /* Inline return_type to avoid conflict with field_declaration */
 method_header
   : attributes_opt modifiers_opt type 
-    qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')'    { $$ = new CodeMethod($4,$3,$7);  $$.Location = @4;  MakePair(@6,@8); OverrideToken(@3, TokenClass.Type);}
+    qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')'    { $$ = new CodeMethod($4,$3,$7);  $$.Location = @4;  MakePair(@6,@8); }
   | attributes_opt modifiers_opt VOID qualified_identifier type_arg_list_opt
     '(' formal_parameter_list_opt ')'                         { $$ = new CodeMethod($4, new TypeRef(typeof(void)), $7); 
                                                                 $$.Location = @4;   MakePair(@6,@8);} 
@@ -1026,7 +1285,7 @@ arglist_opt
   ;
   
 return_type
-  : type                                                      { OverrideToken(@1, TokenClass.Type); }
+  : type                                                     
   | VOID                                                      { $$ = new TypeRef(typeof(void)); }
   ;
 method_body
@@ -1037,12 +1296,14 @@ formal_parameter_list
   : formal_parameter                                          { $$ = new CodeElementList($1); }
   | formal_parameter_list ',' formal_parameter              { $$ = $1; $$.Add($3); }
   ;
+  /* this is wrong */
 formal_parameter
   : fixed_parameter
+  | THIS fixed_parameter
   | parameter_array
   ;
 fixed_parameter
-  : attributes_opt parameter_modifier_opt type IDENTIFIER     { $$ = new CodeParameter($4,$3,$2); OverrideToken(@3, TokenClass.Type);}
+  : attributes_opt parameter_modifier_opt type IDENTIFIER     { $$ = new CodeParameter($4,$3,$2);}
   ;
 parameter_modifier_opt
   : /* Nothing */                                             { $$ = ParameterAttributes.None; }
@@ -1055,12 +1316,30 @@ parameter_array
   
 property_declaration                
   : attributes_opt modifiers_opt type qualified_identifier  
-    '{' accessor_declarations '}'                             { $$ = new CodeProperty($4,$3); $$.Location = @4; MakePair(@5,@7); OverrideToken(@3, TokenClass.Type);}
+    '{' accessor_declarations '}'                             { $$ = new CodeProperty($4,$3); $$.Location = @4; MakePair(@5,Pin(@7));}
   ;
 accessor_declarations
-  : get_accessor_declaration set_accessor_declaration_opt
-  | set_accessor_declaration get_accessor_declaration_opt
+  : inproperty get_accessor_declaration set_accessor_declaration_opt outproperty
+  | inproperty set_accessor_declaration get_accessor_declaration_opt outproperty
   ;
+  
+inproperty
+  :                                                           { inproperty = true; } 
+  ;  
+  
+outproperty
+  :                                                           { inproperty = false; } 
+  ; 
+  
+inset
+  :                                                           { inset = true; }
+  ;
+     
+outset
+  :                                                           { inset = false; }
+  ;
+  
+  
 set_accessor_declaration_opt
   : /* Nothing */
   | set_accessor_declaration
@@ -1070,12 +1349,12 @@ get_accessor_declaration_opt
   | get_accessor_declaration
   ;
 get_accessor_declaration
-  : attributes_opt modifiers_opt GET 
-    accessor_body
+  : attributes_opt modifiers_opt GET outproperty
+    accessor_body inproperty
   ;
 set_accessor_declaration
-  : attributes_opt modifiers_opt SET 
-    accessor_body
+  : attributes_opt modifiers_opt SET outproperty inset
+    accessor_body outset inproperty
   ;
 accessor_body
   : block
@@ -1083,7 +1362,7 @@ accessor_body
   ;
 event_declaration
   : attributes_opt modifiers_opt EVENT type variable_declarators ';' { 
-                                                                OverrideToken(@4, TokenClass.Type);
+                                                                
                                                                 CodeElementList cel = new CodeElementList();
                                                                 foreach (string s in $5)
                                                                 {
@@ -1095,26 +1374,42 @@ event_declaration
                                                               }
   | attributes_opt modifiers_opt EVENT type qualified_identifier 
     '{' event_accessor_declarations '}'                         { 
-                                                                  OverrideToken(@4, TokenClass.Type);
-                                                                  MakePair(@6,@8);
+                                                                 
+                                                                  MakePair(@6,Pin(@8));
                                                                   CodeField cf = new CodeField($5,$4);
                                                                   cf.Location = @4;
                                                                 $$ = cf;  }
   ;
-event_accessor_declarations
-  : event_accessor_declaration event_accessor_declaration
+  
+event_start
+  : {inevent = true;}
   ;
-event_accessor_declaration
-  : attributes_opt IDENTIFIER
+
+event_end
+  : {inevent = false;}
+  ;    
+  
+event_accessor_declarations
+  : event_start event_add_accessor_declaration event_remove_accessor_declaration event_end
+  | event_start event_remove_accessor_declaration event_add_accessor_declaration event_end
+  ;
+  
+event_add_accessor_declaration
+  : attributes_opt ADD
     block 
   ;
+event_remove_accessor_declaration
+  : attributes_opt REMOVE
+    block 
+  ;
+  
 indexer_declaration
   : attributes_opt modifiers_opt indexer_declarator 
-    '{' accessor_declarations '}'                                 { /*$$ = new CodeProperty("Item", null);*/ MakePair(@4,@6);}
+    '{' accessor_declarations '}'                                 { /*$$ = new CodeProperty("Item", null);*/ MakePair(@4,Pin(@6));}
   ;
 indexer_declarator
-  : type THIS '[' formal_parameter_list ']'                         {  OverrideToken(@1, TokenClass.Type); MakePair(@3,@5);}
-  | type qualified_this '[' formal_parameter_list ']'             {  OverrideToken(@1, TokenClass.Type); MakePair(@3,@5);}
+  : type THIS '[' formal_parameter_list ']'                         {   MakePair(@3,@5);}
+  | type qualified_this '[' formal_parameter_list ']'             {  MakePair(@3,@5);}
   ;
 qualified_this
   : gen_qualifier THIS
@@ -1129,9 +1424,9 @@ operator_declarator
   ;
 overloadable_operator_declarator
   : type OPERATOR overloadable_operator 
-    '(' type IDENTIFIER ')'                                       { OverrideToken(@1, TokenClass.Type); MakePair(@4,@7);  OverrideToken(@5, TokenClass.Type);}
+    '(' attributes_opt type IDENTIFIER ')'                                       { MakePair(@4,@8); }
   | type OPERATOR overloadable_operator 
-    '(' type IDENTIFIER ',' type IDENTIFIER ')'                   { OverrideToken(@1, TokenClass.Type); MakePair(@4,@10);  OverrideToken(@5, TokenClass.Type);  OverrideToken(@8, TokenClass.Type);}
+    '(' attributes_opt type IDENTIFIER ',' attributes_opt type IDENTIFIER ')'                   { MakePair(@4,@12); }
   ;
 overloadable_operator
   : '+' | '-' 
@@ -1140,8 +1435,8 @@ overloadable_operator
   | LTLT | GTGT | EQEQ | NOTEQ | '>' | '<' | GEQ | LEQ
   ;
 conversion_operator_declarator
-  : IMPLICIT OPERATOR type '(' type IDENTIFIER ')'                {  OverrideToken(@3, TokenClass.Type);  OverrideToken(@5, TokenClass.Type); MakePair(@4,@7);}
-  | EXPLICIT OPERATOR type '(' type IDENTIFIER ')'                { OverrideToken(@3, TokenClass.Type);  OverrideToken(@5, TokenClass.Type); MakePair(@4,@7);}
+  : IMPLICIT OPERATOR type '(' type IDENTIFIER ')'                {   MakePair(@4,@7);}
+  | EXPLICIT OPERATOR type '(' type IDENTIFIER ')'                { MakePair(@4,@7);}
   ;
 constructor_declaration
   : attributes_opt modifiers_opt 
@@ -1187,7 +1482,7 @@ struct_interfaces
   : ':' interface_type_list
   ;
 struct_body
-  : '{' struct_member_declarations_opt '}'                    { $$ = $2; { MakePair(@1,@3);}}
+  : '{' struct_member_declarations_opt '}'                    { $$ = $2; MakePair(@1,Pin(@3));}
   ;
 struct_member_declarations_opt
   : /* Nothing */                                             
@@ -1238,7 +1533,7 @@ interface_base
   : ':' interface_type_list
   ;
 interface_body                                                 
-  : '{' interface_member_declarations_opt '}'                   { $$ = $2; MakePair(@1,@3);}
+  : '{' interface_member_declarations_opt '}'                   { $$ = $2; MakePair(@1,Pin(@3));}
   ;
 interface_member_declarations_opt
   : /* Nothing */                                               
@@ -1277,18 +1572,18 @@ interface_indexer_declaration
     '[' formal_parameter_list ']' 
     '{' interface_accessors '}'                                  { MakePair(@5,@7);  MakePair(@8,@10);
                                                                    $$ = new CodeProperty("Item", $3); $$.Location = @4;
-                                                                    OverrideToken(@3, TokenClass.Type); 
+                                                                   
                                                                  }
   ;
 
 interface_accessors
-  : attributes_opt GET interface_empty_body
-  | attributes_opt SET interface_empty_body
-  | attributes_opt GET interface_empty_body attributes_opt SET interface_empty_body
-  | attributes_opt SET interface_empty_body attributes_opt GET interface_empty_body
+  : inproperty attributes_opt GET interface_empty_body outproperty
+  | inproperty attributes_opt SET interface_empty_body outproperty
+  | inproperty attributes_opt GET interface_empty_body attributes_opt SET interface_empty_body outproperty
+  | inproperty attributes_opt SET interface_empty_body attributes_opt GET interface_empty_body outproperty
   ;
 interface_event_declaration
-  : attributes_opt new_opt EVENT type member_name interface_empty_body     { OverrideToken(@4, TokenClass.Type);}
+  : attributes_opt new_opt EVENT type member_name interface_empty_body    
   ;
 
 /* mono seems to allow this */
@@ -1312,8 +1607,8 @@ enum_base
   : ':' integral_type
   ;
 enum_body
-  : '{' enum_member_declarations_opt '}'              { $$ = $2; MakePair(@1,@3);} 
-  | '{' enum_member_declarations ',' '}'            { $$ = $2; MakePair(@1,@4); }
+  : '{' enum_member_declarations_opt '}'              { $$ = $2; MakePair(@1,Pin(@3));} 
+  | '{' enum_member_declarations ',' '}'            { $$ = $2; MakePair(@1,Pin(@4)); }
   ;
 enum_member_declarations_opt
   : /* Nothing */                                     
@@ -1334,7 +1629,7 @@ delegate_declaration
   : attributes_opt modifiers_opt DELEGATE return_type member_name type_arg_list_opt
     '(' formal_parameter_list_opt ')' ';'               { $$ = new CodeDelegate($5,$4,$8); $$.Location = @5;
                                                           MakePair(@7,@9);
-                                                          OverrideToken(@5, TokenClass.Type);}
+                                                         }
   ;
 
 /***** C.2.12 Attributes *****/
@@ -1362,15 +1657,13 @@ attribute_arguments_opt
   | attribute_arguments
   ;
 attribute_name
-  : type_name                                         { OverrideToken(@1, TokenClass.Type); }
+  : type_name                                         
   ;
 attribute_arguments
   : '(' expression_list_opt ')'                       { MakePair(@1,@3);}
   ;
 
 %%
-
-bool gtmode = false;
 
 string[] defaultrefs = {"mscorlib.dll", "System.dll", "System.Xml.dll", "System.Drawing.dll", "System.Windows.Forms.dll"};
 
@@ -1379,9 +1672,143 @@ protected override string[] DefaultReferences
   get { return defaultrefs; }
 }
 
+protected override void AfterPinRestore()
+{
+  inset = false;
+  inproperty = false;
+  inquery = 0;
+  inblock = 0;
+  inevent = false;
+}
+
 public override bool HasFoldInfo
 {
   get {return true; }
+}
+
+
+
+bool inset = false;
+bool inproperty = false;
+int inblock = 0;
+int inquery = 0;
+bool inevent = false;
+
+protected override int yylex()
+{
+  int t = base.yylex();
+  
+  if (inevent)
+  {
+    if (yylval.Type == CSharpLexer.IDENTIFIER)
+    {
+      if (yylval.Text == "add")
+      {
+        OverrideToken(yylval.Location, TokenClass.Keyword);
+        return CSharpLexer.ADD;
+      }
+      if (yylval.Text == "remove")
+      {
+        OverrideToken(yylval.Location, TokenClass.Keyword);
+        return CSharpLexer.REMOVE;
+      }
+    }
+  }
+  
+  if (inproperty)
+  {
+    if (yylval.Type == CSharpLexer.IDENTIFIER)
+    {
+      if (yylval.Text == "get")
+      {
+        OverrideToken(yylval.Location, TokenClass.Keyword);
+        return CSharpLexer.GET;
+      }
+      if (yylval.Text == "set")
+      {
+        OverrideToken(yylval.Location, TokenClass.Keyword);
+        return CSharpLexer.SET;
+      }
+
+    }
+  }
+  
+  if (inset)
+  {
+    if (yylval.Type == CSharpLexer.IDENTIFIER)
+    {
+      if (yylval.Text == "value")
+      {
+        OverrideToken(yylval.Location, TokenClass.Keyword);
+        return t;
+      }
+    }
+  }
+  
+  if (inquery > 0)
+  {
+    if (yylval.Type == CSharpLexer.IDENTIFIER)
+    {
+      if (yylval.Text == "select")
+      {
+        OverrideToken(yylval.Location, TokenClass.Keyword);
+        return CSharpLexer.SELECT;
+      }
+      if (yylval.Text == "into")
+      {
+        OverrideToken(yylval.Location, TokenClass.Keyword);
+        return CSharpLexer.INTO;
+      }
+      if (yylval.Text == "join")
+      {
+        OverrideToken(yylval.Location, TokenClass.Keyword);
+        return CSharpLexer.JOIN;
+      }
+      if (yylval.Text == "group")
+      {
+        OverrideToken(yylval.Location, TokenClass.Keyword);
+        return CSharpLexer.GROUP;
+      }
+      if (yylval.Text == "let")
+      {
+        OverrideToken(yylval.Location, TokenClass.Keyword);
+        return CSharpLexer.LET;
+      }
+      if (yylval.Text == "on")
+      {
+        OverrideToken(yylval.Location, TokenClass.Keyword);
+        return CSharpLexer.ON;
+      }
+      if (yylval.Text == "equals")
+      {
+        OverrideToken(yylval.Location, TokenClass.Keyword);
+        return CSharpLexer.EQUALS;
+      }
+      if (yylval.Text == "ascending")
+      {
+        OverrideToken(yylval.Location, TokenClass.Keyword);
+        return CSharpLexer.ASCENDING;
+      }
+      if (yylval.Text == "descending")
+      {
+        OverrideToken(yylval.Location, TokenClass.Keyword);
+        return CSharpLexer.DESCENDING;
+      }
+      if (yylval.Text == "orderby")
+      {
+        OverrideToken(yylval.Location, TokenClass.Keyword);
+        return CSharpLexer.ORDERBY;
+      }
+      if (yylval.Text == "by")
+      {
+        OverrideToken(yylval.Location, TokenClass.Keyword);
+        return CSharpLexer.BY;
+      }      
+    }
+  }
+  
+  return t;
+  
 }
 
 protected internal override string[] CommentLines(string[] lines)

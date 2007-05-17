@@ -211,15 +211,22 @@ namespace Xacc.Languages
 
     protected void PopTill(Location loc)
     {
-      Location a = null;
-      while (locstack.Peek() > loc)
+      if (locstack.Count > 0)
       {
-        a = locstack.Pop();
-      }
-      if (a != null)
-      {
-        a.callback = null;
-        locstack.Push(a);
+        Location a = null;
+        while ((a = locstack.Pop()) > loc)
+        {
+          if (locstack.Count == 0)
+          {
+            a = null;
+            break;
+          }
+        }
+        if (a != null)
+        {
+          //a.callback = null; // seems to break stuff
+          locstack.Push(a);
+        }
       }
     }
 
@@ -236,7 +243,7 @@ namespace Xacc.Languages
     {
       loc.callback = delegate(IToken tok) 
       {
-        if (tok.Class != TokenClass.Keyword)
+        //if (tok.Class != TokenClass.Keyword)
         {
           tok.Class = newclass;
           if (newclass == TokenClass.Type)
@@ -306,6 +313,11 @@ namespace Xacc.Languages
     /// <param name="filename">the file being parsed</param>
     protected virtual void Preparse(string filename)
     {
+    }
+
+    protected virtual void AfterPinRestore()
+    {
+
     }
 
     /// <summary>
@@ -409,7 +421,7 @@ namespace Xacc.Languages
 
       public TokenEnumeratorBase(DoubleLinkedList<TokenLine> lines, string filename, Language lang)
       {
-        this.maxlines = lines.Count + 1;
+        this.maxlines = lines.Count;
         this.lang = lang;
         this.lines = lines;
         this.filename = filename;
@@ -1362,7 +1374,8 @@ namespace Xacc.Languages
 
         while (locstack.Count > 0)
         {
-          cb.Invoke(locstack.Pop());
+          Location l = locstack.Pop();
+          cb.Invoke(l);
         }
 
         //cb.Invoke(locstack);

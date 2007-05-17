@@ -24,8 +24,22 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 
+
 namespace Xacc.ComponentModel
 {
+  using CodeModel;
+
+  [Flags]
+  public enum FindOptions
+  {
+    None = 0,
+    MatchCase = 1,
+    MatchWholeWord = 2,
+    SearchUp = 4,
+    SearchInSelection = 8,
+    UseRegex = 16,
+  }
+
   /// <summary>
   /// Support find dialog in document
   /// </summary>
@@ -34,7 +48,8 @@ namespace Xacc.ComponentModel
     /// <summary>
     /// Shows the find/replace dialog
     /// </summary>
-    void FindReplace();
+    Location[] Find(string text, FindOptions lookin);
+    void SelectLocation(Location loc);
   }
 
   /// <summary>
@@ -148,6 +163,16 @@ namespace Xacc.ComponentModel
     /// Select all content
     /// </summary>
     void SelectAll();
+  }
+
+  public interface ISelectObject
+  {
+    object SelectedObject { get; set;}
+    ICollection SelectedObjects { get;}
+
+    event EventHandler SelectObjectChanged;
+
+    ICollection AvailableObjects { get; }
   }
 
 
@@ -357,7 +382,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Advanced\\Strip trailing space", Index = 43, State = ApplicationState.Buffer)]
+    [MenuItem("Advanced\\Strip Trailing Space", Index = 43, State = ApplicationState.Buffer)]
     void StripSpace()
     {
       AdvancedTextBox atb = fm.CurrentControl as AdvancedTextBox;
@@ -390,7 +415,7 @@ namespace Xacc.ComponentModel
     }
 
 #if DEBUG
-    [MenuItem("Break to line", Index = 1000, State = ApplicationState.Buffer)]
+    [MenuItem("Break to Line", Index = 1000, State = ApplicationState.Buffer)]
     void BreakLine()
     {
       AdvancedTextBox atb = ServiceHost.File[ServiceHost.File.Current] as AdvancedTextBox;
@@ -403,7 +428,7 @@ namespace Xacc.ComponentModel
       atb.Invalidate();
     }
 
-    [MenuItem("Send probe", Index = 1001, State = ApplicationState.Buffer)]
+    [MenuItem("Send Probe", Index = 1001, State = ApplicationState.Buffer)]
     void SendProbe()
     {
       AdvancedTextBox atb = ServiceHost.File[ServiceHost.File.Current] as AdvancedTextBox;
@@ -679,7 +704,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Advanced\\Comment selection", Index = 44, State = ApplicationState.Buffer)]
+    [MenuItem("Advanced\\Comment Selection", Index = 44, State = ApplicationState.Buffer)]
     public void CommentSelection()
     {
       IEditAdvanced atb = fm.CurrentControl as IEditAdvanced;
@@ -689,7 +714,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Advanced\\UnComment selection", Index = 45, State = ApplicationState.Buffer)]
+    [MenuItem("Advanced\\Uncomment Selection", Index = 45, State = ApplicationState.Buffer)]
     public void UnCommentSelection()
     {
       IEditAdvanced atb = fm.CurrentControl as IEditAdvanced;
@@ -699,7 +724,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Advanced\\Increase indent", Index = 46, State = ApplicationState.Buffer, Image="Edit.Indent.png")]
+    [MenuItem("Advanced\\Increase Indent", Index = 46, State = ApplicationState.Buffer, Image="Edit.Indent.png")]
     public void IncreaseIndent()
     {
       IEditAdvanced atb = fm.CurrentControl as IEditAdvanced;
@@ -709,7 +734,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Advanced\\Decrease indent", Index = 47, State = ApplicationState.Buffer, Image="Edit.Unindent.png")]
+    [MenuItem("Advanced\\Decrease Indent", Index = 47, State = ApplicationState.Buffer, Image="Edit.Unindent.png")]
     public void DecreaseIndent()
     {
       IEditAdvanced atb = fm.CurrentControl as IEditAdvanced;
@@ -719,7 +744,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Advanced\\Make lowercase", Index = 48, State = ApplicationState.Buffer, Image="Edit.ToLower.png")]
+    [MenuItem("Advanced\\Make Lowercase", Index = 48, State = ApplicationState.Buffer, Image="Edit.ToLower.png")]
     public void SelectionToLower()
     {
       IEditAdvanced atb = fm.CurrentControl as IEditAdvanced;
@@ -729,7 +754,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Advanced\\Make uppercase", Index = 49, State = ApplicationState.Buffer, Image="Edit.ToUpper.png")]
+    [MenuItem("Advanced\\Make Uppercase", Index = 49, State = ApplicationState.Buffer, Image="Edit.ToUpper.png")]
     public void SelectionToUpper()
     {
       IEditAdvanced atb = fm.CurrentControl as IEditAdvanced;

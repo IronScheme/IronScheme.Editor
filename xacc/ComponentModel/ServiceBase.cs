@@ -28,6 +28,7 @@ using System.Windows.Forms.Design;
 using System.Diagnostics;
 
 using System.Text.RegularExpressions;
+using System.Runtime.Remoting;
 
 using RealTrace = Xacc.Diagnostics.Trace;
 using ToolStripMenuItem = Xacc.Controls.ToolStripMenuItem;
@@ -40,7 +41,7 @@ namespace Xacc.ComponentModel
   /// </summary>
   [Image("Service.Default.png")]
   [LicenseProvider(typeof(LicFileLicenseProvider))]
-  public abstract class ServiceBase : Disposable, IService, IComponent, ISynchronizeInvoke, ISupportInitialize, System.IServiceProvider
+  public abstract class ServiceBase : RemoteDisposable, IService, IComponent, ISynchronizeInvoke, ISupportInitialize, System.IServiceProvider
   {
     readonly License license = null;
     ToolStripMenuItem toplevel;
@@ -91,7 +92,7 @@ namespace Xacc.ComponentModel
       [Conditional("TRACE")]
       public void WriteLine(string format, params object[] args)
       {
-        RealTrace.WriteLine(ctr.Name, format, args);
+        RealTrace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + ctr.Name, format, args);
       }
 
       /// <summary>
@@ -101,7 +102,7 @@ namespace Xacc.ComponentModel
       [Conditional("TRACE")]
       public void WriteLine(object value)
       {
-        RealTrace.WriteLine(ctr.Name, value.ToString());
+        RealTrace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + ctr.Name, value.ToString());
       }
 
       /// <summary>
@@ -114,7 +115,7 @@ namespace Xacc.ComponentModel
       {
         if (!condition)
         {
-          RealTrace.WriteLine(ctr.Name, "Assert failed: {0}", message);
+          RealTrace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + ctr.Name, "Assert failed: {0}", message);
         }
       }
     }
@@ -159,6 +160,7 @@ namespace Xacc.ComponentModel
     /// <param name="disposing">true is Dispose() was called</param>
     protected override void Dispose(bool disposing)
     {
+
       Trace.WriteLine("Dispose({0})", disposing.ToString().ToLower());
       if(disposing)
       {
@@ -166,6 +168,12 @@ namespace Xacc.ComponentModel
         {
           license.Dispose();
         }
+
+        if (remoteobject != null)
+        {
+          RemotingServices.Unmarshal(remoteobject);
+        }
+
       }
     }
 
@@ -212,6 +220,9 @@ namespace Xacc.ComponentModel
 
         propname = ServiceHost.GetPropertyName(t);
         ServiceHost.INSTANCE.Add(t, this);
+
+        remoteobject = RemotingServices.Marshal(this, null, t);
+
       }
       catch (Exception ex)
       {
@@ -526,7 +537,9 @@ namespace Xacc.ComponentModel
           counter++;
         }
       }
+
       Initialize();
+
     }
 
     void pmi_Click(object sender, EventArgs e)
@@ -539,7 +552,14 @@ namespace Xacc.ComponentModel
 
       PropertyInfo pi = mia.invoke as PropertyInfo;
 
-      pi.SetValue(this, v, null);
+      try
+      {
+        pi.SetValue(this, v, null);
+      }
+      catch (Exception ex)
+      {
+        Trace.WriteLine(ex);
+      }
     }
 
     void pmi_DropDownOpening(object sender, EventArgs e)
@@ -610,6 +630,8 @@ namespace Xacc.ComponentModel
 #endif
       }
     }
+
+    ObjRef remoteobject;
 
     void ISupportInitialize.EndInit()
     {

@@ -135,6 +135,11 @@ namespace Xacc.Languages.CSLex
 
     protected override int yyparse(IEnumerator lines)
     {
+      if (lexer == null)
+      {
+        System.Diagnostics.Trace.WriteLine("This should not happen, check your document order.");
+        return 0;
+      }
       lexer.lines = lines;
       return Parse() ? 0 : 1;
     }
