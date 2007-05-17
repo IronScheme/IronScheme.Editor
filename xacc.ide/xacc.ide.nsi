@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "xacc.ide"
-!define PRODUCT_VERSION "0.2.0.69"
+!define PRODUCT_VERSION "0.2.0.71"
 !define PRODUCT_PUBLISHER "leppie"
 !define PRODUCT_WEB_SITE "http://blogs.wdevs.com/leppie/"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\xacc.ide.exe"
@@ -204,7 +204,7 @@ SectionIn 1 2 RO
 	;File "Gui.Diagram.dll"
 	;File "Translations.dll"
 	;File "vs.dst"
-	File "xacc.nclass.dll"
+	;File "xacc.nclass.dll"
 	File "Aga.Controls.dll"
 	;File "mdbg.dll"
 	;File "lsc.exe"

@@ -178,7 +178,7 @@ xcopy /y $(ProjectDir)xacc.config.xsl $(TargetDir)
 xcopy /y $(ProjectDir)xacc.ide.nsi $(TargetDir)
 xcopy /y $(ProjectDir)*.ls $(TargetDir)
 xcopy /y $(ProjectDir)*.imports $(TargetDir)
-xcopy /y $(SolutionDir)LSharp.Compiler\$(OutDir)lsc.exe $(TargetDir)
+rem xcopy /y $(SolutionDir)LSharp.Compiler\$(OutDir)lsc.exe $(TargetDir)
 rem "C:\Program Files\NSIS\makensis" /V2 $(TargetDir)xacc.ide.nsi</PostBuildEvent>
   </PropertyGroup>
 </Project>

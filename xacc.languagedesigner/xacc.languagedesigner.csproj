@@ -125,10 +125,9 @@
       <Project>{419E259F-E9C0-4E01-BA19-709FE84DEAD5}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
-    <ProjectReference Include="..\WeifenLuo.WinFormsUI\WinFormsUI.csproj">
+    <ProjectReference Include="..\WinFormsUI\WinFormsUI.csproj">
+      <Project>{C75532C4-765B-418E-B09B-46D36B2ABDB1}</Project>
       <Name>WinFormsUI</Name>
-      <Project>{D3C782BA-178E-4235-A3BA-8C11DEBB6BEE}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
     <ProjectReference Include="..\xacc\xacc.csproj">
       <Name>xacc</Name>
@@ -148,6 +147,7 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Template.lex">
       <SubType>Code</SubType>

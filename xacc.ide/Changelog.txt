@@ -1,3 +1,13 @@
+0.2.0.71 - May 17, 2007 
+
+- .NET 3.5 language support
+- Works on Vista
+- Added SQL lexer again
+- Experimental 'file explorer'
+- Updated Docking library
+- Updated to NSIS 2.27
+- Many more small stuff that I cant recall :p
+
 0.2.0.68 - November 19, 2006 
 
 - More encoding fixes
