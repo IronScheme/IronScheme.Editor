@@ -107,6 +107,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Boo.lex.cs" />
+    <Compile Include="Cat.lex.cs" />
     <Compile Include="Cpp.lex.cs" />
     <Compile Include="Css.lex.cs" />
     <Compile Include="FSharp.lex.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="VBNET.lex.cs" />
     <None Include="Boo.lex" />
     <None Include="Caml.lex" />
+    <None Include="Cat.lex" />
     <None Include="Cpp.lex" />
     <None Include="Css.lex" />
     <None Include="FSharp.lex" />
@@ -178,7 +180,8 @@ $(SolutionDir)Tools\cs_lex $(ProjectDir)Cpp.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Nemerle.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)VBNET.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)NSIS.lex
-$(SolutionDir)Tools\cs_lex $(ProjectDir)Sql.lex</PreBuildEvent>
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Sql.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Cat.lex</PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>

@@ -69,9 +69,9 @@ hex_esc_seq            =\\x({hex_digit})?({hex_digit})?({hex_digit})?{hex_digit}
 character              ={single_char}|{simple_esc_seq}|{hex_esc_seq}|{uni_esc_seq}
 character_literal      ='({character})'
 
-single_string_char     =[^\\\"\n]
-string_esc_seq         =\\[\"\\0abfnrtv]
-reg_string_char        ={single_string_char}|{string_esc_seq}|{hex_esc_seq}|{uni_esc_seq}
+single_string_char     =[^\"\n]
+string_esc_seq         =\"\"
+reg_string_char        ={single_string_char}|{string_esc_seq}
 regular_string         =\"({reg_string_char})*\"
 error_string           =\"({reg_string_char})*
 single_verbatim_char   =[^\"\n]
