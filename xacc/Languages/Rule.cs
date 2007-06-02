@@ -3,7 +3,7 @@
 // (see accompanying GPPGcopyright.rtf)
 
 
-namespace gppg
+namespace Xacc.Languages.gppg
 {
   public class Rule
   {

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 
 
-namespace gppg
+namespace Xacc.Languages.gppg
 {
   public abstract class IScanner<ValueType>
   {

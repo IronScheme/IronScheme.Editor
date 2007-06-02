@@ -89,7 +89,7 @@ namespace Aga.Controls.Tree.NodeControls
 		{
 			Rectangle r = context.Bounds;
 			Size s = GetActualSize(node, context);
-			Size bs = new Size(r.Width - LeftMargin, s.Height);
+			Size bs = new Size(r.Width - LeftMargin, Math.Min(r.Height, s.Height));
 			switch (VerticalAlign)
 			{
 				case VerticalAlignment.Top:
@@ -160,7 +160,7 @@ namespace Aga.Controls.Tree.NodeControls
 		}
 
 		public event EventHandler<NodeControlValueEventArgs> IsVisibleValueNeeded;
-		private void OnIsVisibleValueNeeded(NodeControlValueEventArgs args)
+		protected virtual void OnIsVisibleValueNeeded(NodeControlValueEventArgs args)
 		{
 			if (IsVisibleValueNeeded != null)
 				IsVisibleValueNeeded(this, args);

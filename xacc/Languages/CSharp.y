@@ -1,4 +1,4 @@
-%namespace CSharp
+%namespace Xacc.Languages.CSharp
 
 %using System.Collections
 %using System.Reflection
@@ -48,6 +48,7 @@ class TypeRef : CodeTypeRef
     typemap.Add("Boolean", "bool");
     typemap.Add("Single", "float");
     typemap.Add("Double", "double");
+    typemap.Add("Decimal", "decimal");
     
   }
   
@@ -141,8 +142,8 @@ class TypeRef : CodeTypeRef
 %type <elem> class_member_declaration method_declaration property_declaration type2
 %type <elem> event_declaration indexer_declaration operator_declaration constructor_declaration destructor_declaration
 %type <elem> formal_parameter fixed_parameter parameter_array method_header interface_method_declaration interface_property_declaration
-%type <typeref> type return_type non_array_type simple_type primitive_type class_type numeric_type floating_point_type type_opt 
-%type <typeref> integral_type array_type type_name
+%type <typeref> type return_type non_array_type simple_type primitive_type class_type numeric_type floating_point_type type_opt nullable_type
+%type <typeref> integral_type array_type type_name non_null_type
 %type <primval> literal mllit boolean_literal
 %type <list> variable_declarators constant_declarators
 %type <paramattr> parameter_modifier_opt
@@ -217,8 +218,8 @@ type_arg_list_opt
   ;  
   
 type_arg_list
-  : IDENTIFIER
-  | type_arg_list ',' IDENTIFIER  
+  : IDENTIFIER                             { OverrideToken(@1, TokenClass.Type); }
+  | type_arg_list ',' IDENTIFIER           { OverrideToken(@3, TokenClass.Type); }
   ;
 
 /***** C.2.2 Types *****/
@@ -230,17 +231,17 @@ nullable_opt
 
 
 type
-  : non_array_type                              { $$ = new TypeRef($1, false); }
+  : non_array_type                              
   | array_type                                              { $$ = new TypeRef($1, true); }
   ;
   
 nullable_type
-  : type_name '?'  
+  : type_name '?'                                          { $$ = $1; @@ = @1; }
   ;
   
 non_null_type
   : simple_type
-  | type_name
+  | type_name                                             
   ;  
   
 non_array_type
@@ -249,7 +250,7 @@ non_array_type
   ;
   
 simple_type
-  : primitive_type nullable_opt
+  : primitive_type nullable_opt                            { $$ = $1; @@ = @1;}
   | class_type
  /* | pointer_type */
   ;
@@ -288,7 +289,7 @@ pointer_type
 array_type
   : array_type rank_specifier                               { $$ = $1; @@ = @1;}
   | simple_type rank_specifier                              { $$ = $1; @@ = @1;}
-  | qualified_identifier rank_specifier                     { $$ = new TypeRef($1,true); @@ = @1;}
+  | qualified_identifier rank_specifier                     { $$ = new TypeRef($1,true); @@ = @1; OverrideToken(@1, TokenClass.Type);}
   ;
 rank_specifiers_opt
   : /* Nothing */

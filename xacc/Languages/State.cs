@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Text;
 
 
-namespace gppg
+namespace Xacc.Languages.gppg
 {
   [DebuggerDisplay("{num}")]
   public class State

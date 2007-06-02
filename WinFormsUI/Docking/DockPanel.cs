@@ -34,10 +34,6 @@ namespace WeifenLuo.WinFormsUI.Docking
 			m_panes = new DockPaneCollection();
 			m_floatWindows = new FloatWindowCollection();
 
-			SetStyle(ControlStyles.ResizeRedraw |
-				ControlStyles.UserPaint |
-				ControlStyles.AllPaintingInWmPaint, true);
-
             SuspendLayout();
             Font = SystemInformation.MenuFont;
 
@@ -398,14 +394,14 @@ namespace WeifenLuo.WinFormsUI.Docking
             get
             {
                 int count = 0;
-                foreach (DockContent content in Documents)
+                foreach (IDockContent content in Documents)
                     count++;
 
                 return count;
             }
         }
 
-        public IDockContent[] GetDocuments()
+        public IDockContent[] DocumentsToArray()
         {
             int count = DocumentsCount;
             IDockContent[] documents = new IDockContent[count];
@@ -589,9 +585,6 @@ namespace WeifenLuo.WinFormsUI.Docking
             }
             else if (DocumentStyle == DocumentStyle.DockingMdi)
                 InvalidateWindowRegion();
-
-			if (Parent != null)
-				Parent.ResumeLayout();
 
 			ResumeLayout(true, true);
 		}

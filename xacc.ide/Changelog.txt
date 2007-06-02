@@ -1,3 +1,13 @@
+0.2.0.73 - June 2, 2007 
+
+- More fixes to C# parser :p
+- Fixed VB.NET string handling
+- Added support for Cat Language (http://www.cat-language.com)
+- Updated to TreeViewAdv 1.6
+- Updated to DockPanelSuite 2.1
+- Namespace cleanup (generated parsers/lexers are now under Xacc.Languages)
+- Added VS Ocras solution file (seems the only thing preventing VS2005 from using it, is the version number)
+
 0.2.0.71 - May 17, 2007 
 
 - .NET 3.5 language support

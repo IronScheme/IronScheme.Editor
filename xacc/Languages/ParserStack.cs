@@ -3,7 +3,7 @@
 // (see accompanying GPPGcopyright.rtf)
 using System;
 
-namespace gppg
+namespace Xacc.Languages.gppg
 {
   [System.CLSCompliant(false)]
   public class ParserStack<T>

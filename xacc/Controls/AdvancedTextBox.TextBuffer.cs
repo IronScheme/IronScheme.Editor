@@ -2216,12 +2216,21 @@ namespace Xacc.Controls
         {
           TokenLine tl = GetUserState(loc.LineNumber - 1);
 
-          for (int i = 0; i < tl.Tokens.Length; i++)
+          for (int i = tl.Tokens.Length - 1; i >= 0; i--)
           {
-            if (tl.Tokens[i].Location == loc)
+            //if (tl.Tokens[i].Location == loc)
+            //{
+            //  loc.callback(tl.Tokens[i]);
+            //  break;
+            //}
+            //else 
+            if (tl.Tokens[i].Location.IsIn(loc))
             {
-              loc.callback(tl.Tokens[i]);
-              break;
+              if (tl.Tokens[i].Class != TokenClass.Operator)
+              {
+                loc.callback(tl.Tokens[i]);
+                break;
+              }
             }
           }
           loc.callback = null;
@@ -2681,8 +2690,9 @@ namespace Xacc.Controls
           string value = null;
 
           int selstart = SelectionStart, sellen = SelectionLength;
-
+#if CHECK
           Debug.WriteLine("Start: {0} Length: {1} Text: '{2}'", selstart, sellen, SelectionText);
+#endif
 
           int startline, startlineindex;
           GetInfoFromCaretIndex(selstart, out startline, out startlineindex);
@@ -2761,8 +2771,9 @@ namespace Xacc.Controls
           {
             return;
           }
-
+#if CHECK
           Debug.WriteLine("Line: {0} CharIndex: {1}", cl, ci);
+#endif
 
           if (recording)
           {
@@ -2832,9 +2843,9 @@ namespace Xacc.Controls
 
           int cl = CurrentLine;
           int ci = LineCharacterIndex;
-
+#if CHECK
           Debug.WriteLine("Line: {0} CharIndex: {1}", cl, ci);
-
+#endif
           string l = this[cl];
 
           if (recording)
@@ -2894,9 +2905,9 @@ namespace Xacc.Controls
 
           int cl = CurrentLine;
           int ci = LineCharacterIndex;
-
+#if CHECK
           Debug.WriteLine("Line: {0} CharIndex: {1} Value: '{2}'", cl, ci, text);
-
+#endif
           string l = this[cl];
 
           if (recording && text.Length > 0)
@@ -3001,9 +3012,9 @@ namespace Xacc.Controls
 
           int cl = CurrentLine;
           int ci = LineCharacterIndex;
-
+#if CHECK
           Debug.WriteLine("Value: '{2}' Line: {0} CharIndex: {1}", cl, ci, c);
-
+#endif
           if (recording)
           {
             before = ((IHasUndo)this).GetUndoState();
@@ -3052,9 +3063,9 @@ namespace Xacc.Controls
           string l = this[cl];
 
           int lci = LineCharacterIndex;
-
+#if CHECK
           Debug.WriteLine("Line: {0} CharIndex: {1}", cl, lci);
-
+#endif
           if (lci == 0)
           {
             Insert(cl, string.Empty);
@@ -3399,9 +3410,9 @@ namespace Xacc.Controls
 
         string l = this[index];
         this[CurrentLine] = value;
-
+#if CHECK
         Debug.WriteLine("old: {0} new: {1}", l, value);
-
+#endif
         LineCharacterIndex += (value.Length - l.Length);
 
         if (recording)

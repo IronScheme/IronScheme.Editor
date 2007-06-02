@@ -75,7 +75,11 @@ by pressing Ctrl + Enter, or only the select line by pressing Ctrl + Shift + Ent
 Contact information
 ===================
 
-Website	  http://xacc.sourceforge.netEmail	    llewellyn@pritchard.orgBlog	    http://blogs.wdevs.com/leppieDownload	http://sourceforge.net/projects/xacc
+Website	  http://xacc.sourceforge.net
+Email	    llewellyn@pritchard.org
+Blog	    http://blogs.wdevs.com/leppie
+Download	http://sourceforge.net/projects/xacc
+
 Credits
 =======
 
@@ -94,6 +98,8 @@ The authors of CSlex. (http://www.infosys.tuwien.ac.at/cuplex/lex.htm)
 The authors of GPPG. (http://plas.fit.qut.edu.au/gppg/)
 Rhys Whetherley for the initial skeleton (gap buffer) for the editor.
 Rob Blackwell for Lsharp. (http://www.lsharp.org/)
+The author of DockPanelSuite.
+The author of TreeViewAdv.
 
 Licensing
 =========

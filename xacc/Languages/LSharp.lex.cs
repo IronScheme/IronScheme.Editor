@@ -3,7 +3,7 @@ using Xacc.Languages.CSLex;
 using Xacc.ComponentModel;
 using System.Drawing;
 using LSharp;
-using LexerBase = LSharp.LexerBase<LSharp.ValueType>;
+using LexerBase = Xacc.Languages.LSharp.LexerBase<Xacc.Languages.LSharp.ValueType>;
 //NOTE: comments are not allowed except in code blocks
 
 

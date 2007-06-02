@@ -11,9 +11,10 @@ using Xacc.Build;
 using Xacc.CodeModel;
 using Xacc.ComponentModel;
 using Xacc.Languages.CSLex;
-using gppg;
+using Xacc.Languages.gppg;
+using LSharp;
 
-namespace LSharp
+namespace Xacc.Languages.LSharp
 {
 public enum Tokens {IGNORE = -1,error=1,EOF=2,LBRACE=3,RBRACE=4,DEFMACRO=5,DEFUN=6,ADD=7,APPEND=8,APPLY=9,ASSOC=10,CAAR=11,CAAAR=12,CAADR=13,CADAR=14,CADDR=15,CADR=16,CAR=17,CDAAR=18,CDAR=19,CDDAR=20,CDDDR=21,CDDR=22,CDR=23,CONS=24,COPYLIST=25,DIV=26,ENV=27,EQ=28,EQL=29,EVAL=30,EVALSTRING=31,SPLICE=32,UNQUOTE=33,ARGREST=34,EXITFN=35,FIRST=36,GT=37,GTE=38,LT=39,LTE=40,INSPECT=41,IS=42,LENGTH=43,LIST=44,LOAD=45,LOGAND=46,LOGOR=47,LOGXOR=48,MACROEXPAND=49,MAP=50,MEMBER=51,MUL=52,NCONC=53,NEW=54,NOT=55,NEQ=56,NTH=57,PR=58,PRL=59,READ=60,READSTRING=61,REFERENCE=62,REVERSE=63,REST=64,SUB=65,THROW=66,TYPEOF=67,USING=68,AND=69,BACKQUOTE=70,CALL=71,COND=72,DEC=73,DO=74,EACH=75,FN=76,FOR=77,IF=78,INC=79,LET=80,MACRO=81,OR=82,QUOTE=83,SETF=84,THE=85,TO=86,TRACE=87,TRY=88,WHEN=89,WHILE=90,WITH=91,IDENTIFIER=92,LITERAL=93,STRING=94,INTEGER=95};
 
@@ -172,10 +173,10 @@ class List : CodeContainerElement
 
 [Serializable]
 [Image("CodeMethod.png")]
-class Function : CodeElement
+class LSFunction : CodeElement
 {
   string value;
-  public Function(string value)
+  public LSFunction(string value)
   {
     this.value = value;
   }
@@ -792,7 +793,7 @@ void CreateFunctions(ICodeNamespace env, params string[] names)
 {
   foreach (string name in names)
   {
-    Function f = new Function(name.Trim());
+    LSFunction f = new LSFunction(name.Trim());
     f.Name = name.Trim();
     env.Add(f);
   }
@@ -808,8 +809,8 @@ void CreateForms(ICodeNamespace env, params string[] names)
   }
 }
 
-readonly static string[] functions  = LSharp.TopLoop.Environment.GetSymbols(typeof(LSharp.Function));
-readonly static string[] forms      = LSharp.TopLoop.Environment.GetSymbols(typeof(LSharp.SpecialForm));
+readonly static string[] functions  = TopLoop.Environment.GetSymbols(typeof(Function));
+readonly static string[] forms      = TopLoop.Environment.GetSymbols(typeof(SpecialForm));
 
 protected override void LoadDefaultReferences(Project proj, string filename)
 {
@@ -819,7 +820,7 @@ protected override void LoadDefaultReferences(Project proj, string filename)
 
   CreateFunctions(env, functions);
   
-  Function f = new Function("|");
+  LSFunction f = new LSFunction("|");
   f.Name = "|";
   env.Add(f);
   

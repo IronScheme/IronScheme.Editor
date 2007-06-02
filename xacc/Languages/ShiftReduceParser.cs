@@ -10,7 +10,7 @@ using System.Text;
 using System.Diagnostics;
 
 
-namespace gppg
+namespace Xacc.Languages.gppg
 {
   [CLSCompliant(false)]
   public abstract class ShiftReduceParser<ValueType> : Xacc.Languages.CSLex.Language<ValueType> where ValueType : struct, Xacc.ComponentModel.IToken

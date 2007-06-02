@@ -1,5 +1,6 @@
-%namespace LSharp
+%namespace Xacc.Languages.LSharp
 
+%using LSharp
 
 %{
 
@@ -25,10 +26,10 @@ class List : CodeContainerElement
 
 [Serializable]
 [Image("CodeMethod.png")]
-class Function : CodeElement
+class LSFunction : CodeElement
 {
   string value;
-  public Function(string value)
+  public LSFunction(string value)
   {
     this.value = value;
   }
@@ -311,7 +312,7 @@ void CreateFunctions(ICodeNamespace env, params string[] names)
 {
   foreach (string name in names)
   {
-    Function f = new Function(name.Trim());
+    LSFunction f = new LSFunction(name.Trim());
     f.Name = name.Trim();
     env.Add(f);
   }
@@ -327,8 +328,8 @@ void CreateForms(ICodeNamespace env, params string[] names)
   }
 }
 
-readonly static string[] functions  = LSharp.TopLoop.Environment.GetSymbols(typeof(LSharp.Function));
-readonly static string[] forms      = LSharp.TopLoop.Environment.GetSymbols(typeof(LSharp.SpecialForm));
+readonly static string[] functions  = TopLoop.Environment.GetSymbols(typeof(Function));
+readonly static string[] forms      = TopLoop.Environment.GetSymbols(typeof(SpecialForm));
 
 protected override void LoadDefaultReferences(Project proj, string filename)
 {
@@ -338,7 +339,7 @@ protected override void LoadDefaultReferences(Project proj, string filename)
 
   CreateFunctions(env, functions);
   
-  Function f = new Function("|");
+  LSFunction f = new LSFunction("|");
   f.Name = "|";
   env.Add(f);
   

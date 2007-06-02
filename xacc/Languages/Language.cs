@@ -248,7 +248,7 @@ namespace Xacc.Languages
           tok.Class = newclass;
           if (newclass == TokenClass.Type)
           {
-            parsedtypes[tok.Text] = loc;
+            parsedtypes[tok.Text] = tok.Location;
           }
           else
           {

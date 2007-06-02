@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>9.0.20404</ProductVersion>
+    <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{A532434D-67C8-4C19-B8EC-A4AF728382F6}</ProjectGuid>
     <SccProjectName>
@@ -429,8 +429,7 @@
       <SubType>Code</SubType>
     </Compile>
     <EmbeddedResource Include="Configuration\Config.xsd">
-      <SubType>
-      </SubType>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
@@ -574,8 +573,7 @@
     <EmbeddedResource Include="Resources\Window.Previous.png" />
     <EmbeddedResource Include="Resources\xacc.config.xml" />
     <None Include="Build\Project.xsd">
-      <SubType>
-      </SubType>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Build\Project.xsx">
       <DependentUpon>Project.xsd</DependentUpon>

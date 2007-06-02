@@ -17,12 +17,12 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Collections.Generic;
 
-namespace Office2007Renderer
+namespace Xacc.Controls
 {
     /// <summary>
     /// Draw ToolStrips using the Office 2007 themed appearance.
     /// </summary>
-    public class Office2007Renderer : ToolStripProfessionalRenderer
+    class Office2007Renderer : ToolStripProfessionalRenderer
     {
         #region GradientItemColors
         private class GradientItemColors

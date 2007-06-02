@@ -117,7 +117,11 @@ namespace Xacc.Runtime
 
     IDockContent[] IDockPanel.Documents
     {
-      get {return new ArrayList(base.DockWindows).ToArray(typeof(IDockContent)) as IDockContent[];}
+      get {return Array.FindAll(new ArrayList(base.Contents).ToArray(typeof(IDockContent)) as IDockContent[], 
+        delegate (IDockContent c)
+        {
+          return c.DockState == DockState.Document;
+        });}
     }
 
     public void Save(string filename)

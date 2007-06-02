@@ -568,7 +568,7 @@ xyacc\.exe:\s((?<warning>w)|(?<error>e))\s\-\sline\s(?<line>\d+)\sof\s""(?<filen
   PLUGINS  <plugin>xacc.parsers.dll</plugin>
   -->
 
-
+  <!--<plugin>xacc.microsoft.scripting.dll</plugin>-->
   <plugin>xacc.lexers.managed.dll</plugin>
   <!--<plugin>xacc.nclass.dll</plugin>-->
 	

@@ -33,7 +33,10 @@ string_lit=(\"({internal_char})*\")
 char_lit  =(\'({internal_char})\')
 internal_char =({esc_char}|[^\n])
 float_lit =({integer}\.{integer})
+binary    =0b([01])+
+hex_lit   =0[xX]({hex_digit})+
 integer   =({number})+
+hex_digit =[0-9a-fA-F]
 number    =[0-9]
 alpha_num =[a-zA-Z0-9_]
 identifier=({alpha_num})+
@@ -70,9 +73,12 @@ new_line               =\n
 {stack_var}             { return Other(); }
 {func}                { return Keyword(); } 
 {keyword}             { return Keyword(); } 
-                      
+
+{binary}        { return Number(); }
+{hex_lit}        { return Number(); }
 {float_lit}     { return Number(); }
 {integer}        { return Number(); }
+
 {char_lit}   { return String(); }
 {string_lit}      { return String(); }
 

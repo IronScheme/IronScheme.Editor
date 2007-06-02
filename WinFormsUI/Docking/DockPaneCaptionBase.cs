@@ -12,10 +12,10 @@ namespace WeifenLuo.WinFormsUI.Docking
 		{
 			m_dockPane = pane;
 
-			SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-			SetStyle(ControlStyles.ResizeRedraw, true);
-			SetStyle(ControlStyles.UserPaint, true);
-			SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+			SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                ControlStyles.ResizeRedraw |
+                ControlStyles.UserPaint |
+                ControlStyles.AllPaintingInWmPaint, true);
 			SetStyle(ControlStyles.Selectable, false);
 		}
 
@@ -55,7 +55,8 @@ namespace WeifenLuo.WinFormsUI.Docking
             if (e.Button == MouseButtons.Left &&
 			    DockPane.DockPanel.AllowEndUserDocking &&
                 DockPane.AllowDockDragAndDrop &&
-				!DockHelper.IsDockStateAutoHide(DockPane.DockState))
+				!DockHelper.IsDockStateAutoHide(DockPane.DockState) &&
+                DockPane.ActiveContent != null)
 				DockPane.DockPanel.BeginDrag(DockPane);
         }
 
@@ -80,6 +81,9 @@ namespace WeifenLuo.WinFormsUI.Docking
 
 		internal void RefreshChanges()
 		{
+            if (IsDisposed)
+                return;
+
 			OnRefreshChanges();
 		}
 

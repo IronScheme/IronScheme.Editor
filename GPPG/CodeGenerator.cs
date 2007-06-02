@@ -62,7 +62,7 @@ namespace gpcc
       Console.WriteLine("using Xacc.CodeModel;");
       Console.WriteLine("using Xacc.ComponentModel;");
       Console.WriteLine("using Xacc.Languages.CSLex;");
-      Console.WriteLine("using gppg;");
+      Console.WriteLine("using Xacc.Languages.gppg;");
       foreach (string use in grammar.use)
       {
         Console.WriteLine("using {0};", use);

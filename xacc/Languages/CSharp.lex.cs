@@ -2,8 +2,7 @@ using Xacc.Languages.CSLex;
 #pragma warning disable 162
 using Xacc.ComponentModel;
 using System.Drawing;
-using CSharp;
-using LexerBase = CSharp.LexerBase<CSharp.ValueType>;
+using LexerBase = Xacc.Languages.CSharp.LexerBase<Xacc.Languages.CSharp.ValueType>;
 //NOTE: comments are not allowed except in code blocks
 
 

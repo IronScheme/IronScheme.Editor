@@ -57,6 +57,10 @@ namespace Xacc.CodeModel
     // pack error and warning
     // filename is ok
     internal string filename;
+    
+    Location()
+    {
+    }
 
 //    Location(SerializationInfo info, StreamingContext ctx)
 //    {
@@ -324,6 +328,25 @@ namespace Xacc.CodeModel
         return object.ReferenceEquals(b,null);
       }
       return a.Equals(b);
+    }
+
+    /// <summary>
+    /// Determines whether the specified a is in.
+    /// </summary>
+    /// <param name="a">A.</param>
+    /// <returns>
+    /// 	<c>true</c> if the specified a is in; otherwise, <c>false</c>.
+    /// </returns>
+    public bool IsIn(Location a)
+    {
+      if (a == this)
+      {
+        return true;
+      }
+      return a.LineNumber <= LineNumber &&
+        a.EndLineNumber >= EndLineNumber &&
+        a.Column <= Column &&
+        a.EndColumn >= EndColumn;
     }
 
     /// <summary>

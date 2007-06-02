@@ -122,6 +122,10 @@
       <Project>{CA7874FF-BB3B-4F16-B65C-369B8AC22F84}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
+    <ProjectReference Include="..\xacc.microsoft.scripting\xacc.microsoft.scripting.csproj">
+      <Project>{1747CEA8-842C-43BC-9447-62A3A743EE84}</Project>
+      <Name>xacc.microsoft.scripting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\xacc\xacc.csproj">
       <Name>xacc</Name>
       <Project>{A532434D-67C8-4C19-B8EC-A4AF728382F6}</Project>

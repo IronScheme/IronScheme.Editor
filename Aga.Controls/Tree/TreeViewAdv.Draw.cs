@@ -76,7 +76,7 @@ namespace Aga.Controls.Tree
 			if ((GridLineStyle & GridLineStyle.Vertical) == GridLineStyle.Vertical)
 				DrawVerticalGridLines(e.Graphics, firstRowY);
 
-			if (_dropPosition.Node != null && DragMode)
+			if (_dropPosition.Node != null && DragMode && HighlightDropPosition)
                 DrawDropMark(e.Graphics);
 
             e.Graphics.ResetTransform();
@@ -95,7 +95,7 @@ namespace Aga.Controls.Tree
 			context.CurrentEditorOwner = _currentEditorOwner;
 			if (DragMode)
 			{
-				if ((_dropPosition.Node == node) && _dropPosition.Position == NodePosition.Inside)
+				if ((_dropPosition.Node == node) && _dropPosition.Position == NodePosition.Inside && HighlightDropPosition)
 					context.DrawSelection = DrawSelectionMode.Active;
 			}
 			else
@@ -167,13 +167,12 @@ namespace Aga.Controls.Tree
                     x += c.Width;
 				}
 			}
-			
 
 			if (reorder != null)
 			{
 				if (reorder.DropColumn == null)
 					TreeColumn.DrawDropMark(gr, new Rectangle(x, 0, 0, ColumnHeaderHeight));
-				gr.DrawImage(reorder.GhostImage, reorder.Location);
+				gr.DrawImage(reorder.GhostImage, new Point(reorder.Location.X +  + reorder.DragOffset, reorder.Location.Y));
 			}
 		}
 

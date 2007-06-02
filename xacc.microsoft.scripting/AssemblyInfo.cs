@@ -19,14 +19,24 @@
 using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using Xacc.ComponentModel;
+using Microsoft.Scripting;
+using Microsoft.Scripting.Hosting;
 
-[assembly: CLSCompliant(true)]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("leppie")]
-[assembly: AssemblyProduct("xacc")]
-[assembly: AssemblyCopyright("2003-2007 llewellyn@pritchard.org")]
-[assembly: AssemblyTrademark("GNU LGPL")]
-[assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("0.2.0.73")]
-[assembly: ComVisibleAttribute(true)]
+[assembly: AssemblyTitle("xacc")]
+[assembly: AssemblyDescription("Main lib for xacc")]
+[assembly:PluginProvider(typeof(Common_PluginLoader))]
+
+sealed class Common_PluginLoader : AssemblyPluginProvider
+{
+  public override void LoadAll(IPluginManagerService svc)
+  {
+    ScriptDomainManager sdm = ScriptDomainManager.CurrentManager;
+
+    LanguageProvider langs = sdm.GetLanguageProviderByFileExtension("py");
+
+    Console.WriteLine(langs);
+
+  }
+}
+

@@ -32,7 +32,8 @@ namespace Aga.Controls.Tree
         private TextFormatFlags _headerFlags;
         private TextFormatFlags _baseHeaderFlags = TextFormatFlags.NoPadding | 
                                                    TextFormatFlags.EndEllipsis |
-                                                   TextFormatFlags.VerticalCenter;
+                                                   TextFormatFlags.VerticalCenter |
+												TextFormatFlags.PreserveGraphicsTranslateTransform;
 
 		#region Properties
 
@@ -65,6 +66,14 @@ namespace Aga.Controls.Tree
 				_header = value;
 				OnHeaderChanged();
 			}
+		}
+
+		private string _tooltipText;
+		[Localizable(true)]
+		public string TooltipText
+		{
+			get { return _tooltipText; }
+			set { _tooltipText = value; }
 		}
 
 		private int _width;

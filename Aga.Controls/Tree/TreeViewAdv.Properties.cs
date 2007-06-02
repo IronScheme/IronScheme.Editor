@@ -300,6 +300,7 @@ namespace Aga.Controls.Tree
 			{
 				if (_model != value)
 				{
+					AbortBackgroundExpandingThreads();
 					if (_model != null)
 						UnbindModelEvents();
 					_model = value;
@@ -521,6 +522,14 @@ namespace Aga.Controls.Tree
 			}
 		}
 
+		private bool _highlightDropPosition = true;
+		[DefaultValue(true), Category("Behavior")]
+		public bool HighlightDropPosition
+		{
+			get { return _highlightDropPosition; }
+			set { _highlightDropPosition = value; }
+		}
+
 		private TreeColumnCollection _columns;
 		[Category("Behavior"), DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
 		public Collection<TreeColumn> Columns
@@ -537,6 +546,18 @@ namespace Aga.Controls.Tree
 			{
 				return _controls;
 			}
+		}
+
+		private bool _asyncExpanding;
+		/// <summary>
+		/// When set to true, node contents will be read in background thread
+		/// </summary>
+		[Category("Behavior")]
+		[DefaultValue(false)]
+		public bool AsyncExpanding
+		{
+			get { return _asyncExpanding; }
+			set { _asyncExpanding = value; }
 		}
 
 		#endregion

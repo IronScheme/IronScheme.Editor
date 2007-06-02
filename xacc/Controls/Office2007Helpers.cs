@@ -17,12 +17,12 @@ using System.Drawing.Text;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace Office2007Renderer
+namespace Xacc.Controls
 {
     /// <summary>
     /// Set the SmoothingMode=AntiAlias until instance disposed.
     /// </summary>
-    public class UseAntiAlias : IDisposable
+    class UseAntiAlias : IDisposable
     {
         #region Instance Fields
         private Graphics _g;
@@ -54,7 +54,7 @@ namespace Office2007Renderer
     /// <summary>
     /// Set the TextRenderingHint.ClearTypeGridFit until instance disposed.
     /// </summary>
-    public class UseClearTypeGridFit : IDisposable
+    class UseClearTypeGridFit : IDisposable
     {
         #region Instance Fields
         private Graphics _g;
@@ -87,7 +87,7 @@ namespace Office2007Renderer
     /// <summary>
     /// Set the clipping region until instance disposed.
     /// </summary>
-    public class UseClipping : IDisposable
+    class UseClipping : IDisposable
     {
         #region Instance Fields
         private Graphics _g;
