@@ -76,7 +76,7 @@ namespace Xacc.Languages
 
     internal ICollection Imports
     {
-      get {return imports;}
+      get {return imports.Keys;}
     }
 
     internal IDictionary Aliases
@@ -847,7 +847,8 @@ namespace Xacc.Languages
 
     #region Autocomplete
 
-    readonly ArrayList imports = new ArrayList();
+    readonly Dictionary<string, Dictionary<string, object>> imports = new Dictionary<string, Dictionary<string, object>>();
+    readonly Dictionary<string, Dictionary<string, object>> lookupcache = new Dictionary<string, Dictionary<string, object>>();
 
     /// <summary>
     /// Adds an import to the import list
@@ -855,7 +856,41 @@ namespace Xacc.Languages
     /// <param name="name">the name to import</param>
     protected void AddImport(string name)
     {
-      imports.Add(name);
+      imports.Add(name, GetLookupData(name));
+    }
+
+    protected bool IsKnownType(string name)
+    {
+      foreach (string import in Imports)
+      {
+        if (imports[import].ContainsKey(name))
+        {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    
+
+    Dictionary<string, object> GetLookupData(string name)
+    {
+      if (!lookupcache.ContainsKey(name))
+      {
+        Dictionary<string, object> cache = lookupcache[name] = new Dictionary<string, object>();
+        foreach (Assembly ass in AppDomain.CurrentDomain.GetAssemblies())
+        {
+          
+          foreach (Type t in ass.GetExportedTypes())
+          {
+            if (!t.IsNested && t.Namespace == name)
+            {
+              cache.Add(t.Name, t);
+            }
+          }
+        }
+      }
+      return lookupcache[name];
     }
 
     readonly Hashtable aliases = new Hashtable();
@@ -984,24 +1019,24 @@ namespace Xacc.Languages
     ICodeElement[] Complete(string shint, params Type[] filters)
     {
       Set all = new Set();
-      imports.Sort(ImportComparer);
+      //imports.Sort(ImportComparer);
   
       ////// HACK ////////
 
-      if (filters.Length == 1 && filters[0] == typeof(CodeNamespace))
-      {
-        imports.Clear();
-        imports.Add("");
-      }
+      //if (filters.Length == 1 && filters[0] == typeof(CodeNamespace))
+      //{
+      //  imports.Clear();
+      //  imports.Add("");
+      //}
 
       ////// HACK ////////
 
-      System.Diagnostics.Trace.WriteLine("'" + shint + "'", "Hint          ");
+      //System.Diagnostics.Trace.WriteLine("'" + shint + "'", "Hint          ");
       //System.Diagnostics.Trace.WriteLine(Join(filters),     "Filters       ");                           
-      System.Diagnostics.Trace.WriteLine(string.Join(", ", imports.ToArray(typeof(string)) as string[]), "Imports       ");
+      //System.Diagnostics.Trace.WriteLine(string.Join(", ", imports.ToArray(typeof(string)) as string[]), "Imports       ");
 
 
-      foreach (string import in imports)
+      foreach (string import in Imports)
       {
         this.hint = shint;
         if (import.Length > 0)
@@ -1361,7 +1396,7 @@ namespace Xacc.Languages
         parsedtypes.Clear();
         scopestack.Clear();
         imports.Clear();
-        imports.Add(string.Empty);
+        //imports.Add(string.Empty, null);
         aliases.Clear();
         braces.Clear();
         scopestack.Push(new Location(0));

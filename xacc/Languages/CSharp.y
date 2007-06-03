@@ -130,7 +130,7 @@ class TypeRef : CodeTypeRef
 
 %start compilation_unit  /* I think */
 
-%type <elemlist> namespace_member_declarations namespace_body namespace_member_declarations_opt interface_body
+%type <elemlist> namespace_member_declarations namespace_body namespace_member_declarations_opt interface_body type_list type_list_opt
 %type <elemlist> class_member_declarations_opt class_body class_member_declarations struct_body interface_member_declarations_opt
 %type <elemlist> formal_parameter_list_opt formal_parameter_list struct_member_declarations_opt struct_member_declarations
 %type <elemlist> interface_member_declarations enum_body enum_member_declarations_opt enum_member_declarations
@@ -193,7 +193,7 @@ type_name
   ;
   
 member_name
-  : IDENTIFIER type_list_opt                    { $$ = $1; @@ = @1; }
+  : IDENTIFIER type_list_opt                    { $$ = $1 + ($2 == null ? "" : "<>") ; @@ = @1; }
   ;
   
 type_opt
@@ -203,13 +203,13 @@ type_opt
   
 type_list_opt
   : 
-  | '<' type_list '>'                     {  MakePair(@1,@3); }
-  | '<' type_list '<' type_list GTGT
+  | '<' type_list '>'                     {  MakePair(@1,@3);  $$ = $2; }
+  | '<' type_list '<' type_list GTGT      {  $$ = $2; }
   ; 
   
 type_list
-  : type_opt
-  | type_list ',' type_opt
+  : type_opt                                 { $$ = new CodeElementList($1); } 
+  | type_list ',' type_opt                  { $$ = $1; $$.Add($3); }
   ;
   
 type_arg_list_opt
@@ -219,7 +219,7 @@ type_arg_list_opt
   
 type_arg_list
   : IDENTIFIER                             { OverrideToken(@1, TokenClass.Type); }
-  | type_arg_list ',' IDENTIFIER           { OverrideToken(@3, TokenClass.Type); }
+  | type_arg_list ',' IDENTIFIER           { OverrideToken(@3, TokenClass.Type);  }
   ;
 
 /***** C.2.2 Types *****/
@@ -1076,7 +1076,7 @@ norm_qualifier
   ;
   
 long_qualified_identifier
-  : gen_qualifier member_name '.'                                   { $$ = $1 + $2 + "."; }
+  : gen_qualifier member_name '.'                                   { $$ = $1 + $2 + "."; if ($2.EndsWith("<>") || IsKnownType($2)) OverrideToken(@2, TokenClass.Type);  }
   ;  
   
  
@@ -1086,7 +1086,7 @@ gen_qualified_identifier
   ;
 
 gen_qualifier
-  : member_name '.'                                                  { $$ = $1 + "."; }
+  : member_name '.'                                                  { $$ = $1 + ".";  if ($1.EndsWith("<>") || IsKnownType($1)) OverrideToken(@1, TokenClass.Type); }
   | long_qualified_identifier                                        
   ;
   
@@ -1629,7 +1629,7 @@ enum_member_declaration
 delegate_declaration        
   : attributes_opt modifiers_opt DELEGATE return_type member_name type_arg_list_opt
     '(' formal_parameter_list_opt ')' ';'               { $$ = new CodeDelegate($5,$4,$8); $$.Location = @5;
-                                                          MakePair(@7,@9);
+                                                          MakePair(@7,@9); OverrideToken(@5, TokenClass.Type);
                                                          }
   ;
 
@@ -1686,7 +1686,6 @@ public override bool HasFoldInfo
 {
   get {return true; }
 }
-
 
 
 bool inset = false;

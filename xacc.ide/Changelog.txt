@@ -1,3 +1,9 @@
+0.2.0.74 - June 3, 2007 
+
+- More enhancements to C# parser :p
+- Improved TraceLog display
+- Fix bug with Windows Classic style (thanks to John for reporting and help resolving issue)
+
 0.2.0.73 - June 2, 2007 
 
 - More fixes to C# parser :p

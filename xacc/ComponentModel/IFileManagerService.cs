@@ -805,10 +805,7 @@ namespace Xacc.ComponentModel
     void OpenFile()
     {
       OpenFileDialog ofd = new OpenFileDialog();
-      ofd.CheckFileExists = true;
-      ofd.CheckPathExists = true;
       ofd.Multiselect = true;
-      ofd.DereferenceLinks = true;
       ofd.RestoreDirectory = true;
 
       StringBuilder sb = new StringBuilder();

@@ -65,21 +65,12 @@ namespace Xacc.ComponentModel
     [MenuItem("Trace Log", Index = 11)]
     public void TraceLog()
     {
-      Form f = new Form();
-      AdvancedTextBox atb = new AdvancedTextBox();
-      atb.Text = Diagnostics.Trace.GetFullTrace();
-      atb.ReadOnly = true;
-      f.StartPosition = FormStartPosition.CenterParent;
-      f.Size = new System.Drawing.Size(700, 500);
-      f.ShowInTaskbar = false;
-      f.MinimizeBox = false;
-      f.Text = "Trace log";
-      atb.Dock = DockStyle.Fill;
-      f.Controls.Add(atb);
-      f.ShowIcon = false;
+      AdvancedTextBox atb = ServiceHost.File.Open(Application.StartupPath + Path.DirectorySeparatorChar + "TraceLog.txt")
+  as AdvancedTextBox;
 
-      f.ShowDialog(ServiceHost.Window.MainForm);
-      
+      atb.Text = Diagnostics.Trace.GetFullTrace(); 
+
+      atb.ReadOnly = true;
     }
 
 
@@ -89,15 +80,9 @@ namespace Xacc.ComponentModel
       AboutForm f = new Controls.AboutForm();
       f.progressBar1.Visible = false;
       f.linkLabel1.Visible = true;
-      f.linkLabel1.Text = "(c)2003-2006 llewellyn@pritchard.org";
-      f.Click += new EventHandler(CloseAbout);
+      f.linkLabel1.Text = "(c)2003-2007 llewellyn@pritchard.org";
+      f.Click += delegate { f.Close(); };
       f.ShowDialog(ServiceHost.Window.MainForm);
-    }
-
-    void CloseAbout(object sender, EventArgs e)
-    {
-      Form f = sender as Form;
-      f.Close();
     }
   }
 }

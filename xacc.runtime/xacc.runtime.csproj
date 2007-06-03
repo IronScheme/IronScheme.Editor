@@ -113,7 +113,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Docking.cs">
-      <SubType>Form</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="PInvoke.cs">
       <SubType>Code</SubType>
