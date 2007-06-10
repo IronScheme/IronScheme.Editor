@@ -74,6 +74,11 @@ namespace Xacc.Languages
 
     #region Properties
 
+    public virtual bool SupportsNavigation
+    {
+      get { return false; }
+    }
+
     internal ICollection Imports
     {
       get {return imports.Keys;}

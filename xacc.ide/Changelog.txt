@@ -1,3 +1,10 @@
+0.2.0.75 - June 10, 2007 
+
+- Even more enhancements to C# parser :p
+- Bug fixes to the CodeModel
+- Reverted back to integer width for fonts, matches VS Orcas output very closely
+- New Navigation Bar for C#
+
 0.2.0.74 - June 3, 2007 
 
 - More enhancements to C# parser :p

@@ -817,7 +817,7 @@ int docintag = 0;
                {return Keyword(IF);}
 						break;
 					case 84: 
-                 {return Keyword(FROM);}
+                 {return Identifier(FROM);}
 						break;
 					case 88: 
                  {return Keyword(LOCK);}
@@ -841,7 +841,7 @@ int docintag = 0;
               { return Operator(YYCHAR); }
 						break;
 					case 107: 
-                  {return Keyword(WHERE);}
+                  {return Identifier(WHERE);}
 						break;
 					case 109: 
                   {return Keyword(THROW);}

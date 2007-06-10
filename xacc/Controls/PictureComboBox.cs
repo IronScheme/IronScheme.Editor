@@ -118,15 +118,18 @@ namespace Xacc.Controls
 
       //e.DrawBackground();
 
-      if (gradb == null)
+      if (!(Items[e.Index] is CodeModel.ICodeElement))
       {
-        LinearGradientBrush gb = new LinearGradientBrush(r2, 
-          SystemColors.Control, SystemColors.ControlDark, 0f);
-        gb.SetSigmaBellShape(0.9f,0.2f);
-        gradb = gb;
-      }
+        if (gradb == null)
+        {
+          LinearGradientBrush gb = new LinearGradientBrush(r2,
+            SystemColors.Control, SystemColors.ControlDark, 0f);
+          gb.SetSigmaBellShape(0.9f, 0.2f);
+          gradb = gb;
+        }
 
-      e.Graphics.FillRectangle(gradb, r2);
+        e.Graphics.FillRectangle(gradb, r2);
+      }
 
   			
       int h = SystemInformation.MenuHeight;
@@ -227,10 +230,18 @@ namespace Xacc.Controls
             b,
             r.Right + 1, e.Bounds.Top + hh);
         }
+        CodeModel.ICodeElement cl = Items[e.Index] as CodeModel.ICodeElement;
+        if (cl != null)
+        {
+          e.Graphics.DrawString(cl is CodeModel.ICodeType ? cl.Fullname : (cl is CodeModel.ICodeMethod ? cl.ToString() : cl.Name),
+            SystemInformation.MenuFont,
+            b,
+            r.Right + 1, e.Bounds.Top + hh);
+        }
         else
         {
           e.Graphics.DrawString(NameAttribute.GetName(t),
-            SystemInformation.MenuFont, 
+            SystemInformation.MenuFont,
             b,
             r.Right + 1, e.Bounds.Top + hh);
         }
@@ -239,8 +250,11 @@ namespace Xacc.Controls
       gp.Dispose();
       gp = null;
 
-      gradb.Dispose();
-      gradb = null;
+      if (gradb != null)
+      {
+        gradb.Dispose();
+        gradb = null;
+      }
 
       if (selbg != null)
       {

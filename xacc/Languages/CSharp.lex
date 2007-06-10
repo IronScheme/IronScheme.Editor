@@ -200,11 +200,11 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 <YYINITIAL>"void"            {return Keyword(VOID);}
 <YYINITIAL>"volatile"        {return Keyword(VOLATILE);}
 <YYINITIAL>"while"           {return Keyword(WHILE);}
-<YYINITIAL>"where"           {return Keyword(WHERE);}
+<YYINITIAL>"where"           {return Identifier(WHERE);}
 <YYINITIAL>"var"             {return Identifier(IDENTIFIER);}
 
 <YYINITIAL>"select"          {return Identifier(IDENTIFIER);}
-<YYINITIAL>"from"            {return Keyword(FROM);}
+<YYINITIAL>"from"            {return Identifier(FROM);}
 <YYINITIAL>"join"            {return Identifier(IDENTIFIER);}
 <YYINITIAL>"let"             {return Identifier(IDENTIFIER);}
 <YYINITIAL>"group"           {return Identifier(IDENTIFIER);}

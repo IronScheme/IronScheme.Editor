@@ -1259,7 +1259,7 @@ namespace Xacc.ComponentModel
 
         c.Tag = tp;
 
-        if (Path.GetFileName(filename) != "command.ls")
+        if (Path.GetFileName(filename) != "command.ls" && File.Exists(filename))
         {
           foreach (MRUFile mru in recentfiles)
           {
@@ -1277,6 +1277,24 @@ namespace Xacc.ComponentModel
         buffers.Add(filename, doc);
         current = filename;
         doc.ActiveView.Open(filename);
+
+        AdvancedTextBox atb = c as AdvancedTextBox;
+        if (atb != null)
+        {
+          if (atb.Buffer.Language.SupportsNavigation)
+          {
+#warning add Navigation bar here
+            NavigationBar navb = new NavigationBar();
+            navb.Dock = DockStyle.Top;
+
+            tp.Controls.Add(navb);
+            navb.SendToBack();
+
+            atb.navbar = navb;
+
+          }
+        }
+
         tp.Show(ServiceHost.Window.Document, ds);
 
         if (ms != null)

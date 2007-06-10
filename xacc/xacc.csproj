@@ -326,6 +326,12 @@
     <Compile Include="Controls\Grid.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\NavigationBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NavigationBar.Designer.cs">
+      <DependentUpon>NavigationBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Office2007ColorTable.cs" />
     <Compile Include="Controls\Office2007Helpers.cs" />
     <Compile Include="Controls\Office2007Renderer.cs" />
@@ -461,6 +467,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Grid.resx">
       <DependentUpon>Grid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NavigationBar.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>NavigationBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\PictureComboBox.resx">
       <DependentUpon>PictureComboBox.cs</DependentUpon>

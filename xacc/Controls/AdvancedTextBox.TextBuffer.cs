@@ -728,7 +728,7 @@ namespace Xacc.Controls
         const float first = 0;
 
         tabs = new float[120];
-        DrawInfo.fontwidth = fontwidth = g.MeasureString("//////////", font, MAX24BIT, sf).Width / 10;
+        DrawInfo.fontwidth = fontwidth = (float)Math.Round(g.MeasureString("//////////", font, MAX24BIT, sf).Width / 10, 0);
 
         float tabsizef = fontwidth * tabsize;
 
@@ -1146,7 +1146,7 @@ namespace Xacc.Controls
           {
             //this best is not to mess with the font.OK it is necessary
             //font needs to be rounded to a factor of 0.75pt
-            float ph = (float)System.Math.Round(value.SizeInPoints / 0.75, 0) * 0.75f;
+            float ph = value.SizeInPoints; // (float)System.Math.Round(value.SizeInPoints / 0.75, 0) * 0.75f;
             Font font = null;
 
             //if (ph != value.SizeInPoints)
@@ -1168,12 +1168,16 @@ namespace Xacc.Controls
             float iwidth = (float)System.Math.Round(width, 0);
             float adjustment = iwidth / width;
 
-            //ph *= adjustment; // this just rounds up font to have exactly integer width
+            ph *= adjustment; // this just rounds up font to have exactly integer width
 
             if (ph != font.SizeInPoints)
             {
-              //font = new Font(font.FontFamily, ph);
+              font = new Font(font.FontFamily, ph);
             }
+
+            IsMonospaced(font, out width);
+
+            int ls = font.FontFamily.GetLineSpacing(FontStyle.Regular);
 
             // this will be the prefered value from the font, best to use it
             fontheight = font.Height;
@@ -2190,7 +2194,7 @@ namespace Xacc.Controls
           }
           else
           {
-            owner.codefile = lang.CodeModel;
+            owner.CodeFile = lang.CodeModel;
             if (owner.ProjectHint != null)
             {
               owner.ProjectHint.CodeModel.Add(lang.CodeModel);

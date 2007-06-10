@@ -370,6 +370,14 @@ namespace Xacc.Controls
 			Invalidate();
 		}
 
+    public void ScrollToCaretUpper()
+    {
+      MoveCaretIntoViewUpper();
+      Invalidate();
+    }
+
+
+
 		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.TextBoxBase.Select(System.Int32,System.Int32)"]/*'/>
 		public void Select(int start, int length)
@@ -3114,6 +3122,12 @@ namespace Xacc.Controls
     int vline = 0;
     int vlinecount = 0;
 
+    private void MoveCaretIntoViewUpper()
+    {
+      //MoveIntoView(buffer.CurrentLine + Height/FontHeight - 5);
+      vscroll.Value = buffer.CurrentLine - 3;
+    }
+
     internal void MoveCaretIntoView()
     {
       MoveIntoView(buffer.CurrentLine);
@@ -3694,7 +3708,21 @@ namespace Xacc.Controls
       }
     }
 
-    internal CodeModel.ICodeFile codefile;
+    internal NavigationBar navbar;
+    CodeModel.ICodeFile codefile;
+
+    internal CodeModel.ICodeFile CodeFile
+    {
+      get { return codefile; }
+      set 
+      { 
+        codefile = value;
+        if (navbar != null)
+        {
+          navbar.CodeFile = value;
+        }
+      }
+    }
 
 
 

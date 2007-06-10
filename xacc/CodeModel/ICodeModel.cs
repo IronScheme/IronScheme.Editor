@@ -279,7 +279,7 @@ namespace Xacc.CodeModel
     /// </summary>
     /// <param name="col">the collection of elements</param>
     /// <returns>the joined string</returns>
-    protected static string Join(ICollection col)
+    public static string Join(ICollection col)
     {
       return Join(col, ", ");
     }
@@ -290,7 +290,7 @@ namespace Xacc.CodeModel
     /// <param name="col">the collection of elements</param>
     /// <param name="sep">the seperator to use</param>
     /// <returns>the joined string</returns>
-    protected static string Join(ICollection col, string sep)
+    public static string Join(ICollection col, string sep)
     {
       if (col == null)
       {
@@ -602,7 +602,7 @@ namespace Xacc.CodeModel
       {
         return null;
       }
-			elements[elem.Name] = elem;
+			elements[elem.Fullname] = elem;
 			return elem;
 		}
 
@@ -929,7 +929,14 @@ namespace Xacc.CodeModel
     /// </summary>
     public override string Fullname
     {
-      get {return enclosingtype.Fullname + "." + base.Fullname;}
+      get
+      {
+        if (enclosingtype != null)
+        {
+          return enclosingtype.Fullname + "." + base.Fullname;
+        }
+        return base.Fullname;
+      }
     }
 
   }
@@ -1209,6 +1216,21 @@ namespace Xacc.CodeModel
 	{
 		ICodeTypeRef		enclosingtype = null;
 
+    string[] genericargs;
+
+    public virtual string[] GenericArguments
+    {
+      get { return genericargs; }
+      set
+      {
+        genericargs = value;
+        if (value != null)
+        {
+          Name = Name + "<" + string.Join(", ", value) + ">";
+        }
+      }
+    }
+
     CodeNamespace ns = new CodeNamespace();
 
     /// <summary>
@@ -1252,7 +1274,14 @@ namespace Xacc.CodeModel
       {
         if (ns.Fullname.Length == 0)
         {
-          return base.Fullname;
+          if (EnclosingType == null)
+          {
+            return base.Fullname;
+          }
+          else
+          {
+            return EnclosingType.Fullname + "." + base.Fullname;
+          }
         }
         else
         {
@@ -1317,6 +1346,11 @@ namespace Xacc.CodeModel
       {
         return base.Add(elem);
       }
+    }
+
+    public override string ToString()
+    {
+      return Fullname;
     }
 
     /// <summary>
@@ -1836,6 +1870,8 @@ namespace Xacc.CodeModel
         return FilterElements(typeof(ICodeType)) as ICodeType[];
       }
     }
+
+
   }
 
   #endregion
@@ -1891,6 +1927,9 @@ namespace Xacc.CodeModel
   public class CodeValueType : CodeType, ICodeValueType
   {
     ICodeTypeRef[] interfaces;
+
+
+
 
     /// <summary>
     /// Creates an instance of CodeValueType
@@ -2003,6 +2042,10 @@ namespace Xacc.CodeModel
   {
     ICodeTypeRef type = null;
 
+    public CodeField(string name) : this(name, null)
+    {
+    }
+
     /// <summary>
     /// Creates an instance of CodeField
     /// </summary>
@@ -2027,6 +2070,7 @@ namespace Xacc.CodeModel
     public ICodeTypeRef Type
     {
       get {return type;}
+      set { type = value; }
     }
 
     /// <summary>
@@ -2260,6 +2304,14 @@ namespace Xacc.CodeModel
     {
       return new CodeTypeRef(type);
     }
+
+    public override string Fullname
+    {
+      get
+      {
+        return base.Fullname;
+      }
+    }
   }
 
   #endregion
@@ -2303,6 +2355,21 @@ namespace Xacc.CodeModel
     ICodeParameter[] parameters;
     CodeElementList locals = new CodeElementList();
 
+    string[] genericargs;
+
+    public virtual string[] GenericArguments
+    {
+      get { return genericargs; }
+      set
+      {
+        genericargs = value;
+        if (value != null)
+        {
+          Name = Name + "<" + string.Join(", ", value) + ">";
+        }
+      }
+    }
+
     //NOTE: no serialization on statement level and higher
     [NonSerialized] 
     CodeElementList statements = new CodeElementList();
@@ -2315,7 +2382,7 @@ namespace Xacc.CodeModel
     /// <param name="parameters">the parameters of this method</param>
     public CodeMethod(string name, CodeTypeRef returntype, ICollection parameters)
     {
-      Name = name;
+      Name = name.Replace("<>", "");
       this.returntype = returntype;
       
       this.parameters = parameters == null ? new ICodeParameter[0] : new ArrayList(parameters).ToArray(typeof(ICodeParameter)) 
@@ -2362,6 +2429,14 @@ namespace Xacc.CodeModel
     public CodeElementList Statements
     {
       get {return statements; }
+    }
+
+    public override string Fullname
+    {
+      get
+      {
+        return ToString();
+      }
     }
 
     /// <summary>

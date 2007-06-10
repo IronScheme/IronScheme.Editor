@@ -19,6 +19,7 @@ namespace Xacc.Languages.gppg
 
     protected ValueType yyval;
     protected ValueType yylval;
+    protected ValueType yypeekval;
 
     private int next;
     private State current_state;
@@ -48,6 +49,17 @@ namespace Xacc.Languages.gppg
     void Write(string format, params object[] args)
     {
       System.Diagnostics.Trace.Write(string.Format(format, args));
+    }
+
+    protected int yypeek()
+    {
+      if (tokenstream.Count <= (tokenpos + 1))
+      {
+        int next = scanner.yylex();
+        tokenstream.Add(yypeekval = scanner.yylval);
+        return next;
+      }
+      return (yypeekval = tokenstream[tokenpos + 1]).Type;     
     }
 
     protected virtual int yylex()

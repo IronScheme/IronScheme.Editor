@@ -136,8 +136,8 @@ class TypeRef : CodeTypeRef
 %type <elemlist> interface_member_declarations enum_body enum_member_declarations_opt enum_member_declarations
 %type <elem> constant_declaration field_declaration interface_indexer_declaration identifier_name
 %type <elem> namespace_declaration namespace_member_declaration struct_member_declaration interface_member_declaration
-%type <elem> enum_member_declaration constructor_declarator 
-%type <text> qualified_identifier qualifier namespace_name constant_declarator variable_declarator type_qualified_identifier long_qualified_identifier
+%type <elem> enum_member_declaration constructor_declarator variable_declarator constant_declarator
+%type <text> qualified_identifier qualifier namespace_name  type_qualified_identifier long_qualified_identifier
 %type <elem> class_declaration struct_declaration interface_declaration enum_declaration delegate_declaration type_declaration
 %type <elem> class_member_declaration method_declaration property_declaration type2
 %type <elem> event_declaration indexer_declaration operator_declaration constructor_declaration destructor_declaration
@@ -145,7 +145,7 @@ class TypeRef : CodeTypeRef
 %type <typeref> type return_type non_array_type simple_type primitive_type class_type numeric_type floating_point_type type_opt nullable_type
 %type <typeref> integral_type array_type type_name non_null_type
 %type <primval> literal mllit boolean_literal
-%type <list> variable_declarators constant_declarators
+%type <list> variable_declarators constant_declarators type_arg_list type_arg_list_opt
 %type <paramattr> parameter_modifier_opt
 
 %type <text> member_name gen_qualified_identifier norm_qualified_identifier gen_qualifier norm_qualifier member_name2 gen_qualified_identifier2
@@ -193,7 +193,7 @@ type_name
   ;
   
 member_name
-  : IDENTIFIER type_list_opt                    { $$ = $1 + ($2 == null ? "" : "<>") ; @@ = @1; }
+  : IDENTIFIER type_list_opt                    { $$ = $1 + ($2 == null ? "" : ("<" + CodeElement.Join($2) + ">")) ; @@ = @1; }
   ;
   
 type_opt
@@ -214,12 +214,12 @@ type_list
   
 type_arg_list_opt
   :
-  | '<' type_arg_list '>'                  {  MakePair(@1,@3); }
+  | '<' type_arg_list '>'                  {  MakePair(@1,@3);  $$ = $2; }
   ;  
   
 type_arg_list
-  : IDENTIFIER                             { OverrideToken(@1, TokenClass.Type); }
-  | type_arg_list ',' IDENTIFIER           { OverrideToken(@3, TokenClass.Type);  }
+  : IDENTIFIER                             { OverrideToken(@1, TokenClass.Type); $$ = new ArrayList(); $$.Add($1); }
+  | type_arg_list ',' IDENTIFIER           { OverrideToken(@3, TokenClass.Type); $$ = $1; $$.Add($3); }
   ;
 
 /***** C.2.2 Types *****/
@@ -832,15 +832,16 @@ declaration_statement
   | local_constant_declaration ';'                                  {Pin(@2);}
   ;
 local_variable_declaration
-  : type variable_declarators                                
+  : type variable_declarators
+  | FROM variable_declarators                                    { OverrideToken(@1, TokenClass.Type); }
   ;
 variable_declarators
   : variable_declarator                                        { $$ = new ArrayList(); $$.Add($1); }
   | variable_declarators ',' variable_declarator             { $$ = $1;  $$.Add($3); }
   ;
 variable_declarator
-  : IDENTIFIER
-  | IDENTIFIER '=' variable_initializer                        { $$ = $1; }
+  : IDENTIFIER                                                 { $$ = new CodeField($1); $$.Location = @1; }
+  | IDENTIFIER '=' variable_initializer                        { $$ = new CodeField($1); $$.Location = @1; }
   ;
 variable_initializer
   : expression
@@ -858,7 +859,7 @@ constant_declarators
   | constant_declarators ',' constant_declarator             { $$ = $1; $$.Add($3); }
   ;
 constant_declarator
-  : IDENTIFIER '=' constant_expression                         { $$ = $1 ;}
+  : IDENTIFIER '=' constant_expression                         { $$ = new CodeField($1); $$.Location = @1;}
   ;
 expression_statement
   : statement_expression ';'                                   {Pin(@2);}
@@ -1065,6 +1066,7 @@ qualifier
   : norm_qualifier
   ;  
   
+
 norm_qualified_identifier
   : IDENTIFIER                                                  
   | norm_qualifier IDENTIFIER                                       { $$ = $1 + $2;}
@@ -1076,7 +1078,7 @@ norm_qualifier
   ;
   
 long_qualified_identifier
-  : gen_qualifier member_name '.'                                   { $$ = $1 + $2 + "."; if ($2.EndsWith("<>") || IsKnownType($2)) OverrideToken(@2, TokenClass.Type);  }
+  : gen_qualifier member_name '.'                                   { $$ = $1 + $2 + "."; if ($2.EndsWith(">") || IsKnownType($2)) OverrideToken(@2, TokenClass.Type);  }
   ;  
   
  
@@ -1086,7 +1088,7 @@ gen_qualified_identifier
   ;
 
 gen_qualifier
-  : member_name '.'                                                  { $$ = $1 + ".";  if ($1.EndsWith("<>") || IsKnownType($1)) OverrideToken(@1, TokenClass.Type); }
+  : member_name '.'                                                  { $$ = $1 + ".";  if ($1.EndsWith(">") || IsKnownType($1)) OverrideToken(@1, TokenClass.Type); }
   | long_qualified_identifier                                        
   ;
   
@@ -1166,25 +1168,35 @@ modifier
   | VIRTUAL
   | VOLATILE
   ;
+  
+in_gen_clause
+  : { ingenclause = true; }
+  ;
+  
+gen_clause_list
+  : gen_clause
+  | gen_clause_list gen_clause
+  ;
 
 gen_clause_opt
-  :
-  | gen_clause_opt gen_clause
+  :                                                             { ingenclause = false; }
+  | gen_clause_list                                             { ingenclause = false; }
   ;
   
 gen_clause
-  : WHERE IDENTIFIER gen_class_base
+  :  WHERE IDENTIFIER gen_class_base                            { OverrideToken(@2, TokenClass.Type); }
   ;
   
 gen_class_type
   : STRUCT
   | CLASS
   | NEW '(' ')'
+  | OBJECT
   | type_name
   ;
   
 gen_class_base
-  : ':' gen_type_list                             
+  : ':' gen_type_list 
   ;
   
 gen_type_list
@@ -1194,10 +1206,11 @@ gen_type_list
   
 /***** C.2.6 Classes *****/
 class_declaration
-  : attributes_opt modifiers_opt CLASS IDENTIFIER type_arg_list_opt 
+  : attributes_opt modifiers_opt CLASS IDENTIFIER type_arg_list_opt in_gen_clause
     class_base_opt gen_clause_opt class_body comma_opt                       { CodeRefType ct = new CodeRefType($4); 
-                                                                ct.AddRange($8); $$ = ct; $$.Location = @4;
-                                                                OverrideToken(@4, TokenClass.Type);}
+                                                                if ($5 != null) ct.GenericArguments = $5.ToArray(typeof(string)) as string[];
+                                                                ct.AddRange($9); $$ = ct; $$.Location = @4;
+                                                                OverrideToken(@4, TokenClass.Type); }
   ;
 class_base_opt
   : /* Nothing */                                              
@@ -1240,10 +1253,9 @@ constant_declaration
   : attributes_opt modifiers_opt CONST 
     type constant_declarators ';'                             { 
                                                                 CodeElementList cel = new CodeElementList();
-                                                                foreach (string s in $5)
+                                                                foreach (CodeField cf in $5)
                                                                 {
-                                                                  CodeField cf = new CodeField(s,$4);
-                                                                  cf.Location = @4;
+                                                                  cf.Type = $4;
                                                                   cel.Add( cf ); 
                                                                 }
                                                                 $$ = new CodeComplexMember(cel);
@@ -1254,25 +1266,27 @@ field_declaration
     type variable_declarators ';'                             { 
                                                                 
                                                                 CodeElementList cel = new CodeElementList();
-                                                                foreach (string s in $4)
+                                                                foreach (CodeField cf in $4)
                                                                 {
-                                                                  CodeField cf = new CodeField(s,$3);
-                                                                  cf.Location = @3;
+                                                                  cf.Type = $3;
                                                                   cel.Add( cf ); 
                                                                 }
                                                                 $$ = new CodeComplexMember(cel);
                                                               }
   ;
 method_declaration
-  : method_header gen_clause_opt  method_body                 { $$ = $1; }
+  : method_header in_gen_clause gen_clause_opt  method_body                 { $$ = $1; ingenclause = false;}
   ;
 /* Inline return_type to avoid conflict with field_declaration */
 method_header
   : attributes_opt modifiers_opt type 
-    qualified_identifier type_arg_list_opt '(' formal_parameter_list_opt ')'    { $$ = new CodeMethod($4,$3,$7);  $$.Location = @4;  MakePair(@6,@8); }
-  | attributes_opt modifiers_opt VOID qualified_identifier type_arg_list_opt
-    '(' formal_parameter_list_opt ')'                         { $$ = new CodeMethod($4, new TypeRef(typeof(void)), $7); 
-                                                                $$.Location = @4;   MakePair(@6,@8);} 
+    qualified_identifier '(' formal_parameter_list_opt ')'    { CodeMethod cm = new CodeMethod($4,$3,$6); $$ = cm;  $$.Location = @4;  MakePair(@5,@7); 
+                                                                                  
+    }
+  | attributes_opt modifiers_opt VOID qualified_identifier 
+    '(' formal_parameter_list_opt ')'                         { CodeMethod cm = new CodeMethod($4, new TypeRef(typeof(void)), $6);  $$ = cm;
+                                                                $$.Location = @4;   MakePair(@5,@7);
+                                                                } 
   ;
 formal_parameter_list_opt
   : /* Nothing */                                             
@@ -1470,9 +1484,10 @@ constructor_body /*** Added by JP - same as method_body ***/
 
 /***** C.2.7 Structs *****/
 struct_declaration
-  : attributes_opt modifiers_opt STRUCT member_name 
-    struct_interfaces_opt struct_body comma_opt               { CodeValueType cv = new CodeValueType($4); 
-                                                                cv.AddRange($6); $$ = cv; $$.Location = @4;
+  : attributes_opt modifiers_opt STRUCT IDENTIFIER type_arg_list_opt in_gen_clause 
+    struct_interfaces_opt gen_clause_opt struct_body comma_opt               { CodeValueType cv = new CodeValueType($4);  
+                                                                if ($5 != null) cv.GenericArguments = $5.ToArray(typeof(string)) as string[];
+                                                                cv.AddRange($9); $$ = cv; $$.Location = @4;
                                                                 OverrideToken(@4, TokenClass.Type);}
   ;
 struct_interfaces_opt
@@ -1521,9 +1536,10 @@ variable_initializer_list
 
 /***** C.2.9 Interfaces *****/
 interface_declaration
-  : attributes_opt modifiers_opt INTERFACE member_name 
-    interface_base_opt interface_body comma_opt                 { CodeInterface ci = new CodeInterface($4); 
-                                                                  ci.AddRange($6); $$ = ci; $$.Location = @4;
+  : attributes_opt modifiers_opt INTERFACE IDENTIFIER type_arg_list_opt in_gen_clause 
+    interface_base_opt gen_clause_opt interface_body comma_opt                 { CodeInterface ci = new CodeInterface($4); 
+                                                                  if ($5 != null) ci.GenericArguments = $5.ToArray(typeof(string)) as string[];
+                                                                  ci.AddRange($9); $$ = ci; $$.Location = @4;
                                                                   OverrideToken(@4, TokenClass.Type);}
   ;
 interface_base_opt
@@ -1587,10 +1603,8 @@ interface_event_declaration
   : attributes_opt new_opt EVENT type member_name interface_empty_body    
   ;
 
-/* mono seems to allow this */
 interface_empty_body
   : ';'
-  | '{' '}'
   ;
 
 /***** C.2.10 Enums *****/
@@ -1627,9 +1641,9 @@ enum_member_declaration
 
 /***** C.2.11 Delegates *****/
 delegate_declaration        
-  : attributes_opt modifiers_opt DELEGATE return_type member_name type_arg_list_opt
-    '(' formal_parameter_list_opt ')' ';'               { $$ = new CodeDelegate($5,$4,$8); $$.Location = @5;
-                                                          MakePair(@7,@9); OverrideToken(@5, TokenClass.Type);
+  : attributes_opt modifiers_opt DELEGATE return_type member_name 
+    '(' formal_parameter_list_opt ')' in_gen_clause gen_clause_opt ';'               { $$ = new CodeDelegate($5,$4,$7); $$.Location = @5;
+                                                          MakePair(@6,@8); OverrideToken(@5, TokenClass.Type);
                                                          }
   ;
 
@@ -1680,6 +1694,7 @@ protected override void AfterPinRestore()
   inquery = 0;
   inblock = 0;
   inevent = false;
+  ingenclause = false;
 }
 
 public override bool HasFoldInfo
@@ -1687,16 +1702,55 @@ public override bool HasFoldInfo
   get {return true; }
 }
 
+public override bool SupportsNavigation
+{
+  get {return true; }
+}
+
+
 
 bool inset = false;
 bool inproperty = false;
 int inblock = 0;
 int inquery = 0;
 bool inevent = false;
+bool _ingenclause = false;
+bool ingenclause 
+{
+  get {return _ingenclause; }
+  set { _ingenclause = value; }
+}
 
 protected override int yylex()
 {
   int t = base.yylex();
+  
+  if (yylval.Type == CSharpLexer.FROM)
+  {
+    if(yypeek() == CSharpLexer.IDENTIFIER || yypeekval.Class == TokenClass.Keyword)
+    {
+      OverrideToken(yylval.Location, TokenClass.Keyword);
+      return CSharpLexer.FROM;
+    }
+    else
+    {
+      return CSharpLexer.IDENTIFIER;
+    }
+  }
+  
+  
+  if (yylval.Type == CSharpLexer.WHERE)
+  {
+    if (ingenclause || inquery > 0)
+    {
+      OverrideToken(yylval.Location, TokenClass.Keyword);
+      return CSharpLexer.WHERE;
+    }
+    else
+    {
+      return CSharpLexer.IDENTIFIER;
+    }
+  }
   
   if (inevent)
   {
