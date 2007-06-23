@@ -288,6 +288,7 @@ pointer_type
   ;
 array_type
   : array_type rank_specifier                               { $$ = $1; @@ = @1;}
+  | nullable_type rank_specifier                            { $$ = $1; @@ = @1;}
   | simple_type rank_specifier                              { $$ = $1; @@ = @1;}
   | qualified_identifier rank_specifier                     { $$ = new TypeRef($1,true); @@ = @1; OverrideToken(@1, TokenClass.Type);}
   ;
@@ -374,7 +375,7 @@ default_expression
   ;  
   
 invocation_expression
-  : primary_expression_no_parenthesis type_list_opt '(' argument_list_opt ')'     { MakePair(@3,@5); @@ = @1;}
+  : primary_expression_no_parenthesis '(' argument_list_opt ')'     { MakePair(@2,@4); @@ = @1; /* delegate */}
   | qualified_identifier '(' argument_list_opt ')'                  { MakePair(@2,@4); @@ = @1; }
   ;
 argument_list_opt
@@ -499,14 +500,14 @@ sizeof_expression
   ;
 postfix_expression
   : primary_expression
-  | qualified_identifier
+  | qualified_identifier 
   | post_increment_expression
   | post_decrement_expression
   | pointer_member_access
   ;
   
 unary_expression_not_plusminus
-  : postfix_expression 
+  : postfix_expression                                
   | '!' unary_expression
   | '~' unary_expression
   | cast_expression
@@ -537,10 +538,12 @@ cast_expression
   | '(' expression ')' unary_expression_not_plusminus                               { OverrideToken(@2, TokenClass.Type); MakePair(@1,@3); }
   | '(' multiplicative_expression '*' ')' unary_expression                          { MakePair(@1,@4);}
   | '(' qualified_identifier rank_specifier type_quals_opt ')' unary_expression     { OverrideToken(@2, TokenClass.Type); MakePair(@1,@5); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}
+  | '(' qualified_identifier '?' rank_specifier ')' unary_expression                { OverrideToken(@2, TokenClass.Type); MakePair(@1,@5); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}  
   | '(' primitive_type type_quals_opt ')' unary_expression                          { MakePair(@1,@4); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}
   | '(' class_type type_quals_opt ')' unary_expression                              { MakePair(@1,@4); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}
   | '(' primitive_type '?' ')' unary_expression                                     { MakePair(@1,@4);}
-  | '(' nullable_type ')' unary_expression                                          { MakePair(@1,@3);}
+  | '(' primitive_type '?' rank_specifier ')' unary_expression                      { MakePair(@1,@5);}
+  | '(' qualified_identifier '?' ')' unary_expression                               { MakePair(@1,@4); OverrideToken(@2, TokenClass.Type); }
   | '(' VOID type_quals_opt ')' unary_expression                                    { MakePair(@1,@4);} 
   ;
 type_quals_opt
@@ -579,7 +582,10 @@ relational_expression
   | relational_expression '>' shift_expression
   | relational_expression LEQ shift_expression
   | relational_expression GEQ shift_expression
-  | relational_expression IS non_null_type /* HACK */                                        
+  | relational_expression IS type 
+  | relational_expression IS nullable_type expression ':' expression /* HACK */
+  /*| relational_expression IS non_null_type
+  | relational_expression IS array_type*/
   | relational_expression AS type                                         
   ;
 equality_expression
@@ -609,7 +615,7 @@ conditional_or_expression
   ;
 conditional_expression
   : conditional_or_expression
-  | IDENTIFIER '?' expression ':' expression                            { MakePair(@2,@4);}
+  | IDENTIFIER '?' expression ':' expression                            { MakePair(@2,@4);} 
   | conditional_or_expression '?' expression ':' expression             { MakePair(@2,@4);}
   | conditional_or_expression QQ expression 
   ;
@@ -1032,6 +1038,14 @@ fixed_pointer_declarators
 fixed_pointer_declarator
   : IDENTIFIER '=' expression
   ;
+  
+  
+  
+  
+  
+  
+  
+
 compilation_unit
   : using_directives_opt attributes_opt                             { ; }
   | using_directives_opt namespace_member_declarations              { CodeModel.AddRange($2); }
@@ -1125,7 +1139,7 @@ namespace_member_declarations
   | namespace_member_declarations namespace_member_declaration      { $$ = $1; $$.Add($2); }
   ;
 namespace_member_declaration
-  : namespace_declaration
+  : namespace_declaration                                           { $$ = $1; }
   | type_declaration
   | error 
   ;

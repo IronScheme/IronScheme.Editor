@@ -1,3 +1,11 @@
+0.2.0.76 - June 23, 2007 
+
+- Fixed Navigation Bar selection with 'folded' regions
+- More C# parser fixes, should parse everything correctly now
+- Updates to CodeModel namespace and nested type handling
+- Changed web references to xacc.sourceforge.net
+- Updated to NSIS 2.28
+
 0.2.0.75 - June 10, 2007 
 
 - Even more enhancements to C# parser :p
@@ -9,7 +17,8 @@
 
 - More enhancements to C# parser :p
 - Improved TraceLog display
-- Fix bug with Windows Classic style (thanks to John for reporting and help resolving issue)
+- Fix bug with Windows Classic style (thanks to John for reporting and help resolving 
+  issue)
 
 0.2.0.73 - June 2, 2007 
 
@@ -19,7 +28,8 @@
 - Updated to TreeViewAdv 1.6
 - Updated to DockPanelSuite 2.1
 - Namespace cleanup (generated parsers/lexers are now under Xacc.Languages)
-- Added VS Ocras solution file (seems the only thing preventing VS2005 from using it, is the version number)
+- Added VS Ocras solution file (seems the only thing preventing VS2005 from using it, 
+  is the version number)
 
 0.2.0.71 - May 17, 2007 
 
@@ -112,7 +122,8 @@
 - Only about 13 languages currently supported but C# does have a parser too, and very
   nice highlighting. More to come soon!
 - Shrunken installer down to 500kb! :)
-- Very fast now, comparable to VS2003. (Hint: for very fast performance "ngen install xacc.ide.exe")
+- Very fast now, comparable to VS2003. (Hint: for very fast performance 
+  "ngen install xacc.ide.exe")
 - There are quite a few bugs, please dont report them, this is only a preview release.
 
 0.1.3.15   - May 27, 2006 
@@ -211,7 +222,8 @@ Note:
 - added missing 'old-style' clipboard keyboard shortcuts (thanks Julian Hanson)
 - better handling of 'Home' key in editor (thanks Julian Hanson)
 - fixed GotoFirstLine() not scrolling (thanks Douglas Troy)
-- made "New file" buttons less VB-ish, new look will come later (thanks Douglas Troy)
+- made "New file" buttons less VB-ish, new look will come 
+  later (thanks Douglas Troy)
 - improved #region handling (thanks Douglas Troy)
 - added CSS and Perl (dodgy) syntax highlighting
 
@@ -247,7 +259,8 @@ Note:
 0.1.2.23  - February 26, 2006 
 
 - added open file persistance for projects
-- fix for some crashes that has been occuring on app start (performance counters) (thanks Benoit & Buck)
+- fix for some crashes that has been occuring on app start 
+  (performance counters) (thanks Benoit & Buck)
 
 0.1.2.22  - February 23, 2006 
 
@@ -271,7 +284,8 @@ Note:
 
 0.1.2.19  - February 19, 2006 
 
-- fixed startup project not being selected when project created, causing it not to run/debug
+- fixed startup project not being selected when project created, causing it 
+  not to run/debug
 
 0.1.2.18  - February 18, 2006 
 
@@ -326,7 +340,8 @@ Note:
 -	added Changelog syntax support (mostly tailored for this changlog format)
 - improved performance a bit
 - improve error reporting a bit (webservices limits strings to 1024 characters...)
-- added language sensitive tool actions, eg Html Tidy, can be used to make snippet compiler too
+- added language sensitive tool actions, eg Html Tidy, can be used to make snippet 
+  compiler too
 - exports 'config.xsd' schema for config.xml
 
 0.1.2.10  - February 09, 2006
@@ -359,7 +374,8 @@ Note:
 
 - much improved keybinding support 
 - almost all functions moved to the new system (see profile.ls) 
-- Many naming changes of the properties in ServiceHost to fit in better with 'menu' names (sorry)
+- Many naming changes of the properties in ServiceHost to fit in better with 
+  'menu' names (sorry)
 
 0.1.2.3   - February 02, 2006
 
@@ -378,7 +394,8 @@ Note:
 
 Noteworthy since 0.1.1:
 - Docking interface 
-- Highlight support for 24 general languages, now with VB.NET, Delphi/FreePascal, F#, LSharp 
+- Highlight support for 24 general languages, now with VB.NET, Delphi/FreePascal, 
+  F#, LSharp 
 - Scripting/command window with LSharp 
 - AutoComplete (incomplete ) 
 - Brace matching for some languages 
@@ -522,7 +539,8 @@ Final release:
 
 0.1.0.5   - November 30, 2005
 
-- Fixes and new condtional syntax highlighting and starts of a foldbar (doesnt fold yet). 
+- Fixes and new condtional syntax highlighting and starts of a foldbar 
+  (doesnt fold yet). 
 
 0.1.0.4   - November 28, 2005
 
@@ -547,12 +565,14 @@ Just a few critical bug fixes:
 - Many other small fixes
 
 Known issues:
-- In rare cases the undo stack undo's incorrectly, but redoing it a few steps and undoing again, 
-  leaves it back to original state.... . At least I know this is not caused by IMCM bug.
+- In rare cases the undo stack undo's incorrectly, but redoing it a few steps and 
+  undoing again, leaves it back to original state.... . At least I know this is not 
+  caused by IMCM bug.
 
 0.1       - November 22, 2005
 
-- After 2 1/2 years of on and off development, I present the 1st milestone release for xacc.ide. 
+- After 2 1/2 years of on and off development, I present the 1st milestone release 
+  for xacc.ide. 
 
 0.1-rc6   - November 20, 2005
 

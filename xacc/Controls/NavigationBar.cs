@@ -10,7 +10,7 @@ using Xacc.ComponentModel;
 
 namespace Xacc.Controls
 {
-  public partial class NavigationBar : UserControl
+  partial class NavigationBar : UserControl
   {
     public NavigationBar()
     {
@@ -18,6 +18,8 @@ namespace Xacc.Controls
 
       classes.SelectedIndexChanged += new EventHandler(classes_SelectedIndexChanged);
       members.SelectedIndexChanged += new EventHandler(members_SelectedIndexChanged);
+
+      Height = classes.Height + 5;
     }
 
     void members_SelectedIndexChanged(object sender, EventArgs e)
@@ -94,7 +96,25 @@ namespace Xacc.Controls
           AddRecursive(ct, types);
         }
       }
+
+      
     }
+
+    void AddRecursiveNamespace(ICodeNamespace cns, List<ICodeType> types)
+    {
+      foreach (ICodeType type in cns.Types)
+      {
+        types.Add(type);
+        AddRecursive(type, types);
+      }
+
+      foreach (ICodeNamespace ncns in cns.Namespaces)
+      {
+        AddRecursiveNamespace(ncns, types);
+      }
+    }
+
+
 
     delegate void VOIDVOID();
 
@@ -106,12 +126,7 @@ namespace Xacc.Controls
 
       foreach (ICodeNamespace cns in codefile.Namespaces)
       {
-        foreach (ICodeType type in cns.Types)
-        {
-          types.Add(type);
-
-          AddRecursive(type, types);
-        }
+        AddRecursiveNamespace(cns, types);
       }
 
       types.Sort(delegate(ICodeType a, ICodeType b) { return a == null ? -1 : b == null ? 1 : a.Fullname.CompareTo(b.Fullname); });

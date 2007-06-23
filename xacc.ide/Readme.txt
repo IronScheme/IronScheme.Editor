@@ -38,19 +38,15 @@ inception.
 Requirements
 ============
 
-Xacc.ide requires the .NET framework to run and compile C# and VB.NET applications. 
-It works on both .NET 1.1 and .NET 2.0 without differences. For other projects, 
-their respective compilers are required to build applications.
-
-UPDATE: The new 0.2 series requires .NET 2.0.
+Xacc.ide requires the .NET framework 2.0 to run and compile C# and VB.NET applications. 
+For other projects, their respective compilers are required to build applications.
 
 Recommended
 ===========
 
 The following is a list of recommended tools:
 
-•	.NET SDK (1.1 and/or 2.0)
-•	Microsoft Visual C++ toolkit
+•	.NET SDK 2.0
 •	Nullsoft Install System (NSIS)
 
 Features
@@ -66,6 +62,35 @@ Features
 •	Small distribution
 •	Activily developed
 
+Supported Languages
+===================
+
+•	C# (1)
+•	L# (2)
+•	VB.NET
+•	SQL
+•	PowerShell
+•	MSIL
+•	F#
+•	IronPython
+•	Ruby
+•	JavaScript
+•	C/C++
+•	Boo
+•	Nemerle
+•	XML
+•	Mercury
+•	HLSL
+•	Cat
+•	CSLex
+•	Yacc
+•	NSIS
+•	Scala
+•	CSS
+
+1. C# has parser support, navigation & code model
+2. L# has parser support
+
 Command Window
 ==============
 
@@ -77,7 +102,7 @@ Contact information
 
 Website	  http://xacc.sourceforge.net
 Email	    llewellyn@pritchard.org
-Blog	    http://blogs.wdevs.com/leppie
+Blog	    http://xacc.wordpress.com
 Download	http://sourceforge.net/projects/xacc
 
 Credits
@@ -98,8 +123,10 @@ The authors of CSlex. (http://www.infosys.tuwien.ac.at/cuplex/lex.htm)
 The authors of GPPG. (http://plas.fit.qut.edu.au/gppg/)
 Rhys Whetherley for the initial skeleton (gap buffer) for the editor.
 Rob Blackwell for Lsharp. (http://www.lsharp.org/)
-The author of DockPanelSuite.
-The author of TreeViewAdv.
+The author of DockPanelSuite. (http://sourceforge.net/projects/dockpanelsuite/)
+The author of TreeViewAdv. (http://sourceforge.net/projects/treeviewadv/)
+Phil Wright of ComponentFactory for the Office 2007 style toolstrip renderer.
+(http://www.codeproject.com/cs/menu/Office2007Renderer.asp)
 
 Licensing
 =========

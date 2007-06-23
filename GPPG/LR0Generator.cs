@@ -123,6 +123,10 @@ namespace gpcc
               if (state.parseTable.ContainsKey(t))
               {
                 ParserAction other = state.parseTable[t];
+                if (state.conflictTable.ContainsKey(t))
+                {
+                  continue;
+                }
 
                 if (other is Reduce)
                 {
@@ -132,12 +136,13 @@ namespace gpcc
                   // choose in favour of production listed first in the grammar// (changed to handle conflict parsing)
                   if (((Reduce)other).item.production.num > item.production.num)
                   {
+                    state.conflictTable[t] = state.parseTable[t];
                     state.parseTable[t] = new Reduce(item);
                     //state.conflictTable[t] = (Reduce)other;
                   }
                   else
                   {
-                    //state.conflictTable[t] = new Reduce(item);
+                    state.conflictTable[t] = new Reduce(item);
                   }
                 }
                 else
@@ -149,11 +154,13 @@ namespace gpcc
                        item.production.prec.type == PrecType.left))
                     {
                       // resolve in favour of reduce (without error)
+                      //state.conflictTable[t] = state.parseTable[t];
                       state.parseTable[t] = new Reduce(item);
                     }
                     else
                     {
                       // resolve in favour of shift (without error)
+                      state.conflictTable[t] = new Reduce(item);
                     }
                   }
                   else

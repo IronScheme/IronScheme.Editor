@@ -903,7 +903,7 @@ namespace Xacc.CodeModel
     /// <summary>
     /// Gets or sets the enclosing type
     /// </summary>
-		ICodeTypeRef			EnclosingType				{get;set;}					
+		ICodeType			EnclosingType				{get;set;}					
 	}
 
   /// <summary>
@@ -913,12 +913,12 @@ namespace Xacc.CodeModel
   [Serializable]
   public abstract class CodeMember : CodeElement, ICodeMember
   {
-    ICodeTypeRef enclosingtype = null;
+    ICodeType enclosingtype = null;
 
     /// <summary>
     /// Gets or sets the enclosing type
     /// </summary>
-    public ICodeTypeRef EnclosingType
+    public ICodeType EnclosingType
     {
       get {return enclosingtype; }
       set {enclosingtype = value;}
@@ -963,12 +963,12 @@ namespace Xacc.CodeModel
     {
     }
 
-    ICodeTypeRef enclosingtype = null;
+    ICodeType enclosingtype = null;
 
     /// <summary>
     /// Gets or sets the enclosing type
     /// </summary>
-    public ICodeTypeRef EnclosingType
+    public ICodeType EnclosingType
     {
       get {return enclosingtype; }
       set 
@@ -1149,6 +1149,11 @@ namespace Xacc.CodeModel
       {
         ct.Namespace = this;
       }
+      ICodeNamespace cns = elem as ICodeNamespace;
+      if (cns != null)
+      {
+        cns.Namespace = this;
+      }
       return res;
     }
 
@@ -1214,7 +1219,7 @@ namespace Xacc.CodeModel
   [Serializable]
 	public abstract class CodeType					: CodeContainerElement, ICodeType
 	{
-		ICodeTypeRef		enclosingtype = null;
+		ICodeType		enclosingtype = null;
 
     string[] genericargs;
 
@@ -1304,7 +1309,7 @@ namespace Xacc.CodeModel
     /// <summary>
     /// Gets or sets the enclosing type
     /// </summary>
-		public ICodeTypeRef EnclosingType
+		public ICodeType EnclosingType
 		{
 			get {return enclosingtype;}
       set {enclosingtype = value;}
@@ -1331,7 +1336,7 @@ namespace Xacc.CodeModel
       ICodeMember cm = elem as ICodeMember;
       if (cm != null)
       {
-        cm.EnclosingType = new CodeTypeRef(this);
+        cm.EnclosingType = this;
       }
       ICodeComplexMember cce = elem as ICodeComplexMember;
       if (cce != null)

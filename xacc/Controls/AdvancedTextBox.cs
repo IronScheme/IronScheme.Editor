@@ -439,7 +439,7 @@ namespace Xacc.Controls
         int startline;
         IDrawInfo[][] dis = buffer.GetSelectedDrawInfo(out startline);
         StringWriter w = new StringWriter();
-        w.Write("<pre style='color:black;background-color:white;font-family:Consolas,Bitstream Vera Sans Mono,Lucida Console,Courier New;'>");
+        w.Write("<pre style='color:black;border:1 solid windowtext;background-color:white;font-family:Consolas,Bitstream Vera Sans Mono,Lucida Console,Courier New;'>");
         for (int i = 0; i < dis.Length; i++)
         {
           IDrawInfo[] line = dis[i];
@@ -3124,8 +3124,72 @@ namespace Xacc.Controls
 
     private void MoveCaretIntoViewUpper()
     {
-      //MoveIntoView(buffer.CurrentLine + Height/FontHeight - 5);
-      vscroll.Value = buffer.CurrentLine - 3;
+      if (viewlines == null)
+      {
+        DoViewLineInit();
+      }
+
+      int cl = CurrentLine;
+
+
+      if (cl != IsHidden(cl))
+      {
+        int s = FindHiddenStart(cl);
+        TogglePairAt(s);
+        preprocess = false;
+        DoViewLineInit();
+      }
+
+      int i = Array.BinarySearch(viewlines, cl);
+      if (i >= 0)
+      {
+        cl = i;
+        // now bring the caret into view in a nice way
+        vscroll.Maximum = vlinecount;
+        // top
+        if (cl - vscroll.Value <= 0 && vscroll.Value > 0)
+        {
+          int v = cl - 3;
+          if (v < 0)
+          {
+            v = 0;
+          }
+          if (v >= vscroll.Minimum)
+          {
+            vscroll.Value = v;
+          }
+        }
+        // bottom
+        if (cl - vscroll.Value + 1 > (Height - hscroll.Height) / buffer.FontHeight)
+        {
+          int v = cl - 3;
+          if (v < 0)
+          {
+            v = 0;
+          }
+          if (v >= vscroll.Minimum)
+          {
+            vscroll.Value = v;
+          }
+        }
+        // left
+        int lci = buffer.LineColumnIndex;
+        if (lci - hscroll.Value - 2 < 0 && hscroll.Value > 0)
+        {
+          hscroll.Value = lci;
+        }
+        // right
+        float ww = (Width - vscroll.Width - infobarw) / buffer.FontWidth;
+        if (lci - hscroll.Value + 1 >= ww)
+        {
+          int v = (int)((lci - ww + 2));
+          if (v > hscroll.Maximum)
+          {
+            v = hscroll.Maximum;
+          }
+          hscroll.Value = v;
+        }
+      }
     }
 
     internal void MoveCaretIntoView()

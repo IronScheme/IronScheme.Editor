@@ -68,7 +68,7 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 
 t1 =(".zeroinit"|".vtfixup"|".vtentry"|".vtable"|".ver"|".try"|".subsystem"|".size"|".set"|".removeon"|".publickeytoken"|".publickey"|".property"|".permissionset"|".permission")
 t2 =(".param"|".pack"|".override"|".other"|".namespace"|".mresource"|".module"|".method"|".maxstack"|".locals"|".locale"|".line"|".language"|".imagebase"|".hash"|".get")
-t3 =(".fire"|".file"|".field"|".export"|".event"|".entrypoint"|".emitbyte"|".data"|".custom"|".ctor"|".corflags"|".class"|".cctor"|".assembly"|".addon")
+t3 =(".fire"|".file"|".field"|".export"|".event"|".entrypoint"|".emitbyte"|".data"|".custom"|".ctor"|".corflags"|".class"|".cctor"|".assembly"|".addon"|".stackreserve")
 
 type =({t1}|{t2}|{t3})
 

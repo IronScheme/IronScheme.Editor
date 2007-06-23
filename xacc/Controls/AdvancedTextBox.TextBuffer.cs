@@ -1950,6 +1950,7 @@ namespace Xacc.Controls
       }
 
       int lastselstart, lastsellen, lastfirst, lastlast;
+      int[] lastlines = null;
       GraphicsPath lastsel;
 
       //used with fancy selection, o god im glad this over....
@@ -1957,7 +1958,7 @@ namespace Xacc.Controls
       {
         if (selectionstart == lastselstart &&
           selectionlength == lastsellen &&
-          firstline == lastfirst && lastline == lastlast && lastsel != null)
+          firstline == lastfirst && lastline == lastlast && lastsel != null && lastlines == owner.viewlines)
         {
           return lastsel;
         }
@@ -1976,7 +1977,7 @@ namespace Xacc.Controls
 
         GraphicsPath r = new GraphicsPath(), l = new GraphicsPath();
 
-        int[] lines = owner.viewlines;
+        int[] lines = lastlines = owner.viewlines;
 
         const int radius = 5;
 

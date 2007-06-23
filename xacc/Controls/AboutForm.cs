@@ -94,7 +94,7 @@ namespace Xacc.Controls
 
     private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
-      System.Diagnostics.Process.Start("http://blogs.wdevs.com/leppie");
+      System.Diagnostics.Process.Start("http://xacc.sourceforge.net/");
     }
   }
 }

@@ -2,9 +2,9 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "xacc.ide"
-!define PRODUCT_VERSION "0.2.0.75"
+!define PRODUCT_VERSION "0.2.0.76"
 !define PRODUCT_PUBLISHER "leppie"
-!define PRODUCT_WEB_SITE "http://blogs.wdevs.com/leppie/"
+!define PRODUCT_WEB_SITE "http://xacc.sourceforge.net/"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\xacc.ide.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
