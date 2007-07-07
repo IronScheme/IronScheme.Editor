@@ -141,6 +141,7 @@ namespace Xacc.Build
     /// </summary>
 		public event ProjectEventHandler Saved;
 
+
     readonly Hashtable actions = new Hashtable();
  
     FileSystemWatcher fsw = new FileSystemWatcher();
@@ -521,6 +522,7 @@ $    <OutputType>WinExe</OutputType>
     /// <summary>
     /// Gets or sets the array of Action for this project
     /// </summary>
+
     public string[] Actions
     {
       get 
@@ -1381,7 +1383,8 @@ Item Metadata   Description
       Visible
     }
 
-    [Image("COMReference.png")]
+    //[Image("COMReference.png")]
+    [Image("Reference.png")]
     enum COMReferenceType
     {
       Guid,
@@ -1899,8 +1902,8 @@ Item Metadata   Description
 
     internal void ShowProps(object sender, EventArgs e)
     {
-      ProcessActionDialog pad = new ProcessActionDialog(this);
-      pad.ShowDialog(ServiceHost.Window.MainForm);
+      //ProcessActionDialog pad = new ProcessActionDialog(this);
+      //pad.ShowDialog(ServiceHost.Window.MainForm);
     }
 
     internal void NewFile(object sender, EventArgs e)

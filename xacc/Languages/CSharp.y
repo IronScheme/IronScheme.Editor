@@ -375,7 +375,7 @@ default_expression
   ;  
   
 invocation_expression
-  : primary_expression_no_parenthesis '(' argument_list_opt ')'     { MakePair(@2,@4); @@ = @1; /* delegate */}
+  : primary_expression_no_parenthesis type_list_opt '(' argument_list_opt ')'     { MakePair(@3,@5); @@ = @1; /* delegate */}
   | qualified_identifier '(' argument_list_opt ')'                  { MakePair(@2,@4); @@ = @1; }
   ;
 argument_list_opt
@@ -396,6 +396,7 @@ expression_list
   ;
 this_access
   : THIS
+  | THIS '.' IDENTIFIER
   ;
 base_access
   : BASE '.' IDENTIFIER
@@ -1393,10 +1394,8 @@ event_declaration
   : attributes_opt modifiers_opt EVENT type variable_declarators ';' { 
                                                                 
                                                                 CodeElementList cel = new CodeElementList();
-                                                                foreach (string s in $5)
+                                                                foreach (CodeField cf in $5)
                                                                 {
-                                                                  CodeField cf = new CodeField(s,$4);
-                                                                  cf.Location = @4;
                                                                   cel.Add( cf ); 
                                                                 }
                                                                 $$ = new CodeComplexMember(cel);

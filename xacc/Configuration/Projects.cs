@@ -21,7 +21,7 @@ using System;
 using System.Collections;
 using System.Reflection;
 using System.Xml.Serialization;
-
+#if OLDBUILD
 namespace Xacc.Configuration
 {
   /// <summary>
@@ -44,3 +44,4 @@ namespace Xacc.Configuration
 
 	}
 }
+#endif

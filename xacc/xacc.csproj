@@ -136,9 +136,7 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Build\Action.cs" />
     <Compile Include="Build\ActionResult.cs" />
-    <Compile Include="Build\Option.cs" />
     <Compile Include="Build\Project.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -149,6 +147,7 @@
     <Compile Include="CodeModel\Location.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Collections\RangeTree.cs" />
     <Compile Include="Collections\DoubleLinkedList.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -182,6 +181,7 @@
     <Compile Include="ComponentModel\DebuggerBase.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ComponentModel\IUpdaterService.cs" />
     <Compile Include="ComponentModel\Mdbg.cs">
     </Compile>
     <Compile Include="ComponentModel\IBuildService.cs" />
@@ -269,19 +269,7 @@
     <Compile Include="ComponentModel\ServiceHost.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Configuration\Config.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Configuration\ConfigCompiler.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Configuration\KickStart.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Configuration\Projects.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Configuration\Schema.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controls.Design\Editors.cs">
@@ -343,9 +331,6 @@
     </Compile>
     <Compile Include="Controls\PictureListBox.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\ProcessActionDialog.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Controls\ProgressDialog.cs">
       <SubType>Form</SubType>
@@ -434,9 +419,6 @@
     <Compile Include="Utils\GetArgs.cs">
       <SubType>Code</SubType>
     </Compile>
-    <EmbeddedResource Include="Configuration\Config.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -587,9 +569,6 @@
     </None>
     <None Include="Build\Project.xsx">
       <DependentUpon>Project.xsd</DependentUpon>
-    </None>
-    <None Include="Configuration\Config.xsx">
-      <DependentUpon>Config.xsd</DependentUpon>
     </None>
     <None Include="Languages\Changelog.lex" />
     <None Include="Languages\CSharp.lex" />

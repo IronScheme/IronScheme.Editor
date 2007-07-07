@@ -32,10 +32,7 @@ namespace Xacc.ComponentModel
 	/// </summary>
 	public interface IService
 	{
-    /// <summary>
-    /// Gets the property name of the service in service host if any
-    /// </summary>
-    string PropertyName {get;}
+
 	}
 
 	/// <summary>
@@ -62,6 +59,7 @@ namespace Xacc.ComponentModel
     readonly static Dictionary<Type, string> propmap = new Dictionary<Type, string>();
     static ApplicationState state = 0;
     static internal bool isshuttingdown = false;
+    static bool initialized = false;
 
 
 		/// <summary>
@@ -120,8 +118,6 @@ namespace Xacc.ComponentModel
         }
       }
     }
-
-    string IService.PropertyName {get {return null;}}
 
     static internal string GetPropertyName(Type svctype)
     {
@@ -220,6 +216,13 @@ namespace Xacc.ComponentModel
         Configuration.IdeSupport.about.progressBar1.Value = 65 + (int)(F * i / c);
         i++;
       }
+
+      initialized = true;
+    }
+
+    internal static bool Initialized
+    {
+      get { return initialized; }
     }
 
 		/// <summary>
@@ -452,6 +455,11 @@ namespace Xacc.ComponentModel
 		{
 			get { return Get<IPluginManagerService>();}
 		}
+
+    public static IUpdaterService Updater
+    {
+      get { return Get<IUpdaterService>(); }
+    }
 
 		void IDisposable.Dispose()
 		{

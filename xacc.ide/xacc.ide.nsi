@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "xacc.ide"
-!define PRODUCT_VERSION "0.2.0.76"
+!define PRODUCT_VERSION "0.2.0.77"
 !define PRODUCT_PUBLISHER "leppie"
 !define PRODUCT_WEB_SITE "http://xacc.sourceforge.net/"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\xacc.ide.exe"
@@ -183,6 +183,8 @@ Section "xacc.ide ${PRODUCT_VERSION}" SEC01
 SectionIn 1 2 RO
   SetOutPath "$INSTDIR"
   SetOverwrite ifnewer
+  Rename "profile.ls" "profile.ls.old"
+  SetErrorLevel 0
   DetailPrint "Removing previous native images (if any)..."
   nsExec::ExecToStack '"$NETPATH\ngen.exe" uninstall "$INSTDIR\xacc.lexers.managed.dll"'
   CreateDirectory "$SMPROGRAMS\xacc.ide"
@@ -209,9 +211,9 @@ SectionIn 1 2 RO
 	;File "mdbg.dll"
 	;File "lsc.exe"
 	File "xacc.lexers.managed.dll"
-  File "xacc.config.xml"
+  ;File "xacc.config.xml"
   File "xacc.imports"
-  File "xacc.config.xsl"
+  ;File "xacc.config.xsl"
 	File "Readme.txt"
 	File "Changelog.txt"
 	File "command.ls"

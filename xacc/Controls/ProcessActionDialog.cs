@@ -37,9 +37,10 @@ using Xacc.Build;
 
 using SR = System.Resources;
 #endregion
-
+#if OLDBUILD
 namespace Xacc.Controls
 {
+  [Obsolete("Moving to MSBuild")]
 	class ProcessActionDialog : Form
 	{
 		TabControl tc;
@@ -139,6 +140,7 @@ namespace Xacc.Controls
       }
     }
 
+    [Obsolete("Moving to MSBuild")]
 		class OptionPanel : Panel
 		{
 			Option option;
@@ -286,3 +288,4 @@ namespace Xacc.Controls
 		}
 	}
 }
+#endif

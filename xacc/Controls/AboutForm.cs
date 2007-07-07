@@ -36,7 +36,7 @@ namespace Xacc.Controls
     {
       Size = new Size(408, 280);
       ShowInTaskbar = false;
-      FormBorderStyle = FormBorderStyle.None;
+      //FormBorderStyle = FormBorderStyle.None;
       StartPosition = FormStartPosition.CenterParent;
 
       Image i = Image.FromStream(typeof(AboutForm).Assembly.GetManifestResourceStream(
@@ -84,10 +84,14 @@ namespace Xacc.Controls
       // AboutForm
       // 
       this.ClientSize = new System.Drawing.Size(408, 280);
+      this.ControlBox = false;
       this.Controls.Add(this.progressBar1);
       this.Controls.Add(this.linkLabel1);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+      this.MaximizeBox = false;
+      this.MinimizeBox = false;
       this.Name = "AboutForm";
+      this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
       this.ResumeLayout(false);
 
     }

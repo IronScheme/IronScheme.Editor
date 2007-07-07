@@ -34,11 +34,13 @@ using System.Reflection;
 using SR = System.Resources;
 #endregion
 
+#if OLDBUILD
 namespace Xacc.Build
 {
   /// <summary>
   /// The type of the Option
   /// </summary>
+  [Obsolete("Moving to MSBuild")]
   public enum OptionType
   {
     /// <summary>
@@ -58,6 +60,7 @@ namespace Xacc.Build
   /// <summary>
   /// Defines options for CustomAction
   /// </summary>
+  [Obsolete("Moving to MSBuild")]
 	public sealed class Option
 	{
 		string name, 
@@ -213,3 +216,4 @@ namespace Xacc.Build
 	}
 
 }
+#endif

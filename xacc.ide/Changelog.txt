@@ -1,3 +1,11 @@
+0.2.0.77 - July 7, 2007 
+
+- Fixed regression bug in C# parser
+- Removed all old build related classes, config.xml not used any more
+- Release RSS feed at http://xacc-ide.qsh.eu/rss.aspx
+- Fixed input encoding in CSLex lexer
+- New updater service, see profile.ls
+
 0.2.0.76 - June 23, 2007 
 
 - Fixed Navigation Bar selection with 'folded' regions

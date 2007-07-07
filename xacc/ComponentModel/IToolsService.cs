@@ -148,7 +148,7 @@ namespace Xacc.ComponentModel
 
     void InvokeLangTool(object sender, EventArgs e)
     {
-      Build.ProcessAction pa = ((ToolStripMenuItem)sender).Tag as Build.ProcessAction;
+      //Build.ProcessAction pa = ((ToolStripMenuItem)sender).Tag as Build.ProcessAction;
       //bool res = pa.Invoke(ServiceHost.File.Current);
     }
 
@@ -170,12 +170,12 @@ namespace Xacc.ComponentModel
 
           foreach (Type t in l.actions)
           {
-            Build.ProcessAction pa = Activator.CreateInstance(t) as Build.ProcessAction;
-            ToolStripMenuItem mi = new ToolStripMenuItem(pa.Name, null, new EventHandler(InvokeLangTool));
-            //mi.Index = tl.MenuItems.Count;
-            mi.Enabled = pa.IsAvailable;
-            mi.Tag = pa;
-            mm.Add(mi);
+            //Build.ProcessAction pa = Activator.CreateInstance(t) as Build.ProcessAction;
+            //ToolStripMenuItem mi = new ToolStripMenuItem(pa.Name, null, new EventHandler(InvokeLangTool));
+            ////mi.Index = tl.MenuItems.Count;
+            //mi.Enabled = pa.IsAvailable;
+            //mi.Tag = pa;
+            //mm.Add(mi);
           }
 
           mma = mm.ToArray(typeof(ToolStripMenuItem)) as ToolStripMenuItem[];

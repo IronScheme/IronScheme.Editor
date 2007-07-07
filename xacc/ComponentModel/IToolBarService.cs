@@ -93,12 +93,17 @@ namespace Xacc.ComponentModel
       if (!map.ContainsKey(parent))
       {
         ToolStrip ts = new ToolStrip();
+        ts.Stretch = false;
+
+        ts.Anchor = AnchorStyles.None;
+        ts.Dock = DockStyle.Top;
         ts.Name = MnemonicEscape(parent.Text);
         ts.ImageList = ServiceHost.ImageListProvider.ImageList;
         ts.TabIndex = (map[parent] = toplevel.Count) + 1;
         toplevel.Add(ts);
         ts.Visible = false;
-        ts.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
+        ts.LayoutStyle = ToolStripLayoutStyle.Flow;
+        ((FlowLayoutSettings)ts.LayoutSettings).FlowDirection = FlowDirection.LeftToRight;
         toolbar.TopToolStripPanel.Controls.Add(ts);
         
       }

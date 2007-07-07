@@ -39,11 +39,14 @@ namespace Xacc.ComponentModel
     /// </summary>
     /// <value>The progress.</value>
     float Progress { get; set;}
+
+    string StatusText { get; set;}
 	}
 
 	sealed class StatusBarService : ServiceBase, IStatusBarService
 	{
     readonly StatusStrip status = new StatusStrip();
+    readonly ToolStripStatusLabel label = new ToolStripStatusLabel();
     readonly ToolStripProgressBar progress = new ToolStripProgressBar();
 
     const float MAX = 20f;
@@ -58,12 +61,17 @@ namespace Xacc.ComponentModel
       status.Dock = DockStyle.Bottom;
       status.LayoutStyle = ToolStripLayoutStyle.StackWithOverflow;
       ServiceHost.Window.MainForm.Controls.Add(status);
+
+      label.Alignment = ToolStripItemAlignment.Left;
+      status.Items.Add(label);
+
       progress.Alignment = ToolStripItemAlignment.Right;
       progress.AutoSize = false;
       progress.Style = ProgressBarStyle.Continuous;
       progress.Width = 200;
       progress.Maximum = (int)MAX;
       progress.Minimum = 0;
+      
       status.RenderMode = ToolStripRenderMode.ManagerRenderMode;
       status.Items.Add(progress);
     }
@@ -82,6 +90,30 @@ namespace Xacc.ComponentModel
         if (current != this.current)
         {
           SetValue(this.current = current);
+        }
+      }
+    }
+
+    delegate void SW(string v);
+
+    void SetStatusText(string text)
+    {
+      if (InvokeRequired)
+      {
+        Invoke(new SW(SetStatusText), new object[] { text });
+        return;
+      }
+      label.Text = text;
+    }
+
+    public string StatusText
+    {
+      get { return label.Text; }
+      set
+      {
+        if (value != label.Text)
+        {
+          SetStatusText(value);
         }
       }
     }

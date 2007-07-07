@@ -45,7 +45,7 @@ using Microsoft.Build.Framework;
 
 #endregion
 
-
+#if OLDBUILD
 namespace Xacc.Build
 {
   /// <summary>
@@ -54,6 +54,7 @@ namespace Xacc.Build
   [System.Xml.Serialization.XmlTypeAttribute(Namespace="xacc:build")]
 	[Name("n/a")]
   [MultipleInput(false)]
+  [Obsolete("Moving to MSBuild")]
 	public abstract class Action : ToolTask
 	{
     readonly string name;
@@ -74,7 +75,7 @@ namespace Xacc.Build
         int i = ilp[this];
         if (i == 0)
         {
-          ilp.Add(GetType(), Drawing.Utils.MakeTreeImage(GetType()));
+          //ilp.Add(GetType(), Drawing.Utils.MakeTreeImage(GetType()));
         }
 				return ilp[this];
 			}
@@ -112,6 +113,7 @@ namespace Xacc.Build
   /// <summary>
   /// Attribute to define OutputExtension of CustomAction
   /// </summary>
+  [Obsolete("Moving to MSBuild")] 
   public class OutputExtensionAttribute : Attribute
   {
     static readonly Hashtable values = new Hashtable();
@@ -152,6 +154,7 @@ namespace Xacc.Build
   /// Attribute to define InputExtension of CustomAction
   /// </summary>
   [AttributeUsage(AttributeTargets.Class, AllowMultiple=true)]
+  [Obsolete("Moving to MSBuild")]
   public class InputExtensionAttribute : Attribute
   {
     static readonly Hashtable values = new Hashtable();
@@ -192,6 +195,7 @@ namespace Xacc.Build
   /// <summary>
   /// Attribute to define MultipleInput option of CustomAction
   /// </summary>
+  [Obsolete("Moving to MSBuild")]  
   public class MultipleInputAttribute : Attribute
   {
     static readonly Hashtable values = new Hashtable();
@@ -243,6 +247,7 @@ namespace Xacc.Build
   [Name("None")]
   [MultipleInput]
   [InputExtension("*")]
+  [Obsolete("Moving to MSBuild")]
   public sealed class NullAction : CustomAction
   {
 
@@ -252,6 +257,7 @@ namespace Xacc.Build
   /// Base class for all CustomActions
   /// </summary>
   [System.Xml.Serialization.XmlTypeAttribute(Namespace="xacc:build")]
+  [Obsolete("Moving to MSBuild")]
   public abstract class CustomAction : Action
   {		
     /// <summary>
@@ -489,6 +495,7 @@ namespace Xacc.Build
   /// Base class for all ProcessAction's
   /// </summary>
   [System.Xml.Serialization.XmlTypeAttribute(Namespace="xacc:build")]
+  [Obsolete("Moving to MSBuild")]
  	public abstract class ProcessAction : CustomAction
 	{
 		readonly StringDictionary envvar = new StringDictionary();
@@ -712,6 +719,7 @@ namespace Xacc.Build
   /// Base class for Options linked to Actions
   /// </summary>
 	[Name("Option")]
+  [Obsolete("Moving to MSBuild")]
 	public abstract class OptionAction : Action
 	{
 		readonly Option option;
@@ -778,3 +786,4 @@ namespace Xacc.Build
 		}
 	}
 }
+#endif

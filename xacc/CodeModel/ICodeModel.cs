@@ -612,7 +612,21 @@ namespace Xacc.CodeModel
       {
         return null;
       }
-      elements.Remove(elem.Fullname);
+      if (elements.ContainsKey(elem.Fullname))
+      {
+        elements.Remove(elem.Fullname);
+      }
+      else
+      {
+        foreach (DictionaryEntry de in elements)
+        {
+          if (de.Value == elem)
+          {
+            elements.Remove(de.Key);
+            break;
+          }
+        }
+      }
       return elem;
     }
 
@@ -706,6 +720,16 @@ namespace Xacc.CodeModel
     /// <param name="name">the name of the file</param>
     public CodeFile(string name) : base(name)
     {
+    }
+
+    public override string Fullname
+    {
+      get
+      {
+#warning verify correctness
+        return System.IO.Path.GetFullPath(Name);
+        //return base.Fullname;
+      }
     }
   }
 
@@ -802,6 +826,8 @@ namespace Xacc.CodeModel
       if (cns == null)
       {
         cns = Add( new CodeNamespace(namespacename));
+
+ 
       }
       return cns;
 		}
@@ -844,7 +870,8 @@ namespace Xacc.CodeModel
       }
       //merge
 
-      cn.AddRange( (cns as ICodeContainerElement).Elements);
+     // cn.AddRange( (cns as ICodeContainerElement).Elements);
+      base.Add(cns);
 			
 			return cn;
 		}
@@ -860,6 +887,12 @@ namespace Xacc.CodeModel
       {
         if (elem is ICodeNamespace)
         {
+          foreach (ICodeNamespace ncns in ((ICodeNamespace) elem).Namespaces)
+          {
+            ncns.Name = ncns.Fullname;
+            ncns.Namespace = null;
+            Add(ncns);
+          }
           return base.Add (elem);
         }
         else if (elem is ICodeType)
@@ -1087,7 +1120,17 @@ namespace Xacc.CodeModel
     public ICodeNamespace	Namespace
     {
       get { return ns; }
-      set { ns = value; }
+      set 
+      {
+        if (ns != value)
+        {
+          if (ns != null)
+          {
+            ns.Remove(this);
+          }
+          ns = value;
+        }
+      }
     }
 
     /// <summary>
@@ -1110,7 +1153,7 @@ namespace Xacc.CodeModel
       {
         if (ns == null || Name == string.Empty)
         {
-          return string.Empty;
+          return Name;
         }
         string pname = ns.Fullname;
         if (pname.Length > 0)
@@ -2626,7 +2669,7 @@ namespace Xacc.CodeModel
     /// <returns>the string value</returns>
     public override string ToString()
     {
-      return proptype + " " + Name;
+      return Name + " : " + proptype;
     }
   }
 

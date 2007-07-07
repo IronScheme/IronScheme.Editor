@@ -49,10 +49,6 @@ namespace Xacc.Controls
 
         if (ct != null)
         {
-
-          //members.Items.Clear();
-          
-
           List<ICodeMember> mems = new List<ICodeMember>();
 
           foreach (ICodeMember cm in ct.Members)
@@ -66,11 +62,6 @@ namespace Xacc.Controls
           mems.Sort(delegate(ICodeMember a, ICodeMember b) { return a.Name.CompareTo(b.Name); });
 
           members.DataSource = mems;
-
-          //if (mems.Count == 0)
-          //{
-          //  members.DropDownHeight = SystemInformation.MenuHeight;
-          //}
 
           if (!binding)
           {
@@ -96,8 +87,6 @@ namespace Xacc.Controls
           AddRecursive(ct, types);
         }
       }
-
-      
     }
 
     void AddRecursiveNamespace(ICodeNamespace cns, List<ICodeType> types)

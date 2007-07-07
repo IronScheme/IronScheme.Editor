@@ -226,24 +226,27 @@ namespace Xacc.Controls
         if (l != null)
         {
           e.Graphics.DrawString(l.Name,
-            SystemInformation.MenuFont, 
-            b,
-            r.Right + 1, e.Bounds.Top + hh);
-        }
-        CodeModel.ICodeElement cl = Items[e.Index] as CodeModel.ICodeElement;
-        if (cl != null)
-        {
-          e.Graphics.DrawString(cl is CodeModel.ICodeType ? cl.Fullname : (cl is CodeModel.ICodeMethod ? cl.ToString() : cl.Name),
             SystemInformation.MenuFont,
             b,
             r.Right + 1, e.Bounds.Top + hh);
         }
         else
         {
-          e.Graphics.DrawString(NameAttribute.GetName(t),
-            SystemInformation.MenuFont,
-            b,
-            r.Right + 1, e.Bounds.Top + hh);
+          CodeModel.ICodeElement cl = Items[e.Index] as CodeModel.ICodeElement;
+          if (cl != null)
+          {
+            e.Graphics.DrawString(cl is CodeModel.ICodeType ? cl.Fullname : ((cl is CodeModel.ICodeMethod || cl is CodeModel.ICodeField || cl is CodeModel.ICodeProperty) ? cl.ToString() : cl.Name),
+              SystemInformation.MenuFont,
+              b,
+              r.Right + 1, e.Bounds.Top + hh);
+          }
+          else
+          {
+            e.Graphics.DrawString(NameAttribute.GetName(t),
+              SystemInformation.MenuFont,
+              b,
+              r.Right + 1, e.Bounds.Top + hh);
+          }
         }
       }
 

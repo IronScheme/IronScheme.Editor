@@ -90,7 +90,8 @@ namespace Xacc.Drawing
 
     static Random RANDOM = new Random(0x0EEFFACE);
     static Font SMALLFONT = new Font(System.Windows.Forms.SystemInformation.MenuFont.FontFamily, 6f); // ok 6 then 
-
+#if OLD
+    [Obsolete("Not used")]
     public static Image MakeTreeImage(Type t)
     {
       using (Stream s = typeof(Utils).Assembly.GetManifestResourceStream("Xacc.Resources.na.png"))
@@ -126,5 +127,6 @@ namespace Xacc.Drawing
         return b;
       }
     }
+#endif
 	}
 }

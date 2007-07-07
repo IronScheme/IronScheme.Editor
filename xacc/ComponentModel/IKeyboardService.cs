@@ -163,6 +163,16 @@ namespace Xacc.ComponentModel
       public abstract void Invoke();
     }
 
+    static string GetServiceName(IService svc)
+    {
+      if (Attribute.IsDefined(svc.GetType(), typeof(NameAttribute)))
+      {
+        NameAttribute na = Attribute.GetCustomAttribute(svc.GetType(), typeof(NameAttribute)) as NameAttribute;
+        return na.Name;
+      }
+      return svc.ToString();
+    }
+
     internal sealed class ToggleAction : Action
     {
       public PropertyInfo pi;
@@ -173,7 +183,7 @@ namespace Xacc.ComponentModel
 
       public override string ToString()
       {
-        return string.Format("Toggle: {0}.{1} [{2}]", target.PropertyName, pi.Name, State);
+        return string.Format("Toggle: {0}.{1} [{2}]", GetServiceName(target), pi.Name, State);
       }
 
       public override bool Equals(object obj)
@@ -233,7 +243,7 @@ namespace Xacc.ComponentModel
 
       public override string ToString()
       {
-        return string.Format("Action: {0}.{1} [{2}]", target.PropertyName, mi.Name, State);
+        return string.Format("Action: {0}.{1} [{2}]", GetServiceName(target), mi.Name, State);
       }
 
       public override bool Equals(object obj)
@@ -290,7 +300,7 @@ namespace Xacc.ComponentModel
 
       public override string ToString()
       {
-        return string.Format("Dialog: {0}.{1} [{2}]", target.PropertyName, mi.Name, State);
+        return string.Format("Dialog: {0}.{1} [{2}]", GetServiceName(target), mi.Name, State);
       }
 
       public override bool Equals(object obj)

@@ -37,6 +37,7 @@ using Compiler = Xacc.Runtime.Compiler;
 
 namespace Xacc.Configuration
 {
+  [Obsolete("Moving to profile.ls")]
   class ConfigCompiler
   {
     static string Cap(object a)
@@ -324,19 +325,19 @@ class AssemblyLoader : AssemblyPluginProvider
                 }
               }
 
-              if (b.language != null)
-              {
-                foreach (language l in b.language)
-                {
-                  if (l.action != null)
-                  {
-                    foreach (projectaction a in l.action)
-                    {
-                      output.WriteLine("ServiceHost.Language.AddAction({0}, typeof({1}));", Stringify(l.name), a.@ref);
-                    }
-                  }
-                }
-              }
+              //if (b.language != null)
+              //{
+              //  foreach (language l in b.language)
+              //  {
+              //    if (l.action != null)
+              //    {
+              //      foreach (projectaction a in l.action)
+              //      {
+              //        output.WriteLine("ServiceHost.Language.AddAction({0}, typeof({1}));", Stringify(l.name), a.@ref);
+              //      }
+              //    }
+              //  }
+              //}
 
 
               output.WriteLine(@"
@@ -349,6 +350,8 @@ class AssemblyLoader : AssemblyPluginProvider
               Hashtable invalid = new Hashtable();
 
               #region Actions
+
+#if OLD
 
               if (b.action != null)
               {
@@ -552,12 +555,13 @@ class AssemblyLoader : AssemblyPluginProvider
 
                 }
               }
+#endif
               #endregion
 
               #region Projects
 
               ArrayList plist = new ArrayList();
-              
+#if OLD        
               if (b.project != null)
               {
 
@@ -607,7 +611,7 @@ class AssemblyLoader : AssemblyPluginProvider
                   output.WriteLine();
                 }
               }
-            
+#endif
               #endregion
 
               output.WriteLine(@"[XmlRoot(""projects"",Namespace=""xacc:build"")]");

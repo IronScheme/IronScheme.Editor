@@ -18,6 +18,8 @@ namespace Xacc.Languages
 
 %class CSLexLexer
 
+%full
+
 %state DIRECTIVES RULES
 %state RESECT, CODEBLOCK
 %state MLCOMMENT

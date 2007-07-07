@@ -127,6 +127,11 @@ namespace Xacc.Diagnostics
         System.Diagnostics.Trace.WriteLine(msg);
       }
 
+      if (Xacc.ComponentModel.ServiceHost.Initialized)
+      {
+        Xacc.ComponentModel.ServiceHost.StatusBar.StatusText = string.Format(format, args);
+      }
+
     }
 	}
 }

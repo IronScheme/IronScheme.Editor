@@ -54,6 +54,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     /// <param name="assembly">the assembly to load</param>
 		void LoadAssembly(Assembly assembly);
+    void LoadFile(string filename);
 	}
 
   /// <summary>
@@ -128,6 +129,7 @@ namespace Xacc.ComponentModel
         new DebugService();
         new ToolsService();
         new HelpService();
+        new UpdaterService();
 
         new ScriptingService();
         new FontManager();
@@ -137,15 +139,15 @@ namespace Xacc.ComponentModel
 
         Configuration.IdeSupport.about.progressBar1.Value += 10;
       
-        bool cres = Configuration.ConfigCompiler.CompileConfig();
+        //bool cres = Configuration.ConfigCompiler.CompileConfig();
 
         Configuration.IdeSupport.about.progressBar1.Value = 55;
 
-        if (!cres)
-        {
-          throw new ApplicationException("Configuration could not be compiled. Please send your xacc.config.xml " +
-            "and xacc.config.cs file to llewellyn@pritchard.org if you feel you are not in error. Thanks.");
-        }
+        //if (!cres)
+        //{
+        //  throw new ApplicationException("Configuration could not be compiled. Please send your xacc.config.xml " +
+        //    "and xacc.config.cs file to llewellyn@pritchard.org if you feel you are not in error. Thanks.");
+        //}
       }
       catch (Exception ex)
       {
@@ -178,6 +180,12 @@ namespace Xacc.ComponentModel
         fsw.Deleted +=new FileSystemEventHandler(fsw_Deleted);
         fsw.Renamed +=new RenamedEventHandler(fsw_Renamed);
       }
+    }
+
+    public void LoadFile(string filename)
+    {
+      Assembly ass = Assembly.LoadFile(Path.GetFullPath(filename));
+      LoadAssembly(ass);
     }
 
 

@@ -22,7 +22,7 @@ using System.Collections;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 using System.IO;
-
+#if OLDBUILD
 namespace Xacc.Configuration
 {
   /// <summary>
@@ -69,3 +69,4 @@ namespace Xacc.Configuration
     }
 	}
 }
+#endif

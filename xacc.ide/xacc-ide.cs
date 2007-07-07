@@ -41,6 +41,7 @@ using Xacc.Controls;
     static void Main(string[] args)
     {
       ide f = new ide();
+
       if (IdeSupport.KickStart(f))
       {
         f.ResumeLayout(false);
