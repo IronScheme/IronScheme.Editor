@@ -31,18 +31,20 @@ namespace Xacc.ComponentModel
       l.GetLatestVersionAsync(download ? install ? 2 : 1 : 0);
     }
 
+    string latest;
+
     void l_GetLatestVersionCompleted(object sender, GetLatestVersionCompletedEventArgs e)
     {
       if (!e.Cancelled && e.Error == null)
       {
         int state = (int)e.UserState;
-        string latest = e.Result;
+        latest = e.Result;
         Version latestver = new Version(latest);
         Version currver = typeof(UpdaterService).Assembly.GetName().Version;
 
         Trace.WriteLine("Latest version: {0} Current version: {1}", latest, currver);
 
-        int d = latestver.CompareTo(currver);
+        int d = 1;// latestver.CompareTo(currver);
 
         if (d > 0)
         {
@@ -61,31 +63,51 @@ Do you want to download the latest version?", currver, latestver),
               break;
             case 1:
             case 2:
+              Status.Write("Downloading latest version...");
               Trace.WriteLine("Downloading latest version");
+              ServiceHost.StatusBar.Progress = 0;
               WebClient wc = new WebClient();
+              wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(wc_DownloadProgressChanged);
               wc.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(wc_DownloadFileCompleted);
               wc.DownloadFileAsync(new Uri(string.Format("http://downloads.sourceforge.net/xacc/xacc.ide-{0}-setup.exe", latestver)),
-                string.Format("{1}/xacc.ide-{0}-setup.exe", latestver, Path.GetDirectoryName(Application.ExecutablePath)), 
+                string.Format("{1}/xacc.ide-{0}-setup.exe", latestver, Path.GetDirectoryName(Application.ExecutablePath)),
                 string.Format("{1}/xacc.ide-{0}-setup.exe", latestver, Path.GetDirectoryName(Application.ExecutablePath)));
-              break;
-
               break;
           }
         }
       }
     }
 
+    void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+    {
+      ServiceHost.StatusBar.Progress = e.ProgressPercentage / 100f;
+      ServiceHost.StatusBar.StatusText = string.Format("Downloading... {0}% {1:f0}KB remaining", e.ProgressPercentage,(e.TotalBytesToReceive - e.BytesReceived)/1024f);
+    }
+
     void wc_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
     {
-      Trace.WriteLine("Download completed");
+      ServiceHost.StatusBar.Progress = 1;
       if (!e.Cancelled && e.Error == null)
       {
+        Status.Write("Download completed");
+        Trace.WriteLine("Download completed");
+
         string fn = e.UserState as string;
         if (DialogResult.Yes == MessageBox.Show(ServiceHost.Window.MainForm,
           @"Would you like to install it now?", "Download completed", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
         {
           Process installer = Process.Start(fn);
           Application.Exit();
+        }
+      }
+      else
+      {
+        Trace.WriteLine("Download failed: {0}", e.Error.Message);
+
+        if (DialogResult.Yes == MessageBox.Show(ServiceHost.Window.MainForm,
+          @"Download failed. Would you like to download it manually?", "Download error: " + e.Error.Message, MessageBoxButtons.YesNo, MessageBoxIcon.Error))
+        {
+          Process.Start(string.Format("http://downloads.sourceforge.net/xacc/xacc.ide-{0}-setup.exe", latest));
         }
       }
     }

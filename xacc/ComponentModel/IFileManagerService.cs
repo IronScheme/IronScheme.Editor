@@ -512,6 +512,7 @@ namespace Xacc.ComponentModel
 		}
 		void TraceOpened(object sender, FileEventArgs e)
 		{
+      Status.Write("Opened({0})", e.FileName);
 			Trace.WriteLine(string.Format("Opened({0})", e.FileName));
 		}
 		void TraceSaving(object sender, FileEventArgs e)
@@ -520,6 +521,7 @@ namespace Xacc.ComponentModel
 		}
 		void TraceSaved(object sender, FileEventArgs e)
 		{
+      Status.Write("Saved({0})", e.FileName);
 			Trace.WriteLine(string.Format("Saved({0})", e.FileName));
 		}
 		void TraceClosing(object sender, FileEventArgs e)
@@ -528,6 +530,7 @@ namespace Xacc.ComponentModel
 		}
 		void TraceClosed(object sender, FileEventArgs e)
 		{
+      Status.Write("Closed({0})", e.FileName);
 			Trace.WriteLine(string.Format("Closed({0})", e.FileName));
 		}
 
@@ -1529,7 +1532,9 @@ namespace Xacc.ComponentModel
 
 			if (ms != null)
 			{
-        Trace.WriteLine("State change request: ActiveContent = {0}", ServiceHost.Window.Document.ActiveContent);
+#if DEBUG
+        //Trace.WriteLine("State change request: ActiveContent = {0}", ServiceHost.Window.Document.ActiveContent);
+#endif
 				if (ServiceHost.Window.Document.ActiveContent != null)
 				{
 					string curr = (ServiceHost.Window.Document.ActiveContent as IDockContent).Tag as string;

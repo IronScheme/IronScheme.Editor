@@ -1618,7 +1618,7 @@ namespace Xacc.Controls
 
                 if (di.backcolor != Color.Empty)
                 {
-                  Brush bg = Factory.SolidBrush(di.backcolor);
+                  Brush bg = Factory.SolidBrush(Color.FromArgb(127, di.backcolor));
                   g.FillRectangle(bg, di.start, fh + 1, di.end - di.start, fh2);
                 }
                 if (di.bordercolor != Color.Empty)
@@ -2221,20 +2221,23 @@ namespace Xacc.Controls
         {
           TokenLine tl = GetUserState(loc.LineNumber - 1);
 
-          for (int i = tl.Tokens.Length - 1; i >= 0; i--)
+          if (tl != null)
           {
-            //if (tl.Tokens[i].Location == loc)
-            //{
-            //  loc.callback(tl.Tokens[i]);
-            //  break;
-            //}
-            //else 
-            if (tl.Tokens[i].Location.IsIn(loc))
+            for (int i = tl.Tokens.Length - 1; i >= 0; i--)
             {
-              if (tl.Tokens[i].Class != TokenClass.Operator)
+              //if (tl.Tokens[i].Location == loc)
+              //{
+              //  loc.callback(tl.Tokens[i]);
+              //  break;
+              //}
+              //else 
+              if (tl.Tokens[i].Location.IsIn(loc))
               {
-                loc.callback(tl.Tokens[i]);
-                break;
+                if (tl.Tokens[i].Class != TokenClass.Operator)
+                {
+                  loc.callback(tl.Tokens[i]);
+                  break;
+                }
               }
             }
           }

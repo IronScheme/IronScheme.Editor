@@ -76,7 +76,7 @@ namespace Xacc.ComponentModel
         mi.Enabled = File.Exists(((ProcessStartInfo)tools[name]).FileName);
         tl.DropDownItems.Add(mi);
       }
-      LoadView();
+      //LoadView();
     }
 
     protected override void Dispose(bool disposing)
@@ -118,27 +118,27 @@ namespace Xacc.ComponentModel
 
     readonly static string VIEWFILE = Application.StartupPath + Path.DirectorySeparatorChar + "view.xml";
 
-    [MenuItem("Save view", Index = 998, State = 0)]
-    public void SaveView()
-    {
-      ServiceHost.Window.Document.Save(VIEWFILE);
-    }
+    //[MenuItem("Save view", Index = 998, State = 0)]
+    //public void SaveView()
+    //{
+    //  ServiceHost.Window.Document.Save(VIEWFILE);
+    //}
 
-    [MenuItem("Load view", Index = 999, State = 0)]
-    void LoadView()
-    {
-      if (File.Exists(VIEWFILE))
-      {
-        try
-        {
-          ServiceHost.Window.Document.Load(VIEWFILE);
-        }
-        catch 
-        {
-          File.Delete(VIEWFILE);
-        }
-      }
-    }
+    //[MenuItem("Load view", Index = 999, State = 0)]
+    //void LoadView()
+    //{
+    //  if (File.Exists(VIEWFILE))
+    //  {
+    //    try
+    //    {
+    //      ServiceHost.Window.Document.Load(VIEWFILE);
+    //    }
+    //    catch 
+    //    {
+    //      File.Delete(VIEWFILE);
+    //    }
+    //  }
+    //}
 //
 //    [MenuItem("Options", Index = 1000, State = 1, Image = "Tools.Options.png")]
 //    void ShowOptions()

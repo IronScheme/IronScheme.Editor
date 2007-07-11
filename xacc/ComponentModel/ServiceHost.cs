@@ -110,7 +110,9 @@ namespace Xacc.ComponentModel
         {
           ApplicationState oldstate = state;
           state = value;
-          Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "State changed: [{0}] -> [{1}]", oldstate, state);
+#if DEBUG
+          //Trace.WriteLine(DateTime.Now.ToString("hh:mm:ss.fff") + " " + "State changed: [{0}] -> [{1}]", oldstate, state);
+#endif
           if (StateChanged != null)
           {
             StateChanged(null, EventArgs.Empty);

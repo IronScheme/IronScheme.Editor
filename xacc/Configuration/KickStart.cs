@@ -296,6 +296,8 @@ namespace Xacc.Configuration
 
       //ToolStripManager.LoadSettings(f);
 
+      //ServiceHost.ToolBar.Load();
+
       if (args.open != null)
       {
         foreach (string of in args.open)
@@ -336,12 +338,13 @@ namespace Xacc.Configuration
 
 		static void f_Closing(object sender, CancelEventArgs e)
 		{
-      ToolStripManager.SaveSettings(ServiceHost.Window.MainForm);
+      //ToolStripManager.SaveSettings(ServiceHost.Window.MainForm);
+      //ServiceHost.ToolBar.Save();
 
       IToolsService its = ServiceHost.Tools;
       if (its != null)
       {
-        (its as ToolsService).SaveView();
+        //(its as ToolsService).SaveView();
       }
 
       IProjectManagerService pms = ServiceHost.Project;

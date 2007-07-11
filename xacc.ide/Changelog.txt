@@ -1,3 +1,14 @@
+0.2.0.79 - July ??, 2007 
+
+- Added manual download if builtin download fails
+- 
+
+0.2.0.78 - July 11, 2007 
+
+- Fixed toolbar reappearing problem, hidden once again
+- Fixed default language plugin not loading correctly
+- Made background colors 50% transparent
+
 0.2.0.77 - July 7, 2007 
 
 - Fixed regression bug in C# parser

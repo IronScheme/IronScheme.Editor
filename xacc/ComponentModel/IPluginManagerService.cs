@@ -184,8 +184,15 @@ namespace Xacc.ComponentModel
 
     public void LoadFile(string filename)
     {
-      Assembly ass = Assembly.LoadFile(Path.GetFullPath(filename));
-      LoadAssembly(ass);
+      try
+      {
+        Assembly ass = Assembly.LoadFile(Path.Combine(Application.StartupPath, filename));
+        LoadAssembly(ass);
+      }
+      catch (FileNotFoundException)
+      {
+        Trace.WriteLine("{0} could not be found", Path.Combine(Application.StartupPath, filename));
+      }
     }
 
 

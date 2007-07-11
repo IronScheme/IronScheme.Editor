@@ -20,6 +20,9 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Drawing;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace Xacc.ComponentModel
 {
@@ -39,7 +42,11 @@ namespace Xacc.ComponentModel
     /// </summary>
     /// <value>The tool bar.</value>
     ToolStripContainer ToolBar { get;}
-	}
+
+    void Save();
+
+    void Load();
+  }
 
 	sealed class ToolBarService : ServiceBase, IToolBarService
 	{
@@ -57,6 +64,8 @@ namespace Xacc.ComponentModel
       ToolStripManager.Renderer = new Xacc.Controls.Office2007Renderer();
       ServiceHost.StateChanged += new EventHandler(ServiceHost_StateChanged);
       toolbar.Dock = DockStyle.Fill;
+
+      
 
       ServiceHost.Window.MainForm.Controls.Add(toolbar);
       toolbar.ContentPanel.Controls.Add(ServiceHost.Window.Document as Control);
@@ -93,17 +102,18 @@ namespace Xacc.ComponentModel
       if (!map.ContainsKey(parent))
       {
         ToolStrip ts = new ToolStrip();
-        ts.Stretch = false;
-
-        ts.Anchor = AnchorStyles.None;
-        ts.Dock = DockStyle.Top;
+        //ts.Stretch = false;
+        ts.GripStyle = ToolStripGripStyle.Visible;
+        ts.Dock = DockStyle.None;
+        //ts.Anchor = AnchorStyles.None;
+        //ts.Dock = DockStyle.Top;
         ts.Name = MnemonicEscape(parent.Text);
         ts.ImageList = ServiceHost.ImageListProvider.ImageList;
         ts.TabIndex = (map[parent] = toplevel.Count) + 1;
         toplevel.Add(ts);
         ts.Visible = false;
-        ts.LayoutStyle = ToolStripLayoutStyle.Flow;
-        ((FlowLayoutSettings)ts.LayoutSettings).FlowDirection = FlowDirection.LeftToRight;
+        ts.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
+        //((HorLayoutSettings)ts.LayoutSettings).FlowDirection = FlowDirection.LeftToRight;
         toolbar.TopToolStripPanel.Controls.Add(ts);
         
       }
@@ -136,5 +146,82 @@ namespace Xacc.ComponentModel
     {
       ValidateToolBarButtons();
     }
+
+    #region IToolBarService Members
+
+    static readonly XmlSerializer SER = new XmlSerializer(typeof(ToolbarSettings));
+
+
+    public void Save()
+    {
+      ToolbarSettings tbs = new ToolbarSettings();
+
+      foreach (ToolStrip ts in toplevel)
+      {
+        ToolbarSetting tbss = new ToolbarSetting();
+        if (ts.Visible)
+        {
+          tbss.Name = ts.Name;
+          tbss.Bounds = ts.Bounds;
+          tbs.Settings.Add(tbss);
+        }
+
+        
+      }
+
+      using (Stream s = File.Create("toolbarsettings.xml"))
+      {
+        SER.Serialize(s, tbs);
+      }
+
+    }
+
+    public void Load()
+    {
+      if (File.Exists("toolbarsettings.xml"))
+      {
+        using (Stream s = File.OpenRead("toolbarsettings.xml"))
+        {
+          ToolbarSettings tbs =  SER.Deserialize(s) as ToolbarSettings;
+
+          if (tbs != null)
+          {
+            toolbar.TopToolStripPanel.SuspendLayout();
+            foreach (ToolbarSetting tbss in tbs.Settings)
+            {
+              foreach (ToolStrip ts in toplevel)
+              {
+                if (ts.Name == tbss.Name)
+                {
+                  
+                  ts.Size = tbss.Bounds.Size;
+                  ts.Location = tbss.Bounds.Location;
+                  //ts.Bounds = tbss.Bounds;
+                }
+              }
+            }
+            toolbar.TopToolStripPanel.ResumeLayout();
+          }
+        }
+      }
+    }
+
+    #endregion
+  }
+
+  public class ToolbarSetting
+  {
+    public string Name;
+    public Rectangle Bounds;
+
+    public override string ToString()
+    {
+      return string.Format("{0} : {1}", Name, Bounds);
+    }
+  }
+
+  public class ToolbarSettings
+  {
+    public List<ToolbarSetting> Settings = new List<ToolbarSetting>();
   }
 }

@@ -128,6 +128,23 @@ namespace Xacc.ComponentModel
       get { return trace; }
     }
 
+    protected sealed class StatusTrace
+    {
+      public void Write(string format, params object[] args)
+      {
+        ServiceHost.StatusBar.StatusText = string.Format(format, args);
+      }
+    }
+
+    readonly StatusTrace statustrace = new StatusTrace();
+
+    protected StatusTrace Status
+    {
+      get { return statustrace; }
+    }
+
+
+
     #endregion
 
     /// <summary>
