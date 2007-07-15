@@ -163,6 +163,11 @@ namespace Xacc.ComponentModel
     /// Select all content
     /// </summary>
     void SelectAll();
+
+    /// <summary>
+    /// Deletes the current line
+    /// </summary>
+    void DeleteCurrentLine();
   }
 
   public interface ISelectObject
@@ -339,6 +344,15 @@ namespace Xacc.ComponentModel
       if (atb != null && ((Control)atb).Focused)
       {
         atb.DeleteSelected();
+      }
+    }
+
+    void DeleteCurrentLine()
+    {
+      IEdit atb = fm.CurrentControl as IEdit;
+      if (atb != null && ((Control)atb).Focused)
+      {
+        atb.DeleteCurrentLine();
       }
     }
 

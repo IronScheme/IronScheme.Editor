@@ -1,5 +1,5 @@
 #region License
- /*	  xacc                																											*
+/*	  xacc                																											*
  	*		Copyright (C) 2003-2006  Llewellyn@Pritchard.org                          *
  	*																																							*
 	*		This program is free software; you can redistribute it and/or modify			*
@@ -17,31 +17,9 @@
 	*		Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA */
 #endregion
 
-using System;
-using System.Collections;
-using System.Reflection;
-using System.Xml.Serialization;
-#if OLDBUILD
-namespace Xacc.Configuration
-{
-  /// <summary>
-  /// Internal use
-  /// </summary>
-  [XmlRoot("projectsbase", Namespace="xacc:build")]
-	public abstract class Projects
-	{
-    /// <summary>
-    /// Internal use
-    /// </summary>
-    protected internal Build.Project[] projects;
-
-    /// <summary>
-    /// Internal use
-    /// </summary>
-    [XmlIgnore]
-    public static Type SerializerType;
-
-
-	}
-}
+#if !DEBUG
+#pragma warning disable 1699
+// to create a release build, generate a key called 'xacc.key' in the source root
+[assembly: System.Reflection.AssemblyKeyFile("../../../xacc.key")]
+#pragma warning restore 1699
 #endif

@@ -164,7 +164,7 @@ namespace Xacc.Controls
 		AutoCompleteForm acform;
 		bool autocomplete = false;
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="P:System.Windows.Forms.RichTextBox.SelectionColor"]/*'/>
 		[Category("Appearance")]
 		public Color SelectionColor
@@ -293,7 +293,7 @@ namespace Xacc.Controls
 
 		#region TextBox compatibility
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.TextBoxBase.AppendText(System.String)"]/*'/>
 		public void AppendText(string text)
 		{
@@ -301,14 +301,14 @@ namespace Xacc.Controls
 			buffer.InsertString(text);
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.TextBoxBase.Clear"]/*'/>
 		public void Clear()
 		{
 			buffer.Clear();
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="P:System.Windows.Forms.TextBoxBase.CanUndo"]/*'/>
 		[Browsable(false)]
 		public bool CanUndo
@@ -316,7 +316,7 @@ namespace Xacc.Controls
 			get {return buffer.CanUndo;}
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="P:System.Windows.Forms.TextBoxBase.Lines"]/*'/>
 		[Category("Appearance")]
     [ReadOnly(true)]
@@ -331,14 +331,14 @@ namespace Xacc.Controls
 			}
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.CanPaste(System.Windows.Forms.DataFormats.Format)"]/*'/>
 		public bool CanPaste(DataFormats.Format clipFormat)
 		{
 			return (clipFormat.Name == DataFormats.Text);
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.TextBoxBase.Undo"]/*'/>
 		public void Undo()
 		{
@@ -355,14 +355,14 @@ namespace Xacc.Controls
       ScrollToCaret();
     }
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.TextBoxBase.ClearUndo"]/*'/>
 		public void ClearUndo()
 		{
 			buffer.ClearUndo();
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.TextBoxBase.ScrollToCaret"]/*'/>
 		public void ScrollToCaret()
 		{
@@ -378,7 +378,7 @@ namespace Xacc.Controls
 
 
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.TextBoxBase.Select(System.Int32,System.Int32)"]/*'/>
 		public void Select(int start, int length)
 		{
@@ -387,7 +387,7 @@ namespace Xacc.Controls
 			// question ? to invalidate : not to invalidate; // yes
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.TextBoxBase.SelectAll"]/*'/>
 		public void SelectAll()
 		{
@@ -395,7 +395,7 @@ namespace Xacc.Controls
       ScrollToCaret();
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="P:System.Windows.Forms.TextBoxBase.Text"]/*'/>
 		public override string Text
 		{
@@ -411,7 +411,7 @@ namespace Xacc.Controls
 			}
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="P:System.Windows.Forms.TextBoxBase.SelectedText"]/*'/>
 		[Browsable(false)]
     [ReadOnly(true)]
@@ -548,7 +548,7 @@ namespace Xacc.Controls
       }
     }
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="P:System.Windows.Forms.TextBoxBase.SelectionStart"]/*'/>
 		[Browsable(false)]
     [ReadOnly(true)]
@@ -558,7 +558,7 @@ namespace Xacc.Controls
 			set {buffer.CaretIndex = value;}
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="P:System.Windows.Forms.TextBoxBase.SelectionLength"]/*'/>
 		[Browsable(false)]
     [ReadOnly(true)]
@@ -568,7 +568,7 @@ namespace Xacc.Controls
 			set {Select(SelectionStart, value);}
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="P:System.Windows.Forms.TextBoxBase.TextLength"]/*'/>
 		[Category("Appearance")]
 		public int TextLength
@@ -576,35 +576,35 @@ namespace Xacc.Controls
 			get {return buffer.TextLength;}
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.Find(System.Char[])"]/*'/>
 		public int Find(char[] characterSet)
 		{
 			return Find(characterSet, 0);
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.Find(System.Char[],System.Int32)"]/*'/>
 		public int Find(char[] characterSet, int start)
 		{
 			return Find(characterSet, start, TextLength - 1);
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.Find(System.Char[],System.Int32,System.Int32)"]/*'/>
 		public int Find(char[] characterSet, int start, int end)
 		{
 			return Find( new string(characterSet), start, end, 0);
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.Find"]/*'/>
 		public int Find(string str)
 		{
 			return Find(str, 0);
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.Find(System.String,System.Int32,System.Int32,System.Windows.Forms.RichTextBoxFinds)"]/*'/>
 		public int Find(string str, int start, int end, RichTextBoxFinds options)
 		{
@@ -688,35 +688,35 @@ namespace Xacc.Controls
 			return -1;
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.Find(System.String,System.Int32,System.Windows.Forms.RichTextBoxFinds)"]/*'/>
 		public int Find(string str, int start, RichTextBoxFinds options)
 		{
 			return Find(str, start, TextLength - 1, options);
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.Find(System.String,System.Int32,System.Int32)"]/*'/>
 		public int Find(string str, int start, int end)
 		{
 			return Find(str, start, end, 0);
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.Find(System.String,System.Int32)"]/*'/>
 		public int Find(string str, int start)
 		{
 			return Find(str, start, TextLength - 1);
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.Find(System.String,System.Windows.Forms.RichTextBoxFinds)"]/*'/>
 		public int Find(string str, RichTextBoxFinds options)
 		{
 			return Find(str, 0, options);
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.GetCharFromPosition(System.Drawing.Point)"]/*'/>
 		//TODO: public char GetCharFromPosition(Point pt)
 		public char GetCharFromPosition(Point pt)		
@@ -724,7 +724,7 @@ namespace Xacc.Controls
 			throw new NotImplementedException(MethodBase.GetCurrentMethod().ToString());
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.GetCharIndexFromPosition(System.Drawing.Point)"]/*'/>
 		//TODO: public int GetCharIndexFromPosition(Point pt)		
 		public int GetCharIndexFromPosition(Point pt)		
@@ -732,7 +732,7 @@ namespace Xacc.Controls
 			throw new NotImplementedException(MethodBase.GetCurrentMethod().ToString());
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.GetLineFromCharIndex(System.Int32)"]/*'/>
 		public int GetLineFromCharIndex(int index)		
 		{
@@ -741,7 +741,7 @@ namespace Xacc.Controls
 			return line;
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.GetPositionFromCharIndex(System.Int32)"]/*'/>
 		//TODO: public Point GetPositionFromCharIndex(int index)		
 		public Point GetPositionFromCharIndex(int index)		
@@ -749,14 +749,14 @@ namespace Xacc.Controls
 			throw new NotImplementedException(MethodBase.GetCurrentMethod().ToString());
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.LoadFile(System.IO.Stream,System.Windows.Forms.RichTextBoxStreamType)"]/*'/>
 		public void LoadFile(Stream data)		
 		{
 			LoadFile(data, RichTextBoxStreamType.PlainText);
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.LoadFile(System.IO.Stream,System.Windows.Forms.RichTextBoxStreamType)"]/*'/>
 		public void LoadFile(Stream data, RichTextBoxStreamType fileType)		
 		{
@@ -772,14 +772,14 @@ namespace Xacc.Controls
 			}
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.LoadFile(System.String)"]/*'/>
 		public void LoadFile(string path)		
 		{
 			LoadFile(path, RichTextBoxStreamType.PlainText);
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.LoadFile(System.String,System.Windows.Forms.RichTextBoxStreamType)"]/*'/>
 		public void LoadFile(string path, RichTextBoxStreamType fileType)		
 		{
@@ -795,7 +795,7 @@ namespace Xacc.Controls
 			}
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.SaveFile(System.IO.Stream,System.Windows.Forms.RichTextBoxStreamType)"]/*'/>
 		public void SaveFile(Stream data)		
 		{
@@ -813,7 +813,7 @@ namespace Xacc.Controls
       get {return lastsavetime;}
     }
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.SaveFile(System.IO.Stream,System.Windows.Forms.RichTextBoxStreamType)"]/*'/>
 		public void SaveFile(Stream data, RichTextBoxStreamType fileType)		
 		{
@@ -828,14 +828,14 @@ namespace Xacc.Controls
 			}
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.SaveFile(System.String)"]/*'/>
 		public void SaveFile(string path)		
 		{
 			SaveFile(path, RichTextBoxStreamType.PlainText);
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.RichTextBox.SaveFile(System.String,System.Windows.Forms.RichTextBoxStreamType)"]/*'/>
 		public void SaveFile(string path, RichTextBoxStreamType fileType)		
 		{
@@ -939,7 +939,7 @@ namespace Xacc.Controls
       buffer.InsertString(string.Empty);
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.Control.OnFontChanged(System.EventArgs)"]/*'/>
 		protected override void OnFontChanged(EventArgs e)
 		{
@@ -947,7 +947,7 @@ namespace Xacc.Controls
 			base.OnFontChanged (e);
 		}
 
-    ///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+    ///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
     ///	path='doc/members/member[@name="M:System.Windows.Forms.Control.OnHandleCreated(System.EventArgs)"]/*'/>
     protected override void OnHandleCreated(EventArgs e)
     {
@@ -955,7 +955,7 @@ namespace Xacc.Controls
       caret.Enabled = true;
     }
 
-    ///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+    ///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
     ///	path='doc/members/member[@name="M:System.Windows.Forms.Control.OnHandleDestroyed(System.EventArgs)"]/*'/>
     protected override void OnHandleDestroyed(EventArgs e)
     {
@@ -963,7 +963,7 @@ namespace Xacc.Controls
       base.OnHandleDestroyed (e);
     }
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.Control.Dispose(System.Boolean)"]/*'/>
 		protected override void Dispose( bool disposing )
 		{
@@ -986,14 +986,14 @@ namespace Xacc.Controls
 			base.Dispose( disposing );
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.Control.IsInputKey(System.Windows.Forms.Keys)"]/*'/>
 		protected override bool IsInputKey(Keys keyData)
 		{
 			return (keyData & Keys.Control) != Keys.Control;
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.Control.IsInputChar(System.Char)"]/*'/>
 		protected override bool IsInputChar(char charCode)
 		{
@@ -1021,7 +1021,7 @@ namespace Xacc.Controls
 			return true;
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="P:System.Windows.Forms.Control.DefaultSize"]/*'/>
 		protected override Size DefaultSize
 		{
@@ -1241,7 +1241,7 @@ namespace Xacc.Controls
     }
 
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.TextBoxBase.Copy"]/*'/>
 		public void Copy()
 		{
@@ -1298,7 +1298,7 @@ namespace Xacc.Controls
       buffer.InsertString(t);
     }
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.TextBoxBase.Cut"]/*'/>
 		public void Cut()
 		{
@@ -1314,7 +1314,7 @@ namespace Xacc.Controls
       ScrollToCaret();
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.TextBoxBase.Paste"]/*'/>
 		public void Paste()
 		{
@@ -1352,11 +1352,23 @@ namespace Xacc.Controls
 			ScrollToCaret();
 		}
 
+    public void DeleteCurrentLine()
+    {
+      if (autocomplete)
+      {
+        acform.Hide();
+        autocomplete = false;
+      }
+
+      buffer.RemoveCurrentLine();
+      ScrollToCaret();
+    }
+
 		#endregion
 
     #region Fold Support
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.Control.OnGotFocus(System.EventArgs)"]/*'/>
 		protected override void OnGotFocus(EventArgs e)
 		{
@@ -1421,7 +1433,7 @@ namespace Xacc.Controls
 
 
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.Control.OnResize(System.EventArgs)"]/*'/>
 		protected override void OnResize(EventArgs e)
 		{
@@ -1644,7 +1656,7 @@ namespace Xacc.Controls
     static readonly SettingsService settings = ServiceHost.Settings as SettingsService;
 
 
- 		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+ 		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.Control.OnPaint(System.Windows.Forms.PaintEventArgs)"]/*'/>
     protected sealed override void OnPaint(PaintEventArgs e)
     {
@@ -1991,7 +2003,7 @@ namespace Xacc.Controls
 
 		#region Mouse Handling
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.Control.OnDoubleClick(System.EventArgs)"]/*'/>
 		protected override void OnDoubleClick(EventArgs e)
 		{
@@ -2104,7 +2116,7 @@ namespace Xacc.Controls
       }
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.Control.OnMouseWheel(System.Windows.Forms.MouseEventArgs)"]/*'/>
 		protected override void OnMouseWheel(MouseEventArgs e)
 		{
@@ -2131,22 +2143,25 @@ namespace Xacc.Controls
 			base.OnMouseWheel (e);
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.Control.OnMouseDown(System.Windows.Forms.MouseEventArgs)"]/*'/>
-		protected override void OnMouseDown(MouseEventArgs e)
-		{
-			mousedown = true;
-			caret.Enabled = false;
-			caretvisible = true;
+    protected override void OnMouseDown(MouseEventArgs e)
+    {
+      mousedown = true;
+      caret.Enabled = false;
+      caretvisible = true;
       autocomplete = acform.Visible = false;
-     
-			if (e.Button == MouseButtons.Left)
-			{
-				MousePositionTranslate(e.X, e.Y, true);
 
-				if (e.X < infobarw - buffer.FontWidth/2 + (showfoldbar ? 12 : 0))
-				{
-          if (e.X >= infobarw - buffer.FontWidth/2)
+      if (e.Button == MouseButtons.Left || SelectionLength == 0)
+      {
+        MousePositionTranslate(e.X, e.Y, true);
+      }
+
+      if (e.Button == MouseButtons.Left)
+      {
+        if (e.X < infobarw - buffer.FontWidth / 2 + (showfoldbar ? 12 : 0))
+        {
+          if (e.X >= infobarw - buffer.FontWidth / 2)
           {
             TogglePairAt(buffer.CurrentLine);
             preprocess = false;
@@ -2158,16 +2173,17 @@ namespace Xacc.Controls
             buffer.IsSelecting = true;
             buffer.LineCharacterIndex = -1;
           }
-				}
-				else
-				{
-					buffer.IsSelecting = true;
-				}
-			}
-			base.OnMouseDown (e);
-		}
+        }
+        else
+        {
+          buffer.IsSelecting = true;
+        }
+      }
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+      base.OnMouseDown(e);
+    }
+
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.Control.OnMouseUp(System.Windows.Forms.MouseEventArgs)"]/*'/>
 		protected override void OnMouseUp(MouseEventArgs e)
 		{
@@ -2194,7 +2210,7 @@ namespace Xacc.Controls
 			base.OnMouseUp (e);
 		}
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.Control.OnMouseMove(System.Windows.Forms.MouseEventArgs)"]/*'/>
 		protected override void OnMouseMove(MouseEventArgs e)
 		{
@@ -2229,7 +2245,7 @@ namespace Xacc.Controls
 
 		#region Keyboard Handling
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.Control.OnKeyUp(System.Windows.Forms.KeyEventArgs)"]/*'/>
 		protected override void OnKeyUp(KeyEventArgs e)
 		{
@@ -3015,7 +3031,7 @@ namespace Xacc.Controls
     #endregion
 
 
-		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
 		///	path='doc/members/member[@name="M:System.Windows.Forms.Control.OnKeyDown(System.Windows.Forms.KeyEventArgs)"]/*'/>
 		protected override void OnKeyDown(KeyEventArgs e)
 		{
@@ -3040,7 +3056,7 @@ namespace Xacc.Controls
       base.OnKeyDown (e);
 		}
 
-    ///<include file='C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.xml' 
+    ///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
     ///	path='doc/members/member[@name="M:System.Windows.Forms.Control.OnKeyPress(System.Windows.Forms.KeyPressEventArgs)"]/*'/>
     protected override void OnKeyPress(KeyPressEventArgs e)
     {

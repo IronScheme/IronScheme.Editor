@@ -24,9 +24,9 @@
 
 (set_editorfontsize settings 9)
 ; (set_editorfontname settings "Bitstream Vera Sans Mono")
-(set_editorfontname settings "Consolas") ; set size to 10.33
+(set_editorfontname settings "Consolas") ; set size to 9
 ; (set_editorfontname settings "Lucida Console")
-; (set_editorfontname settings "Courier New")
+; (set_editorfontname settings "Courier New") ; set to 10
 (set_tabsize settings 2)
 ; (set_cleartype settings false) ; if you dont like cleartype
 
@@ -64,7 +64,7 @@
 (tokencolor   String        Maroon)
 (tokencolor   Character     DarkOrange)
 (tokencolor   Number        Red)
-(tokencolor2  Pair          DarkBlue        LightGray)
+(tokencolor2  Pair          DarkBlue        DarkGray)
 (tokencolor   Comment       DarkGreen)
 (tokencolor   DocComment    DimGray)
 (tokencolor   Operator      DarkBlue)
@@ -154,6 +154,7 @@
 (bindx  Edit            "Edit.Paste"              "Ctrl+V")
 (bindx  Edit            "Edit.Paste"              "Shift+Insert")
 (bindx  Edit            "Edit.SelectAll"          "Ctrl+A")
+(bindx  Edit            "Edit.DeleteCurrentLine"  "Ctrl+D")
 
 (bindx  Buffer          "Edit.RemoveBefore"       "Back")
 (bindx  Buffer          "Edit.RemoveAfter"        "Delete")
@@ -214,32 +215,5 @@
 ; override defaults if necessary
 (set_tracecall toploop tc)
 (set_tracereturn toploop tr)
-
-; some experimental 'macro' code - DOESNT WORK
-;(defun strjoin (sep &rest l)
-;	(join string sep (toarray l (typeof string))))
-;	
-;(defmacro strcat (&rest l) 
-;	`(strjoin "" ,@l))
-;	
-; sample macro
-;(defmacro makeprop (t n)
-;  `` ,(strjoin "\n" 	,(strcat "" ,t " " ,(tolower ,n) ";")
-;          						,(strcat "public " ,t " " ,n )
-;          						,(strcat "{")
-;          						,(strcat "   get {return " ,(tolower ,n) ";}")
-;						          ,(strcat "   set {" ,(tolower ,n) " = value;}")
-;						          ,(strcat "}"))
-;  )
-;  
-;(= fs (file servicehost))
-;
-;(defun make-prop ()
-;	(= atb (get_item fs (current fs)))
-;	(= tokens (split (selectiontext atb) (tochararray " ")))
-;	(set_selectiontext atb (makeprop (nth 0 tokens) (nth 1 tokens)))
-;)
-;
-;(bindx Buffer make-prop "Ctrl+(M,P)")
 
 (prl "Profile loaded")

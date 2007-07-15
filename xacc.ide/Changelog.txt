@@ -1,7 +1,10 @@
 0.2.0.79 - July ??, 2007 
 
 - Added manual download if builtin download fails
-- 
+- Fixed preprocessor handling bug
+- Changed source so debug builds wont fail if this is now keyfile created
+- Mapped Ctrl+D to remove current line (thanks to Bryan Allot for suggestion)
+- Added 'Copy FullPath' to File Tab Context menu
 
 0.2.0.78 - July 11, 2007 
 

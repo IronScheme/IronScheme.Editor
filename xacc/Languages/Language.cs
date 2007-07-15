@@ -550,8 +550,11 @@ namespace Xacc.Languages
         {
           if (token.Location.Disabled != lang.isdisabled)
           {
+            // i smell voodoo.... why was this the wrong way around?
+            Location loc = token.Location;
+            loc.Disabled = lang.isdisabled;
+            loc.Error = loc.Warning = false;
             lang.cb.Invoke(token.Location);
-            token.Location.Disabled = lang.isdisabled;
           }
         }
         return t;
@@ -584,6 +587,7 @@ namespace Xacc.Languages
     internal void Preprocess(DoubleLinkedList<TokenLine> lines, string filename, IParserCallback cb, ArrayList pairings, params string[] defined)
     {
       this.pairings = new ArrayList();
+      isdisabled = false;
 
       condstack.Clear();
       regionstack.Clear();

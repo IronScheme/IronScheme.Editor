@@ -28,5 +28,12 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("2003-2007 llewellyn@pritchard.org")]
 [assembly: AssemblyTrademark("GNU LGPL")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("0.2.0.78")]
+[assembly: AssemblyVersion("0.2.0.79")]
 [assembly: ComVisibleAttribute(true)]
+
+#if !DEBUG
+#pragma warning disable 1699
+ // to create a release build, generate a key called 'xacc.key' in the source root
+[assembly: AssemblyKeyFile("../../../xacc.key")]
+#pragma warning restore 1699
+#endif

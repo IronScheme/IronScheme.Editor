@@ -476,6 +476,7 @@ namespace Xacc.ComponentModel
             catch
             {
               //something not ready, sorts itself out
+              Debugger.Break();
             }
           }
         

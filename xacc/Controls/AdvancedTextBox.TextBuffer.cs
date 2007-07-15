@@ -61,6 +61,7 @@ using Xacc.Languages;
 using Xacc.Drawing;
 
 using Pairing = Xacc.Languages.Language.Pairing;
+using Xacc.CodeModel;
 #endregion
 
 namespace Xacc.Controls
@@ -524,6 +525,32 @@ namespace Xacc.Controls
         public override string ToString()
         {
           return string.Format("Remove({0})", value);
+        }
+      }
+
+      sealed class RemoveLineOperation : BufferOperation
+      {
+        int linenr;
+
+        public RemoveLineOperation(object before, object after, string value, int linenr)
+          : base(before, after, value) 
+        {
+          this.linenr = linenr;
+        }
+
+        protected override void Redo()
+        {
+          Buffer.Remove(linenr);
+        }
+
+        protected override void Undo()
+        {
+          Buffer.Insert(linenr, value);
+        }
+
+        public override string ToString()
+        {
+          return string.Format("RemoveLine({0})", value);
         }
       }
 
@@ -1245,6 +1272,7 @@ namespace Xacc.Controls
 
       #region Lexing helpers
 
+      // TODO: try refactor this and the next function
       internal void LexInvalidatedLines()
       {
         while (invalidatedlines.Count > 0)
@@ -1257,24 +1285,69 @@ namespace Xacc.Controls
             {
               break;
             }
-            TokenLine tl = GetUserState(l - 1);
+            TokenLine tl = GetUserState(l - 1), before2 = tl;
             TokenLine cl = GetUserState(l);
             Stack s = cl == null ? null : cl.state;
-            IToken[] tokens = lang.Lex(this[l], ref tl, mlines);
+
+            bool hadpp = false;
+
+            IToken[] tokens = cl.Tokens;
+
+            if (tokens != null)
+            {
+              foreach (IToken t in tokens)
+              {
+                if (t.Class == TokenClass.Preprocessor)
+                {
+                  hadpp = true;
+                  break;
+                }
+              }
+            }
+
+
+            tokens = lang.Lex(this[l], ref tl, mlines);
 
             foreach (IToken t in tokens)
             {
               t.Location.LineNumber = l + 1;
             }
 
+            if (!hadpp)
+            {
+              foreach (IToken t in tokens)
+              {
+                if (t.Class == TokenClass.Preprocessor)
+                {
+                  owner.viewlines = null;
+                  break;
+                }
+              }
+              if (owner.viewlines != null)
+              {
+                Location loc = GetLastLocation(before2);
+                if (loc != null && loc.Disabled)
+                {
+                  owner.viewlines = null;
+                }
+              }
+            }
+            else
+            {
+              owner.viewlines = null;
+            }
+
+
             if (!tl.CompareState(s))
             {
               SetTokens(l + 1, null);
             }
+
+
           }
         }
       }
-
+      
       bool ignoretrigger = false;
 
       bool DoLex(ref LineState state, int linenr)
@@ -1290,11 +1363,11 @@ namespace Xacc.Controls
 
         DoubleLinkedList<TokenLine>.IPosition pos = mlines.PositionOf(state.userstate);
         DoubleLinkedList<TokenLine>.IPosition prev = pos.Previous;
-        TokenLine before = null;
+        TokenLine before = null, before2 = null;
         Stack tl = state.userstate.state;
         if (prev != null)
         {
-          before = prev.Data;
+          before2 = before = prev.Data;
         }
 
         bool hadpp = false;
@@ -1330,12 +1403,21 @@ namespace Xacc.Controls
               break;
             }
           }
+          if (owner.viewlines != null)
+          {
+            Location loc = GetLastLocation(before2);
+            if (loc != null && loc.Disabled)
+            {
+              owner.viewlines = null;
+            }
+          }
         }
         else
         {
           owner.viewlines = null;
         }
 
+#if AUTOCOMPLETE
         IToken curt = GetTokenAtCaret2();
 
         if (curt != null && curt.Class == TokenClass.Pair)
@@ -1359,6 +1441,7 @@ namespace Xacc.Controls
             }
           }
         }
+#endif
 
         if (before != null)
         {
@@ -1382,6 +1465,21 @@ namespace Xacc.Controls
 
         parsetimer.Enabled = true;
         return false;
+      }
+
+      Location GetLastLocation(TokenLine before)
+      {
+        if (before == null)
+        {
+          return null;
+        }
+        if (before.Tokens.Length > 1)
+        {
+          return before.Tokens[before.Tokens.Length - 2].Location;
+        }
+        DoubleLinkedList<TokenLine>.IPosition pos = mlines.PositionOf(before);
+        DoubleLinkedList<TokenLine>.IPosition prev = pos.Previous;
+        return GetLastLocation(prev.Data);
       }
 
       #endregion
@@ -2341,7 +2439,7 @@ namespace Xacc.Controls
 
         int ci = GetCaretIndexFromLine(line);
 
-        if (col >= 0)
+        if (col > 0)
         {
           for (int i = 0; i < tokens.Length; i++)
           {
@@ -2419,7 +2517,7 @@ namespace Xacc.Controls
 
           ci = GetCaretIndexFromLine(line);
 
-          if (col >= 0)
+          if (col > 0)
           {
             for (int i = 0; i < tokens.Length; i++)
             {
@@ -2827,6 +2925,8 @@ namespace Xacc.Controls
         }
       }
 
+
+
       /// <summary>
       /// Removes the character after the caret (as if pressing Delete).
       /// </summary>
@@ -2886,6 +2986,34 @@ namespace Xacc.Controls
           {
             object after = ((IHasUndo)this).GetUndoState();
             undo.Push(new RemoveOperation(before, after, value));
+          }
+          SendProbe();
+        }
+      }
+
+      public void RemoveCurrentLine()
+      {
+        if (!owner.ReadOnly)
+        {
+          SendProbe();
+
+          object before = null;
+          string value = null;
+
+          int cl = CurrentLine;
+
+          if (recording)
+          {
+            before = ((IHasUndo)this).GetUndoState();
+            value = this[cl];
+          }
+
+          Remove(cl);
+
+          if (recording)
+          {
+            object after = ((IHasUndo)this).GetUndoState();
+            undo.Push(new RemoveLineOperation(before, after, value, cl));
           }
           SendProbe();
         }
@@ -3103,6 +3231,9 @@ namespace Xacc.Controls
         }
       }
 
+
+
+
       #endregion
 
       #region Fields
@@ -3209,21 +3340,7 @@ namespace Xacc.Controls
         catch
         {
           // this will do tab init
-          try
-          {
-            //Font = new Font( "Bitstream Vera Sans Mono", 9.75f);
-            Font = new Font(ServiceHost.Font.InstalledFonts[0], 9.75f);
-          }
-          catch (Exception)
-          {
-            Font = new Font(FontFamily.GenericMonospace, 9.75f);
-          }
-        }
-        // .NET 1.0 dont throw an exception when a font is not found.
-        // Thanx to Nnamdi Onyeyiri for pointing it out, and helping to fix the bug.
-        if (Font == null)
-        {
-          Font = new Font(FontFamily.GenericMonospace, 9.75f);
+          Font = new Font(FontFamily.GenericMonospace, 10f);
         }
 
         painter = new TextBufferPainter(this);
@@ -3808,7 +3925,7 @@ namespace Xacc.Controls
           SetOptimumInsertPosition(index, num);
 
           owner.viewlines = null;
-          //owner.preprocess = true;
+          owner.preprocess = true;
 
           //adjustment for LineState
           LineState[] ls = new LineState[num];

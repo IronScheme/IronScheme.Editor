@@ -132,7 +132,6 @@ namespace Xacc.ComponentModel
         new UpdaterService();
 
         new ScriptingService();
-        new FontManager();
         new StandardConsole();
         new SettingsService();
         new PropertyService();

@@ -977,6 +977,12 @@ namespace Xacc.ComponentModel
       GC.Collect();
     }
 
+    [MenuItem("Copy FullPath", Index = 22, State = ApplicationState.File, Image = "Edit.Copy.png")]
+    void CopyFullPath()
+    {
+      Clipboard.SetText(Path.GetFullPath(Current));
+    }
+
     void DocClose(object sender, CancelEventArgs e)
     {
       // note the local var, dont merge with above code

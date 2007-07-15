@@ -1968,6 +1968,15 @@ namespace Xacc.Controls
     #endregion
 
 
+
+    #region IEdit Members
+
+    void IEdit.DeleteCurrentLine()
+    {
+      // do nothing for now
+    }
+
+    #endregion
   }
 }
 

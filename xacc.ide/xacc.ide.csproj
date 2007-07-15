@@ -16,7 +16,8 @@
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
     <AssemblyName>xacc.ide</AssemblyName>
-    <AssemblyOriginatorKeyFile>xacc.key</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
@@ -31,7 +32,7 @@
     </SccAuxPath>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <TargetZone>LocalIntranet</TargetZone>
     <GenerateManifests>false</GenerateManifests>
     <ManifestCertificateThumbprint>6FCD603B57800C7E5F0B85EE66C3AF8E599C38D3</ManifestCertificateThumbprint>
@@ -140,7 +141,6 @@
     <None Include="command.ls" />
     <None Include="profile.ls" />
     <None Include="xacc.ide.nsi" />
-    <None Include="xacc.key" />
     <Compile Include="..\Common\AssemblyInfo.Common.cs">
       <Link>AssemblyInfo.Common.cs</Link>
     </Compile>

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{5ECA136A-701B-4564-8012-109384F41FE0}"
 	ProjectSection(SolutionItems) = preProject
 		Common\AssemblyInfo.Common.cs = Common\AssemblyInfo.Common.cs
-		xacc\xacc.key = xacc\xacc.key
+		Common\AssemblyInfo.KeyFile.cs = Common\AssemblyInfo.KeyFile.cs
 	EndProjectSection
 	ProjectSection(FolderStartupServices) = postProject
 		{B4F97281-0DBD-4835-9ED8-7DFB966E87FF} = {B4F97281-0DBD-4835-9ED8-7DFB966E87FF}

@@ -44,7 +44,7 @@ namespace Xacc.ComponentModel
 
         Trace.WriteLine("Latest version: {0} Current version: {1}", latest, currver);
 
-        int d = 1;// latestver.CompareTo(currver);
+        int d = latestver.CompareTo(currver);
 
         if (d > 0)
         {

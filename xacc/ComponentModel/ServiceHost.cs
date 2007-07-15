@@ -435,14 +435,6 @@ namespace Xacc.ComponentModel
 		}
 
     /// <summary>
-    /// Gets the IFontManagerService
-    /// </summary>
-    public static IFontManagerService Font	
-		{
-			get { return Get<IFontManagerService>();}
-		}
-
-    /// <summary>
     /// Gets the IDebugService
     /// </summary>
     public static IDebugService Debug

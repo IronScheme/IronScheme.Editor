@@ -271,6 +271,10 @@ namespace Xacc.ComponentModel
       get 
       { 
         IDockContent dc = (ServiceHost.Scripting as ScriptingService).tbp;
+        if (dc == null)
+        {
+          return false;
+        }
         return dc.DockState != DockState.Hidden;
       }
       set 

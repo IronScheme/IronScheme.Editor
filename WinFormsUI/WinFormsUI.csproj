@@ -10,7 +10,8 @@
     <RootNamespace>WeifenLuo.WinFormsUI</RootNamespace>
     <AssemblyName>WeifenLuo.WinFormsUI.Docking</AssemblyName>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>xacc.key</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Common\AssemblyInfo.KeyFile.cs">
+      <Link>AssemblyInfo.KeyFile.cs</Link>
+    </Compile>
     <Compile Include="Docking\DockPanel.SplitterDragHandler.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -188,7 +192,6 @@
     <None Include="Docking\Resources\DockPane_Dock.bmp" />
     <None Include="Docking\Resources\DockPane_Option.bmp" />
     <None Include="Docking\Resources\DockPane_OptionOverflow.bmp" />
-    <None Include="xacc.key" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
