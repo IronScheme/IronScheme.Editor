@@ -1,4 +1,10 @@
-0.2.0.79 - July ??, 2007 
+0.2.0.80 - July 28, 2007 
+
+- Fixed bug when opening files with "Open with..."/"Open" in Windows Contextmenu
+- Fixed loading 'command.ls'
+- Fixes to MSIL lexer
+
+0.2.0.79 - July 15, 2007 
 
 - Added manual download if builtin download fails
 - Fixed preprocessor handling bug

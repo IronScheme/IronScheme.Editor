@@ -302,16 +302,23 @@ namespace Xacc.Configuration
       {
         foreach (string of in args.open)
         {
-          StringBuilder sb = new StringBuilder(256);
-          int len = kernel32.GetLongPathName(of, sb, 255);
-          try
+          if (File.Exists(of))
           {
-            ServiceHost.File.Open(sb.ToString());
-          }
-          catch (Exception ex)
-          {
-            Trace.WriteLine("Could not load file: " + sb + @" Message:
+            StringBuilder sb = new StringBuilder(256);
+            int len = kernel32.GetLongPathName(of, sb, 255);
+            try
+            {
+              ServiceHost.File.Open(sb.ToString());
+            }
+            catch (Exception ex)
+            {
+              Trace.WriteLine("Could not load file: " + sb + @" Message:
 " + ex);
+            }
+          }
+          else
+          {
+            Trace.WriteLine("Could not open missing file: " + of);
           }
         }
       }

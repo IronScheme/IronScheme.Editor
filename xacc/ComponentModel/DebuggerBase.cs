@@ -106,7 +106,7 @@ namespace Xacc.ComponentModel
   }
 
 
-  abstract class DebuggerBase : Component
+  abstract class DebuggerBase : Disposable
   {
     public event EventHandler DebugProcessExited;
     protected ExceptionInfo exinfo;

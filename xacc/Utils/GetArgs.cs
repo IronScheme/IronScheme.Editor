@@ -621,8 +621,8 @@ confuse a user.")]
 
 			Dictionary<string, ArgInfo> argz = new Dictionary<string, ArgInfo>();
 
-			string[] args = Environment.GetCommandLineArgs();
-			string allargs = string.Join(" ", args, 1, args.Length - 1).Trim();
+      string allargs = Environment.CommandLine;
+      allargs = allargs.Replace(string.Format(@"""{0}""", Application.ExecutablePath), "").Trim();
 
 			if (prefix == string.Empty)
 			{

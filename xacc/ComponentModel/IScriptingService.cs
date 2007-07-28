@@ -103,7 +103,7 @@ namespace Xacc.ComponentModel
 
       if (SettingsService.idemode)
       {
-        atb = ServiceHost.File.Open("command.ls", DockState.DockBottom)
+        atb = ServiceHost.File.Open(Application.StartupPath + "/command.ls", DockState.DockBottom)
           as AdvancedTextBox;
 
         atb.AutoSave = true;

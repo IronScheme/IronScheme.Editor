@@ -180,7 +180,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ComponentModel\DebuggerBase.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ComponentModel\IUpdaterService.cs" />
     <Compile Include="ComponentModel\Mdbg.cs">
@@ -189,7 +188,6 @@
     <Compile Include="ComponentModel\IPropertyService.cs" />
     <Compile Include="ComponentModel\IStatusBarService.cs" />
     <Compile Include="ComponentModel\Cordbg.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ComponentModel\Disposable.cs">
       <SubType>Code</SubType>

@@ -60,8 +60,8 @@ string_literal         ={regular_string}
 
 letter_char            =[A-Za-z]
 ident_char             =({dec_digit}|{letter_char}|"_"|"$")
-identifier             =(({letter_char}|"_")({ident_char})*)
-at_identifier          ='{identifier}'
+identifier             =(({letter_char}|"_")({ident_char})*)(`[0-9]+)?
+at_identifier          ='[^'\n]+'
 ws_identifier          ={identifier}(({white_space})+{identifier})*
 
 rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
@@ -75,10 +75,10 @@ type =({t1}|{t2}|{t3})
 
 k1=("nativeint"|"uint32"|"uint64"|"uint16"|"with"|"winapi"|"void"|"virtual"|"variant"|"vararg"|"valuetype"|"value"|"userdefined"|"unsigned"|"unmanagedexp"|"unmanaged")
 k2=("unicode"|"typedref"|"true"|"to"|"tls"|"thiscall"|"tbstr"|"sysstring"|"syschar"|"synchronized"|"struct"|"string"|"streamed_object"|"stream"|"stored_object")
-k3=("storage"|"stdcall"|"static"|"specialname"|"serializable"|"sequential"|"sealed"|"safearray"|"runtime"|"rtspecialname"|"request"|"reqsecobj"|"reqrefuse"|"reqOPERATORt")
-k4=("reqmin"|"record"|"public"|"privatescOPERATORe"|"private"|"preservesig"|"prejitgrant"|"prejitdeny"|"pinvokeimpl"|"pinned"|"permitonly"|"out"|"OPERATORtil")
-k5=("OPERATORt"|"objectref"|"object"|"nullref"|"null"|"notserialized"|"nOPERATORrocess"|"noncaslinkdemand"|"noncasinheritance"|"noncasdemand"|"nometadata"|"nomangle")
-k6=("nomachine"|"noinlining"|"noappdomain"|"newslot"|"nested"|"native"|"modreq"|"modOPERATORt"|"method"|"marshal"|"managed"|"lpwstr"|"lptstr"|"lpstruct"|"lpstr")
+k3=("storage"|"stdcall"|"static"|"specialname"|"serializable"|"sequential"|"sealed"|"safearray"|"runtime"|"rtspecialname"|"request"|"reqsecobj"|"reqrefuse"|"reqopt")
+k4=("reqmin"|"record"|"public"|"privatescope"|"private"|"preservesig"|"prejitgrant"|"prejitdeny"|"pinvokeimpl"|"pinned"|"permitonly"|"out"|"optil")
+k5=("opt"|"objectref"|"object"|"nullref"|"null"|"notserialized"|"noprocess"|"noncaslinkdemand"|"noncasinheritance"|"noncasdemand"|"nometadata"|"nomangle")
+k6=("nomachine"|"noinlining"|"noappdomain"|"newslot"|"nested"|"native"|"modreq"|"modopt"|"method"|"marshal"|"managed"|"lpwstr"|"lptstr"|"lpstruct"|"lpstr")
 k7=("literal"|"linkcheck"|"lasterr"|"iunknown"|"implements"|"internalcall"|"interface"|"int8"|"int64"|"int32"|"int16"|"instance"|"initonly"|"init"|"inheritcheck")
 k8=("in"|"il"|"import"|"idispatch"|"hresult"|"hidebysig"|"handler"|"fromunmanaged"|"forwardref"|"float64"|"float32"|"fixed"|"finally"|"final"|"filter"|"filetime")
 k9=("field"|"fault"|"fastcall"|"famorassem"|"family"|"famandassem"|"false"|"extern"|"extends"|"explicit"|"error"|"enum"|"deny"|"demand"|"default"|"decimal"|"date")
@@ -90,7 +90,7 @@ keyword =({k1}|{k2}|{k3}|{k4}|{k5}|{k6}|{k7}|{k8}|{k9}|{k10}|{k11})
 i1=("xor"|"volatile."|"unbox"|"unaligned."|"throw"|"tail."|"switch"|"sub.ovf.un"|"sub.ovf"|"sub"|"stsfld"|"stobj"|"stloc.s"|"stloc.3"|"stloc.2"|"stloc.1"|"stloc.0")
 i2=("stloc"|"stind.ref"|"stind.r8"|"stind.r4"|"stind.i8"|"stind.i4"|"stind.i2"|"stind.i1"|"stind.i"|"stfld"|"stelem.ref"|"stelem.r8"|"stelem.r4"|"stelem.i8"|"stelem.i4")
 i3=("stelem.i2"|"stelem.i1"|"stelem.i"|"starg.s"|"starg"|"sizeof"|"shr.un"|"shr"|"shl"|"rethrow"|"ret"|"rem.un"|"rem"|"refanyval"|"refanytype"|"prefixref"|"prefix7")
-i4=("prefix6"|"prefix5"|"prefix4"|"prefix3"|"prefix2"|"prefix1"|"pOPERATOR"|"pop"|"or"|"not"|"nop"|"nOPERATOR"|"newobj"|"newarr"|"neg"|"mul.ovf.un"|"mul.ovf"|"mul")
+i4=("prefix6"|"prefix5"|"prefix4"|"prefix3"|"prefix2"|"prefix1"|"pop"|"or"|"not"|"nop"|"newobj"|"newarr"|"neg"|"mul.ovf.un"|"mul.ovf"|"mul")
 i5=("mkrefany"|"localloc"|"leave.s"|"leave"|"ldvirtftn"|"ldtoken"|"ldstr"|"ldsflda"|"ldsfld"|"ldobj"|"ldnull"|"ldloca.s"|"ldloca"|"ldloc.s"|"ldloc.3"|"ldloc.2")
 i6=("ldloc.1"|"ldloc.0"|"ldloc"|"ldlen"|"ldind.u8"|"ldind.u4"|"ldind.u2"|"ldind.u1"|"ldind.ref"|"ldind.r8"|"ldind.r4"|"ldind.i8"|"ldind.i4"|"ldind.i2"|"ldind.i1")
 i7=("ldind.i"|"ldftn"|"ldflda"|"ldfld"|"ldelema"|"ldelem.u8"|"ldelem.u4"|"ldelem.u2"|"ldelem.u1"|"ldelem.ref"|"ldelem.r8"|"ldelem.r4"|"ldelem.i8"|"ldelem.i4")
