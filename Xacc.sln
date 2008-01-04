@@ -75,6 +75,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xacc.microsoft.scripting", "xacc.microsoft.scripting\xacc.microsoft.scripting.csproj", "{1747CEA8-842C-43BC-9447-62A3A743EE84}"
 EndProject
 Global
+	GlobalSection(TextTemplating) = postSolution
+		TextTemplating = 1
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -100,8 +103,8 @@ Global
 		{CA7874FF-BB3B-4F16-B65C-369B8AC22F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA7874FF-BB3B-4F16-B65C-369B8AC22F84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA7874FF-BB3B-4F16-B65C-369B8AC22F84}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}.Debug|Any CPU.ActiveCfg = Release|Any CPU
-		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7B52808C-0A81-4562-9F1F-90DF84E10758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -143,8 +146,5 @@ Global
 		{7B52808C-0A81-4562-9F1F-90DF84E10758} = {28CD7895-2610-4FAE-A7AD-54566B001C5C}
 		{CB7CC882-ED47-46C0-AAAE-7A437F22F1C6} = {DEFF6F75-16D4-417B-BC4B-B7F73AB75E60}
 		{1747CEA8-842C-43BC-9447-62A3A743EE84} = {DEFF6F75-16D4-417B-BC4B-B7F73AB75E60}
-	EndGlobalSection
-	GlobalSection(TextTemplating) = postSolution
-		TextTemplating = 1
 	EndGlobalSection
 EndGlobal

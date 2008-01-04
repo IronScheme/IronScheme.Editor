@@ -176,6 +176,7 @@ namespace Xacc.ComponentModel
       new Languages.XmlLanguage();
       new Xacc.Languages.LSharp.Parser();
       new Xacc.Languages.CSharp.Parser();
+      new Xacc.Languages.IronScheme.Parser();
 
     }
 

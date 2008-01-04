@@ -42,7 +42,7 @@ namespace CS_Lex
           *******************************************************/
     private  const bool ERROR = false;
     private const bool NOT_ERROR = true;
-    private const int BUFFER_SIZE = 4096;
+    private const int BUFFER_SIZE = 0xffff;
 
     /********************************************************
           Constants: Token Types

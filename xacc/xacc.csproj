@@ -388,6 +388,8 @@
     <Compile Include="Languages\CSLexLangauge.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Languages\Ironscheme.lex.cs" />
+    <Compile Include="Languages\Ironscheme.y.cs" />
     <Compile Include="Languages\IScanner.cs" />
     <Compile Include="Languages\Language.cs">
       <SubType>Code</SubType>
@@ -567,6 +569,8 @@
       <DependentUpon>Project.xsd</DependentUpon>
     </None>
     <None Include="Languages\Changelog.lex" />
+    <None Include="Languages\IronScheme.lex" />
+    <None Include="Languages\IronScheme.y" />
     <None Include="Languages\CSharp.lex" />
     <None Include="Languages\CSharp.y" />
     <None Include="Languages\CSLex.lex" />
@@ -594,10 +598,12 @@ $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Changelog.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\CSLex.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\CSharp.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\LSharp.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Ironscheme.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Yacc.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Xml.lex
 $(SolutionDir)Tools\gppg $(ProjectDir)Languages\LSharp.y -o $(ProjectDir)Languages\LSharp.y.cs
-$(SolutionDir)Tools\gppg $(ProjectDir)Languages\CSharp.y -o $(ProjectDir)Languages\CSharp.y.cs</PreBuildEvent>
+$(SolutionDir)Tools\gppg $(ProjectDir)Languages\CSharp.y -o $(ProjectDir)Languages\CSharp.y.cs
+$(SolutionDir)Tools\gppg $(ProjectDir)Languages\Ironscheme.y -o $(ProjectDir)Languages\Ironscheme.y.cs</PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
