@@ -18,7 +18,7 @@ protected override LexerBase GetLexer() { return new IronSchemeLexer(); }
 }
 
 %token LBRACE RBRACE LBRACK RBRACK QUOTE QUASIQUOTE UNQUOTE UNQUOTESPLICING VECTORLBRACE DOT BYTEVECTORLBRACE
-%token UNSYNTAX SYNTAX UNSYNTAXSPLICING QUASISYNTAX
+%token UNSYNTAX SYNTAX UNSYNTAXSPLICING QUASISYNTAX IGNOREDATUM
 %token SYMBOL LITERAL STRING NUMBER CHARACTER 
 
 %start file
@@ -50,6 +50,7 @@ expr
     | CHARACTER                                   
     | VECTORLBRACE exprlist RBRACE                { MakePair(@1,@3); }
     | BYTEVECTORLBRACE exprlist RBRACE            { MakePair(@1,@3); }
+    | IGNOREDATUM expr                            { ; }
     ; 
 
 specexpr

@@ -25,10 +25,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("leppie")]
 [assembly: AssemblyProduct("xacc")]
-[assembly: AssemblyCopyright("2003-2007 llewellyn@pritchard.org")]
+[assembly: AssemblyCopyright("2003-2008 llewellyn@pritchard.org")]
 [assembly: AssemblyTrademark("GNU LGPL")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("0.2.0.81")]
+[assembly: AssemblyVersion("0.2.0.82")]
 [assembly: ComVisibleAttribute(true)]
 
 #if !DEBUG

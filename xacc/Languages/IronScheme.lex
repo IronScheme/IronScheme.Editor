@@ -11,7 +11,9 @@ using LexerBase = Xacc.Languages.IronScheme.LexerBase<Xacc.Languages.IronScheme.
 
 %unicode
 
-line_comment           =";"[^\n]*
+line_comment           =(";"[^\n]*)|("#!"[^\n]*)
+
+ignore_datum           ="#;"
 
 comment_start          ="#|"
 comment_end            ="|#"
@@ -62,15 +64,17 @@ ureal8                 =({uinteger8})|({uinteger8}"/"{uinteger8})
 ureal10                =({uinteger10})|({uinteger10}"/"{uinteger10})|({decimal10})
 ureal16                =({uinteger16})|({uinteger16}"/"{uinteger16})
 
+naninf                 =("nan.0"|"inf.0")
+
 real2                  =({sign}{ureal2})
 real8                  =({sign}{ureal8})
 real10                 =({sign}{ureal10})
 real16                 =({sign}{ureal16})
 
-complex2               =({real2}|({real2}"@"{real2})|({real2}"+"{real2}"i")|({real2}"-"{real2}"i")|({real2}"+i")|({real2}"-i")|("+"{real2}"i")|("-"{real2}"i")|("+i")|("-i"))
-complex8               =({real8}|({real8}"@"{real8})|({real8}"+"{real8}"i")|({real8}"-"{real8}"i")|({real8}"+i")|({real8}"-i")|("+"{real8}"i")|("-"{real8}"i")|("+i")|("-i"))
-complex10              =({real10}|({real10}"@"{real10})|({real10}"+"{real10}"i")|({real10}"-"{real10}"i")|({real10}"+i")|({real10}"-i")|("+"{real10}"i")|("-"{real10}"i")|("+i")|("-i"))
-complex16              =({real16}|({real16}"@"{real16})|({real16}"+"{real16}"i")|({real16}"-"{real16}"i")|({real16}"+i")|({real16}"-i")|("+"{real16}"i")|("-"{real16}"i")|("+i")|("-i"))
+complex2               =({real2}|({real2}"@"{real2})|({real2}"+"{ureal2}"i")|({real2}"-"{ureal2}"i")|({real2}"+i")|({real2}"-i")|("+"{ureal2}"i")|("-"{ureal2}"i")|("+i")|("-i")|({real2}"+"{naninf}"i")|({real2}"-"{naninf}"i")|("+"{naninf}"i")|("-"{naninf}"i"))
+complex8               =({real8}|({real8}"@"{real8})|({real8}"+"{ureal8}"i")|({real8}"-"{ureal8}"i")|({real8}"+i")|({real8}"-i")|("+"{ureal8}"i")|("-"{ureal8}"i")|("+i")|("-i")|({real8}"+"{naninf}"i")|({real8}"-"{naninf}"i")|("+"{naninf}"i")|("-"{naninf}"i"))
+complex10              =({real10}|({real10}"@"{real10})|({real10}"+"{ureal10}"i")|({real10}"-"{ureal10}"i")|({real10}"+i")|({real10}"-i")|("+"{ureal10}"i")|("-"{ureal10}"i")|("+i")|("-i")|({real10}"+"{naninf}"i")|({real10}"-"{naninf}"i")|("+"{naninf}"i")|("-"{naninf}"i"))
+complex16              =({real16}|({real16}"@"{real16})|({real16}"+"{ureal16}"i")|({real16}"-"{ureal16}"i")|({real16}"+i")|({real16}"-i")|("+"{ureal16}"i")|("-"{ureal16}"i")|("+i")|("-i")|({real16}"+"{naninf}"i")|({real16}"-"{naninf}"i")|("+"{naninf}"i")|("-"{naninf}"i"))
 
 num2                   =({prefix2}{complex2})
 num8                   =({prefix8}{complex8})
@@ -82,13 +86,15 @@ number                 =({num2}|{num8}|{num10}|{num16})
 
 
 single_char            =[^\n ]
-character              ={single_char}|([Nn][Ee][Ww][Ll][Ii][Nn][Ee])|([Ss][Pp][Aa][Cc][Ee])
-character_literal      =#\\({character})?
+character              ={single_char}
+char_hex_esc_seq       =(#\\x({digit16})+)
+char_esc_seq           =(#\\(nul|alarm|backspace|tab|linefeed|newline|vtab|page|return|esc|space|delete))
+character_literal      =(#\\({character})?)|{char_hex_esc_seq}|{char_esc_seq}
 
-single_string_char     =[^\\\"]
-string_esc_seq         =\\[\"\\abfnrtv]
-hex_esc_seq            =\\x({digit16})+
-reg_string_char        ={single_string_char}|{string_esc_seq}
+single_string_char     =[^\\\"\n]
+string_esc_seq         =(\\[\"\\abfnrtv])
+hex_esc_seq            =(\\x({digit16})+)
+reg_string_char        ={single_string_char}|{string_esc_seq}|{hex_esc_seq}
 string_literal         =\"({reg_string_char})*\"
 
 atoms                  =(#[TtFf])
@@ -96,9 +102,9 @@ atoms                  =(#[TtFf])
 forms                  ={coreforms}|{clrforms}|{coreforms2}|{coreforms3}
 coreforms              ="define"|"lambda"|"set!"|"quote"|"if"|"cond"|"case"|"do"|"unless"|"when"|"let"|"let*"|"letrec"|"letrec*"|"library"|"assert"|"define-syntax"|"syntax-case"|"syntax-rules"
 coreforms2             ="case-lambda"|"begin"|"or"|"and"|"letrec-syntax"|"let-syntax"|"unquote"|"quasiquote"|"unquote-splicing"|"let-values"|"define-record-type"|"syntax"|"import"|"delay"
-coreforms3             ="unsyntax"|"unsyntax-splicing"|"quasisyntax"|"with-syntax"|"identifier-syntax"|"endianess"|"guard"|"define-enumeration"|"define-condition-type"|"record-constructor-descriptor"|"record-type-descriptor"|"let*-values"
+coreforms3             ="export"|"unsyntax"|"unsyntax-splicing"|"quasisyntax"|"with-syntax"|"identifier-syntax"|"endianess"|"guard"|"define-enumeration"|"define-condition-type"|"record-constructor-descriptor"|"record-type-descriptor"|"let*-values"
 clrforms               ="clr-static-event-add!"|"clr-static-event-remove!"|"clr-event-add!"|"clr-event-remove!"|"clr-clear-usings"|"clr-using"|"clr-reference"|"clr-is"|"clr-foreach"|"clr-cast"|"clr-call"|"clr-static-call"|"clr-field-get"|"clr-field-set!"|"clr-static-field-get"|"clr-static-field-set!"|"clr-prop-get"|"clr-prop-set!"|"clr-static-prop-get"|"clr-static-prop-set!"|"clr-indexer-get"|"clr-indexer-set!"|"clr-new"|"clr-new-array"
-auxforms               ="export"|"rename"|"except"|"only"|"else"|"=>"|"mutable"|"immutable"|"fields"|"nongenerative"|"parent"|"protocol"|"sealed"|"opaque"|"parent-rtd"|"..."|"_"
+auxforms               ="rename"|"except"|"only"|"else"|"=>"|"mutable"|"immutable"|"fields"|"nongenerative"|"parent"|"protocol"|"sealed"|"opaque"|"parent-rtd"|"..."|"_"
 
 procs                  = {baseprocs}|{baseprocs2}|{baseprocs3}|{baseprocs4}|{baseprocs5}|{baseprocs6}|{baseprocs7}|{baseprocs8}|{baseprocs9}|{baseprocs10}
 baseprocs              ="car"|"cdr"|"eq?"|"eqv?"|"equal?"|"not"|"null?"|"pair?"|"cons"|"map"|"append"|"list"|"vector"|"list?"|"vector?"|"vector-ref"|"apply"|"error"|"cons*"|"call-with-values"|"values"
@@ -113,18 +119,26 @@ baseprocs8             ="list-tail"|"list-ref"|"list->string"|"lcm"|"integer?"|"
 baseprocs9             ="environment"|"set-cdr!"|"string-set!"|"exit"|"set-car!"|"string-fill!"|"command-line"|"make-variable-transformer"|"identifier?"|"generate-temporaries"|"free-identifier=?"|"syntax->datum"|"datum->syntax"|"bound-identifier=?"|"syntax-violation"|"delete-file"|"file-exists?"|"make-i/o-write-error"|"make-i/o-read-error"|"make-i/o-port-error"|"make-i/o-invalid-position-error"|"make-i/o-filename-error"|"make-i/o-file-protection-error"|"make-i/o-file-is-read-only-error"|"make-i/o-file-does-not-exist-error"|"make-i/o-file-already-exists-error"|"make-i/o-error"|"i/o-write-error?"|"i/o-read-error?"|"i/o-port-error?"|"i/o-invalid-position-error?"|"i/o-filename-error?"|"i/o-file-protection-error?"|"i/o-file-is-read-only-error?"|"i/o-file-does-not-exist-error?"|"i/o-file-already-exists-error?"|"i/o-error?"|"i/o-error-port"|"i/o-error-filename"|"vector-sort!"|"vector-sort"|"list-sort"
       
 %state ML_COMMENT
+%state ML_STRING
 
 %%
 
 {white_space}+        { ; }
 {new_line}            { return NewLine();}
-                      
-{comment_start}       { ENTER(ML_COMMENT); return Comment(); }                      
-{line_comment}        { return Comment(); }
+
+<ML_STRING>({reg_string_char})+ { return String(STRING); }
+<ML_STRING>"\""       { EXIT(); return String(STRING); }
+<ML_STRING>.          { EXIT(); return Error(); }
 
 <ML_COMMENT>[^\n\|]+         { return Comment(); }
 <ML_COMMENT>{comment_end}     { EXIT(); return Comment(); }
 <ML_COMMENT>"|"               { return Comment(); }
+
+{ignore_datum}        { return Comment(); }                      
+{comment_start}       { ENTER(ML_COMMENT); return Comment(); }                      
+{line_comment}        { return Comment(); }
+
+"\"" { ENTER(ML_STRING); return String(STRING); }
  
 {atoms}               { return Number(LITERAL); } 
 
@@ -155,6 +169,8 @@ baseprocs9             ="environment"|"set-cdr!"|"string-set!"|"exit"|"set-car!"
 {character_literal}   { return Number(CHARACTER); }                      
 {number}              { return Number(NUMBER); }
 {string_literal}      { return String(STRING); }
+
+
 
 {identifier}          { return Identifier(SYMBOL); }
 

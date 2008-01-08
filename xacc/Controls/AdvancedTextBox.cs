@@ -1803,7 +1803,7 @@ namespace Xacc.Controls
       }
 
       //adjust the "rendering origin"
-      g.TranslateTransform(infobarw - hscroll.Value * buffer.FontWidth + (showfoldbar ? 13 : 1) , yoffset);
+      g.TranslateTransform((float) Math.Round(infobarw - hscroll.Value * buffer.FontWidth + (showfoldbar ? 13 : 1)) , yoffset);
 
       // adjust left margin
       tr.X -= 1;

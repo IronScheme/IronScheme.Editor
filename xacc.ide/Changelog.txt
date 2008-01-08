@@ -1,3 +1,8 @@
+0.2.0.82 - January 8, 2008
+
+- Partially fixed a rendering alignment bug (m's should render better now)
+- Improved Scheme support
+
 0.2.0.81 - January 4, 2008
 
 - Added Scheme (particularly IronScheme http://www.codeplex.com/IronScheme) support.
