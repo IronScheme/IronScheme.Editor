@@ -390,6 +390,7 @@
     </Compile>
     <Compile Include="Languages\Ironscheme.lex.cs" />
     <Compile Include="Languages\Ironscheme.y.cs" />
+    <Compile Include="Languages\IronSchemeIdentifiers.cs" />
     <Compile Include="Languages\IScanner.cs" />
     <Compile Include="Languages\Language.cs">
       <SubType>Code</SubType>

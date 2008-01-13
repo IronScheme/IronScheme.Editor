@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "xacc.ide"
-!define PRODUCT_VERSION "0.2.0.82"
+!define PRODUCT_VERSION "0.2.0.83"
 !define PRODUCT_PUBLISHER "leppie"
 !define PRODUCT_WEB_SITE "http://xacc.sourceforge.net/"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\xacc.ide.exe"
@@ -193,7 +193,7 @@ SectionIn 1 2 RO
 	CreateShortCut "$SMPROGRAMS\xacc.ide\xacc.ide (Debug mode).lnk" "$INSTDIR\xacc.ide.exe" "-debug"
   CreateShortCut "$DESKTOP\xacc.ide.lnk" "$INSTDIR\xacc.ide.exe"
 	CreateShortCut "$SMPROGRAMS\xacc.ide\xacc.license.lnk" "$INSTDIR\license.txt"
-	CreateShortCut "$SMPROGRAMS\xacc.ide\xacc.config.lnk" "$INSTDIR\xacc.ide.exe" "-listermode xacc.config.xml"
+	;CreateShortCut "$SMPROGRAMS\xacc.ide\xacc.config.lnk" "$INSTDIR\xacc.ide.exe" "-listermode xacc.config.xml"
 	File "xacc.ide.exe"
 	;File "xacc.languagedesigner.exe"
   File "xacc.dll"

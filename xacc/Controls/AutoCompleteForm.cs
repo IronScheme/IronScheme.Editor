@@ -87,7 +87,7 @@ namespace Xacc.Controls
 
       lasthint = hint;
 
-      System.Diagnostics.Trace.WriteLine(Join(this.filters),     "Filters       ");      
+      //System.Diagnostics.Trace.WriteLine(Join(this.filters),     "Filters       ");      
 
       IImageListProviderService ims = ServiceHost.ImageListProvider;
 

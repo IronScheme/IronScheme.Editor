@@ -29,7 +29,7 @@
  *	NEWSTYLEPAINT - an attempt to less calls to DrawString, needs work
  */
 //#define BACKGROUNDLEXER 
-//#define AUTOCOMPLETE	//broken
+#define AUTOCOMPLETE	//broken
 //#define DUMPTOKENS
 #define BROKEN
 //#define CHECKED
@@ -3324,7 +3324,7 @@ namespace Xacc.Controls
     void acform_VisibleChanged(object sender, EventArgs e)
     {
       autocomplete = acform.Visible;
-      System.Diagnostics.Trace.WriteLine(autocomplete ,"Visible       ");
+      //System.Diagnostics.Trace.WriteLine(autocomplete ,"Visible       ");
 
       if (autocomplete)
       {
@@ -3354,8 +3354,8 @@ namespace Xacc.Controls
             {
               CodeModel.ICodeElement elem = lbo as CodeModel.ICodeElement;
               string h = elem.Tag as string;
-              System.Diagnostics.Trace.WriteLine("'" + elem.Fullname + '"' ,"Element       ");
-              System.Diagnostics.Trace.WriteLine("'" + h + "'" ,"Selected hint ");
+              //System.Diagnostics.Trace.WriteLine("'" + elem.Fullname + '"' ,"Element       ");
+              //System.Diagnostics.Trace.WriteLine("'" + h + "'" ,"Selected hint ");
               int ci = buffer.CaretIndex;
               int lci = buffer.LineCharacterIndex;
               string line = buffer[buffer.CurrentLine];
@@ -3373,19 +3373,19 @@ namespace Xacc.Controls
                 string tail = (j < line.Length ? line.Substring(j) : string.Empty);
                 int ti = tail.Length;
  
-                string remt = h.Remove(h.Length - lh.Length, lh.Length);
+                string remt = h.Remove(0, lh.Length);
 
-                ee = ee.Remove(0, remt.Length);
+                ee = remt;
 
                 while (ti > 0 && !ee.EndsWith(tail.Substring(0, ti)))
                 {
                   ti--;
                 }
 
-                line = line.Substring(0, i) + ee + tail.Substring(ti);
+                line = line.Substring(0, lci) + remt + tail.Substring(ti);
               }
               buffer.SetLine(buffer.CurrentLine, line);
-              buffer.CaretIndex = ci + (ee.Length - acform.lasthint.Length);
+              buffer.CaretIndex = ci + (ee.Length);
             }
           }
           break;
@@ -3416,26 +3416,52 @@ namespace Xacc.Controls
 					Debug.Fail("Invalid state");
 				}
 
-        string hint;
-        Type[] filters;
-
-        CodeModel.ICodeElement[] result = buffer.Language.AutoComplete(tokens, line, lci, ProjectHint, buffer.FileName, out hint, out filters);
-
-        if (acform.Parent == null)
+        if (ProjectHint == null)
         {
-          FindForm().AddOwnedForm(acform);          
+          string hint;
+          CodeModel.ICodeElement[] result = buffer.Language.GetIdentifiers(line, lci, tokens, out hint);
+          if (result != null)
+          {
+            if (acform.Parent == null)
+            {
+              FindForm().AddOwnedForm(acform);
+            }
+
+            bool autocomplete2 = acform.Show(PointToScreen(
+              new Point((int)(buffer.LineColumnIndex * buffer.FontWidth + infobarw + (showfoldbar ? 12 : 0) - hscroll.Value - 21),
+              (int)(buffer.FontHeight * (cl - vscroll.Value + 1)))), hint, result, buffer.FontHeight, new Type[0]);
+
+            if (!autocomplete2)
+            {
+              acform_VisibleChanged(null, EventArgs.Empty);
+            }
+
+            Focus();
+          }
         }
-
-				bool autocomplete2 = acform.Show( PointToScreen(
-					new Point((int)(buffer.LineColumnIndex * buffer.FontWidth + infobarw + (showfoldbar ? 12 : 0) - hscroll.Value - 21), 
-					(int)( buffer.FontHeight * (cl - vscroll.Value + 1)))), hint, result, buffer.FontHeight, filters);
-
-        if (!autocomplete2)
+        else
         {
-          acform_VisibleChanged(null, EventArgs.Empty);
-        }
+          string hint;
+          Type[] filters;
 
-				Focus();
+          CodeModel.ICodeElement[] result = buffer.Language.AutoComplete(tokens, line, lci, ProjectHint, buffer.FileName, out hint, out filters);
+
+          if (acform.Parent == null)
+          {
+            FindForm().AddOwnedForm(acform);
+          }
+
+          bool autocomplete2 = acform.Show(PointToScreen(
+            new Point((int)(buffer.LineColumnIndex * buffer.FontWidth + infobarw + (showfoldbar ? 12 : 0) - hscroll.Value - 21),
+            (int)(buffer.FontHeight * (cl - vscroll.Value + 1)))), hint, result, buffer.FontHeight, filters);
+
+          if (!autocomplete2)
+          {
+            acform_VisibleChanged(null, EventArgs.Empty);
+          }
+
+          Focus();
+        }
 			}
 		}
 

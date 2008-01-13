@@ -2300,6 +2300,10 @@ namespace Xacc.Controls
               owner.ProjectHint.GenerateProjectTree();
               ServiceHost.CodeModel.Run(owner.ProjectHint);
             }
+            else
+            {
+              ServiceHost.CodeModel.Run(lang.CodeModel);
+            }
           }
           owner.Invalidate();
         }

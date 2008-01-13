@@ -642,7 +642,14 @@ namespace Xacc.ComponentModel
       AdvancedTextBox atb = fm.CurrentControl as AdvancedTextBox;
       if (atb != null && atb.Focused)
       {
-        atb.InsertLine();
+        if (achack)
+        {
+          achack = false;
+        }
+        else
+        {
+          atb.InsertLine();
+        }
       }
     }
     
@@ -691,11 +698,14 @@ namespace Xacc.ComponentModel
       }
     }
 
+    bool achack = false;
+
     public void AutoCompleteSelectChoice()
     {
       AdvancedTextBox atb = fm.CurrentControl as AdvancedTextBox;
       if (atb != null)
       {
+        achack = true;
         atb.AutoCompleteSelectChoice();
       }
     }

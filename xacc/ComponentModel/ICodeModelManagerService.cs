@@ -58,6 +58,7 @@ namespace Xacc.ComponentModel
     /// </summary>
     /// <param name="root">the project</param>
     void Run(Build.Project root);
+    void Run(ICodeElement rootelement);
   }
 
   class CodeModelManager : ServiceBase, ICodeModelManagerService
@@ -94,19 +95,12 @@ namespace Xacc.ComponentModel
       get{ return tree;} 
     }
 
-    delegate void Rerun(Build.Project prj);
+    delegate void Rerun(ICodeElement e);
 
     Rerun rerun;
 
-    public void Run(Build.Project prj)
+    public void Run(ICodeElement rootelem)
     {
-      if (prj.IsInvisible)
-      {
-        return;
-      }
-
-      ICodeElement rootelem = prj.CodeModel;
-
       if (rootelem == null)
       {
         return;
@@ -119,7 +113,7 @@ namespace Xacc.ComponentModel
           rerun = new Rerun(Run);
         }
 
-        tree.BeginInvoke(rerun, new object[] { prj });
+        tree.BeginInvoke(rerun, new object[] { rootelem });
         return;
       }
 
@@ -142,6 +136,16 @@ namespace Xacc.ComponentModel
 
       root.Expand();
       tree.ResumeLayout();
+    }
+
+    public void Run(Build.Project prj)
+    {
+      if (prj.IsInvisible)
+      {
+        return;
+      }
+
+      Run(prj.CodeModel);
     }
 
     void CheckElement(ICodeElement parent, TreeNode node)
@@ -203,13 +207,27 @@ namespace Xacc.ComponentModel
         {
           string filename = elem.Location.Filename;
 
-          Controls.AdvancedTextBox atb = ServiceHost.Project.Current.OpenFile(filename) as Controls.AdvancedTextBox;
-
-          if (atb != null)
+          if (ServiceHost.Project.Current != null)
           {
-            atb.Buffer.SelectLocation(elem.Location);
-            atb.MoveCaretIntoView();
-            ServiceHost.File.BringToFront(atb);
+            Controls.AdvancedTextBox atb = ServiceHost.Project.Current.OpenFile(filename) as Controls.AdvancedTextBox;
+
+            if (atb != null)
+            {
+              atb.Buffer.SelectLocation(elem.Location);
+              atb.MoveCaretIntoView();
+              ServiceHost.File.BringToFront(atb);
+            }
+          }
+          else
+          {
+            Controls.AdvancedTextBox atb = ServiceHost.File.Open(filename) as Controls.AdvancedTextBox;
+            if (atb != null)
+            {
+              atb.Buffer.SelectLocation(elem.Location);
+              atb.MoveCaretIntoView();
+              ServiceHost.File.BringToFront(atb);
+            }
+
           }
         }
 			}

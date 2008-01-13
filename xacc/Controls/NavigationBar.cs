@@ -118,6 +118,16 @@ namespace Xacc.Controls
         AddRecursiveNamespace(cns, types);
       }
 
+      foreach (ICodeElement e in codefile.Elements)
+      {
+        if (e is ICodeType)
+        {
+          ICodeType type = (ICodeType)e;
+          types.Add(type);
+          AddRecursive(type, types);
+        }
+      }
+
       types.Sort(delegate(ICodeType a, ICodeType b) { return a == null ? -1 : b == null ? 1 : a.Fullname.CompareTo(b.Fullname); });
 
       binding = true;

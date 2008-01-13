@@ -523,8 +523,6 @@ namespace Xacc.Languages
 
     sealed class ParseTokenEnumerator : TokenEnumeratorBase
     {
-      readonly IStatusBarService sb = ServiceHost.StatusBar;
-
       public ParseTokenEnumerator(DoubleLinkedList<TokenLine> lines, string filename, Language lang)
         : base (lines, filename, lang) 
       {
@@ -533,7 +531,6 @@ namespace Xacc.Languages
 
       protected override bool IsValid(IToken token)
       {
-        sb.Progress = line / maxlines;
         return token.Class >= 0 && token.Type >= 0 && !token.Location.Disabled;
       }
     }
@@ -1307,6 +1304,12 @@ namespace Xacc.Languages
       hint = this.hint;
       filters = this.filters;
       return hints;
+    }
+
+    public virtual ICodeElement[] GetIdentifiers(string line, int lci, IToken[] tokens, out string hint)
+    {
+      hint = "";
+      return null;
     }
 
     #endregion

@@ -1,3 +1,9 @@
+0.2.0.83 - January 13, 2008
+
+- Outline support for Scheme
+- Navigation bar support for Scheme
+- AutoComplete support for Scheme
+
 0.2.0.82 - January 8, 2008
 
 - Partially fixed a rendering alignment bug (m's should render better now)
