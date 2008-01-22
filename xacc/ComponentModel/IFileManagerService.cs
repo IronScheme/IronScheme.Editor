@@ -786,12 +786,12 @@ namespace Xacc.ComponentModel
       nfw.Dispose();
 		}
 
-    [MenuItem("New\\Project...", Index = 2, Image = "Project.New.png", AllowToolBar = true)]
-    void NewProject()
-    {
-      //(ServiceHost.Project as ProjectManager).Create();
-      MessageBox.Show(ServiceHost.Window.MainForm, "Coming soon!");
-    }
+    //[MenuItem("New\\Project...", Index = 2, Image = "Project.New.png", AllowToolBar = true)]
+    //void NewProject()
+    //{
+    //  //(ServiceHost.Project as ProjectManager).Create();
+    //  MessageBox.Show(ServiceHost.Window.MainForm, "Coming soon!");
+    //}
 
 
     public void BringToFront(Control c)
@@ -974,7 +974,7 @@ namespace Xacc.ComponentModel
 
 
       Close(current);
-      GC.Collect();
+      //GC.Collect();
     }
 
     [MenuItem("Copy FullPath", Index = 22, State = ApplicationState.File, Image = "Edit.Copy.png")]
@@ -1021,7 +1021,7 @@ namespace Xacc.ComponentModel
       }
 
       Close(current, false);
-      GC.Collect();
+      //GC.Collect();
     }
 
 
@@ -1268,7 +1268,7 @@ namespace Xacc.ComponentModel
 
         c.Tag = tp;
 
-        if (Path.GetFileName(filename) != "command.ls" && File.Exists(filename))
+        if (Path.GetFileName(filename) != "command.ls" && Path.GetFileName(filename) != "ironscheme.shell.txt" && File.Exists(filename))
         {
           foreach (MRUFile mru in recentfiles)
           {

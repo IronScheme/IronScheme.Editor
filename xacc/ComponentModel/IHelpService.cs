@@ -55,12 +55,12 @@ namespace Xacc.ComponentModel
       atb.ReadOnly = true;
     }
 
-    [MenuItem("Submit Bug", Index = 10, Image="Help.SubmitBug.png")]
-    public void SubmitBug()
-    {
-      ExceptionForm exf = new ExceptionForm();
-      exf.ShowDialog(ServiceHost.Window.MainForm);
-    }
+    //[MenuItem("Submit Bug", Index = 10, Image="Help.SubmitBug.png")]
+    //public void SubmitBug()
+    //{
+    //  ExceptionForm exf = new ExceptionForm();
+    //  exf.ShowDialog(ServiceHost.Window.MainForm);
+    //}
 
     [MenuItem("Trace Log", Index = 11)]
     public void TraceLog()
@@ -80,7 +80,7 @@ namespace Xacc.ComponentModel
       AboutForm f = new Controls.AboutForm();
       f.progressBar1.Visible = false;
       f.linkLabel1.Visible = true;
-      f.linkLabel1.Text = "(c)2003-2007 llewellyn@pritchard.org";
+      f.linkLabel1.Text = "(c)2003-2008 llewellyn@pritchard.org";
       f.Click += delegate { f.Close(); };
       f.ShowDialog(ServiceHost.Window.MainForm);
     }

@@ -1121,7 +1121,7 @@ namespace Xacc.Controls
                 CaretIndex--;
                 break;
               }
-              else if (CaretIndex == TextLength)
+              else if (CaretIndex >= TextLength - 1)
               {
                 break;
               }
@@ -2271,7 +2271,7 @@ namespace Xacc.Controls
           lang.braces = braces;
 
           hp.Start();
-          int res = lang.Parse(mlines, filename, this);
+          int res = lang.Parse(mlines, FileName, this);
           hp.Stop();
 
           Trace.WriteLine(string.Format("Parsing completed {0}successfully in {1:f1}ms", (res == 0 ? string.Empty : "un"), hp.Duration));
@@ -2423,6 +2423,10 @@ namespace Xacc.Controls
       /// <param name="location">the Location to select</param>
       public void SelectLocation(CodeModel.Location location)
       {
+        if (location == null)
+        {
+          return;
+        }
         int line = location.LineNumber - 1;
         int linecount = location.LineCount;
         int col = location.Column;
@@ -3429,7 +3433,7 @@ namespace Xacc.Controls
       /// </summary>
       public void Clear()
       {
-        textlength = 0;
+        textlength = 1;
         caretindex = 0;
         currentline = 0;
         linehint = STARTHINT;
@@ -3442,7 +3446,6 @@ namespace Xacc.Controls
 
         ClearUndo();
         recording = true;
-        GC.Collect();
       }
 
       /// <summary>

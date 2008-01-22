@@ -160,6 +160,8 @@ namespace Xacc.ComponentModel
       }
     }
 
+    // eish this code is so old and ugly :(
+
     [MenuItem("Project Explorer", Index = 10, Image="Project.Type.png")]
     bool ShowProjectExplorer
     {
@@ -290,7 +292,32 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Properties", Index = 23, Image = "Project.Run.png")]
+    [MenuItem("IronScheme Shell", Index = 23, Image = "IronScheme.png")]
+    bool ShowShell
+    {
+      get
+      {
+        IDockContent dc = (ServiceHost.Shell as ShellService).tbp;
+        if (dc == null)
+        {
+          return false;
+        }
+        return dc.DockState != DockState.Hidden;
+      }
+      set
+      {
+        if (!ShowShell)
+        {
+          (ServiceHost.Shell as ShellService).tbp.Activate();
+        }
+        else
+        {
+          (ServiceHost.Shell as ShellService).tbp.Hide();
+        }
+      }
+    }
+
+    [MenuItem("Properties", Index = 30, Image = "Project.Run.png")]
     bool ShowProperties
     {
       get

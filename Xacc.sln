@@ -1,14 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{5ECA136A-701B-4564-8012-109384F41FE0}"
-	ProjectSection(SolutionItems) = preProject
-		Common\AssemblyInfo.Common.cs = Common\AssemblyInfo.Common.cs
-		Common\AssemblyInfo.KeyFile.cs = Common\AssemblyInfo.KeyFile.cs
-	EndProjectSection
-	ProjectSection(FolderStartupServices) = postProject
-		{B4F97281-0DBD-4835-9ED8-7DFB966E87FF} = {B4F97281-0DBD-4835-9ED8-7DFB966E87FF}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xacc", "xacc\xacc.csproj", "{A532434D-67C8-4C19-B8EC-A4AF728382F6}"
 	ProjectSection(ProjectDependencies) = postProject
 		{206ACA7A-847B-4118-A02F-1AC72CF70F28} = {206ACA7A-847B-4118-A02F-1AC72CF70F28}

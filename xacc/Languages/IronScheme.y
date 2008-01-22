@@ -82,13 +82,13 @@ static string GetName(object list)
   Cons c = list as Cons;
   while (c != null)
   {
-    ll.Add(c.car as string);
+    ll.Add(c.car.ToString());
     c = c.cdr as Cons;
   }
   return string.Join(" ", ll.ToArray());
 }
 
-static IEnumerable<Definition> GetDefs(object defs)
+static IEnumerable<ICodeElement> GetDefs(object defs)
 {
   Cons body = defs as Cons;
   
@@ -99,26 +99,40 @@ static IEnumerable<Definition> GetDefs(object defs)
     {
       if (c.car is DefineLocation)
       {
-      string defname = c.car.ToString();
-      if (defname != null && defname.StartsWith("define"))
-      {
-        object name = ((Cons)c.cdr).car;
-        string sname = null;
-        if (name is Cons)
+        string defname = c.car.ToString();
+        if (defname != null && (defname.StartsWith("define")))
         {
-          sname = ((Cons)name).car.ToString();
+          object name = ((Cons)c.cdr).car;
+          object defbody = ((Cons)c.cdr).cdr;
+          string sname = null;
+          if (name is Cons)
+          {
+            Identifier id = ((Cons)name).car as Identifier;
+            sname = id.Name;
+            Definition d = new Definition(sname, defname == "define" ? defbody : null);
+            d.Location = id.Location;
+            yield return d;
+          }
+          else
+          {
+            Identifier id = name as Identifier;
+            if (id != null)
+            {
+              sname = id.Name;
+              Definition d = new Definition(sname, defname == "define" ? defbody : null);
+              d.Location = id.Location;
+              yield return d;
+            }
+          }
         }
-        else
-        {
-          sname = name.ToString();
-        }
-        Definition d = new Definition(sname);
-        d.Location = ((CodeElement)c.car).Location;
-        
-        yield return d;
-      }
       }
     }
+    
+    if (body.car is Library || body.car is Module)
+    {
+      yield return body.car as ICodeElement;
+    }
+
     body = body.cdr as Cons;
   }
   yield break;
@@ -132,10 +146,35 @@ class Library : CodeType
   public Library(object name, object body)
   {
     Name = GetName(name);
-    foreach (Definition d in GetDefs(body))
+    foreach (ICodeElement d in GetDefs(body))
     {
       Add(d);
     }
+  }
+  
+  public override string Fullname
+  {
+    get {return Name;}
+  }
+}
+
+[Serializable]
+[Image("CodeDelegate.png")]
+class Module : CodeType
+{
+  
+  public Module(object name, object body)
+  {
+    Name = GetName(name);
+    foreach (ICodeElement d in GetDefs(body))
+    {
+      Add(d);
+    }
+  }
+  
+  public override string Fullname
+  {
+    get {return Name;}
   }
 }
 
@@ -146,10 +185,22 @@ class TopLevel : CodeType
   public TopLevel(object body)
   {
     Name = "toplevel";
-    foreach (Definition d in GetDefs(body))
+    foreach (ICodeElement d in GetDefs(body))
     {
       Add(d);
     }
+  }
+  
+  public bool AllLibraries()
+  {
+    foreach (ICodeElement e in this.Members)
+    {
+      if (!(e is Library))
+      {
+        return false;
+      }
+    }
+    return true;
   }
 }
 
@@ -157,15 +208,27 @@ class TopLevel : CodeType
 [Image("CodeMethod.png")]
 class Definition : CodeMember
 {
-  public Definition(string name)
+  public Definition(string name, object body)
   {
     Name = name;
+/*    foreach (ICodeElement d in GetDefs(body))
+    {
+      Add(d);
+    }*/
   }
 }
 
 class DefineLocation : CodeElement
 {
   public DefineLocation(string name)
+  {
+    Name = name;
+  }
+}
+
+class Identifier : CodeElement
+{
+  public Identifier(string name)
   {
     Name = name;
   }
@@ -182,14 +245,14 @@ class DefineLocation : CodeElement
 }
 
 %token LIBRARY IMPORT EXPORT
-%token DEFINE DEFINESYNTAX DEFINERECORDTYPE DEFINEENUMERATION DEFINECONDITIONTYPE
+%token DEFINE DEFINESYNTAX DEFINERECORDTYPE DEFINEENUMERATION DEFINECONDITIONTYPE MODULE
 
 %token LBRACE RBRACE LBRACK RBRACK QUOTE QUASIQUOTE UNQUOTE UNQUOTESPLICING VECTORLBRACE DOT BYTEVECTORLBRACE
 %token UNSYNTAX SYNTAX UNSYNTAXSPLICING QUASISYNTAX IGNOREDATUM
 %token SYMBOL LITERAL STRING NUMBER CHARACTER 
 
 %type <List>  exprlist body
-%type <Value> expr list library toplevel definesym
+%type <Value> expr list library toplevel definesym module
 
 
 
@@ -200,20 +263,32 @@ class DefineLocation : CodeElement
 
 
 file 
-    : library                                 { CodeModel.Add( $1 as CodeElement); }
-    | toplevel                                { CodeModel.Add( $1 as CodeElement); }
+    : libraries
+    | toplevel                                { if (($1 as TopLevel).AllLibraries())
+                                                {
+                                                  foreach (ICodeElement lib in ($1 as TopLevel).Members)
+                                                  {
+                                                    CodeModel.Add(lib);
+                                                  }
+                                                }
+                                                else CodeModel.Add( $1 as CodeElement); }
     ;
+    
+libraries
+    : library                                  { CodeModel.Add( $1 as CodeElement); }
+    | libraries library                        { CodeModel.Add( $2 as CodeElement); }
+    ;    
     
 library
     : LBRACE LIBRARY list 
         export
         import
         body
-      RBRACE                                      { MakePair(@1,@7); try { $$ = new Library($3, $6); ((CodeElement)$$).Location = @3; } catch {} }
+      RBRACE                                   { MakePair(@1,@7); try { $$ = new Library($3, $6); ((CodeElement)$$).Location = @3; } catch {} }
     ;   
     
 toplevel
-    : import body                             { $$ = new TopLevel($2);}
+    : body                                    { $$ = new TopLevel($1);}
     ;   
 
 export
@@ -227,6 +302,10 @@ import
 body
     : exprlist
     ;    
+    
+module
+    : LBRACE MODULE list body RBRACE          { $$ = new Module($3, $4); ((CodeElement)$$).Location = @3; }
+    ;
     
 list
     : LBRACE exprlist RBRACE                  { MakePair(@1,@3); $$ = $2; @@ = @1 + @3; }
@@ -244,7 +323,8 @@ exprlist
 libsym
     : IMPORT
     | EXPORT
-    | LIBRARY 
+    | LIBRARY
+    | MODULE 
     ;
     
 definesym
@@ -256,9 +336,10 @@ definesym
     ;    
     
 expr
-    : list                                        
-    | library                                     
-    | SYMBOL                                     
+    : list                                      
+    | library 
+    | module                                
+    | SYMBOL                                  { $$ = new Identifier($1.Value as string); ((CodeElement)$$).Location = @1; }
     | libsym
     | definesym                               { $$ = new DefineLocation($1 as string); ((CodeElement)$$).Location = @1; }
     | STRING                                      

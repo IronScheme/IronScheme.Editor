@@ -297,8 +297,13 @@ namespace Xacc.Controls
 		///	path='doc/members/member[@name="M:System.Windows.Forms.TextBoxBase.AppendText(System.String)"]/*'/>
 		public void AppendText(string text)
 		{
+      bool ro = isreadonly;
+      isreadonly = false;
+
 			buffer.CaretIndex = TextLength - 1;
 			buffer.InsertString(text);
+
+      isreadonly = ro;
 		}
 
 		///<include file='C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.xml' 
@@ -391,7 +396,7 @@ namespace Xacc.Controls
 		///	path='doc/members/member[@name="M:System.Windows.Forms.TextBoxBase.SelectAll"]/*'/>
 		public void SelectAll()
 		{
-			Select(0, TextLength);
+			Select(0, TextLength - 1);
       ScrollToCaret();
 		}
 
@@ -1774,32 +1779,30 @@ namespace Xacc.Controls
         //hilite current line
         //j = Array.BinarySearch(lines, cl); //already done
         g.FillRectangle(selbrush, 0, (j - firstline) * fh + 1, fw5, fh);
-        
+
         g.DrawLine(SystemPensHighlight, fw5, 0, fw5, h);
 
-         while (lr <= ll && lr < vlinecount)
+        while (lr <= ll && lr < vlinecount)
         {
           j = lines[lr];
 
           g.DrawString(
             (j
-#if !CHECKED 
+#if !CHECKED
             // fix up for real use, 1 based indices are horrible!
             + 1
 #endif
-            ).ToString(), buffer.Font, 
-            j == buffer.CurrentLine ? SystemBrushesHotTrack:  
-            j%10 == 9 ? SystemBrushesControlText :	SystemBrushesButtonShadow, 
-            hfw, (lr - firstline)* fh + 1, buffer.sf);
+).ToString(), buffer.Font,
+            j == buffer.CurrentLine ? SystemBrushesHotTrack :
+            j % 10 == 9 ? SystemBrushesControlText : SystemBrushesButtonShadow,
+            hfw, (lr - firstline) * fh + 1, buffer.sf);
           lr++;
         }
-			
-        //if ((drawflags & DrawFlags.InfoBar) == DrawFlags.InfoBar)
-        {
-          RectangleF ib = infobarr;
-          ib.Width -= 1;
-          g.SetClip(ib, CombineMode.Exclude);
-        }
+
+        RectangleF ib = infobarr;
+        ib.Width -= 1;
+        g.SetClip(ib, CombineMode.Exclude);
+
       }
 
       //adjust the "rendering origin"
@@ -2363,7 +2366,7 @@ namespace Xacc.Controls
     public void GotoLastLine()
     {
       ResetCaret();
-      Buffer.CaretIndex = Buffer.TextLength;
+      Buffer.CaretIndex = Buffer.TextLength - 1;
       ScrollToCaret();
     }
 
@@ -2659,11 +2662,14 @@ namespace Xacc.Controls
     {
       ResetCaret();
       int cl = CurrentLine;
-      buffer.CaretIndex++;
-      if (CurrentLine > cl)
+      if (buffer.CaretIndex < buffer.TextLength - 1)
       {
-        CurrentLine = cl;
-        CurrentLine++;
+        buffer.CaretIndex++;
+        if (CurrentLine > cl)
+        {
+          CurrentLine = cl;
+          CurrentLine++;
+        }
       }
       ScrollToCaret();
       
@@ -2718,6 +2724,10 @@ namespace Xacc.Controls
       ScrollToCaret();
     }
 
+    internal delegate void LineInsertNotify(string line);
+    internal event LineInsertNotify LineInserted;
+
+
     /// <summary>
     /// 
     /// </summary>
@@ -2726,6 +2736,12 @@ namespace Xacc.Controls
       ResetCaret();
       buffer.InsertLineAfterCaret();
       ScrollToCaret();
+
+      if (LineInserted != null)
+      {
+        LineInserted(buffer[CurrentLine - 1]);
+      }
+
     }
 
     void ResetCaret()
@@ -3326,6 +3342,7 @@ namespace Xacc.Controls
       autocomplete = acform.Visible;
       //System.Diagnostics.Trace.WriteLine(autocomplete ,"Visible       ");
 
+      // this is indeed very screwy :{
       if (autocomplete)
       {
         ServiceHost.State |= ApplicationState.AutoComplete;

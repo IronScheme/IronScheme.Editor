@@ -11,6 +11,8 @@ using LexerBase = Xacc.Languages.IronScheme.LexerBase<Xacc.Languages.IronScheme.
 
 %unicode
 
+pp_eof                 ="#!eof"
+
 line_comment           =(";"[^\n]*)|("#!"[^\n]*)
 
 ignore_datum           ="#;"
@@ -100,7 +102,7 @@ string_literal         =\"({reg_string_char})*\"
 atoms                  =(#[TtFf])
 
 forms                  ={coreforms}|{clrforms}|{coreforms2}|{coreforms3}
-coreforms              ="lambda"|"set!"|"quote"|"if"|"cond"|"case"|"do"|"unless"|"when"|"let"|"let*"|"letrec"|"letrec*"|"assert"|"syntax-case"|"syntax-rules"|"eol-style"|"endianness"|"error-handling-mode"|"buffer-mode"|"file-options"|"time"|"include"|"include-into"|"parameterize"|"module"
+coreforms              ="lambda"|"set!"|"quote"|"if"|"cond"|"case"|"do"|"unless"|"when"|"let"|"let*"|"letrec"|"letrec*"|"assert"|"syntax-case"|"syntax-rules"|"eol-style"|"endianness"|"error-handling-mode"|"buffer-mode"|"file-options"|"time"|"include"|"include-into"|"parameterize"
 coreforms2             ="case-lambda"|"begin"|"or"|"and"|"letrec-syntax"|"let-syntax"|"unquote"|"quasiquote"|"unquote-splicing"|"let-values"|"syntax"|"delay"
 coreforms3             ="unsyntax"|"unsyntax-splicing"|"quasisyntax"|"with-syntax"|"identifier-syntax"|"endianess"|"guard"|"record-constructor-descriptor"|"record-type-descriptor"|"let*-values"
 clrforms               ="clr-static-event-add!"|"clr-static-event-remove!"|"clr-event-add!"|"clr-event-remove!"|"clr-clear-usings"|"clr-using"|"clr-reference"|"clr-is"|"clr-foreach"|"clr-cast"|"clr-call"|"clr-static-call"|"clr-field-get"|"clr-field-set!"|"clr-static-field-get"|"clr-static-field-set!"|"clr-prop-get"|"clr-prop-set!"|"clr-static-prop-get"|"clr-static-prop-set!"|"clr-indexer-get"|"clr-indexer-set!"|"clr-new"|"clr-new-array"
@@ -123,6 +125,7 @@ baseprocs9             ="environment"|"set-cdr!"|"string-set!"|"exit"|"set-car!"
 
 %%
 
+{pp_eof}              { return Type(EOF); }
 {white_space}+        { ; }
 {new_line}            { return NewLine();}
 
@@ -151,6 +154,7 @@ baseprocs9             ="environment"|"set-cdr!"|"string-set!"|"exit"|"set-car!"
 "define-condition-type" { return Keyword(DEFINECONDITIONTYPE); }
 "define-record-type"  { return Keyword(DEFINERECORDTYPE); }
 "define-enumeration"  { return Keyword(DEFINEENUMERATION); }
+"module"              { return Keyword(MODULE); }
 
 {auxforms}            { return Other(SYMBOL); }
 {forms}               { return Keyword(SYMBOL); }

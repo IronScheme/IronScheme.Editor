@@ -183,6 +183,8 @@ namespace Xacc.ComponentModel
         {
           platform.Value = "AnyCPU";
         }
+
+        project.ParentEngine.GlobalProperties["SolutionDir"] = solution.GlobalProperties["SolutionDir"];
         
         BuildStarted(delegate()
         {

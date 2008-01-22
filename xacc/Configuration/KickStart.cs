@@ -210,23 +210,8 @@ namespace Xacc.Configuration
       about.Show();
       Application.DoEvents();
 
-      if (args.debug)
-      {
-        Diagnostics.Trace.debugmode = true;
-        Trace.AutoFlush = true;
-        try
-        {
-          Trace.Listeners.Add( new TextWriterTraceListener( tracelog = File.CreateText(Application.StartupPath + "/xacc.log")));
-        }
-        catch
-        {
-          Trace.Listeners.Add( new TextWriterTraceListener( tracelog = File.CreateText(Application.StartupPath + "/xacc1.log")));
-        }
-      }
-
       f.KeyPreview = true;
-
-
+      
       IWindowService ws = new WindowService(f);
 
       about.progressBar1.Value += 10;
@@ -286,6 +271,7 @@ namespace Xacc.Configuration
       try
       {
         ServiceHost.Scripting.InitCommand();
+        ServiceHost.Shell.InitCommand();
       }
       catch (Exception ex) // MONO
       {

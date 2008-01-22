@@ -726,7 +726,10 @@ namespace Xacc.ComponentModel
             }
             string location = m.Groups["location"].Value;
 
-            bm.solution.AddNewItem("BuildProject", location);
+            if (File.Exists(Path.Combine(Path.GetDirectoryName(prjfile), location)))
+            {
+              bm.solution.AddNewItem("BuildProject", location);
+            }
           }
         }
 

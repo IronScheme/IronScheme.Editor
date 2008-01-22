@@ -81,7 +81,6 @@ namespace Xacc.Controls
         this.filters = filters;
       }
 
-      Height = 0;
       DialogResult = DialogResult.Cancel;
       choices.Items.Clear();
 
@@ -142,13 +141,15 @@ namespace Xacc.Controls
         lastguess = ((CodeModel.ICodeElement) (choices.SelectedItem)).Fullname;
       }
 
+      int diff = Height - ClientSize.Height;
+
       if (choices.Items.Count < 12)
       {
-        Height = choices.ItemHeight * choices.Items.Count + 2;
+        Height = choices.ItemHeight * choices.Items.Count + diff + 2;
       }
       else
       {
-        Height = choices.ItemHeight * 12 + 2;
+        Height = choices.ItemHeight * 12 + diff + 2;
       }
 
       Screen ss = Screen.FromPoint(location);
@@ -180,15 +181,19 @@ namespace Xacc.Controls
 
     public AutoCompleteForm(AdvancedTextBox parent)
     {
-      FormBorderStyle = FormBorderStyle.None;
+      Opacity = .9;
+      DoubleBuffered = true;
+      FormBorderStyle = FormBorderStyle.SizableToolWindow;
       this.ControlBox = false;
       choices.BorderStyle = BorderStyle.FixedSingle;
       choices.KeyDown += new KeyEventHandler(choices_KeyDown);
       choices.DoubleClick +=new EventHandler(choices_DoubleClick);
       choices.Font = SystemInformation.MenuFont;
       choices.Dock = DockStyle.Fill;
+      choices.IntegralHeight = false;
+
       Controls.Add(choices);
-      Width = 200;
+      Width = 250;
       
       this.ShowInTaskbar = false;
       this.SizeGripStyle = SizeGripStyle.Hide;

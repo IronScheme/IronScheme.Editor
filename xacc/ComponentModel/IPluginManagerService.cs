@@ -131,6 +131,7 @@ namespace Xacc.ComponentModel
         new HelpService();
         new UpdaterService();
 
+        new ShellService();
         new ScriptingService();
         new StandardConsole();
         new SettingsService();

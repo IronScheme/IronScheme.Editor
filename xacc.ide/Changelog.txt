@@ -1,3 +1,11 @@
+0.2.0.84 - January 19, 2008
+
+- Fixed F# char escape bug
+- Improvements to Scheme parser
+- Interactive console for IronScheme (integration coming later)
+- Small fix to projects to not crash with solution folders
+- Removed 'Submit Bug' and other error reporting as the server has been down for ages
+
 0.2.0.83 - January 13, 2008
 
 - Outline support for Scheme

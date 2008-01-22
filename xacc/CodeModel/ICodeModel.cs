@@ -602,7 +602,13 @@ namespace Xacc.CodeModel
       {
         return null;
       }
-			elements[elem.Fullname] = elem;
+      if (elements.ContainsKey(elem.Fullname))
+      {
+      }
+      else
+      {
+        elements[elem.Fullname] = elem;
+      }
 			return elem;
 		}
 
@@ -907,8 +913,10 @@ namespace Xacc.CodeModel
           }
           return elem;
         }
-      
-        base.Add(elem);
+        else
+        {
+          base.Add(elem);
+        }
       }
       return elem;
     }
@@ -993,6 +1001,11 @@ namespace Xacc.CodeModel
     /// </summary>
     /// <param name="mems">the collection of members to add</param>
     public CodeComplexMember(ICollection mems) : base(mems)
+    {
+    }
+
+    public CodeComplexMember()
+      : base()
     {
     }
 

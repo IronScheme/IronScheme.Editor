@@ -214,7 +214,7 @@ namespace Xacc.Languages.CSLex
           if ((int)t.Class >= -1)
           {
             yylval = t;
-            System.Diagnostics.Debug.Assert(t.Type > 2);
+            System.Diagnostics.Debug.Assert(t.Type >= 2);
             return t.Type;
           }
         }

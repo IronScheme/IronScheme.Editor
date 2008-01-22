@@ -591,7 +591,11 @@ namespace Xacc.ComponentModel
 
         foreach (Action h in new ArrayList(hs))
         {
-          success |= h.StartInvoke();
+          success = h.StartInvoke();
+          if (success)
+          {
+            break;
+          }
         }
 #if CHECK
         if (!success)
@@ -643,8 +647,10 @@ namespace Xacc.ComponentModel
       //  System.Diagnostics.Trace.Write("(" + k + ") ");
       //}
       //System.Diagnostics.Trace.WriteLine("");
+      
+      e.Handled = 
+        MatchStack(keys);
 
-      e.Handled = MatchStack(keys);
 #warning FIX MULTIPLE KEYSTROKES SOMEHOW
     }
 

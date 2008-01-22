@@ -106,6 +106,12 @@ namespace Xacc.ComponentModel
         return;
       }
 
+      // HACK
+      if (rootelem.Name.EndsWith("ironscheme.shell.txt"))
+      {
+        return;
+      }
+
       if (tree.InvokeRequired)
       {
         if (rerun == null)
@@ -121,7 +127,15 @@ namespace Xacc.ComponentModel
 
       tree.SuspendLayout();
 
-      tree.Nodes.Clear();
+      foreach (TreeNode rn in tree.Nodes)
+      {
+        if (rn.Tag.ToString() == rootelem.Fullname)
+        {
+          tree.Nodes.Remove(rn);
+          break;
+        }
+      }
+
       root = tree.Nodes.Add(rootelem.ToString());
       root.Tag = rootelem;
       root.ImageIndex = root.SelectedImageIndex = ServiceHost.ImageListProvider[rootelem];
@@ -134,7 +148,7 @@ namespace Xacc.ComponentModel
         }
       }
 
-      root.Expand();
+      root.ExpandAll();
       tree.ResumeLayout();
     }
 

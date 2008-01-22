@@ -56,6 +56,8 @@ namespace Xacc.Controls
 		{
 			InitializeComponent();
 
+      reportBut.Enabled = false;
+
       helpBut.Enabled = false;
       detailsBox.MaxLength = 1000;
       infoBox.MaxLength = 1000;

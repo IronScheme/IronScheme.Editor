@@ -90,6 +90,7 @@
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
@@ -179,6 +180,7 @@
     <Compile Include="ComponentModel\ColorInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ComponentModel\IShellService.cs" />
     <Compile Include="ComponentModel\DebuggerBase.cs">
     </Compile>
     <Compile Include="ComponentModel\IUpdaterService.cs" />
@@ -587,6 +589,7 @@
     <EmbeddedResource Include="Resources\Content.png" />
     <Content Include="Resources\header.bmp" />
     <Content Include="Resources\installer.bmp" />
+    <EmbeddedResource Include="Resources\IronScheme.png" />
     <EmbeddedResource Include="Resources\ProjectReference.png" />
   </ItemGroup>
   <ItemGroup>
