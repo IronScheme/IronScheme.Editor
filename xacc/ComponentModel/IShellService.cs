@@ -57,7 +57,7 @@ namespace Xacc.ComponentModel
 
       if (SettingsService.idemode)
       {
-        atb = ServiceHost.File.Open(Application.StartupPath + "/ironscheme.shell.txt", DockState.DockBottom)
+        atb = ServiceHost.File.Open(Application.StartupPath + "/shell", DockState.DockBottom)
           as AdvancedTextBox;
 
         atb.Clear();
@@ -251,7 +251,7 @@ namespace Xacc.ComponentModel
     private void ShellExeNotFound(string filepath)
     {
       atb.ReadOnly = true;
-      atb.AppendText(filepath + "not found");
+      atb.AppendText(filepath + " not found");
     }
 
     bool reading = false;
@@ -267,6 +267,9 @@ namespace Xacc.ComponentModel
 
     void p_Exited(object sender, EventArgs e)
     {
+      In = null;
+      Out = null;
+      p = null;
 
     }
 

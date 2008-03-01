@@ -1,3 +1,7 @@
+0.2.0.85 - March 1, 2008
+
+- Small improvement to Scheme lexer
+
 0.2.0.84 - January 19, 2008
 
 - Fixed F# char escape bug
