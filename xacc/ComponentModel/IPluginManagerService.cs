@@ -97,64 +97,48 @@ namespace Xacc.ComponentModel
 
 	class DefaultPluginProvider : AssemblyPluginProvider
 	{
-		
-		public override void LoadAll(IPluginManagerService svc)
-		{
-      try
+
+    public override void LoadAll(IPluginManagerService svc)
+    {
+      Configuration.IdeSupport.about.progressBar1.Value = 10;
+      new LanguageService();
+
+      Configuration.IdeSupport.about.progressBar1.Value += 20;
+
+      new ImageListProvider();
+      if (SettingsService.idemode)
       {
-        Configuration.IdeSupport.about.progressBar1.Value = 10;
-        new LanguageService();
-
-        Configuration.IdeSupport.about.progressBar1.Value += 20;
-
-        new ImageListProvider();
-        if (SettingsService.idemode)
-        {
-          new ToolBarService();
-          new MenuService();
-          new StatusBarService();
-        }
-
-        Configuration.IdeSupport.about.progressBar1.Value += 10;
-        
-        new DiscoveryService();
-        new CodeModelManager();
-        new ErrorService();
-
-        // figure some way out to order these for toolbar/menu
-        new FileManager();
-        new EditService();
-        new ProjectManager();
-        new BuildService();
-        new DebugService();
-        new ToolsService();
-        new HelpService();
-        new UpdaterService();
-
-        new ShellService();
-        new ScriptingService();
-        new StandardConsole();
-        new SettingsService();
-        new PropertyService();
-
-        Configuration.IdeSupport.about.progressBar1.Value += 10;
-      
-        //bool cres = Configuration.ConfigCompiler.CompileConfig();
-
-        Configuration.IdeSupport.about.progressBar1.Value = 55;
-
-        //if (!cres)
-        //{
-        //  throw new ApplicationException("Configuration could not be compiled. Please send your xacc.config.xml " +
-        //    "and xacc.config.cs file to llewellyn@pritchard.org if you feel you are not in error. Thanks.");
-        //}
-      }
-      catch (Exception ex)
-      {
-        Trace.WriteLine(ex);
+        new ToolBarService();
+        new MenuService();
+        new StatusBarService();
       }
 
-		}
+      Configuration.IdeSupport.about.progressBar1.Value += 10;
+
+      new DiscoveryService();
+      new CodeModelManager();
+      new ErrorService();
+
+      // figure some way out to order these for toolbar/menu
+      new FileManager();
+      new EditService();
+      new ProjectManager();
+      new BuildService();
+      new DebugService();
+      new ToolsService();
+      new HelpService();
+      new UpdaterService();
+
+      Configuration.IdeSupport.about.progressBar1.Value += 10;
+
+      new ShellService();
+      new ScriptingService();
+      new StandardConsole();
+      new SettingsService();
+      new PropertyService();
+
+      Configuration.IdeSupport.about.progressBar1.Value = 55;
+    }
 	}
 
 	sealed class PluginManager : ServiceBase, IPluginManagerService

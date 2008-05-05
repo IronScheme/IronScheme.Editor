@@ -70,7 +70,7 @@ namespace Xacc.Controls
 	/// </summary>
 	[ToolboxBitmap(typeof(Resources.Fake), "CodeValueType.bmp")]
   [Name("Code Editor")]
-  public sealed partial class AdvancedTextBox : Control, IEdit, IFile, IEditSpecial, IEditAdvanced, INavigate, IScroll, IHasCodeModel, IFind
+  public partial class AdvancedTextBox : Control, IEdit, IFile, IEditSpecial, IEditAdvanced, INavigate, IScroll, IHasCodeModel, IFind
 	{
 		#region Fields
 
@@ -2445,7 +2445,7 @@ namespace Xacc.Controls
       ScrollToCaret();
     }
 
-    void INavigate.NavigateUp()
+    public virtual void NavigateUp()
     {
       if (!acform.Visible)
       {
@@ -2463,7 +2463,7 @@ namespace Xacc.Controls
       ScrollToCaret();
     }
 
-    void INavigate.NavigateDown()
+    public virtual void NavigateDown()
     {
       if (!acform.Visible)
       {
@@ -2921,7 +2921,14 @@ namespace Xacc.Controls
           sellen += line - firstline;
           while(firstline < line)
           {
-            newlines.Add("\t" + buffer[firstline]);
+            string ns = "\t";
+            if (TabsToSpaces)
+            {
+              ns = new string(' ', buffer.TabSize);
+              sellen += (buffer.TabSize - 1);
+            }
+
+            newlines.Add(ns + buffer[firstline]);
             firstline++;
           }
           buffer.SetLines(startline, newlines.ToArray(typeof(string)) as string[]);
@@ -2932,7 +2939,14 @@ namespace Xacc.Controls
           sellen += line - firstline;
           while(firstline <= line)
           {
-            newlines.Add("\t" + buffer[firstline]);
+            string ns = "\t";
+            if (TabsToSpaces)
+            {
+              ns = new string(' ', buffer.TabSize);
+              sellen += (buffer.TabSize - 1);
+            }
+
+            newlines.Add(ns + buffer[firstline]);
             firstline++;
           }
           sellen++;

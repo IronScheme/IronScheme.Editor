@@ -384,6 +384,11 @@ protected override bool UseProjectTreeForAutoComplete
   get {return true; }
 }
 
+public override string DefaultFileContent
+{
+  get {return "(import (rnrs))\n"; }
+}
+
 protected internal override string[] CommentLines(string[] lines)
 {
   string[] newlines = new string[lines.Length];

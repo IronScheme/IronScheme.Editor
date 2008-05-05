@@ -28,7 +28,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("2003-2008 llewellyn@pritchard.org")]
 [assembly: AssemblyTrademark("GNU LGPL")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("0.2.0.85")]
+[assembly: AssemblyVersion("0.2.0.87")]
 [assembly: ComVisibleAttribute(true)]
 
 #if !DEBUG

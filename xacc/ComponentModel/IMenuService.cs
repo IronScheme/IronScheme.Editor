@@ -305,8 +305,8 @@ namespace Xacc.ComponentModel
 			AddTopLevel("&Project");
       AddTopLevel("&Build");
       AddTopLevel("&Debug");
-
       AddTopLevel("&Script");
+      AddTopLevel("Scheme");
       AddTopLevel("&Tools");
 			AddTopLevel("&Window");
       AddTopLevel("&Help");

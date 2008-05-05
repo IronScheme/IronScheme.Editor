@@ -1,3 +1,16 @@
+0.2.0.87 - April 5, 2008
+
+- Fixed silly tab indentation issue
+
+0.2.0.86 - April 5, 2008
+
+- Fixed Scheme shell showing up in MRU files
+- Improved Scheme shell, added command history
+- Scheme files can now be run like LSharp, with Ctrl + Enter and Ctrl + Shift + Enter
+- Fixed newly created and saved files not showing up in MRU
+- Externally modified files are now being reloaded automatically
+- TabsToSpaces implemented, and now default
+
 0.2.0.85 - March 1, 2008
 
 - Small improvement to Scheme lexer

@@ -138,7 +138,7 @@ namespace Xacc.Languages
     /// </summary>
     public virtual string DefaultFileContent
     {
-      get {return Environment.NewLine;}
+      get {return string.Empty;}
     }
 
     /// <summary>

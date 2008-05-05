@@ -145,6 +145,10 @@ namespace Xacc.ComponentModel
           {
             Run(atb2.Text.Trim());
           }
+          if (atb2.EditorLanguage == "IronScheme")
+          {
+            ServiceHost.Shell.RunCurrentFile();
+          }
         }
       }
     }
@@ -165,6 +169,10 @@ namespace Xacc.ComponentModel
           if (atb2.Buffer.Language.Name == "LSharp")
           {
             Run(atb2.SelectionText.Trim());
+          }
+          if (atb2.EditorLanguage == "IronScheme")
+          {
+            ServiceHost.Shell.RunCommand(atb2.SelectionText.Trim());
           }
         }
       }

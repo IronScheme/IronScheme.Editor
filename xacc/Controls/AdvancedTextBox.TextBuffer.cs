@@ -3156,22 +3156,31 @@ namespace Xacc.Controls
 
           int cl = CurrentLine;
           int ci = LineCharacterIndex;
+
+          string ns = c.ToString();
+
+          if (c == '\t' && TabsToSpaces)
+          {
+            int td = TabSize - ci % TabSize;
+            ns = new string(' ', td);
+          }
+
 #if CHECK
           Debug.WriteLine("Value: '{2}' Line: {0} CharIndex: {1}", cl, ci, c);
 #endif
           if (recording)
           {
             before = ((IHasUndo)this).GetUndoState();
-            value = c.ToString();
+            value = ns;
           }
 
           string l = this[cl];
 
           StringBuilder sb = new StringBuilder(l);
-          sb.Insert(ci, c.ToString());
+          sb.Insert(ci, ns);
 
           this[cl] = sb.ToString();
-          CaretIndex++;
+          CaretIndex += ns.Length;
 
           if (recording)
           {
@@ -3222,8 +3231,16 @@ namespace Xacc.Controls
             this[cl] = start;
 
             int indent = GetIndent(start);
-            string rest = new string('\t', indent) + l.Substring(lci);
-            value += new string('\t', indent);
+            string ins = new string('\t', indent);
+
+            if (TabsToSpaces)
+            {
+              ins = new string(' ', indent * TabSize);
+              indent *= TabSize;
+            }
+
+            string rest = ins + l.Substring(lci);
+            value += ins;
 
             Insert(cl + 1, rest);
 
@@ -3253,7 +3270,7 @@ namespace Xacc.Controls
       TextBufferPainter painter;
       internal readonly ArrayList invalidatedlines = ArrayList.Synchronized(new ArrayList());
 
-      bool tabtospace = false;
+      bool tabtospace = true;
 
       bool recording = true;
 
@@ -3586,6 +3603,12 @@ namespace Xacc.Controls
 
           Debug.Assert(value != null);
 
+          if (TabsToSpaces)
+          {
+            value = ConvertTabsToSpaces(value);
+          }
+
+
           string orig = this[index];
 
           int start = 0, end = 0;
@@ -3630,6 +3653,32 @@ namespace Xacc.Controls
 
           textlength += len;
         }
+      }
+
+      string ConvertTabsToSpaces(string input)
+      {
+        int tw = TabSize;
+
+        StringBuilder output = new StringBuilder(input.Length);
+
+        for (int i = 0; i < input.Length; i++)
+        {
+          char c = input[i];
+
+          if (c == '\t')
+          {
+            int td = tw - i % tw;
+            string ns = new string(' ', td);
+
+            output.Append(ns);
+          }
+          else
+          {
+            output.Append(c);
+          }
+        }
+
+        return output.ToString();
       }
 
       /// <summary>

@@ -30,6 +30,7 @@ using System.Diagnostics;
 using System.ComponentModel;
 using System.Text;
 using System.Configuration;
+using System.Collections.Generic;
 
 namespace Xacc.ComponentModel
 {
@@ -42,14 +43,91 @@ namespace Xacc.ComponentModel
     /// Inits the command.
     /// </summary>
     void InitCommand();
-	}
+    void RunCurrentFile();
 
-  [Menu("Tools")]
+    void RunCommand(string p);
+  }
+
+  [Menu("Scheme")]
   sealed class ShellService : ServiceBase, IShellService
   {
-    AdvancedTextBox atb;
+    ShellTextBox atb;
 
     internal IDockContent tbp;
+
+    List<string> history = new List<string>();
+
+    class ShellTextBox : AdvancedTextBox
+    {
+      internal ShellService svc;
+      internal int last = 0;
+
+      public override void NavigateUp()
+      {
+        if (Buffer.CaretIndex == TextLength - 1)
+        {
+          if (svc.history.Count > 0)
+          {
+            last--;
+            if (last == -1)
+            {
+              last = svc.history.Count - 1;
+            }
+            string line = Buffer[Buffer.CurrentLine];
+            if (line == "> ")
+            {
+              AppendText(svc.history[last]);
+            }
+            else
+            {
+              Buffer.SetLine(Buffer.CurrentLine, "> " + svc.history[last]);
+            }
+            Invalidate();
+          }
+        }
+        else
+        {
+          base.NavigateUp();
+        }
+      }
+
+      public override void NavigateDown()
+      {
+        if (Buffer.CaretIndex == TextLength - 1)
+        {
+          if (svc.history.Count > 0)
+          {
+            last++;
+            if (last == svc.history.Count)
+            {
+              Buffer.SetLine(Buffer.CurrentLine, "> ");
+            }
+            else
+            {
+              if (last >= svc.history.Count)
+              {
+                last = 0;
+              }
+              string line = Buffer[Buffer.CurrentLine];
+              if (line == "> ")
+              {
+                AppendText(svc.history[last]);
+              }
+              else
+              {
+                Buffer.SetLine(Buffer.CurrentLine, "> " + svc.history[last]);
+              }
+            }
+            Invalidate();
+
+          }
+        }
+        else
+        {
+          base.NavigateDown();
+        }
+      }
+    }
   
 
     public void InitCommand()
@@ -57,9 +135,8 @@ namespace Xacc.ComponentModel
 
       if (SettingsService.idemode)
       {
-        atb = ServiceHost.File.Open(Application.StartupPath + "/shell", DockState.DockBottom)
-          as AdvancedTextBox;
-
+        atb = ServiceHost.File.Open <ShellTextBox>(Application.StartupPath + "/shell", DockState.DockBottom);
+        atb.svc = this;
         atb.Clear();
 
         atb.LineInserted += new AdvancedTextBox.LineInsertNotify(atb_LineInserted);
@@ -76,6 +153,37 @@ namespace Xacc.ComponentModel
       }
     }
 
+    [MenuItem("Run current file", Index = 0, Image = "IronScheme.png")]
+    public void RunCurrentFile()
+    {
+      if (Array.IndexOf(ServiceHost.File.DirtyFiles, ServiceHost.File.Current) >= 0)
+      {
+        ServiceHost.File.Save(ServiceHost.File.Current);
+      }
+      RunFile(ServiceHost.File.Current);
+    }
+
+    void RunFile(string filename)
+    {
+      if (In != null)
+      {
+        string ext = Path.GetExtension(filename);
+        switch (ext)
+        {
+          case ".ss":
+          case ".sls":
+          case ".scm":
+            string cmd = string.Format("(load \"{0}\")\n", filename.Replace("\\", "/"));
+            atb.AppendText(cmd);
+            atb.Invalidate();
+            AddCommand(cmd.TrimEnd('\n'));
+            In.Write(cmd);
+            In.Flush();
+            break;
+        }
+      }
+    }
+
     void atb_LineInserted(string line)
     {
       if (In != null)
@@ -89,11 +197,36 @@ namespace Xacc.ComponentModel
         if (i >= 0)
         {
           atb.ReadOnly = true;
-          In.WriteLine(line.Substring(i + 2));
+          string cmd = line.Substring(i + 2);
+          AddCommand(cmd);
+          In.WriteLine(cmd);
           In.Flush();
         }
       }
     }
+
+    void AddCommand(string cmd)
+    {
+      if (history.Count == 0 || cmd != history[history.Count - 1])
+      {
+        if ("" != cmd.Trim())
+        {
+          history.Add(cmd);
+        }
+      }
+      atb.last = 0;
+    }
+
+    public void RunCommand(string p)
+    {
+      string cmd = p + "\n";
+      atb.AppendText(cmd);
+      atb.Invalidate();
+      AddCommand(cmd.TrimEnd('\n'));
+      In.Write(cmd);
+      In.Flush();
+    }
+
 
     [MenuItem("Restart shell", Index=1)]
     void RestartShell()
@@ -108,23 +241,24 @@ namespace Xacc.ComponentModel
       StopShell(true);
     }
 
+    ManualResetEvent stopshell;
 
     void StopShell(bool print)
     {
-      if (print)
-      {
-        atb.Text = "Shell stopped\n";
-      }
-      reading = false;
-      if (In != null)
-      {
-        In.Close();
-        In = null;
-      }
       if (p != null)
       {
+        stopshell = new ManualResetEvent(false);
+
         p.Kill();
-        p = null;
+
+        reading = false;
+
+        stopshell.WaitOne();
+
+        if (print)
+        {
+          atb.Text = "Shell stopped\n";
+        }
       }
     }
 
@@ -267,10 +401,13 @@ namespace Xacc.ComponentModel
 
     void p_Exited(object sender, EventArgs e)
     {
+      readthread.Abort();
+      errorthread.Abort();
       In = null;
       Out = null;
+      Error = null;
       p = null;
-
+      stopshell.Set();
     }
 
   }

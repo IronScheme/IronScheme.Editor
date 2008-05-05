@@ -144,7 +144,7 @@ namespace Xacc.Build
 
     readonly Hashtable actions = new Hashtable();
  
-    FileSystemWatcher fsw = new FileSystemWatcher();
+    //FileSystemWatcher fsw = new FileSystemWatcher();
 
     internal ICodeModule[] References
     {
@@ -189,11 +189,11 @@ namespace Xacc.Build
       set {data.autocompletetree = value;}
     }
 
-    internal bool FileWatcherEnabled
-    {
-      get {return fsw.EnableRaisingEvents;}
-      set {fsw.EnableRaisingEvents = value;}
-    }
+    //internal bool FileWatcherEnabled
+    //{
+    //  get {return fsw.EnableRaisingEvents;}
+    //  set {fsw.EnableRaisingEvents = value;}
+    //}
 
     /// <summary>
     /// Gets a breakpoint associate with the file
@@ -368,7 +368,7 @@ namespace Xacc.Build
       { 
         string root = Normalize(Path.GetFullPath(value));	
         //fsw.EnableRaisingEvents = false;
-        fsw.Path = root;
+        //fsw.Path = root;
         //fsw.EnableRaisingEvents = true;
 
       }
@@ -608,9 +608,9 @@ $    <OutputType>WinExe</OutputType>
 
         //AddActionType(typeof(NullAction));
 
-        fsw.IncludeSubdirectories = true;
-        fsw.NotifyFilter = NotifyFilters.LastWrite;
-        fsw.Changed +=new FileSystemEventHandler(fsw_Changed);
+        //fsw.IncludeSubdirectories = true;
+        //fsw.NotifyFilter = NotifyFilters.LastWrite;
+        //fsw.Changed +=new FileSystemEventHandler(fsw_Changed);
       }
 		}
 
@@ -1051,8 +1051,8 @@ $    <OutputType>WinExe</OutputType>
     /// </summary>
  	  public void Close()
 		{
-      fsw.EnableRaisingEvents = false;
-      fsw.Dispose();
+      //fsw.EnableRaisingEvents = false;
+      //fsw.Dispose();
 			if (Closed != null)
 			{
 				Closed(this, null);

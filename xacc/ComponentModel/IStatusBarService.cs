@@ -68,7 +68,7 @@ namespace Xacc.ComponentModel
       progress.Alignment = ToolStripItemAlignment.Right;
       progress.AutoSize = false;
       progress.Style = ProgressBarStyle.Continuous;
-      progress.Width = 200;
+      progress.Width = 100;
       progress.Maximum = (int)MAX;
       progress.Minimum = 0;
       

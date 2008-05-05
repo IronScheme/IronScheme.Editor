@@ -257,6 +257,7 @@ namespace Xacc.ComponentModel
     /// <param name="state">the state</param>
     /// <returns>the Control hosting the file</returns>
     Control					Open									(string filename, DockState state);
+    T               Open<T>               (string filename, DockState state) where T : Control, new();
 
     /// <summary>
     /// Closes a file
@@ -442,27 +443,34 @@ namespace Xacc.ComponentModel
       langmap[language] = control;
     }
 
-    Document GetDocument(string filename)
+    Document GetDocument<T>(string filename) where T : Control, new()
     {
       string ext = Path.GetExtension(filename).TrimStart('.');
 
-      Type ct = controlmap[ext] as Type;
-      if (ct == null)
+      if (typeof(T) == typeof(Control))
       {
-        Languages.Language l = ServiceHost.Language.Suggest(filename);
-        ct = langmap[l] as Type;
+        Type ct = controlmap[ext] as Type;
         if (ct == null)
         {
-          return new Document();
+          Languages.Language l = ServiceHost.Language.Suggest(filename);
+          ct = langmap[l] as Type;
+          if (ct == null)
+          {
+            return new Document();
+          }
         }
-      }
-      if (ct.IsSubclassOf(typeof(Document)))
-      {
-        return Activator.CreateInstance(ct) as Document;
+        if (ct.IsSubclassOf(typeof(Document)))
+        {
+          return Activator.CreateInstance(ct) as Document;
+        }
+        else
+        {
+          return new Document(Activator.CreateInstance(ct) as Control as IDocument);
+        }
       }
       else
       {
-        return new Document(Activator.CreateInstance(ct) as Control as IDocument);
+        return new Document(new T() as IDocument);
       }
     }
 
@@ -506,13 +514,22 @@ namespace Xacc.ComponentModel
 		}
 #if TRACE
 
+    static bool IsNotShellFile(string filename)
+    {
+      filename = Path.GetFileName(filename);
+      return filename != "shell" && filename != "command.ls";
+    }
+
 		void TraceOpening(object sender, FileEventArgs e)
 		{
 			Trace.WriteLine(string.Format("Opening({0})", e.FileName));
 		}
 		void TraceOpened(object sender, FileEventArgs e)
 		{
-      Status.Write("Opened({0})", e.FileName);
+      if (IsNotShellFile(e.FileName))
+      {
+        Status.Write("Opened({0})", e.FileName);
+      }
 			Trace.WriteLine(string.Format("Opened({0})", e.FileName));
 		}
 		void TraceSaving(object sender, FileEventArgs e)
@@ -521,7 +538,10 @@ namespace Xacc.ComponentModel
 		}
 		void TraceSaved(object sender, FileEventArgs e)
 		{
-      Status.Write("Saved({0})", e.FileName);
+      if (IsNotShellFile(e.FileName))
+      {
+        Status.Write("Saved({0})", e.FileName);
+      }
 			Trace.WriteLine(string.Format("Saved({0})", e.FileName));
 		}
 		void TraceClosing(object sender, FileEventArgs e)
@@ -530,7 +550,10 @@ namespace Xacc.ComponentModel
 		}
 		void TraceClosed(object sender, FileEventArgs e)
 		{
-      Status.Write("Closed({0})", e.FileName);
+      if (IsNotShellFile(e.FileName))
+      {
+        Status.Write("Closed({0})", e.FileName);
+      }
 			Trace.WriteLine(string.Format("Closed({0})", e.FileName));
 		}
 
@@ -1164,6 +1187,53 @@ namespace Xacc.ComponentModel
 			get {return current;}
 		}
 
+    void fsw_Changed(object sender, FileSystemEventArgs e)
+    {
+      if (ServiceHost.Window.MainForm.InvokeRequired)
+      {
+        try
+        {
+          ServiceHost.Window.MainForm.Invoke(new FileSystemEventHandler(fsw_Changed), new object[] { sender, e });
+        }
+        catch (ObjectDisposedException)
+        {
+          //stupid parking window on shutdown...
+        }
+        return;
+      }
+
+      AdvancedTextBox atb = this[e.FullPath] as AdvancedTextBox;
+
+      if (atb != null)
+      {
+        try
+        {
+          if (atb.LastSaveTime < File.GetLastWriteTime(e.FullPath))
+          {
+            // this is bad, but it retains the undo buffer, kind off
+            string txt = File.ReadAllText(e.FullPath);
+            int i = atb.SelectionStart;
+            atb.SelectAll();
+            atb.Buffer.InsertString(txt);
+            atb.SelectionStart = i;
+            atb.SelectionLength = 0;
+            atb.Invalidate();
+          }
+        }
+        catch (IOException)
+        {
+        }
+        catch (ObjectDisposedException)
+        {
+        }
+      }
+    }
+
+    public Control Open(string filename, DockState state)
+    {
+      return Open<Control>(filename, state);
+    }
+
     public Control Open(
       [Editor(typeof(FileNameEditor), typeof(UITypeEditor))]
          string filename)
@@ -1173,14 +1243,16 @@ namespace Xacc.ComponentModel
 
     delegate Control OpenFunc(string filename, DockState ds);
 
+    readonly Dictionary<string, FileSystemWatcher> watchers = new Dictionary<string, FileSystemWatcher>();
+
     //TODO: Redesign this recursive crap...
-    public Control Open(
+    public T Open<T>(
       [Editor(typeof(FileNameEditor), typeof(UITypeEditor))]
-      string filename, DockState ds)
+      string filename, DockState ds) where T : Control, new()
     {
       if (InvokeRequired)
       {
-        return Invoke(new OpenFunc(Open), new object[] { filename, ds }) as Control;
+        return Invoke(new OpenFunc(Open<T>), new object[] { filename, ds }) as T;
       }
 
       if (filename == null || filename == string.Empty)
@@ -1199,7 +1271,7 @@ namespace Xacc.ComponentModel
 
       if (buffers.ContainsKey(filename))
       {
-        Control c = this[filename];
+        T c = this[filename] as T;
         (c.Tag as IDockContent).Activate();
         c.Focus();
         current = filename;
@@ -1221,6 +1293,18 @@ namespace Xacc.ComponentModel
           {
             return null;
           }
+        }
+
+        string fn = Path.GetFileName(filename);
+
+        if (!watchers.ContainsKey(filename) && fn != "shell" && fn != "command.ls")
+        {
+          FileSystemWatcher fsw = new FileSystemWatcher(Path.GetDirectoryName(filename), Path.GetFileName(filename));
+          fsw.Changed += fsw_Changed;
+          fsw.NotifyFilter |= NotifyFilters.Attributes;
+          fsw.EnableRaisingEvents = true;
+          fsw.Error += new ErrorEventHandler(fsw_Error);
+          watchers.Add(filename, fsw);
         }
 
         IDockContent tp = Runtime.DockFactory.Content();
@@ -1260,29 +1344,16 @@ namespace Xacc.ComponentModel
 
         tp.TabPageContextMenuStrip = contextmenu;
 
-        Document doc = GetDocument(filename); 
-        Control c = doc.ActiveView as Control;
+        Document doc = GetDocument<T>(filename); 
+        T c = doc.ActiveView as T;
 
         tp.Controls.Add(c);
         c.Dock = DockStyle.Fill;
 
         c.Tag = tp;
 
-        if (Path.GetFileName(filename) != "command.ls" && Path.GetFileName(filename) != "ironscheme.shell.txt" && File.Exists(filename))
-        {
-          foreach (MRUFile mru in recentfiles)
-          {
-            if (mru.filename == filename)
-            {
-              mru.Update();
-              goto DONE;
-            }
-          }
-          recentfiles.Add(new MRUFile(filename));
+        UpdateMRU(filename);  
 
-        DONE: ;
-        }
-            
         buffers.Add(filename, doc);
         current = filename;
         doc.ActiveView.Open(filename);
@@ -1292,7 +1363,6 @@ namespace Xacc.ComponentModel
         {
           if (atb.Buffer.Language.SupportsNavigation)
           {
-#warning add Navigation bar here
             NavigationBar navb = new NavigationBar();
             navb.Dock = DockStyle.Top;
 
@@ -1320,8 +1390,29 @@ namespace Xacc.ComponentModel
           ms["Window"].DropDownItems.Add(pmi);
         }
 
-        return Open(filename, ds);
+        return Open<T>(filename, ds);
       }
+    }
+
+    void UpdateMRU(string filename)
+    {
+      if (Path.GetFileName(filename) != "command.ls" && Path.GetFileName(filename) != "shell" && File.Exists(filename))
+      {
+        foreach (MRUFile mru in recentfiles)
+        {
+          if (mru.filename == filename)
+          {
+            mru.Update();
+            return;
+          }
+        }
+        recentfiles.Add(new MRUFile(filename));
+      }
+    }
+
+    void fsw_Error(object sender, ErrorEventArgs e)
+    {
+      Console.WriteLine(e);
     }
 
 		void OpenWindow(object sender, EventArgs e)
@@ -1435,7 +1526,22 @@ namespace Xacc.ComponentModel
           }
         }
       }
+
+      FileSystemWatcher fsw;
+      if (watchers.TryGetValue(filename, out fsw))
+      {
+        fsw.EnableRaisingEvents = false;
+      }
+
       (this[current] as IFile).Save(filename);
+
+      if (fsw != null)
+      {
+        fsw.EnableRaisingEvents = true;
+      }
+
+      UpdateMRU(filename);
+
 			if (Saved != null)
 			{
 				FileEventArgs fe = new FileEventArgs(filename);
@@ -1500,6 +1606,14 @@ namespace Xacc.ComponentModel
 				}
 
         tc_SelectedIndexChanged(this, EventArgs.Empty);
+
+        FileSystemWatcher fsw;
+        if (watchers.TryGetValue(filename, out fsw))
+        {
+          fsw.EnableRaisingEvents = false;
+          fsw.Dispose();
+          watchers.Remove(filename);
+        }
 
 				if (Closed != null)
 				{
