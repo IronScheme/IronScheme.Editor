@@ -64,7 +64,7 @@ namespace Xacc.ComponentModel
 
       void FileManager_Closing(object sender, FileEventArgs e)
       {
-        e.Cancel = (e.FileName.ToLower() == (RootDirectory + Path.DirectorySeparatorChar + "command.ls").ToLower());
+        e.Cancel |= (e.FileName.ToLower() == (RootDirectory + Path.DirectorySeparatorChar + "command.ls").ToLower());
       }
     }
   

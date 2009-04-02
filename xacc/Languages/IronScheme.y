@@ -311,6 +311,7 @@ list
     : LBRACE exprlist RBRACE                  { MakePair(@1,@3); $$ = $2; @@ = @1 + @3; }
     | LBRACK exprlist RBRACK                  { MakePair(@1,@3); $$ = $2; @@ = @1 + @3; }
     | LBRACE exprlist expr DOT expr RBRACE    { MakePair(@1,@6); $$ = Append($2, new Cons($3,$5)); @@ = @1 + @6;  }
+    | LBRACK exprlist expr DOT expr RBRACK    { MakePair(@1,@6); $$ = Append($2, new Cons($3,$5)); @@ = @1 + @6;  }
     | specexpr expr                               
     ;
     

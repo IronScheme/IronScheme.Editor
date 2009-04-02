@@ -1,3 +1,9 @@
+0.2.0.88 - June 15, 2008
+
+- All projects moved to VS2008
+- Fixed issue with Close All
+- Fixed issue with Sceheme parser failing on [a . b]
+
 0.2.0.87 - April 5, 2008
 
 - Fixed silly tab indentation issue

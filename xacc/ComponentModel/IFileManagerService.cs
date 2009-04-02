@@ -1226,6 +1226,10 @@ namespace Xacc.ComponentModel
         catch (ObjectDisposedException)
         {
         }
+        catch (Exception ex)
+        {
+          Trace.WriteLine(ex);
+        }
       }
     }
 

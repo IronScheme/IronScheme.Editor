@@ -28,7 +28,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("xacc")]
 [assembly: AssemblyTrademark("GNU LGPL")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("0.2.0.87")]
+[assembly: AssemblyVersion("0.2.0.88")]
 [assembly: ComVisibleAttribute(true)]
 
 #if !DEBUG

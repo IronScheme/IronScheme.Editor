@@ -139,9 +139,13 @@ namespace Xacc.ComponentModel
         atb.svc = this;
         atb.Clear();
 
+        ServiceHost.File.Closing += delegate (object sender, FileEventArgs e)
+        {
+          e.Cancel |= (StringComparer.InvariantCultureIgnoreCase.Compare(e.FileName, Application.StartupPath + "\\shell") == 0);
+        };
+
         atb.LineInserted += new AdvancedTextBox.LineInsertNotify(atb_LineInserted);
         atb.AutoSave = true;
-
 
         tbp = atb.Parent as IDockContent;
         tbp.Text = "IronScheme Shell ";
