@@ -111,7 +111,7 @@ namespace Xacc.Runtime
       //ActiveAutoHideContent = null;
 
       DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
-      BackColor = Color.FromArgb(245,245,245);
+      BackColor = SystemColors.AppWorkspace;// Color.FromArgb(245, 245, 245);
       Dock = DockStyle.Fill;
     }
 

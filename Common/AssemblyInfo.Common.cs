@@ -24,11 +24,11 @@ using System.Runtime.InteropServices;
 [assembly: CLSCompliant(true)]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("leppie")]
-[assembly: AssemblyCopyright("2003-2008 llewellyn@pritchard.org")]
+[assembly: AssemblyCopyright("2003-2009 llewellyn@pritchard.org")]
 [assembly: AssemblyProduct("xacc")]
 [assembly: AssemblyTrademark("GNU LGPL")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("0.2.0.88")]
+[assembly: AssemblyVersion("0.2.0.89")]
 [assembly: ComVisibleAttribute(true)]
 
 #if !DEBUG

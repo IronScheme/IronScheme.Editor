@@ -1545,6 +1545,15 @@ namespace Xacc.Languages
 
     #endregion
 
+    #region Indentation
+
+    public virtual int GetIndentation(string previousline, int tabsize)
+    {
+      return 0;
+    }
+
+    #endregion
+
     public override string ToString()
     {
       return string.Format("{0}", Name);

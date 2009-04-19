@@ -3,7 +3,7 @@
 %{
 
 public override string[] Extensions {get {return new string[]{"ss","scm","pp", "sch", "sls"}; }}
-public override string Name {get {return "IronScheme"; }}
+public override string Name {get {return "R6RS Scheme"; }}
 protected override LexerBase GetLexer() { return new IronSchemeLexer(); } 
 
 internal class Cons : CodeElement
@@ -373,6 +373,69 @@ specexpr
 public override ICodeElement[] GetIdentifiers(string line, int lci, IToken[] tokens, out string hint)
 {
   return IronSchemeIdentifiers.GetR6RSIds(line, lci, tokens, out hint);
+}
+
+static void CountBraces(string text, ref int open, ref int close)
+{
+  for (int i = 0; i < text.Length; i++)
+  {
+    switch (text[i])
+    {
+      case '[': case '(': open++;  break;
+      case ']': case ')': close++; break;
+    }
+  }
+}
+
+static bool BracesAreBalanced(string text)
+{
+  int open = 0, close = 0;
+  CountBraces(text, ref open, ref close);
+  return open == close;
+}
+
+static string[] balancedkeywords = { "" };
+
+static bool IsBalancedKeyword(string text)
+{
+  switch (text)
+  {
+    case "let":
+    case "letrec":
+    case "let*":
+    case "letrec*":
+    case "lambda":
+    case "case-lamba":
+    case "define":
+    case "set!":
+    case "cond":
+      return true;
+    default:
+      return false;
+  }
+}
+
+public override int GetIndentation(string previousline, int tabsize)
+{
+  int i = previousline.LastIndexOf("(if ");
+  if (i >= 0)
+  {
+    // need to count braces to determine
+    var ii = i + 4;
+    if (BracesAreBalanced(previousline.Substring(ii)))
+    {
+      return i + 4;
+    }
+  }
+  i = previousline.LastIndexOf("(");
+  if (i >= 0)
+  {
+    if (IsBalancedKeyword(previousline.Substring(i + 1)))
+    {
+      return i + tabsize;
+    }
+  }
+  return 0;
 }
 
 public override bool SupportsNavigation

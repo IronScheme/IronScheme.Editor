@@ -145,7 +145,7 @@ namespace Xacc.ComponentModel
           {
             Run(atb2.Text.Trim());
           }
-          if (atb2.EditorLanguage == "IronScheme")
+          if (atb2.EditorLanguage == "R6RS Scheme")
           {
             ServiceHost.Shell.RunCurrentFile();
           }
@@ -170,7 +170,7 @@ namespace Xacc.ComponentModel
           {
             Run(atb2.SelectionText.Trim());
           }
-          if (atb2.EditorLanguage == "IronScheme")
+          if (atb2.EditorLanguage == "R6RS Scheme")
           {
             ServiceHost.Shell.RunCommand(atb2.SelectionText.Trim());
           }

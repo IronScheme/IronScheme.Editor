@@ -1878,6 +1878,19 @@ protected override int yylex()
   
 }
 
+public override int GetIndentation(string previousline, int tabsize)
+{
+  int i = previousline.LastIndexOf("{");
+  int j = previousline.LastIndexOf("}");
+  
+  if (i > j)
+  {
+    // i need to be adjusted to the first bit of non whitespace text
+    return i + tabsize;
+  }
+  return 0;
+}
+
 protected internal override string[] CommentLines(string[] lines)
 {
   string[] newlines = new string[lines.Length];

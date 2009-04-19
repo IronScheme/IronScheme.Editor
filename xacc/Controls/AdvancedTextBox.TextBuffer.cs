@@ -3110,6 +3110,11 @@ namespace Xacc.Controls
 
       int GetIndent(string text)
       {
+        int langindent = Language.GetIndentation(text, TabSize);
+        if (langindent != 0)
+        {
+          return langindent;
+        }
         if (text == null) return 0;
         const char SPACE = ' ';
         const char TAB = '\t';
@@ -3131,10 +3136,10 @@ namespace Xacc.Controls
               count = 0;
               break;
             default:
-              return indent;
+              return indent * TabSize;
           }
         }
-        return indent;
+        return indent * TabSize;
       }
 
       /// <summary>
@@ -3231,12 +3236,19 @@ namespace Xacc.Controls
             this[cl] = start;
 
             int indent = GetIndent(start);
-            string ins = new string('\t', indent);
+            string ins = new string(' ', indent);
 
-            if (TabsToSpaces)
+            if (!TabsToSpaces)
             {
-              ins = new string(' ', indent * TabSize);
-              indent *= TabSize;
+              int mod = indent % TabSize;
+              ins = new string('\t', indent/TabSize);
+              indent /= TabSize;
+
+              if (mod > 0)
+              {
+                indent += mod;
+                ins += new string(' ', mod);
+              }
             }
 
             string rest = ins + l.Substring(lci);

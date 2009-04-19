@@ -1204,7 +1204,7 @@ namespace Xacc.ComponentModel
 
       AdvancedTextBox atb = this[e.FullPath] as AdvancedTextBox;
 
-      if (atb != null)
+      if (atb != null && !atb.AutoSave)
       {
         try
         {

@@ -48,5 +48,17 @@ using Xacc.Controls;
         Application.Run(f);
       }
     }
+
+    private void InitializeComponent()
+    {
+      this.SuspendLayout();
+      // 
+      // ide
+      // 
+      this.ClientSize = new System.Drawing.Size(284, 264);
+      this.Name = "ide";
+      this.ResumeLayout(false);
+
+    }
   }
 

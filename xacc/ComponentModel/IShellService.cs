@@ -148,7 +148,7 @@ namespace Xacc.ComponentModel
         atb.AutoSave = true;
 
         tbp = atb.Parent as IDockContent;
-        tbp.Text = "IronScheme Shell ";
+        tbp.Text = "Scheme Shell ";
         tbp.HideOnClose = true;
         tbp.Hide();
 
