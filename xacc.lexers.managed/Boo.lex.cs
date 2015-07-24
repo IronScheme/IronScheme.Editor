@@ -24,13 +24,13 @@ int docintag = 0;
 
 	}
 
-	const int IN_COMMENT = 1;
-	const int PPTAIL = 4;
 	const int REGEX_STRING = 3;
+	const int PREPROCESSOR = 5;
+	const int PPTAIL = 4;
+	const int IN_COMMENT = 1;
+	const int YYINITIAL = 0;
 	const int DOC_COMMENT = 6;
 	const int VERB_STRING = 2;
-	const int PREPROCESSOR = 5;
-	const int YYINITIAL = 0;
 	readonly int[] yy_state_dtrans = {
 		0, 		122, 		125, 		352, 		356, 		360, 		364
 	};

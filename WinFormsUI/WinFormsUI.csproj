@@ -1,4 +1,5 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,27 +11,10 @@
     <RootNamespace>WeifenLuo.WinFormsUI</RootNamespace>
     <AssemblyName>WeifenLuo.WinFormsUI.Docking</AssemblyName>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>xacc.key</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <AssemblyOriginatorKeyFile>dockpanelsuite.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>False</DelaySign>
+    <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,7 +36,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -73,10 +56,45 @@
     <Compile Include="Docking\AutoHideStripBase.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Docking\DrawingRoutines.cs" />
+    <Compile Include="Docking\InertButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Docking\InertButtonBase.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Docking\DockPanelSkin.cs">
+    </Compile>
+    <Compile Include="Docking\ITheme.cs" />
+    <Compile Include="Docking\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Docking\ResourcesVS2003.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourcesVS2003.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Docking\StringsVS2003.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StringsVS2003.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Docking\ThemeBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Docking\VS2003AutoHideStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Docking\VS2003DockPaneCaption.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Docking\VS2003DockPaneStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Docking\VS2003Theme.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Docking\VS2005AutoHideStrip.cs">
       <SubType>Component</SubType>
@@ -107,9 +125,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Docking\DockPaneCollection.cs" />
-    <Compile Include="Docking\DockPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Docking\DockPanel.cs" />
     <Compile Include="Docking\DockPanelExtender.cs" />
     <Compile Include="Docking\DockPanel.Persistor.cs">
       <SubType>Component</SubType>
@@ -152,12 +168,31 @@
     <Compile Include="Docking\Localization.cs" />
     <Compile Include="Docking\Helpers\ResourceHelper.cs" />
     <Compile Include="Docking\Helpers\Win32Helper.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Docking\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
+    <Compile Include="Docking\VS2005Theme.cs">
+      <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Docking\VS2012LightAutoHideStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Docking\VS2012LightAutoHideWindowControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Docking\VS2012LightDockPaneCaption.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Docking\VS2012LightDockPaneStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Docking\VS2012LightDockWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Docking\VS2012LightSplitterControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Docking\VS2012LightTheme.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Docking\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -172,77 +207,88 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Docking\ResourcesVS2003.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourcesVS2003.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Docking\Strings.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Docking\StringsVS2003.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>StringsVS2003.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Docking\Resources\DockIndicator_PaneDiamond.bmp" />
-    <None Include="Docking\Resources\DockIndicator_PaneDiamond_Bottom.bmp" />
-    <None Include="Docking\Resources\Dockindicator_PaneDiamond_Fill.bmp" />
-    <None Include="Docking\Resources\DockIndicator_PaneDiamond_Hotspot.bmp" />
-    <None Include="Docking\Resources\DockIndicator_PaneDiamond_HotspotIndex.bmp" />
-    <None Include="Docking\Resources\DockIndicator_PaneDiamond_Left.bmp" />
-    <None Include="Docking\Resources\DockIndicator_PaneDiamond_Right.bmp" />
-    <None Include="Docking\Resources\DockIndicator_PaneDiamond_Top.bmp" />
-    <None Include="Docking\Resources\DockIndicator_PanelBottom.bmp" />
-    <None Include="Docking\Resources\DockIndicator_PanelBottom_Active.bmp" />
-    <None Include="Docking\Resources\DockIndicator_PanelFill.bmp" />
-    <None Include="Docking\Resources\DockIndicator_PanelFill_Active.bmp" />
-    <None Include="Docking\Resources\DockIndicator_PanelLeft.bmp" />
-    <None Include="Docking\Resources\DockIndicator_PanelLeft_Active.bmp" />
-    <None Include="Docking\Resources\DockIndicator_PanelRight.bmp" />
-    <None Include="Docking\Resources\DockIndicator_PanelRight_Active.bmp" />
-    <None Include="Docking\Resources\DockIndicator_PanelTop.bmp" />
-    <None Include="Docking\Resources\DockIndicator_PanelTop_Active.bmp" />
+    <Compile Include="Docking\DockPanel.Appearance.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Docking\Resources\DockIndicator_PaneDiamond.png" />
+    <None Include="Docking\Resources\DockIndicator_PaneDiamond_Bottom.png" />
+    <None Include="Docking\Resources\Dockindicator_PaneDiamond_Fill.png" />
+    <None Include="Docking\Resources\DockIndicator_PaneDiamond_Hotspot.png" />
+    <None Include="Docking\Resources\DockIndicator_PaneDiamond_HotspotIndex.png" />
+    <None Include="Docking\Resources\DockIndicator_PaneDiamond_Left.png" />
+    <None Include="Docking\Resources\DockIndicator_PaneDiamond_Right.png" />
+    <None Include="Docking\Resources\DockIndicator_PaneDiamond_Top.png" />
+    <None Include="Docking\Resources\DockIndicator_PanelBottom.png" />
+    <None Include="Docking\Resources\DockIndicator_PanelBottom_Active.png" />
+    <None Include="Docking\Resources\DockIndicator_PanelFill.png" />
+    <None Include="Docking\Resources\DockIndicator_PanelFill_Active.png" />
+    <None Include="Docking\Resources\DockIndicator_PanelLeft.png" />
+    <None Include="Docking\Resources\DockIndicator_PanelLeft_Active.png" />
+    <None Include="Docking\Resources\DockIndicator_PanelRight.png" />
+    <None Include="Docking\Resources\DockIndicator_PanelRight_Active.png" />
+    <None Include="Docking\Resources\DockIndicator_PanelTop.png" />
+    <None Include="Docking\Resources\DockIndicator_PanelTop_Active.png" />
+    <None Include="Docking\Resources\DockPane_AutoHide.png" />
+    <None Include="Docking\Resources\DockPane_Close.png" />
+    <None Include="Docking\Resources\DockPane_Dock.png" />
+    <None Include="Docking\Resources\DockPane_Option.png" />
+    <None Include="Docking\Resources\DockPane_OptionOverflow.png" />
+    <None Include="dockpanelsuite.snk" />
     <None Include="license.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Docking\Resources\DockPane_AutoHide.bmp" />
-    <None Include="Docking\Resources\DockPane_Close.bmp" />
-    <None Include="Docking\Resources\DockPane_Dock.bmp" />
-    <None Include="Docking\Resources\DockPane_Option.bmp" />
-    <None Include="Docking\Resources\DockPane_OptionOverflow.bmp" />
-    <None Include="WeifenLuo.pfx" />
-    <None Include="xacc.key" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Docking\DockPanel.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
+    <None Include="Docking\ResourcesVS2003\DockPaneCaption_AutoHideNo.png" />
+    <None Include="Docking\ResourcesVS2003\DockPaneCaption_AutoHideYes.png" />
+    <None Include="Docking\ResourcesVS2003\DockPaneCaption_CloseDisabled.png" />
+    <None Include="Docking\ResourcesVS2003\DockPaneCaption_CloseEnabled.png" />
+    <None Include="Docking\ResourcesVS2003\DockPaneStrip_CloseDisabled.png" />
+    <None Include="Docking\ResourcesVS2003\DockPaneStrip_CloseEnabled.png" />
+    <None Include="Docking\ResourcesVS2003\DockPaneStrip_ScrollLeftDisabled.png" />
+    <None Include="Docking\ResourcesVS2003\DockPaneStrip_ScrollLeftEnabled.png" />
+    <None Include="Docking\ResourcesVS2003\DockPaneStrip_ScrollRightDisabled.png" />
+    <None Include="Docking\ResourcesVS2003\DockPaneStrip_ScrollRightEnabled.png" />
+    <None Include="Docking\Resources\ActiveTabHover_Close.png" />
+    <None Include="Docking\Resources\ActiveTab_Close.png" />
+    <None Include="Docking\Resources\Dockindicator_PaneDiamond_Fill_VS2012.png" />
+    <None Include="Docking\Resources\DockIndicator_PaneDiamond_HotspotIndex_VS2012.png" />
+    <None Include="Docking\Resources\Dockindicator_PaneDiamond_Hotspot_VS2012.png" />
+    <None Include="Docking\Resources\Dockindicator_PaneDiamond_VS2012.png" />
+    <None Include="Docking\Resources\DockIndicator_PanelBottom_VS2012.png" />
+    <None Include="Docking\Resources\DockIndicator_PanelFill_VS2012.png" />
+    <None Include="Docking\Resources\DockIndicator_PanelLeft_VS2012.png" />
+    <None Include="Docking\Resources\DockIndicator_PanelRight_VS2012.png" />
+    <None Include="Docking\Resources\DockIndicator_PanelTop_VS2012.png" />
+    <None Include="Docking\Resources\InactiveTabHover_Close.png" />
+    <None Include="Docking\Resources\LostFocusTabHover_Close.png" />
+    <None Include="Docking\Resources\LostFocusTab_Close.png" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <UsingTask Condition=" '$(Configuration)' == 'Release' AND '$(OS)' == 'Windows_NT' AND Exists('..\gendarme\GendarmeMsBuild.dll')" AssemblyFile="..\gendarme\GendarmeMsBuild.dll" TaskName="GendarmeMsBuild.Gendarme" />
+  <Target Name="AfterBuild">
+    <Gendarme Condition=" '$(Configuration)' == 'Release' AND '$(OS)' == 'Windows_NT' AND Exists('..\gendarme\gendarme.exe')" GendarmeExeFilename="..\gendarme\gendarme.exe" Assemblies="$(TargetPath)" WarningsAsErrors="False" IntegrateWithVisualStudio="True" GendarmeIgnoreFilename="gendarme.ignore" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -85,20 +85,20 @@ sealed class PlainTextLexer : LexerBase {
 					}
 					yy_to_mark();
 					switch (yy_last_accept_state) {
-					case 5: 
- {return Plain(); }
-						break;
 					case 4: 
   {return NewLine();}
-						break;
-					case 1: 
-
 						break;
 					case 3: 
       {;}
 						break;
+					case 5: 
+ {return Plain(); }
+						break;
 					case 2: 
                    {return Plain(); }
+						break;
+					case 1: 
+
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);break;

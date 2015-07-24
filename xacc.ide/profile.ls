@@ -32,11 +32,11 @@
 
 ; load plugins
 (= plugin (plugin servicehost))
-(loadfile plugin "xacc.lexers.managed.dll")
+; (loadfile plugin "xacc.lexers.managed.dll")
 
 ; checks for update
-(= updater (updater servicehost))
-(check updater false false) ; download, install options
+;(= updater (updater servicehost))
+; (check updater false false) ; download, install options
 
 ; override token colors
 (= language (language servicehost))

@@ -24,11 +24,11 @@ sealed class CSLexLexer : LexerBase {
 	}
 
 	const int MLCOMMENT = 5;
-	const int RESECT = 3;
-	const int DIRECTIVES = 1;
-	const int RULES = 2;
 	const int CODEBLOCK = 4;
+	const int RESECT = 3;
+	const int RULES = 2;
 	const int YYINITIAL = 0;
+	const int DIRECTIVES = 1;
 	readonly int[] yy_state_dtrans = {
 		0, 		70, 		129, 		147, 		157, 		155
 	};

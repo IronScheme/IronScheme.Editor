@@ -34,12 +34,12 @@ public const int PPELIF=221;
 
 	}
 
-	const int PPTAIL = 5;
 	const int PREPROCESSOR = 3;
 	const int ML_COMMENT = 1;
-	const int VERB_STRING = 2;
 	const int DOC_COMMENT = 4;
 	const int YYINITIAL = 0;
+	const int PPTAIL = 5;
+	const int VERB_STRING = 2;
 	readonly int[] yy_state_dtrans = {
 		0, 		362, 		366, 		378, 		382, 		386
 	};

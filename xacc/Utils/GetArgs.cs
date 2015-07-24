@@ -38,7 +38,7 @@ using System.Xml.Serialization;
 
 namespace Xacc.Utils
 {
-	#region Test code
+  #region Test code
 #if TESTGA
 	[ArgOptions(MessageBox=false,AllowShortcut = true, CaseSensitive=false, Prefix="-", Seperator=" ", ShortcutLength=1)]
 	class MyArgs : xacc.Utils.GetArgs
@@ -91,50 +91,50 @@ confuse a user.")]
 	}
 
 #endif
-	#endregion
+  #endregion
 
-	/// <summary>
-	/// Provides customization of argument parsing.
-	/// </summary>
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple=false, Inherited=true)]
-	public class ArgOptionsAttribute : Attribute
-	{
-		string prefix			= "-";
-		string seperator	= ":";
-		bool casesensistive = true;
-		bool allowshortcut	= false;
-		bool msgbox					= false;
-		int shortcutlength  = 1;
-    bool pauseonerror   = false;
-    bool ignoreunknown  = true; 
+  /// <summary>
+  /// Provides customization of argument parsing.
+  /// </summary>
+  [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+  public class ArgOptionsAttribute : Attribute
+  {
+    string prefix = "-";
+    string seperator = ":";
+    bool casesensistive = true;
+    bool allowshortcut = false;
+    bool msgbox = false;
+    int shortcutlength = 1;
+    bool pauseonerror = false;
+    bool ignoreunknown = true;
 
-		/// <summary>
-		/// The prefix to use for the argument name eg '-'
-		/// </summary>
-		public string Prefix
-		{
-			get {return prefix;}
-			set {prefix = value;}
-		}
+    /// <summary>
+    /// The prefix to use for the argument name eg '-'
+    /// </summary>
+    public string Prefix
+    {
+      get { return prefix; }
+      set { prefix = value; }
+    }
 
-  	/// <summary>
-		/// The seperator to use for the argument eg ':'
-		/// </summary>
-		public string Seperator
-		{
-			get {return seperator;}
-			set {seperator = value;}
-		}
+    /// <summary>
+    /// The seperator to use for the argument eg ':'
+    /// </summary>
+    public string Seperator
+    {
+      get { return seperator; }
+      set { seperator = value; }
+    }
 
-		/// <summary>
-		/// Specifies whether argument names are case sensitive.
-		/// </summary>
-		/// <remarks>Case sensitive by default</remarks>
-		public bool CaseSensitive
-		{
-			get {return casesensistive;}
-			set {casesensistive = value;}
-		}
+    /// <summary>
+    /// Specifies whether argument names are case sensitive.
+    /// </summary>
+    /// <remarks>Case sensitive by default</remarks>
+    public bool CaseSensitive
+    {
+      get { return casesensistive; }
+      set { casesensistive = value; }
+    }
 
     /// <summary>
     /// Specifies whether unknown arguments are ignored.
@@ -142,8 +142,8 @@ confuse a user.")]
     /// <remarks>true by default</remarks>
     public bool IgnoreUnknownArguments
     {
-      get {return ignoreunknown;}
-      set {ignoreunknown = value;}
+      get { return ignoreunknown; }
+      set { ignoreunknown = value; }
     }
 
 
@@ -153,48 +153,48 @@ confuse a user.")]
     /// <remarks>False by default</remarks>
     public bool PauseOnError
     {
-      get {return pauseonerror;}
-      set {pauseonerror = value;}
+      get { return pauseonerror; }
+      set { pauseonerror = value; }
     }
-    
+
     /// <summary>
-		/// Whether shortcut argument names will be allowed.
-		/// </summary>
-		/// <remarks>
-		/// The shortname will be the 1st letter of the argument name. If another argument starts
-		/// with the same letter, the second shortname will not be used. See ArgItemAttribute for
-		/// customization.
-		/// </remarks>
-		public bool AllowShortcut
-		{
-			get {return allowshortcut;}
-			set {allowshortcut = value;}
-		}
+    /// Whether shortcut argument names will be allowed.
+    /// </summary>
+    /// <remarks>
+    /// The shortname will be the 1st letter of the argument name. If another argument starts
+    /// with the same letter, the second shortname will not be used. See ArgItemAttribute for
+    /// customization.
+    /// </remarks>
+    public bool AllowShortcut
+    {
+      get { return allowshortcut; }
+      set { allowshortcut = value; }
+    }
 
-		/// <summary>
-		/// Specifies the length of shortcut names, eg 1 or 3.
-		/// </summary>
-		public int ShortcutLength
-		{
-			get {return shortcutlength;}
-			set {shortcutlength = value;}
-		}
+    /// <summary>
+    /// Specifies the length of shortcut names, eg 1 or 3.
+    /// </summary>
+    public int ShortcutLength
+    {
+      get { return shortcutlength; }
+      set { shortcutlength = value; }
+    }
 
-		/// <summary>
-		/// Specifies whether a MessageBox will be shown rather than printing to the console.
-		/// </summary>
-		public bool MessageBox
-		{
-			get {return msgbox;}
-			set {msgbox = value;}
-		}
+    /// <summary>
+    /// Specifies whether a MessageBox will be shown rather than printing to the console.
+    /// </summary>
+    public bool MessageBox
+    {
+      get { return msgbox; }
+      set { msgbox = value; }
+    }
 
-	}
+  }
 
   /// <summary>
   /// The default input argument
   /// </summary>
-  [AttributeUsage(AttributeTargets.Field, AllowMultiple=false, Inherited=false)]
+  [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
   public sealed class DefaultArgAttribute : ArgItemAttribute
   {
     bool allowname = false;
@@ -210,40 +210,40 @@ confuse a user.")]
   }
 
 
-	/// <summary>
-	/// Allows customization of specific argument items.
-	/// </summary>
-	[AttributeUsage(AttributeTargets.Field, AllowMultiple=false, Inherited=false)]
-	public class ArgItemAttribute : Attribute
-	{
-		string shortname		= null;
-		string description	= null;
-    string name         = null;
+  /// <summary>
+  /// Allows customization of specific argument items.
+  /// </summary>
+  [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
+  public class ArgItemAttribute : Attribute
+  {
+    string shortname = null;
+    string description = null;
+    string name = null;
 
     /// <summary>
     /// Creates an instance of ArgItemAttribute.
     /// </summary>
 		public ArgItemAttribute()
-		{
-		}
+    {
+    }
 
-		/// <summary>
-		/// Creates an instance of ArgItemAttribute with the description of the argument.
-		/// </summary>
-		/// <param name="description">the description of the argument</param>
-		public ArgItemAttribute(string description)
-		{
-			this.description = description;
-		}
+    /// <summary>
+    /// Creates an instance of ArgItemAttribute with the description of the argument.
+    /// </summary>
+    /// <param name="description">the description of the argument</param>
+    public ArgItemAttribute(string description)
+    {
+      this.description = description;
+    }
 
-		/// <summary>
-		/// The description of the argument.
-		/// </summary>
-		public string Description
-		{
-			get {return description;}
-			set {description = value;}
-		}
+    /// <summary>
+    /// The description of the argument.
+    /// </summary>
+    public string Description
+    {
+      get { return description; }
+      set { description = value; }
+    }
 
     /// <summary>
     /// The name, if different, of the argument (if used).
@@ -251,120 +251,120 @@ confuse a user.")]
     public string Name
     {
       get { return name; }
-      set { name = value;}
+      set { name = value; }
     }
 
-		/// <summary>
-		/// The short form of the argument (if used).
-		/// </summary>
-		public string Shortname
-		{
-			get {return shortname;}
-			set {shortname = value;}
-		}
-	}
+    /// <summary>
+    /// The short form of the argument (if used).
+    /// </summary>
+    public string Shortname
+    {
+      get { return shortname; }
+      set { shortname = value; }
+    }
+  }
 
 
-	/// <summary>
-	/// An ultra simplistic class for managing command line arguments parsing.
-	/// </summary>
-	/// <remarks>
-	/// <p>Just inherit from this class making all args that need to be parsed
-	/// public fields. Once you instantiate the inherited class the commandline
-	/// arguements will be parsed and will be applied to the field in a
-	/// type-safe fashion.</p>
-	/// <list type="bullet">
-	/// <item>Pass -? or -help for help regarding usage from the commandline.</item>
-	/// <item>Argument values cannot contain spaces unless it is single or double quoted.</item>
-	/// <item>Argument values must be convertable via a TypeConvertor.</item>
-	/// <item>The class will print exceptions and/or any errors to to Console.Error.</item>
-	/// <item>If an exception is generated, the application will exit and print usage.</item>
-	/// <item>Only the first occurance of an argument will be accepted, additional 
-	/// duplicate arguments will be ignored.</item>
-	/// </list>
-	/// </remarks>
-	/// <example>
-	/// <code>
-	/// [ArgOptions(MessageBox=false,AllowShortcut = true, CaseSensitive=false, Prefix="-", Seperator=":")]
-	/// class MyArgs : xacc.Utils.GetArgs
-	/// {
-	/// 	//			argtype			argname				default value
-	/// 	[ArgItem("Specifies the level of stuff", Shortname="lev")]
-	/// 	public	int					level				= 5;
-	/// 	
-	/// 	[ArgItem("The best server in the world")]
-	/// 	public	string			server			= "xacc.sf.net";
-	/// 	
-	/// 	public	bool				debug;
-	/// 	
-	/// 	[ArgItem(
-	/// @"This is long description
-	/// for usersames, because it takes
-	/// multiple arguments and could
-	/// confuse a user.")]
-	/// 	public	string[]		usernames;
-	/// 	
-	/// 	public	DayOfWeek		day;
-	/// }
-	/// 
-	/// class Test 
-	/// {
-	/// 	// compile with: 
-	/// 	// -d:TEST -doc:GetArgs.xml -nowarn:0649,1591 GetArgs.cs
-	/// 	// run with:
-	/// 	// -level: 10 -debug -usernames: {leppie, is , the, 1337357}
-	/// 	[STAThread]
-	/// 	static void Main(string[] args)
-	/// 	{
-	/// 		MyArgs a = new MyArgs();
-	/// 		Console.WriteLine("level:     {0}", a.level);
-	/// 		Console.WriteLine("server:    {0}", a.server);
-	/// 		Console.WriteLine("debug:     {0}", a.debug);
-	/// 		Console.WriteLine("day:       {0}", a.day);
-	/// 
-	/// 		if (a.usernames != null)
-	/// 		{
-	/// 			Console.WriteLine("usernames:");
-	/// 			Console.WriteLine("{");
-	/// 			foreach (string name in a.usernames)
-	/// 			{
-	/// 				Console.WriteLine("  {0}, ", name);
-	/// 			}
-	/// 			Console.WriteLine("}");
-	/// 		}
-	/// 	}
-	/// }
-	/// </code>
-	/// </example>
-	[ArgOptions]
-	public abstract class GetArgs
-	{
+  /// <summary>
+  /// An ultra simplistic class for managing command line arguments parsing.
+  /// </summary>
+  /// <remarks>
+  /// <p>Just inherit from this class making all args that need to be parsed
+  /// public fields. Once you instantiate the inherited class the commandline
+  /// arguements will be parsed and will be applied to the field in a
+  /// type-safe fashion.</p>
+  /// <list type="bullet">
+  /// <item>Pass -? or -help for help regarding usage from the commandline.</item>
+  /// <item>Argument values cannot contain spaces unless it is single or double quoted.</item>
+  /// <item>Argument values must be convertable via a TypeConvertor.</item>
+  /// <item>The class will print exceptions and/or any errors to to Console.Error.</item>
+  /// <item>If an exception is generated, the application will exit and print usage.</item>
+  /// <item>Only the first occurance of an argument will be accepted, additional 
+  /// duplicate arguments will be ignored.</item>
+  /// </list>
+  /// </remarks>
+  /// <example>
+  /// <code>
+  /// [ArgOptions(MessageBox=false,AllowShortcut = true, CaseSensitive=false, Prefix="-", Seperator=":")]
+  /// class MyArgs : xacc.Utils.GetArgs
+  /// {
+  /// 	//			argtype			argname				default value
+  /// 	[ArgItem("Specifies the level of stuff", Shortname="lev")]
+  /// 	public	int					level				= 5;
+  /// 	
+  /// 	[ArgItem("The best server in the world")]
+  /// 	public	string			server			= "xacc.sf.net";
+  /// 	
+  /// 	public	bool				debug;
+  /// 	
+  /// 	[ArgItem(
+  /// @"This is long description
+  /// for usersames, because it takes
+  /// multiple arguments and could
+  /// confuse a user.")]
+  /// 	public	string[]		usernames;
+  /// 	
+  /// 	public	DayOfWeek		day;
+  /// }
+  /// 
+  /// class Test 
+  /// {
+  /// 	// compile with: 
+  /// 	// -d:TEST -doc:GetArgs.xml -nowarn:0649,1591 GetArgs.cs
+  /// 	// run with:
+  /// 	// -level: 10 -debug -usernames: {leppie, is , the, 1337357}
+  /// 	[STAThread]
+  /// 	static void Main(string[] args)
+  /// 	{
+  /// 		MyArgs a = new MyArgs();
+  /// 		Console.WriteLine("level:     {0}", a.level);
+  /// 		Console.WriteLine("server:    {0}", a.server);
+  /// 		Console.WriteLine("debug:     {0}", a.debug);
+  /// 		Console.WriteLine("day:       {0}", a.day);
+  /// 
+  /// 		if (a.usernames != null)
+  /// 		{
+  /// 			Console.WriteLine("usernames:");
+  /// 			Console.WriteLine("{");
+  /// 			foreach (string name in a.usernames)
+  /// 			{
+  /// 				Console.WriteLine("  {0}, ", name);
+  /// 			}
+  /// 			Console.WriteLine("}");
+  /// 		}
+  /// 	}
+  /// }
+  /// </code>
+  /// </example>
+  [ArgOptions]
+  public abstract class GetArgs
+  {
     static readonly Dictionary<Type, string> aliasmap = new Dictionary<Type, string>();
 
-		static GetArgs()
-		{
-			aliasmap.Add(typeof(int)			, "int");
-			aliasmap.Add(typeof(string)		, "string");
-			aliasmap.Add(typeof(bool)			, "bool");
-			aliasmap.Add(typeof(uint)			, "uint");
-			aliasmap.Add(typeof(byte)			, "byte");
-			aliasmap.Add(typeof(char)			, "char");
-			aliasmap.Add(typeof(short)		, "short");
-			aliasmap.Add(typeof(ushort)		, "ushort");
-			aliasmap.Add(typeof(long)			, "long");
-			aliasmap.Add(typeof(ulong)		, "ulong");
-			aliasmap.Add(typeof(decimal)	, "decimal");
-			aliasmap.Add(typeof(sbyte)		, "sbyte");
-		}
+    static GetArgs()
+    {
+      aliasmap.Add(typeof(int), "int");
+      aliasmap.Add(typeof(string), "string");
+      aliasmap.Add(typeof(bool), "bool");
+      aliasmap.Add(typeof(uint), "uint");
+      aliasmap.Add(typeof(byte), "byte");
+      aliasmap.Add(typeof(char), "char");
+      aliasmap.Add(typeof(short), "short");
+      aliasmap.Add(typeof(ushort), "ushort");
+      aliasmap.Add(typeof(long), "long");
+      aliasmap.Add(typeof(ulong), "ulong");
+      aliasmap.Add(typeof(decimal), "decimal");
+      aliasmap.Add(typeof(sbyte), "sbyte");
+    }
 
-		static string GetShortTypeName(Type t)
-		{
-			if (aliasmap.ContainsKey(t))
-			{
-				return aliasmap[t];
-			}
-			return t.Name;
-		}
+    static string GetShortTypeName(Type t)
+    {
+      if (aliasmap.ContainsKey(t))
+      {
+        return aliasmap[t];
+      }
+      return t.Name;
+    }
 
     static XmlSchema GetSchema(Type t)
     {
@@ -393,123 +393,123 @@ confuse a user.")]
       }
     }
 
-		class ArgInfo
-		{
-			readonly FieldInfo fi;
-			readonly GetArgs container;
-			bool handled = false;
-			object _value;
+    class ArgInfo
+    {
+      readonly FieldInfo fi;
+      readonly GetArgs container;
+      bool handled = false;
+      object _value;
       internal readonly object defaultvalue;
-			readonly ArgItemAttribute options;
+      readonly ArgItemAttribute options;
 
-			public ArgInfo(FieldInfo fi, GetArgs container, object defaultvalue)
-			{
+      public ArgInfo(FieldInfo fi, GetArgs container, object defaultvalue)
+      {
         this.defaultvalue = defaultvalue;
-				this.fi = fi;
-				this.container = container;
-				object[] att = fi.GetCustomAttributes(typeof(ArgItemAttribute), false);
-				if (att.Length == 0)
-				{
-					options = new ArgItemAttribute();
-				}
-				else
-				{
-					options = att[0] as ArgItemAttribute;
-				}
-			}
+        this.fi = fi;
+        this.container = container;
+        object[] att = fi.GetCustomAttributes(typeof(ArgItemAttribute), false);
+        if (att.Length == 0)
+        {
+          options = new ArgItemAttribute();
+        }
+        else
+        {
+          options = att[0] as ArgItemAttribute;
+        }
+      }
 
-			public ArgItemAttribute Options
-			{
-				get {return options;}
-			}
+      public ArgItemAttribute Options
+      {
+        get { return options; }
+      }
 
-			public string Name
-			{
-				get {return options.Name ?? fi.Name;}
-			}
+      public string Name
+      {
+        get { return options.Name ?? fi.Name; }
+      }
 
-			public Type Type
-			{
-				get {return fi.FieldType;}
-			}
+      public Type Type
+      {
+        get { return fi.FieldType; }
+      }
 
-			public object Value
-			{
-				get 
-				{
-					if (_value != null)
-					{
-						return _value;
-					}
-					return defaultvalue;
-				}
-				set 
-				{
-					if (!handled &&(_value == null || !_value.Equals(value)))
-					{
-						fi.SetValue(container, value);
-						_value = value;
-						//handled = true;
-					}
-				}
-			}
-		}
+      public object Value
+      {
+        get
+        {
+          if (_value != null)
+          {
+            return _value;
+          }
+          return defaultvalue;
+        }
+        set
+        {
+          if (!handled && (_value == null || !_value.Equals(value)))
+          {
+            fi.SetValue(container, value);
+            _value = value;
+            //handled = true;
+          }
+        }
+      }
+    }
 
-		string MakeArg(string name, string shortname)
-		{
-			if (!allowshortcut || shortname == null)
-			{
-				return name;
-			}
-			return string.Format("({0}|{1})", shortname, name);
-		}
+    string MakeArg(string name, string shortname)
+    {
+      if (!allowshortcut || shortname == null)
+      {
+        return name;
+      }
+      return string.Format("({0}|{1})", shortname, name);
+    }
 
     void PrintHelp(Dictionary<string, ArgInfo> map)
-		{
-			TextWriter writer = null;
+    {
+      TextWriter writer = null;
 
-			if (msgbox)
-			{
-				writer = new StringWriter();
-			}
-			else
-			{
-				writer = Console.Out;
-			}
+      if (msgbox)
+      {
+        writer = new StringWriter();
+      }
+      else
+      {
+        writer = Console.Out;
+      }
 
-			Assembly ass = Assembly.GetEntryAssembly();
-			AssemblyName assname = ass.GetName();
+      Assembly ass = Assembly.GetEntryAssembly();
+      AssemblyName assname = ass.GetName();
 
-			AssemblyCopyrightAttribute acopy = null;
-			object[] atts = ass.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
-			if (atts.Length > 0)
-			{
-				acopy = atts[0] as AssemblyCopyrightAttribute;
-			}
+      AssemblyCopyrightAttribute acopy = null;
+      object[] atts = ass.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+      if (atts.Length > 0)
+      {
+        acopy = atts[0] as AssemblyCopyrightAttribute;
+      }
 
-			string progname = string.Format("{0} {1}.{2} {3}", assname.Name, assname.Version.Major, assname.Version.Minor,
-				acopy == null ? string.Empty : acopy.Copyright);
+      string progname = string.Format("{0} {1}.{2} {3}", assname.Name, assname.Version.Major, assname.Version.Minor,
+        acopy == null ? string.Empty : acopy.Copyright);
 
-			if (!msgbox)
-			{
-				writer.WriteLine(progname);
-			}
-			writer.WriteLine("Usage: {0}", assname.Name);
-			writer.WriteLine("{0}? or {0}help       prints usage", prefix);
+      if (!msgbox)
+      {
+        writer.WriteLine(progname);
+      }
+      writer.WriteLine("Usage: {0}", assname.Name);
+      writer.WriteLine("{0}? or {0}help       prints usage", prefix);
 
       List<string> keys = new List<string>(map.Keys);
       bool acceptsdefault = false;
 
-			foreach (KeyValuePair<string,ArgInfo> de in map)
-			{
-				ArgInfo arginfo = de.Value;
-				string name = de.Key;
-				string shortname = arginfo.Options.Shortname;
+      foreach (KeyValuePair<string, ArgInfo> de in map)
+      {
+        ArgInfo arginfo = de.Value;
+        string name = de.Key;
+        string shortname = arginfo.Options.Shortname;
 
-				if (shortname == name)
-				{
-					continue;
-				}
+        if (shortname == name)
+        {
+          continue;
+        }
 
         if (name == MAGIC)
         {
@@ -517,59 +517,59 @@ confuse a user.")]
           continue;
         }
 
-				writer.WriteLine();
+        writer.WriteLine();
 
-				Type t = arginfo.Type;
+        Type t = arginfo.Type;
 
         if (t.IsArray)
-				{
-					writer.WriteLine("{2}{0,-15}{3} {{ <{1}> , ... }}", 
-						MakeArg(name, shortname), 
-						GetShortTypeName(t.GetElementType()),
-						prefix, seperator);
-				}
-				else
-				{
-					if (t == typeof(bool))
-					{
-						writer.WriteLine("{2}{0,-15}  {3,-20} default: {1}", 
-							MakeArg(name, shortname), 
-							(bool) arginfo.defaultvalue ? "on" : "off", prefix, "(toggles)");
-					}
-					else
-					{
-						writer.WriteLine("{3}{0,-15}{4} {1,-20} {2}", 
-							MakeArg(name, shortname), 
-							"<" + GetShortTypeName(t) + ">", 
-							arginfo.Value != null ? "default: " + arginfo.Value : string.Empty, prefix, seperator);
-					}
-				}
-				if (arginfo.Options.Description != null)
-				{
-					string[] lines = arginfo.Options.Description.Split('\n');
-					foreach (string line in lines)
-					{
-						writer.WriteLine("    {0}", line.TrimEnd('\r'));
-					}
-				}
-			}
-			writer.WriteLine();
+        {
+          writer.WriteLine("{2}{0,-15}{3} {{ <{1}> , ... }}",
+            MakeArg(name, shortname),
+            GetShortTypeName(t.GetElementType()),
+            prefix, seperator);
+        }
+        else
+        {
+          if (t == typeof(bool))
+          {
+            writer.WriteLine("{2}{0,-15}  {3,-20} default: {1}",
+              MakeArg(name, shortname),
+              (bool)arginfo.defaultvalue ? "on" : "off", prefix, "(toggles)");
+          }
+          else
+          {
+            writer.WriteLine("{3}{0,-15}{4} {1,-20} {2}",
+              MakeArg(name, shortname),
+              "<" + GetShortTypeName(t) + ">",
+              arginfo.Value != null ? "default: " + arginfo.Value : string.Empty, prefix, seperator);
+          }
+        }
+        if (arginfo.Options.Description != null)
+        {
+          string[] lines = arginfo.Options.Description.Split('\n');
+          foreach (string line in lines)
+          {
+            writer.WriteLine("    {0}", line.TrimEnd('\r'));
+          }
+        }
+      }
+      writer.WriteLine();
       if (acceptsdefault)
       {
         writer.WriteLine("Non-named arguments are used as input.");
       }
-			writer.WriteLine("Note: Argument names are case-{0}sensitive.", casesensitive ? string.Empty : "in");
-			if (msgbox)
-			{
-				MessageBox.Show(writer.ToString(), progname);
-			}
-		}
+      writer.WriteLine("Note: Argument names are case-{0}sensitive.", casesensitive ? string.Empty : "in");
+      if (msgbox)
+      {
+        MessageBox.Show(writer.ToString(), progname);
+      }
+    }
 
-		//note: these are static just to improve performance a bit
-		static bool casesensitive, allowshortcut, msgbox, pauserr, ignoreunknown;
-		static string seperator, prefix;
-		static int shortlen;
-		static Regex re, arrre;
+    //note: these are static just to improve performance a bit
+    static bool casesensitive, allowshortcut, msgbox, pauserr, ignoreunknown;
+    static string seperator, prefix;
+    static int shortlen;
+    static Regex re, arrre;
     const string MAGIC = "kksjhd&^D3";
     static GetArgs defvals = null;
 
@@ -577,27 +577,27 @@ confuse a user.")]
     /// Creates an instance of GetArgs
     /// </summary>
 		protected GetArgs()
-		{
-			const BindingFlags flags =	BindingFlags.DeclaredOnly |
-							BindingFlags.Public |	BindingFlags.Instance;
+    {
+      const BindingFlags flags = BindingFlags.DeclaredOnly |
+              BindingFlags.Public | BindingFlags.Instance;
 
-			Type argclass = GetType();
+      Type argclass = GetType();
 
-			if (re == null)
-			{
-				ArgOptionsAttribute aoa = argclass.GetCustomAttributes(typeof(ArgOptionsAttribute), true)[0]
-					as ArgOptionsAttribute;
+      if (re == null)
+      {
+        ArgOptionsAttribute aoa = argclass.GetCustomAttributes(typeof(ArgOptionsAttribute), true)[0]
+          as ArgOptionsAttribute;
 
-				casesensitive = aoa.CaseSensitive;
-				allowshortcut = aoa.AllowShortcut;
-				seperator			= aoa.Seperator;
-				prefix				= aoa.Prefix;
-				msgbox				= aoa.MessageBox;
-				shortlen			= aoa.ShortcutLength;
-        pauserr       = aoa.PauseOnError;
+        casesensitive = aoa.CaseSensitive;
+        allowshortcut = aoa.AllowShortcut;
+        seperator = aoa.Seperator;
+        prefix = aoa.Prefix;
+        msgbox = aoa.MessageBox;
+        shortlen = aoa.ShortcutLength;
+        pauserr = aoa.PauseOnError;
         ignoreunknown = aoa.IgnoreUnknownArguments;
 
-				re = new Regex(string.Format(@"
+        re = new Regex(string.Format(@"
 (({0}																# switch
 (?<name>[_A-Za-z][_\w]*)						# name (any legal C# name)
 ({1}																# sep + optional space
@@ -609,25 +609,25 @@ confuse a user.")]
 (((""(?<value>((\\"")|[^""])*)"")|	# match a double quoted value (escape "" with \)
 ('(?<value>((\\')|[^'])*)'))|				# match a single quoted value (escape ' with \)
 (\{{(?<arrayval>[^\}}]*)\}})|				# list value (escaped for string.Format)
-(?<value>\S+)))*										# any single value",						
-					Regex.Escape(prefix), 
-					seperator.Trim() == string.Empty ? @"\s+" : @"\s*" + Regex.Escape(seperator) + @"\s*"
-					),
-					RegexOptions.Compiled | RegexOptions.ExplicitCapture| RegexOptions.IgnorePatternWhitespace);
+(?<value>\S+)))*										# any single value",
+          Regex.Escape(prefix),
+          seperator.Trim() == string.Empty ? @"\s+" : @"\s*" + Regex.Escape(seperator) + @"\s*"
+          ),
+          RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
 
-				arrre = new Regex(@"\s*(?<value>((\\,)|[^,])+)(\s*,\s*(?<value>((\\,)|[^,])+))*\s*", // escape , with \
-					RegexOptions.Compiled | RegexOptions.ExplicitCapture);
-			}
+        arrre = new Regex(@"\s*(?<value>((\\,)|[^,])+)(\s*,\s*(?<value>((\\,)|[^,])+))*\s*", // escape , with \
+          RegexOptions.Compiled | RegexOptions.ExplicitCapture);
+      }
 
-			Dictionary<string, ArgInfo> argz = new Dictionary<string, ArgInfo>();
+      Dictionary<string, ArgInfo> argz = new Dictionary<string, ArgInfo>();
 
       string allargs = Environment.CommandLine;
       allargs = allargs.Replace(string.Format(@"""{0}""", Application.ExecutablePath), "").Trim();
 
-			if (prefix == string.Empty)
-			{
-				throw new ArgumentException("prefix cannot be empty string");
-			}
+      if (prefix == string.Empty)
+      {
+        throw new ArgumentException("prefix cannot be empty string");
+      }
 
       if (defvals == null)
       {
@@ -657,8 +657,8 @@ confuse a user.")]
           {
             StringWriter sw = new StringWriter();
             new XmlSerializer(GetType()).Serialize(sw, this);
-            string all = sw.ToString().Replace(" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"", 
-              string.Empty).Replace(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", 
+            string all = sw.ToString().Replace(" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"",
+              string.Empty).Replace(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"",
               string.Empty);
             w.WriteLine(all);
           }
@@ -669,26 +669,26 @@ confuse a user.")]
         return; //this
       }
 
-			foreach (FieldInfo fi in argclass.GetFields(flags))
-			{
-				object defval = fi.GetValue(defvals);
-				string n = fi.Name;
-				if (!casesensitive)
-				{
-					n = n.ToLower();
-				}
+      foreach (FieldInfo fi in argclass.GetFields(flags))
+      {
+        object defval = fi.GetValue(defvals);
+        string n = fi.Name;
+        if (!casesensitive)
+        {
+          n = n.ToLower();
+        }
 
         fi.SetValue(this, defval);
-				ArgInfo ai = new ArgInfo(fi, this, defval);
+        ArgInfo ai = new ArgInfo(fi, this, defval);
 
-	
+
         if (ai.Options is DefaultArgAttribute)
         {
           argz.Add(MAGIC, ai);
         }
-        
+
         //be very careful with the next line!
-        if (!(ai.Options is DefaultArgAttribute) || ((DefaultArgAttribute)ai.Options).AllowName) 
+        if (!(ai.Options is DefaultArgAttribute) || ((DefaultArgAttribute)ai.Options).AllowName)
         {
           argz.Add(n, ai);
           if (allowshortcut)
@@ -715,19 +715,19 @@ confuse a user.")]
               }
             }
           }
-				}
-			}
+        }
+      }
 
       defvals = null;
 
-			if (allargs.StartsWith(prefix + "?") || allargs.StartsWith(prefix + "help"))
-			{
-				PrintHelp(argz);
-				Environment.Exit(0);
-			}
+      if (allargs.StartsWith(prefix + "?") || allargs.StartsWith(prefix + "help"))
+      {
+        PrintHelp(argz);
+        Environment.Exit(0);
+      }
 
-			Group g = null;
-			bool haserror = false;
+      Group g = null;
+      bool haserror = false;
       foreach (Match m in re.Matches(allargs))
       {
         string argname = null;
@@ -779,7 +779,7 @@ confuse a user.")]
             {
               Type elet = t.GetElementType();
               TypeConverter tc = TypeDescriptor.GetConverter(elet);
-								
+
               Match arrm = arrre.Match(g.Value);
 
               if (arrm.Success)
@@ -833,25 +833,25 @@ confuse a user.")]
           }
 
           arginfo.Value = val;
-          
+
         }
         catch (Exception ex)
         {
-          Console.Error.WriteLine("Error: Argument '{0}' could not be read ({1})", 
+          Console.Error.WriteLine("Error: Argument '{0}' could not be read ({1})",
             argname, ex.Message, ex.GetBaseException().GetType().Name);
           haserror = true;
         }
       }
-			if (haserror)
-			{
-				PrintHelp(argz);
+      if (haserror)
+      {
+        PrintHelp(argz);
         if (pauserr && !msgbox)
         {
           Console.WriteLine("Press any key to exit");
           Console.Read();
         }
-				Environment.Exit(1);
-			}
-		}
-	}
+        Environment.Exit(1);
+      }
+    }
+  }
 }

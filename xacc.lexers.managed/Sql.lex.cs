@@ -22,8 +22,8 @@ sealed class SqlLexer : LexerBase {
 
 	}
 
-	const int ML_STRING = 2;
 	const int ML_COMMENT = 1;
+	const int ML_STRING = 2;
 	const int YYINITIAL = 0;
 	readonly int[] yy_state_dtrans = {
 		0, 		77, 		79

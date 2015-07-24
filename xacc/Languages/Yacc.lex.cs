@@ -26,10 +26,10 @@ int markcnt = 0;
 
 	}
 
-	const int actcode = 3;
 	const int code = 2;
 	const int unioncode = 4;
 	const int YYINITIAL = 0;
+	const int actcode = 3;
 	const int comment = 1;
 	readonly int[] yy_state_dtrans = {
 		0, 		27, 		137, 		143, 		145

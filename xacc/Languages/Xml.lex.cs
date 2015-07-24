@@ -33,17 +33,17 @@ sealed class XmlLexer : LexerBase {
 
 	}
 
-	const int starttag = 3;
-	const int comment = 1;
-	const int attr = 10;
-	const int pp = 8;
-	const int cdata = 5;
-	const int YYINITIAL = 0;
-	const int endtag = 4;
-	const int script = 6;
-	const int mlstr = 9;
 	const int intag = 2;
+	const int script = 6;
+	const int starttag = 3;
+	const int pp = 8;
+	const int comment = 1;
+	const int cdata = 5;
+	const int attr = 10;
+	const int endtag = 4;
+	const int YYINITIAL = 0;
 	const int scriptstart = 7;
+	const int mlstr = 9;
 	readonly int[] yy_state_dtrans = {
 		0, 		69, 		71, 		72, 		73, 		74, 		76, 		84, 		87, 		88, 		89
 	};

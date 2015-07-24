@@ -61,7 +61,7 @@ namespace Xacc.ComponentModel
 
 		public ToolBarService()
 		{
-      ToolStripManager.Renderer = new Xacc.Controls.Office2007Renderer();
+      ToolStripManager.Renderer = new ToolStripProfessionalRenderer();// Xacc.Controls.Office2007Renderer();
       ServiceHost.StateChanged += new EventHandler(ServiceHost_StateChanged);
       toolbar.Dock = DockStyle.Fill;
 

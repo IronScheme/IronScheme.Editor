@@ -15,8 +15,8 @@ sealed class LSharpLexer : LexerBase {
 
 	}
 
-	const int ML_COMMENT = 2;
 	const int KWSTATE = 1;
+	const int ML_COMMENT = 2;
 	const int YYINITIAL = 0;
 	readonly int[] yy_state_dtrans = {
 		0, 		219, 		264

@@ -22,8 +22,8 @@ sealed class IronPythonLexer : LexerBase {
 
 	}
 
-	const int VERB_STRING = 1;
 	const int YYINITIAL = 0;
+	const int VERB_STRING = 1;
 	readonly int[] yy_state_dtrans = {
 		0, 		130
 	};

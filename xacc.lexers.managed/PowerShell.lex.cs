@@ -22,8 +22,8 @@ sealed class PowerShellLexer : LexerBase {
 
 	}
 
-	const int VERBSTR = 1;
 	const int YYINITIAL = 0;
+	const int VERBSTR = 1;
 	readonly int[] yy_state_dtrans = {
 		0, 		54
 	};

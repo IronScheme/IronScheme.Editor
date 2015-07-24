@@ -113,6 +113,8 @@ namespace Xacc.Runtime
       DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
       BackColor = SystemColors.AppWorkspace;// Color.FromArgb(245, 245, 245);
       Dock = DockStyle.Fill;
+
+      Theme = new W.VS2012LightTheme();
     }
 
     IDockContent[] IDockPanel.Documents
@@ -178,6 +180,19 @@ namespace Xacc.Runtime
       if (!cancel)
       {
         (Parent as TabControl).TabPages.Remove(this);
+      }
+    }
+
+    public ContextMenuStrip TabPageContextMenuStrip
+    {
+      get
+      {
+        return null;
+      }
+
+      set
+      {
+
       }
     }
 
@@ -388,6 +403,19 @@ namespace Xacc.Runtime
       set {cm = value;}
     }
 
+    public ContextMenuStrip TabPageContextMenuStrip
+    {
+      get
+      {
+        return null;
+      }
+
+      set
+      {
+        
+      }
+    }
+
     IDockPanel panel;
 
     public void Show(IDockPanel panel, DockState state)
@@ -507,6 +535,19 @@ namespace Xacc.Runtime
     {
       get {return cm;}
       set {cm = value;}
+    }
+
+    public ContextMenuStrip TabPageContextMenuStrip
+    {
+      get
+      {
+        throw new NotImplementedException();
+      }
+
+      set
+      {
+        throw new NotImplementedException();
+      }
     }
 
     public void Show(IDockPanel panel, DockState state)

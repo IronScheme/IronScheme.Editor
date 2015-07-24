@@ -1,4 +1,5 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>9.0.30729</ProductVersion>
@@ -40,7 +41,7 @@
     </ManifestKeyFile>
     <SignManifests>false</SignManifests>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <OldToolsVersion>2.0</OldToolsVersion>
+    <OldToolsVersion>3.5</OldToolsVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <PublishUrl>http://localhost/xacc.ide/</PublishUrl>
     <Install>true</Install>
@@ -56,6 +57,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -141,10 +143,18 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="xacc.imports" />
-    <None Include="command.ls" />
-    <None Include="profile.ls" />
-    <None Include="xacc.ide.nsi" />
+    <None Include="xacc.imports">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="command.ls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="profile.ls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="xacc.ide.nsi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Compile Include="..\Common\AssemblyInfo.Common.cs">
       <Link>AssemblyInfo.Common.cs</Link>
     </Compile>
@@ -159,9 +169,15 @@
     <Compile Include="xacc-ide.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Content Include="Changelog.txt" />
-    <Content Include="Readme.txt" />
-    <Content Include="xacc TODO.htm" />
+    <None Include="Changelog.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="xacc TODO.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <EmbeddedResource Include="xacc-ide.resx">
       <DependentUpon>xacc-ide.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -201,12 +217,7 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>xcopy /y $(ProjectDir)ChangeLog.txt $(TargetDir)
-xcopy /y $(ProjectDir)ReadMe.txt $(TargetDir)
-xcopy /y $(ProjectDir)xacc.ide.nsi $(TargetDir)
-xcopy /y $(ProjectDir)*.ls $(TargetDir)
-xcopy /y $(ProjectDir)*.imports $(TargetDir)
-rem xcopy /y $(SolutionDir)LSharp.Compiler\$(OutDir)lsc.exe $(TargetDir)
-rem "C:\Program Files\NSIS\makensis" /V2 $(TargetDir)xacc.ide.nsi</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
