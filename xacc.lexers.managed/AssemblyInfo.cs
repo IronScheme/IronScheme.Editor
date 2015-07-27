@@ -47,6 +47,11 @@ sealed class Common_PluginLoader : AssemblyPluginProvider
     new Xacc.Languages.NSISLang();
     new Xacc.Languages.SqlLang();
     new Xacc.Languages.CatLanguage();
+    new Xacc.Languages.CSLexLang();
+    new Xacc.Languages.YaccLang();
+    new Xacc.Languages.XmlLanguage();
+    new Xacc.Languages.LSharp.Parser();
+    new Xacc.Languages.CSharp.Parser();
 
   }
 }

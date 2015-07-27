@@ -171,11 +171,7 @@ namespace Xacc.ComponentModel
     {
       new Languages.PlainText();
       new Languages.Changelog();
-      new Languages.CSLexLang();
-      new Languages.YaccLang();
-      new Languages.XmlLanguage();
-      new Xacc.Languages.LSharp.Parser();
-      new Xacc.Languages.CSharp.Parser();
+
       new Xacc.Languages.IronScheme.Parser();
 
     }

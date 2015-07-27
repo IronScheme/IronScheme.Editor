@@ -19,7 +19,6 @@
 
 using System;
 using System.Collections;
-using LSharp;
 using Xacc.Controls;
 using System.IO;
 using System.Threading;

@@ -620,7 +620,7 @@ namespace Xacc.ComponentModel
       Register(typeof(GridDocument), "gls");
       Register(typeof(AssemblyBrowser), "dll", "exe");
 
-      Register(typeof(XmlDocument), ServiceHost.Language["xml"]);
+      //Register(typeof(XmlDocument), ServiceHost.Language["xml"]);
 
 #if TRACE
 			Opening		+=	new FileManagerEventHandler(TraceOpening);

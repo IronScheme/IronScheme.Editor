@@ -42,21 +42,21 @@ namespace Xacc.Drawing
 
       public override bool Equals(object obj)
       {
-        Container two = (Container) obj;
+        Container two = (Container)obj;
 
         if (two.stuff.Length != stuff.Length)
         {
           return false;
         }
 
-        for (int i = 0; i < stuff.Length;i++)
+        for (int i = 0; i < stuff.Length; i++)
         {
           if (!stuff[i].Equals(two.stuff[i]))
           {
             return false;
           }
         }
-					
+
         return true;
       }
 
@@ -65,9 +65,9 @@ namespace Xacc.Drawing
         return hash;
       }
 
-      static int CalcHash(object [] stuff)
+      static int CalcHash(object[] stuff)
       {
-        int l = 32/stuff.Length;
+        int l = 32 / stuff.Length;
         int hash = 0;
 
         for (int i = 0; i < stuff.Length; i++)
@@ -86,9 +86,9 @@ namespace Xacc.Drawing
     static int total = 0;
 #endif
 
-    Factory(){}
+    Factory() { }
 
-    public static T Get<T>(params object[] args) where T: class
+    public static T Get<T>(params object[] args) where T : class
     {
       return Get(typeof(T), args) as T;
     }
@@ -127,13 +127,13 @@ namespace Xacc.Drawing
 
       TRYAGAIN:
 #if DEBUG
-        total++;
+      total++;
 #endif
 
-        if (obj == null)
-        {
+      if (obj == null)
+      {
 #if DEBUG
-          miss++;
+        miss++;
 #endif
 #if CHECKED
 					Console.Write("Creating: {0} ( ", type.Name);
@@ -143,16 +143,16 @@ namespace Xacc.Drawing
 					}
 					Console.WriteLine(")");
 #endif
-          obj = Activator.CreateInstance(type, args);
-          bin[c] = obj;
-        }
+        obj = Activator.CreateInstance(type, args);
+        bin[c] = obj;
+      }
 #if DEBUG
-        else
-        {
-          hit++;
-        }
+      else
+      {
+        hit++;
+      }
 #endif
-      try 
+      try
       {
         int i = obj.GetHashCode();
       }

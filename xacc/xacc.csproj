@@ -135,9 +135,8 @@
       <Name>Aga.Controls</Name>
     </ProjectReference>
     <ProjectReference Include="..\LSharp\LSharp.csproj">
+      <Project>{419e259f-e9c0-4e01-ba19-709fe84dead5}</Project>
       <Name>LSharp</Name>
-      <Project>{419E259F-E9C0-4E01-BA19-709FE84DEAD5}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
     <ProjectReference Include="..\xacc.runtime\xacc.runtime.csproj">
       <Name>xacc.runtime</Name>
@@ -166,7 +165,7 @@
     <Compile Include="CodeModel\Location.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Collections\RangeTree.cs" />
+    <None Include="Collections\RangeTree.cs" />
     <Compile Include="Collections\DoubleLinkedList.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -185,12 +184,12 @@
     <Compile Include="Collections\Set.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Collections\StringTree.cs">
+    <None Include="Collections\StringTree.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Collections\TrackingStack.cs">
+    </None>
+    <None Include="Collections\TrackingStack.cs">
       <SubType>Code</SubType>
-    </Compile>
+    </None>
     <Compile Include="Collections\UndoRedoStack.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -393,14 +392,7 @@
     <Compile Include="Languages\Changelog.lex.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Languages\CSharp.lex.cs" />
-    <Compile Include="Languages\CSharp.y.cs" />
-    <Compile Include="Languages\CSLex.lex.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Languages\CSLexLangauge.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Languages\CSLexLangauge.cs" />
     <Compile Include="Languages\Ironscheme.lex.cs" />
     <Compile Include="Languages\Ironscheme.y.cs" />
     <Compile Include="Languages\IronSchemeIdentifiers.cs" />
@@ -408,8 +400,6 @@
     <Compile Include="Languages\Language.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Languages\LSharp.lex.cs" />
-    <Compile Include="Languages\LSharp.y.cs" />
     <Compile Include="Languages\ParserStack.cs" />
     <Compile Include="Languages\PlainText.lex.cs">
       <SubType>Code</SubType>
@@ -417,8 +407,6 @@
     <Compile Include="Languages\Rule.cs" />
     <Compile Include="Languages\ShiftReduceParser.cs" />
     <Compile Include="Languages\State.cs" />
-    <Compile Include="Languages\Xml.lex.cs" />
-    <Compile Include="Languages\Yacc.lex.cs" />
     <Compile Include="Resources\Fake.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -585,14 +573,7 @@
     <None Include="Languages\Changelog.lex" />
     <None Include="Languages\IronScheme.lex" />
     <None Include="Languages\IronScheme.y" />
-    <None Include="Languages\CSharp.lex" />
-    <None Include="Languages\CSharp.y" />
-    <None Include="Languages\CSLex.lex" />
-    <None Include="Languages\LSharp.lex" />
-    <None Include="Languages\LSharp.y" />
     <None Include="Languages\PlainText.lex" />
-    <None Include="Languages\Xml.lex" />
-    <None Include="Languages\Yacc.lex" />
     <EmbeddedResource Include="Resources\Edit.SelectAll.png" />
     <EmbeddedResource Include="Resources\Compile.Generated.png" />
     <EmbeddedResource Include="Resources\Folder.Properties.png" />
@@ -617,14 +598,7 @@
   <PropertyGroup>
     <PreBuildEvent>$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\PlainText.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Changelog.lex
-$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\CSLex.lex
-$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\CSharp.lex
-$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\LSharp.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Ironscheme.lex
-$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Yacc.lex
-$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Xml.lex
-$(SolutionDir)Tools\gppg $(ProjectDir)Languages\LSharp.y -o $(ProjectDir)Languages\LSharp.y.cs
-$(SolutionDir)Tools\gppg $(ProjectDir)Languages\CSharp.y -o $(ProjectDir)Languages\CSharp.y.cs
 $(SolutionDir)Tools\gppg $(ProjectDir)Languages\Ironscheme.y -o $(ProjectDir)Languages\Ironscheme.y.cs</PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
