@@ -582,6 +582,8 @@
     <EmbeddedResource Include="Resources\Folder.References.png" />
     <EmbeddedResource Include="Resources\Content.png" />
     <EmbeddedResource Include="Resources\File.SaveAs.png" />
+    <EmbeddedResource Include="Resources\Edit.Comment.png" />
+    <EmbeddedResource Include="Resources\Edit.Uncomment.png" />
     <Content Include="Resources\header.bmp" />
     <Content Include="Resources\installer.bmp" />
     <EmbeddedResource Include="Resources\IronScheme.png" />

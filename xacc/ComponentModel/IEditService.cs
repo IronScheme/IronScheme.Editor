@@ -729,7 +729,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Advanced\\Comment Selection", Index = 44, State = ApplicationState.Buffer)]
+    [MenuItem("Advanced\\Comment Selection", Index = 44, State = ApplicationState.Buffer, Image = "Edit.Comment.png")]
     public void CommentSelection()
     {
       IEditAdvanced atb = fm.CurrentControl as IEditAdvanced;
@@ -739,7 +739,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Advanced\\Uncomment Selection", Index = 45, State = ApplicationState.Buffer)]
+    [MenuItem("Advanced\\Uncomment Selection", Index = 45, State = ApplicationState.Buffer, Image = "Edit.Uncomment.png")]
     public void UnCommentSelection()
     {
       IEditAdvanced atb = fm.CurrentControl as IEditAdvanced;
