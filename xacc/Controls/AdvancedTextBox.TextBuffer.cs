@@ -2077,7 +2077,7 @@ namespace Xacc.Controls
 
         int[] lines = lastlines = owner.viewlines;
 
-        const int radius = 5;
+        const int radius = 1;
 
         int selstart = selectionstart, sellen = selectionlength;
         int startline, startlineindex;
@@ -2193,6 +2193,7 @@ namespace Xacc.Controls
             // bottom left
             r.AddArc(rr.X, rr.Bottom - radius, radius, radius, angle, 90);
             angle += 90;
+   
             r.CloseAllFigures();
           }
         }

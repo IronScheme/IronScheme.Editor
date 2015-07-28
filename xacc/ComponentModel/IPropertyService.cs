@@ -65,6 +65,8 @@ namespace Xacc.ComponentModel
         tbp.Hide();
         tbp.HideOnClose = true;
 
+        Grid.SelectedObject = ((ToolStripProfessionalRenderer)ToolStripManager.Renderer).ColorTable;
+
         props.propertyGrid1.PropertyValueChanged += new PropertyValueChangedEventHandler(propertyGrid1_PropertyValueChanged);
       }
     }

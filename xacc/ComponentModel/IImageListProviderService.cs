@@ -147,7 +147,7 @@ namespace Xacc.ComponentModel
 
 		public ImageListProvider()
 		{
-			images.ColorDepth = ColorDepth.Depth32Bit;
+			images.ColorDepth = ColorDepth.Depth24Bit;
 			images.ImageSize = new Size(16,16);
 
       Assembly ass = typeof(ImageListProvider).Assembly;
@@ -261,7 +261,7 @@ namespace Xacc.ComponentModel
       			if (ms != null)
 						{
 							mapping.Add(type, images.Images.Count);
-							images.Images.Add( Image.FromStream( ms, true));
+							images.Images.Add( Image.FromStream( ms));
 							namemap.Add(iat.Path, mapping[type]);	
               return;
 						}

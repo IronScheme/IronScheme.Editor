@@ -238,8 +238,9 @@ namespace Xacc.ComponentModel
     void SelectionToUpper();
   }
 
-  interface IEditService : IService
+  public interface IEditService : IService, IScroll, IEdit, IEditAdvanced, INavigate, IEditSpecial
   {
+    string EditorLanguage { get; set; }
   }
 
   [Menu("Edit")]
@@ -254,7 +255,7 @@ namespace Xacc.ComponentModel
     }
 
     [MenuItem("Find/Replace", Index = 0, State = ApplicationState.Buffer, Image = "Edit.Find.png", AllowToolBar = true)]
-    void FindReplace()
+    public void FindReplace()
     {
       //IFind
       AdvancedTextBox atb = fm.CurrentControl as AdvancedTextBox;
@@ -272,7 +273,7 @@ namespace Xacc.ComponentModel
     }
 
     [MenuItem("Undo", Index = 10, State = ApplicationState.Edit, Image = "Edit.Undo.png", AllowToolBar = true)]
-    void Undo()
+    public void Undo()
     {
       IEdit atb = fm.CurrentControl as IEdit;
       if (atb != null && ((Control)atb).Focused)
@@ -282,7 +283,7 @@ namespace Xacc.ComponentModel
     }
 
     [MenuItem("Redo", Index = 11, State = ApplicationState.Edit, Image = "Edit.Redo.png", AllowToolBar = true)]
-    void Redo()
+    public void Redo()
     {
       IEdit atb = fm.CurrentControl as IEdit;
       if (atb != null && ((Control)atb).Focused)
@@ -292,7 +293,7 @@ namespace Xacc.ComponentModel
     }
 
     [MenuItem("Cut", Index = 20, State = ApplicationState.Edit, Image = "Edit.Cut.png", AllowToolBar = true)]
-    void Cut()
+    public void Cut()
     {
       IEdit atb = fm.CurrentControl as IEdit;
       if (atb != null && ((Control)atb).Focused)
@@ -310,7 +311,7 @@ namespace Xacc.ComponentModel
     }
 
     [MenuItem("Copy", Index = 21, State = ApplicationState.Edit, Image = "Edit.Copy.png", AllowToolBar = true)]
-    void Copy()
+    public void Copy()
     {
       IEdit atb = fm.CurrentControl as IEdit;
       if (atb != null && ((Control)atb).Focused)
@@ -328,7 +329,7 @@ namespace Xacc.ComponentModel
     }
 
     [MenuItem("Paste", Index = 22, State = ApplicationState.Edit, Image = "Edit.Paste.png", AllowToolBar = true)]
-    void Paste()
+    public void Paste()
     {
       IEdit atb = fm.CurrentControl as IEdit;
       if (atb != null && ((Control)atb).Focused)
@@ -338,7 +339,7 @@ namespace Xacc.ComponentModel
     }
 
     [MenuItem("Delete", Index = 23, State = ApplicationState.Edit, Image = "Edit.Delete.png")]
-    void Delete()
+    public void DeleteSelected()
     {
       IEdit atb = fm.CurrentControl as IEdit;
       if (atb != null && ((Control)atb).Focused)
@@ -347,7 +348,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    void DeleteCurrentLine()
+    public void DeleteCurrentLine()
     {
       IEdit atb = fm.CurrentControl as IEdit;
       if (atb != null && ((Control)atb).Focused)
@@ -357,7 +358,7 @@ namespace Xacc.ComponentModel
     }
 
     [MenuItem("Select all", Index = 30, State = ApplicationState.Edit, Image = "Edit.SelectAll.png")]
-    void SelectAll()
+    public void SelectAll()
     {
       IEdit atb = fm.CurrentControl as IEdit;
       if (atb != null && ((Control)atb).Focused)
@@ -367,7 +368,7 @@ namespace Xacc.ComponentModel
     }
 
     [MenuItem("Copy Special\\Copy to Text", Index = 40, State = ApplicationState.Buffer, Image = "Edit.Copy.png")]
-    void CopyToText()
+    public void CopyToText()
     {
       IEditSpecial atb = fm.CurrentControl as IEditSpecial;
       if (atb != null && ((Control)atb).Focused)
@@ -377,7 +378,7 @@ namespace Xacc.ComponentModel
     }
 
     [MenuItem("Copy Special\\Copy to HTML", Index = 41, State = ApplicationState.Buffer, Image = "Edit.Copy.png")]
-    void CopyToHtml()
+    public void CopyToHtml()
     {
       IEditSpecial atb = fm.CurrentControl as IEditSpecial;
       if (atb != null && ((Control)atb).Focused)
@@ -387,7 +388,7 @@ namespace Xacc.ComponentModel
     }
 
     [MenuItem("Copy Special\\Copy to RTF", Index = 42, State = ApplicationState.Buffer, Image = "Edit.Copy.png")]
-    void CopyToRtf()
+    public void CopyToRtf()
     {
       IEditSpecial atb = fm.CurrentControl as IEditSpecial;
       if (atb != null && ((Control)atb).Focused)
@@ -397,7 +398,7 @@ namespace Xacc.ComponentModel
     }
 
     [MenuItem("Advanced\\Strip Trailing Space", Index = 43, State = ApplicationState.Buffer)]
-    void StripSpace()
+    public void StripSpace()
     {
       AdvancedTextBox atb = fm.CurrentControl as AdvancedTextBox;
       if (atb != null && atb.Focused)
@@ -407,7 +408,7 @@ namespace Xacc.ComponentModel
     }
 
     [MenuItem("Language", Index = 50, State = ApplicationState.Buffer, Converter=typeof(AdvancedTextBox.LanguageTypeConvertor))]
-    string ChangeEditorLanguage
+    public string EditorLanguage
     {
       get
       {

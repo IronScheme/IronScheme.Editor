@@ -59,9 +59,90 @@ namespace Xacc.ComponentModel
       get { return toolbar; }
     }
 
+    class ColorTable : ProfessionalColorTable
+    {
+      static Color menubg = Color.FromArgb(246, 246, 246);
+      static Color topbg = Color.FromArgb(238, 238, 242);
+      static Color menubdr = Color.FromArgb(204, 206, 219);
+      static Color menusep = Color.FromArgb(224, 227, 230);
+
+      public override Color ToolStripDropDownBackground
+      {
+        get
+        {
+          return menubg;
+        }
+      }
+
+      public override Color MenuItemBorder
+      {
+        get
+        {
+          return Color.Transparent;
+        }
+      }
+
+      public override Color MenuStripGradientEnd
+      {
+        get
+        {
+          return topbg;
+        }
+      }
+
+      public override Color MenuStripGradientBegin
+      {
+        get
+        {
+          return topbg;
+        }
+      }
+
+      public override Color MenuBorder
+      {
+        get
+        {
+          return menubdr;
+        }
+      }
+
+      public override Color ImageMarginGradientBegin
+      {
+        get
+        {
+          return Color.Transparent;
+        }
+      }
+
+      public override Color ImageMarginGradientEnd
+      {
+        get
+        {
+          return Color.Transparent;
+        }
+      }
+
+      public override Color ImageMarginGradientMiddle
+      {
+        get
+        {
+          return Color.Transparent;
+        }
+      }
+
+      public override Color SeparatorDark
+      {
+        get
+        {
+          return menusep;
+        }
+      }
+
+    }
+
 		public ToolBarService()
 		{
-      ToolStripManager.Renderer = new ToolStripProfessionalRenderer();// Xacc.Controls.Office2007Renderer();
+      ToolStripManager.Renderer = new ToolStripProfessionalRenderer(new ColorTable());// Xacc.Controls.Office2007Renderer();
       ServiceHost.StateChanged += new EventHandler(ServiceHost_StateChanged);
       toolbar.Dock = DockStyle.Fill;
 

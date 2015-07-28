@@ -278,7 +278,7 @@ namespace Xacc.Configuration
         Trace.WriteLine(ex);
       }
 
-      (ServiceHost.ToolBar as ToolBarService).ValidateToolBarButtons();
+      //(ServiceHost.ToolBar as ToolBarService).ValidateToolBarButtons();
 
       //ToolStripManager.LoadSettings(f);
 

@@ -73,6 +73,8 @@ namespace Xacc.ComponentModel
     /// </summary>
     bool Net20Installed {get;}
 
+    bool Net40Installed { get; }
+
     /// <summary>
     /// .NET 2.0 SDK directory
     /// </summary>
@@ -111,7 +113,8 @@ namespace Xacc.ComponentModel
     /// <summary>
     /// .NET unknown
     /// </summary>
-    Unknown
+    Unknown,
+    Net40
   }
 
 
@@ -192,6 +195,20 @@ namespace Xacc.ComponentModel
       }
     }
 
+    public bool Net40Installed
+    {
+      get
+      {
+        RegistryKey k = NETFX.OpenSubKey("policy\\v4.0");
+        if (k == null)
+        {
+          return false;
+        }
+        k.Close();
+        return true;
+      }
+    }
+
     public bool NSISInstalled
     {
       get 
@@ -226,16 +243,22 @@ namespace Xacc.ComponentModel
       {
         foreach (Assembly ass in AppDomain.CurrentDomain.GetAssemblies())
         {
-          if (ass.CodeBase.EndsWith("mscorlib.dll"))
+          try
           {
-            switch( ass.ImageRuntimeVersion)
+            if (ass.CodeBase.EndsWith("mscorlib.dll"))
             {
-              case "v1.1.4322":
-                return NetRuntime.Net11;
-              case "v2.0.50727":
-                return NetRuntime.Net20;
+              switch (ass.ImageRuntimeVersion)
+              {
+                case "v1.1.4322":
+                  return NetRuntime.Net11;
+                case "v2.0.50727":
+                  return NetRuntime.Net20;
+                case "v4.0.30319":
+                  return NetRuntime.Net40;
+              }
             }
           }
+          catch { }
         }
         return NetRuntime.Unknown;
       }
@@ -286,6 +309,9 @@ namespace Xacc.ComponentModel
               break;
             case NetRuntime.Net20:
               root = "v2.0.50727";
+              break;
+            case NetRuntime.Net40:
+              root = "v4.0.30319";
               break;
 
           }

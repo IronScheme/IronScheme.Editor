@@ -151,8 +151,8 @@ namespace Xacc.Controls
 		Pen infobarborder = Factory.Pen(SystemColors.Highlight, 1);
 
     //clamp value (15 - 100)
-		SolidBrush selbrush = Factory.SolidBrush(Color.FromArgb(Math.Max(15, Math.Min(100, -50 + (int)(SystemColors.Highlight.GetBrightness() * 200))), SystemColors.Highlight));
-		Pen selpen = Factory.Pen(SystemColors.Highlight,1);
+		static SolidBrush selbrush = Factory.SolidBrush(Color.FromArgb(Math.Max(15, Math.Min(100, -50 + (int)(SystemColors.Highlight.GetBrightness() * 200))), SystemColors.Highlight));
+		Pen selpen = Factory.Pen(selbrush.Color, 1);
 
 		GraphicsPath lastgp = null;
 
