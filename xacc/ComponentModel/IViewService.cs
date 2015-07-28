@@ -225,7 +225,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Results", Index = 20, Image="Help.Info.png")]
+    [MenuItem("Results", Index = 20, Image= "View.Results.png")]
     bool ShowResults
     {
       get 
@@ -246,7 +246,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Output", Index = 21, Image="console.png")]
+    [MenuItem("Output", Index = 21, Image="View.Output.png")]
     bool ShowConsole
     {
       get 
@@ -317,7 +317,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Properties", Index = 30, Image = "Project.Run.png")]
+    [MenuItem("Properties", Index = 30, Image = "View.Properties.png")]
     bool ShowProperties
     {
       get

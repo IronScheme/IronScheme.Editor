@@ -165,6 +165,9 @@
     <Compile Include="CodeModel\Location.cs">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="Resources\View.Properties.png" />
+    <EmbeddedResource Include="Resources\View.Output.png" />
+    <EmbeddedResource Include="Resources\View.Results.png" />
     <None Include="Collections\RangeTree.cs" />
     <Compile Include="Collections\DoubleLinkedList.cs">
       <SubType>Code</SubType>
@@ -533,7 +536,6 @@
     <EmbeddedResource Include="Resources\File.New.png" />
     <EmbeddedResource Include="Resources\File.Open.png" />
     <EmbeddedResource Include="Resources\File.Save.png" />
-    <EmbeddedResource Include="Resources\File.SaveAs.png" />
     <EmbeddedResource Include="Resources\Compile.png" />
     <EmbeddedResource Include="Resources\None.png" />
     <EmbeddedResource Include="Resources\Reference.png" />
@@ -579,6 +581,7 @@
     <EmbeddedResource Include="Resources\Folder.Properties.png" />
     <EmbeddedResource Include="Resources\Folder.References.png" />
     <EmbeddedResource Include="Resources\Content.png" />
+    <EmbeddedResource Include="Resources\File.SaveAs.png" />
     <Content Include="Resources\header.bmp" />
     <Content Include="Resources\installer.bmp" />
     <EmbeddedResource Include="Resources\IronScheme.png" />
