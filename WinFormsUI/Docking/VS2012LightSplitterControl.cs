@@ -7,7 +7,7 @@ namespace WeifenLuo.WinFormsUI.Docking
     internal class VS2012LightSplitterControl : DockPane.SplitterControlBase
     {
         private static readonly SolidBrush _horizontalBrush = new SolidBrush(Color.FromArgb(0xFF, 204, 206, 219));
-        private static readonly Color[] _verticalSurroundColors = new[] { SystemColors.Control };
+        private static readonly Color[] _verticalSurroundColors = new[] { SystemColors.ButtonFace };
 
 
         public VS2012LightSplitterControl(DockPane pane)

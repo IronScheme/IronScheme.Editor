@@ -165,6 +165,8 @@
     <Compile Include="CodeModel\Location.cs">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="Resources\View.Toolbar.png" />
+    <EmbeddedResource Include="Resources\View.Outline.png" />
     <EmbeddedResource Include="Resources\View.Properties.png" />
     <EmbeddedResource Include="Resources\View.Output.png" />
     <EmbeddedResource Include="Resources\View.Results.png" />
@@ -584,6 +586,11 @@
     <EmbeddedResource Include="Resources\File.SaveAs.png" />
     <EmbeddedResource Include="Resources\Edit.Comment.png" />
     <EmbeddedResource Include="Resources\Edit.Uncomment.png" />
+    <EmbeddedResource Include="Resources\Build.Cancel.png" />
+    <EmbeddedResource Include="Resources\Debug.Autos.png" />
+    <EmbeddedResource Include="Resources\Debug.Breakpoints.png" />
+    <EmbeddedResource Include="Resources\Debug.CallStack.png" />
+    <EmbeddedResource Include="Resources\Debug.Locals.png" />
     <Content Include="Resources\header.bmp" />
     <Content Include="Resources\installer.bmp" />
     <EmbeddedResource Include="Resources\IronScheme.png" />

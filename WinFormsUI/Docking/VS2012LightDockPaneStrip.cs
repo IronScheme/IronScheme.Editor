@@ -107,7 +107,7 @@ namespace WeifenLuo.WinFormsUI.Docking
         private const int _DocumentTabGapLeft = 0;//3;
         private const int _DocumentTabGapRight = 0;//3;
         private const int _DocumentIconGapBottom = 2;//2;
-        private const int _DocumentIconGapLeft = 8;
+        private const int _DocumentIconGapLeft = 0;
         private const int _DocumentIconGapRight = 0;
         private const int _DocumentIconHeight = 16;
         private const int _DocumentIconWidth = 16;

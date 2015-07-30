@@ -50,7 +50,7 @@ namespace Xacc.ComponentModel
       get {return outlinepanel;}
     }
     
-    [MenuItem("Toolbar", Index = 0)]
+    [MenuItem("Toolbar", Index = 0, Image = "View.Toolbar.png")]
     public bool ShowToolbar
     {
       get { return ServiceHost.ToolBar.ToolBarVisible;}
@@ -204,7 +204,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Outline", Index = 12, Image="CodeValueType.png")]
+    [MenuItem("Outline", Index = 12, Image="View.Outline.png")]
     bool ShowOutline
     {
       get 

@@ -280,7 +280,7 @@ namespace Xacc.Configuration
 
       //(ServiceHost.ToolBar as ToolBarService).ValidateToolBarButtons();
 
-      //ToolStripManager.LoadSettings(f);
+      ToolStripManager.LoadSettings(f, "Toolbar");
 
       //ServiceHost.ToolBar.Load();
 
@@ -331,7 +331,7 @@ namespace Xacc.Configuration
 
 		static void f_Closing(object sender, CancelEventArgs e)
 		{
-      //ToolStripManager.SaveSettings(ServiceHost.Window.MainForm);
+      ToolStripManager.SaveSettings(ServiceHost.Window.MainForm, "Toolbar");
       //ServiceHost.ToolBar.Save();
 
       IToolsService its = ServiceHost.Tools;

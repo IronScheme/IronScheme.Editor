@@ -222,7 +222,7 @@ namespace Xacc.ComponentModel
       ServiceHost.State &= ~ApplicationState.Build;
     }
 
-    [MenuItem("Build All", Index = 11, State = ApplicationState.Project)]
+    [MenuItem("Build All", Index = 11, State = ApplicationState.Project, Image = "Project.Build.png")]
     void BuildAll()
     {
       BuildInternal(solution ?? ServiceHost.Project.Current.MSBuildProject);
@@ -240,7 +240,7 @@ namespace Xacc.ComponentModel
       BuildInternal(solution ?? ServiceHost.Project.Current.MSBuildProject, "Clean");
     }
 
-    [MenuItem("Build {Current}", Index = 21, State = ApplicationState.Project)]
+    [MenuItem("Build {Current}", Index = 21, State = ApplicationState.Project, Image = "Project.Build.png")]
     void BuildCurrent()
     {
       BuildInternal(ServiceHost.Project.Current.MSBuildProject);
@@ -258,7 +258,7 @@ namespace Xacc.ComponentModel
       BuildInternal(ServiceHost.Project.Current.MSBuildProject, "Clean");
     }
 
-    [MenuItem("Cancel Build", Index = 900, State = ApplicationState.Project | ApplicationState.Build)]
+    [MenuItem("Cancel Build", Index = 900, State = ApplicationState.Project | ApplicationState.Build, Image = "Build.Cancel")]
     void CancelBuild()
     {
       if (buildthread != null)

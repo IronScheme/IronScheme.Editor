@@ -71,7 +71,7 @@
 (tokencolor   Other         DeepPink)
 
 ; hide toolbar till i can get it to work
-(set_showtoolbar (view servicehost) false)
+; (set_showtoolbar (view servicehost) false)
 
 ; keybindings
 (= keyboard (keyboard servicehost))

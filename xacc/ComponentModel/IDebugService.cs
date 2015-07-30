@@ -128,7 +128,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("View\\Locals", Index = 0)]
+    [MenuItem("View\\Locals", Index = 0, Image = "Debug.Locals.png", State = ApplicationState.DebugBreak)]
     bool ViewLocals
     {
       get 
@@ -153,7 +153,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("View\\Autos", Index = 0)]
+    [MenuItem("View\\Autos", Index = 0, Image = "Debug.Autos.png", State = ApplicationState.DebugBreak)]
     bool ViewAutos
     {
       get 
@@ -178,7 +178,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("View\\This", Index = 0)]
+    [MenuItem("View\\This", Index = 0, State = ApplicationState.DebugBreak)]
     bool ViewThis
     {
       get 
@@ -203,7 +203,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("View\\Callstack", Index = 0)]
+    [MenuItem("View\\Callstack", Index = 0, Image = "Debug.CallStack.png", State = ApplicationState.DebugBreak)]
     bool ViewCallstack
     {
       get 

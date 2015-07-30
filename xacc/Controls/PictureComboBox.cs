@@ -47,7 +47,7 @@ namespace Xacc.Controls
 		
 		GraphicsPath gp = null;
 		
-		int radius = 4;
+		int radius = 1;
 
 		Pen borderpen = null;
 
@@ -123,7 +123,7 @@ namespace Xacc.Controls
         if (gradb == null)
         {
           LinearGradientBrush gb = new LinearGradientBrush(r2,
-            SystemColors.Control, SystemColors.ControlDark, 0f);
+            SystemColors.ButtonFace, SystemColors.ButtonFace, 0f);
           gb.SetSigmaBellShape(0.9f, 0.2f);
           gradb = gb;
         }
@@ -149,17 +149,18 @@ namespace Xacc.Controls
 
         if (selbg == null)
         {
-          r2.X -= r.Height/2;
-          r2.Height *= 2;
-          LinearGradientBrush gb = new LinearGradientBrush(r2, 
-            Color.FromArgb(120, SystemColors.ControlLightLight),
-            Color.FromArgb(120, SystemColors.Highlight), 90f);
-          gb.SetSigmaBellShape(0.6f,0.9f);
-					
-          selbg = gb;
+          selbg = new SolidBrush(Color.FromArgb(196, 225, 255));
+          //r2.X -= r.Height/2;
+          //r2.Height *= 2;
+          //LinearGradientBrush gb = new LinearGradientBrush(r2, 
+          //  Color.FromArgb(120, SystemColors.ControlLightLight),
+          //  Color.FromArgb(120, SystemColors.Highlight), 90f);
+          //gb.SetSigmaBellShape(0.6f,0.9f);
+
+          //selbg = SystemBrushes.Highlight;
         }
         e.Graphics.FillPath(selbg, gp);
-        e.Graphics.DrawPath(borderpen, gp);
+        //e.Graphics.DrawPath(borderpen, gp);
       }
 
     {

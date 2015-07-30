@@ -62,9 +62,66 @@ namespace Xacc.ComponentModel
     class ColorTable : ProfessionalColorTable
     {
       static Color menubg = Color.FromArgb(246, 246, 246);
-      static Color topbg = Color.FromArgb(238, 238, 242);
+      static Color topbg = Color.FromArgb(240, 240, 240);
       static Color menubdr = Color.FromArgb(204, 206, 219);
       static Color menusep = Color.FromArgb(224, 227, 230);
+
+      public override Color OverflowButtonGradientBegin
+      {
+        get
+        {
+          return topbg;
+        }
+      }
+
+      public override Color OverflowButtonGradientMiddle
+      {
+        get
+        {
+          return topbg;
+        }
+      }
+
+      public override Color OverflowButtonGradientEnd
+      {
+        get
+        {
+          return topbg;
+        }
+      }
+
+      public override Color RaftingContainerGradientBegin
+      {
+        get
+        {
+          return topbg;
+        }
+      }
+
+      public override Color RaftingContainerGradientEnd
+      {
+        get
+        {
+          return topbg;
+        }
+      }
+
+      public override Color ToolStripPanelGradientBegin
+      {
+        get
+        {
+          return topbg;
+        }
+      }
+
+      public override Color ToolStripPanelGradientEnd
+      {
+        get
+        {
+          return topbg;
+        }
+      }
+
 
       public override Color ToolStripDropDownBackground
       {
@@ -138,6 +195,46 @@ namespace Xacc.ComponentModel
         }
       }
 
+      public override Color ToolStripGradientBegin
+      {
+        get
+        {
+          return topbg;
+        }
+      }
+
+      public override Color ToolStripGradientMiddle
+      {
+        get
+        {
+          return topbg;
+        }
+      }
+
+      public override Color ToolStripGradientEnd
+      {
+        get
+        {
+          return topbg;
+        }
+      }
+
+      public override Color ButtonSelectedBorder
+      {
+        get
+        {
+          return ButtonSelectedGradientBegin;
+        }
+      }
+
+      public override Color ButtonPressedBorder
+      {
+        get
+        {
+          return Color.FromArgb(153, 204, 255);
+        }
+      }
+
     }
 
 		public ToolBarService()
@@ -146,10 +243,11 @@ namespace Xacc.ComponentModel
       ServiceHost.StateChanged += new EventHandler(ServiceHost_StateChanged);
       toolbar.Dock = DockStyle.Fill;
 
-      
-
       ServiceHost.Window.MainForm.Controls.Add(toolbar);
       toolbar.ContentPanel.Controls.Add(ServiceHost.Window.Document as Control);
+
+      toolbar.TopToolStripPanel.Name = "Toolbar";
+      //toolbar.TopToolStripPanel.
     }
 
     public bool ToolBarVisible
@@ -203,6 +301,7 @@ namespace Xacc.ComponentModel
       {
         ToolStrip sm = toplevel[map[parent]];
         ToolStripButton tbb = new ToolStripButton();
+        tbb.Name = mia.invoke.Name;
         tbb.Click += new EventHandler(ButtonDefaultHandler);
         tbb.ImageIndex = ServiceHost.ImageListProvider[mia.Image];
         tbb.Tag = mia;

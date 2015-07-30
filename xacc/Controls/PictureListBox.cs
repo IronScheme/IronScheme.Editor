@@ -31,7 +31,7 @@ namespace Xacc.Controls
   {
     GraphicsPath gp = null;
     Pen borderpen = null;
-    int radius = 4;
+    int radius = 1;
 
     static Font font = SystemInformation.MenuFont;
     static float fh = (float)font.FontFamily.GetCellAscent(0)/font.FontFamily.GetEmHeight(0);
@@ -154,14 +154,14 @@ namespace Xacc.Controls
 
         if (selbg == null)
         {
-          r2.X -= e.Bounds.Height/2;
-          r2.Height *= 2;
-          LinearGradientBrush gb = new LinearGradientBrush(r2, 
-            Color.FromArgb(120, SystemColors.ControlLightLight),
-            Color.FromArgb(120, SystemColors.Highlight), 90f);
-          gb.SetSigmaBellShape(0.6f,0.9f);
+          //r2.X -= e.Bounds.Height/2;
+          //r2.Height *= 2;
+          //LinearGradientBrush gb = new LinearGradientBrush(r2, 
+          //  Color.FromArgb(120, SystemColors.ControlLightLight),
+          //  Color.FromArgb(120, SystemColors.Highlight), 90f);
+          //gb.SetSigmaBellShape(0.6f,0.9f);
 					
-          selbg = gb;
+          selbg = SystemBrushes.Highlight;
         }
         e.Graphics.FillPath(selbg, gp);
         
