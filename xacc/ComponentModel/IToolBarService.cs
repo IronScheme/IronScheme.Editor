@@ -243,10 +243,11 @@ namespace Xacc.ComponentModel
       ServiceHost.StateChanged += new EventHandler(ServiceHost_StateChanged);
       toolbar.Dock = DockStyle.Fill;
 
+      toolbar.Name = "Container";
       ServiceHost.Window.MainForm.Controls.Add(toolbar);
       toolbar.ContentPanel.Controls.Add(ServiceHost.Window.Document as Control);
 
-      toolbar.TopToolStripPanel.Name = "Toolbar";
+      //toolbar.TopToolStripPanel.Name = "Toolbar";
       //toolbar.TopToolStripPanel.
     }
 
@@ -283,7 +284,8 @@ namespace Xacc.ComponentModel
         ToolStrip ts = new ToolStrip();
         //ts.Stretch = false;
         ts.GripStyle = ToolStripGripStyle.Visible;
-        ts.Dock = DockStyle.None;
+        //ts.AllowItemReorder = true;
+        //ts.Dock = DockStyle.None;
         //ts.Anchor = AnchorStyles.None;
         //ts.Dock = DockStyle.Top;
         ts.Name = MnemonicEscape(parent.Text);
@@ -293,7 +295,7 @@ namespace Xacc.ComponentModel
         ts.Visible = false;
         ts.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
         //((HorLayoutSettings)ts.LayoutSettings).FlowDirection = FlowDirection.LeftToRight;
-        toolbar.TopToolStripPanel.Controls.Add(ts);
+        toolbar.TopToolStripPanel.Join(ts, 0);
         
       }
 

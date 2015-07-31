@@ -569,7 +569,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Toggle all Breakpoints", Index = 22, State = ApplicationState.ProjectBuffer, Image = "Debug.ToggleAllBP.png")]
+    [MenuItem("Toggle all Breakpoints", Index = 22, State = ApplicationState.ProjectBuffer)]
     void ToggleAllBP()
     {
       Project proj = ServiceHost.Project.Current;
@@ -595,7 +595,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    [MenuItem("Toggle Breakpoint state", Index = 21, State = ApplicationState.ProjectBuffer, Image = "Debug.ToggleBPState.png")]
+    [MenuItem("Toggle Breakpoint state", Index = 21, State = ApplicationState.ProjectBuffer)]
     void ToggleBPState()
     {
       Project proj = ServiceHost.Project.Current;
@@ -615,7 +615,7 @@ namespace Xacc.ComponentModel
 
     bool allbp = false;
 
-    [MenuItem("Toggle all Breakpoint states", Index = 23, State = ApplicationState.ProjectBuffer, Image = "Debug.ToggleAllBPState.png")]
+    [MenuItem("Toggle all Breakpoint states", Index = 23, State = ApplicationState.ProjectBuffer)]
     void ToggleAllBPState()
     {
       Project proj = ServiceHost.Project.Current;

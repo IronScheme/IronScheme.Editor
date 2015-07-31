@@ -254,7 +254,7 @@ namespace Xacc.Configuration
       ServiceHost.Window.Document.DragDrop +=new DragEventHandler(f_DragDrop);
 
       ServiceHost.Window.Document.BringToFront();
-      new ViewService();
+      var vs = new ViewService();
       about.progressBar1.Value += 5;
       new KeyboardHandler();
 
@@ -278,9 +278,31 @@ namespace Xacc.Configuration
         Trace.WriteLine(ex);
       }
 
+      //vs.ShowToolbar = true; // needed for loading state/locations
+      vs.ShowToolbar = false;
+      //vs.ShowToolbar = true;
+
       //(ServiceHost.ToolBar as ToolBarService).ValidateToolBarButtons();
 
-      ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+      //ToolStripManager.LoadSettings(f, "Toolbar");
+
 
       //ServiceHost.ToolBar.Load();
 

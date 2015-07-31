@@ -258,7 +258,7 @@ namespace Xacc.ComponentModel
       BuildInternal(ServiceHost.Project.Current.MSBuildProject, "Clean");
     }
 
-    [MenuItem("Cancel Build", Index = 900, State = ApplicationState.Project | ApplicationState.Build, Image = "Build.Cancel")]
+    [MenuItem("Cancel Build", Index = 900, State = ApplicationState.Project | ApplicationState.Build, Image = "Build.Cancel.png")]
     void CancelBuild()
     {
       if (buildthread != null)

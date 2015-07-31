@@ -87,7 +87,7 @@ namespace Xacc.Controls
         exception = value;
         this.Text = "An unhandled exception has occured";
         Exception inner = value;
-        messageBox.Text = inner.GetType() + (XString)Environment.NewLine * 2 + inner.Message;
+        messageBox.Text = inner.GetType() + Environment.NewLine + Environment.NewLine + inner.Message;
         detailsBox.Text = value.ToString();
         infoBox.Text = Diagnostics.Trace.GetTrace();
         exitBut.Text = "Exit";

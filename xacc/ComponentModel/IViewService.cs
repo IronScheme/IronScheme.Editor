@@ -53,8 +53,16 @@ namespace Xacc.ComponentModel
     [MenuItem("Toolbar", Index = 0, Image = "View.Toolbar.png")]
     public bool ShowToolbar
     {
-      get { return ServiceHost.ToolBar.ToolBarVisible;}
-      set { ServiceHost.ToolBar.ToolBarVisible = value;}
+      get
+      {
+        return ServiceHost.ToolBar.ToolBarVisible;
+      }
+      set
+      {
+        if (value) ToolStripManager.LoadSettings(ServiceHost.Window.MainForm, "Toolbar");
+        ServiceHost.ToolBar.ToolBarVisible = value;
+
+      }
     }
 
     class ViewConverter : MenuDescriptor

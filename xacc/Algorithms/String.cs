@@ -26,31 +26,31 @@ using Hashtable = System.Collections.Hashtable;
 
 namespace Xacc.Algorithms
 {
-  class XString
+  static class XString
   {
-    string value;
+    //string value;
 
-    public static string operator *(XString a, int b)
-    {
-      StringBuilder sb = new StringBuilder(a.value.Length * b);
-      for (int i = 0; i < b; i++)
-      {
-        sb.Append(a.value);
-      }
-      return sb.ToString();
-    }
+    //public static string operator *(XString a, int b)
+    //{
+    //  StringBuilder sb = new StringBuilder(a.value.Length * b);
+    //  for (int i = 0; i < b; i++)
+    //  {
+    //    sb.Append(a.value);
+    //  }
+    //  return sb.ToString();
+    //}
 
-    public static string operator *(int b, XString a)
-    {
-      return a * b;
-    }
+    //public static string operator *(int b, XString a)
+    //{
+    //  return a * b;
+    //}
 
-    public static implicit operator XString (string a)
-    {
-      XString x = new XString();
-      x.value = a;
-      return x;
-    }
+    //public static implicit operator XString (string a)
+    //{
+    //  XString x = new XString();
+    //  x.value = a;
+    //  return x;
+    //}
 
 //    public string Format(string format, params object[] args)
 //    {

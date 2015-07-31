@@ -42,7 +42,7 @@ namespace Xacc.Runtime
 
     public static IDockPanel Panel()
     {
-      return new DockPanel();
+      return new DockPanel() { BackgroundImage = Xacc.Runtime.Properties.Resources.lambda, BackgroundImageLayout = ImageLayout.Zoom } ;
     }
 
   }

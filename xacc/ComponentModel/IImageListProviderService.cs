@@ -316,7 +316,7 @@ namespace Xacc.ComponentModel
           if (ms != null)
           {
             int i = images.Images.Count;
-            images.Images.Add( Image.FromStream( ms, true));
+            images.Images.Add( Image.FromStream( ms, false));
             namemap.Add(name, i);	
           }
           else
