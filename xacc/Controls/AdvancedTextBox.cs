@@ -31,7 +31,7 @@
 //#define BACKGROUNDLEXER 
 #define AUTOCOMPLETE	//broken
 //#define DUMPTOKENS
-#define BROKEN
+#define BROKEN // still broken?
 //#define CHECKED
 #endregion
 
@@ -3612,7 +3612,7 @@ namespace Xacc.Controls
 		/// Join a previously splitted textbox.
 		/// </summary>
 		/// <remarks>
-		/// This function works a bit <see href="http://www.aisto.com/roeder/dotnet/">lobsterish.</see>
+		/// This function works a bit lobsterish.
 		/// The other view will become the main view and this instance gets joined (disposed) into that one.
 		/// </remarks>
 		public void Join()

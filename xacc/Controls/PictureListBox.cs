@@ -161,7 +161,7 @@ namespace Xacc.Controls
           //  Color.FromArgb(120, SystemColors.Highlight), 90f);
           //gb.SetSigmaBellShape(0.6f,0.9f);
 					
-          selbg = SystemBrushes.Highlight;
+          selbg = SystemBrushes.Highlight.Clone() as Brush;
         }
         e.Graphics.FillPath(selbg, gp);
         

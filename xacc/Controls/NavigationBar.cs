@@ -18,8 +18,6 @@ namespace Xacc.Controls
 
       classes.SelectedIndexChanged += new EventHandler(classes_SelectedIndexChanged);
       members.SelectedIndexChanged += new EventHandler(members_SelectedIndexChanged);
-
-      Height = classes.Height + 5;
     }
 
     void members_SelectedIndexChanged(object sender, EventArgs e)

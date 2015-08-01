@@ -237,7 +237,7 @@ namespace Xacc.Configuration
 
       string verstr = ver.ToString(4);
 
-      f.Text = "xacc.ide " + verstr + (args.debug ? " - DEBUG MODE" : string.Empty) ;
+      f.Text = "IronScheme.Editor";// "xacc.ide " + verstr + (args.debug ? " - DEBUG MODE" : string.Empty) ;
       f.Size = new Size(900, 650);
 
       ToolStripMenuItem view = ms["View"];
@@ -247,7 +247,7 @@ namespace Xacc.Configuration
 #if VS
         "Xacc.Resources." + 
 #endif
-        "atb.ico"));
+        "ironscheme.ico"));
 
       ServiceHost.Window.Document.AllowDrop = true;
       ServiceHost.Window.Document.DragEnter +=new DragEventHandler(f_DragEnter);

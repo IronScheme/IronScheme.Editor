@@ -62,9 +62,49 @@ namespace Xacc.ComponentModel
     class ColorTable : ProfessionalColorTable
     {
       static Color menubg = Color.FromArgb(246, 246, 246);
-      static Color topbg = Color.FromArgb(240, 240, 240);
+      static Color topbg =  Color.FromArgb(240, 240, 240);
       static Color menubdr = Color.FromArgb(204, 206, 219);
       static Color menusep = Color.FromArgb(224, 227, 230);
+
+      public override Color MenuItemPressedGradientBegin
+      {
+        get
+        {
+          return menubg;
+        }
+      }
+
+      public override Color MenuItemPressedGradientMiddle
+      {
+        get
+        {
+          return menubg;
+        }
+      }
+
+      public override Color MenuItemPressedGradientEnd
+      {
+        get
+        {
+          return menubg;
+        }
+      }
+
+      public override Color StatusStripGradientBegin
+      {
+        get
+        {
+          return topbg;
+        }
+      }
+
+      public override Color StatusStripGradientEnd
+      {
+        get
+        {
+          return topbg;
+        }
+      }
 
       public override Color OverflowButtonGradientBegin
       {

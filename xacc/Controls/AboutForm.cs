@@ -43,7 +43,7 @@ namespace Xacc.Controls
 #if VS
         "Xacc.Resources." +
 #endif
-        "splash.jpg"));
+        "splash.png"));
 
       Bitmap b = new Bitmap(i);
 
@@ -62,9 +62,9 @@ namespace Xacc.Controls
       // 
       // progressBar1
       // 
-      this.progressBar1.Location = new System.Drawing.Point(6, 258);
+      this.progressBar1.Location = new System.Drawing.Point(6, 264);
       this.progressBar1.Name = "progressBar1";
-      this.progressBar1.Size = new System.Drawing.Size(395, 16);
+      this.progressBar1.Size = new System.Drawing.Size(395, 10);
       this.progressBar1.TabIndex = 0;
       // 
       // linkLabel1

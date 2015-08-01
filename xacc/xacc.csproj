@@ -165,6 +165,8 @@
     <Compile Include="CodeModel\Location.cs">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="Resources\splash.png" />
+    <EmbeddedResource Include="Resources\ironscheme.ico" />
     <EmbeddedResource Include="Resources\View.Toolbar.png" />
     <EmbeddedResource Include="Resources\View.Outline.png" />
     <EmbeddedResource Include="Resources\View.Properties.png" />
@@ -563,7 +565,6 @@
     <EmbeddedResource Include="Resources\resultstrip.png" />
     <EmbeddedResource Include="Resources\Script.EditProfile.png" />
     <EmbeddedResource Include="Resources\Script.Run.png" />
-    <EmbeddedResource Include="Resources\splash.jpg" />
     <EmbeddedResource Include="Resources\Tools.Options.png" />
     <EmbeddedResource Include="Resources\Window.Next.png" />
     <EmbeddedResource Include="Resources\Window.Previous.png" />

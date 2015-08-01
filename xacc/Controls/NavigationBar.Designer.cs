@@ -46,14 +46,13 @@ namespace Xacc.Controls
       // splitContainer1.Panel1
       // 
       this.splitContainer1.Panel1.Controls.Add(this.classes);
-      this.splitContainer1.Panel1.Padding = new System.Windows.Forms.Padding(2);
       // 
       // splitContainer1.Panel2
       // 
       this.splitContainer1.Panel2.Controls.Add(this.members);
-      this.splitContainer1.Panel2.Padding = new System.Windows.Forms.Padding(2);
-      this.splitContainer1.Size = new System.Drawing.Size(935, 30);
+      this.splitContainer1.Size = new System.Drawing.Size(935, 25);
       this.splitContainer1.SplitterDistance = 470;
+      this.splitContainer1.SplitterWidth = 3;
       this.splitContainer1.TabIndex = 1;
       // 
       // classes
@@ -63,9 +62,9 @@ namespace Xacc.Controls
       this.classes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.classes.FormattingEnabled = true;
       this.classes.ItemHeight = 19;
-      this.classes.Location = new System.Drawing.Point(2, 2);
+      this.classes.Location = new System.Drawing.Point(0, 0);
       this.classes.Name = "classes";
-      this.classes.Size = new System.Drawing.Size(466, 25);
+      this.classes.Size = new System.Drawing.Size(470, 25);
       this.classes.TabIndex = 0;
       // 
       // members
@@ -75,9 +74,9 @@ namespace Xacc.Controls
       this.members.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.members.FormattingEnabled = true;
       this.members.ItemHeight = 19;
-      this.members.Location = new System.Drawing.Point(2, 2);
+      this.members.Location = new System.Drawing.Point(0, 0);
       this.members.Name = "members";
-      this.members.Size = new System.Drawing.Size(457, 25);
+      this.members.Size = new System.Drawing.Size(462, 25);
       this.members.TabIndex = 0;
       // 
       // NavigationBar
@@ -85,8 +84,9 @@ namespace Xacc.Controls
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.Controls.Add(this.splitContainer1);
+      this.Margin = new System.Windows.Forms.Padding(0);
       this.Name = "NavigationBar";
-      this.Size = new System.Drawing.Size(935, 30);
+      this.Size = new System.Drawing.Size(935, 25);
       this.splitContainer1.Panel1.ResumeLayout(false);
       this.splitContainer1.Panel2.ResumeLayout(false);
       this.splitContainer1.ResumeLayout(false);
