@@ -41,20 +41,17 @@ namespace Xacc.ComponentModel
     /// Gets the tool bar.
     /// </summary>
     /// <value>The tool bar.</value>
-    ToolStripContainer ToolBar { get;}
+    Control ToolBar { get;}
 
-    void Save();
-
-    void Load();
   }
 
-	sealed class ToolBarService : ServiceBase, IToolBarService
-	{
+  sealed class ToolBarService : ServiceBase, IToolBarService
+  {
     readonly Dictionary<ToolStripMenuItem, int> map = new Dictionary<ToolStripMenuItem, int>();
     readonly List<ToolStrip> toplevel = new List<ToolStrip>();
-    readonly ToolStripContainer toolbar = new ToolStripContainer();
+    readonly Panel toolbar = new Panel();
 
-    public ToolStripContainer ToolBar 
+    public Control ToolBar
     {
       get { return toolbar; }
     }
@@ -62,7 +59,7 @@ namespace Xacc.ComponentModel
     class ColorTable : ProfessionalColorTable
     {
       static Color menubg = Color.FromArgb(246, 246, 246);
-      static Color topbg =  Color.FromArgb(240, 240, 240);
+      static Color topbg = Color.FromArgb(240, 240, 240);
       static Color menubdr = Color.FromArgb(204, 206, 219);
       static Color menusep = Color.FromArgb(224, 227, 230);
 
@@ -277,24 +274,21 @@ namespace Xacc.ComponentModel
 
     }
 
-		public ToolBarService()
-		{
+    public ToolBarService()
+    {
       ToolStripManager.Renderer = new ToolStripProfessionalRenderer(new ColorTable());// Xacc.Controls.Office2007Renderer();
       ServiceHost.StateChanged += new EventHandler(ServiceHost_StateChanged);
-      toolbar.Dock = DockStyle.Fill;
+      toolbar.Dock = DockStyle.Top;
+      toolbar.Height = 19;
 
-      toolbar.Name = "Container";
       ServiceHost.Window.MainForm.Controls.Add(toolbar);
-      toolbar.ContentPanel.Controls.Add(ServiceHost.Window.Document as Control);
-
-      //toolbar.TopToolStripPanel.Name = "Toolbar";
-      //toolbar.TopToolStripPanel.
+      ServiceHost.Window.MainForm.Controls.Add(ServiceHost.Window.Document as Control);
     }
 
     public bool ToolBarVisible
     {
-      get {return toolbar.TopToolStripPanelVisible;}
-      set { toolbar.TopToolStripPanelVisible = value; }
+      get { return toolbar.Visible; }
+      set { toolbar.Visible = value; }
     }
 
     internal void ValidateToolBarButtons()
@@ -334,7 +328,8 @@ namespace Xacc.ComponentModel
         toplevel.Add(ts);
         ts.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
         //((HorLayoutSettings)ts.LayoutSettings).FlowDirection = FlowDirection.LeftToRight;
-        toolbar.TopToolStripPanel.Join(ts, 0);
+        toolbar.Controls.Add(ts);
+        ts.BringToFront();
         ts.Visible = false;
 
       }
@@ -349,15 +344,16 @@ namespace Xacc.ComponentModel
         tbb.Tag = mia;
         tbb.ToolTipText = mia.Text;
         sm.Items.Add(tbb);
+        sm.Dock = DockStyle.Left;
         sm.Visible = true;
 
       }
       return true;
     }
 
-		void ButtonDefaultHandler(object sender, EventArgs e)
-		{
-			MenuItemAttribute mia = (sender as ToolStripButton).Tag as MenuItemAttribute;
+    void ButtonDefaultHandler(object sender, EventArgs e)
+    {
+      MenuItemAttribute mia = (sender as ToolStripButton).Tag as MenuItemAttribute;
       if (mia != null)
       {
         mia.ctr.DefaultHandler(mia.mi, EventArgs.Empty);
@@ -369,81 +365,5 @@ namespace Xacc.ComponentModel
       ValidateToolBarButtons();
     }
 
-    #region IToolBarService Members
-
-    static readonly XmlSerializer SER = new XmlSerializer(typeof(ToolbarSettings));
-
-
-    public void Save()
-    {
-      ToolbarSettings tbs = new ToolbarSettings();
-
-      foreach (ToolStrip ts in toplevel)
-      {
-        ToolbarSetting tbss = new ToolbarSetting();
-        if (ts.Visible)
-        {
-          tbss.Name = ts.Name;
-          tbss.Bounds = ts.Bounds;
-          tbs.Settings.Add(tbss);
-        }
-
-        
-      }
-
-      using (Stream s = File.Create("toolbarsettings.xml"))
-      {
-        SER.Serialize(s, tbs);
-      }
-
-    }
-
-    public void Load()
-    {
-      if (File.Exists("toolbarsettings.xml"))
-      {
-        using (Stream s = File.OpenRead("toolbarsettings.xml"))
-        {
-          ToolbarSettings tbs =  SER.Deserialize(s) as ToolbarSettings;
-
-          if (tbs != null)
-          {
-            toolbar.TopToolStripPanel.SuspendLayout();
-            foreach (ToolbarSetting tbss in tbs.Settings)
-            {
-              foreach (ToolStrip ts in toplevel)
-              {
-                if (ts.Name == tbss.Name)
-                {
-                  
-                  ts.Size = tbss.Bounds.Size;
-                  ts.Location = tbss.Bounds.Location;
-                  //ts.Bounds = tbss.Bounds;
-                }
-              }
-            }
-            toolbar.TopToolStripPanel.ResumeLayout();
-          }
-        }
-      }
-    }
-
-    #endregion
-  }
-
-  public class ToolbarSetting
-  {
-    public string Name;
-    public Rectangle Bounds;
-
-    public override string ToString()
-    {
-      return string.Format("{0} : {1}", Name, Bounds);
-    }
-  }
-
-  public class ToolbarSettings
-  {
-    public List<ToolbarSetting> Settings = new List<ToolbarSetting>();
   }
 }
