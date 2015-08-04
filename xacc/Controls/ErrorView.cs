@@ -53,7 +53,7 @@ namespace Xacc.Controls
       Assembly ass = typeof(AdvancedTextBox).Assembly;
 				
 #if VS
-      Stream s = ass.GetManifestResourceStream("Xacc.Resources.resultstrip.png");
+      Stream s = ass.GetManifestResourceStream("IronScheme.Editor.Resources.resultstrip.png");
 #else
 			Stream s = ass.GetManifestResourceStream("resultstrip.png");
 #endif	

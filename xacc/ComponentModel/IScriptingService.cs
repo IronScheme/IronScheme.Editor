@@ -78,7 +78,7 @@ namespace Xacc.ComponentModel
       
       if (!File.Exists(fn))
       {
-        using (Stream i = typeof(ScriptingService).Assembly.GetManifestResourceStream("Xacc.Resources.profile.ls"))
+        using (Stream i = typeof(ScriptingService).Assembly.GetManifestResourceStream("IronScheme.Editor.Resources.profile.ls"))
         {
           using (Stream o = File.Create(fn))
           {

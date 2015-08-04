@@ -41,7 +41,7 @@ namespace Xacc.Controls
 
       Image i = Image.FromStream(typeof(AboutForm).Assembly.GetManifestResourceStream(
 #if VS
-        "Xacc.Resources." +
+        "IronScheme.Editor.Resources." +
 #endif
         "splash.png"));
 

@@ -245,7 +245,7 @@ namespace Xacc.Configuration
       f.Icon = new Icon(
         thisass.GetManifestResourceStream(
 #if VS
-        "Xacc.Resources." + 
+        "IronScheme.Editor.Resources." + 
 #endif
         "ironscheme.ico"));
 

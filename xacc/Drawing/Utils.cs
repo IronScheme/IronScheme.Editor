@@ -87,46 +87,5 @@ namespace Xacc.Drawing
 
       hlpath.Dispose();
     }
-
-    static Random RANDOM = new Random(0x0EEFFACE);
-    static Font SMALLFONT = new Font(System.Windows.Forms.SystemInformation.MenuFont.FontFamily, 6f); // ok 6 then 
-#if OLD
-    [Obsolete("Not used")]
-    public static Image MakeTreeImage(Type t)
-    {
-      using (Stream s = typeof(Utils).Assembly.GetManifestResourceStream("Xacc.Resources.na.png"))
-      {
-        Image b = Image.FromStream(s);
-      
-        using (Graphics g = Graphics.FromImage(b))
-        {
-          Brush bb = Factory.SolidBrush(Color.DimGray);
-        
-          g.PixelOffsetMode = PixelOffsetMode.None;
-
-          string[] names = Build.InputExtensionAttribute.GetExtensions(t);
-
-          if (names.Length > 0)
-          {
-            string name = names[0];
-            if (name.Length > 3)
-            {
-              name = name.Substring(0,3);
-            }
-
-            StringFormat sf = new StringFormat(StringFormatFlags.NoWrap);
-            sf.LineAlignment = sf.Alignment = StringAlignment.Center;
-        
-            g.PixelOffsetMode = PixelOffsetMode.Default;
-            g.SmoothingMode = SmoothingMode.HighQuality;
-            g.TextRenderingHint = TextRenderingHint.AntiAlias;
-            g.DrawString(name, SMALLFONT, bb, new Rectangle(0,0,15,15), sf);
-          }
-        }
-
-        return b;
-      }
-    }
-#endif
 	}
 }

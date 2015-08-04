@@ -42,7 +42,7 @@ namespace Xacc.Runtime
 
     public static IDockPanel Panel()
     {
-      return new DockPanel() { BackgroundImage = Xacc.Properties.Resources.lambda, BackgroundImageLayout = ImageLayout.Zoom } ;
+      return new DockPanel() { BackgroundImage = IronScheme.Editor.Properties.Resources.lambda, BackgroundImageLayout = ImageLayout.Zoom } ;
     }
 
   }

@@ -116,7 +116,7 @@ namespace Xacc.ComponentModel
 			{
 				return
 #if VS
-				"Xacc.Resources." + 
+        "IronScheme.Editor.Resources." + 
 #endif
 				path;
 			}
@@ -131,7 +131,7 @@ namespace Xacc.ComponentModel
       {
         return
 #if !VS
-          "Xacc.Resources." + 
+          "IronScheme.Editor.Resources." + 
 #endif
           path;
       }
@@ -154,7 +154,7 @@ namespace Xacc.ComponentModel
 
 			using (Stream s = ass.GetManifestResourceStream(
 #if VS
-				"Xacc.Resources." + 
+        "IronScheme.Editor.Resources." + 
 #endif
 				"empty.png"))
 			{
@@ -164,7 +164,7 @@ namespace Xacc.ComponentModel
 
       Image img = Image.FromStream(ass.GetManifestResourceStream(
 #if VS
-        "Xacc.Resources." + 
+        "IronScheme.Editor.Resources." + 
 #endif
         "Folder.Closed.png"));
 
@@ -172,7 +172,7 @@ namespace Xacc.ComponentModel
 
       img = Image.FromStream(ass.GetManifestResourceStream(
 #if VS
-        "Xacc.Resources." + 
+        "IronScheme.Editor.Resources." + 
 #endif
         "Folder.Open.png"));
 
@@ -300,7 +300,7 @@ namespace Xacc.ComponentModel
             {
               ms = ass.GetManifestResourceStream(
 #if VS
-                "Xacc.Resources." + 
+                "IronScheme.Editor.Resources." + 
 #endif                
                 name);
               if (ms != null)

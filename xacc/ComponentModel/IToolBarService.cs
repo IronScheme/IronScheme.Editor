@@ -332,11 +332,11 @@ namespace Xacc.ComponentModel
         ts.ImageList = ServiceHost.ImageListProvider.ImageList;
         ts.TabIndex = (map[parent] = toplevel.Count) + 1;
         toplevel.Add(ts);
-        ts.Visible = false;
-        ts.LayoutStyle = ToolStripLayoutStyle.StackWithOverflow;
+        ts.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
         //((HorLayoutSettings)ts.LayoutSettings).FlowDirection = FlowDirection.LeftToRight;
         toolbar.TopToolStripPanel.Join(ts, 0);
-        
+        ts.Visible = false;
+
       }
 
       if (mia != null)

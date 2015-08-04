@@ -135,7 +135,7 @@ namespace Xacc.ComponentModel
       new ScriptingService();
       new StandardConsole();
       new SettingsService();
-      new PropertyService();
+      new PropertyService(); 
 
       Configuration.IdeSupport.about.progressBar1.Value = 55;
     }
@@ -148,6 +148,7 @@ namespace Xacc.ComponentModel
 
     public PluginManager()
     {
+      /*
       if (SettingsService.idemode)
       {
         if (!Directory.Exists(Application.StartupPath + "/Plugins"))
@@ -163,7 +164,7 @@ namespace Xacc.ComponentModel
         fsw.Created +=new FileSystemEventHandler(fsw_Created);
         fsw.Deleted +=new FileSystemEventHandler(fsw_Deleted);
         fsw.Renamed +=new RenamedEventHandler(fsw_Renamed);
-      }
+      }*/
     }
 
     public void LoadFile(string filename)

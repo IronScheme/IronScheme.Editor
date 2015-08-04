@@ -571,7 +571,6 @@ confuse a user.")]
     static int shortlen;
     static Regex re, arrre;
     const string MAGIC = "kksjhd&^D3";
-    static GetArgs defvals = null;
 
     /// <summary>
     /// Creates an instance of GetArgs
@@ -629,6 +628,7 @@ confuse a user.")]
         throw new ArgumentException("prefix cannot be empty string");
       }
 
+      /*
       if (defvals == null)
       {
         defvals = this;
@@ -668,10 +668,11 @@ confuse a user.")]
       {
         return; //this
       }
+      */
 
       foreach (FieldInfo fi in argclass.GetFields(flags))
       {
-        object defval = fi.GetValue(defvals);
+        object defval = fi.GetValue(this);
         string n = fi.Name;
         if (!casesensitive)
         {
@@ -717,8 +718,6 @@ confuse a user.")]
           }
         }
       }
-
-      defvals = null;
 
       if (allargs.StartsWith(prefix + "?") || allargs.StartsWith(prefix + "help"))
       {
