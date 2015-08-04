@@ -80,7 +80,7 @@ namespace Xacc.ComponentModel
       AboutForm f = new Controls.AboutForm();
       f.progressBar1.Visible = false;
       f.linkLabel1.Visible = true;
-      f.linkLabel1.Text = "(c)2003-2008 llewellyn@pritchard.org";
+      f.linkLabel1.Text = "(c) 2003-2015 Llewellyn Pritchard";
       f.Click += delegate { f.Close(); };
       f.ShowDialog(ServiceHost.Window.MainForm);
     }

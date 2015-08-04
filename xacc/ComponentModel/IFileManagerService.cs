@@ -581,11 +581,11 @@ namespace Xacc.ComponentModel
 				reader.Close();
 			}
 
-      FileExplorer fe = new FileExplorer();
+      //FileExplorer fe = new FileExplorer();
       //fe.Folder = Application.StartupPath;
-      fe.Dock = DockStyle.Fill;
+      //fe.Dock = DockStyle.Fill;
 
-      filetab.Controls.Add(fe);
+      //filetab.Controls.Add(fe);
 
       IWindowService ws = ServiceHost.Window;
       filetab.Show(ws.Document, DockState.DockRightAutoHide);

@@ -49,7 +49,7 @@ namespace Xacc.ComponentModel
 
 	sealed class PropertyService : ServiceBase, IPropertyService
 	{
-    Properties props = new Properties();
+    Controls.Properties props = new Controls.Properties();
     internal IDockContent tbp;
 
     public PropertyService()
@@ -65,7 +65,7 @@ namespace Xacc.ComponentModel
         tbp.Hide();
         tbp.HideOnClose = true;
 
-        Grid.SelectedObject = ((ToolStripProfessionalRenderer)ToolStripManager.Renderer).ColorTable;
+        Grid.SelectedObject = ServiceHost.ToolBar.ToolBar;
 
         props.propertyGrid1.PropertyValueChanged += new PropertyValueChangedEventHandler(propertyGrid1_PropertyValueChanged);
       }

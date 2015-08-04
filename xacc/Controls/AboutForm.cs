@@ -98,7 +98,7 @@ namespace Xacc.Controls
 
     private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
-      System.Diagnostics.Process.Start("http://xacc.sourceforge.net/");
+      System.Diagnostics.Process.Start("http://editor.ironscheme.net");
     }
   }
 }

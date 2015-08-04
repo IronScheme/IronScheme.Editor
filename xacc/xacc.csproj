@@ -99,6 +99,10 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WinFormsUI\WinFormsUI.csproj">
+      <Project>{c75532c4-765b-418e-b09b-46d36b2abdb1}</Project>
+      <Name>WinFormsUI</Name>
+    </ProjectReference>
     <Reference Include="Microsoft.Build.Conversion" />
     <Reference Include="Microsoft.Build.Engine" />
     <Reference Include="Microsoft.Build.Framework" />
@@ -130,18 +134,9 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
-    <ProjectReference Include="..\Aga.Controls\Aga.Controls.csproj">
-      <Project>{e73bb233-d88b-44a7-a98f-d71ee158381d}</Project>
-      <Name>Aga.Controls</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LSharp\LSharp.csproj">
       <Project>{419e259f-e9c0-4e01-ba19-709fe84dead5}</Project>
       <Name>LSharp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\xacc.runtime\xacc.runtime.csproj">
-      <Name>xacc.runtime</Name>
-      <Project>{7622C8C0-2378-40E3-A21F-68FEFDDEE655}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +160,10 @@
     <Compile Include="CodeModel\Location.cs">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\splash.png" />
     <EmbeddedResource Include="Resources\ironscheme.ico" />
     <EmbeddedResource Include="Resources\View.Toolbar.png" />
@@ -320,12 +319,12 @@
     <Compile Include="Controls\ExceptionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\FileExplorer.cs">
+    <None Include="Controls\FileExplorer.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\FileExplorer.Designer.cs">
+    </None>
+    <None Include="Controls\FileExplorer.Designer.cs">
       <DependentUpon>FileExplorer.cs</DependentUpon>
-    </Compile>
+    </None>
     <Compile Include="Controls\FindDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -414,9 +413,18 @@
     <Compile Include="Languages\Rule.cs" />
     <Compile Include="Languages\ShiftReduceParser.cs" />
     <Compile Include="Languages\State.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Fake.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Runtime\Compiler.cs" />
+    <Compile Include="Runtime\Compression.cs" />
+    <Compile Include="Runtime\Docking.cs" />
+    <Compile Include="Runtime\PInvoke.cs" />
     <Compile Include="Timers\FastTimer.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -444,10 +452,10 @@
     <EmbeddedResource Include="Controls\ExceptionForm.resx">
       <DependentUpon>ExceptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\FileExplorer.resx">
+    <None Include="Controls\FileExplorer.resx">
       <SubType>Designer</SubType>
       <DependentUpon>FileExplorer.cs</DependentUpon>
-    </EmbeddedResource>
+    </None>
     <EmbeddedResource Include="Controls\FindDialog.resx">
       <DependentUpon>FindDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -592,6 +600,7 @@
     <EmbeddedResource Include="Resources\Debug.Breakpoints.png" />
     <EmbeddedResource Include="Resources\Debug.CallStack.png" />
     <EmbeddedResource Include="Resources\Debug.Locals.png" />
+    <None Include="lambda.png" />
     <Content Include="Resources\header.bmp" />
     <Content Include="Resources\installer.bmp" />
     <EmbeddedResource Include="Resources\IronScheme.png" />

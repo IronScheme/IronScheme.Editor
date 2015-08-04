@@ -333,7 +333,7 @@ namespace Xacc.ComponentModel
         ts.TabIndex = (map[parent] = toplevel.Count) + 1;
         toplevel.Add(ts);
         ts.Visible = false;
-        ts.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
+        ts.LayoutStyle = ToolStripLayoutStyle.StackWithOverflow;
         //((HorLayoutSettings)ts.LayoutSettings).FlowDirection = FlowDirection.LeftToRight;
         toolbar.TopToolStripPanel.Join(ts, 0);
         

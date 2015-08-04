@@ -59,7 +59,7 @@ namespace Xacc.ComponentModel
       }
       set
       {
-        if (value) ToolStripManager.LoadSettings(ServiceHost.Window.MainForm, "Toolbar");
+        //if (value) ToolStripManager.LoadSettings(ServiceHost.Window.MainForm, "Toolbar");
         ServiceHost.ToolBar.ToolBarVisible = value;
 
       }
