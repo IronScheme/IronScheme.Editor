@@ -1,0 +1,82 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{C74D9EF8-6A52-4689-B742-A687730FE9CF}"
+	ProjectSection(FolderStartupServices) = postProject
+		{B4F97281-0DBD-4835-9ED8-7DFB966E87FF} = {B4F97281-0DBD-4835-9ED8-7DFB966E87FF}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{B9D6D5FD-5399-44B5-A653-3AD40CD3F761}"
+	ProjectSection(FolderStartupServices) = postProject
+		{B4F97281-0DBD-4835-9ED8-7DFB966E87FF} = {B4F97281-0DBD-4835-9ED8-7DFB966E87FF}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sandbox", "Sandbox", "{DEFF6F75-16D4-417B-BC4B-B7F73AB75E60}"
+	ProjectSection(FolderStartupServices) = postProject
+		{B4F97281-0DBD-4835-9ED8-7DFB966E87FF} = {B4F97281-0DBD-4835-9ED8-7DFB966E87FF}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronScheme.Editor", "IronScheme.Editor\IronScheme.Editor.csproj", "{A532434D-67C8-4C19-B8EC-A4AF728382F6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{827282D8-3E75-4545-A5E4-2406F0D3E184} = {827282D8-3E75-4545-A5E4-2406F0D3E184}
+		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F} = {8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LSharp", "LSharp\LSharp.csproj", "{419E259F-E9C0-4E01-BA19-709FE84DEAD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronScheme.Editor.Languages", "IronScheme.Editor.Languages\IronScheme.Editor.Languages.csproj", "{CA7874FF-BB3B-4F16-B65C-369B8AC22F84}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F} = {8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs_lex", "cs_lex\cs_lex.csproj", "{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPPG", "GPPG\GPPG.csproj", "{827282D8-3E75-4545-A5E4-2406F0D3E184}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsUI", "WinFormsUI\WinFormsUI.csproj", "{C75532C4-765B-418E-B09B-46D36B2ABDB1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A532434D-67C8-4C19-B8EC-A4AF728382F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A532434D-67C8-4C19-B8EC-A4AF728382F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A532434D-67C8-4C19-B8EC-A4AF728382F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A532434D-67C8-4C19-B8EC-A4AF728382F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{419E259F-E9C0-4E01-BA19-709FE84DEAD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{419E259F-E9C0-4E01-BA19-709FE84DEAD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{419E259F-E9C0-4E01-BA19-709FE84DEAD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{419E259F-E9C0-4E01-BA19-709FE84DEAD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA7874FF-BB3B-4F16-B65C-369B8AC22F84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA7874FF-BB3B-4F16-B65C-369B8AC22F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA7874FF-BB3B-4F16-B65C-369B8AC22F84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA7874FF-BB3B-4F16-B65C-369B8AC22F84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{827282D8-3E75-4545-A5E4-2406F0D3E184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{827282D8-3E75-4545-A5E4-2406F0D3E184}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{827282D8-3E75-4545-A5E4-2406F0D3E184}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{827282D8-3E75-4545-A5E4-2406F0D3E184}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C75532C4-765B-418E-B09B-46D36B2ABDB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C75532C4-765B-418E-B09B-46D36B2ABDB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C75532C4-765B-418E-B09B-46D36B2ABDB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C75532C4-765B-418E-B09B-46D36B2ABDB1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{419E259F-E9C0-4E01-BA19-709FE84DEAD5} = {C74D9EF8-6A52-4689-B742-A687730FE9CF}
+		{8C6C4ADF-9E92-4B8F-9186-69E8F8C0BE4F} = {B9D6D5FD-5399-44B5-A653-3AD40CD3F761}
+		{827282D8-3E75-4545-A5E4-2406F0D3E184} = {B9D6D5FD-5399-44B5-A653-3AD40CD3F761}
+		{C75532C4-765B-418E-B09B-46D36B2ABDB1} = {C74D9EF8-6A52-4689-B742-A687730FE9CF}
+	EndGlobalSection
+	GlobalSection(TextTemplating) = postSolution
+		TextTemplating = 1
+	EndGlobalSection
+EndGlobal

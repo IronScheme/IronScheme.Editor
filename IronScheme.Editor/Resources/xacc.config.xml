@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl" href="xacc.config.xsl" ?>
+<config xmlns="xacc:config">
+  <!--
+  SUBSTITUTIONS
+  
+  ${NETFX}    - NetRuntimeRoot
+  ${NETSDK}   - NetRuntimeSDK
+  ${NSIS}     - NSISPath
+  ${PFILES}   - Program Files
+  ${XACC}     - xacc startup path
+  ${VC}       - VC Install root
+  -->
+
+</config>
+ 
