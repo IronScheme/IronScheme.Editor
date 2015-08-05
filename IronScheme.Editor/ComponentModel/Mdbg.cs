@@ -25,12 +25,12 @@ using System.Diagnostics;
 using System.Threading;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
-using Xacc.Collections;
+using IronScheme.Editor.Collections;
 
 using Microsoft.Samples.Debugging.MdbgEngine;
 
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
 
 

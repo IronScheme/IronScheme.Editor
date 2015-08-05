@@ -20,15 +20,15 @@
 using System;
 using System.Collections;
 using System.Drawing;
-using Xacc.Controls;
+using IronScheme.Editor.Controls;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using Xacc.Configuration;
+using IronScheme.Editor.Configuration;
 
-using Xacc.Runtime;
+using IronScheme.Editor.Runtime;
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
 	/// <summary>
 	/// Provides service for IDE settings

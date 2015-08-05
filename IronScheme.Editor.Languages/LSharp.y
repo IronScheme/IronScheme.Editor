@@ -1,4 +1,4 @@
-%namespace Xacc.Languages.LSharp
+%namespace IronScheme.Editor.Languages.LSharp
 
 %using LSharp
 

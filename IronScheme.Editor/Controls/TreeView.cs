@@ -23,9 +23,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
 	/// <summary>
 	/// Summary description for TreeView.

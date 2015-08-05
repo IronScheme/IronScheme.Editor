@@ -27,20 +27,20 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.IO;
 using System.Drawing;
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 using System.Windows.Forms;
 using System.Reflection;
-using Xacc.Controls;
-using Xacc.Collections;
-using Xacc.CodeModel;
-using Xacc.Build;
+using IronScheme.Editor.Controls;
+using IronScheme.Editor.Collections;
+using IronScheme.Editor.CodeModel;
+using IronScheme.Editor.Build;
 using System.Collections.Generic;
 
 using SR = System.Resources;
-using TokenLine = Xacc.Controls.AdvancedTextBox.TextBuffer.TokenLine;
+using TokenLine = IronScheme.Editor.Controls.AdvancedTextBox.TextBuffer.TokenLine;
 #endregion
 
-namespace Xacc.Languages
+namespace IronScheme.Editor.Languages
 {
   /// <summary>
   /// Base class for all languages
@@ -52,7 +52,7 @@ namespace Xacc.Languages
 
     ICodeFile codemodel;
     IToken lasttoken;
-    readonly Collections.HashTree scopetree = new Xacc.Collections.HashTree();
+    readonly Collections.HashTree scopetree = new global::IronScheme.Editor.Collections.HashTree();
     readonly Stack scopestack = new Stack();
 
     /// <summary>

@@ -13,9 +13,9 @@
 (using "System.Collections")
 (using "System.Reflection")
 (using "System.Text.RegularExpressions")
-(using "Xacc.ComponentModel")
-(using "Xacc.CodeModel")
-(using "Xacc.Build")
+(using "IronScheme.Editor.ComponentModel")
+(using "IronScheme.Editor.CodeModel")
+(using "IronScheme.Editor.Build")
 (using "System.Drawing")
 (using "System.Windows.Forms")
 

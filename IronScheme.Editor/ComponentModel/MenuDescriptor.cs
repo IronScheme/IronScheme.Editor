@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
   abstract class MenuDescriptor : TypeConverter
   {

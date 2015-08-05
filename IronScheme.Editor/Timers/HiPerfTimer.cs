@@ -23,9 +23,9 @@ using System;
 using System.Threading;
 
 using System.Diagnostics;
-using Xacc.Runtime;
+using IronScheme.Editor.Runtime;
 
-namespace Xacc.Timers
+namespace IronScheme.Editor.Timers
 {
 	sealed class HiPerfTimer
 	{

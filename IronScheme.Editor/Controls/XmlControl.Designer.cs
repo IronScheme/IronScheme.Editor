@@ -1,4 +1,4 @@
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
   partial class XmlControl
   {

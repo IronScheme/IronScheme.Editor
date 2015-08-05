@@ -5,7 +5,7 @@
 
 using System;
 
-namespace Xacc.Runtime
+namespace IronScheme.Editor.Runtime
 {
   public enum CLR
   {

@@ -1,8 +1,8 @@
-%namespace Xacc.Languages.IronScheme
+%namespace IronScheme.Editor.Languages.IronScheme
 
 %{
 
-public override string[] Extensions {get {return new string[]{"ss","scm","pp", "sch", "sls"}; }}
+public override string[] Extensions {get {return new string[]{"ss","scm","sps", "sch", "sls"}; }}
 public override string Name {get {return "R6RS Scheme"; }}
 protected override LexerBase GetLexer() { return new IronSchemeLexer(); } 
 

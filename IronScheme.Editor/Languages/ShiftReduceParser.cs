@@ -10,10 +10,10 @@ using System.Text;
 using System.Diagnostics;
 
 
-namespace Xacc.Languages.gppg
+namespace IronScheme.Editor.Languages.gppg
 {
   [CLSCompliant(false)]
-  public abstract class ShiftReduceParser<ValueType> : Xacc.Languages.CSLex.Language<ValueType> where ValueType : struct, Xacc.ComponentModel.IToken
+  public abstract class ShiftReduceParser<ValueType> : global::IronScheme.Editor.Languages.CSLex.Language<ValueType> where ValueType : struct, global::IronScheme.Editor.ComponentModel.IToken
   {
     public IScanner<ValueType> scanner;
 
@@ -136,9 +136,9 @@ namespace Xacc.Languages.gppg
       pinrescue = 0;
       lexcount = 0;
       lastpin = null;
-      
 
-      Xacc.ComponentModel.ServiceHost.Error.ClearErrors(lexer);
+
+      global::IronScheme.Editor.ComponentModel.ServiceHost.Error.ClearErrors(lexer);
       if (states == null)
       {
         Initialize();	// allow derived classes to instantiate rules, states and nonTerminals
@@ -238,14 +238,14 @@ namespace Xacc.Languages.gppg
       }
     }
 
-    Xacc.CodeModel.Location lastpin = null;
+    global::IronScheme.Editor.CodeModel.Location lastpin = null;
 
     private bool CanRestore(Stack<ShiftReduceParser<ValueType>.ParserState> parserstates)
     {
       if (parserstates.Count > 0)
       {
         ParserState s = parserstates.Peek();
-        Xacc.CodeModel.Location l = tokenstream[s.tokenpos].Location;
+        global::IronScheme.Editor.CodeModel.Location l = tokenstream[s.tokenpos].Location;
         if (lastpin == null)
         {
           return true;
@@ -270,7 +270,7 @@ namespace Xacc.Languages.gppg
       return false;
     }
 
-    protected Xacc.CodeModel.Location Pin(Xacc.CodeModel.Location loc)
+    protected global::IronScheme.Editor.CodeModel.Location Pin(global::IronScheme.Editor.CodeModel.Location loc)
     {
       return (lastpin = loc);
     }
@@ -343,7 +343,7 @@ namespace Xacc.Languages.gppg
 #if DEBUG && false
       if (yyval.Location != null)
       {
-        Xacc.Controls.AdvancedTextBox atb = Xacc.ComponentModel.ServiceHost.File.CurrentControl as Xacc.Controls.AdvancedTextBox;
+        IronScheme.Editor.Controls.AdvancedTextBox atb = IronScheme.Editor.ComponentModel.ServiceHost.File.CurrentControl as IronScheme.Editor.Controls.AdvancedTextBox;
         if (atb != null)
         {
           atb.ParseLocation = yyval.Location;

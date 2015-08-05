@@ -28,17 +28,17 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Drawing;
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 using System.Windows.Forms;
 using System.Reflection;
-using Xacc.Controls;
-using Xacc.Languages;
-using Xacc.Build;
+using IronScheme.Editor.Controls;
+using IronScheme.Editor.Languages;
+using IronScheme.Editor.Build;
 
 using SR = System.Resources;
 #endregion
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
   /// <summary>
   /// Provides services for manage syntax languages
@@ -172,7 +172,7 @@ namespace Xacc.ComponentModel
       new Languages.PlainText();
       new Languages.Changelog();
 
-      new Xacc.Languages.IronScheme.Parser();
+      new IronScheme.Editor.Languages.IronScheme.Parser();
 
     }
 

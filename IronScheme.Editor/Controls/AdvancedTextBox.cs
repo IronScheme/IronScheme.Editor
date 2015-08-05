@@ -52,18 +52,18 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Drawing.Text;
 using ST = System.Threading; // dont include, messes up timers, this doesnt work on pnet
-using Xacc.Algorithms;
+using IronScheme.Editor.Algorithms;
 using System.Diagnostics;
-using Xacc.ComponentModel;
-using Xacc.Collections;
+using IronScheme.Editor.ComponentModel;
+using IronScheme.Editor.Collections;
 using System.Runtime.InteropServices;
-using Xacc.Languages;
-using Xacc.Drawing;
+using IronScheme.Editor.Languages;
+using IronScheme.Editor.Drawing;
 
-using Pairing = Xacc.Languages.Language.Pairing;
+using Pairing = IronScheme.Editor.Languages.Language.Pairing;
 #endregion
 
-namespace Xacc.Controls 
+namespace IronScheme.Editor.Controls 
 {
 	/// <summary>
 	/// A damn fine control.
@@ -3865,7 +3865,7 @@ namespace Xacc.Controls
 
     #region IHasCodeModel Members
 
-    public Xacc.CodeModel.ICodeFile CodeModel
+    public IronScheme.Editor.CodeModel.ICodeFile CodeModel
     {
       get { return codefile; }
     }
@@ -3878,12 +3878,12 @@ namespace Xacc.Controls
 
     #region IFind Members
 
-    Xacc.CodeModel.Location[] IFind.Find(string text, FindOptions lookin)
+    IronScheme.Editor.CodeModel.Location[] IFind.Find(string text, FindOptions lookin)
     {
       throw new Exception("The method or operation is not implemented.");
     }
 
-    void IFind.SelectLocation(Xacc.CodeModel.Location loc)
+    void IFind.SelectLocation(IronScheme.Editor.CodeModel.Location loc)
     {
       throw new Exception("The method or operation is not implemented.");
     }

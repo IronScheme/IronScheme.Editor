@@ -22,14 +22,14 @@ using System;
 using System.IO;
 using System.Collections;
 
-using Xacc.CodeModel;
+using IronScheme.Editor.CodeModel;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using System.Reflection;
 
 #endregion
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
 
   /// <summary>
@@ -292,7 +292,7 @@ namespace Xacc.ComponentModel
 
     public Runtime.CLR Runtime
     {
-      get {return Xacc.Runtime.Compiler.CLRRuntime;}
+      get {return IronScheme.Editor.Runtime.Compiler.CLRRuntime;}
     }
 
     public string NetRuntimeRoot
@@ -300,7 +300,7 @@ namespace Xacc.ComponentModel
       get 
       {
         string root = string.Empty;
-        if (Runtime == Xacc.Runtime.CLR.Microsoft)
+        if (Runtime == IronScheme.Editor.Runtime.CLR.Microsoft)
         {
           switch( RuntimeVersion )
           {

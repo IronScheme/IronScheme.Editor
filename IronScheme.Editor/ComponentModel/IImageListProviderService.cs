@@ -27,16 +27,16 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.IO;
 using System.Drawing;
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 using System.Windows.Forms;
 using System.Reflection;
-using Xacc.Controls;
+using IronScheme.Editor.Controls;
 
 using SR = System.Resources;
 #endregion
 
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
 	/// <summary>
 	/// Provides services to associate images with .NET objects

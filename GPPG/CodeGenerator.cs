@@ -58,11 +58,11 @@ namespace gpcc
       Console.WriteLine("using System;");
       Console.WriteLine("using System.Collections.Generic;");
       Console.WriteLine("using System.Text;");
-      Console.WriteLine("using Xacc.Build;");
-      Console.WriteLine("using Xacc.CodeModel;");
-      Console.WriteLine("using Xacc.ComponentModel;");
-      Console.WriteLine("using Xacc.Languages.CSLex;");
-      Console.WriteLine("using Xacc.Languages.gppg;");
+      Console.WriteLine("using IronScheme.Editor.Build;");
+      Console.WriteLine("using IronScheme.Editor.CodeModel;");
+      Console.WriteLine("using IronScheme.Editor.ComponentModel;");
+      Console.WriteLine("using IronScheme.Editor.Languages.CSLex;");
+      Console.WriteLine("using IronScheme.Editor.Languages.gppg;");
       foreach (string use in grammar.use)
       {
         Console.WriteLine("using {0};", use);
@@ -87,7 +87,7 @@ namespace gpcc
       Console.WriteLine("};");
       Console.WriteLine();
 
-      Console.WriteLine("public abstract class LexerBase<T> : Xacc.Languages.CSLex.Language<T>.LexerBase where T : struct, Xacc.ComponentModel.IToken");
+      Console.WriteLine("public abstract class LexerBase<T> : global::IronScheme.Editor.Languages.CSLex.Language<T>.LexerBase where T : struct, global::IronScheme.Editor.ComponentModel.IToken");
       Console.WriteLine("{");
       foreach (Terminal terminal in grammar.terminals.Values)
       {
@@ -103,7 +103,7 @@ namespace gpcc
     {
       if (grammar.unionType != null)
       {
-        Console.WriteLine("{0} struct {1} : Xacc.ComponentModel.IToken", grammar.Visibility, grammar.ValueTypeName);
+        Console.WriteLine("{0} struct {1} : global::IronScheme.Editor.ComponentModel.IToken", grammar.Visibility, grammar.ValueTypeName);
         InsertCode(grammar.unionType);
         return grammar.ValueTypeName;
       }

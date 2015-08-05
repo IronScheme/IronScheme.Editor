@@ -6,10 +6,10 @@ using System.IO;
 using System.IO.Compression;
 
 #if BZ2
-using Xacc.IO.Compression;
+using IronScheme.Editor.IO.Compression;
 #endif
 
-namespace Xacc.Runtime
+namespace IronScheme.Editor.Runtime
 {
 	/// <summary>
 	/// Summary description for Class1.

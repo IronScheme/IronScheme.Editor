@@ -27,15 +27,15 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.IO;
 using System.Drawing;
-using Xacc.Controls;
+using IronScheme.Editor.Controls;
 using System.Windows.Forms;
 using System.Reflection;
 #endregion
 
-using Xacc.CodeModel;
+using IronScheme.Editor.CodeModel;
 using System.Runtime.InteropServices;
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
   /// <summary>
   /// Fold styles for code folding

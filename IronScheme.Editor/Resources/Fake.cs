@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace Xacc.Resources
+namespace IronScheme.Editor.Resources
 {
 	/// <summary>
 	/// Summary description for Fake.

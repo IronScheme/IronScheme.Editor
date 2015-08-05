@@ -27,24 +27,24 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.IO;
 using System.Drawing;
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 using System.Windows.Forms;
 using System.Reflection;
-using Xacc.Controls;
+using IronScheme.Editor.Controls;
 using System.Drawing.Text;
-using Xacc.Collections;
-using Xacc.Runtime;
+using IronScheme.Editor.Collections;
+using IronScheme.Editor.Runtime;
 
 using SR = System.Resources;
 #endregion
 
 using System.Runtime.InteropServices;
-using Xacc.Build;
+using IronScheme.Editor.Build;
 
-using Cordbg = Xacc.ComponentModel.Cordbg;
+using Cordbg = IronScheme.Editor.ComponentModel.Cordbg;
 
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
 	/// <summary>
 	/// Provides service for debugging

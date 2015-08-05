@@ -34,8 +34,8 @@ using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
-using Xacc.ComponentModel;
-using Xacc.Controls;
+using IronScheme.Editor.ComponentModel;
+using IronScheme.Editor.Controls;
 
 using IServiceProvider = System.IServiceProvider;
 
@@ -43,7 +43,7 @@ using LSharp;
 
 using Runtime = LSharp.Runtime;
 
-namespace Xacc.Controls.Design
+namespace IronScheme.Editor.Controls.Design
 {
   sealed class LSharpConverter : TypeConverter
   {

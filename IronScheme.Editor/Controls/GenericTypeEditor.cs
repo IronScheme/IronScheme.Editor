@@ -25,7 +25,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
 	/// <summary>
 	/// Summary description for GenericTypeEditor.
@@ -37,7 +37,7 @@ namespace Xacc.Controls
 		/// </summary>
 		private System.ComponentModel.Container components = null;
     private System.Windows.Forms.GroupBox groupBox1;
-    private Xacc.Controls.TypeEditorTextBox textBox1;
+    private IronScheme.Editor.Controls.TypeEditorTextBox textBox1;
 
     ParameterInfo pinfo;
 
@@ -98,7 +98,7 @@ namespace Xacc.Controls
 		private void InitializeComponent()
 		{
       this.groupBox1 = new System.Windows.Forms.GroupBox();
-      this.textBox1 = new Xacc.Controls.TypeEditorTextBox();
+      this.textBox1 = new IronScheme.Editor.Controls.TypeEditorTextBox();
       this.SuspendLayout();
       // 
       // groupBox1

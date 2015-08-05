@@ -32,8 +32,8 @@ namespace LSharp
 	/// In L Sharp all symbols are interned. The symbol table is also
 	/// encapsulated within this Symbol class.
 	/// </summary>
-  [TypeConverter("Xacc.Controls.Design.LSharpConverter, xacc")]
-  [Editor("Xacc.Controls.Design.LSharpUIEditor, xacc", typeof(System.Drawing.Design.UITypeEditor))]
+  [TypeConverter("IronScheme.Editor.Controls.Design.LSharpConverter, xacc")]
+  [Editor("IronScheme.Editor.Controls.Design.LSharpUIEditor, xacc", typeof(System.Drawing.Design.UITypeEditor))]
 	public sealed class Symbol 
 	{
 		const int CAPACITY = 500;

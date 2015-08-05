@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Xacc.CodeModel;
-using Xacc.ComponentModel;
+using IronScheme.Editor.CodeModel;
+using IronScheme.Editor.ComponentModel;
 
-namespace Xacc.Languages
+namespace IronScheme.Editor.Languages
 {
   static class IronSchemeIdentifiers
   {

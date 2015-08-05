@@ -21,7 +21,7 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
 	/// <summary>
 	/// Base class for disposable objects

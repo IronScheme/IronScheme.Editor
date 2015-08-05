@@ -23,7 +23,7 @@ using System;
 using System.Collections;
 using System.Text;
 
-namespace Xacc.Collections
+namespace IronScheme.Editor.Collections
 {
 	class TrackingStack : CollectionBase
 	{

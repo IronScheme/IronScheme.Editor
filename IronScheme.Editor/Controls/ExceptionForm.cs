@@ -23,9 +23,9 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-using Xacc.Algorithms;
+using IronScheme.Editor.Algorithms;
 
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
 
 	class ExceptionForm : System.Windows.Forms.Form
@@ -401,7 +401,7 @@ namespace Xacc.Controls
     {
       try
       {
-        Diagnostics.ErrorReport re = new Xacc.Diagnostics.ErrorReport();
+        Diagnostics.ErrorReport re = new IronScheme.Editor.Diagnostics.ErrorReport();
         string t = exception == null ? detailsBox.Text : exception.ToString();
         int id = re.ReportError(nameBox.Text, emailBox.Text, infoBox.Text, t);
         MessageBox.Show(this, "Thank you! Your reference is: " + id);

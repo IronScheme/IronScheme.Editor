@@ -13,9 +13,9 @@
 (using "System.Collections")
 (using "System.Reflection")
 (using "System.Text.RegularExpressions")
-(using "Xacc.ComponentModel")
-(using "Xacc.CodeModel")
-(using "Xacc.Build")
+(using "IronScheme.Editor.ComponentModel")
+(using "IronScheme.Editor.CodeModel")
+(using "IronScheme.Editor.Build")
 (using "System.Drawing")
 (using "System.Windows.Forms")
 
@@ -71,7 +71,7 @@
 (tokencolor   Other         DeepPink)
 
 ; hide toolbar till i can get it to work
-; (set_showtoolbar (view servicehost) false)
+(set_showtoolbar (view servicehost) true)
 
 ; keybindings
 (= keyboard (keyboard servicehost))

@@ -19,10 +19,10 @@
 
 #region Includes
 using System.Windows.Forms;
-using Xacc.Runtime;
+using IronScheme.Editor.Runtime;
 #endregion
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
   /// <summary>
   /// Provides services for managing toolbar

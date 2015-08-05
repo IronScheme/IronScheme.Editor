@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Text;
 
 
-namespace Xacc.Languages.gppg
+namespace IronScheme.Editor.Languages.gppg
 {
   [DebuggerDisplay("{num}")]
   public class State

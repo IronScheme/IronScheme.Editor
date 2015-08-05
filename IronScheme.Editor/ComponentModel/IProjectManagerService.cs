@@ -27,28 +27,28 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.IO;
 using System.Drawing;
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 using System.Windows.Forms;
 using System.Reflection;
-using Xacc.Controls;
+using IronScheme.Editor.Controls;
 using System.Xml;
 using System.Xml.Serialization;
-using Xacc.Build;
-using Xacc.Configuration;
+using IronScheme.Editor.Build;
+using IronScheme.Editor.Configuration;
 using System.Xml.Schema;
 
-using Xacc.Runtime;
+using IronScheme.Editor.Runtime;
 
 using Microsoft.Build.BuildEngine;
 using BuildProject = Microsoft.Build.BuildEngine.Project;
-using Project = Xacc.Build.Project;
+using Project = IronScheme.Editor.Build.Project;
 
 using Microsoft.Build.Framework;
 
 using SR = System.Resources;
 #endregion
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
   /// <summary>
   /// Provides services for managing projects

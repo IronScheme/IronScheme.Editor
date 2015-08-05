@@ -1,8 +1,8 @@
 #pragma warning disable 162
-using Xacc.ComponentModel;
-using LexerBase = Xacc.Languages.CSLex.Language<Xacc.Languages.CSLex.Yytoken>.LexerBase;
+using IronScheme.Editor.ComponentModel;
+using LexerBase = IronScheme.Editor.Languages.CSLex.Language<IronScheme.Editor.Languages.CSLex.Yytoken>.LexerBase;
 
-namespace Xacc.Languages
+namespace IronScheme.Editor.Languages
 {
   sealed class Changelog : CSLex.Language<Yytoken>
   {

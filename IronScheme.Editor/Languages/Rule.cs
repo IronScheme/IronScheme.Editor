@@ -3,7 +3,7 @@
 // (see accompanying GPPGcopyright.rtf)
 
 
-namespace Xacc.Languages.gppg
+namespace IronScheme.Editor.Languages.gppg
 {
   public class Rule
   {

@@ -19,13 +19,13 @@
 
 using System;
 using System.Collections;
-using Xacc.Controls;
+using IronScheme.Editor.Controls;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
   using CodeModel;
 
@@ -443,6 +443,7 @@ namespace Xacc.ComponentModel
       atb.Invalidate();
     }
 
+#if PROBE_ENABLED
     [MenuItem("Send Probe", Index = 1001, State = ApplicationState.Buffer)]
     void SendProbe()
     {
@@ -450,6 +451,7 @@ namespace Xacc.ComponentModel
       //System.Diagnostics.Debugger.Break();
       atb.Buffer.SendProbe();
     }
+#endif
 
 #endif
 

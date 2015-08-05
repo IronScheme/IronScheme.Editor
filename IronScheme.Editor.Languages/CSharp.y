@@ -1,4 +1,4 @@
-%namespace Xacc.Languages.CSharp
+%namespace IronScheme.Editor.Languages.CSharp
 
 %using System.Collections
 %using System.Reflection

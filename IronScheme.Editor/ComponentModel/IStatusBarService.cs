@@ -21,7 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
 	/// <summary>
 	/// Provides services for managing toolbar

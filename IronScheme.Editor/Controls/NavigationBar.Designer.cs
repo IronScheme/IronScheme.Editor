@@ -1,4 +1,4 @@
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
   partial class NavigationBar
   {
@@ -29,8 +29,8 @@ namespace Xacc.Controls
     private void InitializeComponent()
     {
       this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-      this.classes = new Xacc.Controls.PictureComboBox();
-      this.members = new Xacc.Controls.PictureComboBox();
+      this.classes = new IronScheme.Editor.Controls.PictureComboBox();
+      this.members = new IronScheme.Editor.Controls.PictureComboBox();
       this.splitContainer1.Panel1.SuspendLayout();
       this.splitContainer1.Panel2.SuspendLayout();
       this.splitContainer1.SuspendLayout();

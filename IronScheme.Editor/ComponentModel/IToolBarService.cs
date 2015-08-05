@@ -24,7 +24,7 @@ using System.Drawing;
 using System.Xml.Serialization;
 using System.IO;
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
 	/// <summary>
 	/// Provides services for managing toolbar
@@ -276,7 +276,7 @@ namespace Xacc.ComponentModel
 
     public ToolBarService()
     {
-      ToolStripManager.Renderer = new ToolStripProfessionalRenderer(new ColorTable());// Xacc.Controls.Office2007Renderer();
+      ToolStripManager.Renderer = new ToolStripProfessionalRenderer(new ColorTable());// IronScheme.Editor.Controls.Office2007Renderer();
       ServiceHost.StateChanged += new EventHandler(ServiceHost_StateChanged);
       toolbar.Dock = DockStyle.Top;
       toolbar.Height = 19;

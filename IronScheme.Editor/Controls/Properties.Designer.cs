@@ -1,4 +1,4 @@
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
   partial class Properties
   {
@@ -36,7 +36,7 @@ namespace Xacc.Controls
       this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
       this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
       this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
-      this.pictureComboBox1 = new Xacc.Controls.PictureComboBox();
+      this.pictureComboBox1 = new IronScheme.Editor.Controls.PictureComboBox();
       this.toolStrip1.SuspendLayout();
       this.SuspendLayout();
       // 

@@ -23,11 +23,11 @@ using System.Windows.Forms;
 using System.IO;
 
 using System.Reflection;
-using Xacc.Controls;
+using IronScheme.Editor.Controls;
 
 
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
   interface IHelpService : IService
   {

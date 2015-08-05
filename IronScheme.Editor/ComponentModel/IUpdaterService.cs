@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
   public interface IUpdaterService : IService
   {

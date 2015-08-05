@@ -1,12 +1,12 @@
 using System;
-using Xacc.Languages;
+using IronScheme.Editor.Languages;
 using System.Collections;
 using System.Text;
-using Xacc.ComponentModel;
-using Xacc.CodeModel;
+using IronScheme.Editor.ComponentModel;
+using IronScheme.Editor.CodeModel;
 using System.Drawing;
 
-namespace Xacc.Languages.CSLex
+namespace IronScheme.Editor.Languages.CSLex
 {
   [CLSCompliant(false)]
   public struct Yytoken : IToken
@@ -677,7 +677,7 @@ namespace Xacc.Languages.CSLex
         if (yylval.Location != null)
         {
           yylval.Location.Error = true;
-          ServiceHost.Error.OutputErrors(this, new Xacc.Build.ActionResult(format, yylval.Location));
+          ServiceHost.Error.OutputErrors(this, new global::IronScheme.Editor.Build.ActionResult(format, yylval.Location));
         }
       }
     }

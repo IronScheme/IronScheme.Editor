@@ -29,20 +29,20 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 using System.Windows.Forms;
 using System.Reflection;
-using Xacc.Controls;
+using IronScheme.Editor.Controls;
 using System.Drawing.Design;
 using System.Windows.Forms.Design;
 
 using SR = System.Resources;
 
-using Xacc.Runtime;
-using ToolStripMenuItem = Xacc.Controls.ToolStripMenuItem;
+using IronScheme.Editor.Runtime;
+using ToolStripMenuItem = IronScheme.Editor.Controls.ToolStripMenuItem;
 #endregion
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
   public class Document
   {
@@ -438,7 +438,7 @@ namespace Xacc.ComponentModel
       }
     }
 
-    public void Register(Type control, Xacc.Languages.Language language)
+    public void Register(Type control, IronScheme.Editor.Languages.Language language)
     {
       langmap[language] = control;
     }
@@ -732,7 +732,7 @@ namespace Xacc.ComponentModel
       NewFileWizard nfw = new NewFileWizard();
       Hashtable lnames = new Hashtable();
 
-      Collections.Set s = new Xacc.Collections.Set(controlmap.Values);
+      Collections.Set s = new IronScheme.Editor.Collections.Set(controlmap.Values);
 
       foreach (Type doc in s)
       {

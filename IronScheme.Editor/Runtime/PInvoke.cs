@@ -4,7 +4,7 @@ using System;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace Xacc.Runtime
+namespace IronScheme.Editor.Runtime
 {
 	/// <summary>
 	/// Summary description for PInvoke.

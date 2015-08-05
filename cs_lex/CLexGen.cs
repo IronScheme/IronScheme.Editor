@@ -216,7 +216,7 @@ namespace CS_Lex
       )
     {
       //  int count = 0;
-      m_outstream.WriteLine("using Xacc.Languages.CSLex;");
+      m_outstream.WriteLine("using IronScheme.Editor.Languages.CSLex;");
       //m_outstream.WriteLine("#line 1 \"{0}\"", m_spec.inputfilename);
 
       if (false == m_init_flag)

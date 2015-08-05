@@ -31,22 +31,22 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Drawing.Text;
 using ST = System.Threading; // dont include, messes up timers, this doesnt work on pnet
-using Xacc.Algorithms;
+using IronScheme.Editor.Algorithms;
 using System.Diagnostics;
-using Xacc.ComponentModel;
-using Xacc.Controls;
+using IronScheme.Editor.ComponentModel;
+using IronScheme.Editor.Controls;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
 
 
-using ToolStripMenuItem = Xacc.Controls.ToolStripMenuItem;
+using ToolStripMenuItem = IronScheme.Editor.Controls.ToolStripMenuItem;
 
-using Xacc.Runtime;
+using IronScheme.Editor.Runtime;
 
 #endregion
 
-namespace Xacc.Configuration
+namespace IronScheme.Editor.Configuration
 {
   /// <summary>
   /// Start up parameter for xacc.ide
@@ -277,34 +277,6 @@ namespace Xacc.Configuration
       {
         Trace.WriteLine(ex);
       }
-
-      //vs.ShowToolbar = true; // needed for loading state/locations
-      vs.ShowToolbar = false;
-      //vs.ShowToolbar = true;
-
-      //(ServiceHost.ToolBar as ToolBarService).ValidateToolBarButtons();
-
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-      //ToolStripManager.LoadSettings(f, "Toolbar");
-
-
-      //ServiceHost.ToolBar.Load();
 
       if (args.open != null)
       {

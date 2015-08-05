@@ -24,11 +24,11 @@ using System.Runtime.InteropServices;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Xacc.Collections;
+using IronScheme.Editor.Collections;
 using System.Reflection;
 using LSharp;
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
   /// <summary>
   /// Provide keyboard handling services
@@ -280,7 +280,7 @@ namespace Xacc.ComponentModel
             pars[i] = TypeDescriptor.GetConverter(pis[i].ParameterType).ConvertToString(pis[i].DefaultValue);
           }
         }
-        Controls.DialogInvokeActionForm df = new Xacc.Controls.DialogInvokeActionForm(mi);
+        Controls.DialogInvokeActionForm df = new IronScheme.Editor.Controls.DialogInvokeActionForm(mi);
 
         if (df.ShowDialog(ServiceHost.Window.MainForm) == DialogResult.OK)
         {

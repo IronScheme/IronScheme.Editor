@@ -3,7 +3,7 @@
 // (see accompanying GPPGcopyright.rtf)
 using System;
 
-namespace Xacc.Languages.gppg
+namespace IronScheme.Editor.Languages.gppg
 {
   [System.CLSCompliant(false)]
   public class ParserStack<T>

@@ -494,7 +494,7 @@ public string text {get {return (string)value;} set {this.value = value;}}
 public string Text {get {return (string)value;} set {this.value = value;}}
 public int Length {get {return Text.Length;}}
 
-public static implicit operator ValueType(Xacc.Languages.CSLex.Yytoken y)
+public static implicit operator ValueType(global::IronScheme.Editor.Languages.CSLex.Yytoken y)
 {
   ValueType t = new ValueType();
   t.__type = -1;

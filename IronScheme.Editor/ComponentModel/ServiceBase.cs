@@ -22,7 +22,7 @@ using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Collections;
 using System.Reflection;
-using Xacc.Controls;
+using IronScheme.Editor.Controls;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using System.Diagnostics;
@@ -30,10 +30,10 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Runtime.Remoting;
 
-using RealTrace = Xacc.Diagnostics.Trace;
-using ToolStripMenuItem = Xacc.Controls.ToolStripMenuItem;
+using RealTrace = IronScheme.Editor.Diagnostics.Trace;
+using ToolStripMenuItem = IronScheme.Editor.Controls.ToolStripMenuItem;
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
   
   /// <summary>

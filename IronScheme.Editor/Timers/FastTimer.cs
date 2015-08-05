@@ -20,9 +20,9 @@
 using System;
 using System.Collections;
 using System.Threading;
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 
-namespace Xacc.Timers
+namespace IronScheme.Editor.Timers
 {
 	sealed class FastTimer : Disposable
 	{

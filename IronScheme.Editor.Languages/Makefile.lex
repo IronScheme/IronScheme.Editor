@@ -1,7 +1,7 @@
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 using System.Drawing;
 
-namespace Xacc.Languages
+namespace IronScheme.Editor.Languages
 {
   sealed class MakefileLanguage : CSLex.Language
   {

@@ -21,7 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Xacc.Collections
+namespace IronScheme.Editor.Collections
 {
   public sealed class FastDoubleLinkedList<T> : DoubleLinkedList<T> where T:class
   {
@@ -379,7 +379,7 @@ namespace Xacc.Collections
 #if PROBE
 		internal void SendProbe()
 		{
-			Timers.HiPerfTimer hp = new Xacc.Timers.HiPerfTimer();
+			Timers.HiPerfTimer hp = new IronScheme.Editor.Timers.HiPerfTimer();
 			hp.Start();
 			Debug.Assert(startsentinel.Probe(null));
 			hp.Stop();

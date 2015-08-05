@@ -6,10 +6,10 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 using System.IO;
 
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
   [Name("Browser")]
   partial class XmlControl : UserControl, IDocument

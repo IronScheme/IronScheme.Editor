@@ -5,10 +5,10 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
-using Xacc.CodeModel;
-using Xacc.ComponentModel;
+using IronScheme.Editor.CodeModel;
+using IronScheme.Editor.ComponentModel;
 
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
   partial class NavigationBar : UserControl
   {

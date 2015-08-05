@@ -27,7 +27,7 @@ using System.ComponentModel.Design;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
 	/// <summary>
 	/// Summary description for UIEditorForm.

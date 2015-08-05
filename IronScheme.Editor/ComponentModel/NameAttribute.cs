@@ -20,7 +20,7 @@
 using System;
 using System.Collections;
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
 	/// <summary>
 	/// Defines name and descrition info .NET types

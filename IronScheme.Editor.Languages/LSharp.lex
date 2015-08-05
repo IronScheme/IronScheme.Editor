@@ -1,8 +1,8 @@
 #pragma warning disable 162
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 using System.Drawing;
 using LSharp;
-using LexerBase = Xacc.Languages.LSharp.LexerBase<Xacc.Languages.LSharp.ValueType>;
+using LexerBase = IronScheme.Editor.Languages.LSharp.LexerBase<IronScheme.Editor.Languages.LSharp.ValueType>;
 
 //NOTE: comments are not allowed except in code blocks
 %%

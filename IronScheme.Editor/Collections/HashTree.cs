@@ -20,7 +20,7 @@
 using System;
 using System.Collections;
 
-namespace Xacc.Collections
+namespace IronScheme.Editor.Collections
 {
   /// <summary>
   /// An add only tree based on linked hashtables

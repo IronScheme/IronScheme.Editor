@@ -32,15 +32,15 @@ using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
-using Xacc.ComponentModel;
-using Xacc.Collections;
-using Xacc.Controls.Design;
+using IronScheme.Editor.ComponentModel;
+using IronScheme.Editor.Collections;
+using IronScheme.Editor.Controls.Design;
 
 using IServiceProvider = System.IServiceProvider;
 
 using LSharp;
 
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
   class GridDocument : Document
   {

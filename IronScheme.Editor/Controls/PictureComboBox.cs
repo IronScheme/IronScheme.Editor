@@ -23,9 +23,9 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Reflection;
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
 	class PictureComboBox : System.Windows.Forms.ComboBox
 	{

@@ -31,17 +31,17 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Drawing.Imaging;
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 using System.Windows.Forms;
 using System.Reflection;
-using Xacc.Controls;
+using IronScheme.Editor.Controls;
 
 using SR = System.Resources;
 
-using ToolStripMenuItem = Xacc.Controls.ToolStripMenuItem;
+using ToolStripMenuItem = IronScheme.Editor.Controls.ToolStripMenuItem;
 #endregion
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
   /// <summary>
   /// Defines a toplevel menu name for service

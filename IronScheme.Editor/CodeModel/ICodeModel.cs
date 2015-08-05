@@ -20,12 +20,12 @@
 
 using System;
 using System.Collections;
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Collections.Specialized;
 
-namespace Xacc.CodeModel
+namespace IronScheme.Editor.CodeModel
 {
   #region CodeElementList
 

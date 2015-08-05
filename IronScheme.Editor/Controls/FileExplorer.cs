@@ -12,7 +12,7 @@ using Aga.Controls.Tree;
 using System.Collections;
 using System.Threading;
 
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
   partial class FileExplorer : UserControl
   {

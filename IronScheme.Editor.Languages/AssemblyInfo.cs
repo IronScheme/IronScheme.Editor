@@ -19,7 +19,7 @@
 using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 
 [assembly: AssemblyTitle("xacc")]
 [assembly: AssemblyDescription("Main lib for xacc")]
@@ -29,29 +29,29 @@ sealed class Common_PluginLoader : AssemblyPluginProvider
 {
   public override void LoadAll(IPluginManagerService svc)
   {
-    new Xacc.Languages.MercuryLang();
-    new Xacc.Languages.PatchLanguage();
-    new Xacc.Languages.ScalaLang();
-    new Xacc.Languages.PowerShellLang();
-    new Xacc.Languages.CssLang();
-    new Xacc.Languages.ILLanguage();
-    new Xacc.Languages.HLSLLang();
-    new Xacc.Languages.JavaScriptLanguage();
-    new Xacc.Languages.BooLanguage();
-    new Xacc.Languages.RubyLang();
-    new Xacc.Languages.FSharpLang();
-    new Xacc.Languages.IronPythonLang();
-    new Xacc.Languages.CppLang();
-    new Xacc.Languages.NemerleLang();
-    new Xacc.Languages.VBNETLang();
-    new Xacc.Languages.NSISLang();
-    new Xacc.Languages.SqlLang();
-    new Xacc.Languages.CatLanguage();
-    new Xacc.Languages.CSLexLang();
-    new Xacc.Languages.YaccLang();
-    new Xacc.Languages.XmlLanguage();
-    new Xacc.Languages.LSharp.Parser();
-    new Xacc.Languages.CSharp.Parser();
+    new IronScheme.Editor.Languages.MercuryLang();
+    new IronScheme.Editor.Languages.PatchLanguage();
+    new IronScheme.Editor.Languages.ScalaLang();
+    new IronScheme.Editor.Languages.PowerShellLang();
+    new IronScheme.Editor.Languages.CssLang();
+    new IronScheme.Editor.Languages.ILLanguage();
+    new IronScheme.Editor.Languages.HLSLLang();
+    new IronScheme.Editor.Languages.JavaScriptLanguage();
+    new IronScheme.Editor.Languages.BooLanguage();
+    new IronScheme.Editor.Languages.RubyLang();
+    new IronScheme.Editor.Languages.FSharpLang();
+    new IronScheme.Editor.Languages.IronPythonLang();
+    new IronScheme.Editor.Languages.CppLang();
+    new IronScheme.Editor.Languages.NemerleLang();
+    new IronScheme.Editor.Languages.VBNETLang();
+    new IronScheme.Editor.Languages.NSISLang();
+    new IronScheme.Editor.Languages.SqlLang();
+    new IronScheme.Editor.Languages.CatLanguage();
+    new IronScheme.Editor.Languages.CSLexLang();
+    new IronScheme.Editor.Languages.YaccLang();
+    new IronScheme.Editor.Languages.XmlLanguage();
+    new IronScheme.Editor.Languages.LSharp.Parser();
+    new IronScheme.Editor.Languages.CSharp.Parser();
 
   }
 }

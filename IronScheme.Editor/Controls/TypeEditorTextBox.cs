@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Collections;
 
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
 	/// <summary>
 	/// Summary description for TypeEditorTextBox.

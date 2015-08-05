@@ -13,7 +13,7 @@ using System.Windows.Forms;
 using W = WeifenLuo.WinFormsUI.Docking;
 #endif
 
-namespace Xacc.Runtime
+namespace IronScheme.Editor.Runtime
 {
   public enum DockState
   {

@@ -20,7 +20,7 @@
 using System;
 using System.Collections;
 
-namespace Xacc.Collections
+namespace IronScheme.Editor.Collections
 {
 	class Set : IList
 	{

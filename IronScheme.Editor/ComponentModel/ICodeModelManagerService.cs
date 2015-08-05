@@ -23,12 +23,12 @@ using System;
 using System.IO;
 using System.Collections;
 
-using Xacc.CodeModel;
+using IronScheme.Editor.CodeModel;
 using System.Windows.Forms;
 
 #endregion
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
   public interface IHasCodeModel
   {

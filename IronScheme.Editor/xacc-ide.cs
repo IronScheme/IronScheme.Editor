@@ -3,7 +3,7 @@
 
 using System;
 using System.Windows.Forms;
-using Xacc.Configuration;
+using IronScheme.Editor.Configuration;
 
 
 #endregion

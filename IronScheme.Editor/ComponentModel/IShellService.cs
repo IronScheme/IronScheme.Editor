@@ -19,19 +19,19 @@
 
 using System;
 using System.Collections;
-using Xacc.Controls;
+using IronScheme.Editor.Controls;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
-using Xacc.Runtime;
+using IronScheme.Editor.Runtime;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Text;
 using System.Configuration;
 using System.Collections.Generic;
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
 	/// <summary>
 	/// Provides service for scripting

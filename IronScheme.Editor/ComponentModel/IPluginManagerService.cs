@@ -31,17 +31,17 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Drawing.Text;
 using ST = System.Threading; // dont include, messes up timers, this doesnt work on pnet
-using Xacc.Algorithms;
+using IronScheme.Editor.Algorithms;
 using System.Diagnostics;
-using Xacc.ComponentModel;
-using Xacc.Controls;
-using Xacc.Languages;
+using IronScheme.Editor.ComponentModel;
+using IronScheme.Editor.Controls;
+using IronScheme.Editor.Languages;
 #endregion
 
 
 [assembly:PluginProvider(typeof(DefaultPluginProvider))]
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
 	/// <summary>
 	/// Provides services to load plugin assemblies

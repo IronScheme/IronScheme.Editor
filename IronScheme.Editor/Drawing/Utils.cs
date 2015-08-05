@@ -24,7 +24,7 @@ using System.Drawing.Text;
 using System.Collections;
 using System.IO;
 
-namespace Xacc.Drawing
+namespace IronScheme.Editor.Drawing
 {
 	/// <summary>
 	/// Summary description for Utils.

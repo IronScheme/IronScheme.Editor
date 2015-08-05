@@ -27,11 +27,11 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.IO;
 using System.Drawing;
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 using System.Windows.Forms;
 using System.Reflection;
-using Xacc.Controls;
-using Xacc.Collections;
+using IronScheme.Editor.Controls;
+using IronScheme.Editor.Collections;
 
 using SR = System.Resources;
 using ST = System.Threading;
@@ -40,7 +40,7 @@ using ST = System.Threading;
 #endregion
 
 
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
   class AutoCompleteForm : Form
   {

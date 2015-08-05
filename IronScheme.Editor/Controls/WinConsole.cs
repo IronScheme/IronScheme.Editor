@@ -25,7 +25,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
 	/// <summary>
 	/// Provides a simple control to intercept the console in a Windows.Forms application.

@@ -23,9 +23,9 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
   class AboutForm : Form
   {

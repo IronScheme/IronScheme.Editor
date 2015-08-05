@@ -23,10 +23,10 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-using Xacc.Build;
-using Xacc.ComponentModel;
+using IronScheme.Editor.Build;
+using IronScheme.Editor.ComponentModel;
 
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
 	class ProjectBuildOrderForm : System.Windows.Forms.Form
 	{
@@ -80,7 +80,7 @@ namespace Xacc.Controls
 		{
       this.button1 = new System.Windows.Forms.Button();
       this.button2 = new System.Windows.Forms.Button();
-      this.listBox1 = new Xacc.Controls.PictureListBox();
+      this.listBox1 = new IronScheme.Editor.Controls.PictureListBox();
       this.SuspendLayout();
       // 
       // button1

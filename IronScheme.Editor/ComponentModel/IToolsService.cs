@@ -21,12 +21,12 @@ using System;
 using System.Collections;
 using System.Windows.Forms;
 using System.Diagnostics;
-using Xacc.Controls;
+using IronScheme.Editor.Controls;
 using System.IO;
 
-using ToolStripMenuItem = Xacc.Controls.ToolStripMenuItem;
+using ToolStripMenuItem = IronScheme.Editor.Controls.ToolStripMenuItem;
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
   /// <summary>
   /// Service for managing tools

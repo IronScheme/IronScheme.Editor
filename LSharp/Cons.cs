@@ -35,8 +35,8 @@ namespace LSharp
   /// by setting the cdr to another cons. Trees are created by setting the car to
   /// another cons.
   /// </summary>
-  [TypeConverter("Xacc.Controls.Design.LSharpConverter, xacc")]
-  [Editor("Xacc.Controls.Design.LSharpUIEditor, xacc", typeof(System.Drawing.Design.UITypeEditor))]
+  [TypeConverter("IronScheme.Editor.Controls.Design.LSharpConverter, xacc")]
+  [Editor("IronScheme.Editor.Controls.Design.LSharpUIEditor, xacc", typeof(System.Drawing.Design.UITypeEditor))]
   public class Cons : ICollection, ICloneable
   {
     private Object car;

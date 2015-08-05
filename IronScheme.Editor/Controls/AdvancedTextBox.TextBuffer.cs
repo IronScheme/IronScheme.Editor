@@ -52,19 +52,19 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Drawing.Text;
 using ST = System.Threading; // dont include, messes up timers, this doesnt work on pnet
-using Xacc.Algorithms;
+using IronScheme.Editor.Algorithms;
 using System.Diagnostics;
-using Xacc.ComponentModel;
-using Xacc.Collections;
+using IronScheme.Editor.ComponentModel;
+using IronScheme.Editor.Collections;
 using System.Runtime.InteropServices;
-using Xacc.Languages;
-using Xacc.Drawing;
+using IronScheme.Editor.Languages;
+using IronScheme.Editor.Drawing;
 
-using Pairing = Xacc.Languages.Language.Pairing;
-using Xacc.CodeModel;
+using Pairing = IronScheme.Editor.Languages.Language.Pairing;
+using IronScheme.Editor.CodeModel;
 #endregion
 
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
   public partial class AdvancedTextBox
   {
@@ -3336,7 +3336,7 @@ namespace Xacc.Controls
       Timers.HiPerfTimer hp = new Timers.HiPerfTimer();
 
       Language lang = Language.Default;
-      internal Timers.FastTimer parsetimer = new Timers.FastTimer(2000);
+      internal Timers.FastTimer parsetimer = new Timers.FastTimer(1000);
 
       LineHint linehint;
       static readonly LineHint STARTHINT = new LineHint();

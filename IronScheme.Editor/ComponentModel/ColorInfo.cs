@@ -22,10 +22,10 @@ using System.Drawing;
 using System.Collections;
 using System.IO;
 using System.Windows.Forms;
-using Xacc.Controls;
-using TextBuffer = Xacc.Controls.AdvancedTextBox.TextBuffer;
+using IronScheme.Editor.Controls;
+using TextBuffer = IronScheme.Editor.Controls.AdvancedTextBox.TextBuffer;
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
   /// <summary>
   /// Define color and font info for token types

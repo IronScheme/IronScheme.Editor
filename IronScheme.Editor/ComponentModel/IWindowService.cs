@@ -19,11 +19,11 @@
 
 using System;
 using System.Windows.Forms;
-using Xacc.Controls;
-using Xacc.Runtime;
+using IronScheme.Editor.Controls;
+using IronScheme.Editor.Runtime;
 using System.Drawing;
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
 	/// <summary>
 	/// Provides services for managing windows

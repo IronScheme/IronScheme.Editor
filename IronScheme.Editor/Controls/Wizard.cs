@@ -22,12 +22,12 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Xacc.ComponentModel;
-using Xacc.Build;
+using IronScheme.Editor.ComponentModel;
+using IronScheme.Editor.Build;
 using System.IO;
 
 
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
 	class Wizard : Form
 	{

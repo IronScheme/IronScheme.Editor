@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 
 
-namespace Xacc.Languages.gppg
+namespace IronScheme.Editor.Languages.gppg
 {
   public abstract class IScanner<ValueType>
   {

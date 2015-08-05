@@ -22,7 +22,7 @@ using System.Drawing;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Xacc.Drawing
+namespace IronScheme.Editor.Drawing
 {
   /// <summary>
   /// Provides reusable disposable objects

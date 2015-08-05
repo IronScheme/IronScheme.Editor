@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace Xacc.Diagnostics
+namespace IronScheme.Editor.Diagnostics
 {
 	class Trace
 	{
@@ -127,9 +127,9 @@ namespace Xacc.Diagnostics
         System.Diagnostics.Trace.WriteLine(msg);
       }
 
-      //if (Xacc.ComponentModel.ServiceHost.Initialized)
+      //if (IronScheme.Editor.ComponentModel.ServiceHost.Initialized)
       //{
-      //  Xacc.ComponentModel.ServiceHost.StatusBar.StatusText = string.Format(format, args);
+      //  IronScheme.Editor.ComponentModel.ServiceHost.StatusBar.StatusText = string.Format(format, args);
       //}
 
     }

@@ -36,7 +36,7 @@ using System.Xml.Serialization;
 [assembly:AssemblyVersion("1.0.1.0")]
 #endif
 
-namespace Xacc.Utils
+namespace IronScheme.Editor.Utils
 {
   #region Test code
 #if TESTGA

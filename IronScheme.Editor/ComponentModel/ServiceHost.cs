@@ -25,7 +25,7 @@ using System.Runtime.Remoting;
 
 using ISite = System.ComponentModel.ISite;
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
 	/// <summary>
 	/// A common interface for all services

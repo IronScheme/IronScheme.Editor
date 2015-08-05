@@ -20,9 +20,9 @@
 using System;
 using System.Collections;
 using System.Windows.Forms;
-using Xacc.Runtime;
+using IronScheme.Editor.Runtime;
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
 	/// <summary>
 	/// Provides services for managing views

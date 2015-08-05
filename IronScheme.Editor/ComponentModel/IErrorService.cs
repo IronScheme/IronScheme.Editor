@@ -27,18 +27,18 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.IO;
 using System.Drawing;
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 using System.Windows.Forms;
 using System.Reflection;
-using Xacc.Build;
-using Xacc.Controls;
+using IronScheme.Editor.Build;
+using IronScheme.Editor.Controls;
 
 using SR = System.Resources;
-using Xacc.Runtime;
+using IronScheme.Editor.Runtime;
 #endregion
 
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
   /// <summary>
   /// Provides services to display errors/warining/info to user

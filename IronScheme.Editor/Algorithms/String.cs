@@ -24,7 +24,7 @@ using System.Text.RegularExpressions;
 
 using Hashtable = System.Collections.Hashtable;
 
-namespace Xacc.Algorithms
+namespace IronScheme.Editor.Algorithms
 {
   static class XString
   {

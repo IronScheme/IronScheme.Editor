@@ -20,14 +20,14 @@
 using System;
 using System.Collections;
 using LSharp;
-using Xacc.Controls;
+using IronScheme.Editor.Controls;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
-using Xacc.Runtime;
+using IronScheme.Editor.Runtime;
 
-namespace Xacc.ComponentModel
+namespace IronScheme.Editor.ComponentModel
 {
 	/// <summary>
 	/// Provides service for scripting

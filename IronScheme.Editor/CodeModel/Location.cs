@@ -19,13 +19,13 @@
 
 using System;
 using System.Collections;
-using Xacc.ComponentModel;
+using IronScheme.Editor.ComponentModel;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Collections.Specialized;
 using System.Runtime.Serialization;
 
-namespace Xacc.CodeModel
+namespace IronScheme.Editor.CodeModel
 {
   /*
    * Location - Normal

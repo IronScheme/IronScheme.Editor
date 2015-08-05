@@ -21,7 +21,7 @@ using System;
 using System.Collections;
 using System.Runtime.InteropServices;
 
-namespace Xacc.Collections
+namespace IronScheme.Editor.Collections
 {
   /// <summary>
   /// Growing Hashtable.

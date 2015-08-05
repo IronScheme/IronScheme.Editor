@@ -20,16 +20,16 @@
 
 using System;
 using System.Collections;
-using Xacc.Build;
-using Xacc.Controls;
-using Xacc.ComponentModel;
+using IronScheme.Editor.Build;
+using IronScheme.Editor.Controls;
+using IronScheme.Editor.ComponentModel;
 using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
-using Xacc.Collections;
+using IronScheme.Editor.Collections;
 
-namespace Xacc.Controls
+namespace IronScheme.Editor.Controls
 {
   class ErrorView : ListView
   {
