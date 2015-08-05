@@ -1,14 +1,12 @@
 using System;
-using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Diagnostics.CodeAnalysis;
 
 namespace WeifenLuo.WinFormsUI.Docking
 {
-    public class FloatWindow : Form, INestedPanesContainer, IDockDragSource
+  public class FloatWindow : Form, INestedPanesContainer, IDockDragSource
     {
         private NestedPaneCollection m_nestedPanes;
         internal const int WM_CHECKDISPOSE = (int)(Win32.Msgs.WM_USER + 1);

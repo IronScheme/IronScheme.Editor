@@ -1,7 +1,6 @@
 //#define BZ2
 //#define SHARPZIPLIB // not done
 
-using System;
 using System.IO;
 using System.IO.Compression;
 
@@ -11,10 +10,10 @@ using IronScheme.Editor.IO.Compression;
 
 namespace IronScheme.Editor.Runtime
 {
-	/// <summary>
-	/// Summary description for Class1.
-	/// </summary>
-	public sealed class Compression
+  /// <summary>
+  /// Summary description for Class1.
+  /// </summary>
+  public sealed class Compression
 	{
     Compression(){}
 

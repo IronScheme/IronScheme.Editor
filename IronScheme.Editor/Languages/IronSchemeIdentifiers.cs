@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using IronScheme.Editor.CodeModel;
 using IronScheme.Editor.ComponentModel;
 

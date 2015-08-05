@@ -1,10 +1,9 @@
 using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 
 namespace WeifenLuo.WinFormsUI.Docking
 {
-    [Flags]
+  [Flags]
     [Serializable]
     [Editor(typeof(DockAreasEditor), typeof(System.Drawing.Design.UITypeEditor))]
     public enum DockAreas

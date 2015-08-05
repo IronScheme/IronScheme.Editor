@@ -42,25 +42,15 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
-using System.Windows.Forms.Design;
 using System.Drawing.Drawing2D;
-using System.Data;
-using System.Windows.Forms;
 using System.Text;
 using System.IO;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Drawing.Text;
-using ST = System.Threading; // dont include, messes up timers, this doesnt work on pnet
-using IronScheme.Editor.Algorithms;
 using System.Diagnostics;
 using IronScheme.Editor.ComponentModel;
 using IronScheme.Editor.Collections;
 using System.Runtime.InteropServices;
 using IronScheme.Editor.Languages;
 using IronScheme.Editor.Drawing;
-
-using Pairing = IronScheme.Editor.Languages.Language.Pairing;
 using IronScheme.Editor.CodeModel;
 #endregion
 

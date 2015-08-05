@@ -19,14 +19,13 @@
 //
 #endregion
 
-using System;
 
 namespace LSharp
 {
-	/// <summary>
-	/// Built in macros
-	/// </summary>
-	[Macro]
+  /// <summary>
+  /// Built in macros
+  /// </summary>
+  [Macro]
 	public sealed class Macros
 	{
     Macros(){}

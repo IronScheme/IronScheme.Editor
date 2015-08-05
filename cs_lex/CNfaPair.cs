@@ -1,5 +1,3 @@
-using System;
-
 namespace CS_Lex
 {
   /// <summary>

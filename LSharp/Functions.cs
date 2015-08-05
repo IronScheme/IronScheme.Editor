@@ -22,14 +22,13 @@
 using System;
 using System.IO;
 using System.Collections;
-using System.ComponentModel;
 
 namespace LSharp
 {
-	/// <summary>
-	/// Definitions of built in L Sharp functions
-	/// </summary>
-	[Function]
+  /// <summary>
+  /// Definitions of built in L Sharp functions
+  /// </summary>
+  [Function]
 	public sealed class Functions
 	{	
     Functions(){}

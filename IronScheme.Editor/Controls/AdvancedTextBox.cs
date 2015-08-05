@@ -1,20 +1,20 @@
 #region License
- /*	  xacc                																											*
- 	*		Copyright (C) 2003-2006  Llewellyn@Pritchard.org                          *
- 	*																																							*
-	*		This program is free software; you can redistribute it and/or modify			*
-	*		it under the terms of the GNU Lesser General Public License as            *
-  *   published by the Free Software Foundation; either version 2.1, or					*
-	*		(at your option) any later version.																				*
-	*																																							*
-	*		This program is distributed in the hope that it will be useful,						*
-	*		but WITHOUT ANY WARRANTY; without even the implied warranty of						*
-	*		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the							*
-	*		GNU Lesser General Public License for more details.												*
-	*																																							*
-	*		You should have received a copy of the GNU Lesser General Public License	*
-	*		along with this program; if not, write to the Free Software								*
-	*		Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA */
+/*	  xacc                																											*
+ *		Copyright (C) 2003-2006  Llewellyn@Pritchard.org                          *
+ *																																							*
+ *		This program is free software; you can redistribute it and/or modify			*
+ *		it under the terms of the GNU Lesser General Public License as            *
+ *   published by the Free Software Foundation; either version 2.1, or					*
+ *		(at your option) any later version.																				*
+ *																																							*
+ *		This program is distributed in the hope that it will be useful,						*
+ *		but WITHOUT ANY WARRANTY; without even the implied warranty of						*
+ *		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the							*
+ *		GNU Lesser General Public License for more details.												*
+ *																																							*
+ *		You should have received a copy of the GNU Lesser General Public License	*
+ *		along with this program; if not, write to the Free Software								*
+ *		Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA */
 #endregion
 
 #region Defines
@@ -29,7 +29,7 @@
  *	NEWSTYLEPAINT - an attempt to less calls to DrawString, needs work
  */
 //#define BACKGROUNDLEXER 
-#define AUTOCOMPLETE	//broken
+#define AUTOCOMPLETE  //broken
 //#define DUMPTOKENS
 #define BROKEN // still broken?
 //#define CHECKED
@@ -44,14 +44,11 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms.Design;
 using System.Drawing.Drawing2D;
-using System.Data;
 using System.Windows.Forms;
 using System.Text;
 using System.IO;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Drawing.Text;
-using ST = System.Threading; // dont include, messes up timers, this doesnt work on pnet
 using IronScheme.Editor.Algorithms;
 using System.Diagnostics;
 using IronScheme.Editor.ComponentModel;
@@ -63,12 +60,12 @@ using IronScheme.Editor.Drawing;
 using Pairing = IronScheme.Editor.Languages.Language.Pairing;
 #endregion
 
-namespace IronScheme.Editor.Controls 
+namespace IronScheme.Editor.Controls
 {
-	/// <summary>
-	/// A damn fine control.
-	/// </summary>
-	[ToolboxBitmap(typeof(Resources.Fake), "CodeValueType.bmp")]
+  /// <summary>
+  /// A damn fine control.
+  /// </summary>
+  [ToolboxBitmap(typeof(Resources.Fake), "CodeValueType.bmp")]
   [Name("Code Editor")]
   public partial class AdvancedTextBox : Control, IEdit, IFile, IEditSpecial, IEditAdvanced, INavigate, IScroll, IHasCodeModel, IFind
 	{

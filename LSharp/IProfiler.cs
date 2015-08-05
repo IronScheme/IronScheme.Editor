@@ -19,15 +19,14 @@
 //
 #endregion
 
-using System;
 
 namespace LSharp
 {
-	/// <summary>
-	/// Provides an interface so that tracers, debuggers and profilers can hook into
-	/// the evaluation process.
-	/// </summary>
-	public interface IProfiler
+  /// <summary>
+  /// Provides an interface so that tracers, debuggers and profilers can hook into
+  /// the evaluation process.
+  /// </summary>
+  public interface IProfiler
 	{
 		void TraceCall (object form) ;
 		object TraceReturn (object form) ;

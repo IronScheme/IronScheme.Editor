@@ -20,14 +20,13 @@
 #endregion
 
 using System;
-using System.Text;
 
 namespace LSharp
 {
-	/// <summary>
-	/// A closure is a function defined with a captured environment
-	/// </summary>
-	public sealed class Closure
+  /// <summary>
+  /// A closure is a function defined with a captured environment
+  /// </summary>
+  public sealed class Closure
 	{
 		// The captured environment
 		readonly Environment environment;

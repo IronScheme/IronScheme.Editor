@@ -3,7 +3,6 @@
 //#define MONO
 //#define PNET
 
-using System;
 
 namespace IronScheme.Editor.Runtime
 {

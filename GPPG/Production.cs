@@ -3,7 +3,6 @@
 // (see accompanying GPPGcopyright.rtf)
 
 
-using System;
 using System.Text;
 using System.Collections.Generic;
 

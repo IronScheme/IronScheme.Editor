@@ -1,11 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace WeifenLuo.WinFormsUI.Docking
 {
-    public class DockContentCollection : ReadOnlyCollection<IDockContent>
+  public class DockContentCollection : ReadOnlyCollection<IDockContent>
     {
         private static List<IDockContent> _emptyList = new List<IDockContent>(0);
 

@@ -1,12 +1,10 @@
-using System;
 using System.Windows.Forms;
 using System.Drawing;
-using System.Runtime.InteropServices;
 using System.Security.Permissions;
 
 namespace WeifenLuo.WinFormsUI.Docking
 {
-    public abstract class DockPaneCaptionBase : Control
+  public abstract class DockPaneCaptionBase : Control
     {
         protected internal DockPaneCaptionBase(DockPane pane)
         {

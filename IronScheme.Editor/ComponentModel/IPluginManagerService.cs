@@ -1,52 +1,40 @@
 #region License
- /*	  xacc                																											*
- 	*		Copyright (C) 2003-2006  Llewellyn@Pritchard.org                          *
- 	*																																							*
-	*		This program is free software; you can redistribute it and/or modify			*
-	*		it under the terms of the GNU Lesser General Public License as            *
-  *   published by the Free Software Foundation; either version 2.1, or					*
-	*		(at your option) any later version.																				*
-	*																																							*
-	*		This program is distributed in the hope that it will be useful,						*
-	*		but WITHOUT ANY WARRANTY; without even the implied warranty of						*
-	*		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the							*
-	*		GNU Lesser General Public License for more details.												*
-	*																																							*
-	*		You should have received a copy of the GNU Lesser General Public License	*
-	*		along with this program; if not, write to the Free Software								*
-	*		Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA */
+/*	  xacc                																											*
+ *		Copyright (C) 2003-2006  Llewellyn@Pritchard.org                          *
+ *																																							*
+ *		This program is free software; you can redistribute it and/or modify			*
+ *		it under the terms of the GNU Lesser General Public License as            *
+ *   published by the Free Software Foundation; either version 2.1, or					*
+ *		(at your option) any later version.																				*
+ *																																							*
+ *		This program is distributed in the hope that it will be useful,						*
+ *		but WITHOUT ANY WARRANTY; without even the implied warranty of						*
+ *		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the							*
+ *		GNU Lesser General Public License for more details.												*
+ *																																							*
+ *		You should have received a copy of the GNU Lesser General Public License	*
+ *		along with this program; if not, write to the Free Software								*
+ *		Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA */
 #endregion
 
 #region Includes
 using System;
 using System.Collections;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Data;
 using System.Windows.Forms;
-using System.Text;
 using System.IO;
 using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Drawing.Text;
-using ST = System.Threading; // dont include, messes up timers, this doesnt work on pnet
-using IronScheme.Editor.Algorithms;
-using System.Diagnostics;
 using IronScheme.Editor.ComponentModel;
-using IronScheme.Editor.Controls;
-using IronScheme.Editor.Languages;
 #endregion
 
 
-[assembly:PluginProvider(typeof(DefaultPluginProvider))]
+[assembly: PluginProvider(typeof(DefaultPluginProvider))]
 
 namespace IronScheme.Editor.ComponentModel
 {
-	/// <summary>
-	/// Provides services to load plugin assemblies
-	/// </summary>
-	[Name("Plugin manager", "Provides services for loading assembly plugins")]
+  /// <summary>
+  /// Provides services to load plugin assemblies
+  /// </summary>
+  [Name("Plugin manager", "Provides services for loading assembly plugins")]
 	public interface IPluginManagerService : IService
 	{
     /// <summary>

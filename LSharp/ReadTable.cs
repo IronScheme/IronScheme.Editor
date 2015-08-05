@@ -19,17 +19,16 @@
 //
 #endregion
 
-using System;
 using System.Collections;
 
 namespace LSharp
 {
-	/// <summary>
-	/// The ReadTable is a lookup table which directs the reader on
-	/// how to react to the presence of certain character combinations
-	/// in the input stream
-	/// </summary>
-	public class ReadTable
+  /// <summary>
+  /// The ReadTable is a lookup table which directs the reader on
+  /// how to react to the presence of certain character combinations
+  /// in the input stream
+  /// </summary>
+  public class ReadTable
 	{
 		private const int CAPACITY = 50;
 		private Hashtable readTable = new Hashtable(CAPACITY);

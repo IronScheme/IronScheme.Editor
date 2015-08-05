@@ -19,10 +19,6 @@
 
 using System;
 using System.Collections;
-using System.IO;
-using System.Diagnostics;
-using System.Threading;
-using System.ComponentModel;
 using System.Text.RegularExpressions;
 using IronScheme.Editor.Collections;
 

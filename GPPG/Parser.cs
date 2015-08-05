@@ -3,8 +3,6 @@
 // (see accompanying GPPGcopyright.rtf)
 
 
-using System;
-using System.Collections.Generic;
 
 
 namespace gpcc

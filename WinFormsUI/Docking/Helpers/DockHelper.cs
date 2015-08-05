@@ -1,10 +1,9 @@
-using System;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace WeifenLuo.WinFormsUI.Docking
 {
-    internal static class DockHelper
+  internal static class DockHelper
     {
         public static bool IsDockStateAutoHide(DockState dockState)
         {

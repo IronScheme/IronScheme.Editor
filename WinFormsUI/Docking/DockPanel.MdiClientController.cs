@@ -3,11 +3,10 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
 using System.ComponentModel.Design;
-using System.Runtime.InteropServices;
 
 namespace WeifenLuo.WinFormsUI.Docking
 {
-    partial class DockPanel
+  partial class DockPanel
     {
         //  This class comes from Jacob Slusser's MdiClientController class:
         //  http://www.codeproject.com/cs/miscctrl/mdiclientcontroller.asp

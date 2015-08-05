@@ -1,12 +1,6 @@
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-
 namespace WeifenLuo.WinFormsUI.Docking
 {
-    public partial class DockWindow
+  public partial class DockWindow
     {
         internal class DefaultSplitterControl : SplitterBase
         {

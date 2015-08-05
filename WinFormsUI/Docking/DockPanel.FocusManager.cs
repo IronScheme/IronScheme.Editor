@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -8,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace WeifenLuo.WinFormsUI.Docking
 {
-    internal interface IContentFocusManager
+  internal interface IContentFocusManager
     {
         void Activate(IDockContent content);
         void GiveUpFocus(IDockContent content);

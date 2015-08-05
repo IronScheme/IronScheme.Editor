@@ -20,10 +20,8 @@
 #endregion
 
 using System;
-using System.Collections;
 using System.Reflection;
 using System.IO;
-using System.Text;
 
 namespace LSharp
 {

@@ -1,12 +1,9 @@
-using System;
-using System.Collections;
-
 namespace IronScheme.Editor.Resources
 {
-	/// <summary>
-	/// Summary description for Fake.
-	/// </summary>
-	class Fake
+  /// <summary>
+  /// Summary description for Fake.
+  /// </summary>
+  class Fake
 	{
 		public Fake()
 		{

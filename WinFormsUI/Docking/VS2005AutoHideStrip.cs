@@ -2,11 +2,10 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
-using System.ComponentModel;
 
 namespace WeifenLuo.WinFormsUI.Docking
 {
-    internal class VS2005AutoHideStrip : AutoHideStripBase
+  internal class VS2005AutoHideStrip : AutoHideStripBase
     {
         private class TabVS2005 : Tab
         {

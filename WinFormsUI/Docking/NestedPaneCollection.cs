@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 
 namespace WeifenLuo.WinFormsUI.Docking
 {
-    public sealed class NestedPaneCollection : ReadOnlyCollection<DockPane>
+  public sealed class NestedPaneCollection : ReadOnlyCollection<DockPane>
     {
         private INestedPanesContainer m_container;
         private VisibleNestedPaneCollection m_visibleNestedPanes;

@@ -1,15 +1,14 @@
 //#define NO_PINVOKE
 
-using System;
 using System.Text;
 using System.Runtime.InteropServices;
 
 namespace IronScheme.Editor.Runtime
 {
-	/// <summary>
-	/// Summary description for PInvoke.
-	/// </summary>
-	public sealed class kernel32
+  /// <summary>
+  /// Summary description for PInvoke.
+  /// </summary>
+  public sealed class kernel32
 	{
     const string FILENAME = "kernel32";
     kernel32(){}

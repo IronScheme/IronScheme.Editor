@@ -1,21 +1,17 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Design;
-using System.Windows.Forms.Design;
 using System.ComponentModel;
 
 namespace WeifenLuo.WinFormsUI.Docking
 {
-    #region DockPanelSkin classes
-    /// <summary>
-    /// The skin to use when displaying the DockPanel.
-    /// The skin allows custom gradient color schemes to be used when drawing the
-    /// DockStrips and Tabs.
-    /// </summary>
-    [TypeConverter(typeof(DockPanelSkinConverter))]
+  #region DockPanelSkin classes
+  /// <summary>
+  /// The skin to use when displaying the DockPanel.
+  /// The skin allows custom gradient color schemes to be used when drawing the
+  /// DockStrips and Tabs.
+  /// </summary>
+  [TypeConverter(typeof(DockPanelSkinConverter))]
     public class DockPanelSkin
     {
         private AutoHideStripSkin m_autoHideStripSkin = new AutoHideStripSkin();

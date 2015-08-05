@@ -2,12 +2,11 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
 using System.Diagnostics.CodeAnalysis;
 
 namespace WeifenLuo.WinFormsUI.Docking
 {
-    public class DockContent : Form, IDockContent
+  public class DockContent : Form, IDockContent
     {
         public DockContent()
         {

@@ -3,9 +3,6 @@
 // (see accompanying GPPGcopyright.rtf)
 
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 
 namespace IronScheme.Editor.Languages.gppg

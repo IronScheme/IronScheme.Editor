@@ -1,9 +1,8 @@
-using System;
 using System.Drawing;
 
 namespace WeifenLuo.WinFormsUI.Docking
 {
-    public sealed class NestedDockingStatus
+  public sealed class NestedDockingStatus
     {
         internal NestedDockingStatus(DockPane pane)
         {

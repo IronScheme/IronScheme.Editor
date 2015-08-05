@@ -20,15 +20,14 @@
 #endregion
 
 using System;
-using System.Text;
 
 namespace LSharp
 {
-	/// <summary>
-	/// Special forms take their arguents un-evaluated so that
-	/// they can themselves decide upon the evaluation process.
-	/// </summary>
-	[SpecialForm]
+  /// <summary>
+  /// Special forms take their arguents un-evaluated so that
+  /// they can themselves decide upon the evaluation process.
+  /// </summary>
+  [SpecialForm]
 	public sealed class SpecialForms
 	{
     SpecialForms(){}

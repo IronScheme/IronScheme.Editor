@@ -3,7 +3,6 @@
 // (see accompanying GPPGcopyright.rtf)
 
 
-using System;
 
 
 namespace gpcc

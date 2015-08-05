@@ -22,16 +22,15 @@
 using System;
 using System.Collections;
 using System.Reflection;
-using System.IO;
 
 namespace LSharp
 {
-	/// <summary>
-	/// Provides a hashtable cache of common language types in order to
-	/// avoid repetitive reflection. Provides features for finding types
-	/// with unqualified names.
-	/// </summary>
-	public sealed class TypeCache
+  /// <summary>
+  /// Provides a hashtable cache of common language types in order to
+  /// avoid repetitive reflection. Provides features for finding types
+  /// with unqualified names.
+  /// </summary>
+  public sealed class TypeCache
 	{
 		const int CAPACITY = 50;
 		static readonly Hashtable typeTable = new Hashtable(CAPACITY);

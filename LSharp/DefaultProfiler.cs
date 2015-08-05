@@ -19,15 +19,14 @@
 //
 #endregion
 
-using System;
 
 namespace LSharp
 {
-	/// <summary>
-	/// The DefaultProfiler does nothing except provide
-	/// a placeholder implementation of IProfiler
-	/// </summary>
-	public sealed class DefaultProfiler : IProfiler
+  /// <summary>
+  /// The DefaultProfiler does nothing except provide
+  /// a placeholder implementation of IProfiler
+  /// </summary>
+  public sealed class DefaultProfiler : IProfiler
 	{
 
 		public void TraceCall (object form) 

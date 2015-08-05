@@ -1,11 +1,7 @@
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.ComponentModel;
-using System.Runtime.InteropServices;
-using System.IO;
-using System.Text;
 using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 
@@ -20,7 +16,7 @@ internal class resfinder
 
 namespace WeifenLuo.WinFormsUI.Docking
 {
-    [SuppressMessage("Microsoft.Naming", "CA1720:AvoidTypeNamesInParameters", MessageId = "0#")]
+  [SuppressMessage("Microsoft.Naming", "CA1720:AvoidTypeNamesInParameters", MessageId = "0#")]
     public delegate IDockContent DeserializeDockContent(string persistString);
 
     [LocalizedDescription("DockPanel_Description")]

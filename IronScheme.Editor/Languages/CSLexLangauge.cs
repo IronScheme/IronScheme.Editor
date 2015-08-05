@@ -1,7 +1,5 @@
 using System;
-using IronScheme.Editor.Languages;
 using System.Collections;
-using System.Text;
 using IronScheme.Editor.ComponentModel;
 using IronScheme.Editor.CodeModel;
 using System.Drawing;

@@ -1,14 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.ComponentModel;
 
 namespace WeifenLuo.WinFormsUI.Docking
 {
-    partial class DockPanel
+  partial class DockPanel
     {
         private sealed class SplitterDragHandler : DragHandler
         {
