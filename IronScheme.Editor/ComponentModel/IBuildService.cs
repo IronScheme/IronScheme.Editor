@@ -47,6 +47,18 @@ namespace IronScheme.Editor.ComponentModel
     /// </summary>
     /// <value>The logger verbosity.</value>
     LoggerVerbosity LoggerVerbosity { get;set;}
+
+    string Configuration { get; set; }
+    string Current { get; }
+
+    void BuildAll();
+    void BuildCurrent();
+    void BuildOrder();
+    void CancelBuild();
+    void CleanAll();
+    void CleanCurrent();
+    void RebuildAll();
+    void RebuildCurrent();
   }
 
   [Menu("Build")]
@@ -84,7 +96,7 @@ namespace IronScheme.Editor.ComponentModel
       }
     }
 
-    string Current
+    public string Current
     {
       get
       {
@@ -113,7 +125,7 @@ namespace IronScheme.Editor.ComponentModel
 
 
     [MenuItem("Configuration", Index = 1, Converter = typeof(ConfigurationConvertor), State = ApplicationState.Project)]
-    string Configuration
+    public string Configuration
     {
       get { return solution == null ? ServiceHost.Project.Current == null ? "Debug" : ServiceHost.Project.Current.Configuration : solution.GetEvaluatedProperty("Configuration"); }
       set
@@ -208,43 +220,43 @@ namespace IronScheme.Editor.ComponentModel
     }
 
     [MenuItem("Build All", Index = 11, State = ApplicationState.Project, Image = "Project.Build.png")]
-    void BuildAll()
+    public void BuildAll()
     {
       BuildInternal(solution ?? ServiceHost.Project.Current.MSBuildProject);
     }
 
     [MenuItem("Rebuild All", Index = 12, State = ApplicationState.Project)]
-    void RebuildAll()
+    public void RebuildAll()
     {
       BuildInternal(solution ?? ServiceHost.Project.Current.MSBuildProject, "Rebuild");
     }
 
     [MenuItem("Clean All", Index = 13, State = ApplicationState.Project)]
-    void CleanAll()
+    public void CleanAll()
     {
       BuildInternal(solution ?? ServiceHost.Project.Current.MSBuildProject, "Clean");
     }
 
     [MenuItem("Build {Current}", Index = 21, State = ApplicationState.Project, Image = "Project.Build.png")]
-    void BuildCurrent()
+    public void BuildCurrent()
     {
       BuildInternal(ServiceHost.Project.Current.MSBuildProject);
     }
 
     [MenuItem("Rebuild {Current}", Index = 22, State = ApplicationState.Project)]
-    void RebuildCurrent()
+    public void RebuildCurrent()
     {
       BuildInternal(ServiceHost.Project.Current.MSBuildProject, "Rebuild");
     }
 
     [MenuItem("Clean {Current}", Index = 23, State = ApplicationState.Project)]
-    void CleanCurrent()
+    public void CleanCurrent()
     {
       BuildInternal(ServiceHost.Project.Current.MSBuildProject, "Clean");
     }
 
     [MenuItem("Cancel Build", Index = 900, State = ApplicationState.Project | ApplicationState.Build, Image = "Build.Cancel.png")]
-    void CancelBuild()
+    public void CancelBuild()
     {
       if (buildthread != null)
       {
@@ -257,7 +269,7 @@ namespace IronScheme.Editor.ComponentModel
     }
 
     [MenuItem("Build Order", Index = 1000, State = ApplicationState.Project)]
-    void BuildOrder()
+    public void BuildOrder()
     {
       ProjectManager pm = ServiceHost.Project as ProjectManager;
       ProjectBuildOrderForm bof = new ProjectBuildOrderForm();

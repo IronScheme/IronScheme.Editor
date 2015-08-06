@@ -25,14 +25,17 @@ using IronScheme.Editor.Controls;
 
 namespace IronScheme.Editor.ComponentModel
 {
-  interface IHelpService : IService
+  public interface IHelpService : IService
   {
-
+    void ChangeLog();
+    void ReadMe();
+    void ShowAbout();
+    void TraceLog();
   }
 
 	[Menu("Help")]
 	sealed class HelpService : ServiceBase, IHelpService
-	{
+  {
     [MenuItem("ReadMe.txt", Index = 1)]
     public void ReadMe()
     {

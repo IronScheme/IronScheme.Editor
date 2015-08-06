@@ -38,7 +38,18 @@ namespace IronScheme.Editor.ComponentModel
     /// Whether to show toolbar
     /// </summary>
     bool ShowToolbar {get;set;}
-	}
+
+    string CurrentView { get; set; }
+    bool ShowCommand { get; set; }
+    bool ShowConsole { get; set; }
+    bool ShowFileExplorer { get; set; }
+    bool ShowOutline { get; set; }
+    bool ShowProjectExplorer { get; set; }
+    bool ShowProperties { get; set; }
+    bool ShowResults { get; set; }
+
+    void NextView();
+  }
 
   [Menu("View")]
   sealed class ViewService : ServiceBase, IViewService
@@ -171,7 +182,7 @@ namespace IronScheme.Editor.ComponentModel
     // eish this code is so old and ugly :(
 
     [MenuItem("Project Explorer", Index = 10, Image="Project.Type.png")]
-    bool ShowProjectExplorer
+    public bool ShowProjectExplorer
     {
       get 
       { 
@@ -192,7 +203,7 @@ namespace IronScheme.Editor.ComponentModel
     }
 
     [MenuItem("File Explorer", Index = 11, Image = "Project.Type.png")]
-    bool ShowFileExplorer
+    public bool ShowFileExplorer
     {
       get
       {
@@ -213,7 +224,7 @@ namespace IronScheme.Editor.ComponentModel
     }
 
     [MenuItem("Outline", Index = 12, Image="View.Outline.png")]
-    bool ShowOutline
+    public bool ShowOutline
     {
       get 
       { 
@@ -234,7 +245,7 @@ namespace IronScheme.Editor.ComponentModel
     }
 
     [MenuItem("Results", Index = 20, Image= "View.Results.png")]
-    bool ShowResults
+    public bool ShowResults
     {
       get 
       { 
@@ -255,7 +266,7 @@ namespace IronScheme.Editor.ComponentModel
     }
 
     [MenuItem("Output", Index = 21, Image="View.Output.png")]
-    bool ShowConsole
+    public bool ShowConsole
     {
       get 
       { 
@@ -276,7 +287,7 @@ namespace IronScheme.Editor.ComponentModel
     }
 
     [MenuItem("REPL", Index = 22, Image= "IronScheme.png")]
-    bool ShowCommand
+    public bool ShowCommand
     {
       get 
       { 
@@ -301,7 +312,7 @@ namespace IronScheme.Editor.ComponentModel
     }
 
     [MenuItem("Properties", Index = 30, Image = "View.Properties.png")]
-    bool ShowProperties
+    public bool ShowProperties
     {
       get
       {
