@@ -23,7 +23,7 @@
 (= settings (settings servicehost))
 
 (set_editorfontsize settings 10)
-(set_editorfontname settings "Bitstream Vera Sans Mono")
+(set_editorfontname settings "Consolas")
 ; (set_editorfontname settings "Lucida Console")
 ; (set_editorfontname settings "Courier New")
 (set_tabsize settings 2)
