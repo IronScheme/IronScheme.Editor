@@ -275,7 +275,7 @@ namespace IronScheme.Editor.ComponentModel
       }
     }
 
-    [MenuItem("Scratch Pad", Index = 22, Image="Project.Run.png")]
+    [MenuItem("REPL", Index = 22, Image= "IronScheme.png")]
     bool ShowCommand
     {
       get 
@@ -296,31 +296,6 @@ namespace IronScheme.Editor.ComponentModel
         else
         {
           (ServiceHost.Scripting as ScriptingService).tbp.Hide();
-        }
-      }
-    }
-
-    [MenuItem("IronScheme Shell", Index = 23, Image = "IronScheme.png")]
-    bool ShowShell
-    {
-      get
-      {
-        IDockContent dc = (ServiceHost.Shell as ShellService).tbp;
-        if (dc == null)
-        {
-          return false;
-        }
-        return dc.DockState != DockState.Hidden;
-      }
-      set
-      {
-        if (!ShowShell)
-        {
-          (ServiceHost.Shell as ShellService).tbp.Activate();
-        }
-        else
-        {
-          (ServiceHost.Shell as ShellService).tbp.Hide();
         }
       }
     }

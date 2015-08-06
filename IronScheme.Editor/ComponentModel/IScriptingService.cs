@@ -146,7 +146,7 @@ namespace IronScheme.Editor.ComponentModel
           }
           if (atb2.EditorLanguage == "R6RS Scheme")
           {
-            ServiceHost.Shell.RunCurrentFile();
+            //ServiceHost.Shell.RunCurrentFile();
           }
         }
       }
@@ -171,7 +171,7 @@ namespace IronScheme.Editor.ComponentModel
           }
           if (atb2.EditorLanguage == "R6RS Scheme")
           {
-            ServiceHost.Shell.RunCommand(atb2.SelectionText.Trim());
+            //ServiceHost.Shell.RunCommand(atb2.SelectionText.Trim());
           }
         }
       }

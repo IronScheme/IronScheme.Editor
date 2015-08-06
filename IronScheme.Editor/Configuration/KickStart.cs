@@ -265,7 +265,7 @@ namespace IronScheme.Editor.Configuration
       try
       {
         ServiceHost.Scripting.InitCommand();
-        ServiceHost.Shell.InitCommand();
+        //ServiceHost.Shell.InitCommand();
       }
       catch (Exception ex) // MONO
       {

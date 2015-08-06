@@ -370,14 +370,6 @@ namespace IronScheme.Editor.ComponentModel
     }
 
     /// <summary>
-    /// Gets the IShellService
-    /// </summary>
-    public static IShellService Shell
-    {
-      get { return Get<IShellService>(); }
-    }
-
-    /// <summary>
     /// Gets the IProjectManagerService
     /// </summary>
     public static IProjectManagerService Project	

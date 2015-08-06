@@ -119,7 +119,6 @@ namespace IronScheme.Editor.ComponentModel
 
       Configuration.IdeSupport.about.progressBar1.Value += 10;
 
-      new ShellService();
       new ScriptingService();
       new StandardConsole();
       new SettingsService();

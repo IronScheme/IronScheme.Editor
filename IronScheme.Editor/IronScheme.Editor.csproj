@@ -212,7 +212,7 @@
     <Compile Include="ComponentModel\ColorInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ComponentModel\IShellService.cs" />
+    <None Include="ComponentModel\IShellService.cs" />
     <Compile Include="ComponentModel\DebuggerBase.cs">
     </Compile>
     <Compile Include="ComponentModel\IUpdaterService.cs" />
