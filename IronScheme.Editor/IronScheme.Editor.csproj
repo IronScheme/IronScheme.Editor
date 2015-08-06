@@ -105,6 +105,10 @@
       <Project>{c75532c4-765b-418e-b09b-46d36b2abdb1}</Project>
       <Name>WinFormsUI</Name>
     </ProjectReference>
+    <Reference Include="IronScheme, Version=1.0.0.0, Culture=neutral, PublicKeyToken=78f2e9d9541a0dee, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronScheme.Core.0.9.114008\lib\IronScheme.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Build.Conversion" />
     <Reference Include="Microsoft.Build.Engine" />
     <Reference Include="Microsoft.Build.Framework" />
@@ -615,6 +619,7 @@
     <Content Include="Resources\installer.bmp" />
     <EmbeddedResource Include="Resources\IronScheme.png" />
     <EmbeddedResource Include="Resources\ProjectReference.png" />
+    <None Include="packages.config" />
     <None Include="profile.ls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
