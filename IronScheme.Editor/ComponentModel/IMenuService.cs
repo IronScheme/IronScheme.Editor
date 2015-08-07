@@ -140,6 +140,7 @@ namespace IronScheme.Editor.ComponentModel
     string text, image;
     ApplicationState state = 0; 
     int index = -1;
+    static int maxindex = -1;
     internal MemberInfo invoke;
     internal bool istogglemenu = false;
     internal ServiceBase ctr;
@@ -153,6 +154,7 @@ namespace IronScheme.Editor.ComponentModel
     public MenuItemAttribute(string text)
     {
       this.text = text;
+      index = maxindex + 1;
     }
 
     /// <summary>
@@ -189,7 +191,11 @@ namespace IronScheme.Editor.ComponentModel
     public int Index
     {
       get {return index;}
-      set {index = value;}
+      set
+      {
+        index = value;
+        maxindex = Math.Max(maxindex, value);
+      }
     }
 
     Type conv;

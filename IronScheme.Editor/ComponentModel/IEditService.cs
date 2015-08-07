@@ -235,11 +235,14 @@ namespace IronScheme.Editor.ComponentModel
     /// Converts selection to lower case
     /// </summary>
     void SelectionToUpper();
+
   }
 
   public interface IEditService : IService, IScroll, IEdit, IEditAdvanced, INavigate, IEditSpecial
   {
     string EditorLanguage { get; set; }
+
+    void InsertSpace();
   }
 
   [Menu("Edit")]
@@ -787,6 +790,17 @@ namespace IronScheme.Editor.ComponentModel
       if (atb != null && ((Control)atb).Focused)
       {
         atb.SelectionToUpper();
+      }
+    }
+
+    public void InsertSpace()
+    {
+      AdvancedTextBox atb = fm.CurrentControl as AdvancedTextBox;
+      if (atb != null)
+      {
+        atb.Buffer.InsertCharacter(' ');
+        atb.UpdateAutoComplete();
+        atb.Invalidate();
       }
     }
 

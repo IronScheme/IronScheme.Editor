@@ -147,6 +147,7 @@
 (bindx  Edit            "Edit.Undo"               "Alt+Back")
 (bindx  Edit            "Edit.Redo"               "Ctrl+Shift+Z")
 (bindx  Edit            "Edit.Redo"               "Ctrl+Back")
+(bindx  Edit            "Edit.Redo"               "Ctrl+Y")
 (bindx  Edit            "Edit.Cut"                "Ctrl+X")
 (bindx  Edit            "Edit.Cut"                "Shift+Delete")
 (bindx  Edit            "Edit.Copy"               "Ctrl+C")
@@ -159,6 +160,7 @@
 (bindx  Buffer          "Edit.RemoveBefore"       "Back")
 (bindx  Buffer          "Edit.RemoveAfter"        "Delete")
 
+(bindx  Buffer          "Edit.InsertSpace"        "Space")
 
 
 
@@ -170,10 +172,13 @@
 (bindx  AutoComplete    "Edit.HideAutoComplete"   "Home")
 (bindx  AutoComplete    "Edit.HideAutoComplete"   "End")
 (bindx  AutoComplete    "Edit.HideAutoComplete"   "Tab")
-(bindx  AutoComplete    "Edit.HideAutoComplete"   "Space")
+;(bindx  AutoComplete    "Edit.HideAutoComplete"   "Space")
 (bindx  AutoComplete    "Edit.HideAutoComplete"   "Alt+Right")
 
+
+
 (bindx  Buffer          "Edit.ShowAutoComplete"   "Alt+Right")
+(bindx  Buffer          "Edit.ShowAutoComplete"   "Ctrl+Space")
 
 (bindx  AutoComplete    "Edit.AutoCompleteNextChoice"       "Down")
 (bindx  AutoComplete    "Edit.AutoCompletePreviousChoice"   "Up")

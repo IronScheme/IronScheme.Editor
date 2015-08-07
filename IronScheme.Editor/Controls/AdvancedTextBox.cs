@@ -1013,6 +1013,7 @@ namespace IronScheme.Editor.Controls
 				case 24: //CTRL + X
 				case 26: //CTRL + Z
 				case 27: //ALT + right, i think
+        case 32:
 				case '\t': 
 				case 8:  
 				case 10: //CTRL + D == Enter
@@ -3070,7 +3071,8 @@ namespace IronScheme.Editor.Controls
 
 			switch (e.KeyCode)
 			{
-				case Keys.ShiftKey: case Keys.ControlKey:
+				case Keys.ShiftKey:
+        case Keys.ControlKey:
 					return;
 				default:
 					buffer.IsSelecting = false;
@@ -3429,7 +3431,7 @@ namespace IronScheme.Editor.Controls
       }
     }
 
-		void UpdateAutoComplete()
+		internal void UpdateAutoComplete()
 		{
 			if (autocomplete)
 			{
