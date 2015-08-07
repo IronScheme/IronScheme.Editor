@@ -136,10 +136,6 @@ namespace gpcc
       Console.WriteLine("    this.eofToken = (int){0}.EOF;", grammar.TokenName);
 
       Console.WriteLine();
-#if DEBUG
-      Console.WriteLine("    stringstates=new string[{0}];", states.Count);
-      Console.WriteLine("    stringrules=new string[{0}];", productions.Count + 1);
-#endif
       Console.WriteLine("    states=new State[{0}];", states.Count);
 
       int state_nr = 0;
@@ -179,9 +175,6 @@ namespace gpcc
 
     private void GenerateState(int state_nr, State state)
     {
-#if DEBUG
-      Console.WriteLine("stringstates[{0}] = @\"{1}\";", state_nr, state.GetDebug());
-#endif
       Console.Write("    AddState({0},new State(", state_nr);
 
       int defaultAction = GetDefaultAction(state);
@@ -257,9 +250,6 @@ namespace gpcc
 
     private void GenerateRule(Production production)
     {
-#if DEBUG
-      Console.WriteLine("stringrules[{0}] = @\"{1}\";", production.num, production);
-#endif
       Console.Write("    rules[{0}]=new Rule({1}, new int[]{{", production.num, production.lhs.num);
       bool first = true;
       foreach (Symbol sym in production.rhs)

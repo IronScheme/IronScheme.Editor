@@ -22,6 +22,7 @@ using System.Drawing;
 #endregion
 
 using IronScheme.Editor.CodeModel;
+using System;
 
 namespace IronScheme.Editor.ComponentModel
 {
@@ -80,6 +81,7 @@ namespace IronScheme.Editor.ComponentModel
     Location  Location  {get;set;}
 
 #if DEBUG
+    [Obsolete("Is this used?")]
     object Value { get;}
 #endif
 
