@@ -1,21 +1,10 @@
 #region License
- /*	  xacc                																											*
- 	*		Copyright (C) 2003-2006  Llewellyn@Pritchard.org                          *
- 	*																																							*
-	*		This program is free software; you can redistribute it and/or modify			*
-	*		it under the terms of the GNU Lesser General Public License as            *
-  *   published by the Free Software Foundation; either version 2.1, or					*
-	*		(at your option) any later version.																				*
-	*																																							*
-	*		This program is distributed in the hope that it will be useful,						*
-	*		but WITHOUT ANY WARRANTY; without even the implied warranty of						*
-	*		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the							*
-	*		GNU Lesser General Public License for more details.												*
-	*																																							*
-	*		You should have received a copy of the GNU Lesser General Public License	*
-	*		along with this program; if not, write to the Free Software								*
-	*		Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA */
+/* Copyright (c) 2003-2015 Llewellyn Pritchard
+ * All rights reserved.
+ * This source code is subject to terms and conditions of the BSD License.
+ * See license.txt. */
 #endregion
+
 
 #if MDBG
 using System;
@@ -97,7 +86,7 @@ namespace IronScheme.Editor.ComponentModel
     }
 
 
-    #region CorDbg interaction
+#region CorDbg interaction
 
 
 
@@ -403,10 +392,10 @@ namespace IronScheme.Editor.ComponentModel
 			}
 		}
 
-    #endregion
+#endregion
 	
    
-    #region Modes
+#region Modes
 
     [Flags]
     public enum Mode
@@ -440,9 +429,9 @@ namespace IronScheme.Editor.ComponentModel
       EmbeddedCLR = 0x04000000,//             Select the desktop or embedded CLR debugging
     }
 
-    #endregion
+#endregion
     
-    #region Commands
+#region Commands
     
     /// <summary>
     /// Set or display breakpoints.
@@ -1027,7 +1016,7 @@ namespace IronScheme.Editor.ComponentModel
     }
 #endif
 
-    #endregion
+#endregion
 
 	}
 }
