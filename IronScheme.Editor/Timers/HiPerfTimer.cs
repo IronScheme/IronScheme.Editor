@@ -14,6 +14,7 @@ using IronScheme.Editor.Runtime;
 
 namespace IronScheme.Editor.Timers
 {
+  [Obsolete("Use Stopwatch")]
   sealed class HiPerfTimer
 	{
 		long startTime, stopTime, freq;
