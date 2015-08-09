@@ -171,8 +171,8 @@ namespace IronScheme.Editor.Configuration
       try
       {
 #endif
-      System.Threading.Thread.CurrentThread.CurrentCulture =
-          System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.InvariantCulture;
+      //System.Threading.Thread.CurrentThread.CurrentCulture =
+      //    System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.InvariantCulture;
 
         if (args.listermode)
         {

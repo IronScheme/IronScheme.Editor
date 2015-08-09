@@ -2230,7 +2230,7 @@ namespace IronScheme.Editor.Controls
           owner.ProjectHint.AddPairings(filename, owner.pairings);
         }
 
-        Trace.WriteLine(string.Format("Preprocessor completed in {0:f3}ms", hp.Duration));
+        Trace.WriteLine(string.Format("Preprocessor completed in {0:f1}ms", hp.Elapsed.TotalMilliseconds));
 
         parsetimer.Enabled = parserenabled;
       }
@@ -2254,7 +2254,7 @@ namespace IronScheme.Editor.Controls
           int res = lang.Parse(mlines, FileName, this);
           hp.Stop();
 
-          Trace.WriteLine(string.Format("Parsing completed {0}successfully in {1:f1}ms", (res == 0 ? string.Empty : "un"), hp.Duration));
+          Trace.WriteLine(string.Format("Parsing completed {0}successfully in {1:f1}ms", (res == 0 ? string.Empty : "un"), hp.Elapsed.TotalMilliseconds));
 
           if (res > 0)
           {
@@ -3312,7 +3312,7 @@ namespace IronScheme.Editor.Controls
 
       readonly internal StringFormat sf;
 
-      Timers.HiPerfTimer hp = new Timers.HiPerfTimer();
+      Stopwatch hp = new Stopwatch();
 
       Language lang = Language.Default;
       internal Timers.FastTimer parsetimer = new Timers.FastTimer(1000);
