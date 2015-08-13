@@ -256,18 +256,6 @@ namespace IronScheme.Editor.Controls
       this.label1.Text = "Name";
       this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
       // 
-      // reportBut
-      // 
-      this.reportBut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                  | System.Windows.Forms.AnchorStyles.Right)));
-      this.reportBut.FlatStyle = System.Windows.Forms.FlatStyle.System;
-      this.reportBut.Location = new System.Drawing.Point(216, 646);
-      this.reportBut.Name = "reportBut";
-      this.reportBut.Size = new System.Drawing.Size(96, 27);
-      this.reportBut.TabIndex = 3;
-      this.reportBut.Text = "Report error";
-      this.reportBut.Click += new System.EventHandler(this.reportBut_Click);
-      // 
       // ignoreBut
       // 
       this.ignoreBut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
@@ -303,18 +291,6 @@ namespace IronScheme.Editor.Controls
       this.exitBut.TabIndex = 6;
       this.exitBut.Text = "Exit";
       this.exitBut.Click += new System.EventHandler(this.exitBut_Click);
-      // 
-      // checkBut
-      // 
-      this.checkBut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                  | System.Windows.Forms.AnchorStyles.Right)));
-      this.checkBut.FlatStyle = System.Windows.Forms.FlatStyle.System;
-      this.checkBut.Location = new System.Drawing.Point(112, 646);
-      this.checkBut.Name = "checkBut";
-      this.checkBut.Size = new System.Drawing.Size(96, 27);
-      this.checkBut.TabIndex = 7;
-      this.checkBut.Text = "Check error";
-      this.checkBut.Click += new System.EventHandler(this.checkBut_Click);
       // 
       // helpBut
       // 
@@ -381,32 +357,9 @@ namespace IronScheme.Editor.Controls
       Close();
     }
 
-    void reportBut_Click(object sender, System.EventArgs e)
-    {
-      try
-      {
-        Diagnostics.ErrorReport re = new IronScheme.Editor.Diagnostics.ErrorReport();
-        string t = exception == null ? detailsBox.Text : exception.ToString();
-        int id = re.ReportError(nameBox.Text, emailBox.Text, infoBox.Text, t);
-        MessageBox.Show(this, "Thank you! Your reference is: " + id);
-      }
-      catch (Exception ex)
-      {
-        System.Diagnostics.Trace.WriteLine(ex);
-        MessageBox.Show(this, "There was a problem submitting the error/bug.\r\nPlease try again later, if you can and dont mind.");
-      }
-    }
-
     void helpBut_Click(object sender, System.EventArgs e)
     {
       System.Diagnostics.Debugger.Break();
-    }
-
-    void checkBut_Click(object sender, System.EventArgs e)
-    {
-      System.Diagnostics.Process.Start("http://xacc.no-ip.info:8888/xaccerror/errors.aspx");
-      //ReportedErrorsDialog d = new ReportedErrorsDialog();
-      //d.Show();
     }
 	}
 }

@@ -41,43 +41,43 @@ namespace IronScheme.Editor.Controls
 
     private void InitializeComponent()
     {
-      this.progressBar1 = new System.Windows.Forms.ProgressBar();
-      this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-      this.SuspendLayout();
+      progressBar1 = new ProgressBar();
+      linkLabel1 = new LinkLabel();
+      SuspendLayout();
       // 
       // progressBar1
       // 
-      this.progressBar1.Location = new System.Drawing.Point(6, 264);
-      this.progressBar1.Name = "progressBar1";
-      this.progressBar1.Size = new System.Drawing.Size(395, 10);
-      this.progressBar1.TabIndex = 0;
+      progressBar1.Location = new Point(6, 264);
+      progressBar1.Name = "progressBar1";
+      progressBar1.Size = new Size(395, 10);
+      progressBar1.TabIndex = 0;
       // 
       // linkLabel1
       // 
-      this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
-      this.linkLabel1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.linkLabel1.Location = new System.Drawing.Point(6, 257);
-      this.linkLabel1.Name = "linkLabel1";
-      this.linkLabel1.Size = new System.Drawing.Size(395, 16);
-      this.linkLabel1.TabIndex = 1;
-      this.linkLabel1.TabStop = true;
-      this.linkLabel1.Text = "linkLabel1";
-      this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-      this.linkLabel1.Visible = false;
-      this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+      linkLabel1.BackColor = Color.Transparent;
+      linkLabel1.Font = new Font("Tahoma", 8.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+      linkLabel1.Location = new Point(6, 257);
+      linkLabel1.Name = "linkLabel1";
+      linkLabel1.Size = new Size(395, 16);
+      linkLabel1.TabIndex = 1;
+      linkLabel1.TabStop = true;
+      linkLabel1.Text = "linkLabel1";
+      linkLabel1.TextAlign = ContentAlignment.MiddleCenter;
+      linkLabel1.Visible = false;
+      linkLabel1.LinkClicked += new LinkLabelLinkClickedEventHandler(linkLabel1_LinkClicked);
       // 
       // AboutForm
       // 
-      this.ClientSize = new System.Drawing.Size(408, 280);
-      this.ControlBox = false;
-      this.Controls.Add(this.progressBar1);
-      this.Controls.Add(this.linkLabel1);
-      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-      this.MaximizeBox = false;
-      this.MinimizeBox = false;
-      this.Name = "AboutForm";
-      this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-      this.ResumeLayout(false);
+      ClientSize = new Size(408, 280);
+      ControlBox = false;
+      Controls.Add(progressBar1);
+      Controls.Add(linkLabel1);
+      FormBorderStyle = FormBorderStyle.None;
+      MaximizeBox = false;
+      MinimizeBox = false;
+      Name = "AboutForm";
+      SizeGripStyle = SizeGripStyle.Hide;
+      ResumeLayout(false);
 
     }
 

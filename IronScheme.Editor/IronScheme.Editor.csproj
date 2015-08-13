@@ -396,9 +396,9 @@
     <Compile Include="Controls\XmlControl.Designer.cs">
       <DependentUpon>XmlControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Diagnostics\ErrorReport.cs">
+    <None Include="Diagnostics\ErrorReport.cs">
       <SubType>code</SubType>
-    </Compile>
+    </None>
     <Compile Include="Diagnostics\Trace.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -439,9 +439,6 @@
     <Compile Include="Runtime\Docking.cs" />
     <Compile Include="Runtime\PInvoke.cs" />
     <Compile Include="Timers\FastTimer.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Timers\HiPerfTimer.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Utils\GetArgs.cs">
