@@ -44,7 +44,7 @@ namespace IronScheme.Editor.ComponentModel
     string[] Tools {get;}
 	}
 
-  [Menu("Tools")]
+  //[Menu("Tools")]
   sealed class ToolsService : ServiceBase, IToolsService
   {
     readonly Hashtable tools = new Hashtable();
@@ -56,6 +56,7 @@ namespace IronScheme.Editor.ComponentModel
 
     protected override void Initialize()
     {
+      /*
       ToolStripMenuItem tl = ServiceHost.Menu["Tools"];
 
       foreach (string name in tools.Keys)
@@ -66,6 +67,7 @@ namespace IronScheme.Editor.ComponentModel
         tl.DropDownItems.Add(mi);
       }
       //LoadView();
+      */
     }
 
     protected override void Dispose(bool disposing)

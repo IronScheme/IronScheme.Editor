@@ -56,7 +56,6 @@ namespace IronScheme.Editor.Controls
     {
       #region Data Structures
 
-      [StructLayout(LayoutKind.Sequential, Pack = 4)]
       struct LineState
       {
         string intline;
@@ -82,7 +81,6 @@ namespace IronScheme.Editor.Controls
         public DrawInfo[] drawcache;
       }
 
-      [StructLayout(LayoutKind.Auto, Pack = 1)]
       internal class DrawInfo : IDrawInfo
       {
         public float start;
