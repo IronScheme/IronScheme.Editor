@@ -99,7 +99,7 @@ namespace IronScheme.Editor.Timers
       running = false;
       enabled = false;
       //Thread.Sleep(50);
-      loop.Abort();
+      //loop.Abort();
     }
   }
 }

@@ -167,20 +167,6 @@ namespace IronScheme.Editor.ComponentModel
       }
     }
 
-    [MenuItem("Trace Call", Index = 10)]
-    bool TraceRun
-    {
-      get {return TopLoop.TraceCall;}
-      set {TopLoop.TraceCall = value;}
-    }
-
-    [MenuItem("Trace Return", Index = 11)]
-    bool TraceReturn
-    {
-      get {return TopLoop.TraceReturn;}
-      set {TopLoop.TraceReturn = value;}
-    }
-
     [MenuItem("Edit Profile", Index = 20, Image="Script.EditProfile.png")]
     void EditProfile()
     {
