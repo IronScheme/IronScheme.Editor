@@ -664,6 +664,9 @@
     <Content Include="Resources\installer.bmp" />
     <EmbeddedResource Include="Resources\IronScheme.png" />
     <EmbeddedResource Include="Resources\ProjectReference.png" />
+    <None Include="lib\ironscheme\editor\services\discovery.sls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="profile.ls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
