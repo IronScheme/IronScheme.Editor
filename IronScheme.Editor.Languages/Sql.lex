@@ -1,6 +1,5 @@
-
 using IronScheme.Editor.ComponentModel;
-using System.Drawing;
+
 
 using LexerBase = IronScheme.Editor.Languages.CSLex.Language<IronScheme.Editor.Languages.CSLex.Yytoken>.LexerBase;
 

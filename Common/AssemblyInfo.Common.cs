@@ -12,13 +12,12 @@ using System.Runtime.InteropServices;
 
 [assembly: CLSCompliant(true)]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("leppie")]
+[assembly: AssemblyCompany("Llewellyn Pritchard")]
 [assembly: AssemblyCopyright("2003-2015 Llewellyn Pritchard")]
-[assembly: AssemblyProduct("xacc")]
-[assembly: AssemblyTrademark("GNU LGPL")]
+[assembly: AssemblyProduct("IronScheme.Editor")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("0.2.0.89")]
-[assembly: ComVisibleAttribute(true)]
+[assembly: AssemblyVersion("0.9.0.*")]
+[assembly: ComVisible(true)]
 
 #if !DEBUG
 #pragma warning disable 1699

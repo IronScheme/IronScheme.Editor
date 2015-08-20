@@ -1,6 +1,6 @@
 #pragma warning disable 162
 using IronScheme.Editor.ComponentModel;
-using System.Drawing;
+
 using LSharp;
 using LexerBase = IronScheme.Editor.Languages.LSharp.LexerBase<IronScheme.Editor.Languages.LSharp.ValueType>;
 

@@ -1,5 +1,4 @@
 using IronScheme.Editor.ComponentModel;
-using System.Drawing;
 
 namespace IronScheme.Editor.Languages
 {

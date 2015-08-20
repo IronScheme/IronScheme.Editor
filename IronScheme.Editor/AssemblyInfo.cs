@@ -4,14 +4,9 @@
  * This source code is subject to terms and conditions of the BSD License.
  * See license.txt. */
 #endregion
-
-
-using System;
+ 
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
-
-[assembly: AssemblyTitle("xacc")]
-[assembly: AssemblyDescription("Main lib for xacc")]
+[assembly: AssemblyTitle("IronScheme.Editor")]
+[assembly: AssemblyDescription("IronScheme.Editor")]
 
