@@ -107,7 +107,7 @@ namespace IronScheme.Editor.ComponentModel
       }
     }
 
-    readonly static string VIEWFILE = Application.StartupPath + Path.DirectorySeparatorChar + "view.xml";
+    //readonly static string VIEWFILE = Application.StartupPath + Path.DirectorySeparatorChar + "view.xml";
 
     //[MenuItem("Save view", Index = 998, State = 0)]
     //public void SaveView()

@@ -106,55 +106,35 @@
       <Name>WinFormsUI</Name>
     </ProjectReference>
     <Reference Include="IronScheme, Version=1.0.0.0, Culture=neutral, PublicKeyToken=78f2e9d9541a0dee, processorArchitecture=MSIL">
-      <HintPath>..\packages\IronScheme.Core.0.9.114791\lib\IronScheme.dll</HintPath>
+      <HintPath>..\packages\IronScheme.Core.0.9.114845\lib\IronScheme.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ironscheme.clr, Version=1.0.0.0, Culture=neutral, PublicKeyToken=78f2e9d9541a0dee, processorArchitecture=MSIL">
-      <HintPath>..\packages\ironscheme.clr.0.9.114791\lib\ironscheme.clr.dll</HintPath>
+      <HintPath>..\packages\ironscheme.clr.0.9.114845\lib\ironscheme.clr.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ironscheme.clr.helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=78f2e9d9541a0dee, processorArchitecture=MSIL">
-      <HintPath>..\packages\ironscheme.clr.helpers.0.9.114791\lib\ironscheme.clr.helpers.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ironscheme.syntax, Version=1.0.0.0, Culture=neutral, PublicKeyToken=78f2e9d9541a0dee, processorArchitecture=MSIL">
-      <HintPath>..\packages\ironscheme.syntax.0.9.114791\lib\ironscheme.syntax.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ironscheme.syntax.define-macro, Version=1.0.0.0, Culture=neutral, PublicKeyToken=78f2e9d9541a0dee, processorArchitecture=MSIL">
-      <HintPath>..\packages\ironscheme.syntax.define-macro.0.9.114791\lib\ironscheme.syntax.define-macro.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ironscheme.syntax.parameters, Version=1.0.0.0, Culture=neutral, PublicKeyToken=78f2e9d9541a0dee, processorArchitecture=MSIL">
-      <HintPath>..\packages\ironscheme.syntax.parameters.0.9.114791\lib\ironscheme.syntax.parameters.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ironscheme.syntax.shorthand, Version=1.0.0.0, Culture=neutral, PublicKeyToken=78f2e9d9541a0dee, processorArchitecture=MSIL">
-      <HintPath>..\packages\ironscheme.syntax.shorthand.0.9.114791\lib\ironscheme.syntax.shorthand.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ironscheme.syntax.symbolic-case, Version=1.0.0.0, Culture=neutral, PublicKeyToken=78f2e9d9541a0dee, processorArchitecture=MSIL">
-      <HintPath>..\packages\ironscheme.syntax.symbolic-case.0.9.114791\lib\ironscheme.syntax.symbolic-case.dll</HintPath>
+      <HintPath>..\packages\ironscheme.clr.helpers.0.9.114845\lib\ironscheme.clr.helpers.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ironscheme.syntax.utils, Version=1.0.0.0, Culture=neutral, PublicKeyToken=78f2e9d9541a0dee, processorArchitecture=MSIL">
-      <HintPath>..\packages\ironscheme.syntax.utils.0.9.114791\lib\ironscheme.syntax.utils.dll</HintPath>
+      <HintPath>..\packages\ironscheme.syntax.utils.0.9.114845\lib\ironscheme.syntax.utils.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ironscheme.typed, Version=1.0.0.0, Culture=neutral, PublicKeyToken=78f2e9d9541a0dee, processorArchitecture=MSIL">
-      <HintPath>..\packages\ironscheme.typed.0.9.114791\lib\ironscheme.typed.dll</HintPath>
+      <HintPath>..\packages\ironscheme.typed.0.9.114845\lib\ironscheme.typed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ironscheme.typed.core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=78f2e9d9541a0dee, processorArchitecture=MSIL">
-      <HintPath>..\packages\ironscheme.typed.core.0.9.114791\lib\ironscheme.typed.core.dll</HintPath>
+      <HintPath>..\packages\ironscheme.typed.core.0.9.114845\lib\ironscheme.typed.core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ironscheme.typed.parsing, Version=1.0.0.0, Culture=neutral, PublicKeyToken=78f2e9d9541a0dee, processorArchitecture=MSIL">
-      <HintPath>..\packages\ironscheme.typed.parsing.0.9.114791\lib\ironscheme.typed.parsing.dll</HintPath>
+      <HintPath>..\packages\ironscheme.typed.parsing.0.9.114845\lib\ironscheme.typed.parsing.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ironscheme.typed.parsing-helper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=78f2e9d9541a0dee, processorArchitecture=MSIL">
-      <HintPath>..\packages\ironscheme.typed.parsing-helper.0.9.114791\lib\ironscheme.typed.parsing-helper.dll</HintPath>
+      <HintPath>..\packages\ironscheme.typed.parsing-helper.0.9.114845\lib\ironscheme.typed.parsing-helper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Build.Conversion" />
@@ -667,7 +647,9 @@
     <None Include="lib\ironscheme\editor\services\discovery.sls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="profile.ls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
