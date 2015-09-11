@@ -20,7 +20,6 @@
 //#define BACKGROUNDLEXER 
 //#define AUTOCOMPLETE	//broken
 //#define DUMPTOKENS
-#define BROKEN
 //#define CHECKED
 #endregion
 

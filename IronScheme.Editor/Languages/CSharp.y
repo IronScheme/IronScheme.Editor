@@ -1891,7 +1891,7 @@ public override int GetIndentation(string previousline, int tabsize)
   return 0;
 }
 
-protected override string[] CommentLines(string[] lines)
+protected internal override string[] CommentLines(string[] lines)
 {
   string[] newlines = new string[lines.Length];
   for (int i = 0; i < lines.Length; i++)
@@ -1908,7 +1908,7 @@ protected override string[] CommentLines(string[] lines)
   return newlines;
 }
 
-protected override string[] UnCommentLines(string[] lines)
+protected internal override string[] UnCommentLines(string[] lines)
 {
   string[] newlines = new string[lines.Length];
   for (int i = 0; i < lines.Length; i++)

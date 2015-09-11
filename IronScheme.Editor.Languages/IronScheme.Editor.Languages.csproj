@@ -119,13 +119,10 @@
     <Compile Include="Boo.lex.cs" />
     <Compile Include="Cat.lex.cs" />
     <Compile Include="Cpp.lex.cs" />
-    <Compile Include="CSharp.lex.cs" />
-    <Compile Include="CSharp.y.cs" />
     <Compile Include="CSLex.lex.cs" />
     <Compile Include="Css.lex.cs" />
     <Compile Include="FSharp.lex.cs" />
     <Compile Include="HLSL.lex.cs" />
-    <Compile Include="IL.lex.cs" />
     <Compile Include="IronPython.lex.cs" />
     <Compile Include="JavaScript.lex.cs" />
     <Compile Include="LSharp.lex.cs" />
@@ -147,19 +144,15 @@
     </Compile>
     <Compile Include="Sql.lex.cs" />
     <Compile Include="VBNET.lex.cs" />
-    <Compile Include="Xml.lex.cs" />
     <Compile Include="Yacc.lex.cs" />
     <None Include="Boo.lex" />
     <None Include="Caml.lex" />
     <None Include="Cat.lex" />
     <None Include="Cpp.lex" />
-    <None Include="CSharp.lex" />
-    <None Include="CSharp.y" />
     <None Include="CSLex.lex" />
     <None Include="Css.lex" />
     <None Include="FSharp.lex" />
     <None Include="HLSL.lex" />
-    <None Include="IL.lex" />
     <None Include="IronPython.lex" />
     <None Include="Java.lex" />
     <None Include="Javascript.lex" />
@@ -179,7 +172,6 @@
     <None Include="Sml.lex" />
     <None Include="Sql.lex" />
     <None Include="VBNET.lex" />
-    <None Include="Xml.lex" />
     <None Include="Yacc.lex" />
   </ItemGroup>
   <ItemGroup>
@@ -192,7 +184,6 @@ $(SolutionDir)Tools\cs_lex $(ProjectDir)Scala.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Mercury.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)PowerShell.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Css.lex
-$(SolutionDir)Tools\cs_lex $(ProjectDir)IL.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)HLSL.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)JavaScript.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Boo.lex
@@ -206,12 +197,9 @@ $(SolutionDir)Tools\cs_lex $(ProjectDir)NSIS.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Sql.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Cat.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)CSLex.lex
-$(SolutionDir)Tools\cs_lex $(ProjectDir)CSharp.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)LSharp.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Yacc.lex
-$(SolutionDir)Tools\cs_lex $(ProjectDir)Xml.lex
 $(SolutionDir)Tools\gppg $(ProjectDir)LSharp.y -o $(ProjectDir)LSharp.y.cs
-$(SolutionDir)Tools\gppg $(ProjectDir)CSharp.y -o $(ProjectDir)CSharp.y.cs
 </PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>

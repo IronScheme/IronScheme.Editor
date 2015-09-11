@@ -194,6 +194,10 @@
     <Compile Include="CodeModel\Location.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Languages\CSharp.lex.cs" />
+    <Compile Include="Languages\CSharp.y.cs" />
+    <Compile Include="Languages\IL.lex.cs" />
+    <Compile Include="Languages\Xml.lex.cs" />
     <Compile Include="xacc-ide.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -622,6 +626,9 @@
       <DependentUpon>Project.xsd</DependentUpon>
     </None>
     <None Include="Languages\Changelog.lex" />
+    <None Include="Languages\CSharp.lex" />
+    <None Include="Languages\CSharp.y" />
+    <None Include="Languages\IL.lex" />
     <None Include="Languages\IronScheme.lex" />
     <None Include="Languages\IronScheme.y" />
     <None Include="Languages\PlainText.lex" />
@@ -644,6 +651,7 @@
     <Content Include="Resources\installer.bmp" />
     <EmbeddedResource Include="Resources\IronScheme.png" />
     <EmbeddedResource Include="Resources\ProjectReference.png" />
+    <None Include="Languages\Xml.lex" />
     <None Include="lib\ironscheme\editor\services\discovery.sls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -669,7 +677,12 @@
     <PreBuildEvent>$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\PlainText.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Changelog.lex
 $(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Ironscheme.lex
-$(SolutionDir)Tools\gppg $(ProjectDir)Languages\Ironscheme.y -o $(ProjectDir)Languages\Ironscheme.y.cs</PreBuildEvent>
+$(SolutionDir)Tools\gppg $(ProjectDir)Languages\Ironscheme.y -o $(ProjectDir)Languages\Ironscheme.y.cs
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\IL.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\Xml.lex
+$(SolutionDir)Tools\cs_lex $(ProjectDir)Languages\CSharp.lex
+$(SolutionDir)Tools\gppg $(ProjectDir)Languages\CSharp.y -o $(ProjectDir)Languages\CSharp.y.cs
+</PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>

@@ -146,11 +146,13 @@ namespace IronScheme.Editor.ComponentModel
 
     public LanguageService()
     {
-      new Languages.PlainText();
-      new Languages.Changelog();
+      new PlainText();
+      new Changelog();
 
-      new IronScheme.Editor.Languages.IronScheme.Parser();
-
+      new Languages.IronScheme.Parser();
+      new ILLanguage();
+      new XmlLanguage();
+      new Languages.CSharp.Parser();
     }
 
     public Language GetLanguage(string name)

@@ -21,7 +21,7 @@ sealed class Common_PluginLoader : AssemblyPluginProvider
     new IronScheme.Editor.Languages.ScalaLang();
     new IronScheme.Editor.Languages.PowerShellLang();
     new IronScheme.Editor.Languages.CssLang();
-    new IronScheme.Editor.Languages.ILLanguage();
+
     new IronScheme.Editor.Languages.HLSLLang();
     new IronScheme.Editor.Languages.JavaScriptLanguage();
     new IronScheme.Editor.Languages.BooLanguage();
@@ -36,9 +36,7 @@ sealed class Common_PluginLoader : AssemblyPluginProvider
     new IronScheme.Editor.Languages.CatLanguage();
     new IronScheme.Editor.Languages.CSLexLang();
     new IronScheme.Editor.Languages.YaccLang();
-    new IronScheme.Editor.Languages.XmlLanguage();
     new IronScheme.Editor.Languages.LSharp.Parser();
-    new IronScheme.Editor.Languages.CSharp.Parser();
 
   }
 }

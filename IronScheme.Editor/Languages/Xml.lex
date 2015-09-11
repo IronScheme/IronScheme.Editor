@@ -17,7 +17,7 @@ namespace IronScheme.Editor.Languages
       return startline.StartsWith("<");
     }
     
-    protected override string[] CommentLines(string[] lines)
+    protected internal override string[] CommentLines(string[] lines)
     {
       lines[0] = "<!--" + lines[0];
       lines[lines.Length - 1] = lines[lines.Length - 1] + "-->";
