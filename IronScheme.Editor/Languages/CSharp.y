@@ -543,6 +543,7 @@ cast_expression
   | '(' qualified_identifier '?' rank_specifier ')' unary_expression                { OverrideToken(@2, TokenClass.Type); MakePair(@1,@5); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}  
   | '(' primitive_type type_quals_opt ')' unary_expression                          { MakePair(@1,@4); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}
   | '(' class_type type_quals_opt ')' unary_expression                              { MakePair(@1,@4); AddAutoComplete(@1, typeof(CodeType), typeof(CodeNamespace));}
+  | '(' DYNAMIC ')' unary_expression                                                { MakePair(@1,@3);}  
   | '(' primitive_type '?' ')' unary_expression                                     { MakePair(@1,@4);}
   | '(' primitive_type '?' rank_specifier ')' unary_expression                      { MakePair(@1,@5);}
   | '(' qualified_identifier '?' ')' unary_expression                               { MakePair(@1,@4); OverrideToken(@2, TokenClass.Type); }
