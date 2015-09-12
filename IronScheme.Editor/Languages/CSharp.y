@@ -95,10 +95,10 @@ class TypeRef : CodeTypeRef
 
 
 /* C.1.7 KEYWORDS */ 
-%token  ABSTRACT AS BASE BOOL BREAK
+%token  ABSTRACT AS ASYNC AWAIT BASE BOOL BREAK
 %token  BYTE CASE CATCH CHAR CHECKED
 %token  CLASS CONST CONTINUE DECIMAL DEFAULT
-%token  DELEGATE DO DOUBLE ELSE ENUM
+%token  DELEGATE DO DOUBLE DYNAMIC ELSE ENUM
 %token  EVENT EXPLICIT EXTERN FALSE FINALLY
 %token  FIXED FLOAT FOR FOREACH GOTO
 %token  IF IMPLICIT IN INT INTERFACE
@@ -252,6 +252,7 @@ non_array_type
 simple_type
   : primitive_type nullable_opt                            { $$ = $1; @@ = @1;}
   | class_type
+  | DYNAMIC
  /* | pointer_type */
   ;
 primitive_type
@@ -1332,8 +1333,14 @@ formal_parameter
   | THIS fixed_parameter
   | parameter_array
   ;
+
+default_value_opt
+  : 
+  | '=' literal
+  ;
+
 fixed_parameter
-  : attributes_opt parameter_modifier_opt type IDENTIFIER     { $$ = new CodeParameter($4,$3,$2);}
+  : attributes_opt parameter_modifier_opt type IDENTIFIER default_value_opt  { $$ = new CodeParameter($4,$3,$2);}
   ;
 parameter_modifier_opt
   : /* Nothing */                                             { $$ = ParameterAttributes.None; }

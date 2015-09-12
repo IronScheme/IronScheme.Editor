@@ -10,11 +10,11 @@ using System.Text.RegularExpressions;
 
 namespace IronScheme.Editor.Algorithms
 {
-  static class XString
+  static class StringExtensions
   {
     readonly static Dictionary<string, Regex> tokenizecache = new Dictionary<string,Regex>();
 
-    public static string[] Tokenize(string name, params string[] delimiters)
+    public static string[] Tokenize(this string name, params string[] delimiters)
     {
       for (int i = 0; i < delimiters.Length; i++)
       {

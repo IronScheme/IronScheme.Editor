@@ -121,6 +121,10 @@ rank_specifier         ="["({white_space})*(","({white_space})*)*"]"
 
 <YYINITIAL>{at_identifier}   { return Identifier(IDENTIFIER); }
 
+<YYINITIAL>"async"           {return Keyword(ASYNC);}
+<YYINITIAL>"await"           {return Keyword(AWAIT);}
+<YYINITIAL>"dynamic"         {return Keyword(DYNAMIC);}
+
 <YYINITIAL>"__arglist"       {return Keyword(ARGLIST);}
 <YYINITIAL>"global::"        {return Keyword(-1);}
 <YYINITIAL>"abstract"        {return Keyword(ABSTRACT);}

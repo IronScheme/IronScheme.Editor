@@ -26,7 +26,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>IronScheme.Editor</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <StartupObject>ide</StartupObject>
+    <StartupObject>IronSchemeEditor</StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <SccAuxPath>
@@ -198,7 +198,7 @@
     <Compile Include="Languages\CSharp.y.cs" />
     <Compile Include="Languages\IL.lex.cs" />
     <Compile Include="Languages\Xml.lex.cs" />
-    <Compile Include="xacc-ide.cs">
+    <Compile Include="IronScheme.Editor.cs">
       <SubType>Form</SubType>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -212,8 +212,8 @@
     <EmbeddedResource Include="Resources\View.Properties.png" />
     <EmbeddedResource Include="Resources\View.Output.png" />
     <EmbeddedResource Include="Resources\View.Results.png" />
-    <EmbeddedResource Include="xacc-ide.resx">
-      <DependentUpon>xacc-ide.cs</DependentUpon>
+    <EmbeddedResource Include="IronScheme.Editor.resx">
+      <DependentUpon>IronScheme.Editor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />

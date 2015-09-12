@@ -20,6 +20,7 @@ using IronScheme.Editor.CodeModel;
 using IronScheme.Editor.Build;
 using System.Collections.Generic;
 using TokenLine = IronScheme.Editor.Controls.AdvancedTextBox.TextBuffer.TokenLine;
+using IronScheme.Editor.Algorithms;
 #endregion
 
 namespace IronScheme.Editor.Languages
@@ -962,7 +963,7 @@ namespace IronScheme.Editor.Languages
 
     static string[] Tokenize(string name, params string[] delimiters)
     {
-      return Algorithms.XString.Tokenize(name, delimiters);
+      return name.Tokenize(delimiters);
     }
 
     class DefaultImportComparer : IComparer

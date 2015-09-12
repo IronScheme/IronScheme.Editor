@@ -27,6 +27,7 @@ using Microsoft.Build.BuildEngine;
 using BuildProject = Microsoft.Build.BuildEngine.Project;
 
 using Microsoft.Build.Framework;
+using IronScheme.Editor.Algorithms;
 
 #endregion
 
@@ -874,7 +875,7 @@ $    <OutputType>WinExe</OutputType>
 
       static string[] Tokenize(string name, params string[] delimiters)
       {
-        return Algorithms.XString.Tokenize(name, delimiters);
+        return name.Tokenize(delimiters);
       }
 
       public void Add(string name, ICodeElement o)
