@@ -5,7 +5,6 @@
  * See license.txt. */
 #endregion
 
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -132,7 +131,6 @@ confuse a user.")]
       set { ignoreunknown = value; }
     }
 
-
     /// <summary>
     /// Specifies whether the user must press enter before an error condition exits.
     /// </summary>
@@ -174,7 +172,6 @@ confuse a user.")]
       get { return msgbox; }
       set { msgbox = value; }
     }
-
   }
 
   /// <summary>
@@ -194,7 +191,6 @@ confuse a user.")]
       set { allowname = value; }
     }
   }
-
 
   /// <summary>
   /// Allows customization of specific argument items.
@@ -249,8 +245,7 @@ confuse a user.")]
       set { shortname = value; }
     }
   }
-
-
+  
   /// <summary>
   /// An ultra simplistic class for managing command line arguments parsing.
   /// </summary>
@@ -583,18 +578,18 @@ confuse a user.")]
         ignoreunknown = aoa.IgnoreUnknownArguments;
 
         re = new Regex(string.Format(@"
-(({0}																# switch
-(?<name>[_A-Za-z][_\w]*)						# name (any legal C# name)
-({1}																# sep + optional space
-(((""(?<value>((\\"")|[^""])*)"")|	# match a double quoted value (escape "" with \)
-('(?<value>((\\')|[^'])*)'))|				# match a single quoted value (escape ' with \)
-(\{{(?<arrayval>[^\}}]*)\}})|				# list value (escaped for string.Format)
-(?<value>\S+))											# any single value
-)?)|																# sep option + list
-(((""(?<value>((\\"")|[^""])*)"")|	# match a double quoted value (escape "" with \)
-('(?<value>((\\')|[^'])*)'))|				# match a single quoted value (escape ' with \)
-(\{{(?<arrayval>[^\}}]*)\}})|				# list value (escaped for string.Format)
-(?<value>\S+)))*										# any single value",
+(({0}                               # switch
+(?<name>[_A-Za-z][_\w]*)            # name (any legal C# name)
+({1}                                # sep + optional space
+(((""(?<value>((\\"")|[^""])*)"")|  # match a double quoted value (escape "" with \)
+('(?<value>((\\')|[^'])*)'))|       # match a single quoted value (escape ' with \)
+(\{{(?<arrayval>[^\}}]*)\}})|       # list value (escaped for string.Format)
+(?<value>\S+))                      # any single value
+)?)|                                # sep option + list
+(((""(?<value>((\\"")|[^""])*)"")|  # match a double quoted value (escape "" with \)
+('(?<value>((\\')|[^'])*)'))|       # match a single quoted value (escape ' with \)
+(\{{(?<arrayval>[^\}}]*)\}})|       # list value (escaped for string.Format)
+(?<value>\S+)))*                    # any single value",
           Regex.Escape(prefix),
           seperator.Trim() == string.Empty ? @"\s+" : @"\s*" + Regex.Escape(seperator) + @"\s*"
           ),
@@ -613,48 +608,6 @@ confuse a user.")]
       {
         throw new ArgumentException("prefix cannot be empty string");
       }
-
-      /*
-      if (defvals == null)
-      {
-        defvals = this;
-
-        string schemafilename = Assembly.GetEntryAssembly().Location + ".args.xsd";
-        string deffilename = Assembly.GetEntryAssembly().Location + ".args";
-
-        if (!File.Exists(schemafilename))
-        {
-          using (TextWriter w = File.CreateText(schemafilename))
-          {
-            GetSchema(w);
-          }
-        }
-
-        if (File.Exists(deffilename))
-        {
-          using (TextReader deffile = File.OpenText(deffilename))
-          {
-            defvals = new XmlSerializer(GetType()).Deserialize(deffile) as GetArgs;
-          }
-        }
-        else
-        {
-          using (TextWriter w = File.CreateText(deffilename))
-          {
-            StringWriter sw = new StringWriter();
-            new XmlSerializer(GetType()).Serialize(sw, this);
-            string all = sw.ToString().Replace(" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"",
-              string.Empty).Replace(" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"",
-              string.Empty);
-            w.WriteLine(all);
-          }
-        }
-      }
-      else
-      {
-        return; //this
-      }
-      */
 
       foreach (FieldInfo fi in argclass.GetFields(flags))
       {
