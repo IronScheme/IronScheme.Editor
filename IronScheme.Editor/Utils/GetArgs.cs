@@ -16,64 +16,59 @@ using System.Windows.Forms;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-#if TESTGA
-[assembly:AssemblyCopyright("(c)2004 leppie@wdsl.co.za")]
-[assembly:AssemblyVersion("1.0.1.0")]
-#endif
-
 namespace IronScheme.Editor.Utils
 {
   #region Test code
 #if TESTGA
-	[ArgOptions(MessageBox=false,AllowShortcut = true, CaseSensitive=false, Prefix="-", Seperator=" ", ShortcutLength=1)]
-	class MyArgs : xacc.Utils.GetArgs
-	{
-		//			argtype			argname				default value
-		[ArgItem("Specifies the level of stuff", Shortname="lev")]
-		public	int					level				= 5;
-		
-		[ArgItem("The best server in the world")]
-		public	string			server			= "xacc.sf.net";
-		
-		public	bool				debug;
-		
-		[ArgItem(
+  [ArgOptions(MessageBox = false, AllowShortcut = true, CaseSensitive = false, Prefix = "-", Seperator = " ", ShortcutLength = 1)]
+  class MyArgs : xacc.Utils.GetArgs
+  {
+    //			argtype			argname				default value
+    [ArgItem("Specifies the level of stuff", Shortname = "lev")]
+    public int level = 5;
+
+    [ArgItem("The best server in the world")]
+    public string server = "xacc.sf.net";
+
+    public bool debug;
+
+    [ArgItem(
 @"This is long description
 for usernames, because it takes
 multiple arguments and could
 confuse a user.")]
-		public	string[]		usernames;
-		
-		public	DayOfWeek		day;
-	}
+    public string[] usernames;
 
-	class Test 
-	{
-		// compile with: 
-		// -d:TEST -doc:GetArgs.xml -nowarn:0649,1591 GetArgs.cs
-		// run with:
-		// -lev : 10 -d -usernames: {leppie, is , the, 1337357} -DAY : Monday
-		[STAThread]
-		static void Main()
-		{
-			MyArgs a = new MyArgs();
-			Console.WriteLine("level:     {0}", a.level);
-			Console.WriteLine("server:    {0}", a.server);
-			Console.WriteLine("debug:     {0}", a.debug);
-			Console.WriteLine("day:       {0}", a.day);
+    public DayOfWeek day;
+  }
 
-			if (a.usernames != null)
-			{
-				Console.WriteLine("usernames:");
-				Console.WriteLine("{");
-				foreach (string name in a.usernames)
-				{
-					Console.WriteLine("  {0}, ", name);
-				}
-				Console.WriteLine("}");
-			}
-		}
-	}
+  class Test
+  {
+    // compile with: 
+    // -d:TEST -doc:GetArgs.xml -nowarn:0649,1591 GetArgs.cs
+    // run with:
+    // -lev : 10 -d -usernames: {leppie, is , the, 1337357} -DAY : Monday
+    [STAThread]
+    static void Main()
+    {
+      MyArgs a = new MyArgs();
+      Console.WriteLine("level:     {0}", a.level);
+      Console.WriteLine("server:    {0}", a.server);
+      Console.WriteLine("debug:     {0}", a.debug);
+      Console.WriteLine("day:       {0}", a.day);
+
+      if (a.usernames != null)
+      {
+        Console.WriteLine("usernames:");
+        Console.WriteLine("{");
+        foreach (string name in a.usernames)
+        {
+          Console.WriteLine("  {0}, ", name);
+        }
+        Console.WriteLine("}");
+      }
+    }
+  }
 
 #endif
   #endregion
@@ -205,7 +200,7 @@ confuse a user.")]
     /// <summary>
     /// Creates an instance of ArgItemAttribute.
     /// </summary>
-		public ArgItemAttribute()
+    public ArgItemAttribute()
     {
     }
 
@@ -556,7 +551,7 @@ confuse a user.")]
     /// <summary>
     /// Creates an instance of GetArgs
     /// </summary>
-		protected GetArgs()
+    protected GetArgs()
     {
       const BindingFlags flags = BindingFlags.DeclaredOnly |
               BindingFlags.Public | BindingFlags.Instance;
